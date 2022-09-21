@@ -1,19 +1,12 @@
 import React from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { ThemeProvider } from "@mui/material/styles";
 import Layout from "./app/components/Layout";
+import { theme } from "./app/styles/Theme";
 
 const InvoicesPage = React.lazy(
   () => import("./features/invoices/pages/InvoicesPage")
 );
-
-const theme = createTheme({
-  palette: {
-    primary: {
-      main: "#467495",
-    },
-  },
-});
 
 function App() {
   return (
@@ -38,3 +31,7 @@ function App() {
 }
 
 export default App;
+
+function getInvoiceFeatureRoutes(): React.ReactNode {
+  return;
+}
