@@ -1,0 +1,140 @@
+<Invoice xmlns:cec="urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2" xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2" xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:sbt="http://mfin.gov.rs/srbdt/srbdtext" xmlns="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2">
+    <cbc:CustomizationID>urn:cen.eu:en16931:2017#compliant#urn:mfin.gov.rs:srbdt:2021</cbc:CustomizationID>
+    <cbc:ID>323-3/3</cbc:ID>
+    <cbc:IssueDate>2022-09-21</cbc:IssueDate>
+    <cbc:DueDate>2022-09-26</cbc:DueDate>
+    <cbc:InvoiceTypeCode>380</cbc:InvoiceTypeCode>
+    <cbc:DocumentCurrencyCode>RSD</cbc:DocumentCurrencyCode>
+    <cbc:BuyerReference>14</cbc:BuyerReference>
+    <cac:InvoicePeriod>
+        <cbc:DescriptionCode>3</cbc:DescriptionCode>
+    </cac:InvoicePeriod>
+    <cac:OrderReference>
+        <cbc:ID>123/3-3</cbc:ID>
+    </cac:OrderReference>
+    <cac:OriginatorDocumentReference>
+        <cbc:ID>2001/3-1</cbc:ID>
+    </cac:OriginatorDocumentReference>
+    <cac:ContractDocumentReference>
+        <cbc:ID>10001</cbc:ID>
+    </cac:ContractDocumentReference>
+    <cac:AdditionalDocumentReference>
+        <cbc:ID>12</cbc:ID>
+        <cbc:IssueDate>2022-09-17</cbc:IssueDate>
+        <cbc:IssueTime>23:56:35.3459193+02:00</cbc:IssueTime>
+        <cbc:DocumentTypeCode>130</cbc:DocumentTypeCode>
+    </cac:AdditionalDocumentReference>
+    <cac:AccountingSupplierParty>
+        <cac:Party>
+            <cbc:EndpointID schemeID="9948">111560838</cbc:EndpointID>
+            <cac:PartyName>
+                <cbc:Name>MASTER SOFTWARE</cbc:Name>
+            </cac:PartyName>
+            <cac:PostalAddress>
+                <cbc:CityName>Beograd (Novi Beograd)   </cbc:CityName>
+                <cac:Country>
+                    <cbc:IdentificationCode>RS</cbc:IdentificationCode>
+                </cac:Country>
+            </cac:PostalAddress>
+            <cac:PartyTaxScheme>
+                <cbc:CompanyID>RS111560838</cbc:CompanyID>
+                <cac:TaxScheme>
+                    <cbc:ID>VAT</cbc:ID>
+                </cac:TaxScheme>
+            </cac:PartyTaxScheme>
+            <cac:PartyLegalEntity>
+                <cbc:RegistrationName>MASTER SOFTWARE</cbc:RegistrationName>
+                <cbc:CompanyID>21502243</cbc:CompanyID>
+            </cac:PartyLegalEntity>
+            <cac:Contact>
+                <cbc:ElectronicMail>office@mastersoftware.rs</cbc:ElectronicMail>
+            </cac:Contact>
+        </cac:Party>
+    </cac:AccountingSupplierParty>
+    <cac:AccountingCustomerParty>
+        <cac:Party>
+            <cbc:EndpointID schemeID="9948">105917685</cbc:EndpointID>
+            <cac:PartyName>
+                <cbc:Name>5.COM</cbc:Name>
+            </cac:PartyName>
+            <cac:PostalAddress>
+                <cbc:StreetName>MARIČKA 22</cbc:StreetName>
+                <cbc:CityName>Beograd (Rakovica)       </cbc:CityName>
+                <cac:Country>
+                    <cbc:IdentificationCode>RS</cbc:IdentificationCode>
+                </cac:Country>
+            </cac:PostalAddress>
+            <cac:PartyTaxScheme>
+                <cbc:CompanyID>RS105917685</cbc:CompanyID>
+                <cac:TaxScheme>
+                    <cbc:ID>VAT</cbc:ID>
+                </cac:TaxScheme>
+            </cac:PartyTaxScheme>
+            <cac:PartyLegalEntity>
+                <cbc:RegistrationName>5.COM</cbc:RegistrationName>
+                <cbc:CompanyID>20489197</cbc:CompanyID>
+            </cac:PartyLegalEntity>
+            <cac:Contact>
+                <cbc:ElectronicMail>office@petcom.rs</cbc:ElectronicMail>
+            </cac:Contact>
+        </cac:Party>
+    </cac:AccountingCustomerParty>
+    <cac:Delivery>
+        <cbc:ActualDeliveryDate>2022-09-16</cbc:ActualDeliveryDate>
+    </cac:Delivery>
+    <cac:PaymentMeans>
+        <cbc:PaymentMeansCode>30</cbc:PaymentMeansCode>
+        <cbc:PaymentID>(mod97) 9742-2022</cbc:PaymentID>
+        <cac:PayeeFinancialAccount>
+            <cbc:ID>285233100000025379</cbc:ID>
+        </cac:PayeeFinancialAccount>
+    </cac:PaymentMeans>
+    <cac:TaxTotal>
+        <cbc:TaxAmount currencyID="RSD">27</cbc:TaxAmount>
+        <cac:TaxSubtotal>
+            <cbc:TaxableAmount currencyID="RSD">135</cbc:TaxableAmount>
+            <cbc:TaxAmount currencyID="RSD">27.0</cbc:TaxAmount>
+            <cac:TaxCategory>
+                <cbc:ID>S</cbc:ID>
+                <cbc:Percent>20</cbc:Percent>
+                <cac:TaxScheme>
+                    <cbc:ID>VAT</cbc:ID>
+                </cac:TaxScheme>
+            </cac:TaxCategory>
+        </cac:TaxSubtotal>
+    </cac:TaxTotal>
+    <cac:LegalMonetaryTotal>
+        <cbc:LineExtensionAmount currencyID="RSD">135</cbc:LineExtensionAmount>
+        <cbc:TaxExclusiveAmount currencyID="RSD">135</cbc:TaxExclusiveAmount>
+        <cbc:TaxInclusiveAmount currencyID="RSD">162</cbc:TaxInclusiveAmount>
+        <cbc:AllowanceTotalAmount currencyID="RSD">0</cbc:AllowanceTotalAmount>
+        <cbc:PrepaidAmount currencyID="RSD">0</cbc:PrepaidAmount>
+        <cbc:PayableAmount currencyID="RSD">162</cbc:PayableAmount>
+    </cac:LegalMonetaryTotal>
+    <cac:InvoiceLine>
+        <cbc:ID>1</cbc:ID>
+        <cbc:InvoicedQuantity unitCode="KGM">1</cbc:InvoicedQuantity>
+        <cbc:LineExtensionAmount currencyID="RSD">135</cbc:LineExtensionAmount>
+        <cac:AllowanceCharge>
+            <cbc:ChargeIndicator>false</cbc:ChargeIndicator>
+            <cbc:MultiplierFactorNumeric>10</cbc:MultiplierFactorNumeric>
+            <cbc:Amount currencyID="RSD">15</cbc:Amount>
+        </cac:AllowanceCharge>
+        <cac:Item>
+            <cbc:Name>Jagnjetina</cbc:Name>
+            <cac:SellersItemIdentification>
+                <cbc:ID>1</cbc:ID>
+            </cac:SellersItemIdentification>
+            <cac:ClassifiedTaxCategory>
+                <cbc:ID>S</cbc:ID>
+                <cbc:Percent>20</cbc:Percent>
+                <cac:TaxScheme>
+                    <cbc:ID>VAT</cbc:ID>
+                </cac:TaxScheme>
+            </cac:ClassifiedTaxCategory>
+        </cac:Item>
+        <cac:Price>
+            <cbc:PriceAmount currencyID="RSD">1200</cbc:PriceAmount>
+        </cac:Price>
+    </cac:InvoiceLine>
+</Invoice>
