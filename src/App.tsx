@@ -1,4 +1,5 @@
 import React from "react";
+import "./i18n/config";
 import { Routes, Route, Navigate } from "react-router-dom";
 import { ThemeProvider } from "@mui/material/styles";
 import Layout from "./app/components/Layout";
