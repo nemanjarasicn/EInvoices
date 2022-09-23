@@ -1,0 +1,10 @@
+{
+  "Common": {
+    "open": "Otvori",
+    "close": "Zatvori"
+  },
+  "Menu": {
+    "home": "Pocetna",
+    "invoice": "E-Faktura"
+  }
+}

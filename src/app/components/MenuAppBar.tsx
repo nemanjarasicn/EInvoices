@@ -13,6 +13,8 @@ import ListItemText from "@mui/material/ListItemText";
 import InboxIcon from "@mui/icons-material/MoveToInbox";
 import MailIcon from "@mui/icons-material/Mail";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+import LanguageSelector from "./LanguageSelector";
 
 const drawerWidth = 200;
 
@@ -20,12 +22,13 @@ interface Props {
   content: any;
 }
 
-const navItems = [
-  { name: "Home", href: "/" },
-  { name: "Invoice", href: "/invoices" },
-];
-
 export default function ClippedDrawer(props: Props) {
+  const { t } = useTranslation();
+
+  const navItems = [
+    { name: t("Menu.home"), href: "/" },
+    { name: t("Menu.invoice"), href: "/invoices" },
+  ];
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
@@ -33,10 +36,11 @@ export default function ClippedDrawer(props: Props) {
         position="fixed"
         sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}
       >
-        <Toolbar>
+        <Toolbar style={{ display: "flex", justifyContent: "space-between" }}>
           <Typography variant="h6" noWrap component="div">
-            LOGO
+            _LOGO_
           </Typography>
+          <LanguageSelector />
         </Toolbar>
       </AppBar>
       <Drawer

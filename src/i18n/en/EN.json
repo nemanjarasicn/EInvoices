@@ -1,0 +1,10 @@
+{
+  "Common": {
+    "open": "Open",
+    "close": "Close"
+  },
+  "Menu": {
+    "home": "Home",
+    "invoice": "E-Invocie"
+  }
+}
