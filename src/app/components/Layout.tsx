@@ -4,7 +4,7 @@ import MenuAppBar from "./MenuAppBar";
 
 type LayoutProps = {};
 
-export default function Layout({}: LayoutProps) {
+export default function Layout({}: LayoutProps): JSX.Element {
   return (
     <div>
       <MenuAppBar content={<Outlet />}></MenuAppBar>
