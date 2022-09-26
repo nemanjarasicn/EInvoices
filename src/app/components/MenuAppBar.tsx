@@ -15,6 +15,7 @@ import MailIcon from "@mui/icons-material/Mail";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import LanguageSelector from "./LanguageSelector";
+import UserAccount from "./UserAccount";
 
 const drawerWidth = 200;
 
@@ -40,7 +41,10 @@ export default function ClippedDrawer(props: Props) {
           <Typography variant="h6" noWrap component="div">
             _LOGO_
           </Typography>
-          <LanguageSelector />
+          <div style={{ display: "flex", alignItems: "center" }}>
+            <LanguageSelector />
+            <UserAccount />
+          </div>
         </Toolbar>
       </AppBar>
       <Drawer

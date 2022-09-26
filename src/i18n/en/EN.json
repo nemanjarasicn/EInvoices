@@ -6,5 +6,8 @@
   "Menu": {
     "home": "Home",
     "invoice": "E-Invocie"
+  },
+  "UserAccount": {
+    "logout": "Logout"
   }
 }

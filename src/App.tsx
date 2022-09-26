@@ -32,7 +32,3 @@ function App() {
 }
 
 export default App;
-
-function getInvoiceFeatureRoutes(): React.ReactNode {
-  return;
-}

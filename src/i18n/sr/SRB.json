@@ -6,5 +6,8 @@
   "Menu": {
     "home": "Pocetna",
     "invoice": "E-Faktura"
+  },
+  "UserAccount": {
+    "logout": "Odjavi se"
   }
 }
