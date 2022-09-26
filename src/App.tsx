@@ -5,8 +5,8 @@ import { ThemeProvider } from "@mui/material/styles";
 import Layout from "./app/components/Layout";
 import { theme } from "./app/styles/Theme";
 
-const InvoicesPage = React.lazy(
-  () => import("./features/invoices/pages/InvoicesPage")
+const DashboardPage = React.lazy(
+  () => import("./features/invoices/pages/DashboardPage")
 );
 
 function App() {
@@ -20,7 +20,7 @@ function App() {
             element={
               // TODO LOADER
               <React.Suspense fallback={<>...</>}>
-                <InvoicesPage />
+                <DashboardPage />
               </React.Suspense>
             }
           />
