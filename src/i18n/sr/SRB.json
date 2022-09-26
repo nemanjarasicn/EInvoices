@@ -9,5 +9,11 @@
   },
   "UserAccount": {
     "logout": "Odjavi se"
+  },
+  "InvoiceCard": {
+    "cardTitleSales": "Izlazni dokumenti",
+    "cardTitlePurchases": "Dolazni dokumenti",
+    "summaryVAT": "Zbirna evidencija PDV-a",
+    "preview": "Pregled"
   }
 }

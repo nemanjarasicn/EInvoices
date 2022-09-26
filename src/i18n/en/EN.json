@@ -9,5 +9,11 @@
   },
   "UserAccount": {
     "logout": "Logout"
+  },
+  "InvoiceCard": {
+    "cardTitleSales": "Outgoing documents",
+    "cardTitlePurchases": "Incoming documents",
+    "summaryVAT": "Summary VAT Records",
+    "preview": "Preview"
   }
 }
