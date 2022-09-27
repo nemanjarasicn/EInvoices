@@ -29,3 +29,12 @@ export enum PurchaseInvoiceStatus {
   STORNO,
   UNKNOWN,
 }
+
+export enum TemplatePageTypes {
+  SALES = "sales",
+  PURCHASES = "purchases",
+  // VAT = "vat",
+  // CIR = "cir",
+  // SEARCH = "search",
+  // RECORDS = "records",
+}
