@@ -45,7 +45,9 @@ export default function InvoiceTemplatePage({
           }}
         >
           {templatePageSettings[templateType].showBtns && (
-            <CustomButtonFc {...[]} />
+            <CustomButtonFc
+              groupButton={templatePageSettings[templateType].buttons}
+            />
           )}
         </Grid>
         <Grid item xs={12} mt={10}>

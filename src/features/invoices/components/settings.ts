@@ -4,11 +4,16 @@ import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import CloudSyncIcon from "@mui/icons-material/CloudSync";
 import { useNavigate } from "react-router-dom";
 import { TemplatePageTypes } from "../models/invoice.enums";
+import { ButtonProps } from "./CustomButtonFc";
 
 type FeatureSettings = {
   cardsSettings: CardProps[];
   templatePageSettings: {
-    [key in TemplatePageTypes]: { title: string; showBtns: boolean };
+    [key in TemplatePageTypes]: {
+      title: string;
+      showBtns: boolean;
+      buttons: ButtonProps[];
+    };
   };
 };
 /**
@@ -22,30 +27,52 @@ const useFeatureSettings = (): FeatureSettings => {
       {
         title: "InvoiceCard.cardTitleSales",
         icon: ExitToAppIcon,
-        cardFn: () => navigate("/invoices/sales"),
-        cardBtnTitle: "InvoiceCard.preview",
+        cardBtn: {
+          title: "InvoiceCard.preview",
+          disabled: false,
+          btnFn: () => navigate("/invoices/sales"),
+        },
       },
       {
         title: "InvoiceCard.cardTitlePurchases",
         icon: CodeIcon,
-        cardFn: () => navigate("/invoices/purchases"),
-        cardBtnTitle: "InvoiceCard.preview",
+        cardBtn: {
+          title: "InvoiceCard.preview",
+          disabled: false,
+          btnFn: () => navigate("/invoices/purchases"),
+        },
       },
       {
         title: "InvoiceCard.summaryVAT",
         icon: CloudSyncIcon,
-        cardFn: () => console.log("Zarko Trampic"),
-        cardBtnTitle: "InvoiceCard.preview",
+        cardBtn: {
+          title: "InvoiceCard.preview",
+          disabled: true,
+          btnFn: () => console.log("Zarko Trampic"),
+        },
       },
     ],
     templatePageSettings: {
       [TemplatePageTypes.SALES]: {
         title: "InvoiceCard.cardTitleSales",
         showBtns: true,
+        buttons: [
+          {
+            title: "ButtonsText.TemplatePage.createXML",
+            disabled: true,
+            btnFn: () => console.log("ZARE"),
+          },
+          {
+            title: "ButtonsText.TemplatePage.createDocument",
+            disabled: false,
+            btnFn: () => console.log("ZARE"),
+          },
+        ],
       },
       [TemplatePageTypes.PURCHASES]: {
         title: "InvoiceCard.cardTitlePurchases",
         showBtns: false,
+        buttons: [],
       },
     },
   };

@@ -3,9 +3,13 @@ import clsx from "clsx";
 import { ButtonUnstyledProps, useButton } from "@mui/base/ButtonUnstyled";
 import { styled } from "@mui/system";
 import Stack from "@mui/material/Stack";
+import { useTranslation } from "react-i18next";
 
 const red = {
   600: "rgb(231, 49, 79)",
+};
+const gray = {
+  600: "rgb(181 181 181)",
 };
 
 const CustomButtonRoot = styled("button")`
@@ -18,10 +22,10 @@ const CustomButtonRoot = styled("button")`
   color: black;
   transition: all 150ms ease;
   cursor: pointer;
-  border: 1px solid ${red[600]};
+  border: 1px solid ${gray[600]};
   width: 220px;
   &:hover {
-    background-color: ${red[600]};
+    background-color: ${gray[600]};
   }
 
   &.active {
@@ -63,16 +67,44 @@ const CustomButton = React.forwardRef(function CustomButton(
   );
 });
 
+export interface ButtonProps {
+  disabled: boolean;
+  title: string;
+  btnFn: () => void;
+}
+// TODO MAX Factory
 interface ButtonFcProps {
-  disabled?: boolean;
-  btnFn?: () => void;
+  groupButton?: ButtonProps[];
+  soloButton?: ButtonProps;
 }
 
-export default function CustomButtonFc({}: ButtonFcProps[]): JSX.Element {
+export default function CustomButtonFc({
+  soloButton,
+  groupButton,
+}: ButtonFcProps): JSX.Element {
+  const { t } = useTranslation();
   return (
-    <Stack spacing={2} direction="row">
-      <CustomButton onClick={() => console.log("click!")}>Button</CustomButton>
-      <CustomButton disabled>Disabled</CustomButton>
-    </Stack>
+    <>
+      {groupButton && (
+        <Stack spacing={2} direction="row">
+          {groupButton.map((button: ButtonProps, index: number) => {
+            return (
+              <CustomButton
+                key={index}
+                onClick={button.btnFn}
+                disabled={button.disabled}
+              >
+                {t(button.title)}
+              </CustomButton>
+            );
+          })}
+        </Stack>
+      )}
+      {soloButton && (
+        <CustomButton onClick={soloButton.btnFn} disabled={soloButton.disabled}>
+          {t(soloButton.title)}
+        </CustomButton>
+      )}
+    </>
   );
 }

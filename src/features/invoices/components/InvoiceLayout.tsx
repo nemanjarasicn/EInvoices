@@ -7,7 +7,7 @@ export default function InvoiceLayout({}: InvoiceLayoutProps): JSX.Element {
   return (
     <div>
       <div style={{ textAlign: "center", margin: "10px", background: "gray" }}>
-        <h3>SEARCH</h3>
+        <h3>PLACEHOLDER FOR SEARCH</h3>
       </div>
       <div className="outlet">
         <Outlet />
