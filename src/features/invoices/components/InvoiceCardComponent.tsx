@@ -4,7 +4,6 @@ import {
   CardContent,
   Typography,
   CardActions,
-  Button,
   SvgIconTypeMap,
 } from "@mui/material";
 import React from "react";
@@ -12,12 +11,12 @@ import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import { useTranslation } from "react-i18next";
 import { OverridableComponent } from "@mui/material/OverridableComponent";
 import { useComponentsStyles } from "./components.styles";
+import CustomButtonFc, { ButtonProps } from "./CustomButtonFc";
 
 export interface CardProps {
   title: string;
   icon: OverridableComponent<SvgIconTypeMap<{}, "svg">> & { muiName: string };
-  cardFn?: () => void;
-  cardBtnTitle: string;
+  cardBtn: ButtonProps;
 }
 export default function InvoiceCardComponent(props: CardProps) {
   const { t } = useTranslation();
@@ -39,9 +38,7 @@ export default function InvoiceCardComponent(props: CardProps) {
             <Typography>{getIcon(props.icon)}</Typography>
           </CardContent>
           <CardActions>
-            <Button variant="outlined" onClick={props.cardFn}>
-              {t(`${props.cardBtnTitle}`)}
-            </Button>
+            <CustomButtonFc soloButton={props.cardBtn} />
           </CardActions>
         </React.Fragment>
       </Card>
