@@ -5,9 +5,9 @@ import InvoiceCardComponent, {
 import { useFeatureSettings } from "../components/settings";
 import { usePageStyles } from "./pages.styles";
 
-type InvoicePageProps = {};
+type DashboardPageProps = {};
 
-export default function InvoicesPage({}: InvoicePageProps): JSX.Element {
+export default function DashboardPage({}: DashboardPageProps): JSX.Element {
   const { cardsSettings } = useFeatureSettings();
   const { dashBoardStyles } = usePageStyles();
   return (

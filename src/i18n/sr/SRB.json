@@ -15,5 +15,11 @@
     "cardTitlePurchases": "Dolazni dokumenti",
     "summaryVAT": "Zbirna evidencija PDV-a",
     "preview": "Pregled"
+  },
+  "ButtonsText": {
+    "TemplatePage": {
+      "createXML": "Učitaj datoteku",
+      "createDocument": "Kreiraj novi dokument"
+    }
   }
 }
