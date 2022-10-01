@@ -40,7 +40,7 @@ function invoicesRoutes(): React.ReactNode {
           element={
             // TODO LOADER
             <React.Suspense fallback={<>...</>}>
-              <DashboardPage />
+              <DashboardPage props={{}} />
             </React.Suspense>
           }
         />
