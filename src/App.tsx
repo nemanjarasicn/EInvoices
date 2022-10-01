@@ -1,6 +1,6 @@
 import React from "react";
 import "./i18n/config";
-import { Routes, Route, Navigate, Outlet } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import { ThemeProvider } from "@mui/material/styles";
 import Layout from "./app/components/Layout";
 import { theme } from "./app/styles/Theme";
@@ -49,7 +49,9 @@ function invoicesRoutes(): React.ReactNode {
           element={
             // TODO LOADER
             <React.Suspense fallback={<>...</>}>
-              <InvoiceTemplatePage templateType={TemplatePageTypes.SALES} />
+              <InvoiceTemplatePage
+                props={{ templateType: TemplatePageTypes.SALES }}
+              />
             </React.Suspense>
           }
         />
@@ -58,7 +60,9 @@ function invoicesRoutes(): React.ReactNode {
           element={
             // TODO LOADER
             <React.Suspense fallback={<>...</>}>
-              <InvoiceTemplatePage templateType={TemplatePageTypes.PURCHASES} />
+              <InvoiceTemplatePage
+                props={{ templateType: TemplatePageTypes.PURCHASES }}
+              />
             </React.Suspense>
           }
         />

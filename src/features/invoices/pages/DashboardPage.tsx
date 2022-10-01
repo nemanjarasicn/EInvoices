@@ -2,7 +2,7 @@ import React from "react";
 import InvoiceCardComponent, {
   CardProps,
 } from "../components/InvoiceCardComponent";
-import { useFeatureSettings } from "../components/settings";
+import { useFeatureSettings } from "../settings";
 import { usePageStyles } from "./pages.styles";
 
 type DashboardPageProps = {};

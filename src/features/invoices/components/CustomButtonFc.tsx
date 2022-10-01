@@ -18,11 +18,11 @@ const CustomButtonRoot = styled("button")`
   font-size: 0.875rem;
   background-color: white;
   padding: 12px 24px;
-  border-radius: 12px;
+  border-radius: 30px;
   color: black;
   transition: all 150ms ease;
   cursor: pointer;
-  border: 1px solid ${gray[600]};
+  border: thin solid ${gray[600]};
   width: 220px;
   &:hover {
     background-color: ${gray[600]};

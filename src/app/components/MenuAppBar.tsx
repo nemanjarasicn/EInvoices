@@ -16,16 +16,11 @@ import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import LanguageSelector from "./LanguageSelector";
 import UserAccount from "./UserAccount";
+import { Outlet } from "react-router-dom";
 
-const drawerWidth = 200;
-
-interface Props {
-  content: any;
-}
-
-export default function ClippedDrawer(props: Props) {
+export default function MenuAppBar() {
+  const drawerWidth = 200;
   const { t } = useTranslation();
-
   const navItems = [
     { name: t("Menu.home"), href: "/" },
     { name: t("Menu.invoice"), href: "/invoices" },
@@ -81,7 +76,7 @@ export default function ClippedDrawer(props: Props) {
       </Drawer>
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
         <Toolbar />
-        {props.content}
+        <Outlet />
       </Box>
     </Box>
   );

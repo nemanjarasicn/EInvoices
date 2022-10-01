@@ -3,10 +3,13 @@ import { styled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
-import { useFeatureSettings } from "../components/settings";
+import { useFeatureSettings } from "../settings";
 import { TemplatePageTypes } from "../models/invoice.enums";
 import { useTranslation } from "react-i18next";
 import CustomButtonFc from "../components/CustomButtonFc";
+import { usePageStyles } from "./pages.styles";
+import FiltersToolbarComponent from "../components/FiltersToolbarComponent";
+import { IProps } from "../models/invoice.models";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -22,35 +25,35 @@ type InvoiceTemplatePageProps = {
 };
 
 export default function InvoiceTemplatePage({
-  templateType,
-}: InvoiceTemplatePageProps): JSX.Element {
+  props,
+}: IProps<InvoiceTemplatePageProps>): JSX.Element {
   const { t } = useTranslation();
   const { templatePageSettings } = useFeatureSettings();
-
+  const { templatePageStyles } = usePageStyles();
   return (
     <Box sx={{ flexGrow: 1 }}>
       <Grid container spacing={2}>
         <Grid item xs={4}>
           <Item>
-            <h3>{t(templatePageSettings[templateType].title)}</h3>
+            <h3>{t(templatePageSettings[props.templateType].title)}</h3>
           </Item>
         </Grid>
-        <Grid
-          item
-          xs={8}
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "flex-end",
-          }}
-        >
-          {templatePageSettings[templateType].showBtns && (
+        <Grid item xs={8} style={templatePageStyles.buttonsGrid}>
+          {templatePageSettings[props.templateType].showBtns && (
             <CustomButtonFc
-              groupButton={templatePageSettings[templateType].buttons}
+              groupButton={templatePageSettings[props.templateType].buttons}
             />
           )}
         </Grid>
-        <Grid item xs={12} mt={10}>
+        <Grid item xs={12} mt={5}>
+          <FiltersToolbarComponent
+            props={{
+              filters: templatePageSettings[props.templateType].filters,
+              actions: templatePageSettings[props.templateType].actions,
+            }}
+          />
+        </Grid>
+        <Grid item xs={12}>
           <Item>
             The standard Lorem Ipsum passage, used since the 1500s "Lorem ipsum
             dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
