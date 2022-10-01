@@ -2,14 +2,20 @@
  * Feature page styles
  * @returns {any}
  */
-const usePageStyles = (): { dashBoardStyles: any } => {
+const usePageStyles = (): { dashBoardStyles: any; templatePageStyles: any } => {
   return {
     dashBoardStyles: {
       cardsWrapper: {
         display: "flex",
         flexWrap: "wrap",
-        justifyContent: "space-evenly",
         maxWidth: "66.667%",
+      },
+    },
+    templatePageStyles: {
+      buttonsGrid: {
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "flex-end",
       },
     },
   };

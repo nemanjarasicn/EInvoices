@@ -1,7 +1,9 @@
 {
   "Common": {
     "open": "Otvori",
-    "close": "Zatvori"
+    "close": "Zatvori",
+    "download": "Preuzmi",
+    "delete": "Obrisi"
   },
   "Menu": {
     "home": "Pocetna",
@@ -12,7 +14,7 @@
   },
   "InvoiceCard": {
     "cardTitleSales": "Izlazni dokumenti",
-    "cardTitlePurchases": "Dolazni dokumenti",
+    "cardTitlePurchases": "Ulazni dokumenti",
     "summaryVAT": "Zbirna evidencija PDV-a",
     "preview": "Pregled"
   },
@@ -21,5 +23,23 @@
       "createXML": "Učitaj datoteku",
       "createDocument": "Kreiraj novi dokument"
     }
+  },
+  "FilterComponent": {
+    "defaultAll": "Očisti sve",
+    "allDocumentTypes": "Svi tipovi dokumenata",
+    "registeredInCIR": "Registrovane u CRF-u",
+    "allStatuses": "Svi statusi"
+  },
+  "InvoiceTypes": {
+    "debitInvoice": "Faktura",
+    "creditNote": "Knjižno odobrenje",
+    "debitNote": "Knjižno zaduženje",
+    "prepayment": "Avansni račun"
+  },
+  "InvoiceStatuses": {
+    "draft": "Nacrt",
+    "sent": "Poslato",
+    "sending": "Slanje",
+    "cancelled": "Otkazana"
   }
 }
