@@ -99,7 +99,7 @@ const useComponentsStyles = (): {
         whiteSpace: "nowrap",
         minWidth: "max-content",
         textTransform: "none",
-        border: `thin solid rgb(221 221 221)`,
+        borderLeft: `thin solid rgb(221 221 221)`,
         width: "190px",
       },
       paperList: {
@@ -124,8 +124,8 @@ const useComponentsStyles = (): {
         whiteSpace: "nowrap",
         minWidth: "max-content",
         textTransform: "none",
-        border: `thin solid rgb(221 221 221)`,
-        width: "50px",
+        borderRight: `thin solid rgb(221 221 221)`,
+        width: "60px",
         height: "38px",
       },
       soloSelectAll: {

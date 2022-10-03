@@ -19,6 +19,7 @@ type FeatureSettings = {
       buttons: ButtonProps[];
       filters: FilterComponentProps[];
       actions: SelectAllAction[];
+      showTable: boolean;
     };
   };
 };
@@ -119,6 +120,7 @@ const useFeatureSettings = (): FeatureSettings => {
             actionFn: () => console.log("ACTION FN DOWNLOAD"),
           },
         ],
+        showTable: true,
       },
       [TemplatePageTypes.PURCHASES]: {
         title: "InvoiceCard.cardTitlePurchases",
@@ -126,6 +128,7 @@ const useFeatureSettings = (): FeatureSettings => {
         buttons: [],
         filters: [],
         actions: [],
+        showTable: false,
       },
     },
   };

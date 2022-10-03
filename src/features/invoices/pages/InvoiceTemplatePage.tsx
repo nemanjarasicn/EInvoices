@@ -55,7 +55,11 @@ export default function InvoiceTemplatePage({
           />
         </Grid>
         <Grid item xs={12}>
-          <TableComponent props={{}} />
+          {templatePageSettings[props.templateType].showTable && (
+            <div style={templatePageStyles.tableWrapper}>
+              <TableComponent props={{}} />
+            </div>
+          )}
         </Grid>
       </Grid>
     </Box>

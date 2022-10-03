@@ -12,6 +12,7 @@ import {
   GridColDef,
   GridColumnHeaderParams,
   GridValueGetterParams,
+  GridSelectionModel,
 } from "@mui/x-data-grid";
 
 import React from "react";
@@ -29,8 +30,6 @@ const columns: GridColDef[] = [
     headerName: "ID",
     flex: 1,
     renderHeader: (params: GridColumnHeaderParams) => {
-      console.log("Params", params);
-
       return (
         <strong>
           {"Birthday "}
@@ -63,6 +62,9 @@ const columns: GridColDef[] = [
 export default function TableComponent({
   props,
 }: IProps<TableComponentProps>): JSX.Element {
+  const [selectionModel, setSelectionModel] =
+    React.useState<GridSelectionModel>([]);
+
   const rows = [
     { id: 1, lastName: "Snow", firstName: "Jon", age: 35 },
     { id: 2, lastName: "Lannister", firstName: "Cersei", age: 42 },
@@ -82,8 +84,14 @@ export default function TableComponent({
         columns={columns}
         pageSize={5}
         rowsPerPageOptions={[5]}
-        checkboxSelection
         sx={tableComponentStyles.dataGrid}
+        checkboxSelection
+        onSelectionModelChange={(newSelectionModel) => {
+          console.log("newSelection", newSelectionModel);
+
+          setSelectionModel(newSelectionModel);
+        }}
+        selectionModel={selectionModel}
       />
     </div>
   );
