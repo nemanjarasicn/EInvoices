@@ -32,6 +32,7 @@ export default function SelectAllActionsComponent({
         onClick={() => setChecked(!checked)}
       >
         <Checkbox
+          style={selectAllConmponentStyles.checkbox}
           edge="start"
           checked={checked}
           tabIndex={-1}

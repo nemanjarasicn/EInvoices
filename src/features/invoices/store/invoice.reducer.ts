@@ -6,7 +6,12 @@ import {
   Slice,
 } from "@reduxjs/toolkit";
 
-export type Invoice = { id: number };
+export type Invoice = {
+  id: number;
+  lastName: string;
+  firstName: string;
+  age: number;
+};
 const FEATURE_INVOICES_KEY: string = "invoices";
 
 export const invoiceAdapter: EntityAdapter<Invoice> =
@@ -20,7 +25,7 @@ const invoicesSlice: Slice<EntityState<Invoice>> = createSlice({
   initialState: invoiceAdapter.getInitialState(),
   reducers: {
     setAllInvoices: invoiceAdapter.setAll,
-    setOneInvoices: invoiceAdapter.removeOne,
+    // setOneInvoices: invoiceAdapter.removeOne,
     setManyInvoices: invoiceAdapter.addMany,
     updateOneInvoice: invoiceAdapter.updateOne,
     addOneInvoice: invoiceAdapter.addOne,
@@ -29,6 +34,7 @@ const invoicesSlice: Slice<EntityState<Invoice>> = createSlice({
   },
 });
 
-export const { updateOneInvoice, clearCache } = invoicesSlice.actions;
+export const { updateOneInvoice, clearCache, setManyInvoices, addOneInvoice } =
+  invoicesSlice.actions;
 
 export default invoicesSlice.reducer;
