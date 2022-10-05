@@ -5,30 +5,35 @@ import {
   EntityState,
   Slice,
 } from "@reduxjs/toolkit";
+import { InvoiceDto } from "../models/invoice.models";
+import { getSalesInvoices } from "./invoice.actions";
 
-export type Invoice = { id: number };
 const FEATURE_INVOICES_KEY: string = "invoices";
 
-export const invoiceAdapter: EntityAdapter<Invoice> =
-  createEntityAdapter<Invoice>({
-    selectId: (invoice) => invoice.id,
+export const invoiceAdapter: EntityAdapter<InvoiceDto> =
+  createEntityAdapter<InvoiceDto>({
+    selectId: (invoice) => invoice.InvoiceId,
     // sortComparer: (a, b) => a.id.localeCompare(b.id),
   });
 
-const invoicesSlice: Slice<EntityState<Invoice>> = createSlice({
+const invoicesSlice: Slice<EntityState<InvoiceDto>> = createSlice({
   name: FEATURE_INVOICES_KEY,
   initialState: invoiceAdapter.getInitialState(),
   reducers: {
     setAllInvoices: invoiceAdapter.setAll,
-    setOneInvoices: invoiceAdapter.removeOne,
     setManyInvoices: invoiceAdapter.addMany,
     updateOneInvoice: invoiceAdapter.updateOne,
     addOneInvoice: invoiceAdapter.addOne,
     //custom
     clearCache: () => invoiceAdapter.getInitialState(),
   },
+  extraReducers: (builder) => {
+    builder.addCase(getSalesInvoices.fulfilled, (state, action) => {
+      invoiceAdapter.addMany(state, action.payload);
+    });
+  },
 });
 
-export const { updateOneInvoice, clearCache } = invoicesSlice.actions;
-
+export const { updateOneInvoice, clearCache, setManyInvoices, addOneInvoice } =
+  invoicesSlice.actions;
 export default invoicesSlice.reducer;

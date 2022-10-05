@@ -7,6 +7,7 @@ const useComponentsStyles = (): {
   filersToolbarStyles: any;
   filterComponentStyle: any;
   selectAllConmponentStyles: any;
+  tableComponentStyles: any;
 } => {
   return {
     invoiceCardStyles: {
@@ -56,15 +57,15 @@ const useComponentsStyles = (): {
       },
       selectAllActions: {
         display: "grid",
-        padding: "10px",
+        padding: "10px 10px 10px 0",
         columnGap: "15px",
-        background: "rgba(0, 0, 0, 0.05)",
-        boxShadow:
-          "rgb(0 0 0 / 20%) 0px 4px 8px 0px, rgb(0 0 0 / 19%) 0px 6px 20px 0px",
+        // background: "rgba(0, 0, 0, 0.05)",
+        // boxShadow:
+        // "rgb(0 0 0 / 20%) 0px 4px 8px 0px, rgb(0 0 0 / 19%) 0px 6px 20px 0px",
         justifyItems: "end",
-        width: "210px",
+        width: "70px",
         rowGap: "5px",
-        border: `thin solid rgb(221 221 221)`,
+        // border: `thin solid rgb(221 221 221)`,
       },
     },
     filterComponentStyle: {
@@ -98,7 +99,7 @@ const useComponentsStyles = (): {
         whiteSpace: "nowrap",
         minWidth: "max-content",
         textTransform: "none",
-        border: `thin solid rgb(221 221 221)`,
+        borderLeft: `thin solid rgb(221 221 221)`,
         width: "190px",
       },
       paperList: {
@@ -123,8 +124,8 @@ const useComponentsStyles = (): {
         whiteSpace: "nowrap",
         minWidth: "max-content",
         textTransform: "none",
-        border: `thin solid rgb(221 221 221)`,
-        width: "190px",
+        borderRight: `thin solid rgb(221 221 221)`,
+        width: "60px",
         height: "38px",
       },
       soloSelectAll: {
@@ -132,6 +133,20 @@ const useComponentsStyles = (): {
         fontSize: "0.8rem",
         whiteSpace: "nowrap",
         marginLeft: "10px",
+      },
+      checkbox: { padding: 0, margin: 0 },
+    },
+    tableComponentStyles: {
+      wrapper: {
+        maxHeight: 800,
+        width: "100%",
+      },
+      dataGrid: {
+        // until MUI add prop disableSelectAllCheckbox
+        "& .MuiDataGrid-columnHeaderCheckbox .MuiDataGrid-columnHeaderTitleContainer":
+          {
+            display: "none",
+          },
       },
     },
   };

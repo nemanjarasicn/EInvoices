@@ -8,7 +8,7 @@ const selectSelf = (state: RootState) => state.invoices;
 export const selectInvoicesWithStatusSent = createDraftSafeSelector(
   selectSelf,
   (state) =>
-    Object.values(state.entities).filter((invoice) => invoice?.id === 3)
+    Object.values(state.entities).filter((invoice) => invoice?.InvoiceId === 3)
 );
 
 /**
