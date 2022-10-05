@@ -1,89 +1,181 @@
-import {
-  TableContainer,
-  Paper,
-  Table,
-  TableHead,
-  TableRow,
-  TableCell,
-  TableBody,
-} from "@mui/material";
+/* eslint-disable react-hooks/exhaustive-deps */
 import {
   DataGrid,
   GridColDef,
-  GridColumnHeaderParams,
   GridValueGetterParams,
   GridSelectionModel,
 } from "@mui/x-data-grid";
 
 import React from "react";
-import { useAppSelector } from "../../../../app/hooks";
-import { IProps } from "../../models/invoice.models";
+import { useAppDispatch, useAppSelector } from "../../../../app/hooks";
+import { TemplatePageTypes } from "../../models/invoice.enums";
+import { InvoiceDto, IProps, TableData } from "../../models/invoice.models";
+import { getSalesInvoices } from "../../store/invoice.actions";
 import { invoiceSelectors } from "../../store/invoice.selectors";
 import { useComponentsStyles } from "../components.styles";
+import TableToolbar from "./TableToolbar";
 
 type TableComponentProps = {
   headerNames?: string[];
+  pageType: TemplatePageTypes;
 };
+// TODO Service for Config ////////////////////////////////////////
+const dateFormater = new Intl.DateTimeFormat("en-US", {
+  localeMatcher: "best fit",
+});
 const columns: GridColDef[] = [
   {
-    field: "id",
-    headerName: "ID",
+    field: "InvoiceNumber",
+    headerName: "InvoiceNumber",
     flex: 1,
-    renderHeader: (params: GridColumnHeaderParams) => {
-      return (
-        <strong>
-          {"Birthday "}
-          <span role="img" aria-label="enjoy">
-            🎂
-          </span>
-        </strong>
-      );
-    },
-  },
-  { field: "firstName", headerName: "First name", flex: 1 },
-  { field: "lastName", headerName: "Last name", flex: 1 },
-  {
-    field: "age",
-    headerName: "Age",
-    type: "number",
-    flex: 1,
+    headerAlign: "center",
+    align: "center",
   },
   {
-    field: "fullName",
-    headerName: "Full name",
-    description: "This column has a value getter and is not sortable.",
-    sortable: false,
+    field: "InvoiceType",
+    headerName: "InvoiceType",
+    flex: 1,
+    headerAlign: "center",
+    align: "center",
+  },
+  {
+    field: "CirInvoiceId",
+    headerName: "CirInvoiceId",
+    flex: 1,
+    headerAlign: "center",
+    align: "center",
+  },
+  {
+    field: "CirStatus",
+    headerName: "CirStatus",
+    flex: 1,
+    headerAlign: "center",
+    align: "center",
+  },
+  {
+    field: "Status",
+    headerName: "Status",
+    flex: 1,
+    headerAlign: "center",
+    align: "center",
+  },
+  {
+    field: "Receiver",
+    headerName: "Receiver",
+    flex: 1,
+    headerAlign: "center",
+    align: "center",
+  },
+  {
+    field: "TotalToPay",
+    headerName: "TotalToPay",
+    flex: 1,
+    headerAlign: "center",
+    align: "center",
+  },
+  {
+    field: "InvoiceDateUtc",
+    headerName: "InvoiceDateUtc",
     flex: 1,
     valueGetter: (params: GridValueGetterParams) =>
-      `${params.row.firstName || ""} ${params.row.lastName || ""}`,
+      dateFormater.format(params.row.InvoiceDateUtc),
+    headerAlign: "center",
+    align: "center",
+  },
+  {
+    field: "InvoiceSentDateUtc",
+    headerName: "InvoiceSentDateUtc",
+    flex: 1,
+    valueGetter: (params: GridValueGetterParams) =>
+      dateFormater.format(params.row.InvoiceSentDateUtc),
+    headerAlign: "center",
+    align: "center",
+  },
+  {
+    field: "PaymentDateUtc",
+    headerName: "PaymentDateUtc",
+    flex: 1,
+    valueGetter: (params: GridValueGetterParams) =>
+      dateFormater.format(params.row.PaymentDateUtc),
+    headerAlign: "center",
+    align: "center",
+  },
+  {
+    field: "ReferenceNumber",
+    headerName: "ReferenceNumber",
+    flex: 1,
+    headerAlign: "center",
+    align: "center",
+  },
+  {
+    field: "ServiceProvider",
+    headerName: "ServiceProvider",
+    flex: 1,
+    headerAlign: "center",
+    align: "center",
+  },
+  {
+    field: "ChannelAdress",
+    headerName: "ChannelAdress",
+    flex: 1,
+    headerAlign: "center",
+    align: "center",
   },
 ];
+//////////////////////////////////////////////////////////////////////////
 
 export default function TableComponent({
   props,
 }: IProps<TableComponentProps>): JSX.Element {
+  console.log("TABLE", props);
+
+  const dispatch = useAppDispatch();
+  const { tableComponentStyles } = useComponentsStyles();
+
+  const [pageSize, setPageSize] = React.useState<number>(5);
   const [selectionModel, setSelectionModel] =
     React.useState<GridSelectionModel>([]);
 
-  const rows = [
-    { id: 1, lastName: "Snow", firstName: "Jon", age: 35 },
-    { id: 2, lastName: "Lannister", firstName: "Cersei", age: 42 },
-    { id: 3, lastName: "Lannister", firstName: "Jaime", age: 45 },
-    { id: 4, lastName: "Stark", firstName: "Arya", age: 16 },
-    { id: 5, lastName: "Targaryen", firstName: "Daenerys", age: null },
-    { id: 6, lastName: "Melisandre", firstName: null, age: 150 },
-    { id: 7, lastName: "Clifford", firstName: "Ferrara", age: 44 },
-    { id: 8, lastName: "Frances", firstName: "Rossini", age: 36 },
-    { id: 9, lastName: "Roxie", firstName: "Harvey", age: 65 },
-  ];
-  const { tableComponentStyles } = useComponentsStyles();
+  React.useEffect(() => {
+    dispatch(getSalesInvoices());
+  }, []);
+
+  const tableData: TableData<InvoiceDto>[] = useAppSelector(
+    invoiceSelectors.selectAll
+  ).map((row: InvoiceDto) => ({
+    ...row,
+    id: row.InvoiceId,
+  }));
+
   return (
     <div style={tableComponentStyles.wrapper}>
       <DataGrid
-        rows={rows}
+        disableColumnMenu
+        disableColumnFilter
+        showCellRightBorder={true}
+        localeText={{ toolbarColumns: "" }}
+        rows={tableData}
         columns={columns}
-        pageSize={5}
-        rowsPerPageOptions={[5]}
+        autoHeight={true}
+        pageSize={pageSize}
+        rowsPerPageOptions={[5, 10, 15]}
+        onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
+        components={{
+          Toolbar: TableToolbar,
+        }}
+        componentsProps={{
+          toolbar: {
+            props: {
+              showFilters: false,
+              showDensity: false,
+              showHideColumns: true,
+              showExport: false,
+            },
+          },
+          panel: {
+            placement: "bottom-end",
+          },
+        }}
         sx={tableComponentStyles.dataGrid}
         checkboxSelection
         onSelectionModelChange={(newSelectionModel) => {

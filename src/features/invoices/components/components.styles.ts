@@ -138,7 +138,7 @@ const useComponentsStyles = (): {
     },
     tableComponentStyles: {
       wrapper: {
-        height: 400,
+        maxHeight: 800,
         width: "100%",
       },
       dataGrid: {

@@ -11,6 +11,7 @@ import { usePageStyles } from "./pages.styles";
 import FiltersToolbarComponent from "../components/FiltersToolbarComponent";
 import { IProps } from "../models/invoice.models";
 import TableComponent from "../components/DataGrid/TableComponent";
+import { getSalesInvoices } from "../store/invoice.actions";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -57,10 +58,15 @@ export default function InvoiceTemplatePage({
         <Grid item xs={12}>
           {templatePageSettings[props.templateType].showTable && (
             <div style={templatePageStyles.tableWrapper}>
-              <TableComponent props={{}} />
+              <TableComponent
+                props={{
+                  pageType: props.templateType,
+                }}
+              />
             </div>
           )}
         </Grid>
+        <Grid item xs={12}></Grid>
       </Grid>
     </Box>
   );
