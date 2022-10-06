@@ -12,7 +12,6 @@ const useComponentsStyles = (): {
   return {
     invoiceCardStyles: {
       card: {
-        width: 275,
         height: 235,
         display: "flex",
         alignItems: "center",
@@ -20,8 +19,7 @@ const useComponentsStyles = (): {
         flexDirection: "column",
         background: "#eeeeee",
         opacity: "0.9",
-        borderRadius: "30px",
-        boxShadow: "0px 0px 10px 6px rgb(0 0 0 / 40%)",
+        borderRadius: "7px",
         margin: "10px",
         "&:hover": {
           color: "gray",

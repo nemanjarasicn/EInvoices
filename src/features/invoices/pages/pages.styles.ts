@@ -9,9 +9,8 @@ const usePageStyles = (): {
   return {
     dashBoardStyles: {
       cardsWrapper: {
-        display: "flex",
-        flexWrap: "wrap",
-        maxWidth: "66.667%",
+        display: "grid",
+        gridTemplateColumns: '1fr 1fr 1fr'
       },
     },
     templatePageStyles: {
