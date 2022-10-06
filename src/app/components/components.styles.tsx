@@ -15,14 +15,15 @@ const useAppComponentsStyles = (): { menuAppBarStyles: any } => {
         display: "flex",
         alignItems: "inherit",
       },
-      langUserDiv: { 
-        display: "flex", justifyContent: "space-between" 
+      langUserDiv: {
+        display: "flex",
+        justifyContent: "space-between",
       },
       styleFunction(open: boolean) {
         return {
           drawer: {
             backgroundColor: "#24292e",
-          opacity: open ? 0.9 : 1,
+            opacity: open ? 0.9 : 1,
           },
           chevronLeftIconButton: {
             display: open ? "block" : "none",
@@ -31,9 +32,9 @@ const useAppComponentsStyles = (): { menuAppBarStyles: any } => {
           menuIconButton: {
             display: open ? "none" : "block",
             color: iconColor,
-            margin: '0px'
-          }
-        }
+            margin: "0px",
+          },
+        };
       },
     },
   };

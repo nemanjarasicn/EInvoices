@@ -1,8 +1,6 @@
 import * as React from "react";
-import { useState, useRef } from "react";
-import { styled, useTheme, Theme, CSSObject } from "@mui/material/styles";
+import { styled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
-import MuiDrawer from "@mui/material/Drawer";
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import List from "@mui/material/List";
@@ -12,7 +10,6 @@ import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
-import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
@@ -29,29 +26,6 @@ import Payments from "@mui/icons-material/Payments";
 import { useAppComponentsStyles } from "./components.styles";
 
 const drawerWidth = 200;
-interface Props {
-  content: any;
-}
-const openedMixin = (theme: Theme): CSSObject => ({
-  width: drawerWidth,
-  transition: theme.transitions.create("width", {
-    easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.enteringScreen,
-  }),
-  overflowX: "hidden",
-});
-
-const closedMixin = (theme: Theme): CSSObject => ({
-  transition: theme.transitions.create("width", {
-    easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.leavingScreen,
-  }),
-  overflowX: "hidden",
-  width: `calc(${theme.spacing(7)} + 1px)`,
-  [theme.breakpoints.up("sm")]: {
-    width: `calc(${theme.spacing(8)} + 1px)`,
-  },
-});
 
 const DrawerHeader = styled("div")(({ theme }) => ({
   display: "flex",
@@ -85,7 +59,6 @@ const AppBar = styled(MuiAppBar, {
 
 export default function ClippedDrawer() {
   const { t } = useTranslation();
-
   const { menuAppBarStyles } = useAppComponentsStyles();
 
   const navItems = [
@@ -106,7 +79,6 @@ export default function ClippedDrawer() {
     }
   };
 
-  const theme = useTheme();
   const [open, setOpen] = React.useState(false);
 
   const handleDrawerOpen = () => {
@@ -138,6 +110,7 @@ export default function ClippedDrawer() {
         open={open}
         PaperProps={{
           sx: menuAppBarStyles.styleFunction(open).drawer,
+          onMouseLeave: handleDrawerClose,
         }}
       >
         <DrawerHeader></DrawerHeader>
@@ -197,7 +170,7 @@ export default function ClippedDrawer() {
           ))}
         </List>
       </Drawer>
-      <Box component="main" sx={{ flexGrow: 1, p: 3, paddingLeft: "90px" }}>
+      <Box component="main" sx={{ flexGrow: 1, p: 1, paddingLeft: "90px" }}>
         <Toolbar />
         <Outlet />
       </Box>
