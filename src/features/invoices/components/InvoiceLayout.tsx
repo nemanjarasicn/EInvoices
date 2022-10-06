@@ -1,14 +1,14 @@
+import Search from "@mui/icons-material/Search";
 import React from "react";
 import { Outlet } from "react-router-dom";
+import SearchField from "./SearchField";
 
 type InvoiceLayoutProps = {};
 
 export default function InvoiceLayout({}: InvoiceLayoutProps): JSX.Element {
   return (
     <div>
-      <div style={{ textAlign: "center", margin: "10px", background: "gray" }}>
-        <h3>PLACEHOLDER FOR SEARCH</h3>
-      </div>
+      <SearchField />
       <div className="outlet">
         <Outlet />
       </div>

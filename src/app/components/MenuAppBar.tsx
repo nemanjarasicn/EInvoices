@@ -24,12 +24,10 @@ import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import LanguageSelector from "./LanguageSelector";
 import UserAccount from "./UserAccount";
-import { display } from "@mui/system";
 import Home from "@mui/icons-material/Home";
 import Payments from "@mui/icons-material/Payments";
 
 const drawerWidth = 200;
-
 interface Props {
   content: any;
 }
@@ -127,7 +125,7 @@ export default function ClippedDrawer(props: Props) {
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
-      <AppBar position="fixed" open={open}>
+      <AppBar position="fixed">
         <Toolbar
           style={{
             display: "flex",
@@ -135,18 +133,6 @@ export default function ClippedDrawer(props: Props) {
           }}
         >
           <div style={{ display: "flex", alignItems: "inherit" }}>
-            <IconButton
-              color="inherit"
-              aria-label="open drawer"
-              onClick={handleDrawerOpen}
-              edge="start"
-              sx={{
-                marginRight: 5,
-                ...(open && { display: "none" }),
-              }}
-            >
-              <MenuIcon />
-            </IconButton>
             <Typography variant="h6" noWrap component="div">
               {"LOGO"}
             </Typography>
@@ -163,19 +149,32 @@ export default function ClippedDrawer(props: Props) {
         PaperProps={{
           sx: {
             backgroundColor: "#24292e",
+            opacity: open ? 0.9 : 1,
           },
         }}
       >
-        <DrawerHeader>
-          <IconButton onClick={handleDrawerClose}>
-            {theme.direction === "rtl" ? (
-              <ChevronRightIcon />
-            ) : (
-              <ChevronLeftIcon />
-            )}
-          </IconButton>
-        </DrawerHeader>
+        <DrawerHeader></DrawerHeader>
         <Divider />
+        <IconButton
+          onClick={handleDrawerClose}
+          sx={{
+            display: open ? "block" : "none",
+            color: "white",
+          }}
+        >
+          <ChevronLeftIcon sx={{ float: "right" }} />
+        </IconButton>
+        <IconButton
+          aria-label="open drawer"
+          onClick={handleDrawerOpen}
+          edge="start"
+          sx={{
+            display: open ? "none" : "block",
+            color: "white",
+          }}
+        >
+          <MenuIcon />
+        </IconButton>
         <List>
           {navItems.map((item, index) => (
             <ListItem
@@ -208,7 +207,6 @@ export default function ClippedDrawer(props: Props) {
                   primary={item.name}
                   sx={{
                     display: open ? "block" : "none",
-                    width: open ? `calc(${drawerWidth - 90}px)` : "0px",
                     color: "#fff",
                     opacity: 0.5,
                   }}
@@ -218,7 +216,10 @@ export default function ClippedDrawer(props: Props) {
           ))}
         </List>
       </Drawer>
-      <Box component="main" sx={{ flexGrow: 1, p: 3 }}></Box>
+      <Box component="main" sx={{ flexGrow: 1, p: 3, paddingLeft: "90px" }}>
+        <Toolbar />
+        {props.content}
+      </Box>
     </Box>
   );
 }

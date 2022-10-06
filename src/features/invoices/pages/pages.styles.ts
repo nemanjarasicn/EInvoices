@@ -6,10 +6,8 @@ const usePageStyles = (): { dashBoardStyles: any } => {
   return {
     dashBoardStyles: {
       cardsWrapper: {
-        display: "flex",
-        flexWrap: "wrap",
-        justifyContent: "space-evenly",
-        maxWidth: "66.667%",
+        display: "grid",
+        gridTemplateColumns: '1fr 1fr 1fr'
       },
     },
   };
