@@ -20,7 +20,7 @@ import ListItemText from "@mui/material/ListItemText";
 import InboxIcon from "@mui/icons-material/MoveToInbox";
 import MailIcon from "@mui/icons-material/Mail";
 import Drawer from "@mui/material/Drawer";
-import { Link } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import LanguageSelector from "./LanguageSelector";
 import UserAccount from "./UserAccount";
@@ -83,7 +83,7 @@ const AppBar = styled(MuiAppBar, {
   }),
 }));
 
-export default function ClippedDrawer(props: Props) {
+export default function ClippedDrawer() {
   const { t } = useTranslation();
 
   const { menuAppBarStyles } = useAppComponentsStyles();
@@ -97,16 +97,12 @@ export default function ClippedDrawer(props: Props) {
     switch (icon) {
       case "InboxIcon":
         return <InboxIcon />;
-        break;
       case "MailIcon":
         return <MailIcon />;
-        break;
       case "Home":
         return <Home />;
-        break;
       case "Payments":
         return <Payments />;
-        break;
     }
   };
 
@@ -203,7 +199,7 @@ export default function ClippedDrawer(props: Props) {
       </Drawer>
       <Box component="main" sx={{ flexGrow: 1, p: 3, paddingLeft: "90px" }}>
         <Toolbar />
-        {props.content}
+        <Outlet />
       </Box>
     </Box>
   );

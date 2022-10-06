@@ -1,7 +1,9 @@
 {
   "Common": {
     "open": "Open",
-    "close": "Close"
+    "close": "Close",
+    "download": "Download",
+    "delete": "Delete"
   },
   "Menu": {
     "home": "Home",
@@ -21,5 +23,23 @@
       "createXML": "Upload XML document",
       "createDocument": "Create new document"
     }
+  },
+  "FilterComponent": {
+    "defaultAll": "Clear all",
+    "allDocumentTypes": "All document types",
+    "registeredInCIR": "Registered in CIR",
+    "allStatuses": "All Statuses"
+  },
+  "InvoiceTypes": {
+    "debitInvoice": "Debit invoice",
+    "creditNote": "Credit note",
+    "debitNote": "Debit note",
+    "prepayment": "Prepayment"
+  },
+  "InvoiceStatuses": {
+    "draft": "Draft",
+    "sent": "Sent",
+    "sending": "Sending",
+    "cancelled": "Cancelled"
   }
 }

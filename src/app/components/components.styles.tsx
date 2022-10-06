@@ -31,6 +31,7 @@ const useAppComponentsStyles = (): { menuAppBarStyles: any } => {
           menuIconButton: {
             display: open ? "none" : "block",
             color: iconColor,
+            margin: '0px'
           }
         }
       },

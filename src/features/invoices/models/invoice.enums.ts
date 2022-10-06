@@ -38,3 +38,12 @@ export enum TemplatePageTypes {
   // SEARCH = "search",
   // RECORDS = "records",
 }
+
+export enum HeaderSettingsTypes {
+  SALES = "sales",
+  PURCHASES = "purchases",
+  // VAT = "vat",
+  // CIR = "cir",
+  // SEARCH = "search",
+  // RECORDS = "records",
+}
