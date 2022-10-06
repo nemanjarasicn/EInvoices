@@ -26,6 +26,7 @@ import LanguageSelector from "./LanguageSelector";
 import UserAccount from "./UserAccount";
 import Home from "@mui/icons-material/Home";
 import Payments from "@mui/icons-material/Payments";
+import { useAppComponentsStyles } from "./components.styles";
 
 const drawerWidth = 200;
 interface Props {
@@ -84,6 +85,9 @@ const AppBar = styled(MuiAppBar, {
 
 export default function ClippedDrawer(props: Props) {
   const { t } = useTranslation();
+
+  const { menuAppBarStyles } = useAppComponentsStyles();
+
   const navItems = [
     { name: t("Menu.home"), href: "/", icon: "Home" },
     { name: t("Menu.invoice"), href: "/invoices", icon: "Payments" },
@@ -117,27 +121,17 @@ export default function ClippedDrawer(props: Props) {
     setOpen(false);
   };
 
-  const listStyleDrawrer = {
-    background: "#fafa00",
-    backgroundColor: "red",
-  };
-
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
       <AppBar position="fixed">
-        <Toolbar
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-          }}
-        >
-          <div style={{ display: "flex", alignItems: "inherit" }}>
+        <Toolbar style={menuAppBarStyles.toolbar}>
+          <div style={menuAppBarStyles.logoDiv}>
             <Typography variant="h6" noWrap component="div">
               {"LOGO"}
             </Typography>
           </div>
-          <div style={{ display: "flex", justifyContent: "space-between" }}>
+          <div style={menuAppBarStyles.langUserDiv}>
             <LanguageSelector />
             <UserAccount />
           </div>
@@ -147,20 +141,14 @@ export default function ClippedDrawer(props: Props) {
         variant="permanent"
         open={open}
         PaperProps={{
-          sx: {
-            backgroundColor: "#24292e",
-            opacity: open ? 0.9 : 1,
-          },
+          sx: menuAppBarStyles.styleFunction(open).drawer,
         }}
       >
         <DrawerHeader></DrawerHeader>
         <Divider />
         <IconButton
           onClick={handleDrawerClose}
-          sx={{
-            display: open ? "block" : "none",
-            color: "white",
-          }}
+          sx={menuAppBarStyles.styleFunction(open).chevronLeftIconButton}
         >
           <ChevronLeftIcon sx={{ float: "right" }} />
         </IconButton>
@@ -168,10 +156,7 @@ export default function ClippedDrawer(props: Props) {
           aria-label="open drawer"
           onClick={handleDrawerOpen}
           edge="start"
-          sx={{
-            display: open ? "none" : "block",
-            color: "white",
-          }}
+          sx={menuAppBarStyles.styleFunction(open).menuIconButton}
         >
           <MenuIcon />
         </IconButton>
