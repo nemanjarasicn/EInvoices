@@ -13,6 +13,8 @@ import { InvoiceDto, IProps, TableData } from "../../models/invoice.models";
 import { getSalesInvoices } from "../../store/invoice.actions";
 import { invoiceSelectors } from "../../store/invoice.selectors";
 import { useComponentsStyles } from "../components.styles";
+import { setSelection } from "./store/data-grid.reducer";
+import { selectSelection } from "./store/data-grid.selectors";
 import TableToolbar from "./TableToolbar";
 
 type TableComponentProps = {
@@ -127,14 +129,11 @@ const columns: GridColDef[] = [
 export default function TableComponent({
   props,
 }: IProps<TableComponentProps>): JSX.Element {
-  console.log("TABLE", props);
-
   const dispatch = useAppDispatch();
   const { tableComponentStyles } = useComponentsStyles();
 
-  const [pageSize, setPageSize] = React.useState<number>(5);
-  const [selectionModel, setSelectionModel] =
-    React.useState<GridSelectionModel>([]);
+  // TODO
+  // const [pageSize, setPageSize] = React.useState<number>(5);
 
   React.useEffect(() => {
     dispatch(getSalesInvoices());
@@ -147,6 +146,8 @@ export default function TableComponent({
     id: row.InvoiceId,
   }));
 
+  const selectionModel: GridSelectionModel = useAppSelector(selectSelection);
+
   return (
     <div style={tableComponentStyles.wrapper}>
       <DataGrid
@@ -157,9 +158,9 @@ export default function TableComponent({
         rows={tableData}
         columns={columns}
         autoHeight={true}
-        pageSize={pageSize}
-        rowsPerPageOptions={[5, 10, 15]}
-        onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
+        // pageSize={pageSize}
+        // rowsPerPageOptions={[5, 10, 15]}
+        // onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
         components={{
           Toolbar: TableToolbar,
         }}
@@ -179,9 +180,7 @@ export default function TableComponent({
         sx={tableComponentStyles.dataGrid}
         checkboxSelection
         onSelectionModelChange={(newSelectionModel) => {
-          console.log("newSelection", newSelectionModel);
-
-          setSelectionModel(newSelectionModel);
+          dispatch(setSelection(newSelectionModel));
         }}
         selectionModel={selectionModel}
       />

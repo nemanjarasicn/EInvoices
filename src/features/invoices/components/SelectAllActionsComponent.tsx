@@ -4,6 +4,14 @@ import { IProps } from "../models/invoice.models";
 import { useComponentsStyles } from "./components.styles";
 import { OverridableComponent } from "@mui/material/OverridableComponent";
 import { useTranslation } from "react-i18next";
+import { useAppDispatch, useAppSelector } from "../../../app/hooks";
+import { invoiceSelectors } from "../store/invoice.selectors";
+import { EntityId } from "@reduxjs/toolkit";
+import {
+  resetDataGridState,
+  setSelection,
+} from "./DataGrid/store/data-grid.reducer";
+import { selectSelection } from "./DataGrid/store/data-grid.selectors";
 
 export type SelectAllAction = {
   actionName: string;
@@ -21,15 +29,41 @@ export default function SelectAllActionsComponent({
   props,
 }: IProps<SelectAllActionsComponentProps>): JSX.Element {
   const [checked, setChecked] = React.useState<boolean>(false);
+
   const { filterComponentStyle, selectAllConmponentStyles } =
     useComponentsStyles();
   const { t } = useTranslation();
+  const dispach = useAppDispatch();
+  const tableDataIds: EntityId[] = useAppSelector(invoiceSelectors.selectIds);
+  const selectionLength: number = useAppSelector(selectSelection).length;
+
+  React.useEffect(() => {
+    if (selectionLength === 0) {
+      setChecked(false);
+    }
+  }, [selectionLength]);
+
+  /**
+   *  Unmount
+   */
+  React.useEffect(
+    () => () => {
+      dispach(resetDataGridState());
+    },
+    []
+  );
+
+  const handleCheckClick = () => {
+    checked ? dispach(setSelection([])) : dispach(setSelection(tableDataIds));
+    setChecked(!checked);
+  };
+
   return (
     <div style={filterComponentStyle.wrapper}>
       <Button
         style={selectAllConmponentStyles.buttonStyles}
         variant="text"
-        onClick={() => setChecked(!checked)}
+        onClick={handleCheckClick}
       >
         <Checkbox
           style={selectAllConmponentStyles.checkbox}
@@ -42,7 +76,7 @@ export default function SelectAllActionsComponent({
           }}
         />
       </Button>
-      {checked && (
+      {selectionLength > 0 && (
         <div style={filterComponentStyle.checkedFiltersInner}>
           {props.actions.map((action, index) => {
             const Icon = action.actionIcon;
