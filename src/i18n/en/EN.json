@@ -41,5 +41,20 @@
     "sent": "Sent",
     "sending": "Sending",
     "cancelled": "Cancelled"
+  },
+  "TableColumns": {
+    "InvoiceNumber": "Document number",
+    "InvoiceType": "Document type",
+    "CirInvoiceId": "CIR ID",
+    "CirStatus": "CIR Status",
+    "Status": "Status",
+    "Receiver": "Client",
+    "TotalToPay": "Amount",
+    "InvoiceDateUtc": "Delivery date",
+    "InvoiceSentDateUtc": "Sent date",
+    "PaymentDateUtc": "Due Date",
+    "ReferenceNumber": "Reference number",
+    "ServiceProvider": "Document channel",
+    "ChannelAdress": "Document address"
   }
 }

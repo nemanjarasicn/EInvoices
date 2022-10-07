@@ -1,142 +1,34 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import {
-  DataGrid,
-  GridColDef,
-  GridValueGetterParams,
-  GridSelectionModel,
-} from "@mui/x-data-grid";
-
 import React from "react";
+import { DataGrid, GridColDef, GridSelectionModel } from "@mui/x-data-grid";
 import { useAppDispatch, useAppSelector } from "../../../../app/hooks";
 import { TemplatePageTypes } from "../../models/invoice.enums";
 import { InvoiceDto, IProps, TableData } from "../../models/invoice.models";
-import { getSalesInvoices } from "../../store/invoice.actions";
 import { invoiceSelectors } from "../../store/invoice.selectors";
-import { useComponentsStyles } from "../components.styles";
+import { useDataGridStyles } from "./dataGrid.styles";
 import { setSelection } from "./store/data-grid.reducer";
 import { selectSelection } from "./store/data-grid.selectors";
-import TableToolbar from "./TableToolbar";
+import TableToolbar, { TableToolbarProps } from "./TableToolbar";
+import { AsyncThunkAction } from "@reduxjs/toolkit";
 
 type TableComponentProps = {
-  headerNames?: string[];
+  columnsDef: GridColDef[];
+  toolbarProps: TableToolbarProps;
   pageType: TemplatePageTypes;
+  getDataAction: AsyncThunkAction<any, void, {}>;
 };
-// TODO Service for Config ////////////////////////////////////////
-const dateFormater = new Intl.DateTimeFormat("en-US", {
-  localeMatcher: "best fit",
-});
-const columns: GridColDef[] = [
-  {
-    field: "InvoiceNumber",
-    headerName: "InvoiceNumber",
-    flex: 1,
-    headerAlign: "center",
-    align: "center",
-  },
-  {
-    field: "InvoiceType",
-    headerName: "InvoiceType",
-    flex: 1,
-    headerAlign: "center",
-    align: "center",
-  },
-  {
-    field: "CirInvoiceId",
-    headerName: "CirInvoiceId",
-    flex: 1,
-    headerAlign: "center",
-    align: "center",
-  },
-  {
-    field: "CirStatus",
-    headerName: "CirStatus",
-    flex: 1,
-    headerAlign: "center",
-    align: "center",
-  },
-  {
-    field: "Status",
-    headerName: "Status",
-    flex: 1,
-    headerAlign: "center",
-    align: "center",
-  },
-  {
-    field: "Receiver",
-    headerName: "Receiver",
-    flex: 1,
-    headerAlign: "center",
-    align: "center",
-  },
-  {
-    field: "TotalToPay",
-    headerName: "TotalToPay",
-    flex: 1,
-    headerAlign: "center",
-    align: "center",
-  },
-  {
-    field: "InvoiceDateUtc",
-    headerName: "InvoiceDateUtc",
-    flex: 1,
-    valueGetter: (params: GridValueGetterParams) =>
-      dateFormater.format(params.row.InvoiceDateUtc),
-    headerAlign: "center",
-    align: "center",
-  },
-  {
-    field: "InvoiceSentDateUtc",
-    headerName: "InvoiceSentDateUtc",
-    flex: 1,
-    valueGetter: (params: GridValueGetterParams) =>
-      dateFormater.format(params.row.InvoiceSentDateUtc),
-    headerAlign: "center",
-    align: "center",
-  },
-  {
-    field: "PaymentDateUtc",
-    headerName: "PaymentDateUtc",
-    flex: 1,
-    valueGetter: (params: GridValueGetterParams) =>
-      dateFormater.format(params.row.PaymentDateUtc),
-    headerAlign: "center",
-    align: "center",
-  },
-  {
-    field: "ReferenceNumber",
-    headerName: "ReferenceNumber",
-    flex: 1,
-    headerAlign: "center",
-    align: "center",
-  },
-  {
-    field: "ServiceProvider",
-    headerName: "ServiceProvider",
-    flex: 1,
-    headerAlign: "center",
-    align: "center",
-  },
-  {
-    field: "ChannelAdress",
-    headerName: "ChannelAdress",
-    flex: 1,
-    headerAlign: "center",
-    align: "center",
-  },
-];
-//////////////////////////////////////////////////////////////////////////
 
 export default function TableComponent({
   props,
 }: IProps<TableComponentProps>): JSX.Element {
   const dispatch = useAppDispatch();
-  const { tableComponentStyles } = useComponentsStyles();
-
+  const getDataAction = props.getDataAction;
+  const { tableComponentStyles } = useDataGridStyles();
   // TODO
   // const [pageSize, setPageSize] = React.useState<number>(5);
 
   React.useEffect(() => {
-    dispatch(getSalesInvoices());
+    dispatch(getDataAction);
   }, []);
 
   const tableData: TableData<InvoiceDto>[] = useAppSelector(
@@ -156,8 +48,9 @@ export default function TableComponent({
         showCellRightBorder={true}
         localeText={{ toolbarColumns: "" }}
         rows={tableData}
-        columns={columns}
+        columns={props.columnsDef}
         autoHeight={true}
+        density="compact"
         // pageSize={pageSize}
         // rowsPerPageOptions={[5, 10, 15]}
         // onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
@@ -166,12 +59,7 @@ export default function TableComponent({
         }}
         componentsProps={{
           toolbar: {
-            props: {
-              showFilters: false,
-              showDensity: false,
-              showHideColumns: true,
-              showExport: false,
-            },
+            props: props.toolbarProps,
           },
           panel: {
             placement: "bottom-end",

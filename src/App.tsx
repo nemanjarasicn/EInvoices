@@ -20,7 +20,14 @@ function App() {
     <ThemeProvider theme={theme}>
       <Routes>
         <Route path="/" element={<Layout />}>
-          <Route index element={<div>HOME PAGE BACKOFFICE</div>} />
+          <Route
+            index
+            element={
+              <div style={{ maxWidth: "500px" }}>
+                <img alt="x" src="/logopetcom.svg"></img>
+              </div>
+            }
+          />
           {invoicesRoutes()}
           <Route path="*" element={<Navigate to="/" />} />
         </Route>

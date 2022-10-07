@@ -41,5 +41,20 @@
     "sent": "Poslato",
     "sending": "Slanje",
     "cancelled": "Otkazana"
+  },
+  "TableColumns": {
+    "InvoiceNumber": "Broj dokumenta",
+    "InvoiceType": "Tip dokumenta",
+    "CirInvoiceId": "CRF identifikator",
+    "CirStatus": "CRF status",
+    "Status": "Status",
+    "Receiver": "Klijent",
+    "TotalToPay": "Iznos",
+    "InvoiceDateUtc": "Datum prometa",
+    "InvoiceSentDateUtc": "Datum slanja",
+    "PaymentDateUtc": "Datum dospeca",
+    "ReferenceNumber": "Poziv na broj",
+    "ServiceProvider": "Kanal slanja dokumenta",
+    "ChannelAdress": "Adresa slanja dokumenta"
   }
 }

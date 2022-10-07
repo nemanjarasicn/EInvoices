@@ -7,7 +7,6 @@ const useComponentsStyles = (): {
   filersToolbarStyles: any;
   filterComponentStyle: any;
   selectAllConmponentStyles: any;
-  tableComponentStyles: any;
 } => {
   return {
     invoiceCardStyles: {
@@ -133,19 +132,6 @@ const useComponentsStyles = (): {
         marginLeft: "10px",
       },
       checkbox: { padding: 0, margin: 0 },
-    },
-    tableComponentStyles: {
-      wrapper: {
-        maxHeight: 800,
-        width: "100%",
-      },
-      dataGrid: {
-        // until MUI add prop disableSelectAllCheckbox
-        "& .MuiDataGrid-columnHeaderCheckbox .MuiDataGrid-columnHeaderTitleContainer":
-          {
-            display: "none",
-          },
-      },
     },
   };
 };

@@ -170,7 +170,10 @@ export default function ClippedDrawer() {
           ))}
         </List>
       </Drawer>
-      <Box component="main" sx={{ flexGrow: 1, p: 1, paddingLeft: "90px" }}>
+      <Box
+        component="main"
+        sx={{ flexGrow: 1, paddingLeft: "85px", paddingRight: "20px" }}
+      >
         <Toolbar />
         <Outlet />
       </Box>

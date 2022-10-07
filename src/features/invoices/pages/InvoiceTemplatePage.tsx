@@ -11,7 +11,7 @@ import { usePageStyles } from "./pages.styles";
 import FiltersToolbarComponent from "../components/FiltersToolbarComponent";
 import { IProps } from "../models/invoice.models";
 import TableComponent from "../components/DataGrid/TableComponent";
-import { getSalesInvoices } from "../store/invoice.actions";
+import { useTableSettings } from "../components/DataGrid/table.settings";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -31,6 +31,7 @@ export default function InvoiceTemplatePage({
 }: IProps<InvoiceTemplatePageProps>): JSX.Element {
   const { t } = useTranslation();
   const { templatePageSettings } = useFeatureSettings();
+  const { tableSettings } = useTableSettings();
   const { templatePageStyles } = usePageStyles();
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -61,6 +62,12 @@ export default function InvoiceTemplatePage({
               <TableComponent
                 props={{
                   pageType: props.templateType,
+                  columnsDef:
+                    tableSettings[props.templateType].dataGrid.columns,
+                  toolbarProps:
+                    tableSettings[props.templateType].dataGrid.toolbarProps,
+                  getDataAction:
+                    tableSettings[props.templateType].dataGrid.getDataAction,
                 }}
               />
             </div>

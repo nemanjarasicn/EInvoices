@@ -1,8 +1,9 @@
-import { Button, Checkbox, IconButton, SvgIconTypeMap } from "@mui/material";
+/* eslint-disable react-hooks/exhaustive-deps */
 import React from "react";
+import { Button, Checkbox, IconButton, SvgIconTypeMap } from "@mui/material";
+import { OverridableComponent } from "@mui/material/OverridableComponent";
 import { IProps } from "../models/invoice.models";
 import { useComponentsStyles } from "./components.styles";
-import { OverridableComponent } from "@mui/material/OverridableComponent";
 import { useTranslation } from "react-i18next";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import { invoiceSelectors } from "../store/invoice.selectors";

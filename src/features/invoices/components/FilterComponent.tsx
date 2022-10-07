@@ -17,7 +17,6 @@ import PopupState, { bindToggle, bindPopper } from "material-ui-popup-state";
 import { useComponentsStyles } from "./components.styles";
 import CancelRoundedIcon from "@mui/icons-material/CancelRounded";
 import { useTranslation } from "react-i18next";
-import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";
 import { IProps } from "../models/invoice.models";
 
 export type FilterComponentProps = {
@@ -205,7 +204,7 @@ export default function FilterComponent({
                     `${t(props.transformedTitle)}`
                   ) : (
                     <span style={filterComponentStyle.iconButtonStyles}>
-                      <CheckBoxOutlineBlankIcon fontSize="small" />
+                      {/* <CheckBoxOutlineBlankIcon fontSize="small" /> */}
                       {t(props.filterTitle)}
                     </span>
                   )}

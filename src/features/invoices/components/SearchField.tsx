@@ -16,10 +16,10 @@ type SearchFieldProps = {};
 export default function SearchField({}: SearchFieldProps): JSX.Element {
   const [value, setValue] = useState("searchValue");
 
-const textInput = React.useRef({value: ""});
+  const textInput = React.useRef({ value: "" });
 
   const handleChange = () => (event: React.ChangeEvent<HTMLInputElement>) => {};
-  
+
   const location = useLocation();
 
   function getSearhTab(): any {
@@ -32,8 +32,7 @@ const textInput = React.useRef({value: ""});
     return "";
   }
 
-  const search = () => () => {
-  };
+  const search = () => () => {};
 
   function getCheckbox(): any {
     if (getSearhTab() !== "") {
@@ -49,47 +48,45 @@ const textInput = React.useRef({value: ""});
   }
 
   return (
-    <div>
-      <div style={{ textAlign: "center", margin: "10px" }}>
-        <FormControl
-          sx={{
-            m: 1,
-            width: "100%",
-            borderColor: "#dedede",
-            borderBlockColor: "#dedede",
-            borderWidth: 0,
+    <div style={{ textAlign: "center", margin: "10px" }}>
+      <FormControl
+        sx={{
+          m: 1,
+          width: "100%",
+          borderColor: "#dedede",
+          borderBlockColor: "#dedede",
+          borderWidth: 0,
+        }}
+      >
+        <OutlinedInput
+          id="outlined-adornment-search"
+          placeholder="Pretraga dokumenata"
+          onChange={(newValue) => {
+            setValue(newValue.target.value);
           }}
-        >
-          <OutlinedInput
-            id="outlined-adornment-search"
-            placeholder="Pretraga dokumenata"
-            onChange={(newValue) => {
-              setValue(newValue.target.value);
-            }}
-            inputRef={textInput}
-            endAdornment={
-              <InputAdornment
-                position="end"
-                style={{ fontSize: "12px", color: "#dedede" }}
+          inputRef={textInput}
+          endAdornment={
+            <InputAdornment
+              position="end"
+              style={{ fontSize: "12px", color: "#dedede" }}
+            >
+              {getCheckbox()}
+              {getSearhTab()}
+              <IconButton onClick={search()}>
+                <SearchIcon sx={{ color: "#787993" }} />
+              </IconButton>
+              <IconButton
+                onClick={() => {
+                  setValue("");
+                  textInput.current.value = "";
+                }}
               >
-                {getCheckbox()}
-                {getSearhTab()}
-                <IconButton onClick={search()}>
-                  <SearchIcon sx={{ color: "#787993" }} />
-                </IconButton>
-                <IconButton
-                  onClick={() => {
-                    setValue('');
-                    textInput.current.value = '';
-                  }}
-                >
-                  <CloseIcon sx={{ color: "#787993" }} />
-                </IconButton>
-              </InputAdornment>
-            }
-          />
-        </FormControl>
-      </div>
+                <CloseIcon sx={{ color: "#787993" }} />
+              </IconButton>
+            </InputAdornment>
+          }
+        />
+      </FormControl>
     </div>
   );
 }

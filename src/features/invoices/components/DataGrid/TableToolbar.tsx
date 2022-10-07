@@ -10,7 +10,7 @@ import SettingsSharpIcon from "@mui/icons-material/SettingsSharp";
 import { IProps } from "../../models/invoice.models";
 import { useDataGridStyles } from "./dataGrid.styles";
 
-type TableToolbarProps = {
+export type TableToolbarProps = {
   showHideColumns: boolean;
   showFilters: boolean;
   showDensity: boolean;
