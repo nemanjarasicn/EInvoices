@@ -60,15 +60,7 @@ export default function InvoiceTemplatePage({
           {templatePageSettings[props.templateType].showTable && (
             <div style={templatePageStyles.tableWrapper}>
               <TableComponent
-                props={{
-                  pageType: props.templateType,
-                  columnsDef:
-                    tableSettings[props.templateType].dataGrid.columns,
-                  toolbarProps:
-                    tableSettings[props.templateType].dataGrid.toolbarProps,
-                  getDataAction:
-                    tableSettings[props.templateType].dataGrid.getDataAction,
-                }}
+                props={tableSettings[props.templateType].dataGrid}
               />
             </div>
           )}

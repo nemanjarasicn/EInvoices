@@ -1,12 +1,10 @@
-import { GridColDef, GridValueGetterParams } from "@mui/x-data-grid";
-import { AsyncThunkAction } from "@reduxjs/toolkit";
-import { useTranslation } from "react-i18next";
+import { GridValueGetterParams } from "@mui/x-data-grid";
 import { HeaderSettingsTypes } from "../../models/invoice.enums";
 import {
   getPurchaseInvoices,
   getSalesInvoices,
 } from "../../store/invoice.actions";
-import { TableToolbarProps } from "./TableToolbar";
+import { TableComponentProps } from "./TableComponent";
 
 const dateFormater = new Intl.DateTimeFormat("en-US", {
   localeMatcher: "best fit",
@@ -15,11 +13,7 @@ const dateFormater = new Intl.DateTimeFormat("en-US", {
 type TableSettings = {
   tableSettings: {
     [key in HeaderSettingsTypes]: {
-      dataGrid: {
-        columns: GridColDef[];
-        toolbarProps: TableToolbarProps;
-        getDataAction: AsyncThunkAction<any, void, {}>;
-      };
+      dataGrid: TableComponentProps;
     };
   };
 };
@@ -28,15 +22,14 @@ type TableSettings = {
  * @returns {TableSettings}
  */
 const useTableSettings = (): TableSettings => {
-  const { t } = useTranslation();
   return {
     tableSettings: {
       [HeaderSettingsTypes.SALES]: {
         dataGrid: {
-          columns: [
+          columnsDef: [
             {
               field: "InvoiceNumber",
-              headerName: t("TableColumns.InvoiceNumber"),
+              headerName: "TableColumns.InvoiceNumber",
               flex: 1,
               headerAlign: "center",
               align: "center",
@@ -44,7 +37,7 @@ const useTableSettings = (): TableSettings => {
             },
             {
               field: "InvoiceType",
-              headerName: t("TableColumns.InvoiceType"),
+              headerName: "TableColumns.InvoiceType",
               flex: 1,
               headerAlign: "center",
               align: "center",
@@ -52,7 +45,7 @@ const useTableSettings = (): TableSettings => {
             },
             {
               field: "CirInvoiceId",
-              headerName: t("TableColumns.CirInvoiceId"),
+              headerName: "TableColumns.CirInvoiceId",
               flex: 1,
               headerAlign: "center",
               align: "center",
@@ -60,7 +53,7 @@ const useTableSettings = (): TableSettings => {
             },
             {
               field: "CirStatus",
-              headerName: t("TableColumns.CirStatus"),
+              headerName: "TableColumns.CirStatus",
               flex: 1,
               headerAlign: "center",
               align: "center",
@@ -68,7 +61,7 @@ const useTableSettings = (): TableSettings => {
             },
             {
               field: "Status",
-              headerName: t("TableColumns.Status"),
+              headerName: "TableColumns.Status",
               flex: 1,
               headerAlign: "center",
               align: "center",
@@ -76,7 +69,7 @@ const useTableSettings = (): TableSettings => {
             },
             {
               field: "Receiver",
-              headerName: t("TableColumns.Receiver"),
+              headerName: "TableColumns.Receiver",
               flex: 1,
               headerAlign: "center",
               align: "center",
@@ -84,7 +77,7 @@ const useTableSettings = (): TableSettings => {
             },
             {
               field: "TotalToPay",
-              headerName: t("TableColumns.TotalToPay"),
+              headerName: "TableColumns.TotalToPay",
               flex: 1,
               headerAlign: "center",
               align: "center",
@@ -92,7 +85,7 @@ const useTableSettings = (): TableSettings => {
             },
             {
               field: "InvoiceDateUtc",
-              headerName: t("TableColumns.InvoiceDateUtc"),
+              headerName: "TableColumns.InvoiceDateUtc",
               flex: 1,
               valueGetter: (params: GridValueGetterParams) =>
                 dateFormater.format(params.row.InvoiceDateUtc),
@@ -103,7 +96,7 @@ const useTableSettings = (): TableSettings => {
             },
             {
               field: "InvoiceSentDateUtc",
-              headerName: t("TableColumns.InvoiceSentDateUtc"),
+              headerName: "TableColumns.InvoiceSentDateUtc",
               flex: 1,
               valueGetter: (params: GridValueGetterParams) =>
                 dateFormater.format(params.row.InvoiceSentDateUtc),
@@ -113,7 +106,7 @@ const useTableSettings = (): TableSettings => {
             },
             {
               field: "PaymentDateUtc",
-              headerName: t("TableColumns.PaymentDateUtc"),
+              headerName: "TableColumns.PaymentDateUtc",
               flex: 1,
               valueGetter: (params: GridValueGetterParams) =>
                 dateFormater.format(params.row.PaymentDateUtc),
@@ -124,7 +117,7 @@ const useTableSettings = (): TableSettings => {
             },
             {
               field: "ReferenceNumber",
-              headerName: t("TableColumns.ReferenceNumber"),
+              headerName: "TableColumns.ReferenceNumber",
               flex: 1,
               headerAlign: "center",
               align: "center",
@@ -133,7 +126,7 @@ const useTableSettings = (): TableSettings => {
             },
             {
               field: "ServiceProvider",
-              headerName: t("TableColumns.ServiceProvider"),
+              headerName: "TableColumns.ServiceProvider",
               flex: 1,
               headerAlign: "center",
               align: "center",
@@ -142,7 +135,7 @@ const useTableSettings = (): TableSettings => {
             },
             {
               field: "ChannelAdress",
-              headerName: t("TableColumns.ChannelAdress"),
+              headerName: "TableColumns.ChannelAdress",
               flex: 1,
               headerAlign: "center",
               align: "center",
@@ -157,11 +150,113 @@ const useTableSettings = (): TableSettings => {
             showExport: false,
           },
           getDataAction: getSalesInvoices(),
+          footerProps: {
+            countTxt: "Table.FooterCountTxt",
+            totalAmountTxt: "Table.FooterTotalAmountTxt",
+          },
         },
       },
       [HeaderSettingsTypes.PURCHASES]: {
         dataGrid: {
-          columns: [],
+          columnsDef: [
+            {
+              field: "InvoiceNumber",
+              headerName: "TableColumns.InvoiceNumber",
+              flex: 1,
+              headerAlign: "center",
+              align: "center",
+              hideable: false,
+            },
+            {
+              field: "InvoiceType",
+              headerName: "TableColumns.InvoiceType",
+              flex: 1,
+              headerAlign: "center",
+              align: "center",
+              hideable: false,
+            },
+            {
+              field: "CirInvoiceId",
+              headerName: "TableColumns.CirInvoiceId",
+              flex: 1,
+              headerAlign: "center",
+              align: "center",
+              hideable: false,
+            },
+            {
+              field: "CirStatus",
+              headerName: "TableColumns.CirStatus",
+              flex: 1,
+              headerAlign: "center",
+              align: "center",
+              hideable: false,
+            },
+            {
+              field: "Status",
+              headerName: "TableColumns.Status",
+              flex: 1,
+              headerAlign: "center",
+              align: "center",
+              hideable: true,
+            },
+            {
+              field: "Supplier",
+              headerName: "TableColumns.Supplier",
+              flex: 1,
+              headerAlign: "center",
+              align: "center",
+              hideable: false,
+            },
+            {
+              field: "TotalToPay",
+              headerName: "TableColumns.TotalToPay",
+              flex: 1,
+              headerAlign: "center",
+              align: "center",
+              hideable: false,
+            },
+            {
+              field: "InvoiceDateUtc",
+              headerName: "TableColumns.InvoiceDateUtc",
+              flex: 1,
+              valueGetter: (params: GridValueGetterParams) =>
+                dateFormater.format(params.row.InvoiceDateUtc),
+              headerAlign: "center",
+              align: "center",
+              hideable: true,
+              hide: false,
+            },
+            {
+              field: "InvoiceSentDateUtc",
+              headerName: "TableColumns.InvoiceSentDateUtc",
+              flex: 1,
+              valueGetter: (params: GridValueGetterParams) =>
+                dateFormater.format(params.row.InvoiceSentDateUtc),
+              headerAlign: "center",
+              align: "center",
+              hideable: false,
+            },
+            {
+              field: "PaymentDateUtc",
+              headerName: "TableColumns.PaymentDateUtc",
+              flex: 1,
+              valueGetter: (params: GridValueGetterParams) =>
+                dateFormater.format(params.row.PaymentDateUtc),
+              headerAlign: "center",
+              align: "center",
+              hideable: true,
+              hide: true,
+            },
+            {
+              field: "ReferenceNumber",
+              headerName: "TableColumns.ReferenceNumber",
+              flex: 1,
+              headerAlign: "center",
+              align: "center",
+              hideable: true,
+              hide: true,
+            },
+          ],
           toolbarProps: {
             showFilters: false,
             showDensity: false,
@@ -169,6 +264,10 @@ const useTableSettings = (): TableSettings => {
             showExport: false,
           },
           getDataAction: getPurchaseInvoices(),
+          footerProps: {
+            countTxt: "Table.FooterCountTxt",
+            totalAmountTxt: "Table.FooterTotalAmountTxt",
+          },
         },
       },
     },

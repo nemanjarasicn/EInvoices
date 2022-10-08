@@ -57,6 +57,7 @@ function invoicesRoutes(): React.ReactNode {
             // TODO LOADER
             <React.Suspense fallback={<>...</>}>
               <InvoiceTemplatePage
+                key={`key_${TemplatePageTypes.SALES}.id`}
                 props={{ templateType: TemplatePageTypes.SALES }}
               />
             </React.Suspense>
@@ -68,6 +69,7 @@ function invoicesRoutes(): React.ReactNode {
             // TODO LOADER
             <React.Suspense fallback={<>...</>}>
               <InvoiceTemplatePage
+                key={`key_${TemplatePageTypes.PURCHASES}.id`}
                 props={{ templateType: TemplatePageTypes.PURCHASES }}
               />
             </React.Suspense>

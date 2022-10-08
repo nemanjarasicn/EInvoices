@@ -1,8 +1,7 @@
 /**
  * Generic for Table Data
  */
-type TypeTableData<T> = { id: number };
-export interface TableData<T> extends TypeTableData<T> {}
+export type TableData<T> = { id: number } & T;
 
 /**
  * Generic for Components Props
@@ -22,6 +21,7 @@ export interface InvoiceDto {
   Status: string | null; // Status
   Receiver: string | null; // Client
   TotalToPay: string | number | null; //Amount
+  Supplier: string | number | null; // Supplier
   // DATUMI PROVERIT
   InvoiceDateUtc: number | string | null; // Delivery date
   InvoiceSentDateUtc: number | string | null; //Sent date

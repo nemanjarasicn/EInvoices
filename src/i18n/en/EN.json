@@ -55,6 +55,12 @@
     "PaymentDateUtc": "Due Date",
     "ReferenceNumber": "Reference number",
     "ServiceProvider": "Document channel",
-    "ChannelAdress": "Document address"
+    "ChannelAdress": "Document address",
+    "Supplier": "Supplier"
+  },
+  "Table": {
+    "NoRows": "There is no data to show.",
+    "FooterCountTxt": "Selected rows",
+    "FooterTotalAmountTxt": "Total sum"
   }
 }

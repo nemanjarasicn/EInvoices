@@ -55,6 +55,12 @@
     "PaymentDateUtc": "Datum dospeca",
     "ReferenceNumber": "Poziv na broj",
     "ServiceProvider": "Kanal slanja dokumenta",
-    "ChannelAdress": "Adresa slanja dokumenta"
+    "ChannelAdress": "Adresa slanja dokumenta",
+    "Supplier": "Dobavljač"
+  },
+  "Table": {
+    "NoRows": "Nema podataka za prikaz.",
+    "FooterCountTxt": "Odabrani redovi",
+    "FooterTotalAmountTxt": "Ukupan iznos"
   }
 }

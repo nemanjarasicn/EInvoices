@@ -126,9 +126,52 @@ const useFeatureSettings = (): FeatureSettings => {
         title: "InvoiceCard.cardTitlePurchases",
         showBtns: false,
         buttons: [],
-        filters: [],
-        actions: [],
-        showTable: false,
+        filters: [
+          {
+            transformedTitle: "FilterComponent.defaultAll",
+            filterTitle: "FilterComponent.registeredInCIR",
+            multiOption: true,
+            type: "solo",
+            filterItems: [],
+          },
+          {
+            transformedTitle: "FilterComponent.defaultAll",
+            filterTitle: "FilterComponent.allDocumentTypes",
+            multiOption: false,
+            type: "multi",
+            filterItems: [
+              { index: 0, name: "InvoiceTypes.debitInvoice" },
+              { index: 1, name: "InvoiceTypes.creditNote" },
+              { index: 2, name: "InvoiceTypes.debitNote" },
+              { index: 3, name: "InvoiceTypes.prepayment" },
+            ],
+          },
+          {
+            transformedTitle: "FilterComponent.defaultAll",
+            filterTitle: "FilterComponent.allStatuses",
+            multiOption: false,
+            type: "multi",
+            filterItems: [
+              { index: 0, name: "InvoiceStatuses.draft" },
+              { index: 1, name: "InvoiceStatuses.sent" },
+              { index: 2, name: "InvoiceStatuses.sending" },
+              { index: 3, name: "InvoiceStatuses.cancelled" },
+            ],
+          },
+        ],
+        actions: [
+          {
+            actionIcon: DeleteForeverIcon,
+            actionName: "Common.delete",
+            actionFn: () => console.log("ACTION FN DELETE"),
+          },
+          {
+            actionIcon: DownloadIcon,
+            actionName: "Common.download",
+            actionFn: () => console.log("ACTION FN DOWNLOAD"),
+          },
+        ],
+        showTable: true,
       },
     },
   };

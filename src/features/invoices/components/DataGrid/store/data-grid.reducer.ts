@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, Slice } from "@reduxjs/toolkit";
 import { GridSelectionModel } from "@mui/x-data-grid";
 
 const DATA_GRID_KEY: string = "data-grid";
@@ -11,7 +11,7 @@ const initialState: DataGridState = {
   selection: [],
 };
 
-const dataGridSlice = createSlice({
+const dataGridSlice: Slice<DataGridState> = createSlice({
   name: DATA_GRID_KEY,
   initialState,
   reducers: {

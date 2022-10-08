@@ -2,7 +2,6 @@
 import React from "react";
 import { DataGrid, GridColDef, GridSelectionModel } from "@mui/x-data-grid";
 import { useAppDispatch, useAppSelector } from "../../../../app/hooks";
-import { TemplatePageTypes } from "../../models/invoice.enums";
 import { InvoiceDto, IProps, TableData } from "../../models/invoice.models";
 import { invoiceSelectors } from "../../store/invoice.selectors";
 import { useDataGridStyles } from "./dataGrid.styles";
@@ -10,17 +9,22 @@ import { setSelection } from "./store/data-grid.reducer";
 import { selectSelection } from "./store/data-grid.selectors";
 import TableToolbar, { TableToolbarProps } from "./TableToolbar";
 import { AsyncThunkAction } from "@reduxjs/toolkit";
+import TableNoRowsOverlay from "./NoRowsOverlay";
+import { useTranslation } from "react-i18next";
+import TablePagination from "./TablePagination";
+import { getTotalAmount } from "./util";
 
-type TableComponentProps = {
+export type TableComponentProps = {
   columnsDef: GridColDef[];
   toolbarProps: TableToolbarProps;
-  pageType: TemplatePageTypes;
   getDataAction: AsyncThunkAction<any, void, {}>;
+  footerProps: any;
 };
 
 export default function TableComponent({
   props,
 }: IProps<TableComponentProps>): JSX.Element {
+  const { t } = useTranslation();
   const dispatch = useAppDispatch();
   const getDataAction = props.getDataAction;
   const { tableComponentStyles } = useDataGridStyles();
@@ -38,24 +42,40 @@ export default function TableComponent({
     id: row.InvoiceId,
   }));
 
-  const selectionModel: GridSelectionModel = useAppSelector(selectSelection);
+  const selection: GridSelectionModel = useAppSelector(selectSelection);
 
   return (
     <div style={tableComponentStyles.wrapper}>
       <DataGrid
+        style={{ minHeight: tableData.length ? undefined : 400 }}
         disableColumnMenu
+        pagination
         disableColumnFilter
         showCellRightBorder={true}
-        localeText={{ toolbarColumns: "" }}
-        rows={tableData}
-        columns={props.columnsDef}
+        localeText={{
+          toolbarColumns: "",
+          footerRowSelected: (count) => `
+          ${t(props.footerProps.countTxt)} :
+          ${count} ${t(props.footerProps.totalAmountTxt)} : ${getTotalAmount(
+            tableData,
+            selection
+          )}`,
+        }}
+        rows={[...tableData]}
+        columns={props.columnsDef.map((item) => ({
+          ...item,
+          headerName: t(`${item.headerName}`),
+        }))}
         autoHeight={true}
         density="compact"
+        pageSize={10}
         // pageSize={pageSize}
         // rowsPerPageOptions={[5, 10, 15]}
         // onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
         components={{
           Toolbar: TableToolbar,
+          NoRowsOverlay: TableNoRowsOverlay,
+          Pagination: TablePagination,
         }}
         componentsProps={{
           toolbar: {
@@ -63,6 +83,14 @@ export default function TableComponent({
           },
           panel: {
             placement: "bottom-end",
+            sx: {
+              [`& .MuiDataGrid-columnsPanel > div:first-of-type`]: {
+                display: "none",
+              },
+            },
+          },
+          noRowsOverlay: {
+            props: { message: "Table.NoRows" },
           },
         }}
         sx={tableComponentStyles.dataGrid}
@@ -70,7 +98,7 @@ export default function TableComponent({
         onSelectionModelChange={(newSelectionModel) => {
           dispatch(setSelection(newSelectionModel));
         }}
-        selectionModel={selectionModel}
+        selectionModel={selection}
       />
     </div>
   );

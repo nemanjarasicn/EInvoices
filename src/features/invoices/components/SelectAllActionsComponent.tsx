@@ -49,7 +49,7 @@ export default function SelectAllActionsComponent({
    */
   React.useEffect(
     () => () => {
-      dispach(resetDataGridState());
+      dispach(resetDataGridState({}));
     },
     []
   );
