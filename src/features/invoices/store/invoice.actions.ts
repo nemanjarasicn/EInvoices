@@ -1,18 +1,44 @@
-import { createAsyncThunk } from "@reduxjs/toolkit";
+import { AsyncThunk, createAsyncThunk } from "@reduxjs/toolkit";
 import InvoicePublicService from "../services/invoice.service";
 /**
  * Async Custom Actions
  */
 const getSalesInvoices = createAsyncThunk("GET/SalesInvoices", async () => {
-  const response = await InvoicePublicService.getInvoicesSales();
-  return response.data.Invoices;
+  return await InvoicePublicService.getInvoicesSales()
+    .then((res) => res.data.Invoices)
+    .catch((err) => []);
 });
 
-const getPurchaseInvoices = createAsyncThunk(
+const getPurchaseInvoices: AsyncThunk<any, void, {}> = createAsyncThunk(
   "GET/PurchaseInvoices",
   async () => {
-    const response = await InvoicePublicService.getInvoicesPurchase();
-    return response.data.Invoices;
+    return await InvoicePublicService.getInvoicesPurchase()
+      .then((res) => res.data.Invoices)
+      .catch((err) => []);
   }
 );
-export { getSalesInvoices, getPurchaseInvoices };
+
+const getAllUnitMesures: AsyncThunk<any, void, {}> = createAsyncThunk(
+  "GET/Units",
+  async () => {
+    return await InvoicePublicService.getAllUnitMesures()
+      .then((res) => res.data)
+      .catch((err) => []);
+  }
+);
+
+const getAllCompanies: AsyncThunk<any, void, {}> = createAsyncThunk(
+  "GET/Companies",
+  async () => {
+    return await InvoicePublicService.getAllCompanies()
+      .then((res) => res.data)
+      .catch((err) => []);
+  }
+);
+
+export {
+  getSalesInvoices,
+  getPurchaseInvoices,
+  getAllUnitMesures,
+  getAllCompanies,
+};

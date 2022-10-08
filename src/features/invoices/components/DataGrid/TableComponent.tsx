@@ -3,7 +3,7 @@ import React from "react";
 import { DataGrid, GridColDef, GridSelectionModel } from "@mui/x-data-grid";
 import { useAppDispatch, useAppSelector } from "../../../../app/hooks";
 import { InvoiceDto, IProps, TableData } from "../../models/invoice.models";
-import { invoiceSelectors } from "../../store/invoice.selectors";
+import { entitySelector } from "../../store/invoice.selectors";
 import { useDataGridStyles } from "./dataGrid.styles";
 import { setSelection } from "./store/data-grid.reducer";
 import { selectSelection } from "./store/data-grid.selectors";
@@ -36,7 +36,7 @@ export default function TableComponent({
   }, []);
 
   const tableData: TableData<InvoiceDto>[] = useAppSelector(
-    invoiceSelectors.selectAll
+    entitySelector.selectAll
   ).map((row: InvoiceDto) => ({
     ...row,
     id: row.InvoiceId,

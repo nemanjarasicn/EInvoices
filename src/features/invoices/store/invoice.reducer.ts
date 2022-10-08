@@ -1,12 +1,19 @@
 import {
+  ActionReducerMapBuilder,
   createEntityAdapter,
   createSlice,
   EntityAdapter,
   EntityState,
   Slice,
 } from "@reduxjs/toolkit";
+import { ok } from "assert";
 import { InvoiceDto } from "../models/invoice.models";
-import { getPurchaseInvoices, getSalesInvoices } from "./invoice.actions";
+import {
+  getAllCompanies,
+  getAllUnitMesures,
+  getPurchaseInvoices,
+  getSalesInvoices,
+} from "./invoice.actions";
 
 const FEATURE_INVOICES_KEY: string = "invoices";
 
@@ -15,31 +22,33 @@ export const invoiceAdapter: EntityAdapter<InvoiceDto> =
     selectId: (invoice) => invoice.InvoiceId,
     // sortComparer: (a, b) => a.id.localeCompare(b.id),
   });
+export interface FeatureState extends EntityState<InvoiceDto> {
+  unitMesures: any[];
+  companies: any[];
+  loading: boolean;
+}
+const initialState: FeatureState = {
+  ...invoiceAdapter.getInitialState(),
+  unitMesures: [],
+  loading: false,
+  companies: [],
+};
 
-const invoicesSlice: Slice<EntityState<InvoiceDto>> = createSlice({
+const invoicesSlice: Slice<FeatureState> = createSlice({
   name: FEATURE_INVOICES_KEY,
-  initialState: invoiceAdapter.getInitialState(),
+  initialState: initialState,
   reducers: {
     setAllInvoices: invoiceAdapter.setAll,
     setManyInvoices: invoiceAdapter.addMany,
     updateOneInvoice: invoiceAdapter.updateOne,
     addOneInvoice: invoiceAdapter.addOne,
     //custom
-    clearCache: () => invoiceAdapter.getInitialState(),
+    clearCache: () => initialState,
   },
   extraReducers: (builder) => {
-    builder.addCase(
-      getSalesInvoices.fulfilled,
-      (state, { payload }) => (
-        invoiceAdapter.removeAll(state), invoiceAdapter.addMany(state, payload)
-      )
-    );
-    builder.addCase(
-      getPurchaseInvoices.fulfilled,
-      (state, { payload }) => (
-        invoiceAdapter.removeAll(state), invoiceAdapter.addMany(state, payload)
-      )
-    );
+    getAsyncInvoices(builder);
+    getAsyncUnitMesures(builder);
+    getAsyncCompanies(builder);
   },
 });
 
@@ -47,6 +56,59 @@ export const { updateOneInvoice, clearCache, setManyInvoices, addOneInvoice } =
   invoicesSlice.actions;
 export default invoicesSlice.reducer;
 
+/**
+ * Handle async action GET UNIT MESURES
+ * @param builder ActionReducerMapBuilder
+ */
+function getAsyncUnitMesures(builder: ActionReducerMapBuilder<FeatureState>) {
+  builder.addCase(getAllUnitMesures.fulfilled, (state, { payload }) => ({
+    ...state,
+    unitMesures: payload,
+    loading: false,
+  }));
+  builder.addCase(getAllUnitMesures.pending, (state) => ({
+    ...state,
+    loading: true,
+  }));
+  builder.addCase(getAllUnitMesures.rejected, (state) => ({
+    ...state,
+    loading: false,
+    unitMesures: [],
+  }));
+}
+
+function getAsyncInvoices(builder: ActionReducerMapBuilder<FeatureState>) {
+  builder.addCase(
+    getSalesInvoices.fulfilled,
+    (state, { payload }) => (
+      invoiceAdapter.removeAll(state), invoiceAdapter.addMany(state, payload)
+    )
+  );
+
+  builder.addCase(
+    getPurchaseInvoices.fulfilled,
+    (state, { payload }) => (
+      invoiceAdapter.removeAll(state), invoiceAdapter.addMany(state, payload)
+    )
+  );
+}
+
+function getAsyncCompanies(builder: ActionReducerMapBuilder<FeatureState>) {
+  builder.addCase(getAllCompanies.fulfilled, (state, { payload }) => ({
+    ...state,
+    companies: payload,
+    loading: false,
+  }));
+  builder.addCase(getAllCompanies.pending, (state) => ({
+    ...state,
+    loading: true,
+  }));
+  builder.addCase(getAllCompanies.rejected, (state) => ({
+    ...state,
+    loading: false,
+    companies: [],
+  }));
+}
 // addOne: accepts a single entity, and adds it if it's not already present.
 // addMany: accepts an array of entities or an object in the shape of Record<EntityId, T>, and adds them if not already present.
 // setOne: accepts a single entity and adds or replaces it.

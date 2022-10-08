@@ -19,11 +19,12 @@ const dataGridSlice: Slice<DataGridState> = createSlice({
       ...state,
       selection: payload,
     }),
-    resetDataGridState: () => ({
-      ...initialState,
+    resetSelectionState: (state) => ({
+      ...state,
+      selection: [],
     }),
   },
 });
 
-export const { setSelection, resetDataGridState } = dataGridSlice.actions;
+export const { setSelection, resetSelectionState } = dataGridSlice.actions;
 export default dataGridSlice.reducer;

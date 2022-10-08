@@ -6,10 +6,10 @@ import { IProps } from "../models/invoice.models";
 import { useComponentsStyles } from "./components.styles";
 import { useTranslation } from "react-i18next";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
-import { invoiceSelectors } from "../store/invoice.selectors";
+import { entitySelector } from "../store/invoice.selectors";
 import { EntityId } from "@reduxjs/toolkit";
 import {
-  resetDataGridState,
+  resetSelectionState,
   setSelection,
 } from "./DataGrid/store/data-grid.reducer";
 import { selectSelection } from "./DataGrid/store/data-grid.selectors";
@@ -35,7 +35,7 @@ export default function SelectAllActionsComponent({
     useComponentsStyles();
   const { t } = useTranslation();
   const dispach = useAppDispatch();
-  const tableDataIds: EntityId[] = useAppSelector(invoiceSelectors.selectIds);
+  const tableDataIds: EntityId[] = useAppSelector(entitySelector.selectIds);
   const selectionLength: number = useAppSelector(selectSelection).length;
 
   React.useEffect(() => {
@@ -49,7 +49,7 @@ export default function SelectAllActionsComponent({
    */
   React.useEffect(
     () => () => {
-      dispach(resetDataGridState({}));
+      dispach(resetSelectionState([]));
     },
     []
   );

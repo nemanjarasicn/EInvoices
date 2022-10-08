@@ -24,6 +24,7 @@ import UserAccount from "./UserAccount";
 import Home from "@mui/icons-material/Home";
 import Payments from "@mui/icons-material/Payments";
 import { useAppComponentsStyles } from "./components.styles";
+import AppLoader from "./AppLoader";
 
 const drawerWidth = 200;
 
@@ -175,6 +176,7 @@ export default function ClippedDrawer() {
         sx={{ flexGrow: 1, paddingLeft: "85px", paddingRight: "20px" }}
       >
         <Toolbar />
+        <AppLoader />
         <Outlet />
       </Box>
     </Box>
