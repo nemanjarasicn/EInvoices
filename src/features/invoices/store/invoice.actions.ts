@@ -3,11 +3,14 @@ import InvoicePublicService from "../services/invoice.service";
 /**
  * Async Custom Actions
  */
-const getSalesInvoices = createAsyncThunk("GET/SalesInvoices", async () => {
-  return await InvoicePublicService.getInvoicesSales()
-    .then((res) => res.data.Invoices)
-    .catch((err) => []);
-});
+const getSalesInvoices: AsyncThunk<any, void, {}> = createAsyncThunk(
+  "GET/SalesInvoices",
+  async () => {
+    return await InvoicePublicService.getInvoicesSales()
+      .then((res) => res.data.Invoices)
+      .catch((err) => []);
+  }
+);
 
 const getPurchaseInvoices: AsyncThunk<any, void, {}> = createAsyncThunk(
   "GET/PurchaseInvoices",
