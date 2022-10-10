@@ -47,3 +47,8 @@ export enum HeaderSettingsTypes {
   // SEARCH = "search",
   // RECORDS = "records",
 }
+
+export enum CreateType {
+  XML = "xml",
+  FORM = "form",
+}

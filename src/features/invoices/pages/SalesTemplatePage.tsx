@@ -1,0 +1,28 @@
+import React from "react";
+import InvoiceDropzoneComponent from "../components/InvoiceDropzoneComponent";
+import { CreateType } from "../models/invoice.enums";
+import { IProps } from "../models/invoice.models";
+
+type SalesTemplateProps = {
+  type: CreateType;
+};
+
+export default function SalesTemplatePage({
+  props,
+}: IProps<SalesTemplateProps>): JSX.Element {
+  return (
+    <>
+      {(() => {
+        switch (props.type) {
+          case CreateType.XML:
+            return <InvoiceDropzoneComponent props={{}} />;
+
+          case CreateType.FORM:
+            return <div>FORMA</div>;
+          default:
+            throw new Error("Pass Type of creation");
+        }
+      })()}
+    </>
+  );
+}

@@ -66,13 +66,13 @@ const useFeatureSettings = (): FeatureSettings => {
         buttons: [
           {
             title: "ButtonsText.TemplatePage.createXML",
-            disabled: true,
-            btnFn: () => console.log("ZARE"),
+            disabled: false,
+            btnFn: () => navigate("/invoices/create-xml"),
           },
           {
             title: "ButtonsText.TemplatePage.createDocument",
-            disabled: false,
-            btnFn: () => console.log("ZARE"),
+            disabled: true,
+            btnFn: () => navigate("/invoices/create"),
           },
         ],
         filters: [
