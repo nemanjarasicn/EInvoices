@@ -30,3 +30,11 @@ export const isLoading = createSelector(
   featureSelectors,
   (state: FeatureState) => state.loading
 );
+
+/**
+ * Select Files from state
+ */
+export const selectAllFiles = createSelector(
+  featureSelectors,
+  (state: FeatureState) => state.files
+);

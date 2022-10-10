@@ -59,7 +59,7 @@
     "Supplier": "Supplier"
   },
   "Table": {
-    "NoRows": "There is no data to show.",
+    "NoRows": "No data to display.",
     "FooterCountTxt": "Selected rows",
     "FooterTotalAmountTxt": "Total sum"
   }

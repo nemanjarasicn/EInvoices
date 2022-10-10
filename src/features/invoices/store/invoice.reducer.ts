@@ -6,13 +6,14 @@ import {
   EntityState,
   Slice,
 } from "@reduxjs/toolkit";
-import { ok } from "assert";
+import { IFile } from "../components/InvoiceDropzoneComponent";
 import { InvoiceDto } from "../models/invoice.models";
 import {
   getAllCompanies,
   getAllUnitMesures,
   getPurchaseInvoices,
   getSalesInvoices,
+  sendInvoceXml,
 } from "./invoice.actions";
 
 const FEATURE_INVOICES_KEY: string = "invoices";
@@ -26,12 +27,14 @@ export interface FeatureState extends EntityState<InvoiceDto> {
   unitMesures: any[];
   companies: any[];
   loading: boolean;
+  files: IFile[];
 }
 const initialState: FeatureState = {
   ...invoiceAdapter.getInitialState(),
   unitMesures: [],
   loading: false,
   companies: [],
+  files: [],
 };
 
 const invoicesSlice: Slice<FeatureState> = createSlice({
@@ -44,16 +47,32 @@ const invoicesSlice: Slice<FeatureState> = createSlice({
     addOneInvoice: invoiceAdapter.addOne,
     //custom
     clearCache: () => initialState,
+    setManyFiles: (state, { payload }) => ({ ...state, files: [...payload] }),
+    removeFile: (state, { payload }) => {
+      const newState = state;
+      newState.files.splice(
+        newState.files.findIndex((item) => item.name === payload),
+        1
+      );
+      return newState;
+    },
   },
   extraReducers: (builder) => {
     getAsyncInvoices(builder);
     getAsyncUnitMesures(builder);
     getAsyncCompanies(builder);
+    sendAsyncInvoiceXML(builder);
   },
 });
 
-export const { updateOneInvoice, clearCache, setManyInvoices, addOneInvoice } =
-  invoicesSlice.actions;
+export const {
+  updateOneInvoice,
+  clearCache,
+  setManyInvoices,
+  addOneInvoice,
+  setManyFiles,
+  removeFile,
+} = invoicesSlice.actions;
 export default invoicesSlice.reducer;
 
 /**
@@ -76,7 +95,7 @@ function getAsyncUnitMesures(builder: ActionReducerMapBuilder<FeatureState>) {
     unitMesures: [],
   }));
 }
-
+// FIX TODO
 function getAsyncInvoices(builder: ActionReducerMapBuilder<FeatureState>) {
   builder.addCase(
     getSalesInvoices.fulfilled,
@@ -84,7 +103,7 @@ function getAsyncInvoices(builder: ActionReducerMapBuilder<FeatureState>) {
       invoiceAdapter.removeAll(state), invoiceAdapter.addMany(state, payload)
     )
   );
-
+  // FIX TODO
   builder.addCase(
     getPurchaseInvoices.fulfilled,
     (state, { payload }) => (
@@ -108,6 +127,37 @@ function getAsyncCompanies(builder: ActionReducerMapBuilder<FeatureState>) {
     loading: false,
     companies: [],
   }));
+}
+
+function sendAsyncInvoiceXML(builder: ActionReducerMapBuilder<FeatureState>) {
+  builder.addCase(sendInvoceXml.fulfilled, (state, { payload }) => {
+    const newState = state;
+    newState.files.map((item: IFile) => {
+      if (item.name === (payload as any)) {
+        item.status = "accepted" as any;
+      }
+      return item;
+    });
+    newState.loading = false;
+    return newState;
+  });
+  builder.addCase(sendInvoceXml.pending, (state) => ({
+    ...state,
+    loading: true,
+  }));
+
+  builder.addCase(sendInvoceXml.rejected, (state, { payload }) => {
+    const newState = state;
+    newState.files.map((item: IFile) => {
+      if (item.name === (payload as any).id) {
+        item.error = (payload as any).error;
+        item.status = "error" as any;
+      }
+      return item;
+    });
+    newState.loading = false;
+    return newState;
+  });
 }
 // addOne: accepts a single entity, and adds it if it's not already present.
 // addMany: accepts an array of entities or an object in the shape of Record<EntityId, T>, and adds them if not already present.

@@ -39,9 +39,28 @@ const getAllCompanies: AsyncThunk<any, void, {}> = createAsyncThunk(
   }
 );
 
+/**
+ * Create Async Action send E-Invoic via XML
+ */
+const sendInvoceXml: AsyncThunk<any, { file: File; id: string | number }, {}> =
+  createAsyncThunk<any, { file: File; id: string | number }>(
+    "POST/InvocieXML",
+    async (asyncDTO, _) => {
+      return await InvoicePublicService.sendInvoiceXml(
+        asyncDTO.file,
+        _.requestId
+      ).then(
+        (data) => asyncDTO.id,
+        (err) =>
+          _.rejectWithValue({ error: err.response.data, id: asyncDTO.id })
+      );
+    }
+  );
+
 export {
   getSalesInvoices,
   getPurchaseInvoices,
   getAllUnitMesures,
   getAllCompanies,
+  sendInvoceXml,
 };

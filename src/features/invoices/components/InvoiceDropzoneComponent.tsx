@@ -4,30 +4,38 @@ import { IProps } from "../models/invoice.models";
 import { styled } from "@mui/system";
 import CustomButtonFc from "./CustomButtonFc";
 import { Grid, IconButton } from "@mui/material";
-import { DataGrid, GridColDef, GridValueGetterParams } from "@mui/x-data-grid";
-import { useAppDispatch } from "../../../app/hooks";
+import { DataGrid, GridColDef, GridRenderCellParams } from "@mui/x-data-grid";
+import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import SendIcon from "@mui/icons-material/Send";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import InfoIcon from "@mui/icons-material/Info";
 import TableNoRowsOverlay from "./DataGrid/NoRowsOverlay";
+import { sendInvoceXml } from "../store/invoice.actions";
+import { removeFile, setManyFiles } from "../store/invoice.reducer";
+import { selectAllFiles } from "../store/invoice.selectors";
 
 type InvoiceDropzoneProps = {};
 
-enum fileStatus {
-  rdy = "rdy",
-  error = "error",
-  sent = "sent",
-}
-
-interface IFile {
+export interface IFile {
   name: string;
   lastModified: string;
-  size: string;
+  size: number;
   type: string;
   id: number | string;
-  status: fileStatus;
-  hasError: boolean;
-  errorDetails: string;
+  status: FileStatus;
+  error: IErrorFile | null;
+}
+export interface IErrorFile {
+  ErrorCode: string;
+  FieldName: string;
+  Message: string;
+}
+
+export enum FileStatus {
+  PREPARED = "rdy",
+  HAS_ERROR = "error",
+  SENT = "sent",
+  ACCEPTED = "accepted",
 }
 
 const getColor = (props: {
@@ -68,9 +76,11 @@ const Container = styled("div")`
 export default function InvoiceDropzoneComponent({
   props,
 }: IProps<InvoiceDropzoneProps>) {
-  const dispach = useAppDispatch();
-  const dateFormater = new Intl.DateTimeFormat();
-  const [files, setFiles] = React.useState<any[]>([]);
+  const dispatch = useAppDispatch();
+  const files: IFile[] = useAppSelector(selectAllFiles);
+  /**
+   * useDropzone lib
+   */
   const {
     isFocused,
     isDragAccept,
@@ -85,8 +95,22 @@ export default function InvoiceDropzoneComponent({
     },
   });
 
+  const dateFormater = new Intl.DateTimeFormat();
+
   React.useEffect(() => {
-    setFiles(acceptedFiles);
+    dispatch(
+      setManyFiles(
+        acceptedFiles.map((item, index) => ({
+          name: item.name,
+          lastModified: dateFormater.format(item.lastModified),
+          size: item.size,
+          type: item.type,
+          id: index,
+          status: FileStatus.PREPARED,
+          error: null,
+        }))
+      )
+    );
   }, [acceptedFiles]);
 
   const fileRejectionItems = fileRejections.map(({ file, errors }) => (
@@ -100,7 +124,32 @@ export default function InvoiceDropzoneComponent({
     </li>
   ));
 
-  const columns: GridColDef[] = [
+  /**
+   * Handle Send Action
+   * @param value GridRenderCellParams
+   */
+  const handleSendFile = (value: GridRenderCellParams) => {
+    const foundFile: File | undefined = acceptedFiles.find(
+      (file) => file.name === value.row.name
+    );
+    if (foundFile) {
+      dispatch(sendInvoceXml({ file: foundFile, id: value.row.name }));
+    }
+  };
+
+  /**
+   * Handle Delete Action
+   * @param value GridRenderCellParams
+   */
+  const handleDeleteFile = (value: GridRenderCellParams) => {
+    acceptedFiles.splice(
+      acceptedFiles.findIndex((item) => item.name === value.row.name),
+      1
+    );
+    dispatch(removeFile(value.row.name));
+  };
+
+  const columnsDef: GridColDef[] = [
     { field: "name", headerName: "File name", flex: 1 },
     {
       field: "lastModified",
@@ -112,29 +161,14 @@ export default function InvoiceDropzoneComponent({
     { field: "status", headerName: "Status", flex: 1 },
   ];
 
-  const handleSentFile = (value: any) => {
-    const fiundFile: File | undefined = files.find(
-      (file, index) => index === value.row.id
-    );
-    value.row.status = "error";
-  };
-
-  const handleDeleteFile = (value: any) => {
-    acceptedFiles.splice(value.row.id, 1);
-    console.log("%c-ACCEPTED FILES-", "border:red solid 1px", acceptedFiles);
-    setFiles([...acceptedFiles]);
-    // setFiles(array);
-    console.log("State FILES", files);
-  };
-
-  const actionsDefs = {
+  const actionsDefs: GridColDef = {
     field: "actions",
     headerName: "Actions",
     width: 200,
     headerAlign: "center",
     align: "center",
     headerClassName: "super-app-theme--header",
-    renderCell: (value: any) => (
+    renderCell: (value: GridRenderCellParams) => (
       <>
         <IconButton
           aria-label="send"
@@ -146,16 +180,19 @@ export default function InvoiceDropzoneComponent({
         <IconButton
           aria-label="send"
           color="info"
-          onClick={() => handleSentFile(value)}
-          disabled={value.row.status === fileStatus.rdy}
+          onClick={() => handleSendFile(value)}
+          disabled={value.row.status === FileStatus.PREPARED}
         >
           <InfoIcon />
         </IconButton>
         <IconButton
           aria-label="send"
           color="primary"
-          onClick={() => handleSentFile(value)}
-          disabled={value.row.status === fileStatus.error}
+          onClick={() => handleSendFile(value)}
+          disabled={
+            value.row.status === FileStatus.HAS_ERROR ||
+            value.row.status === FileStatus.ACCEPTED
+          }
         >
           <SendIcon />
         </IconButton>
@@ -199,7 +236,7 @@ export default function InvoiceDropzoneComponent({
           <DataGrid
             autoHeight
             density="compact"
-            columns={[...columns, actionsDefs as any]}
+            columns={[...columnsDef, actionsDefs]}
             components={{
               NoRowsOverlay: TableNoRowsOverlay,
             }}
@@ -208,14 +245,7 @@ export default function InvoiceDropzoneComponent({
                 props: { message: "Table.NoRows" },
               },
             }}
-            rows={files.map((item, index) => ({
-              name: item.name,
-              lastModified: dateFormater.format(item.lastModified),
-              size: item.size,
-              type: item.type,
-              id: index,
-              status: fileStatus.rdy,
-            }))}
+            rows={files}
           ></DataGrid>
         </Grid>
       </Grid>

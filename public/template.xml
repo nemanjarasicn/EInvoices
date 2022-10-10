@@ -1,7 +1,7 @@
 <Invoice xmlns:cec="urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2" xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2" xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:sbt="http://mfin.gov.rs/srbdt/srbdtext" xmlns="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2">
     <cbc:CustomizationID>urn:cen.eu:en16931:2017#compliant#urn:mfin.gov.rs:srbdt:2021</cbc:CustomizationID>
-    <cbc:ID>323-3/3</cbc:ID>
-    <cbc:IssueDate>2022-09-21</cbc:IssueDate>
+    <cbc:ID>2022/000001</cbc:ID>
+    <cbc:IssueDate>2022-10-11</cbc:IssueDate>
     <cbc:DueDate>2022-09-26</cbc:DueDate>
     <cbc:InvoiceTypeCode>380</cbc:InvoiceTypeCode>
     <cbc:DocumentCurrencyCode>RSD</cbc:DocumentCurrencyCode>
@@ -121,7 +121,7 @@
             <cbc:Amount currencyID="RSD">15</cbc:Amount>
         </cac:AllowanceCharge>
         <cac:Item>
-            <cbc:Name>Jagnjetina</cbc:Name>
+            <cbc:Name>Burek sa mesom</cbc:Name>
             <cac:SellersItemIdentification>
                 <cbc:ID>1</cbc:ID>
             </cac:SellersItemIdentification>
