@@ -2,6 +2,7 @@ import React from "react";
 import InvoiceDropzoneComponent from "../components/InvoiceDropzoneComponent";
 import { CreateType } from "../models/invoice.enums";
 import { IProps } from "../models/invoice.models";
+import { useFeatureSettings } from "../settings";
 
 type SalesTemplateProps = {
   type: CreateType;
@@ -10,12 +11,17 @@ type SalesTemplateProps = {
 export default function SalesTemplatePage({
   props,
 }: IProps<SalesTemplateProps>): JSX.Element {
+  const { salesTemplatePageSettings } = useFeatureSettings();
   return (
     <>
       {(() => {
         switch (props.type) {
           case CreateType.XML:
-            return <InvoiceDropzoneComponent props={{}} />;
+            return (
+              <InvoiceDropzoneComponent
+                props={salesTemplatePageSettings[CreateType.XML]}
+              />
+            );
 
           case CreateType.FORM:
             return <div>FORMA</div>;

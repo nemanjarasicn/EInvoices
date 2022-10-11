@@ -6,8 +6,8 @@ import {
   EntityState,
   Slice,
 } from "@reduxjs/toolkit";
-import { IFile } from "../components/InvoiceDropzoneComponent";
-import { InvoiceDto } from "../models/invoice.models";
+import { FileStatus } from "../models";
+import { IFile, InvoiceDto } from "../models/invoice.models";
 import {
   getAllCompanies,
   getAllUnitMesures,
@@ -134,7 +134,7 @@ function sendAsyncInvoiceXML(builder: ActionReducerMapBuilder<FeatureState>) {
     const newState = state;
     newState.files.map((item: IFile) => {
       if (item.name === (payload as any)) {
-        item.status = "accepted" as any;
+        item.status = FileStatus.ACCEPTED;
       }
       return item;
     });
@@ -151,7 +151,7 @@ function sendAsyncInvoiceXML(builder: ActionReducerMapBuilder<FeatureState>) {
     newState.files.map((item: IFile) => {
       if (item.name === (payload as any).id) {
         item.error = (payload as any).error;
-        item.status = "error" as any;
+        item.status = FileStatus.HAS_ERROR;
       }
       return item;
     });

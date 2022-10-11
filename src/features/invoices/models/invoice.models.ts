@@ -1,3 +1,5 @@
+import { FileStatus } from "./invoice.enums";
+
 /**
  * Generic for Table Data
  */
@@ -32,4 +34,19 @@ export interface InvoiceDto {
   ReferenceNumber: string | null; // Reference number
   ServiceProvider: string | null; //Document channel
   ChannelAdress: string | number | null; // Document address
+}
+
+export interface IFile {
+  name: string;
+  lastModified: string;
+  size: number;
+  type: string;
+  id: number | string;
+  status: FileStatus;
+  error: IErrorFile | null;
+}
+export interface IErrorFile {
+  ErrorCode: string;
+  FieldName: string;
+  Message: string;
 }

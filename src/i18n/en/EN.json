@@ -62,5 +62,24 @@
     "NoRows": "No data to display.",
     "FooterCountTxt": "Selected rows",
     "FooterTotalAmountTxt": "Total sum"
+  },
+  "FileTable": {
+    "Filename": "File name",
+    "Modification": "Last Modification",
+    "Size": "Size",
+    "Type": "Type",
+    "SendStatus": "Sending status",
+    "Actions": ""
+  },
+  "FileStatus": {
+    "Prepared": "Ready to send",
+    "HasError": "Has errors",
+    "Accepted": "Invoice accepted"
+  },
+  "SalesTemplatePage": {
+    "Title": "Load XML file",
+    "RejectedFiles": "Rejected other files",
+    "DropzonePlaceholder": "Click and drag files/file into this area to upload.",
+    "file-invalid-type": "File type must be text/xml,.xml"
   }
 }

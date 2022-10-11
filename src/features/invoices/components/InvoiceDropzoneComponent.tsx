@@ -1,9 +1,8 @@
 import React from "react";
 import { useDropzone } from "react-dropzone";
-import { IProps } from "../models/invoice.models";
+import { IFile, IProps } from "../models/invoice.models";
 import { styled } from "@mui/system";
-import CustomButtonFc from "./CustomButtonFc";
-import { Grid, IconButton } from "@mui/material";
+import { Chip, Grid, IconButton } from "@mui/material";
 import { DataGrid, GridColDef, GridRenderCellParams } from "@mui/x-data-grid";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import SendIcon from "@mui/icons-material/Send";
@@ -13,30 +12,16 @@ import TableNoRowsOverlay from "./DataGrid/NoRowsOverlay";
 import { sendInvoceXml } from "../store/invoice.actions";
 import { removeFile, setManyFiles } from "../store/invoice.reducer";
 import { selectAllFiles } from "../store/invoice.selectors";
+import { useComponentsStyles } from "./components.styles";
+import { useTranslation } from "react-i18next";
+import { FileStatus } from "../models";
 
-type InvoiceDropzoneProps = {};
-
-export interface IFile {
-  name: string;
-  lastModified: string;
-  size: number;
-  type: string;
-  id: number | string;
-  status: FileStatus;
-  error: IErrorFile | null;
-}
-export interface IErrorFile {
-  ErrorCode: string;
-  FieldName: string;
-  Message: string;
-}
-
-export enum FileStatus {
-  PREPARED = "rdy",
-  HAS_ERROR = "error",
-  SENT = "sent",
-  ACCEPTED = "accepted",
-}
+export type InvoiceDropzoneProps = {
+  title: string;
+  rejectedTitle: string;
+  dropzonePlaceholder: string;
+  dropzoneError: string;
+};
 
 const getColor = (props: {
   isDragAccept: boolean;
@@ -76,6 +61,8 @@ const Container = styled("div")`
 export default function InvoiceDropzoneComponent({
   props,
 }: IProps<InvoiceDropzoneProps>) {
+  const { dropzoneComponent } = useComponentsStyles();
+  const { t } = useTranslation();
   const dispatch = useAppDispatch();
   const files: IFile[] = useAppSelector(selectAllFiles);
   /**
@@ -113,17 +100,6 @@ export default function InvoiceDropzoneComponent({
     );
   }, [acceptedFiles]);
 
-  const fileRejectionItems = fileRejections.map(({ file, errors }) => (
-    <li key={(file as any).path}>
-      {(file as any).path} - {file.size} bytes
-      <ul>
-        {errors.map((e) => (
-          <li key={e.code}>{e.message}</li>
-        ))}
-      </ul>
-    </li>
-  ));
-
   /**
    * Handle Send Action
    * @param value GridRenderCellParams
@@ -149,18 +125,81 @@ export default function InvoiceDropzoneComponent({
     dispatch(removeFile(value.row.name));
   };
 
+  /**
+   * Columns Definition
+   */
   const columnsDef: GridColDef[] = [
-    { field: "name", headerName: "File name", flex: 1 },
+    {
+      field: "name",
+      headerName: t("FileTable.Filename"),
+      flex: 1,
+      headerAlign: "center",
+      align: "center",
+    },
     {
       field: "lastModified",
-      headerName: "Last modification",
+      headerName: t("FileTable.Modification"),
       flex: 1,
+      headerAlign: "center",
+      align: "center",
     },
-    { field: "size", headerName: "Size", flex: 1 },
-    { field: "type", headerName: "type", flex: 1 },
-    { field: "status", headerName: "Status", flex: 1 },
+    {
+      field: "size",
+      headerName: t("FileTable.Size"),
+      maxWidth: 120,
+      flex: 1,
+      headerAlign: "center",
+      align: "center",
+    },
+    {
+      field: "type",
+      headerName: t("FileTable.Type"),
+      maxWidth: 120,
+      flex: 1,
+      headerAlign: "center",
+      align: "center",
+    },
+    {
+      field: "status",
+      headerName: t("FileTable.SendStatus"),
+      flex: 1,
+      headerAlign: "center",
+      align: "center",
+      renderCell: (value: any) => {
+        switch (value.row.status) {
+          case FileStatus.PREPARED:
+            return (
+              <Chip
+                variant="outlined"
+                color="info"
+                size="small"
+                label={`${t(FileStatus.PREPARED)}`}
+              />
+            );
+          case FileStatus.HAS_ERROR:
+            return (
+              <Chip
+                variant="outlined"
+                color="error"
+                size="small"
+                label={`${t(FileStatus.HAS_ERROR)}`}
+              />
+            );
+          case FileStatus.ACCEPTED:
+            return (
+              <Chip
+                variant="outlined"
+                color="success"
+                size="small"
+                label={`${t(FileStatus.ACCEPTED.toString())}`}
+              />
+            );
+          default:
+            return value.row.status;
+        }
+      },
+    },
   ];
-
   const actionsDefs: GridColDef = {
     field: "actions",
     headerName: "Actions",
@@ -179,9 +218,9 @@ export default function InvoiceDropzoneComponent({
         </IconButton>
         <IconButton
           aria-label="send"
-          color="info"
+          color="error"
           onClick={() => handleSendFile(value)}
-          disabled={value.row.status === FileStatus.PREPARED}
+          disabled={value.row.status !== FileStatus.HAS_ERROR}
         >
           <InfoIcon />
         </IconButton>
@@ -202,43 +241,76 @@ export default function InvoiceDropzoneComponent({
 
   return (
     <>
-      <Grid container spacing={2}>
-        <Grid item xs={8}>
-          <h3>Ucitaj XML datoteku</h3>
+      <Grid container spacing={2} style={dropzoneComponent.container}>
+        <Grid style={dropzoneComponent.title} item xs={9}>
+          <h3>{t(props.title)}</h3>
         </Grid>
-        <Grid item xs={4}>
-          <h3>Rejected files</h3>
-        </Grid>
+        {fileRejections.length > 0 && (
+          <Grid
+            item
+            xs={3}
+            sx={{ scale: "0.9" }}
+            style={dropzoneComponent.title}
+          >
+            <h3>{t(props.rejectedTitle)}</h3>
+          </Grid>
+        )}
       </Grid>
       <Grid container spacing={2}>
-        <Grid item xs={8}>
+        <Grid item xs={9}>
           <Container
             {...getRootProps({ isFocused, isDragAccept, isDragReject })}
           >
             <input {...getInputProps()} />
-            <p>Drag 'n' drop some files here, or click to select files</p>
+            <p>{t(props.dropzonePlaceholder)}</p>
           </Container>
-
-          <CustomButtonFc
-            soloButton={{
-              title: "InvoiceCard.preview",
-              disabled: false,
-              btnFn: () => console.log("File", acceptedFiles),
-            }}
-          />
         </Grid>
-        <Grid item xs={4}>
-          <aside id="rejected_container">
-            <ul>{fileRejectionItems}</ul>
-          </aside>
+        <Grid item xs={3}>
+          {/* TODO */}
+          {fileRejections.length > 0 && (
+            <aside
+              style={{
+                maxHeight: "200px",
+                border: "thin dashed red",
+                overflow: "auto",
+              }}
+              id="rejected_container"
+            >
+              <ul>
+                {fileRejections.map(({ file, errors }) => (
+                  <li key={(file as any).path}>
+                    <span style={{ fontWeight: "bold" }}>
+                      {(file as any).path}
+                    </span>{" "}
+                    - {file.size} bytes
+                    <ul>
+                      {errors.map((e) => (
+                        <li style={{ color: "red" }} key={e.code}>
+                          {t(`SalesTemplatePage.${e.code}`)}
+                        </li>
+                      ))}
+                    </ul>
+                  </li>
+                ))}
+              </ul>
+            </aside>
+          )}
         </Grid>
-        <Grid item xs={8}>
+        <Grid container spacing={2} style={dropzoneComponent.wrapDivider}>
+          <Grid style={dropzoneComponent.divider} item xs={9}></Grid>
+          <Grid item xs={3}></Grid>
+        </Grid>
+        <Grid item xs={9}>
           <DataGrid
             autoHeight
+            disableColumnMenu
+            disableColumnFilter
+            showCellRightBorder={true}
             density="compact"
             columns={[...columnsDef, actionsDefs]}
             components={{
               NoRowsOverlay: TableNoRowsOverlay,
+              Pagination: null,
             }}
             componentsProps={{
               noRowsOverlay: {
@@ -246,6 +318,9 @@ export default function InvoiceDropzoneComponent({
               },
             }}
             rows={files}
+            localeText={{
+              footerRowSelected: (count) => ``,
+            }}
           ></DataGrid>
         </Grid>
       </Grid>

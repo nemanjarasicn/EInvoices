@@ -7,6 +7,7 @@ const useComponentsStyles = (): {
   filersToolbarStyles: any;
   filterComponentStyle: any;
   selectAllConmponentStyles: any;
+  dropzoneComponent: any;
 } => {
   return {
     invoiceCardStyles: {
@@ -132,6 +133,35 @@ const useComponentsStyles = (): {
         marginLeft: "10px",
       },
       checkbox: { padding: 0, margin: 0 },
+    },
+    dropzoneComponent: {
+      container: {
+        maxHeight: "50px",
+        paddingTop: "8px",
+        marginBottom: "8px",
+        paddingLeft: "16px",
+      },
+      title: {
+        background: "rgba(0, 0, 0, 0.05)",
+        boxShadow:
+          "rgb(0 0 0 / 20%) 0px 4px 8px 0px, rgb(0 0 0 / 19%) 0px 6px 20px 0px",
+        /* justify-items: end, */
+        marginBottom: "15px",
+        height: " 40px",
+        display: "flex",
+        alignItems: "center",
+        width: "400px",
+        padding: "10px",
+        justifyContent: "space-evenly",
+      },
+      wrapDivider: { margin: "auto", padding: "16px 0px 0px 16px" },
+      divider: {
+        height: " 40px",
+        background: "rgba(0, 0, 0, 0.05)",
+        boxShadow:
+          "rgb(0 0 0 / 20%) 0px 4px 8px 0px, rgb(0 0 0 / 19%) 0px 6px 20px 0px",
+      },
+      rejectedContainer: {},
     },
   };
 };
