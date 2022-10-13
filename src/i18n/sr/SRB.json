@@ -61,7 +61,11 @@
   "Table": {
     "NoRows": "Nema podataka za prikaz.",
     "FooterCountTxt": "Odabrani redovi",
-    "FooterTotalAmountTxt": "Ukupan iznos"
+    "FooterTotalAmountTxt": "Ukupan iznos",
+    "ColumnsPlaceholder": "Naslov kolone",
+    "FieldLabel": "Pronađi kolonu",
+    "ShowAll": "Prikaži sve",
+    "HideAll": "sakrijete sve"
   },
   "FileTable": {
     "Filename": "Naziv datoteke",
@@ -80,6 +84,13 @@
     "Title": "Učitaj XML datoteku",
     "RejectedFiles": "Odbijene druge datoteke",
     "DropzonePlaceholder": "Kliknite i prevucite datoteke/datoteku u ovu oblast radi otpremanja.",
-    "file-invalid-type": "Tip datoteke morabiti text/xml, .xml"
+    "file-invalid-type": "Tip datoteke mora biti text/xml, .xml",
+    "cardErrorLabels": {
+      "title": "Detalji o grešci datoteke",
+      "fileName": "Naziv datoteke :",
+      "errorCode": "Kod greške :",
+      "fieldName": "Ime polja :",
+      "errorMessage": "Poruka o grešci :"
+    }
   }
 }

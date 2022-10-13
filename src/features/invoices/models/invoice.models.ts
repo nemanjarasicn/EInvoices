@@ -41,7 +41,7 @@ export interface IFile {
   lastModified: string;
   size: number;
   type: string;
-  id: number | string;
+  id: number;
   status: FileStatus;
   error: IErrorFile | null;
 }

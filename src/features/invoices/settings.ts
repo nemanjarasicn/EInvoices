@@ -184,12 +184,20 @@ const useFeatureSettings = (): FeatureSettings => {
         rejectedTitle: "SalesTemplatePage.RejectedFiles",
         dropzonePlaceholder: "SalesTemplatePage.DropzonePlaceholder",
         dropzoneError: "SalesTemplatePage.file-invalid-type",
+        cardErrorLabels: {
+          title: "SalesTemplatePage.cardErrorLabels.title",
+          fileName: "SalesTemplatePage.cardErrorLabels.fileName",
+          errorCode: "SalesTemplatePage.cardErrorLabels.errorCode",
+          fieldName: "SalesTemplatePage.cardErrorLabels.fieldName",
+          errorMessage: "SalesTemplatePage.cardErrorLabels.errorMessage",
+        },
       },
       [CreateType.FORM]: {
         title: "",
         rejectedTitle: "",
         dropzonePlaceholder: "",
         dropzoneError: "",
+        cardErrorLabels: {},
       },
     },
   };

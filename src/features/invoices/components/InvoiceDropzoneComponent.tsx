@@ -1,8 +1,9 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React from "react";
 import { useDropzone } from "react-dropzone";
-import { IFile, IProps } from "../models/invoice.models";
+import { IFile, IProps, TableData } from "../models/invoice.models";
 import { styled } from "@mui/system";
-import { Chip, Grid, IconButton } from "@mui/material";
+import { Box, Chip, Grid, IconButton, Paper } from "@mui/material";
 import { DataGrid, GridColDef, GridRenderCellParams } from "@mui/x-data-grid";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import SendIcon from "@mui/icons-material/Send";
@@ -15,12 +16,14 @@ import { selectAllFiles } from "../store/invoice.selectors";
 import { useComponentsStyles } from "./components.styles";
 import { useTranslation } from "react-i18next";
 import { FileStatus } from "../models";
+import CancelRoundedIcon from "@mui/icons-material/CancelRounded";
 
 export type InvoiceDropzoneProps = {
   title: string;
   rejectedTitle: string;
   dropzonePlaceholder: string;
   dropzoneError: string;
+  cardErrorLabels: any;
 };
 
 const getColor = (props: {
@@ -64,7 +67,7 @@ export default function InvoiceDropzoneComponent({
   const { dropzoneComponent } = useComponentsStyles();
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
-  const files: IFile[] = useAppSelector(selectAllFiles);
+  const files: TableData<IFile>[] = useAppSelector(selectAllFiles);
   /**
    * useDropzone lib
    */
@@ -82,6 +85,8 @@ export default function InvoiceDropzoneComponent({
     },
   });
 
+  const [rejectedFiles, setRejectedFiles] = React.useState<any[]>([]);
+  const [fileError, setFileError] = React.useState<IFile | null>(null);
   const dateFormater = new Intl.DateTimeFormat();
 
   React.useEffect(() => {
@@ -98,13 +103,19 @@ export default function InvoiceDropzoneComponent({
         }))
       )
     );
+    setFileError(null);
   }, [acceptedFiles]);
+
+  React.useEffect(() => {
+    setRejectedFiles([...fileRejections]);
+  }, [fileRejections]);
 
   /**
    * Handle Send Action
    * @param value GridRenderCellParams
    */
   const handleSendFile = (value: GridRenderCellParams) => {
+    setFileError(null);
     const foundFile: File | undefined = acceptedFiles.find(
       (file) => file.name === value.row.name
     );
@@ -118,6 +129,7 @@ export default function InvoiceDropzoneComponent({
    * @param value GridRenderCellParams
    */
   const handleDeleteFile = (value: GridRenderCellParams) => {
+    setFileError(null);
     acceptedFiles.splice(
       acceptedFiles.findIndex((item) => item.name === value.row.name),
       1
@@ -142,6 +154,7 @@ export default function InvoiceDropzoneComponent({
       flex: 1,
       headerAlign: "center",
       align: "center",
+      sortable: false,
     },
     {
       field: "size",
@@ -150,6 +163,7 @@ export default function InvoiceDropzoneComponent({
       flex: 1,
       headerAlign: "center",
       align: "center",
+      sortable: false,
     },
     {
       field: "type",
@@ -158,6 +172,7 @@ export default function InvoiceDropzoneComponent({
       flex: 1,
       headerAlign: "center",
       align: "center",
+      sortable: false,
     },
     {
       field: "status",
@@ -165,6 +180,7 @@ export default function InvoiceDropzoneComponent({
       flex: 1,
       headerAlign: "center",
       align: "center",
+      sortable: false,
       renderCell: (value: any) => {
         switch (value.row.status) {
           case FileStatus.PREPARED:
@@ -191,7 +207,7 @@ export default function InvoiceDropzoneComponent({
                 variant="outlined"
                 color="success"
                 size="small"
-                label={`${t(FileStatus.ACCEPTED.toString())}`}
+                label={`${t(FileStatus.ACCEPTED)}`}
               />
             );
           default:
@@ -202,11 +218,11 @@ export default function InvoiceDropzoneComponent({
   ];
   const actionsDefs: GridColDef = {
     field: "actions",
-    headerName: "Actions",
+    headerName: "",
     width: 200,
     headerAlign: "center",
     align: "center",
-    headerClassName: "super-app-theme--header",
+    sortable: false,
     renderCell: (value: GridRenderCellParams) => (
       <>
         <IconButton
@@ -219,7 +235,7 @@ export default function InvoiceDropzoneComponent({
         <IconButton
           aria-label="send"
           color="error"
-          onClick={() => handleSendFile(value)}
+          onClick={() => setFileError(value.row)}
           disabled={value.row.status !== FileStatus.HAS_ERROR}
         >
           <InfoIcon />
@@ -245,11 +261,11 @@ export default function InvoiceDropzoneComponent({
         <Grid style={dropzoneComponent.title} item xs={9}>
           <h3>{t(props.title)}</h3>
         </Grid>
-        {fileRejections.length > 0 && (
+        {rejectedFiles.length > 0 && (
           <Grid
             item
             xs={3}
-            sx={{ scale: "0.9" }}
+            sx={{ scale: "0.7" }}
             style={dropzoneComponent.title}
           >
             <h3>{t(props.rejectedTitle)}</h3>
@@ -265,40 +281,59 @@ export default function InvoiceDropzoneComponent({
             <p>{t(props.dropzonePlaceholder)}</p>
           </Container>
         </Grid>
-        <Grid item xs={3}>
+        <Grid item xs={3} style={{ maxHeight: "215px" }}>
           {/* TODO */}
-          {fileRejections.length > 0 && (
-            <aside
-              style={{
-                maxHeight: "200px",
-                border: "thin dashed red",
-                overflow: "auto",
-              }}
-              id="rejected_container"
-            >
-              <ul>
-                {fileRejections.map(({ file, errors }) => (
-                  <li key={(file as any).path}>
-                    <span style={{ fontWeight: "bold" }}>
-                      {(file as any).path}
-                    </span>{" "}
-                    - {file.size} bytes
-                    <ul>
-                      {errors.map((e) => (
-                        <li style={{ color: "red" }} key={e.code}>
-                          {t(`SalesTemplatePage.${e.code}`)}
-                        </li>
-                      ))}
-                    </ul>
-                  </li>
-                ))}
-              </ul>
-            </aside>
+          {rejectedFiles.length > 0 && (
+            <Box sx={dropzoneComponent.errorCard.wrapper}>
+              <Paper elevation={8} style={dropzoneComponent.errorCard.card}>
+                <div style={dropzoneComponent.centredBadgeButton.wrapper}>
+                  <IconButton
+                    aria-label="close"
+                    color="primary"
+                    onClick={() => setRejectedFiles([])}
+                    style={dropzoneComponent.centredBadgeButton.button}
+                  >
+                    <CancelRoundedIcon />
+                  </IconButton>
+                </div>
+                <ul
+                  className="rejected"
+                  style={dropzoneComponent.rejectedFiles}
+                >
+                  {rejectedFiles.map(({ file, errors }) => (
+                    <li key={(file as any).path}>
+                      <span style={{ fontWeight: "bold" }}>
+                        {(file as any).path}
+                      </span>{" "}
+                      - {file.size} bytes
+                      <ul>
+                        {errors.map(
+                          (e: { code: React.Key | null | undefined }) => (
+                            <li style={{ color: "red" }} key={e.code}>
+                              {t(`SalesTemplatePage.${e.code}`)}
+                            </li>
+                          )
+                        )}
+                      </ul>
+                    </li>
+                  ))}
+                </ul>
+              </Paper>
+            </Box>
           )}
         </Grid>
         <Grid container spacing={2} style={dropzoneComponent.wrapDivider}>
           <Grid style={dropzoneComponent.divider} item xs={9}></Grid>
-          <Grid item xs={3}></Grid>
+          {/* {fileError && ( */}
+          <Grid
+            item
+            xs={3}
+            // sx={{ scale: "0.9" }}
+            // style={dropzoneComponent.title}
+          >
+            {/* <h3>{t(props.invoiceErrorTitle)}</h3> */}
+          </Grid>
+          {/* )} */}
         </Grid>
         <Grid item xs={9}>
           <DataGrid
@@ -319,9 +354,52 @@ export default function InvoiceDropzoneComponent({
             }}
             rows={files}
             localeText={{
-              footerRowSelected: (count) => ``,
+              footerRowSelected: () => ``,
             }}
           ></DataGrid>
+        </Grid>
+        <Grid item xs={3}>
+          {fileError && files.length > 0 && (
+            <Box sx={dropzoneComponent.errorCard.wrapper}>
+              <Paper elevation={8} style={dropzoneComponent.errorCard.card}>
+                <div style={dropzoneComponent.centredBadgeButton.wrapper}>
+                  <IconButton
+                    aria-label="close"
+                    color="primary"
+                    onClick={() => setFileError(null)}
+                    style={dropzoneComponent.centredBadgeButton.button}
+                  >
+                    <CancelRoundedIcon />
+                  </IconButton>
+                </div>
+                <span style={dropzoneComponent.bold}>
+                  {t(props.cardErrorLabels.title)}
+                </span>
+                <span style={dropzoneComponent.bold}>
+                  {t(props.cardErrorLabels.fileName)}
+                </span>
+                <li style={dropzoneComponent.errorText}>{fileError.name}</li>
+                <span style={dropzoneComponent.bold}>
+                  {t(props.cardErrorLabels.errorCode)}
+                </span>
+                <li style={dropzoneComponent.errorText}>
+                  {fileError.error?.ErrorCode}
+                </li>
+                <span style={dropzoneComponent.bold}>
+                  {t(props.cardErrorLabels.fieldName)}
+                </span>
+                <li style={dropzoneComponent.errorText}>
+                  {fileError.error?.FieldName}
+                </li>
+                <span style={dropzoneComponent.bold}>
+                  {`${t(props.cardErrorLabels.errorMessage)}`}
+                </span>
+                <li style={dropzoneComponent.errorText}>
+                  {fileError.error?.Message}
+                </li>
+              </Paper>
+            </Box>
+          )}
         </Grid>
       </Grid>
     </>

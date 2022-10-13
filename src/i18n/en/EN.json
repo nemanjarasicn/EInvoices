@@ -61,7 +61,11 @@
   "Table": {
     "NoRows": "No data to display.",
     "FooterCountTxt": "Selected rows",
-    "FooterTotalAmountTxt": "Total sum"
+    "FooterTotalAmountTxt": "Total sum",
+    "ColumnsPlaceholder": "Column title",
+    "FieldLabel": "Find column",
+    "ShowAll": "Show all",
+    "HideAll": "Hide all"
   },
   "FileTable": {
     "Filename": "File name",
@@ -80,6 +84,13 @@
     "Title": "Load XML file",
     "RejectedFiles": "Rejected other files",
     "DropzonePlaceholder": "Click and drag files/file into this area to upload.",
-    "file-invalid-type": "File type must be text/xml,.xml"
+    "file-invalid-type": "File type must be text/xml,.xml",
+    "cardErrorLabels": {
+      "title": "File Error Details",
+      "fileName": "File Name :",
+      "errorCode": "Error Code :",
+      "fieldName": "Field Name :",
+      "errorMessage": "Error Message :"
+    }
   }
 }

@@ -162,6 +162,52 @@ const useComponentsStyles = (): {
           "rgb(0 0 0 / 20%) 0px 4px 8px 0px, rgb(0 0 0 / 19%) 0px 6px 20px 0px",
       },
       rejectedContainer: {},
+      errorText: {
+        overflow: "hidden",
+        textOverflow: "ellipsis",
+        color: "red",
+      },
+      bold: {
+        fontWeight: "bold",
+        fontSize: "0.9rem",
+      },
+      centredBadgeButton: {
+        wrapper: {
+          display: "flex",
+          justifyContent: "center",
+          height: 0,
+        },
+        button: {
+          position: "relative",
+          top: "-25px",
+        },
+      },
+      errorCard: {
+        wrapper: {
+          display: "flex",
+          flexWrap: "wrap",
+          "& > :not(style)": {
+            m: 1,
+            width: 128,
+            height: 128,
+          },
+        },
+        card: {
+          width: "100%",
+          height: "auto",
+          display: "grid",
+          /* justify-items: center, */
+          /* align-items: center, */
+          padding: "15px",
+          rowGap: "10px",
+          margin: 0,
+        },
+      },
+      rejectedFiles: {
+        overflowX: "hidden",
+        overflowY: "auto",
+        maxHeight: "185px",
+      },
     },
   };
 };
