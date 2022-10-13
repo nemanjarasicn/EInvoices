@@ -3,12 +3,13 @@ import CodeIcon from "@mui/icons-material/Code";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import CloudSyncIcon from "@mui/icons-material/CloudSync";
 import { useNavigate } from "react-router-dom";
-import { TemplatePageTypes } from "./models/invoice.enums";
+import { CreateType, TemplatePageTypes } from "./models/invoice.enums";
 import { ButtonProps } from "./components/CustomButtonFc";
 import { FilterComponentProps } from "./components/FilterComponent";
 import { SelectAllAction } from "./components/SelectAllActionsComponent";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import DownloadIcon from "@mui/icons-material/Download";
+import { InvoiceDropzoneProps } from "./components/InvoiceDropzoneComponent";
 
 type FeatureSettings = {
   cardsSettings: CardProps[];
@@ -21,6 +22,9 @@ type FeatureSettings = {
       actions: SelectAllAction[];
       showTable: boolean;
     };
+  };
+  salesTemplatePageSettings: {
+    [key in CreateType]: InvoiceDropzoneProps;
   };
 };
 /**
@@ -66,13 +70,13 @@ const useFeatureSettings = (): FeatureSettings => {
         buttons: [
           {
             title: "ButtonsText.TemplatePage.createXML",
-            disabled: true,
-            btnFn: () => console.log("ZARE"),
+            disabled: false,
+            btnFn: () => navigate("/invoices/create-xml"),
           },
           {
             title: "ButtonsText.TemplatePage.createDocument",
-            disabled: false,
-            btnFn: () => console.log("ZARE"),
+            disabled: true,
+            btnFn: () => navigate("/invoices/create"),
           },
         ],
         filters: [
@@ -172,6 +176,28 @@ const useFeatureSettings = (): FeatureSettings => {
           },
         ],
         showTable: true,
+      },
+    },
+    salesTemplatePageSettings: {
+      [CreateType.XML]: {
+        title: "SalesTemplatePage.Title",
+        rejectedTitle: "SalesTemplatePage.RejectedFiles",
+        dropzonePlaceholder: "SalesTemplatePage.DropzonePlaceholder",
+        dropzoneError: "SalesTemplatePage.file-invalid-type",
+        cardErrorLabels: {
+          title: "SalesTemplatePage.cardErrorLabels.title",
+          fileName: "SalesTemplatePage.cardErrorLabels.fileName",
+          errorCode: "SalesTemplatePage.cardErrorLabels.errorCode",
+          fieldName: "SalesTemplatePage.cardErrorLabels.fieldName",
+          errorMessage: "SalesTemplatePage.cardErrorLabels.errorMessage",
+        },
+      },
+      [CreateType.FORM]: {
+        title: "",
+        rejectedTitle: "",
+        dropzonePlaceholder: "",
+        dropzoneError: "",
+        cardErrorLabels: {},
       },
     },
   };

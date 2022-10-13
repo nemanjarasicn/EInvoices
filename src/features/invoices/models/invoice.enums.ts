@@ -47,3 +47,14 @@ export enum HeaderSettingsTypes {
   // SEARCH = "search",
   // RECORDS = "records",
 }
+
+export enum CreateType {
+  XML = "xml",
+  FORM = "form",
+}
+
+export enum FileStatus {
+  PREPARED = "FileStatus.Prepared",
+  HAS_ERROR = "FileStatus.HasError",
+  ACCEPTED = "FileStatus.Accepted",
+}

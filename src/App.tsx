@@ -5,7 +5,10 @@ import { ThemeProvider } from "@mui/material/styles";
 import Layout from "./app/components/Layout";
 import { theme } from "./app/styles/Theme";
 import InvoiceLayout from "./features/invoices/components/InvoiceLayout";
-import { TemplatePageTypes } from "./features/invoices/models/invoice.enums";
+import {
+  CreateType,
+  TemplatePageTypes,
+} from "./features/invoices/models/invoice.enums";
 
 const DashboardPage = React.lazy(
   () => import("./features/invoices/pages/DashboardPage")
@@ -13,6 +16,10 @@ const DashboardPage = React.lazy(
 
 const InvoiceTemplatePage = React.lazy(
   () => import("./features/invoices/pages/InvoiceTemplatePage")
+);
+
+const SalesTemplatePage = React.lazy(
+  () => import("./features/invoices/pages/SalesTemplatePage")
 );
 
 function App() {
@@ -45,7 +52,6 @@ function invoicesRoutes(): React.ReactNode {
         <Route
           index
           element={
-            // TODO LOADER
             <React.Suspense fallback={<>...</>}>
               <DashboardPage props={{}} />
             </React.Suspense>
@@ -54,7 +60,6 @@ function invoicesRoutes(): React.ReactNode {
         <Route
           path="sales"
           element={
-            // TODO LOADER
             <React.Suspense fallback={<>...</>}>
               <InvoiceTemplatePage
                 key={`key_${TemplatePageTypes.SALES}.id`}
@@ -66,12 +71,27 @@ function invoicesRoutes(): React.ReactNode {
         <Route
           path="purchases"
           element={
-            // TODO LOADER
             <React.Suspense fallback={<>...</>}>
               <InvoiceTemplatePage
                 key={`key_${TemplatePageTypes.PURCHASES}.id`}
                 props={{ templateType: TemplatePageTypes.PURCHASES }}
               />
+            </React.Suspense>
+          }
+        />
+        <Route
+          path="create"
+          element={
+            <React.Suspense fallback={<>...</>}>
+              <SalesTemplatePage props={{ type: CreateType.FORM }} />
+            </React.Suspense>
+          }
+        />
+        <Route
+          path="create-xml"
+          element={
+            <React.Suspense fallback={<>...</>}>
+              <SalesTemplatePage props={{ type: CreateType.XML }} />
             </React.Suspense>
           }
         />

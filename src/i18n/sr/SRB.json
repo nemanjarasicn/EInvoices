@@ -61,6 +61,36 @@
   "Table": {
     "NoRows": "Nema podataka za prikaz.",
     "FooterCountTxt": "Odabrani redovi",
-    "FooterTotalAmountTxt": "Ukupan iznos"
+    "FooterTotalAmountTxt": "Ukupan iznos",
+    "ColumnsPlaceholder": "Naslov kolone",
+    "FieldLabel": "Pronađi kolonu",
+    "ShowAll": "Prikaži sve",
+    "HideAll": "sakrijete sve"
+  },
+  "FileTable": {
+    "Filename": "Naziv datoteke",
+    "Modification": "Poslednja izmena",
+    "Size": "Velicina",
+    "Type": "Tip",
+    "SendStatus": "Status slanja",
+    "Actions": ""
+  },
+  "FileStatus": {
+    "Prepared": "Spremno za slanje",
+    "HasError": "Ima gresaka",
+    "Accepted": "Upesno slanje"
+  },
+  "SalesTemplatePage": {
+    "Title": "Učitaj XML datoteku",
+    "RejectedFiles": "Odbijene druge datoteke",
+    "DropzonePlaceholder": "Kliknite i prevucite datoteke/datoteku u ovu oblast radi otpremanja.",
+    "file-invalid-type": "Tip datoteke mora biti text/xml, .xml",
+    "cardErrorLabels": {
+      "title": "Detalji o grešci datoteke",
+      "fileName": "Naziv datoteke :",
+      "errorCode": "Kod greške :",
+      "fieldName": "Ime polja :",
+      "errorMessage": "Poruka o grešci :"
+    }
   }
 }

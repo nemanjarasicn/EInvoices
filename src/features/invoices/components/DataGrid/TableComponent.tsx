@@ -54,6 +54,10 @@ export default function TableComponent({
         showCellRightBorder={true}
         localeText={{
           toolbarColumns: "",
+          columnsPanelTextFieldPlaceholder: `${t("Table.ColumnsPlaceholder")}`,
+          columnsPanelTextFieldLabel: `${t("Table.FieldLabel")}`,
+          columnsPanelShowAllButton: `${t("Table.ShowAll")}`,
+          columnsPanelHideAllButton: `${t("Table.HideAll")}`,
           footerRowSelected: (count) => `
           ${t(props.footerProps.countTxt)} :
           ${count} ${t(props.footerProps.totalAmountTxt)} : ${getTotalAmount(

@@ -32,5 +32,26 @@ class InvoicePublicService {
   public getAllCompanies() {
     return publicClient.get<any[]>("/getAllCompanies");
   }
+
+  /**
+   * UPLOAD MULTIPART FORM DATA //TODO send in CRF
+   * @param file
+   * @param requestId
+   * @returns
+   */
+  public sendInvoiceXml(file: File, requestId: string) {
+    const formData = new FormData();
+    formData.append("file", file);
+    const config = {
+      headers: {
+        "content-type": "multipart/form-data",
+      },
+    };
+    return publicClient.post<any>(
+      `/sales-invoice/ubl/upload?requestId=${requestId}`,
+      formData,
+      config
+    );
+  }
 }
 export default new InvoicePublicService();
