@@ -75,7 +75,7 @@ const useFeatureSettings = (): FeatureSettings => {
           },
           {
             title: "ButtonsText.TemplatePage.createDocument",
-            disabled: true,
+            disabled: false,
             btnFn: () => navigate("/invoices/create"),
           },
         ],

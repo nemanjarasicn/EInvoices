@@ -1,5 +1,6 @@
 import React from "react";
 import InvoiceDropzoneComponent from "../components/InvoiceDropzoneComponent";
+import InvoiceFormComponent from "../components/InvoiceFormComponent";
 import { CreateType } from "../models/invoice.enums";
 import { IProps } from "../models/invoice.models";
 import { useFeatureSettings } from "../settings";
@@ -24,7 +25,7 @@ export default function SalesTemplatePage({
             );
 
           case CreateType.FORM:
-            return <div>FORMA</div>;
+            return <InvoiceFormComponent props={{}} />;
           default:
             throw new Error("Pass Type of creation");
         }
