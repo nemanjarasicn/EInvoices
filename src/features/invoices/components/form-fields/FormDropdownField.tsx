@@ -24,7 +24,7 @@ export default function FormDropdownField({
   return (
     <Controller
       render={({ field: { onChange, value }, fieldState: { error } }) => (
-        <FormControl size={"small"} error={!!error}>
+        <FormControl size={"small"} error={!!error} fullWidth>
           <InputLabel id={`select-label_${props.label}.id`}>
             {props.label}
           </InputLabel>
@@ -46,7 +46,7 @@ export default function FormDropdownField({
               );
             })}
           </Select>
-          <FormHelperText>{error ? error.message : ""}</FormHelperText>
+          <FormHelperText>{error ? error.message : " "}</FormHelperText>
         </FormControl>
       )}
       control={props.control}

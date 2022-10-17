@@ -1,0 +1,42 @@
+[
+  {
+    "VatCategoryCode": "AE",
+    "VatRate": 0.0
+  },
+  {
+    "VatCategoryCode": "E",
+    "VatRate": 0.0
+  },
+  {
+    "VatCategoryCode": "N",
+    "VatRate": 0.0
+  },
+  {
+    "VatCategoryCode": "O",
+    "VatRate": 0.0
+  },
+  {
+    "VatCategoryCode": "OE",
+    "VatRate": 0.0
+  },
+  {
+    "VatCategoryCode": "R",
+    "VatRate": 0.0
+  },
+  {
+    "VatCategoryCode": "S10",
+    "VatRate": 10.0
+  },
+  {
+    "VatCategoryCode": "S20",
+    "VatRate": 20.0
+  },
+  {
+    "VatCategoryCode": "SS",
+    "VatRate": 0.0
+  },
+  {
+    "VatCategoryCode": "Z",
+    "VatRate": 0.0
+  }
+]

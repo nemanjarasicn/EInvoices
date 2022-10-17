@@ -25,7 +25,11 @@ export default function SalesTemplatePage({
             );
 
           case CreateType.FORM:
-            return <InvoiceFormComponent props={{}} />;
+            return (
+              <InvoiceFormComponent
+                props={salesTemplatePageSettings[CreateType.FORM]}
+              />
+            );
           default:
             throw new Error("Pass Type of creation");
         }

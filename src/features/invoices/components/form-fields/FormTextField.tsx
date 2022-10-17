@@ -1,10 +1,14 @@
 import React from "react";
-import { TextField } from "@mui/material";
+import { Divider, InputAdornment, TextField } from "@mui/material";
 import { Controller } from "react-hook-form";
 import { IProps } from "../../models";
 import { FormProps } from "./models/form-fields.models";
 
-type FormTextFieldProps = FormProps & { additional?: any };
+type FormTextFieldProps = FormProps & {
+  additional?: {
+    suffix: string;
+  };
+};
 
 /**
  * Facade MUI Text Field component
@@ -18,7 +22,7 @@ export default function FormTextField({
       control={props.control}
       render={({ field: { onChange, value }, fieldState: { error } }) => (
         <TextField
-          helperText={error ? error.message : null}
+          helperText={error ? error.message : " "}
           size="small"
           error={!!error}
           onChange={onChange}
@@ -26,6 +30,14 @@ export default function FormTextField({
           fullWidth
           label={props.label}
           variant="outlined"
+          InputProps={{
+            endAdornment: props.additional?.suffix ? (
+              <InputAdornment position="end">
+                <Divider sx={{ height: 28, mr: 1 }} orientation="vertical" />
+                <span>{props.additional.suffix}</span>
+              </InputAdornment>
+            ) : null,
+          }}
         />
       )}
     />
