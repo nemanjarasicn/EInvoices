@@ -21,8 +21,8 @@ export default function FormTextAreaField({
           placeholder="MultiLine with rows: 2 and rowsMax: 4"
           multiline
           error={!!error}
-          minRows={4}
-          maxRows={4}
+          minRows={5}
+          maxRows={5}
           onChange={onChange}
           value={value}
           label={props.label}

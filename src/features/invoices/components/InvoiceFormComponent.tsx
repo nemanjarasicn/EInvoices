@@ -1,7 +1,19 @@
 import React from "react";
-import { Paper, Typography, Button, Grid, Box } from "@mui/material";
+import {
+  Paper,
+  Typography,
+  Grid,
+  Box,
+  Switch,
+  FormControlLabel,
+  FormControl,
+  FormHelperText,
+  InputLabel,
+  MenuItem,
+  Select,
+} from "@mui/material";
 import { useForm } from "react-hook-form";
-import { IProps } from "../models";
+import { InvoiceType, IProps } from "../models";
 import FormTextField from "./form-fields/FormTextField";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -12,8 +24,16 @@ import FormAutocompleteField from "./form-fields/FormAutocompleteField";
 import { useTranslation } from "react-i18next";
 import { useComponentsStyles } from "./components.styles";
 import CustomButtonFc from "./CustomButtonFc";
+import FormCheckboxField from "./form-fields/FormCheckboxField";
+import FormCurrencyField from "./form-fields/FormCurrencyField";
+import PrepaymentComponent from "./form-group/PrepaymentComponent";
+import InvoiceGroupComponent from "./form-group/InvoiceGroupComponent";
+import { error } from "console";
+import { OptionItem } from "./form-fields/models/form-fields.models";
 
-type InvoiceFormComponentProps = {};
+export type InvoiceFormComponentProps = {
+  invoiceTypeOptions: any;
+};
 interface IFormInput {
   textValue: string;
   textValueSuffix: string;
@@ -21,6 +41,8 @@ interface IFormInput {
   textAreaValue: string;
   dateValue: string;
   autocompleteValue: any;
+  checkbox: boolean | string;
+  currencyValue: number | string;
 }
 
 const defaultValues = {
@@ -30,6 +52,8 @@ const defaultValues = {
   textAreaValue: "",
   dateValue: "",
   autocompleteValue: "",
+  checkbox: "",
+  currencyValue: "",
 };
 
 /**
@@ -37,11 +61,13 @@ const defaultValues = {
  */
 const schema = yup
   .object({
-    textValue: yup.string().required(),
-    dropdownValue: yup.string().required(),
-    textAreaValue: yup.string().required(),
-    dateValue: yup.string().required(), //validate date format
-    autocompleteValue: yup.object().required(),
+    // textValue: yup.string().required(),
+    // dropdownValue: yup.string().required(),
+    // textAreaValue: yup.string().required(),
+    // dateValue: yup.string().required(), //validate date format
+    // autocompleteValue: yup.object().required(),
+    // checkbox: yup.bool().required(),
+    // numberValue: yup.number().required(),
   })
   .required();
 
@@ -50,12 +76,43 @@ export default function InvoiceFormComponent({
 }: IProps<InvoiceFormComponentProps>): JSX.Element {
   const { t } = useTranslation();
   const { formComponent } = useComponentsStyles();
+  /**
+   * Handle Invoice type
+   */
+  const [invoiceType, setInvoiceType] = React.useState<InvoiceType>(
+    InvoiceType.INVOICE
+  );
+
   const methods = useForm({
     defaultValues: defaultValues,
     resolver: yupResolver(schema),
   });
-  const { handleSubmit, reset, control, setValue } = methods;
+  const {
+    handleSubmit,
+    reset,
+    control,
+    setValue,
+    formState,
+    getValues,
+    trigger,
+    getFieldState,
+  } = methods;
+
   const onSubmit = (data: IFormInput) => console.log(data);
+
+  // TODO CONTROLA SETTINGSA
+  // const [first, setfirst] = React.useState();
+  // const handleChangeSwitch = () => {
+  //   console.log(control);
+  //   setfirst((state) => ({
+  //     ...state,
+  //     additional: { ...state.additional, disabled: false },
+  //   }));
+  // };
+
+  React.useEffect(() => {
+    console.log("MENJA SE", getFieldState("dropdownValue"));
+  }, []);
 
   return (
     <Box
@@ -95,7 +152,8 @@ export default function InvoiceFormComponent({
                     props={{
                       name: "dropdownValue",
                       control: control,
-                      label: "Dropdown value",
+                      label: "MEMORANDUM",
+                      disabled: false,
                       options: [
                         { name: "1", value: "1" },
                         { name: "2", value: "2" },
@@ -103,30 +161,45 @@ export default function InvoiceFormComponent({
                       ],
                     }}
                   />
-                </Grid>
-                <Grid item xs={3}></Grid>
-                <Grid item xs={6}>
-                  <FormTextField
-                    props={{
-                      name: "textValue",
-                      control: control,
-                      label: "Text Input",
-                    }}
-                  />
-                </Grid>
-                <Grid item xs={3}>
                   <FormDropdownField
                     props={{
                       name: "dropdownValue",
                       control: control,
-                      label: "Dropdown value",
+                      label: "KLIJENT",
                       options: [
                         { name: "1", value: "1" },
                         { name: "2", value: "2" },
                         { name: "3", value: "3" },
                       ],
+                      disabled: false,
                     }}
                   />
+                  <FormControl size={"small"} fullWidth>
+                    <InputLabel
+                      id={`select-label_${props.invoiceTypeOptions.name}.id`}
+                    >
+                      {t(props.invoiceTypeOptions.optionLabel)}
+                    </InputLabel>
+                    <Select
+                      labelId={`select-label_${props.invoiceTypeOptions.name}.id`}
+                      id={`select-component_${props.invoiceTypeOptions.name}.id`}
+                      onChange={(e) =>
+                        setInvoiceType(e.target.value as InvoiceType)
+                      }
+                      value={invoiceType}
+                      label={t(props.invoiceTypeOptions.optionLabel)}
+                    >
+                      {props.invoiceTypeOptions.options.map(
+                        (option: any, index: number) => {
+                          return (
+                            <MenuItem key={index} value={option.value}>
+                              {`${t(option.name)}`}
+                            </MenuItem>
+                          );
+                        }
+                      )}
+                    </Select>
+                  </FormControl>
                 </Grid>
                 <Grid item xs={3}></Grid>
                 <Grid item xs={6}>
@@ -135,97 +208,113 @@ export default function InvoiceFormComponent({
                       name: "textValue",
                       control: control,
                       label: "Text Input",
+                      disabled: false,
+                    }}
+                  />
+                  <FormTextField
+                    props={{
+                      name: "textValue",
+                      control: control,
+                      label: "Text Input",
+                      disabled: false,
+                    }}
+                  />
+                  <FormTextField
+                    props={{
+                      name: "textValue",
+                      control: control,
+                      label: "Text Input",
+                      disabled: false,
                     }}
                   />
                 </Grid>
+                <Grid item xs={3}>
+                  <FormTextField
+                    props={{
+                      name: "textValueSuffix",
+                      control: control,
+                      label: "Text Input with Suffix",
+                      additional: { suffix: "%" },
+                      disabled: false,
+                    }}
+                  />
+                </Grid>
+                <Grid item xs={3}>
+                  <FormControlLabel
+                    value={true}
+                    control={
+                      <Switch
+                        // onChange={handleChangeSwitch}
+                        inputProps={{ "aria-label": "controlled" }}
+                      />
+                    }
+                    label="Primeni popust"
+                    labelPlacement="end"
+                  />
+                </Grid>
+
+                <Grid item xs={6}></Grid>
                 <Grid item xs={6}>
                   <FormTextAreaField
                     props={{
                       name: "textAreaValue",
                       control: control,
                       label: "Area Input",
+                      disabled: false,
                     }}
                   />
                 </Grid>
-                <Grid item xs={6}>
+                <Grid item xs={3}>
                   <FormTextField
                     props={{
                       name: "textValue",
                       control: control,
                       label: "Text Input",
+                      disabled: false,
                     }}
                   />
-                </Grid>
-                <Grid item xs={3}>
                   <FormTextField
                     props={{
                       name: "textValueSuffix",
                       control: control,
                       label: "Text Input with Suffix",
                       additional: { suffix: "%" },
+                      disabled: false,
                     }}
                   />
-                </Grid>
-                <Grid item xs={3}></Grid>
-                <Grid item xs={3}>
                   <FormTextField
                     props={{
-                      name: "textValueSuffix",
+                      name: "textValue",
                       control: control,
-                      label: "Text Input with Suffix",
-                      additional: { suffix: "%" },
-                    }}
-                  />
-                </Grid>
-                <Grid item xs={3}>
-                  <FormTextField
-                    props={{
-                      name: "textValueSuffix",
-                      control: control,
-                      label: "Text Input with Suffix",
-                      additional: { suffix: "%" },
-                    }}
-                  />
-                </Grid>
-                <Grid item xs={6}></Grid>
-                <Grid item xs={3}>
-                  <FormTextField
-                    props={{
-                      name: "textValueSuffix",
-                      control: control,
-                      label: "Text Input with Suffix",
-                      additional: { suffix: "%" },
+                      label: "Text Input",
+                      disabled: false,
                     }}
                   />
                 </Grid>
                 <Grid item xs={3}>
                   <FormTextField
                     props={{
-                      name: "textValueSuffix",
+                      name: "textValue",
                       control: control,
-                      label: "Text Input with Suffix",
-                      additional: { suffix: "%" },
+                      label: "Text Input",
+                      disabled: false,
                     }}
                   />
-                </Grid>
-                <Grid item xs={6}></Grid>
-                <Grid item xs={3}>
                   <FormTextField
                     props={{
                       name: "textValueSuffix",
                       control: control,
                       label: "Text Input with Suffix",
                       additional: { suffix: "%" },
+                      disabled: false,
                     }}
                   />
-                </Grid>
-                <Grid item xs={3}>
                   <FormTextField
                     props={{
-                      name: "textValueSuffix",
+                      name: "textValue",
                       control: control,
-                      label: "Text Input with Suffix",
-                      additional: { suffix: "%" },
+                      label: "Text Input",
+                      disabled: false,
                     }}
                   />
                 </Grid>
@@ -262,6 +351,7 @@ export default function InvoiceFormComponent({
                   control: control,
                   label: "Text Input with Suffix",
                   additional: { suffix: "%" },
+                  disabled: false,
                 }}
               />
             </Paper>
@@ -270,33 +360,36 @@ export default function InvoiceFormComponent({
       </Grid>
       <Grid container spacing={2}>
         <Grid item xs={5}>
-          <Box
-            sx={{
-              ...formComponent.basicBox,
-              textAlign: "start",
-            }}
-          >
-            <Typography sx={formComponent.typography}>
-              AVANSNA UPLATA
-            </Typography>
-            <Paper
-              style={{
-                display: "grid",
-                gridRowGap: "20px",
-                padding: "20px",
-                background: "white",
-              }}
-            >
-              <FormTextField
-                props={{
-                  name: "textValueSuffix",
-                  control: control,
-                  label: "Text Input with Suffix",
-                  additional: { suffix: "%" },
-                }}
-              />
-            </Paper>
-          </Box>
+          {(() => {
+            switch (invoiceType) {
+              case InvoiceType.INVOICE:
+                return (
+                  <InvoiceGroupComponent
+                    props={{ control: control }}
+                  ></InvoiceGroupComponent>
+                );
+
+              case InvoiceType.PREPAYMENT:
+                return (
+                  <PrepaymentComponent
+                    props={{ control: control }}
+                  ></PrepaymentComponent>
+                );
+              default:
+              case InvoiceType.INVOICE:
+                return (
+                  <InvoiceGroupComponent
+                    props={{ control: control }}
+                  ></InvoiceGroupComponent>
+                );
+            }
+          })()}
+          {/* <PrepaymentComponent
+            props={{ control: control }}
+          ></PrepaymentComponent>
+          <InvoiceGroupComponent
+            props={{ control: control }}
+          ></InvoiceGroupComponent> */}
         </Grid>
         <Grid item xs={5}>
           <Box
@@ -314,14 +407,28 @@ export default function InvoiceFormComponent({
                 background: "white",
               }}
             >
-              <FormTextField
-                props={{
-                  name: "textValueSuffix",
-                  control: control,
-                  label: "Text Input with Suffix",
-                  additional: { suffix: "%" },
-                }}
-              />
+              <Grid container spacing={2}>
+                <Grid item xs={12}>
+                  <FormCurrencyField
+                    props={{
+                      name: "currencyValue",
+                      control: control,
+                      label: "Currency field",
+                      additional: { mask: {} },
+                      disabled: false,
+                    }}
+                  />
+                  <FormTextField
+                    props={{
+                      name: "textValueSuffix",
+                      control: control,
+                      label: "Text Input with Suffix",
+                      additional: { suffix: "%" },
+                      disabled: false,
+                    }}
+                  />
+                </Grid>
+              </Grid>
             </Paper>
           </Box>
         </Grid>
@@ -336,7 +443,7 @@ export default function InvoiceFormComponent({
           >
             <Typography sx={formComponent.typography}>PDV</Typography>
             <Paper sx={formComponent.paper}>
-              <Grid container xs={12} spacing={2}>
+              <Grid container spacing={2}>
                 <Grid item xs={6}>
                   <FormTextField
                     props={{
@@ -344,6 +451,7 @@ export default function InvoiceFormComponent({
                       control: control,
                       label: "Text Input ",
                       additional: { suffix: "%" },
+                      disabled: false,
                     }}
                   />
                   <FormTextField
@@ -352,6 +460,7 @@ export default function InvoiceFormComponent({
                       control: control,
                       label: "Text Input with Suffix",
                       additional: { suffix: "%" },
+                      disabled: false,
                     }}
                   />
                 </Grid>
@@ -362,6 +471,7 @@ export default function InvoiceFormComponent({
                       control: control,
                       label: "Text Input with Suffix",
                       additional: { suffix: "%" },
+                      disabled: false,
                     }}
                   />
                   <FormTextField
@@ -370,6 +480,7 @@ export default function InvoiceFormComponent({
                       control: control,
                       label: "Text Input with Suffix",
                       additional: { suffix: "%" },
+                      disabled: false,
                     }}
                   />
                 </Grid>
@@ -403,7 +514,7 @@ export default function InvoiceFormComponent({
                     btnFn: () => reset(),
                   },
                   {
-                    title: "SUBMIT",
+                    title: "SET",
                     disabled: false,
                     btnFn: handleSubmit(onSubmit),
                   },
@@ -426,7 +537,7 @@ export default function InvoiceFormComponent({
               background: "wheat",
             }}
           >
-            Podaci na fakturi
+            
             <Grid container spacing={2}>
               <Grid item xs={6}>
                 Grid 1
@@ -492,6 +603,15 @@ export default function InvoiceFormComponent({
                 label: "Autocomplete Input",
               }}
             /> 
+            
+             <FormCheckboxField
+                    props={{
+                      control: control,
+                      name: "checkbox",
+                      disabled: false,
+                      label: "Checkbox Field",
+                    }}
+                  ></FormCheckboxField>
             <Button onClick={handleSubmit(onSubmit)} variant={"contained"}>
               {" "}
               Submit{" "}

@@ -1,6 +1,10 @@
 import React from "react";
-import InvoiceDropzoneComponent from "../components/InvoiceDropzoneComponent";
-import InvoiceFormComponent from "../components/InvoiceFormComponent";
+import InvoiceDropzoneComponent, {
+  InvoiceDropzoneProps,
+} from "../components/InvoiceDropzoneComponent";
+import InvoiceFormComponent, {
+  InvoiceFormComponentProps,
+} from "../components/InvoiceFormComponent";
 import { CreateType } from "../models/invoice.enums";
 import { IProps } from "../models/invoice.models";
 import { useFeatureSettings } from "../settings";
@@ -20,14 +24,22 @@ export default function SalesTemplatePage({
           case CreateType.XML:
             return (
               <InvoiceDropzoneComponent
-                props={salesTemplatePageSettings[CreateType.XML]}
+                props={
+                  salesTemplatePageSettings[
+                    CreateType.XML
+                  ] as InvoiceDropzoneProps
+                }
               />
             );
 
           case CreateType.FORM:
             return (
               <InvoiceFormComponent
-                props={salesTemplatePageSettings[CreateType.FORM]}
+                props={
+                  salesTemplatePageSettings[
+                    CreateType.FORM
+                  ] as InvoiceFormComponentProps
+                }
               />
             );
           default:

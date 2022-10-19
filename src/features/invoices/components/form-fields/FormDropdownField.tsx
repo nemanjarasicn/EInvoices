@@ -11,7 +11,7 @@ import { IProps } from "../../models";
 import { FormProps, OptionItem } from "./models/form-fields.models";
 
 type FormDropdownFieldProps = FormProps & {
-  additional?: any;
+  additional?: { optionNone: boolean };
   options: OptionItem[];
 };
 
@@ -23,6 +23,8 @@ export default function FormDropdownField({
 }: IProps<FormDropdownFieldProps>): JSX.Element {
   return (
     <Controller
+      control={props.control}
+      name={props.name}
       render={({ field: { onChange, value }, fieldState: { error } }) => (
         <FormControl size={"small"} error={!!error} fullWidth>
           <InputLabel id={`select-label_${props.label}.id`}>
@@ -35,9 +37,11 @@ export default function FormDropdownField({
             value={value}
             label={props.label}
           >
-            <MenuItem value="">
-              <em>None</em>
-            </MenuItem>
+            {props.additional?.optionNone && (
+              <MenuItem value="">
+                <em>None</em>
+              </MenuItem>
+            )}
             {props.options.map((option: OptionItem, index) => {
               return (
                 <MenuItem key={index} value={option.value}>
@@ -49,8 +53,6 @@ export default function FormDropdownField({
           <FormHelperText>{error ? error.message : " "}</FormHelperText>
         </FormControl>
       )}
-      control={props.control}
-      name={props.name}
     />
   );
 }

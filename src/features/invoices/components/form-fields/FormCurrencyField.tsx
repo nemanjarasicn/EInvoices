@@ -1,25 +1,23 @@
 import React from "react";
-import { Divider, InputAdornment, TextField } from "@mui/material";
+import { TextField } from "@mui/material";
 import { Controller } from "react-hook-form";
 import { IProps } from "../../models";
 import { FormProps } from "./models/form-fields.models";
+import { CurrencyFormatCustom, MaskProps } from "./CurrencyFormatCustom";
 
-type FormTextFieldProps = FormProps & {
+type FormNumberFieldProps = FormProps & {
   additional?: {
-    suffix: string;
+    mask: MaskProps;
   };
 };
 
-/**
- * Facade MUI Text Field component
- */
-export default function FormTextField({
+export default function FormCurrencyField({
   props,
-}: IProps<FormTextFieldProps>): JSX.Element {
+}: IProps<FormNumberFieldProps>): JSX.Element {
   return (
     <Controller
-      name={props.name}
       control={props.control}
+      name={props.name}
       render={({ field: { onChange, value }, fieldState: { error } }) => (
         <TextField
           disabled={props.disabled}
@@ -32,12 +30,10 @@ export default function FormTextField({
           label={props.label}
           variant="outlined"
           InputProps={{
-            endAdornment: props.additional?.suffix ? (
-              <InputAdornment position="end">
-                <Divider sx={{ height: 28, mr: 1 }} orientation="vertical" />
-                <span>{props.additional.suffix}</span>
-              </InputAdornment>
-            ) : null,
+            inputComponent: CurrencyFormatCustom as any,
+            inputProps: {
+              mask: {},
+            },
           }}
         />
       )}

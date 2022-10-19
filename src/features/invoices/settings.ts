@@ -10,6 +10,8 @@ import { SelectAllAction } from "./components/SelectAllActionsComponent";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import DownloadIcon from "@mui/icons-material/Download";
 import { InvoiceDropzoneProps } from "./components/InvoiceDropzoneComponent";
+import { InvoiceFormComponentProps } from "./components/InvoiceFormComponent";
+import { InvoiceType } from "./models";
 
 type FeatureSettings = {
   cardsSettings: CardProps[];
@@ -24,7 +26,7 @@ type FeatureSettings = {
     };
   };
   salesTemplatePageSettings: {
-    [key in CreateType]: InvoiceDropzoneProps;
+    [key in CreateType]: InvoiceDropzoneProps | InvoiceFormComponentProps;
   };
 };
 /**
@@ -193,11 +195,16 @@ const useFeatureSettings = (): FeatureSettings => {
         },
       },
       [CreateType.FORM]: {
-        title: "",
-        rejectedTitle: "",
-        dropzonePlaceholder: "",
-        dropzoneError: "",
-        cardErrorLabels: {},
+        invoiceTypeOptions: {
+          name: "invoice_type",
+          optionLabel: "TableColumns.InvoiceType",
+          options: [
+            { name: "InvoiceTypes.debitInvoice", value: InvoiceType.INVOICE },
+            { name: "InvoiceTypes.prepayment", value: InvoiceType.PREPAYMENT },
+            { name: "InvoiceTypes.creditNote", value: InvoiceType.CREDIT_NOTE },
+            { name: "InvoiceTypes.debitNote", value: InvoiceType.DEBIT_NOTE },
+          ],
+        },
       },
     },
   };
