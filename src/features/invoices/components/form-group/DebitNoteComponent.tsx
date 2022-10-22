@@ -1,55 +1,61 @@
-import {
-  Box,
-  Typography,
-  Paper,
-  Grid,
-  FormControl,
-  InputLabel,
-  Select,
-  MenuItem,
-} from "@mui/material";
+/* eslint-disable react-hooks/exhaustive-deps */
+import { Box, Typography, Paper, Grid } from "@mui/material";
 import React from "react";
-import { Control } from "react-hook-form";
 import { IProps } from "../../models";
 import { useComponentsStyles } from "../components.styles";
 import FormDateField from "../form-fields/FormDateField";
 import FormDropdownField from "../form-fields/FormDropdownField";
 import FormTextField from "../form-fields/FormTextField";
+import {
+  FormFieldProps,
+  GroupFieldProps,
+  OptionItem,
+  SourceSelectionMode,
+  VATPointDate,
+} from "../form-fields/models/form-fields.models";
 
-type DebitNoteComponentProps = {
-  control: Control<any, any>;
+type DebitNoteComponentProps = GroupFieldProps & {
+  debitNoteFields: {
+    sourceInvoiceSelectionMode: Omit<FormFieldProps, "control"> & {
+      additional?: { optionNone: boolean };
+      options: OptionItem[];
+    };
+    sourceInvoice: Omit<FormFieldProps, "control"> & {};
+    modePeriodFrom: Omit<FormFieldProps, "control"> & {
+      additional?: { disablePast: boolean };
+    };
+    modePeriodTo: Omit<FormFieldProps, "control"> & {
+      additional?: { disablePast: boolean };
+    };
+    dueDate: Omit<FormFieldProps, "control"> & {
+      additional?: { disablePast: boolean };
+    };
+    vatPointDate: Omit<FormFieldProps, "control"> & {
+      additional?: { optionNone: boolean };
+      options: OptionItem[];
+    };
+  };
+  formSetValue?: Function;
 };
 
 export default function DebitNoteComponent({
   props,
 }: IProps<DebitNoteComponentProps>): JSX.Element {
   const { formComponent } = useComponentsStyles();
-  const [relationType, setRelationType] = React.useState<number>(1);
-  const fieldNames: string[] = [
-    "periodFrom",
-    "sourceInvoice",
-    "datumObracunaPDV",
-    "periodTo",
-    "datumDospeca",
-  ];
-
-  //   React.useEffect(() => {
-  //     console.log("RELATION TYPE", relationType);
-  //   }, [relationType]);
-
-  /**
-   * Unmount and unregister fields
-   */
-  React.useEffect(
-    () => () => {
-      console.log("UNMOUNT");
-
-      fieldNames.map((field) => {
-        props.control.unregister(field);
-      });
-    },
-    []
+  const [relationType, setRelationType] = React.useState<SourceSelectionMode>(
+    SourceSelectionMode.SINGLE
   );
+
+  React.useEffect(() => {
+    props.formSetValue?.(
+      props.debitNoteFields.sourceInvoiceSelectionMode.name,
+      SourceSelectionMode.SINGLE
+    );
+    props.formSetValue?.(
+      props.debitNoteFields.vatPointDate.name,
+      VATPointDate.PAYMENT_DATE
+    );
+  }, []);
 
   return (
     <Box
@@ -58,70 +64,40 @@ export default function DebitNoteComponent({
         textAlign: "start",
       }}
     >
-      <Typography sx={formComponent.typography}>KNJIZNO ZADUZENJE</Typography>
-      <Paper
-        style={{
-          display: "grid",
-          gridRowGap: "20px",
-          padding: "20px",
-          background: "white",
-        }}
-      >
+      <Typography sx={formComponent.typography}>{props.title}</Typography>
+      <Paper style={formComponent.groupPaper}>
         <Grid container spacing={2}>
           <Grid item xs={6}>
-            <FormControl size={"small"} fullWidth>
-              <InputLabel id={`select-label_${"static"}.id`}>
-                Knjizno odobeneje se odnosi na
-              </InputLabel>
-              <Select
-                labelId={`select-label_${"static"}.id`}
-                id={`select-component_${"static"}.id`}
-                onChange={(e) => setRelationType(e.target.value as any)}
-                value={relationType}
-                label={"Knjizno odobeneje se odnosi na"}
-              >
-                {[
-                  { name: "Pojedinacna/Invoice selection", value: 1 },
-                  { name: "Period/Period selection", value: 2 },
-                ].map((option: any, index: number) => {
-                  return (
-                    <MenuItem key={index} value={option.value}>
-                      {`${option.name}`}
-                    </MenuItem>
-                  );
-                })}
-              </Select>
-            </FormControl>
+            <FormDropdownField
+              props={{
+                ...props.debitNoteFields.sourceInvoiceSelectionMode,
+                control: props.control,
+                parentFn: setRelationType,
+              }}
+            />
           </Grid>
           <Grid item xs={6}></Grid>
           <Grid item xs={6}>
             {relationType === 2 && (
               <FormDateField
                 props={{
-                  name: "periodFrom",
+                  ...props.debitNoteFields.modePeriodFrom,
                   control: props.control,
-                  label: "Datum From",
-                  disabled: false,
                 }}
               />
             )}
             {relationType === 1 && (
               <FormTextField
                 props={{
-                  name: "sourceInvoice",
+                  ...props.debitNoteFields.sourceInvoice,
                   control: props.control,
-                  label: "Izvorna Faktura/Source Invoice",
-                  disabled: false,
                 }}
               />
             )}
             <FormDropdownField
               props={{
-                name: "datumObracunaPDV",
+                ...props.debitNoteFields.vatPointDate,
                 control: props.control,
-                label: "Datum Obracuna PDV",
-                disabled: false,
-                options: [{ name: "Obracun PDV na dan placanja", value: "3" }],
               }}
             />
           </Grid>
@@ -129,20 +105,16 @@ export default function DebitNoteComponent({
             {relationType === 2 && (
               <FormDateField
                 props={{
-                  name: "periodTo",
+                  ...props.debitNoteFields.modePeriodTo,
                   control: props.control,
-                  label: "Datum To",
-                  disabled: false,
                 }}
               />
             )}
 
             <FormDateField
               props={{
-                name: "datumDospeca",
+                ...props.debitNoteFields.dueDate,
                 control: props.control,
-                label: "Datum Dospeca",
-                disabled: false,
               }}
             />
           </Grid>

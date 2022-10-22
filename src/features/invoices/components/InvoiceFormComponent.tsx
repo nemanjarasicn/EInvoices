@@ -13,7 +13,7 @@ import {
   Select,
 } from "@mui/material";
 import { useForm } from "react-hook-form";
-import { InvoiceType, IProps } from "../models";
+import { InvoiceFormModel, InvoiceType, IProps } from "../models";
 import FormTextField from "./form-fields/FormTextField";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -29,13 +29,18 @@ import FormCurrencyField from "./form-fields/FormCurrencyField";
 import PrepaymentComponent from "./form-group/PrepaymentComponent";
 import InvoiceGroupComponent from "./form-group/InvoiceGroupComponent";
 import { error } from "console";
-import { OptionItem } from "./form-fields/models/form-fields.models";
+import {
+  OptionItem,
+  SourceSelectionMode,
+  VATPointDate,
+} from "./form-fields/models/form-fields.models";
 import CreditNoteComponent from "./form-group/CreditNoteComponent";
 import DebitNoteComponent from "./form-group/DebitNoteComponent";
 
 export type InvoiceFormComponentProps = {
   invoiceTypeOptions: any;
   sectionTitles: any;
+  formGrpsSettings: any;
 };
 interface IFormInput {
   invoiceTypeCode: InvoiceType;
@@ -50,18 +55,7 @@ interface IFormInput {
   // sourceInvoice: string;
 }
 
-const defaultValues = {
-  invoiceTypeCode: InvoiceType.INVOICE,
-  // textAreaValue: "",
-  // textValue: "",
-  // textValueSuffix: "",
-  // dropdownValue: "",
-  // dateValue: "",
-  // autocompleteValue: "",
-  // checkbox: "",
-  // currencyValue: "",
-  // sourceInvoice: "",
-};
+const defaultValues = new InvoiceFormModel();
 
 /**
  * Register Form validation schema for every field
@@ -103,8 +97,9 @@ export default function InvoiceFormComponent({
     getValues,
     trigger,
     getFieldState,
+    watch,
   } = methods;
-
+  const formValues = watch(); //EEG
   const onSubmit = (data: IFormInput) => console.log(data);
 
   // TODO CONTROLA SETTINGSA
@@ -122,8 +117,9 @@ export default function InvoiceFormComponent({
   };
 
   React.useEffect(() => {
+    // console.log("FORM VALUES WATCH", formValues);
     // console.log("MENJA SE", getFieldState("dropdownValue"));
-  }, []);
+  }, [formValues]);
 
   return (
     <Box
@@ -185,7 +181,7 @@ export default function InvoiceFormComponent({
                       label: props.invoiceTypeOptions.optionLabel,
                       options: props.invoiceTypeOptions.options,
                       disabled: false,
-                      helperFn: handleChangeType,
+                      parentFn: handleChangeType,
                     }}
                   />
                 </Grid>
@@ -346,35 +342,211 @@ export default function InvoiceFormComponent({
               case InvoiceType.INVOICE:
                 return (
                   <InvoiceGroupComponent
-                    props={{ control: control, title: "Fakture" }}
+                    props={{
+                      control: control,
+                      title: t(
+                        props.formGrpsSettings.invoiceGrp.title
+                      ).toUpperCase(),
+                      invoiceFileds: {
+                        issueDate: {
+                          name: "issueDate",
+                          label: t("Form.formGrpLabels.invoiceGrp.issueDate"),
+                          disabled: false,
+                          additional: {
+                            disablePast: true,
+                          },
+                        },
+                        dueDate: {
+                          name: "dueDate",
+                          label: t("Form.formGrpLabels.invoiceGrp.dueDate"),
+                          disabled: false,
+                        },
+                        vatPointDate: {
+                          name: "vatPointDate",
+                          label: t(
+                            "Form.formGrpLabels.invoiceGrp.vatPointDate"
+                          ),
+                          disabled: false,
+                          options: [
+                            {
+                              name: t("Form.vatPointDateOptions.issuingDate"),
+                              value: VATPointDate.ISSUING_DATE,
+                            },
+                            {
+                              name: t("Form.vatPointDateOptions.deliveryDate"),
+                              value: VATPointDate.DELIVERY_DATE,
+                            },
+                            {
+                              name: t("Form.vatPointDateOptions.paymentDate"),
+                              value: VATPointDate.PAYMENT_DATE,
+                            },
+                          ],
+                        },
+                      },
+                    }}
                   ></InvoiceGroupComponent>
                 );
 
               case InvoiceType.PREPAYMENT:
                 return (
                   <PrepaymentComponent
-                    props={{ control: control }}
+                    props={{
+                      control: control,
+                      title: t(
+                        props.formGrpsSettings.prepaymentGrp.title
+                      ).toUpperCase(),
+                      prepaymentFields: {
+                        issueDate: {
+                          name: "issueDate",
+                          label: t("Form.formGrpLabels.invoiceGrp.issueDate"),
+                          disabled: false,
+                          additional: {
+                            disablePast: true,
+                          },
+                        },
+                        vatPointDate: {
+                          name: "vatPointDate",
+                          label: t(
+                            "Form.formGrpLabels.invoiceGrp.vatPointDate"
+                          ),
+                          disabled: false,
+                          options: [
+                            {
+                              name: t("Form.vatPointDateOptions.paymentDate"),
+                              value: VATPointDate.PAYMENT_DATE,
+                            },
+                          ],
+                        },
+                      },
+                      formSetValue: setValue,
+                    }}
                   ></PrepaymentComponent>
                 );
               case InvoiceType.CREDIT_NOTE:
                 return (
                   <CreditNoteComponent
-                    props={{ control: control }}
+                    props={{
+                      control: control,
+                      title: t(
+                        props.formGrpsSettings.creditNoteGrp.title
+                      ).toUpperCase(),
+                      creditNoteFields: {
+                        sourceInvoiceSelectionMode: {
+                          name: "sourceInvoiceSelectionMode",
+                          label: t(
+                            "Form.formGrpLabels.creditNoteGrp.sourceMode"
+                          ),
+                          disabled: false,
+                          options: [
+                            {
+                              name: t("Form.selectionModeOptions.single"),
+                              value: SourceSelectionMode.SINGLE,
+                            },
+                            {
+                              name: t("Form.selectionModeOptions.period"),
+                              value: SourceSelectionMode.PERIOD,
+                            },
+                          ],
+                        },
+                        sourceInvoice: {
+                          name: "sourceInvoice",
+                          label: t(
+                            "Form.formGrpLabels.creditNoteGrp.sourceInvoice"
+                          ),
+                          disabled: false,
+                        },
+                        modePeriodFrom: {
+                          name: "modePeriodFrom",
+                          label: t(
+                            "Form.formGrpLabels.creditNoteGrp.modePeriodFrom"
+                          ),
+                          disabled: false,
+                        },
+                        modePeriodTo: {
+                          name: "modePeriodTo",
+                          label: t(
+                            "Form.formGrpLabels.creditNoteGrp.modePeriodTo"
+                          ),
+                          disabled: false,
+                        },
+                      },
+                      formSetValue: setValue,
+                    }}
                   ></CreditNoteComponent>
                 );
               case InvoiceType.DEBIT_NOTE:
                 return (
                   <DebitNoteComponent
-                    props={{ control: control }}
+                    props={{
+                      control: control,
+                      title: t(
+                        props.formGrpsSettings.debitNoteGrp.title
+                      ).toUpperCase(),
+                      debitNoteFields: {
+                        sourceInvoiceSelectionMode: {
+                          name: "sourceInvoiceSelectionMode",
+                          label: t(
+                            "Form.formGrpLabels.creditNoteGrp.sourceMode"
+                          ),
+                          disabled: false,
+                          options: [
+                            {
+                              name: t("Form.selectionModeOptions.single"),
+                              value: SourceSelectionMode.SINGLE,
+                            },
+                            {
+                              name: t("Form.selectionModeOptions.period"),
+                              value: SourceSelectionMode.PERIOD,
+                            },
+                          ],
+                        },
+                        sourceInvoice: {
+                          name: "sourceInvoice",
+                          label: t(
+                            "Form.formGrpLabels.creditNoteGrp.sourceInvoice"
+                          ),
+                          disabled: false,
+                        },
+                        modePeriodFrom: {
+                          name: "modePeriodFrom",
+                          label: t(
+                            "Form.formGrpLabels.creditNoteGrp.modePeriodFrom"
+                          ),
+                          disabled: false,
+                        },
+                        modePeriodTo: {
+                          name: "modePeriodTo",
+                          label: t(
+                            "Form.formGrpLabels.creditNoteGrp.modePeriodTo"
+                          ),
+                          disabled: false,
+                        },
+                        dueDate: {
+                          name: "dueDate",
+                          label: t("Form.formGrpLabels.invoiceGrp.dueDate"),
+                          disabled: false,
+                        },
+                        vatPointDate: {
+                          name: "vatPointDate",
+                          label: t(
+                            "Form.formGrpLabels.invoiceGrp.vatPointDate"
+                          ),
+                          disabled: false,
+                          options: [
+                            {
+                              name: t("Form.vatPointDateOptions.paymentDate"),
+                              value: VATPointDate.PAYMENT_DATE,
+                            },
+                          ],
+                        },
+                      },
+                      formSetValue: setValue,
+                    }}
                   ></DebitNoteComponent>
                 );
 
               default:
-                return (
-                  <InvoiceGroupComponent
-                    props={{ control: control, title: "Fakture" }}
-                  ></InvoiceGroupComponent>
-                );
+                throw new Error("No such invoice type");
             }
           })()}
         </Grid>

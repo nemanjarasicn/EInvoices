@@ -1,40 +1,41 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React from "react";
-import {
-  Box,
-  Typography,
-  Paper,
-  Grid,
-  FormControlLabel,
-  Switch,
-} from "@mui/material";
+import { Box, Typography, Paper, Grid } from "@mui/material";
 import { IProps } from "../../models";
 import { useComponentsStyles } from "../components.styles";
-import FormTextField from "../form-fields/FormTextField";
 import FormDateField from "../form-fields/FormDateField";
 import FormDropdownField from "../form-fields/FormDropdownField";
-import { Control } from "react-hook-form";
+import {
+  FormFieldProps,
+  GroupFieldProps,
+  OptionItem,
+  VATPointDate,
+} from "../form-fields/models/form-fields.models";
 
-type PrepaymentComponentProps = {
-  control: Control<any, any>;
+type PrepaymentComponentProps = GroupFieldProps & {
+  prepaymentFields: {
+    issueDate: Omit<FormFieldProps, "control"> & {
+      additional?: { disablePast: boolean };
+    };
+    vatPointDate: Omit<FormFieldProps, "control"> & {
+      additional?: { optionNone: boolean };
+      options: OptionItem[];
+    };
+  };
+  formSetValue?: Function;
 };
 
 export default function PrepaymentComponent({
   props,
 }: IProps<PrepaymentComponentProps>): JSX.Element {
   const { formComponent } = useComponentsStyles();
-  const fieldNames: string[] = ["datumPlacanja", "datumObracunaPDV"];
 
-  /**
-   * Unmount and unregister fields
-   */
-  React.useEffect(
-    () => () => {
-      fieldNames.map((field) => {
-        props.control.unregister(field);
-      });
-    },
-    []
-  );
+  React.useEffect(() => {
+    props.formSetValue?.(
+      props.prepaymentFields.vatPointDate.name,
+      VATPointDate.PAYMENT_DATE
+    );
+  }, []);
 
   return (
     <Box
@@ -43,34 +44,22 @@ export default function PrepaymentComponent({
         textAlign: "start",
       }}
     >
-      <Typography sx={formComponent.typography}>AVANSNA UPLATA</Typography>
-      <Paper
-        style={{
-          display: "grid",
-          gridRowGap: "20px",
-          padding: "20px",
-          background: "white",
-        }}
-      >
+      <Typography sx={formComponent.typography}>{props.title}</Typography>
+      <Paper style={formComponent.groupPaper}>
         <Grid container spacing={2}>
           <Grid item xs={6}>
             <FormDateField
               props={{
-                name: "datumPlacanja",
+                ...props.prepaymentFields.issueDate,
                 control: props.control,
-                label: "Datum Prometa",
-                disabled: false,
               }}
             />
           </Grid>
           <Grid item xs={6} alignSelf={"end"}>
             <FormDropdownField
               props={{
-                name: "datumObracunaPDV",
+                ...props.prepaymentFields.vatPointDate,
                 control: props.control,
-                label: "Datum Obracuna PDV",
-                disabled: false,
-                options: [{ name: "Obracun PDV na dan placanja", value: "3" }],
               }}
             />
           </Grid>

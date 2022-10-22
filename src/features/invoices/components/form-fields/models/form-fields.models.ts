@@ -12,6 +12,17 @@ export interface GroupFieldProps {
   control: Control<any, any>;
 }
 export interface OptionItem {
-  value: string;
+  value: string | VATPointDate | SourceSelectionMode;
   name: string;
+}
+
+export enum VATPointDate {
+  ISSUING_DATE = 1,
+  DELIVERY_DATE = 2,
+  PAYMENT_DATE = 3,
+}
+
+export enum SourceSelectionMode {
+  SINGLE = 1,
+  PERIOD = 2,
 }

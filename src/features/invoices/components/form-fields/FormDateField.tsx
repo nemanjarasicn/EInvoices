@@ -5,8 +5,13 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { TextField } from "@mui/material";
 import { Controller } from "react-hook-form";
+import dayjs, { Dayjs } from "dayjs";
 
-type FormDateFieldProps = FormFieldProps & { additional?: any };
+type FormDateFieldProps = FormFieldProps & {
+  additional?: {
+    disablePast: boolean;
+  };
+};
 
 /**
  * Facade MUI Date Field component
@@ -21,8 +26,10 @@ export default function FormDateField({
       render={({ field: { onChange, value }, fieldState: { error } }) => (
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <DatePicker
-            value={value}
-            onChange={(newValue) => onChange(newValue)}
+            value={dayjs(value)}
+            inputFormat="DD/MM/YYYY"
+            onChange={(newValue) => onChange(dayjs(newValue).toDate())}
+            minDate={props.additional?.disablePast ? new Date() : null}
             renderInput={(params) => (
               <TextField
                 {...params}

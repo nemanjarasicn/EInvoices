@@ -211,6 +211,21 @@ const useFeatureSettings = (): FeatureSettings => {
           title_3: "Form.sectionTitles.title_3",
           title_4: "Form.sectionTitles.title_4",
         },
+        formGrpsSettings: {
+          invoiceGrp: {
+            title: "InvoiceTypes.debitInvoice",
+            invoiceFields: {},
+          },
+          prepaymentGrp: {
+            title: "InvoiceTypes.prepayment",
+          },
+          debitNoteGrp: {
+            title: "InvoiceTypes.debitNote",
+          },
+          creditNoteGrp: {
+            title: "InvoiceTypes.creditNote",
+          },
+        },
       },
     },
   };

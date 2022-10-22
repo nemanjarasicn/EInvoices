@@ -3,40 +3,32 @@ import { Box, Typography, Paper, Grid } from "@mui/material";
 import { IProps } from "../../models";
 import { useComponentsStyles } from "../components.styles";
 import FormDateField from "../form-fields/FormDateField";
-import { Control } from "react-hook-form";
 import {
   FormFieldProps,
   GroupFieldProps,
+  OptionItem,
 } from "../form-fields/models/form-fields.models";
 import FormDropdownField from "../form-fields/FormDropdownField";
-import { useTranslation } from "react-i18next";
 
-type InvoiceGroupComponentProps = GroupFieldProps & {};
+type InvoiceGroupComponentProps = GroupFieldProps & {
+  invoiceFileds: {
+    issueDate: Omit<FormFieldProps, "control"> & {
+      additional?: { disablePast: boolean };
+    };
+    dueDate: Omit<FormFieldProps, "control"> & {
+      additional?: { disablePast: boolean };
+    };
+    vatPointDate: Omit<FormFieldProps, "control"> & {
+      additional?: { optionNone: boolean };
+      options: OptionItem[];
+    };
+  };
+};
 
 export default function InvoiceGroupComponent({
   props,
 }: IProps<InvoiceGroupComponentProps>): JSX.Element {
   const { formComponent } = useComponentsStyles();
-  const { t } = useTranslation();
-
-  const fieldNames: string[] = [
-    "datumPrometa",
-    "datumDospeca",
-    "datumObracunaPDV",
-  ];
-
-  /**
-   * Unmount and unregister fields
-   */
-  React.useEffect(
-    () => () => {
-      fieldNames.map((field) => {
-        props.control.unregister(field);
-      });
-    },
-    []
-  );
-
   return (
     <Box
       sx={{
@@ -44,39 +36,28 @@ export default function InvoiceGroupComponent({
         textAlign: "start",
       }}
     >
-      <Typography sx={formComponent.typography}>{t(props.title)}</Typography>
+      <Typography sx={formComponent.typography}>{props.title}</Typography>
       <Paper style={formComponent.groupPaper}>
         <Grid container spacing={2}>
           <Grid item xs={6}>
             <FormDateField
               props={{
-                name: "datumPrometa",
+                ...props.invoiceFileds.issueDate,
                 control: props.control,
-                label: "Datum Prometa",
-                disabled: false,
               }}
             />
             <FormDateField
               props={{
-                name: "datumDospeca",
+                ...props.invoiceFileds.dueDate,
                 control: props.control,
-                label: "Datum dospeca",
-                disabled: false,
               }}
             />
           </Grid>
           <Grid item xs={6}>
             <FormDropdownField
               props={{
-                name: "datumObracunaPDV",
+                ...props.invoiceFileds.vatPointDate,
                 control: props.control,
-                label: "Datum Obracuna PDV",
-                disabled: false,
-                options: [
-                  { name: "Datum slanja Fakture", value: "1" },
-                  { name: "Datum Prometa fakture", value: "2" },
-                  { name: "Obracun PDV na dan placanja", value: "3" },
-                ],
               }}
             />
           </Grid>

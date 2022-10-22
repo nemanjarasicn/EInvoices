@@ -14,7 +14,7 @@ import { useTranslation } from "react-i18next";
 type FormDropdownFieldProps = FormFieldProps & {
   additional?: { optionNone: boolean };
   options: OptionItem[];
-  helperFn?: Function;
+  parentFn?: Function;
 };
 
 /**
@@ -37,9 +37,7 @@ export default function FormDropdownField({
             labelId={`select-label_${props.label}.id`}
             id={`select-component_${props.name}.id`}
             onChange={(e) => {
-              props.helperFn
-                ? props.helperFn(e.target.value)
-                : console.log("No function");
+              props.parentFn?.(e.target.value);
               return onChange(e);
             }}
             value={value ?? ""}
@@ -47,7 +45,7 @@ export default function FormDropdownField({
           >
             {props.additional?.optionNone && (
               <MenuItem value="">
-                <em>None</em>
+                <em>{t("Common.none")}</em>
               </MenuItem>
             )}
             {props.options.map((option: OptionItem, index) => {
