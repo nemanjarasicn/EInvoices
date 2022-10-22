@@ -8,11 +8,13 @@ import {
 } from "@mui/material";
 import { Controller } from "react-hook-form";
 import { IProps } from "../../models";
-import { FormProps, OptionItem } from "./models/form-fields.models";
+import { FormFieldProps, OptionItem } from "./models/form-fields.models";
+import { useTranslation } from "react-i18next";
 
-type FormDropdownFieldProps = FormProps & {
+type FormDropdownFieldProps = FormFieldProps & {
   additional?: { optionNone: boolean };
   options: OptionItem[];
+  helperFn?: Function;
 };
 
 /**
@@ -21,6 +23,7 @@ type FormDropdownFieldProps = FormProps & {
 export default function FormDropdownField({
   props,
 }: IProps<FormDropdownFieldProps>): JSX.Element {
+  const { t } = useTranslation();
   return (
     <Controller
       control={props.control}
@@ -28,14 +31,19 @@ export default function FormDropdownField({
       render={({ field: { onChange, value }, fieldState: { error } }) => (
         <FormControl size={"small"} error={!!error} fullWidth>
           <InputLabel id={`select-label_${props.label}.id`}>
-            {props.label}
+            {t(props.label)}
           </InputLabel>
           <Select
             labelId={`select-label_${props.label}.id`}
             id={`select-component_${props.name}.id`}
-            onChange={onChange}
-            value={value}
-            label={props.label}
+            onChange={(e) => {
+              props.helperFn
+                ? props.helperFn(e.target.value)
+                : console.log("No function");
+              return onChange(e);
+            }}
+            value={value ?? ""}
+            label={t(props.label)}
           >
             {props.additional?.optionNone && (
               <MenuItem value="">
@@ -45,7 +53,7 @@ export default function FormDropdownField({
             {props.options.map((option: OptionItem, index) => {
               return (
                 <MenuItem key={index} value={option.value}>
-                  {`${option.name}`}
+                  {`${t(option.name)}`}
                 </MenuItem>
               );
             })}

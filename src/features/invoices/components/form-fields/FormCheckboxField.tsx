@@ -6,9 +6,9 @@ import {
 } from "@mui/material";
 import { Controller } from "react-hook-form";
 import { IProps } from "../../models";
-import { FormProps } from "./models/form-fields.models";
+import { FormFieldProps } from "./models/form-fields.models";
 
-type FormCheckboxFieldProps = FormProps & {
+type FormCheckboxFieldProps = FormFieldProps & {
   additional?: any;
 };
 

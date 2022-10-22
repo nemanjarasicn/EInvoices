@@ -205,6 +205,12 @@ const useFeatureSettings = (): FeatureSettings => {
             { name: "InvoiceTypes.debitNote", value: InvoiceType.DEBIT_NOTE },
           ],
         },
+        sectionTitles: {
+          title_1: "Form.sectionTitles.title_1",
+          title_2: "Form.sectionTitles.title_2",
+          title_3: "Form.sectionTitles.title_3",
+          title_4: "Form.sectionTitles.title_4",
+        },
       },
     },
   };

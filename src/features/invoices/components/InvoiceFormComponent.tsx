@@ -30,30 +30,37 @@ import PrepaymentComponent from "./form-group/PrepaymentComponent";
 import InvoiceGroupComponent from "./form-group/InvoiceGroupComponent";
 import { error } from "console";
 import { OptionItem } from "./form-fields/models/form-fields.models";
+import CreditNoteComponent from "./form-group/CreditNoteComponent";
+import DebitNoteComponent from "./form-group/DebitNoteComponent";
 
 export type InvoiceFormComponentProps = {
   invoiceTypeOptions: any;
+  sectionTitles: any;
 };
 interface IFormInput {
-  textValue: string;
-  textValueSuffix: string;
-  dropdownValue: string;
-  textAreaValue: string;
-  dateValue: string;
-  autocompleteValue: any;
-  checkbox: boolean | string;
-  currencyValue: number | string;
+  invoiceTypeCode: InvoiceType;
+  // textValue: string;
+  // textValueSuffix: string;
+  // dropdownValue: string;
+  // textAreaValue: string;
+  // dateValue: string;
+  // autocompleteValue: any;
+  // checkbox: boolean | string;
+  // currencyValue: number | string;
+  // sourceInvoice: string;
 }
 
 const defaultValues = {
-  textValue: "",
-  textValueSuffix: "",
-  dropdownValue: "",
-  textAreaValue: "",
-  dateValue: "",
-  autocompleteValue: "",
-  checkbox: "",
-  currencyValue: "",
+  invoiceTypeCode: InvoiceType.INVOICE,
+  // textAreaValue: "",
+  // textValue: "",
+  // textValueSuffix: "",
+  // dropdownValue: "",
+  // dateValue: "",
+  // autocompleteValue: "",
+  // checkbox: "",
+  // currencyValue: "",
+  // sourceInvoice: "",
 };
 
 /**
@@ -110,8 +117,12 @@ export default function InvoiceFormComponent({
   //   }));
   // };
 
+  const handleChangeType = (invoicetype: InvoiceType) => {
+    setInvoiceType(invoicetype);
+  };
+
   React.useEffect(() => {
-    console.log("MENJA SE", getFieldState("dropdownValue"));
+    // console.log("MENJA SE", getFieldState("dropdownValue"));
   }, []);
 
   return (
@@ -136,19 +147,12 @@ export default function InvoiceFormComponent({
             }}
           >
             <Typography sx={formComponent.typography}>
-              PODACI NA FAKTURI
+              {t(props.sectionTitles.title_1).toUpperCase()}
             </Typography>
-            <Paper
-              style={{
-                display: "grid",
-                gridRowGap: "20px",
-                padding: "20px",
-                background: "white",
-              }}
-            >
+            <Paper style={formComponent.groupPaper}>
               <Grid container spacing={2}>
                 <Grid item xs={3}>
-                  <FormDropdownField
+                  {/* <FormDropdownField
                     props={{
                       name: "dropdownValue",
                       control: control,
@@ -173,37 +177,21 @@ export default function InvoiceFormComponent({
                       ],
                       disabled: false,
                     }}
+                  /> */}
+                  <FormDropdownField
+                    props={{
+                      name: "invoiceTypeCode",
+                      control: control,
+                      label: props.invoiceTypeOptions.optionLabel,
+                      options: props.invoiceTypeOptions.options,
+                      disabled: false,
+                      helperFn: handleChangeType,
+                    }}
                   />
-                  <FormControl size={"small"} fullWidth>
-                    <InputLabel
-                      id={`select-label_${props.invoiceTypeOptions.name}.id`}
-                    >
-                      {t(props.invoiceTypeOptions.optionLabel)}
-                    </InputLabel>
-                    <Select
-                      labelId={`select-label_${props.invoiceTypeOptions.name}.id`}
-                      id={`select-component_${props.invoiceTypeOptions.name}.id`}
-                      onChange={(e) =>
-                        setInvoiceType(e.target.value as InvoiceType)
-                      }
-                      value={invoiceType}
-                      label={t(props.invoiceTypeOptions.optionLabel)}
-                    >
-                      {props.invoiceTypeOptions.options.map(
-                        (option: any, index: number) => {
-                          return (
-                            <MenuItem key={index} value={option.value}>
-                              {`${t(option.name)}`}
-                            </MenuItem>
-                          );
-                        }
-                      )}
-                    </Select>
-                  </FormControl>
                 </Grid>
                 <Grid item xs={3}></Grid>
                 <Grid item xs={6}>
-                  <FormTextField
+                  {/* <FormTextField
                     props={{
                       name: "textValue",
                       control: control,
@@ -226,10 +214,10 @@ export default function InvoiceFormComponent({
                       label: "Text Input",
                       disabled: false,
                     }}
-                  />
+                  /> */}
                 </Grid>
                 <Grid item xs={3}>
-                  <FormTextField
+                  {/* <FormTextField
                     props={{
                       name: "textValueSuffix",
                       control: control,
@@ -237,10 +225,10 @@ export default function InvoiceFormComponent({
                       additional: { suffix: "%" },
                       disabled: false,
                     }}
-                  />
+                  /> */}
                 </Grid>
                 <Grid item xs={3}>
-                  <FormControlLabel
+                  {/* <FormControlLabel
                     value={true}
                     control={
                       <Switch
@@ -250,22 +238,22 @@ export default function InvoiceFormComponent({
                     }
                     label="Primeni popust"
                     labelPlacement="end"
-                  />
+                  /> */}
                 </Grid>
 
                 <Grid item xs={6}></Grid>
                 <Grid item xs={6}>
-                  <FormTextAreaField
+                  {/* <FormTextAreaField
                     props={{
                       name: "textAreaValue",
                       control: control,
                       label: "Area Input",
                       disabled: false,
                     }}
-                  />
+                  /> */}
                 </Grid>
                 <Grid item xs={3}>
-                  <FormTextField
+                  {/* <FormTextField
                     props={{
                       name: "textValue",
                       control: control,
@@ -289,10 +277,10 @@ export default function InvoiceFormComponent({
                       label: "Text Input",
                       disabled: false,
                     }}
-                  />
+                  /> */}
                 </Grid>
                 <Grid item xs={3}>
-                  <FormTextField
+                  {/* <FormTextField
                     props={{
                       name: "textValue",
                       control: control,
@@ -316,7 +304,7 @@ export default function InvoiceFormComponent({
                       label: "Text Input",
                       disabled: false,
                     }}
-                  />
+                  /> */}
                 </Grid>
               </Grid>
             </Paper>
@@ -335,17 +323,10 @@ export default function InvoiceFormComponent({
             }}
           >
             <Typography sx={formComponent.typography}>
-              STAVKE NA FAKTURI
+              {t(props.sectionTitles.title_2).toUpperCase()}
             </Typography>
-            <Paper
-              style={{
-                display: "grid",
-                gridRowGap: "20px",
-                padding: "20px",
-                background: "white",
-              }}
-            >
-              <FormTextField
+            <Paper style={formComponent.groupPaper}>
+              {/* <FormTextField
                 props={{
                   name: "textValueSuffix",
                   control: control,
@@ -353,7 +334,7 @@ export default function InvoiceFormComponent({
                   additional: { suffix: "%" },
                   disabled: false,
                 }}
-              />
+              /> */}
             </Paper>
           </Box>
         </Grid>
@@ -365,7 +346,7 @@ export default function InvoiceFormComponent({
               case InvoiceType.INVOICE:
                 return (
                   <InvoiceGroupComponent
-                    props={{ control: control }}
+                    props={{ control: control, title: "Fakture" }}
                   ></InvoiceGroupComponent>
                 );
 
@@ -375,21 +356,27 @@ export default function InvoiceFormComponent({
                     props={{ control: control }}
                   ></PrepaymentComponent>
                 );
+              case InvoiceType.CREDIT_NOTE:
+                return (
+                  <CreditNoteComponent
+                    props={{ control: control }}
+                  ></CreditNoteComponent>
+                );
+              case InvoiceType.DEBIT_NOTE:
+                return (
+                  <DebitNoteComponent
+                    props={{ control: control }}
+                  ></DebitNoteComponent>
+                );
+
               default:
-              case InvoiceType.INVOICE:
                 return (
                   <InvoiceGroupComponent
-                    props={{ control: control }}
+                    props={{ control: control, title: "Fakture" }}
                   ></InvoiceGroupComponent>
                 );
             }
           })()}
-          {/* <PrepaymentComponent
-            props={{ control: control }}
-          ></PrepaymentComponent>
-          <InvoiceGroupComponent
-            props={{ control: control }}
-          ></InvoiceGroupComponent> */}
         </Grid>
         <Grid item xs={5}>
           <Box
@@ -398,18 +385,13 @@ export default function InvoiceFormComponent({
               textAlign: "start",
             }}
           >
-            <Typography sx={formComponent.typography}>TOTAL</Typography>
-            <Paper
-              style={{
-                display: "grid",
-                gridRowGap: "20px",
-                padding: "20px",
-                background: "white",
-              }}
-            >
+            <Typography sx={formComponent.typography}>
+              {t(props.sectionTitles.title_3).toUpperCase()}
+            </Typography>
+            <Paper style={formComponent.groupPaper}>
               <Grid container spacing={2}>
                 <Grid item xs={12}>
-                  <FormCurrencyField
+                  {/* <FormCurrencyField
                     props={{
                       name: "currencyValue",
                       control: control,
@@ -426,7 +408,7 @@ export default function InvoiceFormComponent({
                       additional: { suffix: "%" },
                       disabled: false,
                     }}
-                  />
+                  /> */}
                 </Grid>
               </Grid>
             </Paper>
@@ -441,11 +423,13 @@ export default function InvoiceFormComponent({
               textAlign: "start",
             }}
           >
-            <Typography sx={formComponent.typography}>PDV</Typography>
+            <Typography sx={formComponent.typography}>
+              {t(props.sectionTitles.title_4).toUpperCase()}
+            </Typography>
             <Paper sx={formComponent.paper}>
               <Grid container spacing={2}>
                 <Grid item xs={6}>
-                  <FormTextField
+                  {/* <FormTextField
                     props={{
                       name: "textValue",
                       control: control,
@@ -482,7 +466,7 @@ export default function InvoiceFormComponent({
                       additional: { suffix: "%" },
                       disabled: false,
                     }}
-                  />
+                  /> */}
                 </Grid>
               </Grid>
             </Paper>
@@ -526,99 +510,4 @@ export default function InvoiceFormComponent({
       </Grid>
     </Box>
   );
-}
-
-{
-  /* <Paper
-            style={{
-              display: "grid",
-              gridRowGap: "20px",
-              padding: "20px",
-              background: "wheat",
-            }}
-          >
-            
-            <Grid container spacing={2}>
-              <Grid item xs={6}>
-                Grid 1
-              </Grid>
-              <Grid item xs={6}>
-                Grid 2
-              </Grid>
-              <Grid item xs={6}>
-                Grid 3
-              </Grid>
-              <Grid item xs={6}>
-                Grid 4
-              </Grid>
-            </Grid> 
-            <FormTextField
-              props={{
-                name: "textValue",
-                control: control,
-                label: "Text Input",
-              }}
-            />
-            <FormTextField
-              props={{
-                name: "textValueSuffix",
-                control: control,
-                label: "Text Input with Suffix",
-                additional: { suffix: "%" },
-              }}
-            />
-            <FormDropdownField
-              props={{
-                name: "dropdownValue",
-                control: control,
-                label: "Dropdown value",
-                options: [
-                  { name: "1", value: "1" },
-                  { name: "2", value: "2" },
-                  { name: "3", value: "3" },
-                ],
-              }}
-            />
-
-            <FormTextAreaField
-              props={{
-                name: "textAreaValue",
-                control: control,
-                label: "Area Input",
-              }}
-            />
-
-            <FormDateField
-              props={{
-                name: "dateValue",
-                control: control,
-                label: "Date Input",
-              }}
-            />
-
-            <FormAutocompleteField
-              props={{
-                name: "autocompleteValue",
-                control: control,
-                label: "Autocomplete Input",
-              }}
-            /> 
-            
-             <FormCheckboxField
-                    props={{
-                      control: control,
-                      name: "checkbox",
-                      disabled: false,
-                      label: "Checkbox Field",
-                    }}
-                  ></FormCheckboxField>
-            <Button onClick={handleSubmit(onSubmit)} variant={"contained"}>
-              {" "}
-              Submit{" "}
-            </Button>
-            <Button onClick={() => reset()} variant={"outlined"}>
-              {" "}
-              Reset{" "}
-            </Button> 
-          {/* </Paper> */
 }

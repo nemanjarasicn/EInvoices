@@ -2,9 +2,9 @@ import React from "react";
 import { TextField } from "@mui/material";
 import { Controller } from "react-hook-form";
 import { IProps } from "../../models";
-import { FormProps } from "./models/form-fields.models";
+import { FormFieldProps } from "./models/form-fields.models";
 
-type FormTextAreaFieldProps = FormProps & { additional?: any };
+type FormTextAreaFieldProps = FormFieldProps & { additional?: any };
 /**
  * Facade MUI TextArea Field component
  */

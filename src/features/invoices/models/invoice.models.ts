@@ -53,15 +53,15 @@ export interface IErrorFile {
 
 // FORM MODELS ////////////////////////////////////////////////////////////
 export class InvoiceFormModel {
-  documentType: InvoiceType = InvoiceType.INVOICE;
+  invoiceTypeCode: InvoiceType = InvoiceType.INVOICE;
   public constructor(init?: Partial<InvoiceFormModel>) {
     Object.assign(this, init);
   }
 }
 
 export enum InvoiceType {
-  INVOICE = 1, // Faktura
-  CREDIT_NOTE = 2, //KO odobenje
-  DEBIT_NOTE = 3, // KZ zaduzenje
-  PREPAYMENT = 4, // Avans
+  INVOICE = 380, // комерцијална фактура
+  CREDIT_NOTE = 381, //књижно одобрење
+  DEBIT_NOTE = 383, // књижно задужење
+  PREPAYMENT = 386, // авансна фактура
 }

@@ -92,5 +92,13 @@
       "fieldName": "Ime polja :",
       "errorMessage": "Poruka o grešci :"
     }
+  },
+  "Form": {
+    "sectionTitles": {
+      "title_1": "Podaci o fakturi",
+      "title_2": "Stavke na fakturi",
+      "title_3": "Ukupno",
+      "title_4": "PDV"
+    }
   }
 }

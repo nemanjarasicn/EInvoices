@@ -226,9 +226,13 @@ const useComponentsStyles = (): {
       },
       typography: { fontWeight: 600, p: 0.5, fontSize: "0.9rem" },
       paper: {
-        // display: "flex",
-        // gridRowGap: "20px",
         p: 2,
+        background: "white",
+      },
+      groupPaper: {
+        display: "grid",
+        gridRowGap: "20px",
+        padding: "20px",
         background: "white",
       },
     },

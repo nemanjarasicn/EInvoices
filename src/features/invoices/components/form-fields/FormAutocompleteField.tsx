@@ -2,9 +2,9 @@ import { Autocomplete, TextField } from "@mui/material";
 import React from "react";
 import { Controller } from "react-hook-form";
 import { IProps } from "../../models";
-import { FormProps } from "./models/form-fields.models";
+import { FormFieldProps } from "./models/form-fields.models";
 
-type FormAutocompleteFieldProps = FormProps & { additional?: any };
+type FormAutocompleteFieldProps = FormFieldProps & { additional?: any };
 /**
  * Facade MUI Autocomplete Field component
  */

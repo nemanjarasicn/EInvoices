@@ -2,10 +2,10 @@ import React from "react";
 import { TextField } from "@mui/material";
 import { Controller } from "react-hook-form";
 import { IProps } from "../../models";
-import { FormProps } from "./models/form-fields.models";
+import { FormFieldProps } from "./models/form-fields.models";
 import { CurrencyFormatCustom, MaskProps } from "./CurrencyFormatCustom";
 
-type FormNumberFieldProps = FormProps & {
+type FormNumberFieldProps = FormFieldProps & {
   additional?: {
     mask: MaskProps;
   };

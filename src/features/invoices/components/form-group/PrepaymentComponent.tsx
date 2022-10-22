@@ -1,3 +1,4 @@
+import React from "react";
 import {
   Box,
   Typography,
@@ -6,19 +7,35 @@ import {
   FormControlLabel,
   Switch,
 } from "@mui/material";
-import React from "react";
 import { IProps } from "../../models";
 import { useComponentsStyles } from "../components.styles";
 import FormTextField from "../form-fields/FormTextField";
+import FormDateField from "../form-fields/FormDateField";
+import FormDropdownField from "../form-fields/FormDropdownField";
+import { Control } from "react-hook-form";
 
 type PrepaymentComponentProps = {
-  control: any;
+  control: Control<any, any>;
 };
 
 export default function PrepaymentComponent({
   props,
 }: IProps<PrepaymentComponentProps>): JSX.Element {
   const { formComponent } = useComponentsStyles();
+  const fieldNames: string[] = ["datumPlacanja", "datumObracunaPDV"];
+
+  /**
+   * Unmount and unregister fields
+   */
+  React.useEffect(
+    () => () => {
+      fieldNames.map((field) => {
+        props.control.unregister(field);
+      });
+    },
+    []
+  );
+
   return (
     <Box
       sx={{
@@ -37,50 +54,23 @@ export default function PrepaymentComponent({
       >
         <Grid container spacing={2}>
           <Grid item xs={6}>
-            <FormTextField
+            <FormDateField
               props={{
-                name: "textValueSuffix",
+                name: "datumPlacanja",
                 control: props.control,
-                label: "Text Input with Suffix",
-                additional: { suffix: "%" },
-                disabled: false,
-              }}
-            />
-            <FormTextField
-              props={{
-                name: "textValueSuffix",
-                control: props.control,
-                label: "Text Input with Suffix",
-                additional: { suffix: "%" },
+                label: "Datum Prometa",
                 disabled: false,
               }}
             />
           </Grid>
           <Grid item xs={6} alignSelf={"end"}>
-            <FormControlLabel
-              style={{
-                margin: "auto",
-                marginBottom: "25px",
-                display: "flex",
-                justifyContent: "flex-end",
-              }}
-              value={true}
-              control={
-                <Switch
-                  // onChange={handleChangeSwitch}
-                  inputProps={{ "aria-label": "controlled" }}
-                />
-              }
-              label="Da/Ne"
-              labelPlacement="end"
-            />
-            <FormTextField
+            <FormDropdownField
               props={{
-                name: "textValueSuffix",
+                name: "datumObracunaPDV",
                 control: props.control,
-                label: "Text Input with Suffix",
-                additional: { suffix: "%" },
+                label: "Datum Obracuna PDV",
                 disabled: false,
+                options: [{ name: "Obracun PDV na dan placanja", value: "3" }],
               }}
             />
           </Grid>

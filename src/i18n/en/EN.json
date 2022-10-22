@@ -31,7 +31,7 @@
     "allStatuses": "All Statuses"
   },
   "InvoiceTypes": {
-    "debitInvoice": "Debit invoice",
+    "debitInvoice": "Invoice",
     "creditNote": "Credit note",
     "debitNote": "Debit note",
     "prepayment": "Prepayment"
@@ -91,6 +91,14 @@
       "errorCode": "Error Code :",
       "fieldName": "Field Name :",
       "errorMessage": "Error Message :"
+    }
+  },
+  "Form": {
+    "sectionTitles": {
+      "title_1": "Invoice info",
+      "title_2": "invoice items",
+      "title_3": "Total",
+      "title_4": "VAT"
     }
   }
 }
