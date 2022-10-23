@@ -16,6 +16,12 @@ export interface OptionItem {
   name: string;
 }
 
+export interface AutocompleteItem {
+  id: number;
+  item: any;
+  name: string;
+}
+
 export enum VATPointDate {
   ISSUING_DATE = 1,
   DELIVERY_DATE = 2,

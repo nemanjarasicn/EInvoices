@@ -1,16 +1,31 @@
 import { Autocomplete, TextField } from "@mui/material";
+import { AsyncThunkAction } from "@reduxjs/toolkit";
 import React from "react";
 import { Controller } from "react-hook-form";
+import { useAppDispatch, useAppSelector } from "../../../../app/hooks";
 import { IProps } from "../../models";
-import { FormFieldProps } from "./models/form-fields.models";
+import { AutocompleteItem, FormFieldProps } from "./models/form-fields.models";
 
-type FormAutocompleteFieldProps = FormFieldProps & { additional?: any };
+type FormAutocompleteFieldProps = FormFieldProps & {
+  additional: {
+    dispatchAction: AsyncThunkAction<any, void, {}>;
+    selector: any;
+  };
+};
 /**
  * Facade MUI Autocomplete Field component
  */
 export default function FormAutocompleteField({
   props,
 }: IProps<FormAutocompleteFieldProps>) {
+  const dispatch = useAppDispatch();
+
+  React.useEffect(() => {
+    dispatch(props.additional.dispatchAction);
+  }, []);
+
+  const data: AutocompleteItem[] = useAppSelector(props.additional.selector);
+
   return (
     <Controller
       name={props.name}
@@ -19,9 +34,8 @@ export default function FormAutocompleteField({
         <Autocomplete
           disablePortal
           id="combo-box-demo"
-          options={top100Films}
-          getOptionLabel={(option) => option.title}
-          sx={{ width: 300 }}
+          options={data}
+          getOptionLabel={(item: AutocompleteItem) => item.name}
           onChange={(_event, value) => onChange(value)}
           renderInput={(params) => (
             <TextField
@@ -40,11 +54,3 @@ export default function FormAutocompleteField({
     />
   );
 }
-
-const top100Films = [
-  { title: "The Shawshank Redemption", year: 1994 },
-  { title: "The Godfather", year: 1972 },
-  { title: "The Godfather: Part II", year: 1974 },
-  { title: "The Dark Knight", year: 2008 },
-  { title: "12 Angry Men", year: 1957 },
-];
