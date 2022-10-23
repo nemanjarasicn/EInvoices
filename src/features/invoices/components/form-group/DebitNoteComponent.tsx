@@ -110,7 +110,6 @@ export default function DebitNoteComponent({
                 }}
               />
             )}
-
             <FormDateField
               props={{
                 ...props.debitNoteFields.dueDate,

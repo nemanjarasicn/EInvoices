@@ -386,7 +386,6 @@ export default function InvoiceFormComponent({
                     }}
                   ></InvoiceGroupComponent>
                 );
-
               case InvoiceType.PREPAYMENT:
                 return (
                   <PrepaymentComponent
@@ -544,7 +543,6 @@ export default function InvoiceFormComponent({
                     }}
                   ></DebitNoteComponent>
                 );
-
               default:
                 throw new Error("No such invoice type");
             }
