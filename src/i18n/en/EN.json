@@ -123,5 +123,12 @@
       "single": "Invoice selection",
       "period": "Period selection"
     }
+  },
+  "Client": {
+    "title": "Client",
+    "companyName": " Client name",
+    "address": "Client address",
+    "clientRegistrationCode": "Registration code",
+    "clientVatRegistrationCode": " VAT Registration code"
   }
 }

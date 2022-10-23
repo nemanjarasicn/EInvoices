@@ -61,6 +61,18 @@ export enum InvoiceType {
   PREPAYMENT = 386, // авансна фактура
 }
 
+export class Company {
+  id?: number = 0;
+  companyName: string = "";
+  registrationCode: string = ""; //MB
+  vatRegistrationCode: string = ""; //PIB
+  address?: string = "";
+
+  public constructor(init?: Partial<InvoiceFormModel>) {
+    Object.assign(this, init);
+  }
+}
+
 // FORM MODELS ////////////////////////////////////////////////////////////
 export class InvoiceFormModel {
   invoiceTypeCode: InvoiceType = InvoiceType.INVOICE;
@@ -71,8 +83,7 @@ export class InvoiceFormModel {
   sourceInvoice: string = "";
   modePeriodFrom: Date = new Date();
   modePeriodTo: Date = new Date();
-
-  dropdownValue: string = "";
+  client: Company = new Company();
 
   public constructor(init?: Partial<InvoiceFormModel>) {
     Object.assign(this, init);

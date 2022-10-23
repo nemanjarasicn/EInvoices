@@ -123,5 +123,12 @@
       "single": "Pojedinačna faktura",
       "period": "Fakture u periodu"
     }
+  },
+  "Client": {
+    "title": "Kupac",
+    "companyName": "Naziv kupca",
+    "address": "Adresa kupca",
+    "clientRegistrationCode": "Matični broj kupca",
+    "clientVatRegistrationCode": " PIB kupca"
   }
 }

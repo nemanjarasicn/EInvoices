@@ -38,13 +38,21 @@ export const selectUnitMesures = createSelector(
     }))
 );
 /**
- * Selectcompanies for dropdown component
+ * Select companies for autocomplete component
+ * map to Autocomplete item
  */
 export const selectClientCompanies = createSelector(
-  dropdownSelectors,
-  (state: DropdownData) =>
-    state.companies.map((item) => ({
+  autocompleteSelectors,
+  (state: AutocompleteData) =>
+    state.companies.map((item, index) => ({
       name: item.Name,
-      value: item.VatRegistrationCode,
+      id: item.VatRegistrationCode,
+      item: {
+        id: item.VatRegistrationCode,
+        companyName: item.Name,
+        registrationCode: item.RegistrationCode,
+        vatRegistrationCode: item.VatRegistrationCode,
+        address: "",
+      },
     }))
 );

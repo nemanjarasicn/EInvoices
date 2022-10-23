@@ -4,36 +4,40 @@ import { getAllUnitMesures, getClientCompanies } from "./form.actions";
 
 const FORM_FIELDS_KEY: string = "form";
 
-export type AutocompleteData = { unitMesures: any[] };
-export type DropdownData = { companies: any[] };
+export type AutocompleteData = { unitMesures: any[]; companies: any[] };
+export type DropdownData = {};
 
 export interface FormState {
   loading: boolean;
   autocompleteData: AutocompleteData;
-  dropdownData: DropdownData;
+  dropdownData: DropdownData | null;
 }
 
 const initialState: FormState = {
   loading: false,
   autocompleteData: {
     unitMesures: [],
-  },
-  dropdownData: {
     companies: [],
   },
+  dropdownData: null,
 };
 
 const formSlice: Slice<FormState> = createSlice({
   name: FORM_FIELDS_KEY,
   initialState: initialState,
-  reducers: {},
+  reducers: {
+    clearCompanies: (state) => ({
+      ...state,
+      autocompleteData: { ...state.autocompleteData, companies: [] },
+    }),
+  },
   extraReducers: (builder) => {
     getAsyncUnitMesures(builder);
     getAsyncClientCompanies(builder);
   },
 });
 
-export const { setSelection, resetSelectionState } = formSlice.actions;
+export const { clearCompanies } = formSlice.actions;
 export default formSlice.reducer;
 
 /**
@@ -43,7 +47,7 @@ export default formSlice.reducer;
 function getAsyncClientCompanies(builder: ActionReducerMapBuilder<FormState>) {
   builder.addCase(getClientCompanies.fulfilled, (state, { payload }) => ({
     ...state,
-    dropdownData: { ...state.dropdownData, companies: payload },
+    autocompleteData: { ...state.autocompleteData, companies: payload },
     loading: false,
   }));
   builder.addCase(getClientCompanies.pending, (state) => ({
@@ -52,7 +56,7 @@ function getAsyncClientCompanies(builder: ActionReducerMapBuilder<FormState>) {
   }));
   builder.addCase(getClientCompanies.rejected, (state) => ({
     ...state,
-    dropdownData: { ...state.dropdownData, companies: [] },
+    autocompleteData: { ...state.autocompleteData, companies: [] },
     loading: false,
   }));
 }

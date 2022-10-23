@@ -39,6 +39,7 @@ import DebitNoteComponent from "./form-group/DebitNoteComponent";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import { getClientCompanies } from "./form-fields/store/form.actions";
 import { selectClientCompanies } from "./form-fields/store/form.selectors";
+import ClientComponent from "./form-group/ClientComponent";
 
 export type InvoiceFormComponentProps = {
   invoiceTypeOptions: any;
@@ -49,7 +50,7 @@ interface IFormInput {
   invoiceTypeCode: InvoiceType;
   // textValue: string;
   // textValueSuffix: string;
-  dropdownValue: string;
+  // dropdownValue: string;
   // textAreaValue: string;
   // dateValue: string;
   // autocompleteValue: any;
@@ -58,14 +59,18 @@ interface IFormInput {
   // sourceInvoice: string;
 }
 
-const defaultValues = new InvoiceFormModel();
+// const defaultValues = new InvoiceFormModel();
 
 /**
  * Register Form validation schema for every field
  */
 const schema = yup
   .object({
-    // textValue: yup.string().required(),
+    // client: yup
+    //   .object({
+    //     vatRegistrationCode: yup.string().required(),
+    //   })
+    //   .required(),
     // dropdownValue: yup.string().required(),
     // textAreaValue: yup.string().required(),
     // dateValue: yup.string().required(), //validate date format
@@ -78,6 +83,7 @@ const schema = yup
 export default function InvoiceFormComponent({
   props,
 }: IProps<InvoiceFormComponentProps>): JSX.Element {
+  const defaultValues = new InvoiceFormModel();
   const { t } = useTranslation();
   const { formComponent } = useComponentsStyles();
 
@@ -114,8 +120,8 @@ export default function InvoiceFormComponent({
   };
 
   React.useEffect(() => {
-    console.log("EFFECt MOUNT");
-    dispatch(getClientCompanies());
+    // console.log("EFFECt MOUNT");
+    // dispatch(getClientCompanies());
     // console.log("FORM VALUES WATCH", formValues);
     // console.log("MENJA SE", getFieldState("dropdownValue"));
   }, []);
@@ -146,16 +152,38 @@ export default function InvoiceFormComponent({
             </Typography>
             <Paper style={formComponent.groupPaper}>
               <Grid container spacing={2}>
-                <Grid item xs={3}>
-                  {/* <FormDropdownField
+                <Grid item xs={12}>
+                  <ClientComponent
                     props={{
-                      name: "dropdownValue",
                       control: control,
-                      label: "KLIJENT",
-                      options: [...useAppSelector(selectClientCompanies)],
-                      disabled: false,
+                      title: t("Client.title"),
+                      additional: { formSetValue: setValue, watch: watch },
+                      clientFields: {
+                        clientCompanyName: {
+                          name: "client.companyName",
+                          label: t("Client.companyName"),
+                          disabled: false,
+                        },
+                        clientAddress: {
+                          name: "client.address",
+                          label: t("Client.address"),
+                          disabled: false,
+                        },
+                        clientRegistrationCode: {
+                          name: "client.registrationCode",
+                          label: t("Client.clientRegistrationCode"),
+                          disabled: false,
+                        },
+                        clientVatRegistrationCode: {
+                          name: "client.vatRegistrationCode",
+                          label: t("Client.clientVatRegistrationCode"),
+                          disabled: false,
+                        },
+                      },
                     }}
-                  /> */}
+                  ></ClientComponent>
+                </Grid>
+                <Grid item xs={3}>
                   {/* <FormDropdownField
                     props={{
                       name: "dropdownValue",
@@ -167,19 +195,6 @@ export default function InvoiceFormComponent({
                         { name: "2", value: "2" },
                         { name: "3", value: "3" },
                       ],
-                    }}
-                  />
-                  <FormDropdownField
-                    props={{
-                      name: "dropdownValue",
-                      control: control,
-                      label: "KLIJENT",
-                      options: [
-                        { name: "1", value: "1" },
-                        { name: "2", value: "2" },
-                        { name: "3", value: "3" },
-                      ],
-                      disabled: false,
                     }}
                   /> */}
                   <FormDropdownField

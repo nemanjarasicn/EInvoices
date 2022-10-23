@@ -26,7 +26,7 @@ export default function FormTextField({
           helperText={error ? error.message : " "}
           size="small"
           error={!!error}
-          onChange={onChange}
+          onChange={(e) => onChange(e.target.value)}
           value={value}
           fullWidth
           label={props.label}
