@@ -12,7 +12,7 @@ export interface GroupFieldProps {
   control: Control<any, any>;
 }
 export interface OptionItem {
-  value: string | VATPointDate | SourceSelectionMode;
+  value: string | VATPointDate | SourceSelectionMode | any;
   name: string;
 }
 

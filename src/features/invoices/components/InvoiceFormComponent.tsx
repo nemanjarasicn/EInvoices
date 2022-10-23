@@ -36,6 +36,9 @@ import {
 } from "./form-fields/models/form-fields.models";
 import CreditNoteComponent from "./form-group/CreditNoteComponent";
 import DebitNoteComponent from "./form-group/DebitNoteComponent";
+import { useAppDispatch, useAppSelector } from "../../../app/hooks";
+import { getClientCompanies } from "./form-fields/store/form.actions";
+import { selectClientCompanies } from "./form-fields/store/form.selectors";
 
 export type InvoiceFormComponentProps = {
   invoiceTypeOptions: any;
@@ -46,7 +49,7 @@ interface IFormInput {
   invoiceTypeCode: InvoiceType;
   // textValue: string;
   // textValueSuffix: string;
-  // dropdownValue: string;
+  dropdownValue: string;
   // textAreaValue: string;
   // dateValue: string;
   // autocompleteValue: any;
@@ -77,9 +80,9 @@ export default function InvoiceFormComponent({
 }: IProps<InvoiceFormComponentProps>): JSX.Element {
   const { t } = useTranslation();
   const { formComponent } = useComponentsStyles();
-  /**
-   * Handle Invoice type
-   */
+
+  const dispatch = useAppDispatch();
+
   const [invoiceType, setInvoiceType] = React.useState<InvoiceType>(
     InvoiceType.INVOICE
   );
@@ -102,24 +105,20 @@ export default function InvoiceFormComponent({
   const formValues = watch(); //EEG
   const onSubmit = (data: IFormInput) => console.log(data);
 
-  // TODO CONTROLA SETTINGSA
-  // const [first, setfirst] = React.useState();
-  // const handleChangeSwitch = () => {
-  //   console.log(control);
-  //   setfirst((state) => ({
-  //     ...state,
-  //     additional: { ...state.additional, disabled: false },
-  //   }));
-  // };
-
+  /**
+   * Handle switch of template by invoice type
+   * @param invoicetype
+   */
   const handleChangeType = (invoicetype: InvoiceType) => {
     setInvoiceType(invoicetype);
   };
 
   React.useEffect(() => {
+    console.log("EFFECt MOUNT");
+    dispatch(getClientCompanies());
     // console.log("FORM VALUES WATCH", formValues);
     // console.log("MENJA SE", getFieldState("dropdownValue"));
-  }, [formValues]);
+  }, []);
 
   return (
     <Box
@@ -148,6 +147,15 @@ export default function InvoiceFormComponent({
             <Paper style={formComponent.groupPaper}>
               <Grid container spacing={2}>
                 <Grid item xs={3}>
+                  {/* <FormDropdownField
+                    props={{
+                      name: "dropdownValue",
+                      control: control,
+                      label: "KLIJENT",
+                      options: [...useAppSelector(selectClientCompanies)],
+                      disabled: false,
+                    }}
+                  /> */}
                   {/* <FormDropdownField
                     props={{
                       name: "dropdownValue",

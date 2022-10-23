@@ -72,6 +72,8 @@ export class InvoiceFormModel {
   modePeriodFrom: Date = new Date();
   modePeriodTo: Date = new Date();
 
+  dropdownValue: string = "";
+
   public constructor(init?: Partial<InvoiceFormModel>) {
     Object.assign(this, init);
   }

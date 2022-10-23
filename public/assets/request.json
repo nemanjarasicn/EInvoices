@@ -1,0 +1,224 @@
+{
+  "ReceiverId": 69239,
+  "PublicPurchaseContractSigner": null,
+  "PublicPurchaseContractSignerContractId": null,
+  "Contract": null,
+  "Status": "Draft",
+  "AllowedInvoiceCancellation": false,
+  "UasSender": {
+    "CompanyId": 68965,
+    "CountryId": 381,
+    "Name": "MASTER SOFTWARE",
+    "WebAddress": "www.mastersoftware.rs",
+    "Addresses": [
+      {
+        "AddressId": 39600,
+        "StreetAndHouse": "MILUTINA MILANKOVIĆA 9 ж",
+        "PostalIndex": null,
+        "City": "Beograd (Novi Beograd)   ",
+        "CountryId": 381
+      }
+    ],
+    "BankAccounts": [
+      {
+        "BankAccountId": 12268,
+        "BankId": null,
+        "Currency": null,
+        "Iban": null,
+        "Swift": null,
+        "IsPrimary": false,
+        "UnifiedBankAccount": "285233100000025379"
+      }
+    ],
+    "Emails": [
+      {
+        "Email": "office@mastersoftware.rs",
+        "IsActivated": false,
+        "ActivationToken": null
+      }
+    ],
+    "RegistrationCode": "21502243",
+    "VatRegistrationCode": "111560838",
+    "PhoneNumber": "011/4405-405",
+    "ContactPerson": null,
+    "ContactEmail": "office@mastersoftware.rs",
+    "Logo": null,
+    "Settings": {
+      "HomeRoute": null,
+      "Modules": []
+    },
+    "IsMainCompany": false,
+    "GroupId": [],
+    "IsPrivateCompany": false,
+    "PackageId": 32,
+    "AdditionalCode": null,
+    "PlusChannelsActive": false,
+    "Status": 0,
+    "CompanyWillBeDeletedAt": null,
+    "SerbiaCompanyType": "Company",
+    "NonSebIbanWarning": false,
+    "StoreInvoiceDetails": null,
+    "HasISP": null,
+    "InformationServiceProviderId": null,
+    "InformationServiceProviderName": null,
+    "ISPAcceptedToRepresentCompany": null
+  },
+  "TotalRowsCount": 1,
+  "Channel": null,
+  "ChannelAddress": null,
+  "ServiceProvider": null,
+  "Rows": [
+    {
+      "RowId": 856083,
+      "InvoiceId": 408717,
+      "OrderNo": 1,
+      "Code": "13",
+      "Description": "123",
+      "Unit": "H87",
+      "UnitPrice": "123.00",
+      "Quantity": "1",
+      "DiscountPercentage": "0",
+      "DiscountAmount": "0.00",
+      "SumWithoutVat": "123.00",
+      "VatRate": 10,
+      "VatSum": "0.00",
+      "SumWithVat": "0.00",
+      "VatCategoryCode": "S"
+    }
+  ],
+  "InvoiceMessage": null,
+  "AcceptRejectMessage": null,
+  "Attachments": [],
+  "BankAccounts": [],
+  "SelectedPrepaymentInvoices": [],
+  "IsCreditInvoice": false,
+  "SenderReceiverContractNumber": null,
+  "ErrorCode": null,
+  "TotalToPay": "0.00",
+  "CirInvoiceId": null,
+  "CirAmountChangeId": null,
+  "CirSettledAmount": 0,
+  "IsProFormaInvoice": null,
+  "CirHistory": null,
+  "CirAssignationHistory": null,
+  "CirStatus": "None",
+  "IsDebitNote": false,
+  "StornoNumber": null,
+  "CancelInvoiceMessage": null,
+  "PrepaymentInvoiceNumber": null,
+  "IsPrepaymentInvoice": false,
+  "VatPointDate": 3,
+  "GlobUniqId": "d172c2a0-52ca-475c-82b4-dd0a7b0d588d",
+  "VatNumberFactoringCompany": null,
+  "FactoringContractNumber": null,
+  "SourceInvoiceSelectionMode": "InvoiceSelection",
+  "IndebtednessPeriodFromDate": null,
+  "IndebtednessPeriodToDate": null,
+  "SourceInvoices": [],
+  "SourceInvoicesOutOfEFaktura": [],
+  "IsRelatedToInvoicesFromPreviosPeriod": false,
+  "CreditInvoices": [],
+  "DebitNotes": [],
+  "PrepaymentCalculation": null,
+  "InvoiceTotalPaymentsCalculation": null,
+  "InvoiceTotalVatPaymentsCalculationDomestic": null,
+  "LotNumber": null,
+  "HideInvoiceLines": false,
+  "ObjectIdentifier": null,
+  "InternalRoutingNumber": null,
+  "CreatedFromXml": false,
+  "CurrencyName": "RSD",
+  "DomesticVatAmount": 0,
+  "ExchangeRate": null,
+  "InvoiceId": 408717,
+  "SenderId": 68965,
+  "Sender": "MASTER SOFTWARE",
+  "Receiver": "5.COM",
+  "InvoiceNumber": "2022/00010",
+  "AccountingDateUtc": 1666446575621.5535, //Datum obračuna
+  "PaymentDateUtc": 1666180800000, //Datum plaćanja
+  "InvoiceDateUtc": 1665662400000, //Datum fakture
+  "InvoiceSentDateUtc": 1666454592403, //Datum slanja fakture
+  "ReferenceNumber": null,
+  "Description": null,
+  "Note": null,
+  "OrderNumber": null,
+  "Currency": "RSD",
+  "DiscountAmount": "0.00",
+  "SumWithoutVat": "123.00",
+  "VatRate": 0,
+  "VatSum": "0.00",
+  "CreatedUtc": 1666446575624.2805,
+  "LastModifiedUtc": 1666446575627.4705,
+  "Version": 2,
+  "ModelNumber": null,
+  "ExternalSourceInvoiceName": "",
+  "SourceInvoicesNotRegisteredInEFaktura": [],
+  "ServiceIdReadOnly": false,
+  "BuyerDeleted": false,
+  "ReceiverCurrency": "RSD",
+  "HasIban": true,
+  "HasEmail": true,
+  "ServiceId": null,
+  "FineRatePerDay": "0.00",
+  "DiscountPercentage": "0.00",
+  "SendInvoiceToCir": false,
+  "BalanceEndSum": null,
+  "SumWithVat": "0.00",
+  "ExemptionReasonsByVatCategory": [],
+  "Discounts": [
+    {
+      "VatRate": 20,
+      "VatCategoryCode": "S20",
+      "Amount": 0
+    },
+    {
+      "VatRate": 10,
+      "VatCategoryCode": "S10",
+      "Amount": 0
+    },
+    {
+      "VatRate": 0,
+      "VatCategoryCode": "AE",
+      "Amount": 0
+    },
+    {
+      "VatRate": 0,
+      "VatCategoryCode": "O",
+      "Amount": 0
+    },
+    {
+      "VatRate": 0,
+      "VatCategoryCode": "E",
+      "Amount": 0
+    },
+    {
+      "VatRate": 0,
+      "VatCategoryCode": "R",
+      "Amount": 0
+    },
+    {
+      "VatRate": 0,
+      "VatCategoryCode": "Z",
+      "Amount": 0
+    },
+    {
+      "VatRate": 0,
+      "VatCategoryCode": "SS",
+      "Amount": 0
+    },
+    {
+      "VatRate": 0,
+      "VatCategoryCode": "OE",
+      "Amount": 0
+    },
+    {
+      "VatRate": 0,
+      "VatCategoryCode": "N",
+      "Amount": 0
+    }
+  ],
+  "DocTypeOption": "invoiceNo",
+  "SourceInvoiceNumber": null,
+  "ContractId": 69239
+}

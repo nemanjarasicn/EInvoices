@@ -13,4 +13,16 @@ const getAllUnitMesures: AsyncThunk<any, void, {}> = createAsyncThunk(
   }
 );
 
-export { getAllUnitMesures };
+/**
+ * Get Async Companies
+ */
+const getClientCompanies: AsyncThunk<any, void, {}> = createAsyncThunk(
+  "GET/Companies",
+  async () => {
+    return await InvoicePublicService.getClientCompanies()
+      .then((res) => res.data)
+      .catch((err) => []);
+  }
+);
+
+export { getAllUnitMesures, getClientCompanies };

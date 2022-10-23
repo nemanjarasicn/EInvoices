@@ -50,7 +50,7 @@ export default function FormDropdownField({
             )}
             {props.options.map((option: OptionItem, index) => {
               return (
-                <MenuItem key={index} value={option.value}>
+                <MenuItem key={`${index}_${option.name}`} value={option.value}>
                   {`${t(option.name)}`}
                 </MenuItem>
               );
