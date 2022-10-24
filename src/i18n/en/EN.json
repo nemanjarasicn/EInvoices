@@ -92,5 +92,10 @@
       "fieldName": "Field Name :",
       "errorMessage": "Error Message :"
     }
+  },
+  "SearchField": {
+    "documentSearch": "Search documents",
+    "searchOutgoingdocuments": "Search outgoing documents",
+    "searchIncomingdocuments": "Search incoming documents"
   }
 }

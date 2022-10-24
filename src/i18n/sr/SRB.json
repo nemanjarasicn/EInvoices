@@ -92,5 +92,10 @@
       "fieldName": "Ime polja :",
       "errorMessage": "Poruka o grešci :"
     }
+  },
+  "SearchField": {
+    "documentSearch": "Pretraga Dokumenata",
+    "searchOutgoingdocuments": "Pretraga izlaznih dokumenata",
+    "searchIncomingdocuments":"Pretraga ulaznih dokumenata"
   }
 }

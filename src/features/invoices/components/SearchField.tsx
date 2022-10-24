@@ -10,10 +10,12 @@ import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import { useLocation } from "react-router-dom";
 import { IconButton } from "@mui/material";
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 type SearchFieldProps = {};
 
 export default function SearchField({}: SearchFieldProps): JSX.Element {
+  const { t } = useTranslation();
   const [value, setValue] = useState("searchValue");
 
   const textInput = React.useRef({ value: "" });
@@ -24,10 +26,10 @@ export default function SearchField({}: SearchFieldProps): JSX.Element {
 
   function getSearhTab(): any {
     if (location.pathname.includes("sale")) {
-      return "Pretraga izlaznih dokumenata";
+      return t('SearchField.searchOutgoingdocuments');
     }
     if (location.pathname.includes("purchases")) {
-      return "Pretraga dolaznih dokumenata";
+      return t('SearchField.searchIncomingdocuments');
     }
     return "";
   }
@@ -48,7 +50,7 @@ export default function SearchField({}: SearchFieldProps): JSX.Element {
   }
 
   return (
-    <div style={{ textAlign: "center", margin: "10px" }}>
+    <div style={{ textAlign: "center", margin: "10px 10px 10px -10px" }}>
       <FormControl
         sx={{
           m: 1,
@@ -60,7 +62,7 @@ export default function SearchField({}: SearchFieldProps): JSX.Element {
       >
         <OutlinedInput
           id="outlined-adornment-search"
-          placeholder="Pretraga dokumenata"
+          placeholder={t('SearchField.documentSearch')}
           onChange={(newValue) => {
             setValue(newValue.target.value);
           }}
