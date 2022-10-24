@@ -1,3 +1,7 @@
+import {
+  SourceSelectionMode,
+  VATPointDate,
+} from "../components/form-fields/models/form-fields.models";
 import { FileStatus } from "./invoice.enums";
 
 /**
@@ -49,4 +53,39 @@ export interface IErrorFile {
   ErrorCode: string;
   FieldName: string;
   Message: string;
+}
+export enum InvoiceType {
+  INVOICE = 380, // комерцијална фактура
+  CREDIT_NOTE = 381, //књижно одобрење
+  DEBIT_NOTE = 383, // књижно задужење
+  PREPAYMENT = 386, // авансна фактура
+}
+
+export class Company {
+  id?: number = 0;
+  companyName: string = "";
+  registrationCode: string = ""; //MB
+  vatRegistrationCode: string = ""; //PIB
+  address?: string = "";
+
+  public constructor(init?: Partial<InvoiceFormModel>) {
+    Object.assign(this, init);
+  }
+}
+
+// FORM MODELS ////////////////////////////////////////////////////////////
+export class InvoiceFormModel {
+  invoiceTypeCode: InvoiceType = InvoiceType.INVOICE;
+  issueDate: Date = new Date();
+  dueDate: Date = new Date();
+  vatPointDate: VATPointDate = VATPointDate.ISSUING_DATE;
+  sourceInvoiceSelectionMode: SourceSelectionMode = SourceSelectionMode.SINGLE;
+  sourceInvoice: string = "";
+  modePeriodFrom: Date = new Date();
+  modePeriodTo: Date = new Date();
+  client: Company = new Company();
+
+  public constructor(init?: Partial<InvoiceFormModel>) {
+    Object.assign(this, init);
+  }
 }

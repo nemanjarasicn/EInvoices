@@ -8,6 +8,7 @@ const useComponentsStyles = (): {
   filterComponentStyle: any;
   selectAllConmponentStyles: any;
   dropzoneComponent: any;
+  formComponent: any;
 } => {
   return {
     invoiceCardStyles: {
@@ -207,6 +208,32 @@ const useComponentsStyles = (): {
         overflowX: "hidden",
         overflowY: "auto",
         maxHeight: "185px",
+      },
+    },
+    formComponent: {
+      basicBox: {
+        p: 1,
+        bgcolor: (theme: { palette: { mode: string } }) =>
+          theme.palette.mode === "dark" ? "#101010" : "grey.100",
+        color: (theme: { palette: { mode: string } }) =>
+          theme.palette.mode === "dark" ? "grey.300" : "grey.800",
+        border: "1px solid",
+        borderColor: (theme: { palette: { mode: string } }) =>
+          theme.palette.mode === "dark" ? "grey.800" : "grey.300",
+        borderRadius: 2,
+        fontSize: "0.875rem",
+        fontWeight: "700",
+      },
+      typography: { fontWeight: 600, p: 0.5, fontSize: "0.9rem" },
+      paper: {
+        p: 2,
+        background: "white",
+      },
+      groupPaper: {
+        display: "grid",
+        gridRowGap: "20px",
+        padding: "20px",
+        background: "white",
       },
     },
   };

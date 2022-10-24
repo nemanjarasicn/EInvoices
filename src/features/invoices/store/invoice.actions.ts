@@ -21,15 +21,6 @@ const getPurchaseInvoices: AsyncThunk<any, void, {}> = createAsyncThunk(
   }
 );
 
-const getAllUnitMesures: AsyncThunk<any, void, {}> = createAsyncThunk(
-  "GET/Units",
-  async () => {
-    return await InvoicePublicService.getAllUnitMesures()
-      .then((res) => res.data)
-      .catch((err) => []);
-  }
-);
-
 const getAllCompanies: AsyncThunk<any, void, {}> = createAsyncThunk(
   "GET/Companies",
   async () => {
@@ -60,7 +51,6 @@ const sendInvoceXml: AsyncThunk<any, { file: File; id: string | number }, {}> =
 export {
   getSalesInvoices,
   getPurchaseInvoices,
-  getAllUnitMesures,
   getAllCompanies,
   sendInvoceXml,
 };

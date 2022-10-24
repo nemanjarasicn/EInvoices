@@ -1,0 +1,167 @@
+{
+  "id": "1234-45609899967845094904",
+  "issueDate": "2022-10-20",
+  "dueDate": "2022-10-20",
+  "invoiceTypeCode": "380",
+  "documentCurrencyCode": "RSD",
+  "buyerReference": "14",
+  "invoicePeriod": [
+    {
+      "descriptionCode": "3"
+    }
+  ],
+  "orderReference": {
+    "id": "123/3"
+  },
+  "originatorDocumentReference": [
+    {
+      "id": "2001/3-1"
+    }
+  ],
+  "contractDocumentReference": [
+    {
+      "id": "12"
+    }
+  ],
+  "additionalDocumentReference": [
+    {
+      "id": "12",
+      "issueDate": "2022-10-17",
+      "issueTime": "23:56:35.3459193+02:00",
+      "documentTypeCode": "130"
+    }
+  ],
+  "accountingSupplierParty": {
+    "party": {
+      "schemeID": "9948",
+      "endpointID": 111560838,
+      "partyName": [
+        {
+          "name": "MASTER SOFTWARE"
+        }
+      ]
+    },
+    "postalAddress": {
+      "cityName": "Beograd",
+      "country": {
+        "identificationCode": "RS"
+      }
+    },
+    "partyTaxScheme": {
+      "companyID": "RS111560838",
+      "taxScheme": {
+        "id": "VAT"
+      }
+    },
+    "partyLegalEntity": {
+      "registrationName": "MASTER SOFTWARE",
+      "companyID": 21502243
+    },
+    "contact": {
+      "electronicMail": "dbogi89@gmail.com"
+    }
+  },
+  "accountingCustomerParty": {
+    "party": {
+      "schemeID": "9948",
+      "endpointID": 111560838,
+      "partyName": [
+        {
+          "name": "5.COM"
+        }
+      ]
+    },
+    "postalAddress": {
+      "streetName": "Maricka",
+      "cityName": "Beograd",
+      "country": {
+        "identificationCode": "RS"
+      }
+    },
+    "partyTaxScheme": {
+      "companyID": "RS111560838",
+      "taxScheme": {
+        "id": "VAT"
+      }
+    },
+    "partyLegalEntity": {
+      "registrationName": "5.COM",
+      "companyID": 21502243
+    },
+    "contact": {
+      "electronicMail": "dbogi89@gmail.com"
+    }
+  },
+  "delivery": {
+    "actualDeliveryDate": "2022-09-16"
+  },
+  "paymentMeans": [
+    {
+      "paymentMeansCode": "30",
+      "paymentID": "(mod97) 9742-2022",
+      "payeeFinancialAccount": {
+        "id": 285233100000025379
+      }
+    }
+  ],
+  "taxTotal": [
+    {
+      "currencyId": "RSD",
+      "taxAmount": 135.0,
+      "taxSubtotal": [
+        {
+          "currencyId": "RSD",
+          "taxableAmount": 135.0,
+          "taxAmount": 135.0,
+          "taxCategory": {
+            "id": "S",
+            "percent": 20.0,
+            "taxScheme": {
+              "id": "VAT"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "legalMonetaryTotal": {
+    "currencyId": "RSD",
+    "lineExtensionAmount": 135.0,
+    "taxExclusiveAmount": 135.0,
+    "taxInclusiveAmount": 162.0,
+    "allowanceTotalAmount": 0.0,
+    "prepaidAmount": 0.0,
+    "payableAmount": 162.0
+  },
+  "invoiceLine": [
+    {
+      "unitCode": "KOM",
+      "currencyID": "RSD",
+      "id": 1,
+      "invoicedQuantity": 1.0,
+      "lineExtensionAmount": 135.0,
+      "allowanceCharge": {
+        "currencyId": "RSD",
+        "chargeIndicator": false,
+        "multiplierFactorNumeric": 10,
+        "amount": 135.0
+      },
+      "item": {
+        "name": "Jagnjetina",
+        "sellersItemIdentification": {
+          "id": "1"
+        },
+        "classifiedTaxCategory": {
+          "id": "1",
+          "taxScheme": {
+            "id": "VAT"
+          },
+          "percent": 20
+        }
+      },
+      "price": {
+        "priceAmount": 135.0
+      }
+    }
+  ]
+}

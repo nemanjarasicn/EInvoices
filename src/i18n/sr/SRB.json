@@ -3,7 +3,8 @@
     "open": "Otvori",
     "close": "Zatvori",
     "download": "Preuzmi",
-    "delete": "Obrisi"
+    "delete": "Obrisi",
+    "none": "Nijedno"
   },
   "Menu": {
     "home": "Pocetna",
@@ -97,5 +98,42 @@
     "documentSearch": "Pretraga Dokumenata",
     "searchOutgoingdocuments": "Pretraga izlaznih dokumenata",
     "searchIncomingdocuments":"Pretraga ulaznih dokumenata"
+  },
+  "Form": {
+    "sectionTitles": {
+      "title_1": "Podaci o fakturi",
+      "title_2": "Stavke na fakturi",
+      "title_3": "Ukupno",
+      "title_4": "PDV"
+    },
+    "formGrpLabels": {
+      "invoiceGrp": {
+        "issueDate": "Datum Prometa",
+        "dueDate": "Datum dospeća",
+        "vatPointDate": "Datum obračuna PDV-a"
+      },
+      "creditNoteGrp": {
+        "sourceInvoice": "Izvorna Faktura",
+        "modePeriodFrom": "Od datuma",
+        "modePeriodTo": "Do datuma",
+        "sourceMode": "Knjižno zaduženje se odnosi na"
+      }
+    },
+    "vatPointDateOptions": {
+      "issuingDate": "Datum slanja Fakture",
+      "deliveryDate": "Datum Prometa fakture",
+      "paymentDate": "Obracun PDV na dan placanja"
+    },
+    "selectionModeOptions": {
+      "single": "Pojedinačna faktura",
+      "period": "Fakture u periodu"
+    }
+  },
+  "Client": {
+    "title": "Kupac",
+    "companyName": "Naziv kupca",
+    "address": "Adresa kupca",
+    "clientRegistrationCode": "Matični broj kupca",
+    "clientVatRegistrationCode": " PIB kupca"
   }
 }

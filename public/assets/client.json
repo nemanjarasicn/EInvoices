@@ -1,0 +1,38 @@
+[
+  {
+    "BugetCompanyNumber": "00203",
+    "RegistrationCode": "08674973",
+    "VatRegistrationCode": "100871793",
+    "Name": "Firma jedan"
+  },
+  {
+    "BugetCompanyNumber": "00204",
+    "RegistrationCode": "08674974",
+    "VatRegistrationCode": "100871794",
+    "Name": "Firma dva"
+  },
+  {
+    "BugetCompanyNumber": "00205",
+    "RegistrationCode": "08674975",
+    "VatRegistrationCode": "100871795",
+    "Name": "Firma tri"
+  },
+  {
+    "BugetCompanyNumber": "00206",
+    "RegistrationCode": "08674976",
+    "VatRegistrationCode": "100871796",
+    "Name": "Firma cetri"
+  },
+  {
+    "BugetCompanyNumber": "00207",
+    "RegistrationCode": "08674977",
+    "VatRegistrationCode": "100871797",
+    "Name": "Firma pet"
+  },
+  {
+    "BugetCompanyNumber": "00208",
+    "RegistrationCode": "08674978",
+    "VatRegistrationCode": "100871798",
+    "Name": "Firma set"
+  }
+]

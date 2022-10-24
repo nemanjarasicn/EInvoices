@@ -10,7 +10,6 @@ import { FileStatus } from "../models";
 import { IFile, InvoiceDto } from "../models/invoice.models";
 import {
   getAllCompanies,
-  getAllUnitMesures,
   getPurchaseInvoices,
   getSalesInvoices,
   sendInvoceXml,
@@ -59,7 +58,6 @@ const invoicesSlice: Slice<FeatureState> = createSlice({
   },
   extraReducers: (builder) => {
     getAsyncInvoices(builder);
-    getAsyncUnitMesures(builder);
     getAsyncCompanies(builder);
     sendAsyncInvoiceXML(builder);
   },
@@ -75,26 +73,6 @@ export const {
 } = invoicesSlice.actions;
 export default invoicesSlice.reducer;
 
-/**
- * Handle async action GET UNIT MESURES
- * @param builder ActionReducerMapBuilder
- */
-function getAsyncUnitMesures(builder: ActionReducerMapBuilder<FeatureState>) {
-  builder.addCase(getAllUnitMesures.fulfilled, (state, { payload }) => ({
-    ...state,
-    unitMesures: payload,
-    loading: false,
-  }));
-  builder.addCase(getAllUnitMesures.pending, (state) => ({
-    ...state,
-    loading: true,
-  }));
-  builder.addCase(getAllUnitMesures.rejected, (state) => ({
-    ...state,
-    loading: false,
-    unitMesures: [],
-  }));
-}
 // FIX TODO
 function getAsyncInvoices(builder: ActionReducerMapBuilder<FeatureState>) {
   builder.addCase(
