@@ -7,6 +7,7 @@ import { FormFieldProps } from "./models/form-fields.models";
 type FormTextFieldProps = FormFieldProps & {
   additional?: {
     suffix: string;
+    readonly?: boolean;
   };
 };
 
@@ -32,6 +33,7 @@ export default function FormTextField({
           label={props.label}
           variant="outlined"
           InputProps={{
+            readOnly: props.additional?.readonly ?? false,
             endAdornment: props.additional?.suffix ? (
               <InputAdornment position="end">
                 <Divider sx={{ height: 28, mr: 1 }} orientation="vertical" />

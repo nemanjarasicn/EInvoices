@@ -45,6 +45,7 @@ export type InvoiceFormComponentProps = {
   invoiceTypeOptions: any;
   sectionTitles: any;
   formGrpsSettings: any;
+  formFieldsLabels: any;
 };
 interface IFormInput {
   invoiceTypeCode: InvoiceType;
@@ -208,123 +209,75 @@ export default function InvoiceFormComponent({
                     }}
                   />
                 </Grid>
+                <Grid item xs={3}>
+                  <FormTextField
+                    props={{
+                      name: "id",
+                      control: control,
+                      label: t(props.formFieldsLabels.id),
+                      disabled: false,
+                    }}
+                  />
+                </Grid>
+                <Grid item xs={3}>
+                  <FormTextField
+                    props={{
+                      name: "contractNumber",
+                      control: control,
+                      label: t(props.formFieldsLabels.contractNumber),
+                      disabled: false,
+                    }}
+                  />
+                  <FormTextField
+                    props={{
+                      name: "orderNumber",
+                      control: control,
+                      label: t(props.formFieldsLabels.orderNumber),
+                      disabled: false,
+                    }}
+                  />
+                  <FormTextField
+                    props={{
+                      name: "referenceNumber",
+                      control: control,
+                      label: t(props.formFieldsLabels.referenceNumber),
+                      disabled: false,
+                    }}
+                  />
+                </Grid>
+                <Grid item xs={3}>
+                  <FormTextField
+                    props={{
+                      name: "lotNumber",
+                      control: control,
+                      label: t(props.formFieldsLabels.lotNumber),
+                      disabled: false,
+                    }}
+                  />
+                  <FormTextField
+                    props={{
+                      name: "warehouse_uuid",
+                      control: control,
+                      label: t(props.formFieldsLabels.warehouse_uuid),
+                      disabled: false,
+                    }}
+                  />
+                  <FormTextField
+                    props={{
+                      name: "modelNumber",
+                      control: control,
+                      label: t(props.formFieldsLabels.modelNumber),
+                      disabled: false,
+                    }}
+                  />
+                </Grid>
                 <Grid item xs={3}></Grid>
-                <Grid item xs={6}>
-                  {/* <FormTextField
-                    props={{
-                      name: "textValue",
-                      control: control,
-                      label: "Text Input",
-                      disabled: false,
-                    }}
-                  />
-                  <FormTextField
-                    props={{
-                      name: "textValue",
-                      control: control,
-                      label: "Text Input",
-                      disabled: false,
-                    }}
-                  />
-                  <FormTextField
-                    props={{
-                      name: "textValue",
-                      control: control,
-                      label: "Text Input",
-                      disabled: false,
-                    }}
-                  /> */}
-                </Grid>
-                <Grid item xs={3}>
-                  {/* <FormTextField
-                    props={{
-                      name: "textValueSuffix",
-                      control: control,
-                      label: "Text Input with Suffix",
-                      additional: { suffix: "%" },
-                      disabled: false,
-                    }}
-                  /> */}
-                </Grid>
-                <Grid item xs={3}>
-                  {/* <FormControlLabel
-                    value={true}
-                    control={
-                      <Switch
-                        // onChange={handleChangeSwitch}
-                        inputProps={{ "aria-label": "controlled" }}
-                      />
-                    }
-                    label="Primeni popust"
-                    labelPlacement="end"
-                  /> */}
-                </Grid>
+                <Grid item xs={3}></Grid>
 
                 <Grid item xs={6}></Grid>
-                <Grid item xs={6}>
-                  {/* <FormTextAreaField
-                    props={{
-                      name: "textAreaValue",
-                      control: control,
-                      label: "Area Input",
-                      disabled: false,
-                    }}
-                  /> */}
-                </Grid>
-                <Grid item xs={3}>
-                  {/* <FormTextField
-                    props={{
-                      name: "textValue",
-                      control: control,
-                      label: "Text Input",
-                      disabled: false,
-                    }}
-                  />
-                  <FormTextField
-                    props={{
-                      name: "textValueSuffix",
-                      control: control,
-                      label: "Text Input with Suffix",
-                      additional: { suffix: "%" },
-                      disabled: false,
-                    }}
-                  />
-                  <FormTextField
-                    props={{
-                      name: "textValue",
-                      control: control,
-                      label: "Text Input",
-                      disabled: false,
-                    }}
-                  /> */}
-                </Grid>
-                <Grid item xs={3}>
-                  {/* <FormTextField
-                    props={{
-                      name: "textValue",
-                      control: control,
-                      label: "Text Input",
-                      disabled: false,
-                    }}
-                  />
-                  <FormTextField
-                    props={{
-                      name: "textValueSuffix",
-                      control: control,
-                      label: "Text Input with Suffix",
-                      additional: { suffix: "%" },
-                      disabled: false,
-                    }}
-                  />
-                  <FormTextField
-                    props={{
-                      name: "textValue",
-                      control: control,
-                      label: "Text Input",
-                      disabled: false,
-                    }}
-                  /> */}
-                </Grid>
+                <Grid item xs={6}></Grid>
+                <Grid item xs={3}></Grid>
+                <Grid item xs={3}></Grid>
               </Grid>
             </Paper>
           </Box>
@@ -583,25 +536,26 @@ export default function InvoiceFormComponent({
             </Typography>
             <Paper style={formComponent.groupPaper}>
               <Grid container spacing={2}>
-                <Grid item xs={12}>
-                  {/* <FormCurrencyField
+                <Grid item xs={5}>
+                  <FormCurrencyField
                     props={{
-                      name: "currencyValue",
+                      name: "finalSum",
                       control: control,
-                      label: "Currency field",
-                      additional: { mask: {} },
+                      label: t(props.formFieldsLabels.finalSum),
+                      additional: { mask: {}, readonly: true },
                       disabled: false,
                     }}
                   />
+                </Grid>
+                <Grid item xs={12} style={{ paddingTop: 0 }}>
                   <FormTextField
                     props={{
-                      name: "textValueSuffix",
+                      name: "finalSumLetters",
                       control: control,
-                      label: "Text Input with Suffix",
-                      additional: { suffix: "%" },
-                      disabled: false,
+                      label: t(props.formFieldsLabels.finalSumLetters),
+                      disabled: true,
                     }}
-                  /> */}
+                  />
                 </Grid>
               </Grid>
             </Paper>
@@ -622,12 +576,12 @@ export default function InvoiceFormComponent({
             <Paper sx={formComponent.paper}>
               <Grid container spacing={2}>
                 <Grid item xs={6}>
-                  {/* <FormTextField
+                  <FormTextField
                     props={{
                       name: "textValue",
                       control: control,
                       label: "Text Input ",
-                      additional: { suffix: "%" },
+                      additional: { suffix: "%", readonly: true },
                       disabled: false,
                     }}
                   />
@@ -636,7 +590,7 @@ export default function InvoiceFormComponent({
                       name: "textValueSuffix",
                       control: control,
                       label: "Text Input with Suffix",
-                      additional: { suffix: "%" },
+                      additional: { suffix: "%", readonly: true },
                       disabled: false,
                     }}
                   />
@@ -647,7 +601,7 @@ export default function InvoiceFormComponent({
                       name: "textValueSuffix",
                       control: control,
                       label: "Text Input with Suffix",
-                      additional: { suffix: "%" },
+                      additional: { suffix: "%", readonly: true },
                       disabled: false,
                     }}
                   />
@@ -656,10 +610,10 @@ export default function InvoiceFormComponent({
                       name: "textValueSuffix",
                       control: control,
                       label: "Text Input with Suffix",
-                      additional: { suffix: "%" },
+                      additional: { suffix: "%", readonly: true },
                       disabled: false,
                     }}
-                  /> */}
+                  />
                 </Grid>
               </Grid>
             </Paper>

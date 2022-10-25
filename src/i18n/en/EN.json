@@ -122,6 +122,17 @@
     "selectionModeOptions": {
       "single": "Invoice selection",
       "period": "Period selection"
+    },
+    "formFieldsLabels": {
+      "id": "Document number",
+      "contractNumber": "Contract number",
+      "orderNumber": "Order number",
+      "referenceNumber": "Reference number",
+      "lotNumber": "Lot number",
+      "warehouse_uuid": "Object identifier",
+      "modelNumber": "Model number",
+      "finalSum": "Total",
+      "finalSumLetters": "Total in letters"
     }
   },
   "Client": {

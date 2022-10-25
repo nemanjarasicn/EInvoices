@@ -122,6 +122,17 @@
     "selectionModeOptions": {
       "single": "Pojedinačna faktura",
       "period": "Fakture u periodu"
+    },
+    "formFieldsLabels": {
+      "id": "Broj Dokumenta",
+      "contractNumber": "Broj ugovora",
+      "orderNumber": "Broj Narudžbenice/Broj Ponude",
+      "referenceNumber": "Poziv na broj",
+      "lotNumber": "Broj okvirnog sporazuma",
+      "warehouse_uuid": "Šifra objekta",
+      "modelNumber": "Broj modela",
+      "finalSum": "Ukupno",
+      "finalSumLetters": "Ukupno slovima"
     }
   },
   "Client": {
