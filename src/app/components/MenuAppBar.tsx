@@ -25,6 +25,7 @@ import Home from "@mui/icons-material/Home";
 import Payments from "@mui/icons-material/Payments";
 import { useAppComponentsStyles } from "./components.styles";
 import AppLoader from "./AppLoader";
+import { NavItem } from "../models/navItem.models";
 
 const drawerWidth = 200;
 
@@ -62,9 +63,35 @@ export default function ClippedDrawer() {
   const { t } = useTranslation();
   const { menuAppBarStyles } = useAppComponentsStyles();
 
-  const navItems = [
+  const navItems: NavItem[] = [
     { name: t("Menu.home"), href: "/", icon: "Home" },
-    { name: t("Menu.invoice"), href: "/invoices", icon: "Payments" },
+    {
+      name: t("Menu.invoice"),
+      href: "/invoices",
+      icon: "Payments",
+      children: [
+        {
+          name: t("InvoiceCard.cardTitleSales"),
+          href: "/invoices/sales",
+          icon: "Payments",
+        },
+        {
+          name: t("InvoiceCard.cardTitlePurchases"),
+          href: "/invoices/purchases",
+          icon: "Payments",
+        },
+        {
+          name: t("ButtonsText.TemplatePage.createDocument"),
+          href: "/invoices/create",
+          icon: "Payments",
+        },
+        {
+          name: t("ButtonsText.TemplatePage.createXML"),
+          href: "/invoices/create-xml",
+          icon: "Payments",
+        },
+      ],
+    },
   ];
 
   const icon = (icon: string): any => {
@@ -130,45 +157,96 @@ export default function ClippedDrawer() {
         >
           <MenuIcon />
         </IconButton>
-        <List>
-          {navItems.map((item, index) => (
-            <ListItem
-              key={item.name}
-              disablePadding
-              sx={{ display: "block" }}
-              component={Link}
-              to={item.href}
-              className="item-class"
-            >
-              <ListItemButton
-                sx={{
-                  minHeight: 48,
-                  justifyContent: open ? "initial" : "center",
-                  px: 2.5,
-                }}
-              >
-                <ListItemIcon
-                  sx={{
-                    minWidth: 0,
-                    mr: open ? 3 : "auto",
-                    justifyContent: "center",
-                    color: "#fff",
-                    opacity: 0.5,
-                  }}
+
+        <List key={"list_nav"}>
+          {navItems.map((item, index) => {
+            return (
+              <div key={index}>
+                <ListItem
+                  key={`${item.name}_list_nav_${index}`}
+                  disablePadding
+                  sx={{ display: "block" }}
+                  component={Link}
+                  to={item.href}
+                  className="item-class"
                 >
-                  {icon(item.icon)}
-                </ListItemIcon>
-                <ListItemText
-                  primary={item.name}
-                  sx={{
-                    display: open ? "block" : "none",
-                    color: "#fff",
-                    opacity: 0.5,
-                  }}
-                />
-              </ListItemButton>
-            </ListItem>
-          ))}
+                  <ListItemButton
+                    key={`${item.name}_list_nav_button_${index}`}
+                    sx={{
+                      minHeight: 48,
+                      justifyContent: open ? "initial" : "center",
+                      px: 2.5,
+                    }}
+                  >
+                    <ListItemIcon
+                      key={`${item.name}_list_nav_icon${index}`}
+                      sx={{
+                        minWidth: 0,
+                        mr: open ? 3 : "auto",
+                        justifyContent: "center",
+                        color: "#fff",
+                        opacity: 0.5,
+                      }}
+                    >
+                      {icon(item.icon)}
+                    </ListItemIcon>
+                    <ListItemText
+                      key={`${item.name}_list_nav_text${index}`}
+                      primary={item.name}
+                      sx={{
+                        display: open ? "block" : "none",
+                        color: "#fff",
+                        opacity: 0.5,
+                      }}
+                    />
+                  </ListItemButton>
+                </ListItem>
+                <List key={`list_nav_${index}`}>
+                  {item.children?.map((itemChild, childIndex) => (
+                    <ListItem
+                      key={`${itemChild.name}_list_nav_${childIndex}`}
+                      disablePadding
+                      sx={{ display: open ? "block" : "none" }}
+                      component={Link}
+                      to={itemChild.href}
+                      className="item-class"
+                    >
+                      <ListItemButton
+                        key={`${itemChild.name}_list_nav_child_button${childIndex}`}
+                        sx={{
+                          minHeight: 48,
+                          justifyContent: open ? "initial" : "center",
+                          px: 2.5,
+                        }}
+                      >
+                        <ListItemIcon
+                          key={`${itemChild.name}_list_nav_child_icon${childIndex}`}
+                          sx={{
+                            minWidth: 0,
+                            mr: open ? 3 : "auto",
+                            justifyContent: "center",
+                            color: "#fff",
+                            opacity: 0,
+                          }}
+                        >
+                          {icon(itemChild.icon)}
+                        </ListItemIcon>
+                        <ListItemText
+                          key={`${itemChild.name}_list_nav_child_text${childIndex}`}
+                          primary={itemChild.name}
+                          sx={{
+                            display: open ? "block" : "none",
+                            color: "#fff",
+                            opacity: 0.5,
+                          }}
+                        />
+                      </ListItemButton>
+                    </ListItem>
+                  ))}
+                </List>
+              </div>
+            );
+          })}
         </List>
       </Drawer>
       <Box
