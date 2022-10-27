@@ -8,6 +8,7 @@ import { CurrencyFormatCustom, MaskProps } from "./CurrencyFormatCustom";
 type FormNumberFieldProps = FormFieldProps & {
   additional?: {
     mask: MaskProps;
+    readonly: boolean;
   };
 };
 
@@ -30,6 +31,7 @@ export default function FormCurrencyField({
           label={props.label}
           variant="outlined"
           InputProps={{
+            readOnly: props.additional?.readonly ?? false,
             inputComponent: CurrencyFormatCustom as any,
             inputProps: {
               mask: {},

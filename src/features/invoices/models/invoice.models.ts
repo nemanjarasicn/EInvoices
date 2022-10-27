@@ -2,7 +2,7 @@ import {
   SourceSelectionMode,
   VATPointDate,
 } from "../components/form-fields/models/form-fields.models";
-import { FileStatus } from "./invoice.enums";
+import { Currency, FileStatus } from "./invoice.enums";
 
 /**
  * Generic for Table Data
@@ -61,6 +61,19 @@ export enum InvoiceType {
   PREPAYMENT = 386, // авансна фактура
 }
 
+// uvek za 380
+// "invoiceTransactionType":"Sale",
+// "invoiceType":"Normal",
+// "inputAndOutputDocuments":"Output",
+
+// <cac:PaymentMeans>
+//         <cbc:PaymentMeansCode>30</cbc:PaymentMeansCode>
+//         <cbc:PaymentID>(mod97) 123456789</cbc:PaymentID> kombina
+//         <cac:PayeeFinancialAccount>
+//           <cbc:ID>285233100000025379</cbc:ID> broj tekuceg racuna pravnog lica
+//         </cac:PayeeFinancialAccount>
+//       </cac:PaymentMeans>
+
 export class Company {
   id?: number = 0;
   companyName: string = "";
@@ -75,6 +88,7 @@ export class Company {
 
 // FORM MODELS ////////////////////////////////////////////////////////////
 export class InvoiceFormModel {
+  id: string = "";
   invoiceTypeCode: InvoiceType = InvoiceType.INVOICE;
   issueDate: Date = new Date();
   dueDate: Date = new Date();
@@ -84,6 +98,15 @@ export class InvoiceFormModel {
   modePeriodFrom: Date = new Date();
   modePeriodTo: Date = new Date();
   client: Company = new Company();
+  documentCurrencyCode: Currency = Currency.RSD;
+
+  warehouse_uuid: string = "";
+  contractNumber: string = "";
+  orderNumber: string = "";
+  lotNumber: string = "";
+  modelNumber: string = "";
+  referenceNumber: string = "";
+  finalSum: number = 0;
 
   public constructor(init?: Partial<InvoiceFormModel>) {
     Object.assign(this, init);

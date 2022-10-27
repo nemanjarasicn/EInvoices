@@ -226,6 +226,17 @@ const useFeatureSettings = (): FeatureSettings => {
             title: "InvoiceTypes.creditNote",
           },
         },
+        formFieldsLabels: {
+          id: "Form.formFieldsLabels.id",
+          contractNumber: "Form.formFieldsLabels.contractNumber",
+          orderNumber: "Form.formFieldsLabels.orderNumber",
+          referenceNumber: "Form.formFieldsLabels.referenceNumber",
+          lotNumber: "Form.formFieldsLabels.lotNumber",
+          warehouse_uuid: "Form.formFieldsLabels.warehouse_uuid",
+          modelNumber: "Form.formFieldsLabels.modelNumber",
+          finalSum: "Form.formFieldsLabels.finalSum",
+          finalSumLetters: "Form.formFieldsLabels.finalSumLetters",
+        },
       },
     },
   };
