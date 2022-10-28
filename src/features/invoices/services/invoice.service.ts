@@ -15,6 +15,10 @@ class InvoicePublicService {
     return mockClient.get<any>("invoices-purchase.json");
   }
 
+  getClientCompanies() {
+    return mockClient.get<any>("client.json");
+  }
+
   // Public E-Fakture
 
   public getAllUnitMesures() {

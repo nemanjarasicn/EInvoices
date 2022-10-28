@@ -58,3 +58,7 @@ export enum FileStatus {
   HAS_ERROR = "FileStatus.HasError",
   ACCEPTED = "FileStatus.Accepted",
 }
+
+export enum Currency {
+  RSD = "RSD",
+}

@@ -3,7 +3,8 @@
     "open": "Open",
     "close": "Close",
     "download": "Download",
-    "delete": "Delete"
+    "delete": "Delete",
+    "none": "None"
   },
   "Menu": {
     "home": "Home",
@@ -31,7 +32,7 @@
     "allStatuses": "All Statuses"
   },
   "InvoiceTypes": {
-    "debitInvoice": "Debit invoice",
+    "debitInvoice": "Invoice",
     "creditNote": "Credit note",
     "debitNote": "Debit note",
     "prepayment": "Prepayment"
@@ -92,5 +93,53 @@
       "fieldName": "Field Name :",
       "errorMessage": "Error Message :"
     }
+  },
+  "Form": {
+    "sectionTitles": {
+      "title_1": "Invoice info",
+      "title_2": "invoice items",
+      "title_3": "Total",
+      "title_4": "VAT"
+    },
+    "formGrpLabels": {
+      "invoiceGrp": {
+        "issueDate": "Delivery date",
+        "dueDate": "Due Date",
+        "vatPointDate": "VAT point date"
+      },
+      "creditNoteGrp": {
+        "sourceInvoice": "Source Invoice",
+        "modePeriodFrom": "From date",
+        "modePeriodTo": "To date",
+        "sourceMode": "Relation type"
+      }
+    },
+    "vatPointDateOptions": {
+      "issuingDate": "Issuing date",
+      "deliveryDate": "Delivery date",
+      "paymentDate": "Payment date"
+    },
+    "selectionModeOptions": {
+      "single": "Invoice selection",
+      "period": "Period selection"
+    },
+    "formFieldsLabels": {
+      "id": "Document number",
+      "contractNumber": "Contract number",
+      "orderNumber": "Order number",
+      "referenceNumber": "Reference number",
+      "lotNumber": "Lot number",
+      "warehouse_uuid": "Object identifier",
+      "modelNumber": "Model number",
+      "finalSum": "Total",
+      "finalSumLetters": "Total in letters"
+    }
+  },
+  "Client": {
+    "title": "Client",
+    "companyName": " Client name",
+    "address": "Client address",
+    "clientRegistrationCode": "Registration code",
+    "clientVatRegistrationCode": " VAT Registration code"
   }
 }
