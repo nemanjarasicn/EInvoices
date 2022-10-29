@@ -6,4 +6,11 @@
  */
 const generateKey = (prefix: string) => `${prefix}_${new Date().getTime()}`;
 
-export { generateKey };
+const calculateTax = (priceAmount: number, percent: number) => {
+  return priceAmount - priceAmount / (percent / 100 + 1);
+};
+const calculateNewPrice = (unitPrice: number, discount: number) => {
+  return unitPrice - unitPrice * (discount / 100);
+};
+
+export { generateKey, calculateTax, calculateNewPrice };

@@ -9,6 +9,7 @@ type FormNumberFieldProps = FormFieldProps & {
   additional?: {
     mask: MaskProps;
     readonly: boolean;
+    labelShrink?: boolean;
   };
 };
 
@@ -29,12 +30,13 @@ export default function FormCurrencyField({
           value={value}
           fullWidth
           label={props.label}
+          InputLabelProps={{ shrink: props.additional?.labelShrink }}
           variant="outlined"
           InputProps={{
             readOnly: props.additional?.readonly ?? false,
             inputComponent: CurrencyFormatCustom as any,
             inputProps: {
-              mask: {},
+              mask: props.additional?.mask,
             },
           }}
         />

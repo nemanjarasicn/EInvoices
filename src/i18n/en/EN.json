@@ -132,7 +132,16 @@
       "warehouse_uuid": "Object identifier",
       "modelNumber": "Model number",
       "finalSum": "Total",
-      "finalSumLetters": "Total in letters"
+      "finalSumLetters": "Total in letters",
+      "productName": "Item name",
+      "unitPrice": "Unit price",
+      "invoicedQuantity": "Qty",
+      "unitCode": "Unit",
+      "discount": "Discount",
+      "newPrice": "New price",
+      "percent": "VAT",
+      "unitTaxAmount": "VAT amount",
+      "priceAmount": "Final amount"
     }
   },
   "Client": {
@@ -141,5 +150,10 @@
     "address": "Client address",
     "clientRegistrationCode": "Registration code",
     "clientVatRegistrationCode": " VAT Registration code"
+  },
+  "Search": {
+    "label": "Search",
+    "placeholder": "...Search",
+    "noResult": "No search result"
   }
 }

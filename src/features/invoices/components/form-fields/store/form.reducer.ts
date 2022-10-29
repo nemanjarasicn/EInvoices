@@ -1,10 +1,17 @@
 import { ActionReducerMapBuilder, createSlice, Slice } from "@reduxjs/toolkit";
-import { AutocompleteItem } from "../models/form-fields.models";
-import { getAllUnitMesures, getClientCompanies } from "./form.actions";
+import {
+  getAllUnitMesures,
+  getClientCompanies,
+  getProducts,
+} from "./form.actions";
 
 const FORM_FIELDS_KEY: string = "form";
 
-export type AutocompleteData = { unitMesures: any[]; companies: any[] };
+export type AutocompleteData = {
+  unitMesures: any[];
+  companies: any[];
+  products: any[];
+};
 export type DropdownData = {};
 
 export interface FormState {
@@ -18,6 +25,7 @@ const initialState: FormState = {
   autocompleteData: {
     unitMesures: [],
     companies: [],
+    products: [],
   },
   dropdownData: null,
 };
@@ -30,16 +38,41 @@ const formSlice: Slice<FormState> = createSlice({
       ...state,
       autocompleteData: { ...state.autocompleteData, companies: [] },
     }),
+    clearProducts: (state) => ({
+      ...state,
+      autocompleteData: { ...state.autocompleteData, products: [] },
+    }),
   },
   extraReducers: (builder) => {
     getAsyncUnitMesures(builder);
     getAsyncClientCompanies(builder);
+    getAsyncProducts(builder);
   },
 });
 
-export const { clearCompanies } = formSlice.actions;
+export const { clearCompanies, clearProducts } = formSlice.actions;
 export default formSlice.reducer;
 
+/**
+ * Handle async action GET PRODUCTS
+ * @param builder ActionReducerMapBuilder
+ */
+function getAsyncProducts(builder: ActionReducerMapBuilder<FormState>) {
+  builder.addCase(getProducts.fulfilled, (state, { payload }) => ({
+    ...state,
+    autocompleteData: { ...state.autocompleteData, products: payload },
+    loading: false,
+  }));
+  builder.addCase(getProducts.pending, (state) => ({
+    ...state,
+    loading: true,
+  }));
+  builder.addCase(getProducts.rejected, (state) => ({
+    ...state,
+    autocompleteData: { ...state.autocompleteData, products: [] },
+    loading: false,
+  }));
+}
 /**
  * Handle async action GET CLIENT COMPANIES
  * @param builder ActionReducerMapBuilder
