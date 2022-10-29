@@ -1,0 +1,36 @@
+{
+  "idUnit": 1,
+  "idVat": 1,
+  "vatName": "S",
+  "unitCode": "KOM",
+  "currencyID": "RSD",
+  "id": 1,
+  "invoicedQuantity": 1.0,
+  "lineExtensionAmount": 135.0,
+  "allowanceCharge": {
+    "currencyId": "RSD",
+    "chargeIndicator": false,
+    "multiplierFactorNumeric": 10,
+    "amount": 135.0
+  },
+  "item": {
+    "idProduct": 1,
+    "name": "Jagnjetina",
+    "sellersItemIdentification": {
+      "id": "1"
+    },
+    "classifiedTaxCategory": {
+      "id": "1",
+      "taxScheme": {
+        "id": "VAT"
+      },
+      "percent": 20
+    }
+  },
+  "price": {
+    "priceAmount": 135.0,
+    "discount": 0,
+    "newPrice": 135.0,
+    "unitPrice": 135.0
+  }
+}

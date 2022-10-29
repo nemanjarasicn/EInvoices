@@ -225,6 +225,9 @@ const useFeatureSettings = (): FeatureSettings => {
           creditNoteGrp: {
             title: "InvoiceTypes.creditNote",
           },
+          client: {
+            title: "Client.title",
+          },
         },
         formFieldsLabels: {
           id: "Form.formFieldsLabels.id",
@@ -236,6 +239,30 @@ const useFeatureSettings = (): FeatureSettings => {
           modelNumber: "Form.formFieldsLabels.modelNumber",
           finalSum: "Form.formFieldsLabels.finalSum",
           finalSumLetters: "Form.formFieldsLabels.finalSumLetters",
+          client: {
+            companyName: "Client.companyName",
+            address: "Client.address",
+            registrationCode: "Client.clientRegistrationCode",
+            vatRegistrationCode: "Client.clientVatRegistrationCode",
+          },
+          invoiceItems: {
+            search: {
+              label: "Search.label",
+              placeholder: "Search.placeholder",
+              noResult: "Search.noResult",
+            },
+            invoiceLine: {
+              productName: "Form.formFieldsLabels.productName",
+              unitPrice: "Form.formFieldsLabels.unitPrice",
+              invoicedQuantity: "Form.formFieldsLabels.invoicedQuantity",
+              unitCode: "Form.formFieldsLabels.unitCode",
+              discount: "Form.formFieldsLabels.discount",
+              newPrice: "Form.formFieldsLabels.newPrice",
+              percent: "Form.formFieldsLabels.percent",
+              unitTaxAmount: "Form.formFieldsLabels.unitTaxAmount",
+              priceAmount: "Form.formFieldsLabels.priceAmount",
+            },
+          },
         },
       },
     },

@@ -235,6 +235,11 @@ const useComponentsStyles = (): {
         padding: "20px",
         background: "white",
       },
+      groupPaperLowScale: {
+        display: "grid",
+        padding: "20px",
+        background: "white",
+      },
     },
   };
 };

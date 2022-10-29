@@ -6,6 +6,11 @@ class InvoicePublicService {
   get() {
     return commonHttpClient.get<any>("/provider");
   }
+  // MOCK CLIENT
+
+  getProducts() {
+    return mockClient.get<any>("product.json");
+  }
 
   getInvoicesSales() {
     return mockClient.get<any>("invoices-sales.json");

@@ -8,6 +8,7 @@ type FormTextFieldProps = FormFieldProps & {
   additional?: {
     suffix: string;
     readonly?: boolean;
+    labelShrink?: boolean;
   };
 };
 
@@ -31,6 +32,7 @@ export default function FormTextField({
           value={value}
           fullWidth
           label={props.label}
+          InputLabelProps={{ shrink: props.additional?.labelShrink }}
           variant="outlined"
           InputProps={{
             readOnly: props.additional?.readonly ?? false,

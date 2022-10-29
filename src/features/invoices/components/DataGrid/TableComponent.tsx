@@ -72,7 +72,7 @@ export default function TableComponent({
         }))}
         autoHeight={true}
         density="compact"
-        pageSize={10}
+        // pageSize={10}
         // pageSize={pageSize}
         // rowsPerPageOptions={[5, 10, 15]}
         // onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}

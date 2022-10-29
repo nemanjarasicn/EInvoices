@@ -17,7 +17,7 @@
     "code": "12345",
     "unitCode": "Kom",
     "vat": "DJ",
-    "vatValue1": 0.34,
+    "vatValue1": 0.2,
     "pointOfSale": "51e49f4e3cea4780-Kasa-1,",
     "groupName": "Opsta,Opsta1,",
     "typeName": "Proizvod",
@@ -54,7 +54,24 @@
         "relationWarehouse": ["202a9136ed1542e6", "816ecbebd40f4f67"]
       }
     ],
-    "priceLists": null,
+    "priceLists": [
+      {
+        "idProduct": 1310684,
+        "main": true,
+        "actionManual": true,
+        "actionAutomatic": true,
+        "recursivePricing": true,
+        "client": true,
+        "dateFrom": "2022-05-02T01:01:01",
+        "dateTo": "2022-12-12T01:01:01",
+        "activ": true,
+        "date": "2022-05-02T01:01:01",
+        "price": 2450.0,
+        "priority": 1,
+        "pointOfSales": [],
+        "marketPlases": ["51e49f4e3cea4780"]
+      }
+    ],
     "warehouseDtos": [
       {
         "id": 8,
@@ -90,7 +107,7 @@
     "code": "12345",
     "unitCode": "Kom",
     "vat": "DJ",
-    "vatValue1": 0.34,
+    "vatValue1": 0.1,
     "pointOfSale": "51e49f4e3cea4780-Kasa-1,",
     "groupName": "Opsta,Opsta1,",
     "typeName": "Proizvod",
@@ -127,7 +144,24 @@
         "relationWarehouse": ["202a9136ed1542e6", "816ecbebd40f4f67"]
       }
     ],
-    "priceLists": null,
+    "priceLists": [
+      {
+        "idProduct": 1310684,
+        "main": true,
+        "actionManual": true,
+        "actionAutomatic": true,
+        "recursivePricing": true,
+        "client": true,
+        "dateFrom": "2022-05-02T01:01:01",
+        "dateTo": "2022-12-12T01:01:01",
+        "activ": true,
+        "date": "2022-05-02T01:01:01",
+        "price": 1000.0,
+        "priority": 1,
+        "pointOfSales": [],
+        "marketPlases": ["51e49f4e3cea4780"]
+      }
+    ],
     "warehouseDtos": [
       {
         "id": 8,
@@ -163,7 +197,7 @@
     "code": "12345",
     "unitCode": "Kom",
     "vat": "DJ",
-    "vatValue1": 0.34,
+    "vatValue1": 0.1,
     "pointOfSale": "51e49f4e3cea4780-Kasa-1,",
     "groupName": "Opsta,Opsta1,",
     "typeName": "Proizvod",
@@ -210,7 +244,7 @@
         "client": true,
         "dateFrom": "2022-01-02T01:01:01",
         "dateTo": "2022-05-02T01:01:01",
-        "activ": false,
+        "activ": true,
         "date": "2022-05-02T01:01:01",
         "price": 2345.0,
         "priority": 1,
@@ -253,7 +287,7 @@
     "code": "12345",
     "unitCode": "Kom",
     "vat": "DJ",
-    "vatValue1": 0.34,
+    "vatValue1": 0.1,
     "pointOfSale": "51e49f4e3cea4780-Kasa-1,",
     "groupName": "Opsta,Opsta1,",
     "typeName": "Proizvod",
@@ -299,10 +333,10 @@
         "recursivePricing": true,
         "client": true,
         "dateFrom": "2022-05-02T01:01:01",
-        "dateTo": "2022-12-12T01:01:01",
-        "activ": true,
+        "dateTo": "2022-07-12T01:01:01",
+        "activ": false,
         "date": "2022-05-02T01:01:01",
-        "price": 2345.0,
+        "price": 2100.0,
         "priority": 1,
         "pointOfSales": [],
         "marketPlases": ["51e49f4e3cea4780"]
@@ -315,11 +349,11 @@
         "recursivePricing": true,
         "client": true,
         "dateFrom": "2022-05-02T01:01:01",
-        "dateTo": "2022-12-12T01:01:01",
+        "dateTo": "2022-07-12T01:01:01",
         "activ": true,
         "date": "2022-05-02T01:01:01",
-        "price": 2345.0,
-        "priority": 1,
+        "price": 2200.0,
+        "priority": 2,
         "pointOfSales": [],
         "marketPlases": ["51e49f4e3cea4987"]
       },
@@ -334,8 +368,8 @@
         "dateTo": "2022-12-12T01:01:01",
         "activ": true,
         "date": "2022-05-02T01:01:01",
-        "price": 2345.0,
-        "priority": 1,
+        "price": 2300.0,
+        "priority": 3,
         "pointOfSales": ["45009197495d4b40-Kasa-7"],
         "marketPlases": ["51e49f4e3cea4987"]
       },
@@ -350,8 +384,8 @@
         "dateTo": "2022-12-12T01:01:01",
         "activ": true,
         "date": "2022-05-02T01:01:01",
-        "price": 2345.0,
-        "priority": 1,
+        "price": 2400.0,
+        "priority": 4,
         "pointOfSales": ["45009197495d4b40-Kasa-7", "dejan"],
         "marketPlases": ["51e49f4e3cea4780", "51e49f4e3cea4987"]
       }
@@ -391,7 +425,7 @@
     "code": "12345",
     "unitCode": "Kom",
     "vat": "DJ",
-    "vatValue1": 0.34,
+    "vatValue1": 0.1,
     "pointOfSale": "Trgovina kasa 2,Spa kasa 1,",
     "groupName": "Opsta,Opsta1,",
     "typeName": "Proizvod",
@@ -487,7 +521,7 @@
     "code": "12345",
     "unitCode": "Kom",
     "vat": "DJ",
-    "vatValue1": 0.34,
+    "vatValue1": 0.1,
     "pointOfSale": "Trgovina kasa 2,Spa kasa 1,",
     "groupName": "Opsta,Opsta1,",
     "typeName": "Proizvod",
@@ -583,7 +617,7 @@
     "code": "12345",
     "unitCode": "Kom",
     "vat": "DJ",
-    "vatValue1": 0.34,
+    "vatValue1": 0.1,
     "pointOfSale": "45009197495d4b40-Kasa-4,",
     "groupName": "Opsta,Opsta1,",
     "typeName": "Proizvod",
