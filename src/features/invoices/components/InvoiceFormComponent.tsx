@@ -51,20 +51,6 @@ export type InvoiceFormComponentProps = {
   formGrpsSettings: any;
   formFieldsLabels: any;
 };
-interface IFormInput {
-  invoiceTypeCode: InvoiceType;
-  // textValue: string;
-  // textValueSuffix: string;
-  // dropdownValue: string;
-  // textAreaValue: string;
-  // dateValue: string;
-  // autocompleteValue: any;
-  // checkbox: boolean | string;
-  // currencyValue: number | string;
-  // sourceInvoice: string;
-}
-
-// const defaultValues = new InvoiceFormModel();
 
 /**
  * Register Form validation schema for every field
@@ -92,8 +78,6 @@ export default function InvoiceFormComponent({
   const { t } = useTranslation();
   const { formComponent } = useComponentsStyles();
 
-  const dispatch = useAppDispatch();
-
   const [invoiceType, setInvoiceType] = React.useState<InvoiceType>(
     InvoiceType.INVOICE
   );
@@ -114,7 +98,7 @@ export default function InvoiceFormComponent({
     watch,
   } = methods;
   const formValues = watch(); //EEG
-  const onSubmit = (data: IFormInput) => console.log(data);
+  const onSubmit = (data: InvoiceFormModel) => console.log(data);
 
   /**
    * Handle switch of template by invoice type
@@ -125,10 +109,7 @@ export default function InvoiceFormComponent({
   };
 
   React.useEffect(() => {
-    // console.log("EFFECt MOUNT");
-    // dispatch(getClientCompanies());
-    // console.log("FORM VALUES WATCH", formValues);
-    // console.log("MENJA SE", getFieldState("dropdownValue"));
+    console.log("MOUNT");
   }, []);
 
   return (
@@ -189,19 +170,6 @@ export default function InvoiceFormComponent({
                   ></ClientComponent>
                 </Grid>
                 <Grid item xs={3}>
-                  {/* <FormDropdownField
-                    props={{
-                      name: "dropdownValue",
-                      control: control,
-                      label: "MEMORANDUM",
-                      disabled: false,
-                      options: [
-                        { name: "1", value: "1" },
-                        { name: "2", value: "2" },
-                        { name: "3", value: "3" },
-                      ],
-                    }}
-                  /> */}
                   <FormDropdownField
                     props={{
                       name: "invoiceTypeCode",
@@ -275,13 +243,6 @@ export default function InvoiceFormComponent({
                     }}
                   />
                 </Grid>
-                <Grid item xs={3}></Grid>
-                <Grid item xs={3}></Grid>
-
-                <Grid item xs={6}></Grid>
-                <Grid item xs={6}></Grid>
-                <Grid item xs={3}></Grid>
-                <Grid item xs={3}></Grid>
               </Grid>
             </Paper>
           </Box>
@@ -350,17 +311,7 @@ export default function InvoiceFormComponent({
             <Typography sx={formComponent.typography}>
               {t(props.sectionTitles.title_2).toUpperCase()}
             </Typography>
-            <Paper style={formComponent.groupPaper}>
-              {/* <FormTextField
-                props={{
-                  name: "textValueSuffix",
-                  control: control,
-                  label: "Text Input with Suffix",
-                  additional: { suffix: "%" },
-                  disabled: false,
-                }}
-              /> */}
-            </Paper>
+            <Paper style={formComponent.groupPaper}>stavke</Paper>
           </Box>
         </Grid>
       </Grid>
@@ -629,41 +580,41 @@ export default function InvoiceFormComponent({
             <Paper sx={formComponent.paper}>
               <Grid container spacing={2}>
                 <Grid item xs={6}>
-                  <FormTextField
+                  <FormCurrencyField
                     props={{
-                      name: "textValue",
+                      name: "iznosBezPopusta",
                       control: control,
-                      label: "Text Input ",
-                      additional: { suffix: "%", readonly: true },
+                      label: "Ukupan iznos bez popusta",
+                      additional: { mask: {}, readonly: false },
                       disabled: false,
                     }}
                   />
-                  <FormTextField
+                  <FormCurrencyField
                     props={{
-                      name: "textValueSuffix",
+                      name: "taxableAmount",
                       control: control,
-                      label: "Text Input with Suffix",
-                      additional: { suffix: "%", readonly: true },
+                      label: "Osnovica za PDV",
+                      additional: { mask: {}, readonly: false },
                       disabled: false,
                     }}
                   />
                 </Grid>
                 <Grid item xs={6}>
-                  <FormTextField
+                  <FormCurrencyField
                     props={{
-                      name: "textValueSuffix",
+                      name: "ukupanPopust",
                       control: control,
-                      label: "Text Input with Suffix",
-                      additional: { suffix: "%", readonly: true },
+                      label: "Ukupan iznos popusta",
+                      additional: { mask: {}, readonly: false },
                       disabled: false,
                     }}
                   />
-                  <FormTextField
+                  <FormCurrencyField
                     props={{
-                      name: "textValueSuffix",
+                      name: "taxAmount",
                       control: control,
-                      label: "Text Input with Suffix",
-                      additional: { suffix: "%", readonly: true },
+                      label: "Iznos PDV",
+                      additional: { mask: {}, readonly: false },
                       disabled: false,
                     }}
                   />
@@ -683,22 +634,22 @@ export default function InvoiceFormComponent({
               <CustomButtonFc
                 groupButton={[
                   {
-                    title: "RESET",
+                    title: "DELETE",
                     disabled: false,
                     btnFn: () => reset(),
                   },
                   {
-                    title: "SUBMIT",
+                    title: "DOWNLOAD",
                     disabled: false,
                     btnFn: handleSubmit(onSubmit),
                   },
                   {
-                    title: "RESET",
+                    title: "UPDATE",
                     disabled: false,
                     btnFn: () => reset(),
                   },
                   {
-                    title: "SET",
+                    title: "SEND",
                     disabled: false,
                     btnFn: handleSubmit(onSubmit),
                   },

@@ -1,77 +1,641 @@
-{
-  "id": "b5Rli4EBPfCa5ugf1GM1",
-  "prodctId": 1310200,
-  "productName": "Krem bananica",
-  "sale": true,
-  "stock": true,
-  "recipe": true,
-  "production": true,
-  "consumables": true,
-  "modificationRequired": true,
-  "decimalShow": true,
-  "priceChangeForbidden": true,
-  "barCode": "1234567891234",
-  "code": "12345",
-  "unitCode": "Kom",
-  "vat": "DJ",
-  "vatValue1": 0.34,
-  "pointOfSale": "Danijela,",
-  "groupName": "Opsta,",
-  "typeName": "Proizvod",
-  "unitName": "Kom",
-  "vatName": null,
-  "productGroupRequest": [
-    {
-      "idGroup": "26",
-      "groupName": "Opsta"
-    }
-  ],
-  "productTypeRequest": {
-    "idType": "13",
-    "typeName": "Proizvod"
-  },
-  "productUnitRequest": {
-    "idUnit": "2",
-    "unitName": "Kom"
-  },
-  "productVatRequest": {
-    "idVat": "2",
-    "vatName": "DJ"
-  },
-  "pointOfSaleRequest": [
-    {
-      "idPointOfSale": "10",
-      "pointOfName": "Danijela"
-    }
-  ],
-  "priceLists": [
-    {
-      "idProduct": 1310200,
-      "main": true,
-      "actionManual": true,
-      "actionAutomatic": true,
-      "recursivePricing": true,
-      "client": true,
-      "dateFrom": "2022-01-02T01:01:01",
-      "dateTo": "2022-05-02T01:01:01",
-      "activ": false,
-      "date": "2022-05-02T01:01:01",
-      "price": 2345.0,
-      "priority": 1
+[
+  {
+    "id": "4hOXnYMB5fbI89fqExkl",
+    "prodctId": 1310684,
+    "productName": "Koka kola",
+    "idCompany": 3,
+    "companyName": null,
+    "sale": true,
+    "stock": true,
+    "recipe": true,
+    "production": true,
+    "consumables": true,
+    "modificationRequired": true,
+    "decimalShow": true,
+    "priceChangeForbidden": true,
+    "barCode": "1234567891234",
+    "code": "12345",
+    "unitCode": "Kom",
+    "vat": "DJ",
+    "vatValue1": 0.34,
+    "pointOfSale": "51e49f4e3cea4780-Kasa-1,",
+    "groupName": "Opsta,Opsta1,",
+    "typeName": "Proizvod",
+    "unitName": "Kom",
+    "vatName": null,
+    "productGroupRequest": [
+      {
+        "idGroup": "52",
+        "groupName": "Opsta",
+        "parentGroupId": null
+      },
+      {
+        "idGroup": "53",
+        "groupName": "Opsta1",
+        "parentGroupId": null
+      }
+    ],
+    "productTypeRequest": {
+      "idType": "13",
+      "typeName": "Proizvod"
     },
-    {
-      "idProduct": 1310200,
-      "main": true,
-      "actionManual": true,
-      "actionAutomatic": true,
-      "recursivePricing": true,
-      "client": true,
-      "dateFrom": "2022-01-02T01:01:01",
-      "dateTo": "2022-05-02T01:01:01",
-      "activ": false,
-      "date": "2022-05-02T01:01:01",
-      "price": 2345.0,
-      "priority": 2
-    }
-  ]
-}
+    "productUnitRequest": {
+      "idUnit": "2",
+      "unitName": "Kom"
+    },
+    "productVatRequest": {
+      "idVat": "2",
+      "vatName": "DJ"
+    },
+    "pointOfSaleRequest": [
+      {
+        "idPointOfSale": "88",
+        "pointOfName": "51e49f4e3cea4780-Kasa-1",
+        "relationWarehouse": ["202a9136ed1542e6", "816ecbebd40f4f67"]
+      }
+    ],
+    "priceLists": null,
+    "warehouseDtos": [
+      {
+        "id": 8,
+        "warehouseName": "Trgovina-Restoran;",
+        "uuid": "816ecbebd40f4f67",
+        "marketPlaceUuid": "51e49f4e3cea4780"
+      }
+    ],
+    "marketPlaceDtos": [
+      {
+        "id": 15,
+        "marketPlaceName": "Trgovina PM",
+        "uuid": "51e49f4e3cea4780",
+        "objectUuid": "12b9e55ab7174144"
+      }
+    ]
+  },
+  {
+    "id": "4ROJnYMB5fbI89fqABkr",
+    "prodctId": 1310683,
+    "productName": "Koka kola",
+    "idCompany": 3,
+    "companyName": null,
+    "sale": true,
+    "stock": true,
+    "recipe": true,
+    "production": true,
+    "consumables": true,
+    "modificationRequired": true,
+    "decimalShow": true,
+    "priceChangeForbidden": true,
+    "barCode": "1234567891234",
+    "code": "12345",
+    "unitCode": "Kom",
+    "vat": "DJ",
+    "vatValue1": 0.34,
+    "pointOfSale": "51e49f4e3cea4780-Kasa-1,",
+    "groupName": "Opsta,Opsta1,",
+    "typeName": "Proizvod",
+    "unitName": "Kom",
+    "vatName": null,
+    "productGroupRequest": [
+      {
+        "idGroup": "52",
+        "groupName": "Opsta",
+        "parentGroupId": null
+      },
+      {
+        "idGroup": "53",
+        "groupName": "Opsta1",
+        "parentGroupId": null
+      }
+    ],
+    "productTypeRequest": {
+      "idType": "13",
+      "typeName": "Proizvod"
+    },
+    "productUnitRequest": {
+      "idUnit": "2",
+      "unitName": "Kom"
+    },
+    "productVatRequest": {
+      "idVat": "2",
+      "vatName": "DJ"
+    },
+    "pointOfSaleRequest": [
+      {
+        "idPointOfSale": "88",
+        "pointOfName": "51e49f4e3cea4780-Kasa-1",
+        "relationWarehouse": ["202a9136ed1542e6", "816ecbebd40f4f67"]
+      }
+    ],
+    "priceLists": null,
+    "warehouseDtos": [
+      {
+        "id": 8,
+        "warehouseName": "Trgovina-Restoran;",
+        "uuid": "816ecbebd40f4f67",
+        "marketPlaceUuid": null
+      }
+    ],
+    "marketPlaceDtos": [
+      {
+        "id": 15,
+        "marketPlaceName": "Trgovina PM",
+        "uuid": "51e49f4e3cea4780",
+        "objectUuid": null
+      }
+    ]
+  },
+  {
+    "id": "5RMKp4MB5fbI89fqFxlI",
+    "prodctId": 1310687,
+    "productName": "Koka kola hotel",
+    "idCompany": 3,
+    "companyName": null,
+    "sale": true,
+    "stock": true,
+    "recipe": true,
+    "production": true,
+    "consumables": true,
+    "modificationRequired": true,
+    "decimalShow": true,
+    "priceChangeForbidden": true,
+    "barCode": "1234567891234",
+    "code": "12345",
+    "unitCode": "Kom",
+    "vat": "DJ",
+    "vatValue1": 0.34,
+    "pointOfSale": "51e49f4e3cea4780-Kasa-1,",
+    "groupName": "Opsta,Opsta1,",
+    "typeName": "Proizvod",
+    "unitName": "Kom",
+    "vatName": null,
+    "productGroupRequest": [
+      {
+        "idGroup": "52",
+        "groupName": "Opsta",
+        "parentGroupId": null
+      },
+      {
+        "idGroup": "53",
+        "groupName": "Opsta1",
+        "parentGroupId": null
+      }
+    ],
+    "productTypeRequest": {
+      "idType": "13",
+      "typeName": "Proizvod"
+    },
+    "productUnitRequest": {
+      "idUnit": "2",
+      "unitName": "Kom"
+    },
+    "productVatRequest": {
+      "idVat": "2",
+      "vatName": "DJ"
+    },
+    "pointOfSaleRequest": [
+      {
+        "idPointOfSale": "88",
+        "pointOfName": "51e49f4e3cea4780-Kasa-1",
+        "relationWarehouse": ["202a9136ed1542e6", "816ecbebd40f4f67"]
+      }
+    ],
+    "priceLists": [
+      {
+        "idProduct": 1310687,
+        "main": true,
+        "actionManual": true,
+        "actionAutomatic": true,
+        "recursivePricing": true,
+        "client": true,
+        "dateFrom": "2022-01-02T01:01:01",
+        "dateTo": "2022-05-02T01:01:01",
+        "activ": false,
+        "date": "2022-05-02T01:01:01",
+        "price": 2345.0,
+        "priority": 1,
+        "pointOfSales": ["dejan"],
+        "marketPlases": []
+      }
+    ],
+    "warehouseDtos": [
+      {
+        "id": 8,
+        "warehouseName": "Trgovina-Restoran;",
+        "uuid": "816ecbebd40f4f67",
+        "marketPlaceUuid": "51e49f4e3cea4780"
+      }
+    ],
+    "marketPlaceDtos": [
+      {
+        "id": 15,
+        "marketPlaceName": "Trgovina PM",
+        "uuid": "51e49f4e3cea4780",
+        "objectUuid": "12b9e55ab7174144"
+      }
+    ]
+  },
+  {
+    "id": "5hO6p4MB5fbI89fqNBkj",
+    "prodctId": 1310688,
+    "productName": "proba-koka-kola",
+    "idCompany": 3,
+    "companyName": null,
+    "sale": true,
+    "stock": true,
+    "recipe": true,
+    "production": true,
+    "consumables": true,
+    "modificationRequired": true,
+    "decimalShow": true,
+    "priceChangeForbidden": true,
+    "barCode": "1234567891234",
+    "code": "12345",
+    "unitCode": "Kom",
+    "vat": "DJ",
+    "vatValue1": 0.34,
+    "pointOfSale": "51e49f4e3cea4780-Kasa-1,",
+    "groupName": "Opsta,Opsta1,",
+    "typeName": "Proizvod",
+    "unitName": "Kom",
+    "vatName": null,
+    "productGroupRequest": [
+      {
+        "idGroup": "52",
+        "groupName": "Opsta",
+        "parentGroupId": null
+      },
+      {
+        "idGroup": "53",
+        "groupName": "Opsta1",
+        "parentGroupId": null
+      }
+    ],
+    "productTypeRequest": {
+      "idType": "13",
+      "typeName": "Proizvod"
+    },
+    "productUnitRequest": {
+      "idUnit": "2",
+      "unitName": "Kom"
+    },
+    "productVatRequest": {
+      "idVat": "2",
+      "vatName": "DJ"
+    },
+    "pointOfSaleRequest": [
+      {
+        "idPointOfSale": "88",
+        "pointOfName": "51e49f4e3cea4780-Kasa-1",
+        "relationWarehouse": ["202a9136ed1542e6", "816ecbebd40f4f67"]
+      }
+    ],
+    "priceLists": [
+      {
+        "idProduct": 1310688,
+        "main": true,
+        "actionManual": true,
+        "actionAutomatic": true,
+        "recursivePricing": true,
+        "client": true,
+        "dateFrom": "2022-05-02T01:01:01",
+        "dateTo": "2022-12-12T01:01:01",
+        "activ": true,
+        "date": "2022-05-02T01:01:01",
+        "price": 2345.0,
+        "priority": 1,
+        "pointOfSales": [],
+        "marketPlases": ["51e49f4e3cea4780"]
+      },
+      {
+        "idProduct": 1310688,
+        "main": true,
+        "actionManual": true,
+        "actionAutomatic": true,
+        "recursivePricing": true,
+        "client": true,
+        "dateFrom": "2022-05-02T01:01:01",
+        "dateTo": "2022-12-12T01:01:01",
+        "activ": true,
+        "date": "2022-05-02T01:01:01",
+        "price": 2345.0,
+        "priority": 1,
+        "pointOfSales": [],
+        "marketPlases": ["51e49f4e3cea4987"]
+      },
+      {
+        "idProduct": 1310688,
+        "main": true,
+        "actionManual": true,
+        "actionAutomatic": true,
+        "recursivePricing": true,
+        "client": true,
+        "dateFrom": "2022-05-02T01:01:01",
+        "dateTo": "2022-12-12T01:01:01",
+        "activ": true,
+        "date": "2022-05-02T01:01:01",
+        "price": 2345.0,
+        "priority": 1,
+        "pointOfSales": ["45009197495d4b40-Kasa-7"],
+        "marketPlases": ["51e49f4e3cea4987"]
+      },
+      {
+        "idProduct": 1310688,
+        "main": true,
+        "actionManual": true,
+        "actionAutomatic": true,
+        "recursivePricing": true,
+        "client": true,
+        "dateFrom": "2022-05-02T01:01:01",
+        "dateTo": "2022-12-12T01:01:01",
+        "activ": true,
+        "date": "2022-05-02T01:01:01",
+        "price": 2345.0,
+        "priority": 1,
+        "pointOfSales": ["45009197495d4b40-Kasa-7", "dejan"],
+        "marketPlases": ["51e49f4e3cea4780", "51e49f4e3cea4987"]
+      }
+    ],
+    "warehouseDtos": [
+      {
+        "id": 8,
+        "warehouseName": "Trgovina-Restoran;",
+        "uuid": "816ecbebd40f4f67",
+        "marketPlaceUuid": "51e49f4e3cea4780"
+      }
+    ],
+    "marketPlaceDtos": [
+      {
+        "id": 15,
+        "marketPlaceName": "Trgovina PM",
+        "uuid": "51e49f4e3cea4780",
+        "objectUuid": "12b9e55ab7174144"
+      }
+    ]
+  },
+  {
+    "id": "3xNKnYMB5fbI89fqihln",
+    "prodctId": 1310681,
+    "productName": "Koka kola",
+    "idCompany": 3,
+    "companyName": null,
+    "sale": true,
+    "stock": true,
+    "recipe": true,
+    "production": true,
+    "consumables": true,
+    "modificationRequired": true,
+    "decimalShow": true,
+    "priceChangeForbidden": true,
+    "barCode": "1234567891234",
+    "code": "12345",
+    "unitCode": "Kom",
+    "vat": "DJ",
+    "vatValue1": 0.34,
+    "pointOfSale": "Trgovina kasa 2,Spa kasa 1,",
+    "groupName": "Opsta,Opsta1,",
+    "typeName": "Proizvod",
+    "unitName": "Kom",
+    "vatName": null,
+    "productGroupRequest": [
+      {
+        "idGroup": "52",
+        "groupName": "Opsta",
+        "parentGroupId": null
+      },
+      {
+        "idGroup": "53",
+        "groupName": "Opsta1",
+        "parentGroupId": null
+      }
+    ],
+    "productTypeRequest": {
+      "idType": "13",
+      "typeName": "Proizvod"
+    },
+    "productUnitRequest": {
+      "idUnit": "2",
+      "unitName": "Kom"
+    },
+    "productVatRequest": {
+      "idVat": "2",
+      "vatName": "DJ"
+    },
+    "pointOfSaleRequest": [
+      {
+        "idPointOfSale": "81",
+        "pointOfName": "Trgovina kasa 2",
+        "relationWarehouse": ["77f9d820cffe472c"]
+      },
+      {
+        "idPointOfSale": "82",
+        "pointOfName": "Spa kasa 1",
+        "relationWarehouse": ["d94fd35d44114549"]
+      }
+    ],
+    "priceLists": null,
+    "warehouseDtos": [
+      {
+        "id": 8,
+        "warehouseName": "Trgovina-Restoran;",
+        "uuid": null,
+        "marketPlaceUuid": null
+      },
+      {
+        "id": 9,
+        "warehouseName": "Spa Warehouse",
+        "uuid": null,
+        "marketPlaceUuid": null
+      }
+    ],
+    "marketPlaceDtos": [
+      {
+        "id": 15,
+        "marketPlaceName": "Trgovina PM",
+        "uuid": null,
+        "objectUuid": null
+      },
+      {
+        "id": 16,
+        "marketPlaceName": "Spa Centar PM",
+        "uuid": null,
+        "objectUuid": null
+      },
+      {
+        "id": 17,
+        "marketPlaceName": "Restoran PM",
+        "uuid": null,
+        "objectUuid": null
+      }
+    ]
+  },
+  {
+    "id": "3hNAnYMB5fbI89fq1Bmv",
+    "prodctId": 1310680,
+    "productName": "Koka kola",
+    "idCompany": 3,
+    "companyName": null,
+    "sale": true,
+    "stock": true,
+    "recipe": true,
+    "production": true,
+    "consumables": true,
+    "modificationRequired": true,
+    "decimalShow": true,
+    "priceChangeForbidden": true,
+    "barCode": "1234567891234",
+    "code": "12345",
+    "unitCode": "Kom",
+    "vat": "DJ",
+    "vatValue1": 0.34,
+    "pointOfSale": "Trgovina kasa 2,Spa kasa 1,",
+    "groupName": "Opsta,Opsta1,",
+    "typeName": "Proizvod",
+    "unitName": "Kom",
+    "vatName": null,
+    "productGroupRequest": [
+      {
+        "idGroup": "52",
+        "groupName": "Opsta",
+        "parentGroupId": null
+      },
+      {
+        "idGroup": "53",
+        "groupName": "Opsta1",
+        "parentGroupId": null
+      }
+    ],
+    "productTypeRequest": {
+      "idType": "13",
+      "typeName": "Proizvod"
+    },
+    "productUnitRequest": {
+      "idUnit": "2",
+      "unitName": "Kom"
+    },
+    "productVatRequest": {
+      "idVat": "2",
+      "vatName": "DJ"
+    },
+    "pointOfSaleRequest": [
+      {
+        "idPointOfSale": "81",
+        "pointOfName": "Trgovina kasa 2",
+        "relationWarehouse": []
+      },
+      {
+        "idPointOfSale": "82",
+        "pointOfName": "Spa kasa 1",
+        "relationWarehouse": ["d94fd35d44114549"]
+      }
+    ],
+    "priceLists": null,
+    "warehouseDtos": [
+      {
+        "id": 8,
+        "warehouseName": "Trgovina-Restoran;",
+        "uuid": null,
+        "marketPlaceUuid": null
+      },
+      {
+        "id": 9,
+        "warehouseName": "Spa Warehouse",
+        "uuid": null,
+        "marketPlaceUuid": null
+      }
+    ],
+    "marketPlaceDtos": [
+      {
+        "id": 15,
+        "marketPlaceName": "Trgovina PM",
+        "uuid": null,
+        "objectUuid": null
+      },
+      {
+        "id": 16,
+        "marketPlaceName": "Spa Centar PM",
+        "uuid": null,
+        "objectUuid": null
+      },
+      {
+        "id": 17,
+        "marketPlaceName": "Restoran PM",
+        "uuid": null,
+        "objectUuid": null
+      }
+    ]
+  },
+  {
+    "id": "4BN4nYMB5fbI89fqwBks",
+    "prodctId": 1310682,
+    "productName": "Koka kola",
+    "idCompany": 3,
+    "companyName": null,
+    "sale": true,
+    "stock": true,
+    "recipe": true,
+    "production": true,
+    "consumables": true,
+    "modificationRequired": true,
+    "decimalShow": true,
+    "priceChangeForbidden": true,
+    "barCode": "1234567891234",
+    "code": "12345",
+    "unitCode": "Kom",
+    "vat": "DJ",
+    "vatValue1": 0.34,
+    "pointOfSale": "45009197495d4b40-Kasa-4,",
+    "groupName": "Opsta,Opsta1,",
+    "typeName": "Proizvod",
+    "unitName": "Kom",
+    "vatName": null,
+    "productGroupRequest": [
+      {
+        "idGroup": "52",
+        "groupName": "Opsta",
+        "parentGroupId": null
+      },
+      {
+        "idGroup": "53",
+        "groupName": "Opsta1",
+        "parentGroupId": null
+      }
+    ],
+    "productTypeRequest": {
+      "idType": "13",
+      "typeName": "Proizvod"
+    },
+    "productUnitRequest": {
+      "idUnit": "2",
+      "unitName": "Kom"
+    },
+    "productVatRequest": {
+      "idVat": "2",
+      "vatName": "DJ"
+    },
+    "pointOfSaleRequest": [
+      {
+        "idPointOfSale": "87",
+        "pointOfName": "45009197495d4b40-Kasa-4",
+        "relationWarehouse": ["77f9d820cffe472c", "d94fd35d44114549"]
+      }
+    ],
+    "priceLists": null,
+    "warehouseDtos": [
+      {
+        "id": 8,
+        "warehouseName": "Trgovina-Restoran;",
+        "uuid": "d94fd35d44114549",
+        "marketPlaceUuid": null
+      }
+    ],
+    "marketPlaceDtos": [
+      {
+        "id": 15,
+        "marketPlaceName": "Trgovina PM",
+        "uuid": "167424bb58a14fd5",
+        "objectUuid": null
+      }
+    ]
+  }
+]
