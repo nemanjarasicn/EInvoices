@@ -1,10 +1,7 @@
-import { Autocomplete, TextField } from "@mui/material";
-import {
-  ActionCreatorWithoutPayload,
-  ActionCreatorWithPayload,
-  AsyncThunkAction,
-} from "@reduxjs/toolkit";
+/* eslint-disable react-hooks/exhaustive-deps */
 import React from "react";
+import { Autocomplete, TextField } from "@mui/material";
+import { AsyncThunkAction } from "@reduxjs/toolkit";
 import { Controller } from "react-hook-form";
 import { useAppDispatch, useAppSelector } from "../../../../app/hooks";
 import { IProps } from "../../models";
@@ -16,6 +13,9 @@ type FormAutocompleteFieldProps = FormFieldProps & {
     resetStateAction: Function;
     selector: any;
     parentFn?: Function;
+    labelShrink?: boolean;
+    placeholder?: string;
+    noResultText?: string;
   };
 };
 /**
@@ -51,6 +51,7 @@ export default function FormAutocompleteField({
           disablePortal
           id={`combo-box-demo_${props.name}`}
           options={[...data]}
+          noOptionsText={props.additional.noResultText ?? "No options"}
           getOptionLabel={(item: AutocompleteItem) => item.name}
           renderOption={(props, option) => {
             return (
@@ -71,7 +72,9 @@ export default function FormAutocompleteField({
               error={!!error}
               value={value}
               fullWidth
+              placeholder={props.additional.placeholder ?? ""}
               label={props.label}
+              InputLabelProps={{ shrink: props.additional?.labelShrink }}
               variant="outlined"
             />
           )}

@@ -113,7 +113,47 @@ export class InvoiceFormModel {
   taxableAmount: number = 0; // osnovica za pdv
   taxAmount: number = 0;
 
+  invoiceLine: ProductModel[] = []; //stavke
+
   public constructor(init?: Partial<InvoiceFormModel>) {
     Object.assign(this, init);
   }
+}
+
+export interface ProductModel {
+  idUnit: number;
+  idVat: number;
+  vatName: string;
+  unitCode: string;
+  currencyID: string;
+  id: number;
+  invoicedQuantity: number;
+  lineExtensionAmount: number;
+  allowanceCharge: {
+    currencyId: string;
+    chargeIndicator: boolean;
+    multiplierFactorNumeric: number;
+    amount: number;
+  };
+  item: {
+    idProduct: number;
+    name: string;
+    sellersItemIdentification: {
+      id: number;
+    };
+    classifiedTaxCategory: {
+      id: number;
+      taxScheme: {
+        id: string;
+      };
+      percent: number;
+    };
+  };
+  price: {
+    priceAmount: number;
+    discount: number;
+    newPrice: number;
+    unitPrice: number;
+    unitTaxAmount: number;
+  };
 }

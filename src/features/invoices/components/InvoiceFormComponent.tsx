@@ -44,6 +44,7 @@ import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import { getClientCompanies } from "./form-fields/store/form.actions";
 import { selectClientCompanies } from "./form-fields/store/form.selectors";
 import ClientComponent from "./form-group/ClientComponent";
+import InvoiceItemsComponent from "./invoice-items/InvoiceItemsComponent";
 
 export type InvoiceFormComponentProps = {
   invoiceTypeOptions: any;
@@ -68,6 +69,11 @@ const schema = yup
     // autocompleteValue: yup.object().required(),
     // checkbox: yup.bool().required(),
     // numberValue: yup.number().required(),
+    // invoiceLine: yup.array().of(
+    //   yup.object({
+    //     kolicina: yup.string().required(""),
+    //   })
+    // ),
   })
   .required();
 
@@ -97,8 +103,8 @@ export default function InvoiceFormComponent({
     getFieldState,
     watch,
   } = methods;
-  const formValues = watch(); //EEG
-  const onSubmit = (data: InvoiceFormModel) => console.log(data);
+
+  const onSubmit = (data: InvoiceFormModel) => console.log(data.invoiceLine);
 
   /**
    * Handle switch of template by invoice type
@@ -108,9 +114,7 @@ export default function InvoiceFormComponent({
     setInvoiceType(invoicetype);
   };
 
-  React.useEffect(() => {
-    console.log("MOUNT");
-  }, []);
+  React.useEffect(() => {}, []);
 
   return (
     <Box
@@ -123,7 +127,7 @@ export default function InvoiceFormComponent({
           textAlign: "center",
         }}
       >
-        <Typography sx={formComponent.typography}>STATUS FAKTURE</Typography>
+        <Typography sx={formComponent.typography}>NOVA FAKTURA</Typography>
       </Box>
       <Grid container spacing={2}>
         <Grid item xs={10}>
@@ -142,27 +146,31 @@ export default function InvoiceFormComponent({
                   <ClientComponent
                     props={{
                       control: control,
-                      title: t("Client.title"),
+                      title: t(props.formGrpsSettings.client.title),
                       additional: { formSetValue: setValue, watch: watch },
                       clientFields: {
                         clientCompanyName: {
                           name: "client.companyName",
-                          label: t("Client.companyName"),
+                          label: t(props.formFieldsLabels.client.companyName),
                           disabled: false,
                         },
                         clientAddress: {
                           name: "client.address",
-                          label: t("Client.address"),
+                          label: t(props.formFieldsLabels.client.address),
                           disabled: false,
                         },
                         clientRegistrationCode: {
                           name: "client.registrationCode",
-                          label: t("Client.clientRegistrationCode"),
+                          label: t(
+                            props.formFieldsLabels.client.registrationCode
+                          ),
                           disabled: false,
                         },
                         clientVatRegistrationCode: {
                           name: "client.vatRegistrationCode",
-                          label: t("Client.clientVatRegistrationCode"),
+                          label: t(
+                            props.formFieldsLabels.client.vatRegistrationCode
+                          ),
                           disabled: false,
                         },
                       },
@@ -311,7 +319,17 @@ export default function InvoiceFormComponent({
             <Typography sx={formComponent.typography}>
               {t(props.sectionTitles.title_2).toUpperCase()}
             </Typography>
-            <Paper style={formComponent.groupPaper}>stavke</Paper>
+            <Paper style={formComponent.groupPaperLowScale}>
+              <InvoiceItemsComponent
+                props={{
+                  control: control,
+                  formSetValue: setValue,
+                  formGetValues: getValues,
+                  formWatch: watch,
+                  fieldLabels: props.formFieldsLabels.invoiceItems,
+                }}
+              ></InvoiceItemsComponent>
+            </Paper>
           </Box>
         </Grid>
       </Grid>

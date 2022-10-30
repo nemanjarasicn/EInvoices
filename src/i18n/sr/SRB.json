@@ -137,7 +137,16 @@
       "warehouse_uuid": "Šifra objekta",
       "modelNumber": "Broj modela",
       "finalSum": "Ukupno",
-      "finalSumLetters": "Ukupno slovima"
+      "finalSumLetters": "Ukupno slovima",
+      "productName": "Naziv",
+      "unitPrice": "Cena",
+      "invoicedQuantity": "Količina",
+      "unitCode": "Mera",
+      "discount": "Popust",
+      "newPrice": "Nova cena",
+      "percent": "PDV",
+      "unitTaxAmount": "Iznos PDV",
+      "priceAmount": "Konačna cena"
     }
   },
   "Client": {
@@ -146,5 +155,10 @@
     "address": "Adresa kupca",
     "clientRegistrationCode": "Matični broj kupca",
     "clientVatRegistrationCode": " PIB kupca"
+  },
+  "Search": {
+    "label": "Pretraga",
+    "placeholder": "...Pretraži proizvode",
+    "noResult": "Nema traženog proizvoda"
   }
 }
