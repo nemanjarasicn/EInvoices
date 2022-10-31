@@ -74,10 +74,10 @@ export const selectProducts = createSelector(
 
 function convertToProductModel(item: any): ProductModel {
   return {
-    idUnit: item.id,
     idVat: item.productVatRequest?.idVat,
-    vatName: item.vat,
-    unitCode: item.unitCode,
+    vatName: item.productVatRequest?.vatName,
+    unitCode: item.productUnitRequest?.unitName,
+    idUnit: item.productUnitRequest?.idUnit,
     currencyID: "RSD",
     id: item.prodctId,
     invoicedQuantity: 0,
