@@ -160,5 +160,12 @@
     "label": "Pretraga",
     "placeholder": "...Pretraži proizvode",
     "noResult": "Nema traženog proizvoda"
+  },
+  "AuthModal": {
+    "title":  "Niste autorizovani!",
+    "label": "Unesite validan api kljuc",
+    "saveButtonTitle": "PRESMERITI NA E-FAKTURE",
+    "redirectButtonTitle": "SACUVAJ API KLJUC"
   }
+  
 }

@@ -160,5 +160,11 @@
     "label": "Search",
     "placeholder": "...Search",
     "noResult": "No search result"
+  },
+  "AuthModal": {
+    "title":  "You are not authorised",
+    "label": "Enter your valid api key",
+    "saveButtonTitle": "SAVE API KEY",
+    "redirectButtonTitle": "REDIRECT ON E-FAKTURE"
   }
 }
