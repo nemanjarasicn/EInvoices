@@ -146,7 +146,11 @@
       "newPrice": "New price",
       "percent": "VAT",
       "unitTaxAmount": "VAT amount",
-      "priceAmount": "Final amount"
+      "priceAmount": "Final amount",
+      "priceWithoutDiscount": "Total without discount",
+      "taxableAmount": "VAT base",
+      "sumWithDiscount": "Total with discount",
+      "taxAmount": "Amount of VAT"
     }
   },
   "Client": {
