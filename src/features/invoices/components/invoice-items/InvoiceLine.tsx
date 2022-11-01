@@ -5,7 +5,11 @@ import { Grid, IconButton } from "@mui/material";
 import FormTextField from "../form-fields/FormTextField";
 import DeleteIcon from "@mui/icons-material/Delete";
 import FormCurrencyField from "../form-fields/FormCurrencyField";
-import { calculateNewPrice, calculateTax } from "../../utils/utils";
+import {
+  calculateNewPrice,
+  calculateTax,
+  calculateTotal,
+} from "../../utils/utils";
 import { useTranslation } from "react-i18next";
 
 type InvoiceLineProps = {
@@ -79,6 +83,12 @@ export default function InvoiceLine({
         Number(formWatch(`invoiceLine[${index}].invoicedQuantity`))
     );
   }, [formWatch(`invoiceLine[${index}].price.newPrice`)]);
+
+  // Subscribe on total value
+  React.useEffect(() => {
+    const total = calculateTotal(formGetValues(`invoiceLine`));
+    formSetValue(`finalSum`, total);
+  }, [formWatch(`invoiceLine[${index}].price.priceAmount`)]);
 
   return (
     <Grid container spacing={1}>

@@ -13,7 +13,7 @@ import {
   Select,
 } from "@mui/material";
 import { useForm } from "react-hook-form";
-import { InvoiceFormModel, InvoiceType, IProps } from "../models";
+import { InvoiceFormModel, InvoiceType, IProps, ProductModel } from "../models";
 import FormTextField from "./form-fields/FormTextField";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -41,6 +41,13 @@ import { getClientCompanies } from "./form-fields/store/form.actions";
 import { selectClientCompanies } from "./form-fields/store/form.selectors";
 import ClientComponent from "./form-group/ClientComponent";
 import InvoiceItemsComponent from "./invoice-items/InvoiceItemsComponent";
+import {
+  calculateBase,
+  sumTax,
+  totalWithDiscount,
+  totalWithoutDiscount,
+} from "../utils/utils";
+import { Subscription } from "react-hook-form/dist/utils/createSubject";
 
 export type InvoiceFormComponentProps = {
   invoiceTypeOptions: any;
@@ -65,11 +72,11 @@ const schema = yup
     // autocompleteValue: yup.object().required(),
     // checkbox: yup.bool().required(),
     // numberValue: yup.number().required(),
-    // invoiceLine: yup.array().of(
-    //   yup.object({
-    //     kolicina: yup.string().required(""),
-    //   })
-    // ),
+    invoiceLine: yup.array().of(
+      yup.object({
+        invoicedQuantity: yup.number().moreThan(0, ""),
+      })
+    ),
   })
   .required();
 
@@ -100,7 +107,7 @@ export default function InvoiceFormComponent({
     watch,
   } = methods;
 
-  const onSubmit = (data: InvoiceFormModel) => console.log(data.invoiceLine);
+  const onSubmit = (data: InvoiceFormModel) => console.log(data);
 
   /**
    * Handle switch of template by invoice type
@@ -110,7 +117,47 @@ export default function InvoiceFormComponent({
     setInvoiceType(invoicetype);
   };
 
-  React.useEffect(() => {}, []);
+  /**
+   * Handle values patch form fields
+   */
+  const patchFormFields = (
+    invoiceLine: ProductModel[],
+    finalSum: number
+  ): void => {
+    setValue(
+      "priceWithoutDiscount",
+      totalWithoutDiscount(invoiceLine as ProductModel[])
+    );
+    setValue(
+      "sumWithDiscount",
+      totalWithDiscount(invoiceLine as ProductModel[])
+    );
+    const _sumTax: number = sumTax(invoiceLine as ProductModel[]);
+    setValue("taxAmount", _sumTax);
+    setValue("taxableAmount", calculateBase(finalSum as number, _sumTax));
+  };
+
+  React.useEffect(() => {
+    const subscription: Subscription = watch((value, { name }) => {
+      switch (name) {
+        case "finalSum":
+          patchFormFields(
+            value.invoiceLine as ProductModel[],
+            value.finalSum as number
+          );
+          break;
+        case "invoiceLine":
+          patchFormFields(
+            value.invoiceLine as ProductModel[],
+            value.finalSum as number
+          );
+          break;
+        default:
+          break;
+      }
+    });
+    return () => subscription.unsubscribe();
+  }, [watch]);
 
   return (
     <Box
@@ -547,10 +594,10 @@ export default function InvoiceFormComponent({
                 <Grid item xs={6}>
                   <FormCurrencyField
                     props={{
-                      name: "iznosBezPopusta",
+                      name: "priceWithoutDiscount",
                       control: control,
-                      label: "Ukupan iznos bez popusta",
-                      additional: { mask: {}, readonly: false },
+                      label: t(props.formFieldsLabels.priceWithoutDiscount),
+                      additional: { mask: {}, readonly: true },
                       disabled: false,
                     }}
                   />
@@ -558,8 +605,8 @@ export default function InvoiceFormComponent({
                     props={{
                       name: "taxableAmount",
                       control: control,
-                      label: "Osnovica za PDV",
-                      additional: { mask: {}, readonly: false },
+                      label: t(props.formFieldsLabels.taxableAmount),
+                      additional: { mask: {}, readonly: true },
                       disabled: false,
                     }}
                   />
@@ -567,10 +614,10 @@ export default function InvoiceFormComponent({
                 <Grid item xs={6}>
                   <FormCurrencyField
                     props={{
-                      name: "ukupanPopust",
+                      name: "sumWithDiscount",
                       control: control,
-                      label: "Ukupan iznos popusta",
-                      additional: { mask: {}, readonly: false },
+                      label: t(props.formFieldsLabels.sumWithDiscount),
+                      additional: { mask: {}, readonly: true },
                       disabled: false,
                     }}
                   />
@@ -578,8 +625,8 @@ export default function InvoiceFormComponent({
                     props={{
                       name: "taxAmount",
                       control: control,
-                      label: "Iznos PDV",
-                      additional: { mask: {}, readonly: false },
+                      label: t(props.formFieldsLabels.taxAmount),
+                      additional: { mask: {}, readonly: true },
                       disabled: false,
                     }}
                   />
