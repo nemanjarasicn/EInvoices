@@ -60,10 +60,9 @@ export default function TableComponent({
           columnsPanelHideAllButton: `${t("Table.HideAll")}`,
           footerRowSelected: (count) => `
           ${t(props.footerProps.countTxt)} :
-          ${count} ${t(props.footerProps.totalAmountTxt)} : ${getTotalAmount(
-            tableData,
-            selection
-          )}`,
+          ${count} ${t(
+            props.footerProps.totalAmountTxt
+          )} : RSD ${getTotalAmount(tableData, selection)}`,
         }}
         rows={[...tableData]}
         columns={props.columnsDef.map((item) => ({

@@ -115,8 +115,8 @@
       }
     },
     "vatPointDateOptions": {
-      "issuingDate": "Datum slanja Fakture",
-      "deliveryDate": "Datum Prometa fakture",
+      "issuingDate": "Datum slanja fakture",
+      "deliveryDate": "Datum prometa fakture",
       "paymentDate": "Obracun PDV na dan placanja"
     },
     "selectionModeOptions": {
@@ -141,7 +141,11 @@
       "newPrice": "Nova cena",
       "percent": "PDV",
       "unitTaxAmount": "Iznos PDV",
-      "priceAmount": "Konačna cena"
+      "priceAmount": "Konačna cena",
+      "priceWithoutDiscount": "Ukupan iznos bez popusta",
+      "taxableAmount": "Osnovica za PDV",
+      "sumWithDiscount": "Ukupan iznos sa popustom",
+      "taxAmount": "Iznos PDV"
     }
   },
   "Client": {

@@ -108,8 +108,8 @@ export class InvoiceFormModel {
   referenceNumber: string = "";
   finalSum: number = 0;
 
-  iznosBezPopusta: number = 0;
-  ukupanPopust: number = 0;
+  priceWithoutDiscount: number = 0;
+  sumWithDiscount: number = 0;
   taxableAmount: number = 0; // osnovica za pdv
   taxAmount: number = 0;
 
