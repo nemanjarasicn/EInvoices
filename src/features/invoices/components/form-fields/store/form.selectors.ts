@@ -1,6 +1,11 @@
 import { createSelector } from "@reduxjs/toolkit";
 import { RootState } from "../../../../../app/store";
-import { ProductModel } from "../../../models";
+import {
+  CountryCode,
+  CustomerPartyModel,
+  ProductModel,
+  SchemeID,
+} from "../../../models";
 import { AutocompleteData, DropdownData, FormState } from "./form.reducer";
 
 /**
@@ -46,15 +51,9 @@ export const selectClientCompanies = createSelector(
   autocompleteSelectors,
   (state: AutocompleteData) =>
     state.companies.map((item, index) => ({
-      name: item.Name,
-      id: item.VatRegistrationCode,
-      item: {
-        id: item.VatRegistrationCode,
-        companyName: item.Name,
-        registrationCode: item.RegistrationCode,
-        vatRegistrationCode: item.VatRegistrationCode,
-        address: "",
-      },
+      name: item.companyName,
+      id: item.pib,
+      item: convertToCompanyModel(item),
     }))
 );
 
@@ -104,6 +103,38 @@ function convertToProductModel(item: any): ProductModel {
       newPrice: 0,
       unitPrice: resolvePrice(item.priceLists),
       unitTaxAmount: 0,
+    },
+  };
+}
+function convertToCompanyModel(item: any): CustomerPartyModel {
+  return {
+    party: {
+      schemeID: SchemeID.NOT_CIR,
+      endpointID: item.pib,
+      partyName: [
+        {
+          name: item.companyName,
+        },
+      ],
+    },
+    postalAddress: {
+      streetName: item.address,
+      cityName: item.city,
+      zip: item.zip,
+      country: { identificationCode: CountryCode.RS },
+    },
+    partyTaxScheme: {
+      companyID: `RS${item.pib}`,
+      taxScheme: {
+        id: "VAT",
+      },
+    },
+    partyLegalEntity: {
+      registrationName: item.companyName,
+      companyID: item.mb,
+    },
+    contact: {
+      electronicMail: item.email,
     },
   };
 }

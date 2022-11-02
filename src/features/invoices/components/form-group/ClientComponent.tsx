@@ -1,6 +1,6 @@
 import React from "react";
 import { Grid } from "@mui/material";
-import { Company, InvoiceFormModel, IProps } from "../../models";
+import { InvoiceFormModel, IProps } from "../../models";
 import FormTextField from "../form-fields/FormTextField";
 import {
   AutocompleteItem,
@@ -10,27 +10,52 @@ import {
 import { selectClientCompanies } from "../form-fields/store/form.selectors";
 import FormAutocompleteField from "../form-fields/FormAutocompleteField";
 import { getClientCompanies } from "../form-fields/store/form.actions";
-import { UseFormSetValue, UseFormWatch } from "react-hook-form";
+import { UseFormSetValue } from "react-hook-form";
 import { clearCompanies } from "../form-fields/store/form.reducer";
 
 type ClientComponentProps = GroupFieldProps & {
   additional: {
     formSetValue: UseFormSetValue<InvoiceFormModel>; // zajebavace type
-    watch: UseFormWatch<InvoiceFormModel>; // zajebavace type
   };
   clientFields: {
-    clientCompanyName: Omit<FormFieldProps, "control"> & {};
-    clientAddress: Omit<FormFieldProps, "control"> & {};
-    clientRegistrationCode: Omit<FormFieldProps, "control"> & {};
-    clientVatRegistrationCode: Omit<FormFieldProps, "control"> & {};
+    clientCompanyName: Omit<FormFieldProps, "control"> & {
+      additional: { readonly: boolean; labelShrink: boolean };
+    };
+    clientAddress: Omit<FormFieldProps, "control"> & {
+      additional: { readonly: boolean; labelShrink: boolean };
+    };
+    clientRegistrationCode: Omit<FormFieldProps, "control"> & {
+      additional: { readonly: boolean; labelShrink: boolean };
+    };
+    clientVatRegistrationCode: Omit<FormFieldProps, "control"> & {
+      additional: { readonly: boolean; labelShrink: boolean };
+    };
+    clientEmail: Omit<FormFieldProps, "control"> & {
+      additional: { readonly: boolean; labelShrink: boolean };
+    };
+    clientCity: Omit<FormFieldProps, "control"> & {
+      additional: { readonly: boolean; labelShrink: boolean };
+    };
+    zipCode: Omit<FormFieldProps, "control"> & {
+      additional: { readonly: boolean; labelShrink: boolean };
+    };
   };
 };
+enum FIELDS {
+  REGISTRATION_NAME = "accountingCustomerParty.partyLegalEntity.registrationName",
+  STREET_NAME = "accountingCustomerParty.postalAddress.streetName",
+  COMPANY_ID = "accountingCustomerParty.partyLegalEntity.companyID",
+  ENDPOINT_ID = "accountingCustomerParty.party.endpointID",
+  EMAIL = "accountingCustomerParty.contact.electronicMail",
+  CITY = "accountingCustomerParty.postalAddress.cityName",
+  ZIP = "accountingCustomerParty.postalAddress.zip",
+}
 
 export default function ClientComponent({
   props,
 }: IProps<ClientComponentProps>): JSX.Element {
-  const { watch, formSetValue } = props.additional;
-  const formValues = watch("client");
+  const { formSetValue } = props.additional;
+  // const formValues = watch("client");
 
   /**
    * Handle composition
@@ -38,32 +63,25 @@ export default function ClientComponent({
    */
   const handleComposition = (value: AutocompleteItem) => {
     if (value) {
-      formSetValue("client.companyName", value.item.companyName);
-      formSetValue("client.registrationCode", value.item.registrationCode);
-      formSetValue(
-        "client.vatRegistrationCode",
-        value.item.vatRegistrationCode
-      );
+      formSetValue("accountingCustomerParty", { ...value.item });
     } else {
-      formSetValue("client.companyName", "");
-      formSetValue("client.registrationCode", "");
-      formSetValue("client.vatRegistrationCode", "");
-      formSetValue("client.address", "");
+      formSetValue(FIELDS.REGISTRATION_NAME, "");
+      formSetValue(FIELDS.STREET_NAME, "");
+      formSetValue(FIELDS.COMPANY_ID, "" as any);
+      formSetValue(FIELDS.ENDPOINT_ID, "" as any);
+      formSetValue(FIELDS.EMAIL, "" as any);
+      formSetValue(FIELDS.CITY, "" as any);
+      formSetValue(FIELDS.ZIP, "" as any);
+      formSetValue("accountingCustomerParty", null);
     }
   };
-
-  React.useEffect(() => {
-    if (!formValues) {
-      formSetValue("client", new Company());
-    }
-  }, [formValues]);
 
   return (
     <Grid container spacing={2}>
       <Grid item xs={4}>
         <FormAutocompleteField
           props={{
-            name: "client",
+            name: "foundClient",
             control: props.control,
             label: props.title,
             disabled: false,
@@ -89,6 +107,20 @@ export default function ClientComponent({
             control: props.control,
           }}
         />
+        <div style={{ display: "flex", gap: `10px` }}>
+          <FormTextField
+            props={{
+              ...props.clientFields.clientCity,
+              control: props.control,
+            }}
+          />
+          <FormTextField
+            props={{
+              ...props.clientFields.zipCode,
+              control: props.control,
+            }}
+          />
+        </div>
       </Grid>
       <Grid item xs={3}>
         <FormTextField
@@ -100,6 +132,12 @@ export default function ClientComponent({
         <FormTextField
           props={{
             ...props.clientFields.clientVatRegistrationCode,
+            control: props.control,
+          }}
+        />
+        <FormTextField
+          props={{
+            ...props.clientFields.clientEmail,
             control: props.control,
           }}
         />

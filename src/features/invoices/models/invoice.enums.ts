@@ -62,3 +62,12 @@ export enum FileStatus {
 export enum Currency {
   RSD = "RSD",
 }
+
+export enum SchemeID {
+  NOT_CIR = "9948",
+  CIR = "",
+}
+
+export enum CountryCode {
+  RS = "RS",
+}

@@ -190,31 +190,55 @@ export default function InvoiceFormComponent({
                     props={{
                       control: control,
                       title: t(props.formGrpsSettings.client.title),
-                      additional: { formSetValue: setValue, watch: watch },
+                      additional: {
+                        formSetValue: setValue,
+                      },
                       clientFields: {
                         clientCompanyName: {
-                          name: "client.companyName",
+                          name: "accountingCustomerParty.partyLegalEntity.registrationName",
                           label: t(props.formFieldsLabels.client.companyName),
                           disabled: false,
+                          additional: { readonly: true, labelShrink: true },
                         },
                         clientAddress: {
-                          name: "client.address",
+                          name: "accountingCustomerParty.postalAddress.streetName",
                           label: t(props.formFieldsLabels.client.address),
                           disabled: false,
+                          additional: { readonly: true, labelShrink: true },
                         },
                         clientRegistrationCode: {
-                          name: "client.registrationCode",
+                          name: "accountingCustomerParty.partyLegalEntity.companyID",
                           label: t(
                             props.formFieldsLabels.client.registrationCode
                           ),
                           disabled: false,
+                          additional: { readonly: true, labelShrink: true },
                         },
                         clientVatRegistrationCode: {
-                          name: "client.vatRegistrationCode",
+                          name: "accountingCustomerParty.party.endpointID",
                           label: t(
                             props.formFieldsLabels.client.vatRegistrationCode
                           ),
                           disabled: false,
+                          additional: { readonly: true, labelShrink: true },
+                        },
+                        clientEmail: {
+                          name: "accountingCustomerParty.contact.electronicMail",
+                          label: t(props.formFieldsLabels.client.clientEmail),
+                          disabled: false,
+                          additional: { readonly: true, labelShrink: true },
+                        },
+                        clientCity: {
+                          name: "accountingCustomerParty.postalAddress.cityName",
+                          label: t(props.formFieldsLabels.client.clientCity),
+                          disabled: false,
+                          additional: { readonly: true, labelShrink: true },
+                        },
+                        zipCode: {
+                          name: "accountingCustomerParty.postalAddress.zip",
+                          label: t(props.formFieldsLabels.client.zipCode),
+                          disabled: false,
+                          additional: { readonly: true, labelShrink: true },
                         },
                       },
                     }}
