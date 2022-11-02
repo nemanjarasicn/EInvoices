@@ -244,6 +244,9 @@ const useFeatureSettings = (): FeatureSettings => {
             address: "Client.address",
             registrationCode: "Client.clientRegistrationCode",
             vatRegistrationCode: "Client.clientVatRegistrationCode",
+            clientEmail: "Client.clientEmail",
+            clientCity: "Client.clientCity",
+            zipCode: "Client.zipCode",
           },
           invoiceItems: {
             search: {

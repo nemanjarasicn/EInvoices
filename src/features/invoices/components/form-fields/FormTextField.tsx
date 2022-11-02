@@ -6,7 +6,7 @@ import { FormFieldProps } from "./models/form-fields.models";
 
 type FormTextFieldProps = FormFieldProps & {
   additional?: {
-    suffix: string;
+    suffix?: string;
     readonly?: boolean;
     labelShrink?: boolean;
   };
@@ -29,7 +29,7 @@ export default function FormTextField({
           size="small"
           error={!!error}
           onChange={(e) => onChange(e.target.value)}
-          value={value}
+          value={value ?? ""}
           fullWidth
           label={props.label}
           InputLabelProps={{ shrink: props.additional?.labelShrink }}

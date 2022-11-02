@@ -66,12 +66,12 @@
     "ColumnsPlaceholder": "Naslov kolone",
     "FieldLabel": "Pronađi kolonu",
     "ShowAll": "Prikaži sve",
-    "HideAll": "sakrijete sve"
+    "HideAll": "Sakrijete sve"
   },
   "FileTable": {
     "Filename": "Naziv datoteke",
     "Modification": "Poslednja izmena",
-    "Size": "Velicina",
+    "Size": "Veličina",
     "Type": "Tip",
     "SendStatus": "Status slanja",
     "Actions": ""
@@ -153,7 +153,10 @@
     "companyName": "Naziv kupca",
     "address": "Adresa kupca",
     "clientRegistrationCode": "Matični broj kupca",
-    "clientVatRegistrationCode": " PIB kupca"
+    "clientVatRegistrationCode": " PIB kupca",
+    "clientEmail": "E-pošta",
+    "clientCity": "Grad",
+    "zipCode": "ZIP"
   },
   "Search": {
     "label": "Pretraga",

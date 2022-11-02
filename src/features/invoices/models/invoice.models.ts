@@ -2,7 +2,7 @@ import {
   SourceSelectionMode,
   VATPointDate,
 } from "../components/form-fields/models/form-fields.models";
-import { Currency, FileStatus } from "./invoice.enums";
+import { CountryCode, Currency, FileStatus, SchemeID } from "./invoice.enums";
 
 /**
  * Generic for Table Data
@@ -74,18 +74,6 @@ export enum InvoiceType {
 //         </cac:PayeeFinancialAccount>
 //       </cac:PaymentMeans>
 
-export class Company {
-  id?: number = 0;
-  companyName: string = "";
-  registrationCode: string = ""; //MB
-  vatRegistrationCode: string = ""; //PIB
-  address?: string = "";
-
-  public constructor(init?: Partial<InvoiceFormModel>) {
-    Object.assign(this, init);
-  }
-}
-
 // FORM MODELS ////////////////////////////////////////////////////////////
 export class InvoiceFormModel {
   id: string = "";
@@ -97,7 +85,6 @@ export class InvoiceFormModel {
   sourceInvoice: string = "";
   modePeriodFrom: Date = new Date();
   modePeriodTo: Date = new Date();
-  client: Company = new Company();
   documentCurrencyCode: Currency = Currency.RSD;
 
   warehouse_uuid: string = "";
@@ -114,6 +101,7 @@ export class InvoiceFormModel {
   taxAmount: number = 0;
 
   invoiceLine: ProductModel[] = []; //stavke
+  accountingCustomerParty: CustomerPartyModel | null = null;
 
   public constructor(init?: Partial<InvoiceFormModel>) {
     Object.assign(this, init);
@@ -155,5 +143,38 @@ export interface ProductModel {
     newPrice: number;
     unitPrice: number;
     unitTaxAmount: number;
+  };
+}
+
+export interface CustomerPartyModel {
+  party: {
+    schemeID: SchemeID;
+    endpointID: number;
+    partyName?: [
+      {
+        name: string;
+      }
+    ];
+  };
+  postalAddress: {
+    streetName: string;
+    cityName: string;
+    zip: string;
+    country: {
+      identificationCode: CountryCode;
+    };
+  };
+  partyTaxScheme: {
+    companyID: string;
+    taxScheme: {
+      id: string;
+    };
+  };
+  partyLegalEntity: {
+    registrationName: string;
+    companyID: number;
+  };
+  contact: {
+    electronicMail: string;
   };
 }
