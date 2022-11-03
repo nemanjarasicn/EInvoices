@@ -1,16 +1,12 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import React from "react";
 import { Autocomplete, TextField } from "@mui/material";
-import { AsyncThunkAction } from "@reduxjs/toolkit";
 import { Controller } from "react-hook-form";
-import { useAppDispatch, useAppSelector } from "../../../../app/hooks";
+import { useAppSelector } from "../../../../app/hooks";
 import { IProps } from "../../models";
 import { AutocompleteItem, FormFieldProps } from "./models/form-fields.models";
 
 type FormAutocompleteFieldProps = FormFieldProps & {
   additional: {
-    dispatchAction: AsyncThunkAction<any, void, {}>;
-    resetStateAction: Function;
     selector: any;
     parentFn?: Function;
     labelShrink?: boolean;
@@ -24,22 +20,6 @@ type FormAutocompleteFieldProps = FormFieldProps & {
 export default function FormAutocompleteField({
   props,
 }: IProps<FormAutocompleteFieldProps>) {
-  const dispatch = useAppDispatch();
-
-  React.useEffect(() => {
-    dispatch(props.additional.dispatchAction);
-  }, []);
-
-  /**
-   *  Unmount
-   */
-  React.useEffect(
-    () => () => {
-      dispatch(props.additional.resetStateAction());
-    },
-    []
-  );
-
   const data: AutocompleteItem[] = useAppSelector(props.additional.selector);
 
   return (
@@ -53,6 +33,9 @@ export default function FormAutocompleteField({
           options={[...data]}
           noOptionsText={props.additional.noResultText ?? "No options"}
           getOptionLabel={(item: AutocompleteItem) => item.name}
+          isOptionEqualToValue={(option, value) =>
+            Boolean(option.id === value.id)
+          }
           renderOption={(props, option) => {
             return (
               <li {...props} key={option.id}>
@@ -60,7 +43,7 @@ export default function FormAutocompleteField({
               </li>
             );
           }}
-          onChange={(e, _value) => {
+          onChange={(_e, _value) => {
             props.additional.parentFn?.(_value);
             return onChange({ ..._value?.item });
           }}

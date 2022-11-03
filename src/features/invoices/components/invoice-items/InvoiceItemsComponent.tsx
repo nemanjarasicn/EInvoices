@@ -4,9 +4,7 @@ import { IProps } from "../../models";
 import FormAutocompleteField from "../form-fields/FormAutocompleteField";
 import { GroupFieldProps } from "../form-fields/models/form-fields.models";
 import InvoiceLine from "./InvoiceLine";
-import { clearProducts } from "../form-fields/store/form.reducer";
 import { selectProducts } from "../form-fields/store/form.selectors";
-import { getProducts } from "../form-fields/store/form.actions";
 import { AutocompleteItem } from "../form-fields/models/form-fields.models";
 import { useTranslation } from "react-i18next";
 
@@ -28,6 +26,11 @@ export default function InvoiceItemsComponent({
   React.useEffect(() => {
     setItems(formGetValues("invoiceLine"));
   }, []);
+
+  React.useEffect(() => {
+    setItems([]);
+    formSetValue("invoiceLine", []);
+  }, [formWatch("warehouse_uuid")]);
 
   /**
    * Handle Add New Line
@@ -68,9 +71,7 @@ export default function InvoiceItemsComponent({
             disabled: false,
             additional: {
               selector: selectProducts,
-              dispatchAction: getProducts(),
               parentFn: handleAddLine,
-              resetStateAction: clearProducts,
               labelShrink: true,
               placeholder: t(fieldLabels.search.placeholder),
               noResultText: t(fieldLabels.search.noResult),

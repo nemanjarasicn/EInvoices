@@ -9,9 +9,7 @@ import {
 } from "../form-fields/models/form-fields.models";
 import { selectClientCompanies } from "../form-fields/store/form.selectors";
 import FormAutocompleteField from "../form-fields/FormAutocompleteField";
-import { getClientCompanies } from "../form-fields/store/form.actions";
 import { UseFormSetValue } from "react-hook-form";
-import { clearCompanies } from "../form-fields/store/form.reducer";
 
 type ClientComponentProps = GroupFieldProps & {
   additional: {
@@ -55,7 +53,6 @@ export default function ClientComponent({
   props,
 }: IProps<ClientComponentProps>): JSX.Element {
   const { formSetValue } = props.additional;
-  // const formValues = watch("client");
 
   /**
    * Handle composition
@@ -87,9 +84,7 @@ export default function ClientComponent({
             disabled: false,
             additional: {
               selector: selectClientCompanies,
-              dispatchAction: getClientCompanies(),
               parentFn: handleComposition,
-              resetStateAction: clearCompanies,
             },
           }}
         />

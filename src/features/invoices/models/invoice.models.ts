@@ -126,14 +126,10 @@ export interface ProductModel {
   item: {
     idProduct: number;
     name: string;
-    sellersItemIdentification: {
-      id: number;
-    };
+    sellersItemIdentification: { id: number };
     classifiedTaxCategory: {
       id: number;
-      taxScheme: {
-        id: string;
-      };
+      taxScheme: { id: string };
       percent: number;
     };
   };
@@ -150,31 +146,21 @@ export interface CustomerPartyModel {
   party: {
     schemeID: SchemeID;
     endpointID: number;
-    partyName?: [
-      {
-        name: string;
-      }
-    ];
+    partyName: { name: string }[];
   };
   postalAddress: {
     streetName: string;
     cityName: string;
     zip: string;
-    country: {
-      identificationCode: CountryCode;
-    };
+    country: { identificationCode: CountryCode };
   };
   partyTaxScheme: {
     companyID: string;
-    taxScheme: {
-      id: string;
-    };
+    taxScheme: { id: string };
   };
   partyLegalEntity: {
     registrationName: string;
     companyID: number;
   };
-  contact: {
-    electronicMail: string;
-  };
+  contact: { electronicMail: string };
 }

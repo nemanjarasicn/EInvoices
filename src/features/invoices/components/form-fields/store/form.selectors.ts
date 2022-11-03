@@ -6,6 +6,7 @@ import {
   ProductModel,
   SchemeID,
 } from "../../../models";
+import { OptionItem } from "../models/form-fields.models";
 import { AutocompleteData, DropdownData, FormState } from "./form.reducer";
 
 /**
@@ -29,6 +30,17 @@ const dropdownSelectors = (state: RootState) => state.form.dropdownData;
 export const isLoadingForm = createSelector(
   formSelectors,
   (state: FormState) => state.loading
+);
+
+/**
+ * Select market-places for dropdown component
+ */
+export const selectMarketPlaces = createSelector(
+  dropdownSelectors,
+  (state: DropdownData) =>
+    state.marketPlaces.map(
+      (item) => ({ name: item.marketPlaceName, value: item.uuid } as OptionItem)
+    )
 );
 
 /**
