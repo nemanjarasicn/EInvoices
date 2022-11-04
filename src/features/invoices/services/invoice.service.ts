@@ -3,14 +3,7 @@ import commonHttpClient from "../../../app/http-common";
 import mockClient from "./json.mock.http";
 
 class InvoicePublicService {
-  get() {
-    return commonHttpClient.get<any>("/provider");
-  }
   // MOCK CLIENT
-
-  getProducts() {
-    return mockClient.get<any>("product.json");
-  }
 
   getInvoicesSales() {
     return mockClient.get<any>("invoices-sales.json");
@@ -20,8 +13,19 @@ class InvoicePublicService {
     return mockClient.get<any>("invoices-purchase.json");
   }
 
-  getClientCompanies() {
+  //TODO commonHttpClient api/v1/search/products/${marketplaceUid}
+  public getProducts(marketPlace: string) {
+    return mockClient.get<any>("product.json");
+  }
+
+  //TODO commonHttpClient api/v1/subject/1
+  getCustomerSubjects(companyId: number | string) {
     return mockClient.get<any>("client.json");
+  }
+
+  //TODO commonHttpClient api/v1/marketplace/company/${companyId}
+  getMarketPlaces(companyId: number | string) {
+    return mockClient.get<any>("market-places.json");
   }
 
   // Public E-Fakture
