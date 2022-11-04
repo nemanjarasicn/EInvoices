@@ -10,10 +10,14 @@ import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import { useLocation } from "react-router-dom";
 import { IconButton } from "@mui/material";
 import React from "react";
+import { useTranslation } from "react-i18next";
+import { useComponentsStyles } from "./components.styles";
 
 type SearchFieldProps = {};
 
 export default function SearchField({}: SearchFieldProps): JSX.Element {
+  const { t } = useTranslation();
+  const { searchField } = useComponentsStyles();
   const [value, setValue] = useState("searchValue");
 
   const textInput = React.useRef({ value: "" });
@@ -24,10 +28,10 @@ export default function SearchField({}: SearchFieldProps): JSX.Element {
 
   function getSearhTab(): any {
     if (location.pathname.includes("sale")) {
-      return "Pretraga izlaznih dokumenata";
+      return t("SearchField.searchOutgoingdocuments");
     }
     if (location.pathname.includes("purchases")) {
-      return "Pretraga dolaznih dokumenata";
+      return t("SearchField.searchIncomingdocuments");
     }
     return "";
   }
@@ -39,41 +43,31 @@ export default function SearchField({}: SearchFieldProps): JSX.Element {
       return (
         <Checkbox
           size="small"
-          sx={{ color: '"#dedede"' }}
-          icon={<RadioButtonUncheckedIcon style={{ color: "#dedede" }} />}
-          checkedIcon={<CheckCircleOutlineIcon style={{ color: "#dedede" }} />}
+          sx={searchField.checkboxColor}
+          icon={<RadioButtonUncheckedIcon style={searchField.checkboxColor} />}
+          checkedIcon={<CheckCircleOutlineIcon style={searchField.checkboxColor} />}
         />
       );
     }
   }
 
   return (
-    <div style={{ textAlign: "center", margin: "10px" }}>
-      <FormControl
-        sx={{
-          m: 1,
-          width: "100%",
-          borderColor: "#dedede",
-          borderBlockColor: "#dedede",
-          borderWidth: 0,
-        }}
-      >
+    <div style={searchField.searchFieldDiv}>
+      <FormControl sx={searchField.searchFieldControl}>
         <OutlinedInput
           id="outlined-adornment-search"
-          placeholder="Pretraga dokumenata"
+          placeholder={t("SearchField.documentSearch")}
           onChange={(newValue) => {
             setValue(newValue.target.value);
           }}
+          sx={searchField.outlinedInput}
           inputRef={textInput}
           endAdornment={
-            <InputAdornment
-              position="end"
-              style={{ fontSize: "12px", color: "#dedede" }}
-            >
+            <InputAdornment position="end" style={searchField.endAdornment}>
               {getCheckbox()}
               {getSearhTab()}
               <IconButton onClick={search()}>
-                <SearchIcon sx={{ color: "#787993" }} />
+                <SearchIcon sx={searchField.iconButtonColor} />
               </IconButton>
               <IconButton
                 onClick={() => {
@@ -81,7 +75,7 @@ export default function SearchField({}: SearchFieldProps): JSX.Element {
                   textInput.current.value = "";
                 }}
               >
-                <CloseIcon sx={{ color: "#787993" }} />
+                <CloseIcon sx={searchField.iconButtonColor} />
               </IconButton>
             </InputAdornment>
           }

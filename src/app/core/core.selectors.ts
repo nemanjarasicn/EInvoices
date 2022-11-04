@@ -22,3 +22,10 @@ export const selectCompany = createSelector(
   coreSelectors,
   (state: CoreState) => state.user?.companyId
 );
+
+/**
+ * Select company apiKey
+ */
+export const apiKeyExist = createSelector(coreSelectors, (state: CoreState) =>
+  Boolean(state.userCompany?.apiKey)
+);

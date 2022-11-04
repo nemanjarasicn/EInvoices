@@ -94,6 +94,11 @@
       "errorMessage": "Error Message :"
     }
   },
+  "SearchField": {
+    "documentSearch": "Search documents",
+    "searchOutgoingdocuments": "Search outgoing documents",
+    "searchIncomingdocuments": "Search incoming documents"
+  },
   "Form": {
     "sectionTitles": {
       "title_1": "Invoice info",
@@ -162,5 +167,11 @@
     "label": "Search",
     "placeholder": "...Search",
     "noResult": "No search result"
+  },
+  "AuthModal": {
+    "title": "Logged user doesn`t have API key",
+    "label": "Enter valid API key",
+    "saveButtonTitle": "SAVE",
+    "redirectButtonTitle": "E-INVOICE LINK"
   }
 }

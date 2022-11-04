@@ -12,6 +12,7 @@ import {
   InputLabel,
   MenuItem,
   Select,
+  IconButton,
 } from "@mui/material";
 import { useForm } from "react-hook-form";
 import { InvoiceFormModel, InvoiceType, IProps, ProductModel } from "../models";
@@ -29,6 +30,9 @@ import FormCheckboxField from "./form-fields/FormCheckboxField";
 import FormCurrencyField from "./form-fields/FormCurrencyField";
 import PrepaymentComponent from "./form-group/PrepaymentComponent";
 import InvoiceGroupComponent from "./form-group/InvoiceGroupComponent";
+import AttachFileIcon from "@mui/icons-material/AttachFile";
+import RestoreRoundedIcon from "@mui/icons-material/RestoreRounded";
+import TextsmsOutlinedIcon from "@mui/icons-material/TextsmsOutlined";
 import { error } from "console";
 import {
   OptionItem,
@@ -380,7 +384,56 @@ export default function InvoiceFormComponent({
           </Box>
         </Grid>
         <Grid item xs={2}>
-          Actions
+          <Grid item xs={12}>
+            <IconButton
+              color="primary"
+              aria-label="TextsmsOutlinedIcon"
+              size="large"
+              disabled
+              sx={{
+                backgroundColor: "#f5f5f5",
+                "&:disabled": {
+                  backgroundColor: "#f5f5f5"
+                }
+              }}
+            >
+              <TextsmsOutlinedIcon />
+            </IconButton>
+          </Grid>
+          <br />
+          <Grid item xs={12}>
+            <IconButton
+              color="primary"
+              aria-label="AttachFileIcon"
+              size="large"
+              disabled
+              sx={{
+                backgroundColor: "#f5f5f5",
+                "&:disabled": {
+                  backgroundColor: "#f5f5f5"
+                }
+              }}
+            >
+              <AttachFileIcon />
+            </IconButton>
+          </Grid>
+          <br />
+          <Grid item xs={12}>
+            <IconButton
+              color="primary"
+              aria-label="RestoreRoundedIcon"
+              size="large"
+              disabled
+              sx={{
+                backgroundColor: "#f5f5f5",
+                "&:disabled": {
+                  backgroundColor: "#f5f5f5"
+                }
+              }}
+            >
+              <RestoreRoundedIcon />
+            </IconButton>
+          </Grid>
         </Grid>
       </Grid>
       <Grid container spacing={2}>

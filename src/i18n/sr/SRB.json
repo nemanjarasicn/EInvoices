@@ -94,6 +94,11 @@
       "errorMessage": "Poruka o grešci :"
     }
   },
+  "SearchField": {
+    "documentSearch": "Pretraga Dokumenata",
+    "searchOutgoingdocuments": "Pretraga izlaznih dokumenata",
+    "searchIncomingdocuments": "Pretraga ulaznih dokumenata"
+  },
   "Form": {
     "sectionTitles": {
       "title_1": "Podaci o fakturi",
@@ -162,5 +167,11 @@
     "label": "Pretraga",
     "placeholder": "...Pretraži proizvode",
     "noResult": "Nema traženog proizvoda"
+  },
+  "AuthModal": {
+    "title": "Prijavljeni korisnik nema API ključ",
+    "label": "Unesite važeći API ključ",
+    "saveButtonTitle": "SNIMI",
+    "redirectButtonTitle": "E-FAKTURE LINK"
   }
 }

@@ -9,6 +9,7 @@ const useComponentsStyles = (): {
   selectAllConmponentStyles: any;
   dropzoneComponent: any;
   formComponent: any;
+  searchField: any;
 } => {
   return {
     invoiceCardStyles: {
@@ -241,6 +242,32 @@ const useComponentsStyles = (): {
         background: "white",
       },
     },
+    searchField: {
+      searchFieldDiv: {
+        textAlign: "center", 
+        margin: "10px 10px 10px -10px", 
+      },
+      searchFieldControl: {
+        m: 1,
+        width: "100%",
+        borderColor: "#dedede",
+        borderBlockColor: "#dedede",
+        borderWidth: 0,
+      },
+      outlinedInput: {
+        borderRadius : "8px"
+      },
+      endAdornment: {
+         fontSize: "12px", 
+         color: "#dedede" 
+      },
+      checkboxColor: {
+        color: "#dedede",
+      },
+      iconButtonColor: {
+        color: "#787993",
+      }
+    }
   };
 };
 
