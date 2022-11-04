@@ -2,6 +2,7 @@ import { ActionReducerMapBuilder, createSlice, Slice } from "@reduxjs/toolkit";
 import {
   getAllUnitMesures,
   getClientCompanies,
+  getMarketPlaces,
   getProducts,
 } from "./form.actions";
 
@@ -12,12 +13,14 @@ export type AutocompleteData = {
   companies: any[];
   products: any[];
 };
-export type DropdownData = {};
+export type DropdownData = {
+  marketPlaces: any[];
+};
 
 export interface FormState {
   loading: boolean;
   autocompleteData: AutocompleteData;
-  dropdownData: DropdownData | null;
+  dropdownData: DropdownData;
 }
 
 const initialState: FormState = {
@@ -27,7 +30,9 @@ const initialState: FormState = {
     companies: [],
     products: [],
   },
-  dropdownData: null,
+  dropdownData: {
+    marketPlaces: [],
+  },
 };
 
 const formSlice: Slice<FormState> = createSlice({
@@ -42,17 +47,44 @@ const formSlice: Slice<FormState> = createSlice({
       ...state,
       autocompleteData: { ...state.autocompleteData, products: [] },
     }),
+    clearMarketPlaces: (state) => ({
+      ...state,
+      dropdownData: { ...state.dropdownData, marketPlaces: [] },
+    }),
   },
+
   extraReducers: (builder) => {
     getAsyncUnitMesures(builder);
     getAsyncClientCompanies(builder);
     getAsyncProducts(builder);
+    getAsyncMarketPlaces(builder);
   },
 });
 
-export const { clearCompanies, clearProducts } = formSlice.actions;
+export const { clearCompanies, clearProducts, clearMarketPlaces } =
+  formSlice.actions;
 export default formSlice.reducer;
 
+/**
+ * Handle async action GET MARKET-PLACES
+ * @param builder ActionReducerMapBuilder
+ */
+function getAsyncMarketPlaces(builder: ActionReducerMapBuilder<FormState>) {
+  builder.addCase(getMarketPlaces.fulfilled, (state, { payload }) => ({
+    ...state,
+    dropdownData: { ...state.dropdownData, marketPlaces: payload },
+    loading: false,
+  }));
+  builder.addCase(getMarketPlaces.pending, (state) => ({
+    ...state,
+    loading: true,
+  }));
+  builder.addCase(getMarketPlaces.rejected, (state) => ({
+    ...state,
+    dropdownData: { ...state.dropdownData, marketPlaces: [] },
+    loading: false,
+  }));
+}
 /**
  * Handle async action GET PRODUCTS
  * @param builder ActionReducerMapBuilder

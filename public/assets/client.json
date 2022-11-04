@@ -1,38 +1,68 @@
 [
   {
-    "BugetCompanyNumber": "00203",
-    "RegistrationCode": "08674973",
-    "VatRegistrationCode": "100871793",
-    "Name": "Firma jedan"
+    "id": 1,
+    "firstName": "",
+    "lastName": "",
+    "companyName": "Firma Jedan",
+    "identificationNumber": "",
+    "pib": "111560838",
+    "mb": "08674977",
+    "userId": "dejan",
+    "companyId": 1,
+    "address": "Bulevar Kralja Aleksandra",
+    "city": "Beograd",
+    "zip": "11000",
+    "discount": 0.0,
+    "phone": "2345560",
+    "email": "dbogi89@gmail.com",
+    "jbkjs": "1234",
+    "idVat": 1,
+    "vatName": "S",
+    "subjectIdCategory": null,
+    "subjectIdType": null
   },
   {
-    "BugetCompanyNumber": "00204",
-    "RegistrationCode": "08674974",
-    "VatRegistrationCode": "100871794",
-    "Name": "Firma dva"
+    "id": 2,
+    "firstName": "",
+    "lastName": "",
+    "companyName": "Firma Dva",
+    "identificationNumber": "",
+    "pib": "111560839",
+    "mb": "08674978",
+    "userId": "dejan",
+    "companyId": 2,
+    "address": "Cerski venac",
+    "city": "Beograd",
+    "zip": "11030",
+    "discount": 0.0,
+    "phone": "2345560",
+    "email": "dbogi89@gmail.com",
+    "jbkjs": "1234",
+    "idVat": 1,
+    "vatName": "S",
+    "subjectIdCategory": null,
+    "subjectIdType": null
   },
   {
-    "BugetCompanyNumber": "00205",
-    "RegistrationCode": "08674975",
-    "VatRegistrationCode": "100871795",
-    "Name": "Firma tri"
-  },
-  {
-    "BugetCompanyNumber": "00206",
-    "RegistrationCode": "08674976",
-    "VatRegistrationCode": "100871796",
-    "Name": "Firma cetri"
-  },
-  {
-    "BugetCompanyNumber": "00207",
-    "RegistrationCode": "08674977",
-    "VatRegistrationCode": "100871797",
-    "Name": "Firma pet"
-  },
-  {
-    "BugetCompanyNumber": "00208",
-    "RegistrationCode": "08674978",
-    "VatRegistrationCode": "100871798",
-    "Name": "Firma set"
+    "id": 3,
+    "firstName": "",
+    "lastName": "",
+    "companyName": "Firma Tri",
+    "identificationNumber": "",
+    "pib": "111560840",
+    "mb": "08674978",
+    "userId": "dejan",
+    "companyId": 3,
+    "address": "Vinogradski venac",
+    "city": "Beograd",
+    "zip": "11030",
+    "discount": 0.0,
+    "phone": "1234556",
+    "email": "dbogi89@gmail.com",
+    "jbkjs": "1234",
+    "idVat": 1,
+    "vatName": "S",
+    "subjectIdCategory": null,
+    "subjectIdType": null
   }
 ]

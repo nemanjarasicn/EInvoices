@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React from "react";
 import {
   Paper,
@@ -41,8 +42,15 @@ import {
 import CreditNoteComponent from "./form-group/CreditNoteComponent";
 import DebitNoteComponent from "./form-group/DebitNoteComponent";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
-import { getClientCompanies } from "./form-fields/store/form.actions";
-import { selectClientCompanies } from "./form-fields/store/form.selectors";
+import {
+  getClientCompanies,
+  getMarketPlaces,
+  getProducts,
+} from "./form-fields/store/form.actions";
+import {
+  selectClientCompanies,
+  selectMarketPlaces,
+} from "./form-fields/store/form.selectors";
 import ClientComponent from "./form-group/ClientComponent";
 import InvoiceItemsComponent from "./invoice-items/InvoiceItemsComponent";
 import {
@@ -52,6 +60,12 @@ import {
   totalWithoutDiscount,
 } from "../utils/utils";
 import { Subscription } from "react-hook-form/dist/utils/createSubject";
+import { selectCompany } from "../../../app/core/core.selectors";
+import {
+  clearCompanies,
+  clearMarketPlaces,
+  clearProducts,
+} from "./form-fields/store/form.reducer";
 
 export type InvoiceFormComponentProps = {
   invoiceTypeOptions: any;
@@ -76,11 +90,11 @@ const schema = yup
     // autocompleteValue: yup.object().required(),
     // checkbox: yup.bool().required(),
     // numberValue: yup.number().required(),
-    invoiceLine: yup.array().of(
-      yup.object({
-        invoicedQuantity: yup.number().moreThan(0, ""),
-      })
-    ),
+    // invoiceLine: yup.array().of(
+    //   yup.object({
+    //     invoicedQuantity: yup.number().moreThan(0, ""),
+    //   })
+    // ),
   })
   .required();
 
@@ -90,6 +104,11 @@ export default function InvoiceFormComponent({
   const defaultValues = new InvoiceFormModel();
   const { t } = useTranslation();
   const { formComponent } = useComponentsStyles();
+
+  const dispatch = useAppDispatch();
+  const companyId = useAppSelector(selectCompany) as number;
+
+  const marketPlaces = useAppSelector(selectMarketPlaces);
 
   const [invoiceType, setInvoiceType] = React.useState<InvoiceType>(
     InvoiceType.INVOICE
@@ -117,7 +136,7 @@ export default function InvoiceFormComponent({
    * Handle switch of template by invoice type
    * @param invoicetype
    */
-  const handleChangeType = (invoicetype: InvoiceType) => {
+  const handleChangeType = (invoicetype: InvoiceType): void => {
     setInvoiceType(invoicetype);
   };
 
@@ -142,7 +161,18 @@ export default function InvoiceFormComponent({
   };
 
   React.useEffect(() => {
-    const subscription: Subscription = watch((value, { name }) => {
+    dispatch(getMarketPlaces({ companyId: companyId }));
+    dispatch(getClientCompanies({ companyId: companyId }));
+  }, []);
+
+  React.useEffect(() => {
+    if (marketPlaces.length) {
+      setValue("warehouse_uuid", marketPlaces[0].value);
+    }
+  }, [marketPlaces]);
+
+  React.useEffect(() => {
+    const subscription: Subscription = watch((value, { name, type }) => {
       switch (name) {
         case "finalSum":
           patchFormFields(
@@ -156,12 +186,30 @@ export default function InvoiceFormComponent({
             value.finalSum as number
           );
           break;
+        case "warehouse_uuid":
+          dispatch(
+            getProducts({ marketPlace: value.warehouse_uuid as string })
+          );
+          setValue("finalSum", 0);
+          break;
         default:
           break;
       }
     });
     return () => subscription.unsubscribe();
   }, [watch]);
+
+  /**
+   *  Unmount
+   */
+  React.useEffect(
+    () => () => {
+      dispatch(clearProducts({}));
+      dispatch(clearCompanies({}));
+      dispatch(clearMarketPlaces({}));
+    },
+    []
+  );
 
   return (
     <Box
@@ -194,31 +242,55 @@ export default function InvoiceFormComponent({
                     props={{
                       control: control,
                       title: t(props.formGrpsSettings.client.title),
-                      additional: { formSetValue: setValue, watch: watch },
+                      additional: {
+                        formSetValue: setValue,
+                      },
                       clientFields: {
                         clientCompanyName: {
-                          name: "client.companyName",
+                          name: "accountingCustomerParty.partyLegalEntity.registrationName",
                           label: t(props.formFieldsLabels.client.companyName),
                           disabled: false,
+                          additional: { readonly: true, labelShrink: true },
                         },
                         clientAddress: {
-                          name: "client.address",
+                          name: "accountingCustomerParty.postalAddress.streetName",
                           label: t(props.formFieldsLabels.client.address),
                           disabled: false,
+                          additional: { readonly: true, labelShrink: true },
                         },
                         clientRegistrationCode: {
-                          name: "client.registrationCode",
+                          name: "accountingCustomerParty.partyLegalEntity.companyID",
                           label: t(
                             props.formFieldsLabels.client.registrationCode
                           ),
                           disabled: false,
+                          additional: { readonly: true, labelShrink: true },
                         },
                         clientVatRegistrationCode: {
-                          name: "client.vatRegistrationCode",
+                          name: "accountingCustomerParty.party.endpointID",
                           label: t(
                             props.formFieldsLabels.client.vatRegistrationCode
                           ),
                           disabled: false,
+                          additional: { readonly: true, labelShrink: true },
+                        },
+                        clientEmail: {
+                          name: "accountingCustomerParty.contact.electronicMail",
+                          label: t(props.formFieldsLabels.client.clientEmail),
+                          disabled: false,
+                          additional: { readonly: true, labelShrink: true },
+                        },
+                        clientCity: {
+                          name: "accountingCustomerParty.postalAddress.cityName",
+                          label: t(props.formFieldsLabels.client.clientCity),
+                          disabled: false,
+                          additional: { readonly: true, labelShrink: true },
+                        },
+                        zipCode: {
+                          name: "accountingCustomerParty.postalAddress.zip",
+                          label: t(props.formFieldsLabels.client.zipCode),
+                          disabled: false,
+                          additional: { readonly: true, labelShrink: true },
                         },
                       },
                     }}
@@ -281,12 +353,21 @@ export default function InvoiceFormComponent({
                       disabled: false,
                     }}
                   />
-                  <FormTextField
+                  {/* <FormTextField
                     props={{
                       name: "warehouse_uuid",
                       control: control,
                       label: t(props.formFieldsLabels.warehouse_uuid),
                       disabled: false,
+                    }}
+                  /> */}
+                  <FormDropdownField
+                    props={{
+                      name: "warehouse_uuid",
+                      control: control,
+                      label: t(props.formFieldsLabels.warehouse_uuid),
+                      disabled: false,
+                      options: marketPlaces,
                     }}
                   />
                   <FormTextField

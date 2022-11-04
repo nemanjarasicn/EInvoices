@@ -158,7 +158,10 @@
     "companyName": " Client name",
     "address": "Client address",
     "clientRegistrationCode": "Registration code",
-    "clientVatRegistrationCode": " VAT Registration code"
+    "clientVatRegistrationCode": " VAT Registration code",
+    "clientEmail": "Email",
+    "clientCity": "City",
+    "zipCode": "Postal Code"
   },
   "Search": {
     "label": "Search",
