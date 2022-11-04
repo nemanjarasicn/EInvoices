@@ -1,13 +1,10 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-import { Box, Button } from "@mui/material";
+import { Box, Button, Stack } from "@mui/material";
 import FormTextField from "../../features/invoices/components/form-fields/FormTextField";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import { useTranslation } from "react-i18next";
-import { useAppDispatch } from "../hooks";
-import { setIsAuthenticated } from "../../features/invoices/store/invoice.reducer";
-import CustomButtonFc from "../../features/invoices/components/CustomButtonFc";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 
@@ -15,12 +12,9 @@ export class ModalFormModel {
   authKey: string = "";
 }
 
-const schema = yup
-  .object().shape({
-    authKey: yup.string()
-    .required("api key is required")
-    // .min(6, "api key is too short - should be 6 chars minimum"),
-  })
+const schema = yup.object().shape({
+  authKey: yup.string().required(" "),
+});
 
 const style = {
   position: "absolute" as "absolute",
@@ -35,30 +29,22 @@ const style = {
 };
 
 export default function BasicModal() {
-
   const defaultValues = new ModalFormModel();
-
   const methods = useForm({
     defaultValues: defaultValues,
     resolver: yupResolver(schema),
   });
-
-  const dispatch = useAppDispatch();
   const { t } = useTranslation();
-  const { control, formState,  handleSubmit } = methods;
+  const { control, handleSubmit } = methods;
 
-
-  const setValue = () => {
-    dispatch(setIsAuthenticated(true));
+  const saveApiKey = () => {
+    //TODO API CALL TO Update company with VALID API KEY
   };
 
   const redirect = () => {
-
     console.log(control);
-    window.open('https://demoefaktura.mfin.gov.rs/login', '_blank')
-  }
-
-  React.useEffect(() => {}, []);
+    window.open("https://demoefaktura.mfin.gov.rs/login", "_blank");
+  };
 
   return (
     <div>
@@ -78,22 +64,19 @@ export default function BasicModal() {
               control: control,
               label: `${t("AuthModal.label")}`,
               disabled: false,
+              additional: {
+                labelShrink: true,
+              },
             }}
           />
-          <CustomButtonFc
-            groupButton={[
-              {
-                title: `${t("AuthModal.redirectButtonTitle")}`,
-                disabled: false,
-                btnFn: redirect,
-              },
-              {
-                title: `${t("AuthModal.saveButtonTitle")}`,
-                disabled: false,
-                btnFn: handleSubmit(setValue),
-              },
-            ]}
-          />
+          <Stack direction="row" style={{ justifyContent: "end" }} spacing={1}>
+            <Button variant="outlined" onClick={redirect}>
+              {t("AuthModal.redirectButtonTitle")}
+            </Button>
+            <Button variant="outlined" onClick={handleSubmit(saveApiKey)}>
+              {t("AuthModal.saveButtonTitle")}
+            </Button>
+          </Stack>
         </Box>
       </Modal>
     </div>

@@ -38,11 +38,3 @@ export const selectAllFiles = createSelector(
   featureSelectors,
   (state: FeatureState) => state.files
 );
-
-/**
- * Select IsAuthenticated flag
- */
-export const selectIsAuthenticated = createSelector(
-  featureSelectors,
-  (state: FeatureState) => state.isAuthenticated
-);

@@ -9,7 +9,7 @@ import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
-import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
+// import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
@@ -143,12 +143,12 @@ export default function ClippedDrawer() {
       >
         <DrawerHeader></DrawerHeader>
         <Divider />
-        <IconButton
+        {/* <IconButton
           onClick={handleDrawerClose}
           sx={menuAppBarStyles.styleFunction(open).chevronLeftIconButton}
         >
           <ChevronLeftIcon sx={{ float: "right" }} />
-        </IconButton>
+        </IconButton> */}
         <IconButton
           aria-label="open drawer"
           onClick={handleDrawerOpen}

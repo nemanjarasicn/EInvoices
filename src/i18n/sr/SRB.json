@@ -97,7 +97,7 @@
   "SearchField": {
     "documentSearch": "Pretraga Dokumenata",
     "searchOutgoingdocuments": "Pretraga izlaznih dokumenata",
-    "searchIncomingdocuments":"Pretraga ulaznih dokumenata"
+    "searchIncomingdocuments": "Pretraga ulaznih dokumenata"
   },
   "Form": {
     "sectionTitles": {
@@ -169,10 +169,9 @@
     "noResult": "Nema traženog proizvoda"
   },
   "AuthModal": {
-    "title":  "Niste autorizovani!",
-    "label": "Unesite validan api kljuc",
-    "saveButtonTitle": "PRESMERITI NA E-FAKTURE",
-    "redirectButtonTitle": "SACUVAJ API KLJUC"
+    "title": "Prijavljeni korisnik nema API ključ",
+    "label": "Unesite važeći API ključ",
+    "saveButtonTitle": "SNIMI",
+    "redirectButtonTitle": "E-FAKTURE LINK"
   }
-  
 }

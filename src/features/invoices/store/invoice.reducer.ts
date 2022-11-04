@@ -27,7 +27,6 @@ export interface FeatureState extends EntityState<InvoiceDto> {
   companies: any[];
   loading: boolean;
   files: IFile[];
-  isAuthenticated: boolean;
 }
 const initialState: FeatureState = {
   ...invoiceAdapter.getInitialState(),
@@ -35,7 +34,6 @@ const initialState: FeatureState = {
   loading: false,
   companies: [],
   files: [],
-  isAuthenticated: true,
 };
 
 const invoicesSlice: Slice<FeatureState> = createSlice({
@@ -57,7 +55,6 @@ const invoicesSlice: Slice<FeatureState> = createSlice({
       );
       return newState;
     },
-    setIsAuthenticated: (state, { payload }) => ({ ...state, isAuthenticated: payload }), 
   },
   extraReducers: (builder) => {
     getAsyncInvoices(builder);
@@ -73,7 +70,6 @@ export const {
   addOneInvoice,
   setManyFiles,
   removeFile,
-  setIsAuthenticated,
 } = invoicesSlice.actions;
 
 export default invoicesSlice.reducer;

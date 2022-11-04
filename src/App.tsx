@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import "./i18n/config";
 import { Routes, Route, Navigate } from "react-router-dom";
 import { ThemeProvider } from "@mui/material/styles";
@@ -12,7 +12,7 @@ import {
   CreateType,
   TemplatePageTypes,
 } from "./features/invoices/models/invoice.enums";
-import { selectIsAuthenticated } from "./features/invoices/store/invoice.selectors";
+import { apiKeyExist } from "./app/core/core.selectors";
 
 const DashboardPage = React.lazy(
   () => import("./features/invoices/pages/DashboardPage")
@@ -27,10 +27,7 @@ const SalesTemplatePage = React.lazy(
 );
 
 function App() {
-  // const [isAuthenticated, setValue] = useState("searchValue")
-  const isAuthenticated = false;
-  console.log("isAuthenticated", useAppSelector(selectIsAuthenticated));
-  
+  const apiKeyPresent = useAppSelector(apiKeyExist);
   return (
     <ThemeProvider theme={theme}>
       <Routes>
@@ -43,7 +40,7 @@ function App() {
               </div>
             }
           />
-          {useAppSelector(selectIsAuthenticated) ? invoicesRoutes() : modalRoute()}
+          {apiKeyPresent ? invoicesRoutes() : modalRoute()}
           <Route path="*" element={<Navigate to="/" />} />
         </Route>
       </Routes>
@@ -54,11 +51,7 @@ function App() {
 export default App;
 
 function modalRoute(): React.ReactNode {
-  return(
-    <>
-      <Route path="*" element={<BasicModal />}></Route>
-    </>
-  )
+  return <Route path="*" element={<BasicModal />}></Route>;
 }
 
 function invoicesRoutes(): React.ReactNode {

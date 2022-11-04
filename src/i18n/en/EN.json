@@ -169,9 +169,9 @@
     "noResult": "No search result"
   },
   "AuthModal": {
-    "title":  "You are not authorised",
-    "label": "Enter your valid api key",
-    "saveButtonTitle": "SAVE API KEY",
-    "redirectButtonTitle": "REDIRECT ON E-FAKTURE"
+    "title": "Logged user doesn`t have API key",
+    "label": "Enter valid API key",
+    "saveButtonTitle": "SAVE",
+    "redirectButtonTitle": "E-INVOICE LINK"
   }
 }
