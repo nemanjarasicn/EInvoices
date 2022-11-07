@@ -27,6 +27,26 @@ class InvoicePublicService {
   getMarketPlaces(companyId: number | string) {
     return mockClient.get<any>("market-places.json");
   }
+  // DTO
+  // {
+  //   "invoiceStatus":"Sent",
+  //   "typeDocument":"381",
+  //   "inputAndOutputDocuments":"Input"
+
+  //  }
+  // TODO commonHttpClient api/v1/invoices/search POST
+  // searchInvoices(searchDTO: any) {
+  //   console.log("SEARCHDTO", searchDTO);
+  //   return mockClient.get<any>("invoices-sales.json");
+  // }
+  searchInvoices(searchDTO: any) {
+    const { params } = searchDTO;
+    return commonHttpClient.post<any>("invoices/search", {
+      invoiceStatus: "Sent",
+      typeDocument: "381",
+      inputAndOutputDocuments: "Input",
+    });
+  }
 
   // Public E-Fakture
 

@@ -12,7 +12,7 @@ import {
   CreateType,
   TemplatePageTypes,
 } from "./features/invoices/models/invoice.enums";
-import { apiKeyExist } from "./app/core/core.selectors";
+import { apiKeyExist, selectToken } from "./app/core/core.selectors";
 
 const DashboardPage = React.lazy(
   () => import("./features/invoices/pages/DashboardPage")
@@ -27,6 +27,9 @@ const SalesTemplatePage = React.lazy(
 );
 
 function App() {
+  // TODO Token and Auth
+  const token: string | undefined = useAppSelector(selectToken);
+  localStorage.setItem("token", JSON.stringify(token));
   const apiKeyPresent = useAppSelector(apiKeyExist);
   return (
     <ThemeProvider theme={theme}>

@@ -17,7 +17,7 @@ const defaultUser: User = {
 };
 
 /**
- * TODO
+ * TODO After Login
  */
 const defaultCompany: UserCompany = {
   companyName: "MASTER SOFTWARE",

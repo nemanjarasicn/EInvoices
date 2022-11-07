@@ -1,9 +1,15 @@
 import axios from "axios";
+// TODO TOKEN AND AUTH
+const token = localStorage.getItem("token");
 
 export default axios.create({
-  baseURL: "api/v1/",
+  baseURL:
+    process.env.NODE_ENV === "production"
+      ? process.env.REACT_APP_GATEWAY + "/api/v1/"
+      : "/api/v1/",
   withCredentials: false,
   headers: {
-    "Content-type": "application/json",
+    ContentType: "application/json",
+    Authorization: `Bearer ${token}`,
   },
 });

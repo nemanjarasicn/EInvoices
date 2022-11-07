@@ -25,6 +25,8 @@ export type FilterComponentProps = {
   type: FilterType;
   multiOption?: boolean;
   filterItems: FillterItem[];
+  parentFn?: Function;
+  paramKey: string;
 };
 
 export interface FillterItem {
@@ -39,6 +41,7 @@ export default function FilterComponent({
 }: IProps<FilterComponentProps>): JSX.Element {
   const { filterComponentStyle } = useComponentsStyles();
   const { t } = useTranslation();
+  const { parentFn, paramKey } = props;
 
   const [checked, setChecked] = React.useState<FillterItem[]>([]);
 
@@ -54,6 +57,10 @@ export default function FilterComponent({
       setChecked([value]);
     }
   };
+
+  React.useEffect(() => {
+    if (parentFn) parentFn(paramKey, checked);
+  }, [checked]);
 
   const handleClearAll = () => () => setChecked([]);
 

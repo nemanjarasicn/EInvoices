@@ -12,6 +12,7 @@ import {
   getAllCompanies,
   getPurchaseInvoices,
   getSalesInvoices,
+  searchInvoices,
   sendInvoceXml,
 } from "./invoice.actions";
 
@@ -60,6 +61,7 @@ const invoicesSlice: Slice<FeatureState> = createSlice({
     getAsyncInvoices(builder);
     getAsyncCompanies(builder);
     sendAsyncInvoiceXML(builder);
+    searchAsyncInvoices(builder);
   },
 });
 
@@ -137,6 +139,21 @@ function sendAsyncInvoiceXML(builder: ActionReducerMapBuilder<FeatureState>) {
     newState.loading = false;
     return newState;
   });
+}
+// TODO
+function searchAsyncInvoices(builder: ActionReducerMapBuilder<FeatureState>) {
+  builder.addCase(searchInvoices.fulfilled, (state, { payload }) => ({
+    ...state,
+    loading: false,
+  }));
+  builder.addCase(searchInvoices.pending, (state) => ({
+    ...state,
+    loading: true,
+  }));
+  builder.addCase(searchInvoices.rejected, (state) => ({
+    ...state,
+    loading: false,
+  }));
 }
 // addOne: accepts a single entity, and adds it if it's not already present.
 // addMany: accepts an array of entities or an object in the shape of Record<EntityId, T>, and adds them if not already present.

@@ -48,9 +48,23 @@ const sendInvoceXml: AsyncThunk<any, { file: File; id: string | number }, {}> =
     }
   );
 
+/**
+ * Search Invoices
+ */
+const searchInvoices: AsyncThunk<any, { params: Map<string, any[]> }, {}> =
+  createAsyncThunk<any, { params: Map<string, any[]> }>(
+    "POST/SearchInvoices",
+    async (searchDTO, _) => {
+      return await InvoicePublicService.searchInvoices(searchDTO)
+        .then((res) => res.data.Invoices)
+        .catch((err) => []);
+    }
+  );
+
 export {
   getSalesInvoices,
   getPurchaseInvoices,
   getAllCompanies,
   sendInvoceXml,
+  searchInvoices,
 };

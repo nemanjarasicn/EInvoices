@@ -61,7 +61,7 @@ const useFeatureSettings = (): FeatureSettings => {
         cardBtn: {
           title: "InvoiceCard.preview",
           disabled: true,
-          btnFn: () => console.log("Zarko Trampic"),
+          btnFn: () => console.log(""),
         },
       },
     ],
@@ -88,6 +88,7 @@ const useFeatureSettings = (): FeatureSettings => {
             multiOption: true,
             type: "solo",
             filterItems: [],
+            paramKey: "cir",
           },
           {
             transformedTitle: "FilterComponent.defaultAll",
@@ -100,6 +101,7 @@ const useFeatureSettings = (): FeatureSettings => {
               { index: 2, name: "InvoiceTypes.debitNote" },
               { index: 3, name: "InvoiceTypes.prepayment" },
             ],
+            paramKey: "typeDocument",
           },
           {
             transformedTitle: "FilterComponent.defaultAll",
@@ -112,6 +114,7 @@ const useFeatureSettings = (): FeatureSettings => {
               { index: 2, name: "InvoiceStatuses.sending" },
               { index: 3, name: "InvoiceStatuses.cancelled" },
             ],
+            paramKey: "invoiceStatus",
           },
         ],
         actions: [
@@ -139,6 +142,7 @@ const useFeatureSettings = (): FeatureSettings => {
             multiOption: true,
             type: "solo",
             filterItems: [],
+            paramKey: "cir",
           },
           {
             transformedTitle: "FilterComponent.defaultAll",
@@ -151,6 +155,7 @@ const useFeatureSettings = (): FeatureSettings => {
               { index: 2, name: "InvoiceTypes.debitNote" },
               { index: 3, name: "InvoiceTypes.prepayment" },
             ],
+            paramKey: "typeDocument",
           },
           {
             transformedTitle: "FilterComponent.defaultAll",
@@ -163,6 +168,7 @@ const useFeatureSettings = (): FeatureSettings => {
               { index: 2, name: "InvoiceStatuses.sending" },
               { index: 3, name: "InvoiceStatuses.cancelled" },
             ],
+            paramKey: "invoiceStatus",
           },
         ],
         actions: [

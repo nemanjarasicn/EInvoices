@@ -9,7 +9,7 @@ module.exports = function (app) {
   );
   app.use(
     createProxyMiddleware("/api/v1", {
-      target: "http://localhost:8080/", // proxy for localhost
+      target: "https://api-gateway.mastersoftware.trampic.info/", // proxy for localhost
       changeOrigin: true,
     })
   );
