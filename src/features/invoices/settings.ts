@@ -121,7 +121,7 @@ const useFeatureSettings = (): FeatureSettings => {
           {
             actionIcon: DeleteForeverIcon,
             actionName: "Common.delete",
-            actionFn: () => console.log("ACTION FN DELETE"),
+            actionFn: () => console.log("DELETE"),
           },
           {
             actionIcon: DownloadIcon,
