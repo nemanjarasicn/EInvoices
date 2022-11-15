@@ -1,6 +1,10 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React from "react";
-import { useAppDispatch } from "../../../app/hooks";
-import { IProps } from "../models/invoice.models";
+import { useLocation } from "react-router-dom";
+import { selectCompany } from "../../../app/core/core.selectors";
+import { useAppDispatch, useAppSelector } from "../../../app/hooks";
+import { Path } from "../models";
+import { InvoiceSearchParams, IProps } from "../models/invoice.models";
 import { searchInvoices } from "../store/invoice.actions";
 import { useComponentsStyles } from "./components.styles";
 import FilterComponent, { FilterComponentProps } from "./FilterComponent";
@@ -17,12 +21,16 @@ export default function FiltersToolbarComponent({
   props,
 }: IProps<FiltersToolbarComponentProps>) {
   const { filersToolbarStyles } = useComponentsStyles();
-  const [params, setParams] = React.useState<Map<string, any[]> | null>(null);
+  const [params, setParams] = React.useState<Map<string, any> | null>(null);
   const dispatch = useAppDispatch();
+  const id = useAppSelector(selectCompany) as number;
+  const { pathname } = useLocation();
 
   React.useEffect(() => {
-    let map = new Map<string, any[]>();
+    let map = new Map<string, any>();
     props.filters.map((filter) => map.set(filter.paramKey, []));
+    map.set("companyId", id);
+    map.set("inputAndOutputDocuments", Path[pathname as keyof Object]);
     setParams(map);
   }, []);
 
@@ -31,12 +39,32 @@ export default function FiltersToolbarComponent({
    * @param paramKey filter name
    * @param items filters
    */
-  const handleFilters = (paramKey: string, items: any[]): void => {
+  const handleFilters = (paramKey: string, items: any): void => {
     setParams((state) => {
       state?.set(paramKey, items);
       return state;
     });
-    if (params) dispatch(searchInvoices({ params: params }));
+
+    if (params)
+      dispatch(
+        searchInvoices({
+          params: {
+            companyId: String(params?.get("companyId")),
+            inputAndOutputDocuments: String(
+              params?.get("inputAndOutputDocuments")
+            ),
+            sendToCir: String(params?.get("sendToCir")[0] ?? ""),
+            invoiceStatus: params?.get("invoiceStatus").length
+              ? params?.get("invoiceStatus")
+              : "",
+            typeDocument: params?.get("typeDocument").length
+              ? params?.get("typeDocument")
+              : "",
+            // // subjectId?: string; klijent
+            // date?: { from: string; to: string }; datum
+          } as InvoiceSearchParams,
+        })
+      );
   };
 
   return (

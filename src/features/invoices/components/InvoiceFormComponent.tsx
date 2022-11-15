@@ -66,6 +66,7 @@ import {
   clearMarketPlaces,
   clearProducts,
 } from "./form-fields/store/form.reducer";
+import { sendInvoce } from "../store/invoice.actions";
 
 export type InvoiceFormComponentProps = {
   invoiceTypeOptions: any;
@@ -130,7 +131,15 @@ export default function InvoiceFormComponent({
     watch,
   } = methods;
 
-  const onSubmit = (data: InvoiceFormModel) => console.log(data);
+  const onSubmit = handleSubmit(
+    (data: InvoiceFormModel) => {
+      console.log("DATA", data);
+      dispatch(sendInvoce({ invoice: data }));
+    },
+    (err: any) => {
+      console.log("Error", err);
+    }
+  );
 
   /**
    * Handle switch of template by invoice type
@@ -393,8 +402,8 @@ export default function InvoiceFormComponent({
               sx={{
                 backgroundColor: "#f5f5f5",
                 "&:disabled": {
-                  backgroundColor: "#f5f5f5"
-                }
+                  backgroundColor: "#f5f5f5",
+                },
               }}
             >
               <TextsmsOutlinedIcon />
@@ -410,8 +419,8 @@ export default function InvoiceFormComponent({
               sx={{
                 backgroundColor: "#f5f5f5",
                 "&:disabled": {
-                  backgroundColor: "#f5f5f5"
-                }
+                  backgroundColor: "#f5f5f5",
+                },
               }}
             >
               <AttachFileIcon />
@@ -427,8 +436,8 @@ export default function InvoiceFormComponent({
               sx={{
                 backgroundColor: "#f5f5f5",
                 "&:disabled": {
-                  backgroundColor: "#f5f5f5"
-                }
+                  backgroundColor: "#f5f5f5",
+                },
               }}
             >
               <RestoreRoundedIcon />
@@ -787,7 +796,7 @@ export default function InvoiceFormComponent({
                   {
                     title: "DOWNLOAD",
                     disabled: false,
-                    btnFn: handleSubmit(onSubmit),
+                    btnFn: onSubmit,
                   },
                   {
                     title: "UPDATE",
@@ -797,7 +806,7 @@ export default function InvoiceFormComponent({
                   {
                     title: "SEND",
                     disabled: false,
-                    btnFn: handleSubmit(onSubmit),
+                    btnFn: onSubmit,
                   },
                 ]}
               />

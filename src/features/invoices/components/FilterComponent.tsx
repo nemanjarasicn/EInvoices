@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React from "react";
 import {
   Button,
@@ -27,11 +28,13 @@ export type FilterComponentProps = {
   filterItems: FillterItem[];
   parentFn?: Function;
   paramKey: string;
+  soloValue?: any;
 };
 
 export interface FillterItem {
   index: number;
   name: string;
+  value: string;
 }
 
 type FilterType = "solo" | "multi" | "date";
@@ -59,7 +62,9 @@ export default function FilterComponent({
   };
 
   React.useEffect(() => {
-    if (parentFn) parentFn(paramKey, checked);
+    const filterValues: string[] = [];
+    checked.map((item) => filterValues.push(item.value));
+    if (parentFn) parentFn(paramKey, filterValues);
   }, [checked]);
 
   const handleClearAll = () => () => setChecked([]);
@@ -204,7 +209,11 @@ export default function FilterComponent({
                   onClick={
                     checked.length
                       ? handleClearAll()
-                      : handleToggle({ index: 0, name: props.filterTitle })
+                      : handleToggle({
+                          index: 0,
+                          name: props.filterTitle,
+                          value: props.soloValue,
+                        })
                   }
                 >
                   {checked.length > 0 ? (

@@ -6,8 +6,7 @@ import { IProps } from "../models/invoice.models";
 import { useComponentsStyles } from "./components.styles";
 import { useTranslation } from "react-i18next";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
-import { entitySelector } from "../store/invoice.selectors";
-import { EntityId } from "@reduxjs/toolkit";
+import { selectIds } from "../store/invoice.selectors";
 import {
   resetSelectionState,
   setSelection,
@@ -35,7 +34,9 @@ export default function SelectAllActionsComponent({
     useComponentsStyles();
   const { t } = useTranslation();
   const dispach = useAppDispatch();
-  const tableDataIds: EntityId[] = useAppSelector(entitySelector.selectIds);
+  const tableDataIds = useAppSelector(selectIds);
+  console.log("IDS", tableDataIds);
+
   const selectionLength: number = useAppSelector(selectSelection).length;
 
   React.useEffect(() => {

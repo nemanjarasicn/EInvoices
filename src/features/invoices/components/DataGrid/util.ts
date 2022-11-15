@@ -1,5 +1,5 @@
 import { GridSelectionModel } from "@mui/x-data-grid";
-import { TableData, InvoiceDto } from "../../models/invoice.models";
+import { TableData } from "../../models/invoice.models";
 
 /**
  *
@@ -8,15 +8,15 @@ import { TableData, InvoiceDto } from "../../models/invoice.models";
  * @returns summ of selected data
  */
 export const getTotalAmount = (
-  tableData: TableData<InvoiceDto>[],
+  tableData: TableData<any>[],
   selection: GridSelectionModel
 ): number => {
   let amount: number = 0;
   selection.forEach((model) => {
-    let found: TableData<InvoiceDto> | undefined = tableData.find(
+    let found: TableData<any> | undefined = tableData.find(
       (item) => item.id === model
     );
-    if (found) amount = amount + Number(found.TotalToPay);
+    if (found) amount = amount + Number(found.finalSum);
   });
   return amount;
 };

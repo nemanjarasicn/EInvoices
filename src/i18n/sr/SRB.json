@@ -165,7 +165,7 @@
   },
   "Search": {
     "label": "Pretraga",
-    "placeholder": "...Pretraži proizvode",
+    "placeholder": "Pretraži proizvode...",
     "noResult": "Nema traženog proizvoda"
   },
   "AuthModal": {

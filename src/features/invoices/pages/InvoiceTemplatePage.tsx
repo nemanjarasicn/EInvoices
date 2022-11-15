@@ -1,10 +1,11 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import * as React from "react";
 import { styled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
 import { useFeatureSettings } from "../settings";
-import { TemplatePageTypes } from "../models/invoice.enums";
+import { Path, TemplatePageTypes } from "../models/invoice.enums";
 import { useTranslation } from "react-i18next";
 import CustomButtonFc from "../components/CustomButtonFc";
 import { usePageStyles } from "./pages.styles";
@@ -12,6 +13,10 @@ import FiltersToolbarComponent from "../components/FiltersToolbarComponent";
 import { IProps } from "../models/invoice.models";
 import TableComponent from "../components/DataGrid/TableComponent";
 import { useTableSettings } from "../components/DataGrid/table.settings";
+import { useLocation } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "../../../app/hooks";
+import { searchInvoices } from "../store/invoice.actions";
+import { selectCompany } from "../../../app/core/core.selectors";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -33,6 +38,23 @@ export default function InvoiceTemplatePage({
   const { templatePageSettings } = useFeatureSettings();
   const { tableSettings } = useTableSettings();
   const { templatePageStyles } = usePageStyles();
+
+  const { pathname } = useLocation();
+  const dispatch = useAppDispatch();
+  const id = useAppSelector(selectCompany);
+
+  React.useEffect(() => {
+    const param = Path[pathname as keyof Object] as any;
+    dispatch(
+      searchInvoices({
+        params: {
+          inputAndOutputDocuments: String(param),
+          companyId: String(id),
+        },
+      })
+    );
+  }, [pathname, id]);
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <Grid container spacing={2}>
