@@ -1,22 +1,6 @@
-import { createDraftSafeSelector, createSelector } from "@reduxjs/toolkit";
+import { createSelector } from "@reduxjs/toolkit";
 import { RootState } from "../../../app/store";
-import { FeatureState, invoiceAdapter } from "./invoice.reducer";
-
-// const selectSelf = (state: RootState) => state.invoices;
-
-// TODO
-// export const selectInvoicesWithStatusSent = createDraftSafeSelector(
-//   selectSelf,
-//   (state) =>
-//     Object.values(state.entities).filter((invoice) => invoice?.InvoiceId === 3)
-// );
-
-/**
- * EntityAdapter selectors
- */
-export const entitySelector = invoiceAdapter.getSelectors<RootState>(
-  (state) => state.invoices
-);
+import { FeatureState } from "./invoice.reducer";
 
 /**
  * Feature state
@@ -37,4 +21,22 @@ export const isLoading = createSelector(
 export const selectAllFiles = createSelector(
   featureSelectors,
   (state: FeatureState) => state.files
+);
+
+export const selectIds = createSelector(
+  featureSelectors,
+  (state: FeatureState) => {
+    const ids: number[] = [];
+    state.invoicesR.map((invoice) => {
+      if (Boolean(invoice.invoiceId)) ids.push(invoice.invoiceId);
+    });
+    return ids;
+  }
+);
+
+export const selectInvoices = createSelector(
+  featureSelectors,
+  (state: FeatureState) => {
+    return state.invoicesR.filter((item) => Boolean(item.invoiceId));
+  }
 );

@@ -63,3 +63,8 @@ export enum SchemeID {
 export enum CountryCode {
   RS = "RS",
 }
+
+export enum Path {
+  "/invoices/sales" = "Output",
+  "/invoices/purchases" = "Input",
+}

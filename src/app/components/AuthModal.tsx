@@ -42,7 +42,6 @@ export default function BasicModal() {
   };
 
   const redirect = () => {
-    console.log(control);
     window.open("https://demoefaktura.mfin.gov.rs/login", "_blank");
   };
 

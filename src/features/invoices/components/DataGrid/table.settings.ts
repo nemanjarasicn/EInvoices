@@ -1,14 +1,8 @@
 import { GridValueGetterParams } from "@mui/x-data-grid";
+import dayjs from "dayjs";
 import { HeaderSettingsTypes } from "../../models/invoice.enums";
-import {
-  getPurchaseInvoices,
-  getSalesInvoices,
-} from "../../store/invoice.actions";
+import { handleInvoiceStatus } from "../../utils/utils";
 import { TableComponentProps } from "./TableComponent";
-
-const dateFormater = new Intl.DateTimeFormat("en-US", {
-  localeMatcher: "best fit",
-});
 
 type TableSettings = {
   tableSettings: {
@@ -28,7 +22,7 @@ const useTableSettings = (): TableSettings => {
         dataGrid: {
           columnsDef: [
             {
-              field: "InvoiceNumber",
+              field: "numberDocument",
               headerName: "TableColumns.InvoiceNumber",
               flex: 1,
               headerAlign: "center",
@@ -36,15 +30,17 @@ const useTableSettings = (): TableSettings => {
               hideable: false,
             },
             {
-              field: "InvoiceType",
+              field: "typeDocument",
               headerName: "TableColumns.InvoiceType",
               flex: 1,
+              valueGetter: (params: GridValueGetterParams) =>
+                handleInvoiceStatus(params.row.typeDocument),
               headerAlign: "center",
               align: "center",
               hideable: false,
             },
             {
-              field: "CirInvoiceId",
+              field: "crfInvoiceId",
               headerName: "TableColumns.CirInvoiceId",
               flex: 1,
               headerAlign: "center",
@@ -60,7 +56,7 @@ const useTableSettings = (): TableSettings => {
               hideable: false,
             },
             {
-              field: "Status",
+              field: "invoiceStatus",
               headerName: "TableColumns.Status",
               flex: 1,
               headerAlign: "center",
@@ -68,7 +64,7 @@ const useTableSettings = (): TableSettings => {
               hideable: true,
             },
             {
-              field: "Receiver",
+              field: "clientName",
               headerName: "TableColumns.Receiver",
               flex: 1,
               headerAlign: "center",
@@ -76,7 +72,7 @@ const useTableSettings = (): TableSettings => {
               hideable: false,
             },
             {
-              field: "TotalToPay",
+              field: "finalSum",
               headerName: "TableColumns.TotalToPay",
               flex: 1,
               headerAlign: "center",
@@ -84,32 +80,32 @@ const useTableSettings = (): TableSettings => {
               hideable: false,
             },
             {
-              field: "InvoiceDateUtc",
+              field: "deliveryDate",
               headerName: "TableColumns.InvoiceDateUtc",
               flex: 1,
               valueGetter: (params: GridValueGetterParams) =>
-                dateFormater.format(params.row.InvoiceDateUtc),
+                dayjs(params.row.deliveryDate).format("YYYY-MM-DD"),
               headerAlign: "center",
               align: "center",
               hideable: true,
               hide: false,
             },
             {
-              field: "InvoiceSentDateUtc",
+              field: "dateIssue",
               headerName: "TableColumns.InvoiceSentDateUtc",
               flex: 1,
               valueGetter: (params: GridValueGetterParams) =>
-                dateFormater.format(params.row.InvoiceSentDateUtc),
+                dayjs(params.row.dateIssue).format("YYYY-MM-DD"),
               headerAlign: "center",
               align: "center",
               hideable: false,
             },
             {
-              field: "PaymentDateUtc",
+              field: "dueDate",
               headerName: "TableColumns.PaymentDateUtc",
               flex: 1,
               valueGetter: (params: GridValueGetterParams) =>
-                dateFormater.format(params.row.PaymentDateUtc),
+                dayjs(params.row.dueDate).format("YYYY-MM-DD"),
               headerAlign: "center",
               align: "center",
               hideable: true,
@@ -149,7 +145,6 @@ const useTableSettings = (): TableSettings => {
             showHideColumns: true,
             showExport: false,
           },
-          getDataAction: getSalesInvoices(),
           footerProps: {
             countTxt: "Table.FooterCountTxt",
             totalAmountTxt: "Table.FooterTotalAmountTxt",
@@ -160,7 +155,7 @@ const useTableSettings = (): TableSettings => {
         dataGrid: {
           columnsDef: [
             {
-              field: "InvoiceNumber",
+              field: "numberDocument",
               headerName: "TableColumns.InvoiceNumber",
               flex: 1,
               headerAlign: "center",
@@ -168,15 +163,17 @@ const useTableSettings = (): TableSettings => {
               hideable: false,
             },
             {
-              field: "InvoiceType",
+              field: "typeDocument",
               headerName: "TableColumns.InvoiceType",
               flex: 1,
+              valueGetter: (params: GridValueGetterParams) =>
+                handleInvoiceStatus(params.row.typeDocument),
               headerAlign: "center",
               align: "center",
               hideable: false,
             },
             {
-              field: "CirInvoiceId",
+              field: "crfInvoiceId",
               headerName: "TableColumns.CirInvoiceId",
               flex: 1,
               headerAlign: "center",
@@ -192,7 +189,7 @@ const useTableSettings = (): TableSettings => {
               hideable: false,
             },
             {
-              field: "Status",
+              field: "invoiceStatus",
               headerName: "TableColumns.Status",
               flex: 1,
               headerAlign: "center",
@@ -200,7 +197,7 @@ const useTableSettings = (): TableSettings => {
               hideable: true,
             },
             {
-              field: "Supplier",
+              field: "clientName",
               headerName: "TableColumns.Supplier",
               flex: 1,
               headerAlign: "center",
@@ -208,7 +205,7 @@ const useTableSettings = (): TableSettings => {
               hideable: false,
             },
             {
-              field: "TotalToPay",
+              field: "finalSum",
               headerName: "TableColumns.TotalToPay",
               flex: 1,
               headerAlign: "center",
@@ -216,32 +213,32 @@ const useTableSettings = (): TableSettings => {
               hideable: false,
             },
             {
-              field: "InvoiceDateUtc",
+              field: "deliveryDate",
               headerName: "TableColumns.InvoiceDateUtc",
               flex: 1,
               valueGetter: (params: GridValueGetterParams) =>
-                dateFormater.format(params.row.InvoiceDateUtc),
+                dayjs(params.row.deliveryDate).format("YYYY-MM-DD"),
               headerAlign: "center",
               align: "center",
               hideable: true,
               hide: false,
             },
             {
-              field: "InvoiceSentDateUtc",
+              field: "dateIssue",
               headerName: "TableColumns.InvoiceSentDateUtc",
               flex: 1,
               valueGetter: (params: GridValueGetterParams) =>
-                dateFormater.format(params.row.InvoiceSentDateUtc),
+                dayjs(params.row.dateIssue).format("YYYY-MM-DD"),
               headerAlign: "center",
               align: "center",
               hideable: false,
             },
             {
-              field: "PaymentDateUtc",
+              field: "dueDate",
               headerName: "TableColumns.PaymentDateUtc",
               flex: 1,
               valueGetter: (params: GridValueGetterParams) =>
-                dateFormater.format(params.row.PaymentDateUtc),
+                dayjs(params.row.dueDate).format("YYYY-MM-DD"),
               headerAlign: "center",
               align: "center",
               hideable: true,
@@ -263,7 +260,6 @@ const useTableSettings = (): TableSettings => {
             showHideColumns: true,
             showExport: false,
           },
-          getDataAction: getPurchaseInvoices(),
           footerProps: {
             countTxt: "Table.FooterCountTxt",
             totalAmountTxt: "Table.FooterTotalAmountTxt",

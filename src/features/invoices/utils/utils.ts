@@ -89,7 +89,29 @@ const sumTax = (productList: ProductModel[]): number => {
 const calculateBase = (total: number, tax: number): number => {
   return total ? total - tax : 0;
 };
+
+/**
+ *
+ * @param status API response number value of invoice type
+ * @returns
+ */
+const handleInvoiceStatus = (status: number | string): string => {
+  switch (Number(status)) {
+    case 380:
+      return "Invoice";
+    case 381:
+      return "Credit note";
+    case 383:
+      return "Debit note";
+    case 386:
+      return "Prepayment";
+    default:
+      throw new Error("No such type!!!");
+  }
+};
+
 export {
+  handleInvoiceStatus,
   generateKey,
   calculateTax,
   calculateNewPrice,

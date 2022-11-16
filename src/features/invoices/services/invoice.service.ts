@@ -1,51 +1,43 @@
 import publicClient from "./htpp-public-gov";
 import commonHttpClient from "../../../app/http-common";
 import mockClient from "./json.mock.http";
+import dayjs from "dayjs";
 
 class InvoicePublicService {
-  // MOCK CLIENT
-
-  getInvoicesSales() {
-    return mockClient.get<any>("invoices-sales.json");
-  }
-
-  getInvoicesPurchase() {
-    return mockClient.get<any>("invoices-purchase.json");
-  }
-
-  //TODO commonHttpClient api/v1/search/products/${marketplaceUid}
+  //TODO commonHttpClient api/v1/search/products/pm/{pmuuid}
   public getProducts(marketPlace: string) {
     return mockClient.get<any>("product.json");
   }
 
   //TODO commonHttpClient api/v1/subject/1
   getCustomerSubjects(companyId: number | string) {
-    return mockClient.get<any>("client.json");
+    return commonHttpClient.get<any>("subject/1");
   }
 
   //TODO commonHttpClient api/v1/marketplace/company/${companyId}
   getMarketPlaces(companyId: number | string) {
-    return mockClient.get<any>("market-places.json");
+    return commonHttpClient.get<any>("marketplace/company/7");
   }
-  // DTO
-  // {
-  //   "invoiceStatus":"Sent",
-  //   "typeDocument":"381",
-  //   "inputAndOutputDocuments":"Input"
 
-  //  }
-  // TODO commonHttpClient api/v1/invoices/search POST
-  // searchInvoices(searchDTO: any) {
-  //   console.log("SEARCHDTO", searchDTO);
-  //   return mockClient.get<any>("invoices-sales.json");
-  // }
   searchInvoices(searchDTO: any) {
-    const { params } = searchDTO;
-    return commonHttpClient.post<any>("invoices/search", {
-      invoiceStatus: "Sent",
-      typeDocument: "381",
-      inputAndOutputDocuments: "Input",
-    });
+    let { params } = searchDTO;
+
+    if (!params.typeDocument) {
+      delete params.typeDocument;
+    }
+    if (!params.invoiceStatus) {
+      delete params.invoiceStatus;
+    }
+    if (!params.sendToCir) {
+      delete params.sendToCir;
+    }
+    return commonHttpClient.post<any>("invoices/search", params);
+  }
+
+  //TODO commonHttpClient api/v1/invoice
+  sendInvoice(data: any) {
+    const dataToSend = mapToRequestDTO(data.invoice);
+    return commonHttpClient.post<any>("invoice", { ...dataToSend });
   }
 
   // Public E-Fakture
@@ -88,3 +80,21 @@ class InvoicePublicService {
   }
 }
 export default new InvoicePublicService();
+
+function mapToRequestDTO(invoice: any): any {
+  console.log("INVOICE", invoice);
+  invoice.issueDate = dayjs(invoice.issueDate).format("YYYY-MM-DD");
+  invoice.dueDate = dayjs(invoice.dueDate).format("YYYY-MM-DD");
+  invoice["discount"] = invoice.priceWithoutDiscount - invoice.sumWithDiscount;
+
+  invoice["documentTypeId"] = 1;
+  invoice["invoiceTransactionType"] = "Sale";
+  invoice["invoiceType"] = "Normal";
+  invoice["inputAndOutputDocuments"] = "Input";
+
+  invoice["orderReference"] = {
+    id: invoice.orderNumber,
+  };
+  console.log("INVOICE", invoice);
+  return invoice;
+}

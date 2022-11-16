@@ -99,6 +99,15 @@ export class InvoiceFormModel {
   sumWithDiscount: number = 0;
   taxableAmount: number = 0; // osnovica za pdv
   taxAmount: number = 0;
+  // paymentMeans: any[] = [
+  //   {
+  //     paymentMeansCode: "30",
+  //     paymentID: "97422022",
+  //     payeeFinancialAccount: {
+  //       id: 285233100000025379,
+  //     },
+  //   },
+  // ];
 
   invoiceLine: ProductModel[] = []; //stavke
   accountingCustomerParty: CustomerPartyModel | null = null;
@@ -163,4 +172,14 @@ export interface CustomerPartyModel {
     companyID: number;
   };
   contact: { electronicMail: string };
+}
+
+export interface InvoiceSearchParams {
+  companyId: string;
+  inputAndOutputDocuments?: string;
+  sendToCir?: string;
+  invoiceStatus?: string[];
+  subjectId?: string;
+  typeDocument?: string[];
+  date?: { from: string; to: string };
 }

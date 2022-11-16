@@ -165,7 +165,7 @@
   },
   "Search": {
     "label": "Search",
-    "placeholder": "...Search",
+    "placeholder": "Search...",
     "noResult": "No search result"
   },
   "AuthModal": {
