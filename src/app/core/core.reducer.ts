@@ -5,7 +5,8 @@ import { User, UserCompany } from "./core.models";
  * TODO AUTH and logic around it recomended
  */
 const defaultUser: User = {
-  token: "placeholderForTokenValue",
+  token:
+    "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJkZWphbiIsInJvbGVzIjoiUk9MRV9VU0VSIiwidXNlcm5hbWUiOiJkZWphbiIsImV4cCI6MTY2ODY5MjA0OH0.Pt8BwEyOfqv1NIazLYX3IlyS7dxHrFAswwuAUjmoAVybvGWnSiMBnJ2KB--arbUuunzKGjGHHrAAo3zSE6ZHLg",
   type: "Bearer",
   username: "placeholderForUsername",
   authorities: [

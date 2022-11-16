@@ -11,12 +11,12 @@ class InvoicePublicService {
 
   //TODO commonHttpClient api/v1/subject/1
   getCustomerSubjects(companyId: number | string) {
-    return mockClient.get<any>("client.json");
+    return commonHttpClient.get<any>("subject/1");
   }
 
   //TODO commonHttpClient api/v1/marketplace/company/${companyId}
   getMarketPlaces(companyId: number | string) {
-    return mockClient.get<any>("market-places.json");
+    return commonHttpClient.get<any>("marketplace/company/7");
   }
 
   searchInvoices(searchDTO: any) {
