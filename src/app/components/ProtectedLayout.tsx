@@ -19,10 +19,7 @@ export default function ProtectedLayout(): JSX.Element {
     [dispach]
   );
   const token: string | null = localStorage.getItem("token");
-  if (!token) {
-    return <Navigate to="/login" />;
-  }
-  if (!validateToken(token)) {
+  if (!token || !validateToken(token)) {
     return <Navigate to="/login" />;
   }
   return <MenuAppBar />;

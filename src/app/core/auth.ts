@@ -5,7 +5,7 @@
  */
 const validateToken = (token: string): boolean => {
   const decodedJwt = parseJwt(token);
-  return Boolean(decodedJwt.username);
+  return !Boolean(Math.floor(new Date().getTime() / 1000) >= decodedJwt.exp);
 };
 
 const b64DecodeUnicode = (str: string) =>

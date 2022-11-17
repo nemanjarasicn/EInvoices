@@ -1,5 +1,5 @@
 import { ActionReducerMapBuilder, createSlice, Slice } from "@reduxjs/toolkit";
-import { login } from "./core.actions";
+import { getLoggedSubject, login } from "./core.actions";
 import { User, UserCompany } from "./core.models";
 
 /**
@@ -59,6 +59,7 @@ const authSlice: Slice<CoreState> = createSlice({
     removeUser: (state) => ({
       ...state,
       user: null,
+      userCompany: null,
     }),
     resetError: (state) => ({
       ...state,
@@ -67,12 +68,14 @@ const authSlice: Slice<CoreState> = createSlice({
   },
   extraReducers: (builder) => {
     loginAsync(builder);
+    getAsyncUserCompany(builder);
   },
 });
 
 export const { removeUser, resetError } = authSlice.actions;
 
 export default authSlice.reducer;
+
 function loginAsync(builder: ActionReducerMapBuilder<CoreState>) {
   builder.addCase(login.fulfilled, (state, { payload }) => ({
     ...state,
@@ -88,5 +91,22 @@ function loginAsync(builder: ActionReducerMapBuilder<CoreState>) {
     ...state,
     loading: false,
     error: (payload as any).error,
+  }));
+}
+
+function getAsyncUserCompany(builder: ActionReducerMapBuilder<CoreState>) {
+  builder.addCase(getLoggedSubject.fulfilled, (state, { payload }) => ({
+    ...state,
+    loading: false,
+    userCompany: payload,
+  }));
+  builder.addCase(getLoggedSubject.pending, (state) => ({
+    ...state,
+    loading: true,
+  }));
+  builder.addCase(getLoggedSubject.rejected, (state) => ({
+    ...state,
+    loading: false,
+    userCompany: null,
   }));
 }
