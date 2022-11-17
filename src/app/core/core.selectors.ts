@@ -37,3 +37,19 @@ export const selectToken = createSelector(
   coreSelectors,
   (state: CoreState) => state.user?.token
 );
+
+/**
+ * Select error
+ */
+export const hasError = createSelector(
+  coreSelectors,
+  (state: CoreState) => state.error
+);
+
+/**
+ * Select isLoading
+ */
+export const loginLoading = createSelector(
+  coreSelectors,
+  (state: CoreState) => state.loading
+);

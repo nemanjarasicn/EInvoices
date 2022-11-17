@@ -20,3 +20,8 @@ export interface UserCompany {
   city: string;
   country: string;
 }
+
+export interface Credentials {
+  username: string;
+  password: string;
+}

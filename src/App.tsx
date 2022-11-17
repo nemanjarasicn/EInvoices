@@ -2,7 +2,6 @@ import React from "react";
 import "./i18n/config";
 import { Routes, Route, Navigate } from "react-router-dom";
 import { ThemeProvider } from "@mui/material/styles";
-import Layout from "./app/components/Layout";
 import { theme } from "./app/styles/Theme";
 import BasicModal from "./app/components/AuthModal";
 import InvoiceLayout from "./features/invoices/components/InvoiceLayout";
@@ -12,7 +11,9 @@ import {
   CreateType,
   TemplatePageTypes,
 } from "./features/invoices/models/invoice.enums";
-import { apiKeyExist, selectToken } from "./app/core/core.selectors";
+import { apiKeyExist } from "./app/core/core.selectors";
+import LoginPage from "./app/pages/LoginPage";
+import ProtectedLayout from "./app/components/ProtectedLayout";
 
 const DashboardPage = React.lazy(
   () => import("./features/invoices/pages/DashboardPage")
@@ -27,14 +28,12 @@ const SalesTemplatePage = React.lazy(
 );
 
 function App() {
-  // TODO Token and Auth
-  const token: string | undefined = useAppSelector(selectToken);
-  localStorage.setItem("token", JSON.stringify(token));
   const apiKeyPresent = useAppSelector(apiKeyExist);
   return (
     <ThemeProvider theme={theme}>
       <Routes>
-        <Route path="/" element={<Layout />}>
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/" element={<ProtectedLayout />}>
           <Route
             index
             element={

@@ -14,18 +14,30 @@ import {
 import PersonIcon from "@mui/icons-material/Person";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { useTranslation } from "react-i18next";
+import { useAppDispatch } from "../hooks";
+import { removeUser } from "../core/core.reducer";
+import { useNavigate } from "react-router-dom";
 
-type UserAccountProps = {};
-
-export default function UserAccount({}: UserAccountProps): JSX.Element {
+export default function UserAccount(): JSX.Element {
   const { t } = useTranslation();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const dispach = useAppDispatch();
+  const navigate = useNavigate();
 
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(anchorEl ? null : event.currentTarget);
   };
   const handleClickAway = () => {
     setAnchorEl(null);
+  };
+
+  /**
+   * Handle Log out
+   */
+  const handleLogout = (): void => {
+    dispach(removeUser({}));
+    localStorage.removeItem("token");
+    navigate("/login");
   };
 
   const open = Boolean(anchorEl);
@@ -57,7 +69,7 @@ export default function UserAccount({}: UserAccountProps): JSX.Element {
                     ></ListSubheader>
                   }
                 >
-                  <ListItemButton>
+                  <ListItemButton onClick={handleLogout}>
                     <ListItemIcon>
                       <LogoutIcon style={{ color: "white" }} />
                     </ListItemIcon>
