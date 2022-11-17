@@ -65,6 +65,6 @@ export enum CountryCode {
 }
 
 export enum Path {
-  "/invoices/sales" = "Output",
-  "/invoices/purchases" = "Input",
+  "sales" = "Output",
+  "purchases" = "Input",
 }
