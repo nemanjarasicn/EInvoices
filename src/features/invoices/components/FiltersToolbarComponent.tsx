@@ -1,9 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React from "react";
-import { useLocation } from "react-router-dom";
 import { selectCompany } from "../../../app/core/core.selectors";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
-import { Path } from "../models";
+import { Path, TemplatePageTypes } from "../models";
 import { InvoiceSearchParams, IProps } from "../models/invoice.models";
 import { searchInvoices } from "../store/invoice.actions";
 import { useComponentsStyles } from "./components.styles";
@@ -15,6 +14,7 @@ import SelectAllActionsComponent, {
 type FiltersToolbarComponentProps = {
   filters: FilterComponentProps[];
   actions: SelectAllAction[];
+  type: TemplatePageTypes;
 };
 
 export default function FiltersToolbarComponent({
@@ -24,13 +24,15 @@ export default function FiltersToolbarComponent({
   const [params, setParams] = React.useState<Map<string, any> | null>(null);
   const dispatch = useAppDispatch();
   const id = useAppSelector(selectCompany) as number;
-  const { pathname } = useLocation();
 
   React.useEffect(() => {
     let map = new Map<string, any>();
     props.filters.map((filter) => map.set(filter.paramKey, []));
     map.set("companyId", id);
-    map.set("inputAndOutputDocuments", Path[pathname as keyof Object]);
+    map.set(
+      "inputAndOutputDocuments",
+      Path[props.type.toString() as keyof Object]
+    );
     setParams(map);
   }, []);
 

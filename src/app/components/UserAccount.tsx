@@ -36,7 +36,7 @@ export default function UserAccount(): JSX.Element {
    */
   const handleLogout = (): void => {
     dispach(removeUser({}));
-    localStorage.removeItem("token");
+    sessionStorage.removeItem("token");
     navigate("/login");
   };
 

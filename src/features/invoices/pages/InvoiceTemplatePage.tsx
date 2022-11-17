@@ -13,7 +13,6 @@ import FiltersToolbarComponent from "../components/FiltersToolbarComponent";
 import { IProps } from "../models/invoice.models";
 import TableComponent from "../components/DataGrid/TableComponent";
 import { useTableSettings } from "../components/DataGrid/table.settings";
-import { useLocation } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import { searchInvoices } from "../store/invoice.actions";
 import { selectCompany } from "../../../app/core/core.selectors";
@@ -39,12 +38,11 @@ export default function InvoiceTemplatePage({
   const { tableSettings } = useTableSettings();
   const { templatePageStyles } = usePageStyles();
 
-  const { pathname } = useLocation();
   const dispatch = useAppDispatch();
   const id = useAppSelector(selectCompany);
 
   React.useEffect(() => {
-    const param = Path[pathname as keyof Object] as any;
+    const param = Path[props.templateType.toString() as keyof Object] as any;
     dispatch(
       searchInvoices({
         params: {
@@ -53,7 +51,7 @@ export default function InvoiceTemplatePage({
         },
       })
     );
-  }, [pathname, id]);
+  }, [id]);
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -75,6 +73,7 @@ export default function InvoiceTemplatePage({
             props={{
               filters: templatePageSettings[props.templateType].filters,
               actions: templatePageSettings[props.templateType].actions,
+              type: props.templateType,
             }}
           />
         </Grid>
