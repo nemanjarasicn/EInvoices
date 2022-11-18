@@ -8,6 +8,7 @@ import invoicesReducer from "../features/invoices/store/invoice.reducer";
 import dataGridReducer from "../features/invoices/components/DataGrid/store/data-grid.reducer";
 import formReducer from "../features/invoices/components/form-fields/store/form.reducer";
 import coreReducer from "./core/core.reducer";
+import registriesReducer from "../features/registries/store/registries.reducer";
 import {
   FLUSH,
   PAUSE,
@@ -30,6 +31,7 @@ const rootReducer = combineReducers({
   invoices: invoicesReducer,
   dataGrid: dataGridReducer,
   form: formReducer,
+  registries:  registriesReducer
 });
 
 export const store = configureStore({

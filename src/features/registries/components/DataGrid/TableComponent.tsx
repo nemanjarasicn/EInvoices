@@ -2,20 +2,24 @@
 import React from "react";
 import { DataGrid, GridColDef, GridSelectionModel } from "@mui/x-data-grid";
 import { useAppDispatch, useAppSelector } from "../../../../app/hooks";
-import { IProps, TableData } from "../../models/invoice.models";
-import { selectInvoices } from "../../store/invoice.selectors";
+import { ObjectsDto,  IProps, TableData } from "../../models/registries.models";
+import { selectObjects } from "../../store/registries.selectors";
+import { selectUser } from "../../../../app/core/core.selectors";
 import { useDataGridStyles } from "./dataGrid.styles";
 import { setSelection } from "./store/data-grid.reducer";
 import { selectSelection } from "./store/data-grid.selectors";
 import TableToolbar, { TableToolbarProps } from "./TableToolbar";
+import { AsyncThunkAction } from "@reduxjs/toolkit";
 import TableNoRowsOverlay from "./NoRowsOverlay";
 import { useTranslation } from "react-i18next";
 import TablePagination from "./TablePagination";
-import { getTotalAmount } from "./util";
+import {getObjects} from  "../../store/registries.actions"
+
 
 export type TableComponentProps = {
   columnsDef: GridColDef[];
   toolbarProps: TableToolbarProps;
+ // getDataAction: AsyncThunkAction<any, void, {}>;
   footerProps: any;
 };
 
@@ -24,18 +28,21 @@ export default function TableComponent({
 }: IProps<TableComponentProps>): JSX.Element {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
+ // const getDataAction = props.getDataAction;
   const { tableComponentStyles } = useDataGridStyles();
   // TODO
-  const [pageSize, setPageSize] = React.useState<number>(10);
+  //const [pageSize, setPageSize] = React.useState<number>(5);
+ 
 
-  const tableData: TableData<any>[] = useAppSelector(selectInvoices).map(
+  const tableData: TableData<any>[] = useAppSelector(selectObjects).map(
     (row: any) => ({
       ...row,
       id: row.invoiceId,
     })
   );
 
-
+  console.log('sasa',tableData);
+  
   const selection: GridSelectionModel = useAppSelector(selectSelection);
 
   return (
@@ -52,11 +59,6 @@ export default function TableComponent({
           columnsPanelTextFieldLabel: `${t("Table.FieldLabel")}`,
           columnsPanelShowAllButton: `${t("Table.ShowAll")}`,
           columnsPanelHideAllButton: `${t("Table.HideAll")}`,
-          footerRowSelected: (count) => `
-          ${t(props.footerProps.countTxt)} :
-          ${count} ${t(
-            props.footerProps.totalAmountTxt
-          )} : RSD ${getTotalAmount(tableData, selection)}`,
         }}
         rows={[...tableData]}
         columns={props.columnsDef.map((item) => ({
@@ -66,9 +68,9 @@ export default function TableComponent({
         autoHeight={true}
         density="compact"
         // pageSize={10}
-        pageSize={pageSize}
-        rowsPerPageOptions={[5, 10, 15]}
-        onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
+         //pageSize={pageSize}
+         rowsPerPageOptions={[5, 10, 15]}
+        // onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
         components={{
           Toolbar: TableToolbar,
           NoRowsOverlay: TableNoRowsOverlay,

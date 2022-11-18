@@ -8,7 +8,8 @@
   },
   "Menu": {
     "home": "Home",
-    "invoice": "E-Invocie"
+    "invoice": "E-Invocie",
+    "registries": "Registries"
   },
   "UserAccount": {
     "logout": "Logout"
@@ -173,5 +174,21 @@
     "label": "Enter valid API key",
     "saveButtonTitle": "SAVE",
     "redirectButtonTitle": "E-INVOICE LINK"
+  },
+  "Objects": {
+    "name": "Name of object",
+    "longitude": "Longitude",
+    "latitude":  "Latitude",
+    "company":  "Company"
+  },
+  "MarketPlace": {
+    "name": "Naziv prodajnog mesta",
+    "uuidObject":  "Uuid objekta"
+  },
+  "PointOfSale": {
+    "name": "Name of point of sale",
+    "company":  "Company",
+    "marketPlace": "MarketPlace",
+    "code": "Code"
   }
 }
