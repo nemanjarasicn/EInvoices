@@ -8,7 +8,8 @@
   },
   "Menu": {
     "home": "Pocetna",
-    "invoice": "E-Faktura"
+    "invoice": "E-Faktura",
+    "registries": "Šifarnici"
   },
   "UserAccount": {
     "logout": "Odjavi se"
@@ -173,5 +174,22 @@
     "label": "Unesite važeći API ključ",
     "saveButtonTitle": "SNIMI",
     "redirectButtonTitle": "E-FAKTURE LINK"
+  },
+  "Objects": {
+    "name": "Naziv objekta",
+    "longitude": "Geografska Duzina",
+    "latitude":  "Geografska sirina",
+    "company":  "Kompanija"
+  },
+  "MarketPlace": {
+    "name": "Naziv prodajnog mesta",
+    "uuidObject":  "Uuid objekta"
+  },
+  "PointOfSale": {
+    "name": "Naziv kase",
+    "company":  "Kompanija",
+    "marketPlace": "Prodajno mesto",
+    "code": "Code"
   }
+
 }

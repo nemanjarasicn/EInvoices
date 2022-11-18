@@ -14,6 +14,9 @@ import {
 import { apiKeyExist } from "./app/core/core.selectors";
 import LoginPage from "./app/pages/LoginPage";
 import ProtectedLayout from "./app/components/ProtectedLayout";
+import RegistriesLayout from "./features/registries/components/RegistriesLayout";
+import { TemplatePageRegistriesTypes } from "./features/registries/models/registries.enums"
+import { CreateType as CreateTyperegistries}  from "./features/registries/models/registries.enums"
 
 const DashboardPage = React.lazy(
   () => import("./features/invoices/pages/DashboardPage")
@@ -25,6 +28,18 @@ const InvoiceTemplatePage = React.lazy(
 
 const SalesTemplatePage = React.lazy(
   () => import("./features/invoices/pages/SalesTemplatePage")
+);
+
+const DashboardRegistriesPage = React.lazy(
+  () => import("./features/registries/pages/DashboardRegistriesPage")
+);
+
+const RegistriesTemplatePage = React.lazy(
+  () => import("./features/registries/pages/registriesTemplatePage")
+);
+
+const RegistriesCreateTemplatePage = React.lazy(
+  () => import("./features/registries/pages/RegistriesCreateTemplatePage")
 );
 
 function App() {
@@ -43,6 +58,7 @@ function App() {
             }
           />
           {apiKeyPresent ? invoicesRoutes() : modalRoute()}
+          {registriesRoutes()}
           <Route path="*" element={<Navigate to="/" />} />
         </Route>
       </Routes>
@@ -107,6 +123,41 @@ function invoicesRoutes(): React.ReactNode {
           }
         />
       </Route>
+    </>
+  );
+}
+function registriesRoutes(): React.ReactNode {
+  return (
+    <>
+      <Route path="registries" element={<RegistriesLayout />}>
+        <Route
+          index
+          element={
+            <React.Suspense fallback={<>...</>}>
+              <DashboardRegistriesPage  props={ {}} />
+            </React.Suspense>
+          }
+        />
+         <Route
+          path="objects"
+          element={
+            <React.Suspense fallback={<>...</>}>
+              <RegistriesTemplatePage
+                key={`key_${TemplatePageRegistriesTypes.OBJECTS}.id`}
+                props={{ templateType: TemplatePageRegistriesTypes.OBJECTS }}
+              />
+            </React.Suspense>
+          }
+        />
+        <Route
+          path="createObject"
+          element={
+            <React.Suspense fallback={<>...</>}>
+              <RegistriesCreateTemplatePage props={{ type: CreateTyperegistries.FORMOBJECT }} />
+            </React.Suspense>
+          }
+        />
+      </Route> 
     </>
   );
 }

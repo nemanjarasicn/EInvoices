@@ -92,6 +92,18 @@ export default function ClippedDrawer() {
         },
       ],
     },
+    {
+      name: t("Menu.registries"),
+      href: "/registries",
+      icon: "Home",
+      children: [
+        {
+          name: t("Objekti"),
+          href: "/registries/objects",
+          icon: "Home",
+        },
+      ],
+    },
   ];
 
   const icon = (icon: string): any => {
