@@ -1,24 +1,21 @@
 import publicClient from "./htpp-public-gov";
 import commonHttpClient from "../../../app/http-common";
-import mockClient from "./json.mock.http";
 import dayjs from "dayjs";
 
 class InvoicePublicService {
-  //TODO commonHttpClient api/v1/search/products/pm/{pmuuid}
-  // https://api-gateway.mastersoftware.trampic.info/api/v1/search/products/pm/6205e800d9ce434a
   public getProducts(marketPlace: string) {
     return commonHttpClient.get<any>(`search/products/pm/${marketPlace}`);
   }
 
-  getCustomerSubjects(companyId: number | string) {
+  public getCustomerSubjects(companyId: number | string) {
     return commonHttpClient.get<any>(`subject/${companyId}`);
   }
 
-  getMarketPlaces(companyId: number | string) {
+  public getMarketPlaces(companyId: number | string) {
     return commonHttpClient.get<any>(`marketplace/company/${companyId}`);
   }
 
-  searchInvoices(searchDTO: any) {
+  public searchInvoices(searchDTO: any) {
     let { params } = searchDTO;
 
     if (!params.typeDocument) {
@@ -34,7 +31,7 @@ class InvoicePublicService {
   }
 
   //TODO commonHttpClient api/v1/invoice
-  sendInvoice(data: any) {
+  public sendInvoice(data: any) {
     const dataToSend = mapToRequestDTO(data.invoice);
     return commonHttpClient.post<any>("invoice", { ...dataToSend });
   }
@@ -58,7 +55,7 @@ class InvoicePublicService {
   }
 
   /**
-   * UPLOAD MULTIPART FORM DATA //TODO send in CRF
+   * UPLOAD MULTIPART FORM DATA //TODO send in CRF and put in DB file with response data
    * @param file
    * @param requestId
    * @returns

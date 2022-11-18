@@ -25,7 +25,6 @@ export default function TableComponent({
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
   const { tableComponentStyles } = useDataGridStyles();
-  // TODO
   const [pageSize, setPageSize] = React.useState<number>(10);
 
   const tableData: TableData<any>[] = useAppSelector(selectInvoices).map(

@@ -1,5 +1,5 @@
 /**
- * Check if token is valid
+ * Check if token is valid TODO user comparation and exp
  * @param token
  * @returns {boolean}
  */

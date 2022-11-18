@@ -3,7 +3,7 @@ import "./i18n/config";
 import { Routes, Route, Navigate } from "react-router-dom";
 import { ThemeProvider } from "@mui/material/styles";
 import { theme } from "./app/styles/Theme";
-import BasicModal from "./app/components/AuthModal";
+import BasicModal from "./app/components/ApiKeyModal";
 import InvoiceLayout from "./features/invoices/components/InvoiceLayout";
 import { useAppSelector } from "./app/hooks";
 
