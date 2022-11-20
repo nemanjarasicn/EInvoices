@@ -9,6 +9,10 @@ import { FilterComponentProps } from "./components/FilterComponent";
 import { SelectAllAction } from "./components/SelectAllActionsComponent";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import DownloadIcon from "@mui/icons-material/Download";
+import HistoryIcon from "@mui/icons-material/History";
+import EventBusyIcon from "@mui/icons-material/EventBusy";
+import AssignmentTurnedInIcon from "@mui/icons-material/AssignmentTurnedIn";
+import AssignmentLateIcon from "@mui/icons-material/AssignmentLate";
 import { InvoiceDropzoneProps } from "./components/InvoiceDropzoneComponent";
 import { InvoiceFormComponentProps } from "./components/InvoiceFormComponent";
 import { InvoiceType } from "./models";
@@ -112,12 +116,13 @@ const useFeatureSettings = (): FeatureSettings => {
             filterItems: [
               { index: 0, name: "InvoiceStatuses.draft", value: "Draft" },
               { index: 1, name: "InvoiceStatuses.sent", value: "Sent" },
-              { index: 2, name: "InvoiceStatuses.sending", value: "Sending" },
+              { index: 2, name: "InvoiceStatuses.new", value: "New" },
               {
                 index: 3,
                 name: "InvoiceStatuses.cancelled",
                 value: "Cancelled",
               },
+              { index: 4, name: "InvoiceStatuses.approved", value: "Approved" },
             ],
             paramKey: "invoiceStatus",
           },
@@ -125,13 +130,31 @@ const useFeatureSettings = (): FeatureSettings => {
         actions: [
           {
             actionIcon: DeleteForeverIcon,
-            actionName: "Common.delete",
-            actionFn: () => console.log("DELETE"),
+            actionName: "delete",
+            hidden: true,
+            title: "Common.delete",
+            disabled: true,
           },
           {
             actionIcon: DownloadIcon,
-            actionName: "Common.download",
-            actionFn: () => console.log("ACTION FN DOWNLOAD"),
+            actionName: "download",
+            hidden: false,
+            title: "Common.download",
+            disabled: true,
+          },
+          {
+            actionIcon: EventBusyIcon,
+            actionName: "cancel",
+            hidden: false,
+            title: "Otkazi",
+            disabled: false,
+          },
+          {
+            actionIcon: HistoryIcon,
+            actionName: "storno",
+            hidden: false,
+            title: "Storniraj",
+            disabled: false,
           },
         ],
         showTable: true,
@@ -184,13 +207,31 @@ const useFeatureSettings = (): FeatureSettings => {
         actions: [
           {
             actionIcon: DeleteForeverIcon,
-            actionName: "Common.delete",
-            actionFn: () => console.log("ACTION FN DELETE"),
+            actionName: "delete",
+            hidden: false,
+            title: "Common.delete",
+            disabled: true,
           },
           {
             actionIcon: DownloadIcon,
-            actionName: "Common.download",
-            actionFn: () => console.log("ACTION FN DOWNLOAD"),
+            actionName: "download",
+            hidden: false,
+            title: "Common.download",
+            disabled: true,
+          },
+          {
+            actionIcon: AssignmentLateIcon,
+            actionName: "reject",
+            hidden: false,
+            title: "Reject",
+            disabled: false,
+          },
+          {
+            actionIcon: AssignmentTurnedInIcon,
+            actionName: "approve",
+            hidden: false,
+            title: "Approve",
+            disabled: false,
           },
         ],
         showTable: true,

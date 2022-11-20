@@ -41,7 +41,9 @@
     "draft": "Draft",
     "sent": "Sent",
     "sending": "Sending",
-    "cancelled": "Cancelled"
+    "cancelled": "Cancelled",
+    "new": "New",
+    "approved": "Approved"
   },
   "TableColumns": {
     "InvoiceNumber": "Document number",

@@ -41,7 +41,9 @@
     "draft": "Nacrt",
     "sent": "Poslato",
     "sending": "Slanje",
-    "cancelled": "Otkazana"
+    "cancelled": "Otkazana",
+    "new": "Nova",
+    "approved": "Odobreno"
   },
   "TableColumns": {
     "InvoiceNumber": "Broj dokumenta",
