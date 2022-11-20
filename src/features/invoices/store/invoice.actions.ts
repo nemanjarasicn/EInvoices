@@ -82,8 +82,14 @@ const updateStatusInvoice: AsyncThunk<
         { ...asyncDto, invoiceId: found.salesInvoiceId },
         apiKey
       ).then(
-        (data) => console.log("ACTION Data", data),
-        (err) => console.log("ACTION ERR", err)
+        (response) =>
+          _.dispatch(
+            updateInvoiceStatus({
+              id: response.data.InvoiceId,
+              status: response.data.Status,
+            })
+          ),
+        (err) => console.log("Error", err)
       );
     case "cancel":
       return await InvoicePublicService.cancelSales(
@@ -97,7 +103,7 @@ const updateStatusInvoice: AsyncThunk<
               status: response.data.Status,
             })
           ),
-        (err) => console.log("ACTION ERR", err)
+        (err) => console.log("Error", err)
       );
     case "approve":
       return await InvoicePublicService.rejectOrApprovePurchase(
@@ -105,7 +111,7 @@ const updateStatusInvoice: AsyncThunk<
         apiKey
       ).then(
         (data) => console.log("ACTION DATA", data),
-        (err) => console.log("ACTION ERR", err)
+        (err) => console.log("Error", err)
       );
     case "reject":
       return await InvoicePublicService.rejectOrApprovePurchase(
