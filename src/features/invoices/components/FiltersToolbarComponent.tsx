@@ -73,7 +73,9 @@ export default function FiltersToolbarComponent({
     <div style={filersToolbarStyles.wrapper}>
       {props.actions.length > 0 && (
         <div style={filersToolbarStyles.selectAllActions}>
-          <SelectAllActionsComponent props={{ actions: props.actions }} />
+          <SelectAllActionsComponent
+            props={{ actions: props.actions, pageType: props.type }}
+          />
         </div>
       )}
       {props.filters.length > 0 && (

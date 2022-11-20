@@ -1,5 +1,6 @@
 import { AsyncThunk, createAsyncThunk } from "@reduxjs/toolkit";
 import InvoicePublicService from "../services/invoice.service";
+import { updateInvoiceStatus } from "./invoice.reducer";
 
 const getAllCompanies: AsyncThunk<any, void, {}> = createAsyncThunk(
   "GET/Companies",
@@ -36,7 +37,10 @@ const searchInvoices: AsyncThunk<any, { params: any }, {}> = createAsyncThunk<
   { params: any }
 >("POST/SearchInvoices", async (searchDTO, _) => {
   return await InvoicePublicService.searchInvoices(searchDTO)
-    .then((res) => res.data)
+    .then((res) => {
+      // res.data[0] = { ...res.data[0], invoiceStatus: "New" };
+      return res.data;
+    })
     .catch((err) => []);
 });
 
@@ -53,4 +57,73 @@ const sendInvoce: AsyncThunk<any, { invoice: any }, {}> = createAsyncThunk<
   );
 });
 
-export { getAllCompanies, sendInvoceXml, searchInvoices, sendInvoce };
+/**
+ * Create Async Action update status E-Invoice
+ */
+const updateStatusInvoice: AsyncThunk<
+  any,
+  { actionType: string; invoiceId: number | string; invoiceType: string },
+  {}
+> = createAsyncThunk<
+  any,
+  { actionType: string; invoiceId: number | string; invoiceType: string }
+>(`POST/Update Status Invoice`, async (asyncDto, _) => {
+  const { core, invoices } = (_ as any).getState();
+  const { apiKey } = core.userCompany;
+  const found = invoices.invoicesR.find(
+    (item: any) => item.invoiceId === asyncDto.invoiceId
+  );
+
+  console.log("INVOICE", asyncDto);
+
+  switch (asyncDto.actionType) {
+    case "storno":
+      return await InvoicePublicService.stornoSales(
+        { ...asyncDto, invoiceId: found.salesInvoiceId },
+        apiKey
+      ).then(
+        (data) => console.log("ACTION Data", data),
+        (err) => console.log("ACTION ERR", err)
+      );
+    case "cancel":
+      return await InvoicePublicService.cancelSales(
+        { ...asyncDto, invoiceId: found.salesInvoiceId },
+        apiKey
+      ).then(
+        (response) =>
+          _.dispatch(
+            updateInvoiceStatus({
+              id: response.data.InvoiceId,
+              status: response.data.Status,
+            })
+          ),
+        (err) => console.log("ACTION ERR", err)
+      );
+    case "approve":
+      return await InvoicePublicService.rejectOrApprovePurchase(
+        { ...asyncDto, invoiceId: found.purchaseInvoiceId },
+        apiKey
+      ).then(
+        (data) => console.log("ACTION DATA", data),
+        (err) => console.log("ACTION ERR", err)
+      );
+    case "reject":
+      return await InvoicePublicService.rejectOrApprovePurchase(
+        { ...asyncDto, invoiceId: found.purchaseInvoiceId },
+        apiKey
+      ).then(
+        (data) => console.log("ACTION DATA", data),
+        (err) => console.log("ACTION ERR", err)
+      );
+    default:
+      throw new Error("No such action type");
+  }
+});
+
+export {
+  getAllCompanies,
+  sendInvoceXml,
+  searchInvoices,
+  sendInvoce,
+  updateStatusInvoice,
+};

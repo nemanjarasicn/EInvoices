@@ -4,7 +4,14 @@ import dayjs from "dayjs";
 
 class InvoicePublicService {
   public getProducts(marketPlace: string) {
-    return commonHttpClient.get<any>(`search/products/pm/${marketPlace}`);
+    // todo
+    const config = {
+      headers: { PETCOM: "dejan" },
+    };
+    return commonHttpClient.get<any>(
+      `search/products/pm/${marketPlace}`,
+      config
+    );
   }
 
   public getCustomerSubjects(companyId: number | string) {
@@ -28,6 +35,55 @@ class InvoicePublicService {
       delete params.sendToCir;
     }
     return commonHttpClient.post<any>("invoices/search", params);
+  }
+
+  public stornoSales(data: any, apiKey: string) {
+    const dataToSend = {
+      invoiceId: data.invoiceId,
+      stornoNumber: "",
+      stornoComment: data.comment,
+    };
+    const config = {
+      headers: { apiKey: apiKey },
+    };
+    return commonHttpClient.put<any>(
+      "invoice/sales-storno",
+      { ...dataToSend },
+      config
+    );
+  }
+
+  public cancelSales(data: any, apiKey: string) {
+    const dataToSend = {
+      invoiceId: data.invoiceId,
+      cancelComments: data.comment,
+    };
+    const config = {
+      headers: { apiKey: apiKey },
+    };
+    return commonHttpClient.put<any>(
+      "invoice/sales-cancel",
+      {
+        ...dataToSend,
+      },
+      config
+    );
+  }
+
+  public rejectOrApprovePurchase(data: any, apiKey: string) {
+    const dataToSend = {
+      invoiceId: data.invoiceId,
+      accepted: Boolean(data.actionType === "approve"),
+      comment: data.comment,
+    };
+    const config = {
+      headers: { apiKey: apiKey },
+    };
+    return commonHttpClient.put<any>(
+      "invoice/purchase",
+      { ...dataToSend },
+      config
+    );
   }
 
   //TODO commonHttpClient api/v1/invoice

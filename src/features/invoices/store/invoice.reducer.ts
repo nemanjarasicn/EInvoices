@@ -38,6 +38,15 @@ const invoicesSlice: Slice<FeatureState> = createSlice({
       );
       return newState;
     },
+    updateInvoiceStatus: (state, { payload }) => {
+      console.log("PAYLOAD", payload);
+      const newState = state;
+      newState.invoicesR.map((inv) => {
+        if (inv.invoiceId === payload.id) {
+          console.log("INV", inv);
+        }
+      });
+    },
   },
   extraReducers: (builder) => {
     getAsyncCompanies(builder);
@@ -47,7 +56,8 @@ const invoicesSlice: Slice<FeatureState> = createSlice({
   },
 });
 
-export const { setManyFiles, removeFile } = invoicesSlice.actions;
+export const { setManyFiles, removeFile, updateInvoiceStatus } =
+  invoicesSlice.actions;
 
 export default invoicesSlice.reducer;
 
