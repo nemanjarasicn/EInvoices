@@ -20,7 +20,8 @@ const login: AsyncThunk<any, { credentials: Credentials }, {}> =
         })
         .catch((err) => {
           return _.rejectWithValue({
-            error: `${err.message}-${err.response.data.error}`,
+            // error: `${err.message}-${err.response.data.error}`,
+            error: `Bad Credentials`,
           });
         });
     }
