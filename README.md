@@ -24,13 +24,19 @@ Build for development
 
 # Opinionated deployment
 
-For develop branch, there is Github Workflow that will do npm build and upload of build directory to S3 in Developer AWS account of Master software.
+For main and develop branch, when code is pushed, there is Github Workflow that will do npm build and upload of build directory ( artifact ) to S3. Depending on branch, artifact will be upladed either to Developer AWS account of Master software or Production one.
+
+> main branch -> deploys static files to production hosting S3 bucket -> prod.mastersoftware.rs
+> </br>develop branch -> deploys static files to developer hosting S3 bucket -> dev.mastersoftware.rs
 
 In workflow file, Node version Developer S3 bucket, Cloudfront distribution are hardcoded env variables, this can be adapted in future.
 
+<<<<<<< HEAD
 > main branch -> deploys static files to production hosting S3 bucket -> prod.mastersoftware.rs
 > develop branch -> deploys static files to developer hosting S3 bucket -> dev.mastersoftware.rs
 
+=======
+>>>>>>> develop
 ## Developer Account
 
 ```yaml
