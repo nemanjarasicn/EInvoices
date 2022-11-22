@@ -42,8 +42,8 @@ In workflow file, Node version Developer S3 bucket, Cloudfront distribution are 
 ```yaml
 env:
   NODE_VERSION: "18.12.1"
-  S3_BUCKET: "frontend-mastersoftware-developer"
-  CDN_DISTRIBUTION_ID: "E2GJG44R3KPS1H"
+  S3_BUCKET: "frontend-mastersoftware-dev"
+  CDN_DISTRIBUTION_ID: "EU7V6NTH96AM0"
   AWS_DEFAULT_REGION: eu-central-1
   ROLE_TO_ASSUME: "arn:aws:iam::067493719983:role/github-action-s3-deployment-role"
   REACT_APP_PUBLIC_API_URL: https://demoefaktura.mfin.gov.rs
@@ -57,8 +57,8 @@ env:
 ```yaml
 env:
   NODE_VERSION: "18.12.1"
-  S3_BUCKET: "frontend-mastersoftware-production"
-  CDN_DISTRIBUTION_ID: "E1X8WU0JHSVH"
+  S3_BUCKET: "frontend-mastersoftware-prod"
+  CDN_DISTRIBUTION_ID: "E1S26P78GCDDHQ"
   AWS_DEFAULT_REGION: eu-central-1
   ROLE_TO_ASSUME: "arn:aws:iam::610055566994:role/github-action-s3-deployment-role"
   REACT_APP_PUBLIC_API_URL: https://demoefaktura.mfin.gov.rs
