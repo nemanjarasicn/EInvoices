@@ -15,8 +15,8 @@ jobs:
     runs-on: ubuntu-latest
     env:
       NODE_VERSION: "18.12.1"
-      S3_BUCKET: "frontend-mastersoftware-developer"
-      CDN_DISTRIBUTION_ID: "E2GJG44R3KPS1H"
+      S3_BUCKET: "frontend-mastersoftware-dev"
+      CDN_DISTRIBUTION_ID: "EU7V6NTH96AM0"
       AWS_DEFAULT_REGION: eu-central-1
       ROLE_TO_ASSUME: "arn:aws:iam::067493719983:role/github-action-s3-deployment-role"
       REACT_APP_PUBLIC_API_URL: https://demoefaktura.mfin.gov.rs
