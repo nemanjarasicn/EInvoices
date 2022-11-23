@@ -21,3 +21,48 @@ Run application
 Build for development
 
 ## npm run build
+
+# Opinionated deployment
+
+For main and develop branch, when code is pushed, there is Github Workflow that will do npm build and upload of build directory ( artifact ) to S3. Depending on branch, artifact will be upladed either to Developer AWS account of Master software or Production one.
+
+> main branch -> deploys static files to production hosting S3 bucket -> prod.mastersoftware.rs
+> </br>develop branch -> deploys static files to developer hosting S3 bucket -> dev.mastersoftware.rs
+
+In workflow file, Node version Developer S3 bucket, Cloudfront distribution are hardcoded env variables, this can be adapted in future.
+
+<<<<<<< HEAD
+> main branch -> deploys static files to production hosting S3 bucket -> prod.mastersoftware.rs
+> develop branch -> deploys static files to developer hosting S3 bucket -> dev.mastersoftware.rs
+
+=======
+>>>>>>> develop
+## Developer Account
+
+```yaml
+env:
+  NODE_VERSION: "18.12.1"
+  S3_BUCKET: "frontend-mastersoftware-dev"
+  CDN_DISTRIBUTION_ID: "EU7V6NTH96AM0"
+  AWS_DEFAULT_REGION: eu-central-1
+  ROLE_TO_ASSUME: "arn:aws:iam::067493719983:role/github-action-s3-deployment-role"
+  REACT_APP_PUBLIC_API_URL: https://demoefaktura.mfin.gov.rs
+  REACT_APP_GATEWAY: https://api-gateway.mastersoftware.trampic.info
+  GENERATE_SOURCEMAP: false
+  DISABLE_ESLINT_PLUGIN: true
+```
+
+## Production Account
+
+```yaml
+env:
+  NODE_VERSION: "18.12.1"
+  S3_BUCKET: "frontend-mastersoftware-prod"
+  CDN_DISTRIBUTION_ID: "E1S26P78GCDDHQ"
+  AWS_DEFAULT_REGION: eu-central-1
+  ROLE_TO_ASSUME: "arn:aws:iam::610055566994:role/github-action-s3-deployment-role"
+  REACT_APP_PUBLIC_API_URL: https://demoefaktura.mfin.gov.rs
+  REACT_APP_GATEWAY: https://api-gateway.mastersoftware.trampic.info
+  GENERATE_SOURCEMAP: false
+  DISABLE_ESLINT_PLUGIN: true
+```
