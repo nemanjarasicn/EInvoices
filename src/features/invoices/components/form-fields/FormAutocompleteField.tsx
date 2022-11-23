@@ -1,5 +1,11 @@
 import React from "react";
-import { Autocomplete, TextField } from "@mui/material";
+import {
+  Autocomplete,
+  autocompleteClasses,
+  Popper,
+  styled,
+  TextField,
+} from "@mui/material";
 import { Controller } from "react-hook-form";
 import { useAppSelector } from "../../../../app/hooks";
 import { IProps } from "../../models";
@@ -14,6 +20,7 @@ type FormAutocompleteFieldProps = FormFieldProps & {
     noResultText?: string;
   };
 };
+
 /**
  * Facade MUI Autocomplete Field component
  */
@@ -22,6 +29,17 @@ export default function FormAutocompleteField({
 }: IProps<FormAutocompleteFieldProps>) {
   const data: AutocompleteItem[] = useAppSelector(props.additional.selector);
 
+  const StyledPopper = styled(Popper)({
+    [`& .${autocompleteClasses.listbox}`]: {
+      boxSizing: "border-box",
+      "& ul": {
+        padding: 0,
+        margin: 0,
+        height: 20,
+      },
+    },
+  });
+
   return (
     <Controller
       name={props.name}
@@ -29,6 +47,7 @@ export default function FormAutocompleteField({
       render={({ field: { onChange, value }, fieldState: { error } }) => (
         <Autocomplete
           disablePortal
+          PopperComponent={StyledPopper}
           id={`combo-box-demo_${props.name}`}
           options={[...data]}
           noOptionsText={props.additional.noResultText ?? "No options"}

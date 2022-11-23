@@ -85,6 +85,10 @@ class InvoicePublicService {
       config
     );
   }
+  //TODO commonHttpClient get last invoice number 100 + 1
+  public(idCompany: any) {
+    return commonHttpClient.get<any>(`invoice/search/${idCompany}`);
+  }
 
   //TODO commonHttpClient api/v1/invoice
   public sendInvoice(data: any) {

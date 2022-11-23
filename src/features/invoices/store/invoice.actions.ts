@@ -71,10 +71,11 @@ const updateStatusInvoice: AsyncThunk<
   const { core, invoices } = (_ as any).getState();
   const { apiKey } = core.userCompany;
   const found = invoices.invoicesR.find(
-    (item: any) => item.invoiceId === asyncDto.invoiceId
+    (item: any) => item.id === asyncDto.invoiceId
   );
 
-  console.log("INVOICE", asyncDto);
+  console.log("asyncDto", asyncDto);
+  console.log("INVOICE", found);
 
   switch (asyncDto.actionType) {
     case "storno":

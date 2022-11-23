@@ -72,7 +72,7 @@ export default function SelectAllActionsComponent({
   const getStatus = (): string[] => {
     if (selection.length > 1) return [];
     let status = invoices.find(
-      (item) => item.invoiceId === selection[0]
+      (item) => item.id === selection[0]
     )?.invoiceStatus;
     switch (status) {
       case InvoiceStatus.APPROVED:

@@ -28,7 +28,7 @@ export const selectIds = createSelector(
   (state: FeatureState) => {
     const ids: number[] = [];
     state.invoicesR.map((invoice) => {
-      if (Boolean(invoice.invoiceId)) ids.push(invoice.invoiceId);
+      if (Boolean(invoice.id)) ids.push(invoice.id);
     });
     return ids;
   }
@@ -37,6 +37,6 @@ export const selectIds = createSelector(
 export const selectInvoices = createSelector(
   featureSelectors,
   (state: FeatureState) => {
-    return state.invoicesR.filter((item) => Boolean(item.invoiceId));
+    return state.invoicesR.filter((item) => Boolean(item.id));
   }
 );

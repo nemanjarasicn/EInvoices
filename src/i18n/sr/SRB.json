@@ -29,7 +29,8 @@
     "defaultAll": "Očisti sve",
     "allDocumentTypes": "Svi tipovi dokumenata",
     "registeredInCIR": "Registrovane u CRF-u",
-    "allStatuses": "Svi statusi"
+    "allStatuses": "Svi statusi",
+    "allTime": "Bilo kada"
   },
   "InvoiceTypes": {
     "debitInvoice": "Faktura",
@@ -38,12 +39,20 @@
     "prepayment": "Avansni račun"
   },
   "InvoiceStatuses": {
+    "new": "Novo",
     "draft": "Nacrt",
     "sent": "Poslato",
+    "cancelled": "Otkazano",
+    "approved": "Odobreno",
+    "rejected": "Odbijeno",
+    "storno": "Storno",
     "sending": "Slanje",
-    "cancelled": "Otkazana",
-    "new": "Nova",
-    "approved": "Odobreno"
+    "paid": "Placeno",
+    "mistake": "Greska",
+    "overDue": "Istekao",
+    "archived": "Arhivirano",
+    "deleted": "Obrisano",
+    "unknown": "Nepoznato"
   },
   "TableColumns": {
     "InvoiceNumber": "Broj dokumenta",

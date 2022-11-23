@@ -29,7 +29,8 @@
     "defaultAll": "Clear all",
     "allDocumentTypes": "All document types",
     "registeredInCIR": "Registered in CIR",
-    "allStatuses": "All Statuses"
+    "allStatuses": "All Statuses",
+    "allTime": "Any Time"
   },
   "InvoiceTypes": {
     "debitInvoice": "Invoice",
@@ -38,12 +39,20 @@
     "prepayment": "Prepayment"
   },
   "InvoiceStatuses": {
+    "new": "New",
     "draft": "Draft",
     "sent": "Sent",
-    "sending": "Sending",
     "cancelled": "Cancelled",
-    "new": "New",
-    "approved": "Approved"
+    "approved": "Approved",
+    "rejected": "Rejected",
+    "storno": "Storno",
+    "sending": "Sending",
+    "paid": "Paid",
+    "mistake": "Mistake",
+    "overDue": "Over due",
+    "archived": "Archived",
+    "deleted": "Deleted",
+    "unknown": "Unknown"
   },
   "TableColumns": {
     "InvoiceNumber": "Document number",
