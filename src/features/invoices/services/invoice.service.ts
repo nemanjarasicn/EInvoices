@@ -4,7 +4,7 @@ import dayjs from "dayjs";
 
 class InvoicePublicService {
   public getProducts(marketPlace: string) {
-    // todo
+    // TODO
     const config = {
       headers: { PETCOM: "dejan" },
     };
@@ -20,6 +20,10 @@ class InvoicePublicService {
 
   public getMarketPlaces(companyId: number | string) {
     return commonHttpClient.get<any>(`marketplace/company/${companyId}`);
+  }
+
+  public getDocumentsTypes() {
+    return commonHttpClient.get<any>(`documents/type`);
   }
 
   public searchInvoices(searchDTO: any) {
@@ -85,15 +89,18 @@ class InvoicePublicService {
       config
     );
   }
-  //TODO commonHttpClient get last invoice number 100 + 1
-  public(idCompany: any) {
-    return commonHttpClient.get<any>(`invoice/search/${idCompany}`);
+
+  public getCurrentDocNumber(idCompany: any) {
+    return commonHttpClient.get<any>(`invoices/search/${idCompany}`);
   }
 
   //TODO commonHttpClient api/v1/invoice
-  public sendInvoice(data: any) {
+  public sendInvoice(data: any, apiKey: string) {
+    const config = {
+      headers: { apiKey: apiKey },
+    };
     const dataToSend = mapToRequestDTO(data.invoice);
-    return commonHttpClient.post<any>("invoice", { ...dataToSend });
+    return commonHttpClient.post<any>("invoice", { ...dataToSend }, config);
   }
 
   // Public E-Fakture
@@ -138,7 +145,7 @@ class InvoicePublicService {
 export default new InvoicePublicService();
 
 function mapToRequestDTO(invoice: any): any {
-  console.log("INVOICE", invoice);
+  console.log("INVOICE SERVICE", invoice);
   invoice.issueDate = dayjs(invoice.issueDate).format("YYYY-MM-DD");
   invoice.dueDate = dayjs(invoice.dueDate).format("YYYY-MM-DD");
   invoice["discount"] = invoice.priceWithoutDiscount - invoice.sumWithDiscount;
@@ -146,11 +153,17 @@ function mapToRequestDTO(invoice: any): any {
   invoice["documentTypeId"] = 1;
   invoice["invoiceTransactionType"] = "Sale";
   invoice["invoiceType"] = "Normal";
-  invoice["inputAndOutputDocuments"] = "Input";
+  invoice["inputAndOutputDocuments"] = "Output"; //TODO proveriti kod tipova faktura drugih
+  invoice["invoicePeriod"] = [{ descriptionCode: invoice.vatPointDate }];
 
   invoice["orderReference"] = {
     id: invoice.orderNumber,
   };
-  console.log("INVOICE", invoice);
+
+  invoice["delivery"] = {
+    actualDeliveryDate: invoice.issueDate,
+  };
+
+  console.log("INVOICE POSEL", invoice);
   return invoice;
 }

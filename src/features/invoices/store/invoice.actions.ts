@@ -1,5 +1,7 @@
 import { AsyncThunk, createAsyncThunk } from "@reduxjs/toolkit";
+import { UserCompany } from "../../../app/core/core.models";
 import InvoicePublicService from "../services/invoice.service";
+import { calculateTax } from "../utils/utils";
 import { updateInvoiceStatus } from "./invoice.reducer";
 
 const getAllCompanies: AsyncThunk<any, void, {}> = createAsyncThunk(
@@ -51,7 +53,38 @@ const sendInvoce: AsyncThunk<any, { invoice: any }, {}> = createAsyncThunk<
   any,
   { invoice: any }
 >("POST/Invoice", async (invoiceDto, _) => {
-  return await InvoicePublicService.sendInvoice(invoiceDto).then(
+  const { core, form } = (_ as any).getState();
+  const { apiKey } = core.userCompany;
+  const { autocompleteData } = form;
+  const foundCompany = autocompleteData.companies.find(
+    (buyer: any) =>
+      buyer.mb ===
+      invoiceDto.invoice.accountingCustomerParty.partyLegalEntity.companyID
+  );
+  (invoiceDto.invoice as any)["paymentMeans"] = createPaymentMeans(
+    foundCompany,
+    invoiceDto.invoice.referenceNumber,
+    invoiceDto.invoice.modelNumber
+  );
+
+  (invoiceDto.invoice as any)["idCompany"] = core.userCompany.idCompany;
+
+  (invoiceDto.invoice as any)["accountingSupplierParty"] = createSupplayerData(
+    core.userCompany
+  );
+  (invoiceDto.invoice as any)["legalMonetaryTotal"] = createMonetaryTotal(
+    invoiceDto.invoice
+  );
+  (invoiceDto.invoice as any)["taxTotal"] = createTaxTotal(
+    invoiceDto.invoice.invoiceLine
+  );
+
+  invoiceDto.invoice["invoiceLine"].map((item: any) => ({
+    ...item,
+    lineExtensionAmount: Number(item.lineExtensionAmount.toFixed(2)),
+  }));
+
+  return await InvoicePublicService.sendInvoice(invoiceDto, apiKey).then(
     (data) => console.log("ACTION DATA", data),
     (err) => console.log("ACTION ERR", err)
   );
@@ -73,10 +106,6 @@ const updateStatusInvoice: AsyncThunk<
   const found = invoices.invoicesR.find(
     (item: any) => item.id === asyncDto.invoiceId
   );
-
-  console.log("asyncDto", asyncDto);
-  console.log("INVOICE", found);
-
   switch (asyncDto.actionType) {
     case "storno":
       return await InvoicePublicService.stornoSales(
@@ -134,3 +163,111 @@ export {
   sendInvoce,
   updateStatusInvoice,
 };
+
+function createSupplayerData(userCompany: UserCompany): any {
+  console.log("USER COMP", userCompany);
+
+  return {
+    party: {
+      schemeID: "9948",
+      endpointID: userCompany.pib,
+      partyName: [
+        {
+          name: userCompany.companyName,
+        },
+      ],
+    },
+    postalAddress: {
+      cityName: userCompany.city,
+      country: {
+        identificationCode: "RS",
+      },
+    },
+    partyTaxScheme: {
+      companyID: `RS${userCompany.pib}`,
+      taxScheme: {
+        id: "VAT",
+      },
+    },
+    partyLegalEntity: {
+      registrationName: userCompany.companyName,
+      companyID: userCompany.mb,
+    },
+    contact: {
+      electronicMail: "dbogi89@gmail.com", //TODO
+    },
+  };
+}
+function createPaymentMeans(foundComapny: any, ref: any, model: any): any[] {
+  const accounts: any[] = [];
+  foundComapny.payeeFinancialAccountDto.map((item: any) => {
+    let acc = {
+      paymentMeansCode: "30", //TODO
+      paymentID: `(mod${model}) ${ref}`,
+      payeeFinancialAccount: {
+        id: item.payeeFinancialAccountValue, // id tekuceg racuna
+      },
+    };
+    accounts.push(acc);
+  });
+  return accounts;
+}
+function createMonetaryTotal(invoice: any): any {
+  // console.log("CIFRE", invoice);
+
+  return {
+    currencyId: "RSD",
+    lineExtensionAmount: Number(invoice.taxableAmount.toFixed(2)),
+    taxExclusiveAmount: Number(invoice.taxableAmount.toFixed(2)),
+    taxInclusiveAmount: Number(invoice.finalSum.toFixed(2)),
+    allowanceTotalAmount: 0,
+    prepaidAmount: 0,
+    payableAmount: invoice.finalSum.toFixed(2),
+  };
+}
+
+function createTaxTotal(invoiceLine: any): any[] {
+  console.log("ITEM ALLOW", invoiceLine);
+  invoiceLine.map((item: any, index: number) => {
+    console.log("ITEM", item);
+
+    item.allowanceCharge.multiplierFactorNumeric = Number(item.price.discount);
+    item.allowanceCharge.amount =
+      (Number(item.price.unitPrice) / Number(item.price.discount)) *
+      Number(item.invoicedQuantity);
+    item.lineExtensionAmount =
+      item.invoicedQuantity * item.price.newPrice - item.price.unitTaxAmount;
+    item.id = index + 1;
+    item.price.priceAmount =
+      item.price.unitPrice -
+      calculateTax(
+        item.price.unitPrice,
+        item.item.classifiedTaxCategory.percent
+      );
+
+    console.log("ITEM ALLOW", item);
+    console.log("ITEM ALLOW", item.allowanceCharge);
+    return item;
+  });
+
+  return [
+    {
+      currencyId: "RSD",
+      taxAmount: 20,
+      taxSubtotal: [
+        {
+          currencyId: "RSD",
+          taxableAmount: 100,
+          taxAmount: 20,
+          taxCategory: {
+            id: "S",
+            percent: 20,
+            taxScheme: {
+              id: "VAT",
+            },
+          },
+        },
+      ],
+    },
+  ];
+}

@@ -4,7 +4,9 @@
     "close": "Zatvori",
     "download": "Preuzmi",
     "delete": "Obrisi",
-    "none": "Nijedno"
+    "none": "Nijedno",
+    "send": "Pošalji",
+    "newInvoice": "Nova Faktura"
   },
   "Menu": {
     "home": "Pocetna",
@@ -184,5 +186,9 @@
     "label": "Unesite važeći API ključ",
     "saveButtonTitle": "SNIMI",
     "redirectButtonTitle": "E-FAKTURE LINK"
+  },
+  "Validation": {
+    "buyer": "Potrebno je izabrati kupca",
+    "items": "Potrebno je izabrati stavku"
   }
 }

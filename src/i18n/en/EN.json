@@ -4,7 +4,9 @@
     "close": "Close",
     "download": "Download",
     "delete": "Delete",
-    "none": "None"
+    "none": "None",
+    "send": "Send",
+    "newInvoice": "New Invoice"
   },
   "Menu": {
     "home": "Home",
@@ -184,5 +186,9 @@
     "label": "Enter valid API key",
     "saveButtonTitle": "SAVE",
     "redirectButtonTitle": "E-INVOICE LINK"
+  },
+  "Validation": {
+    "buyer": "Invoice need`s to have buyer.",
+    "items": "Invoice need`s to have items."
   }
 }
