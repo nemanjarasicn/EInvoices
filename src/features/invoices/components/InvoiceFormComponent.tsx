@@ -71,6 +71,7 @@ import {
 } from "./form-fields/store/form.reducer";
 import { sendInvoce } from "../store/invoice.actions";
 import { useSchemaValidator } from "../utils/utils.schema";
+import { useNavigate } from "react-router-dom";
 
 export type InvoiceFormComponentProps = {
   invoiceTypeOptions: any;
@@ -86,7 +87,7 @@ export default function InvoiceFormComponent({
   const { t } = useTranslation();
   const { formComponent } = useComponentsStyles();
   const schema = useSchemaValidator();
-
+  let navigate = useNavigate();
   const dispatch = useAppDispatch();
   const companyId = useAppSelector(selectCompany) as number;
 
@@ -118,8 +119,11 @@ export default function InvoiceFormComponent({
 
   const onSubmit = handleSubmit(
     (data: InvoiceFormModel) => {
-      console.log("DATA", data);
-      dispatch(sendInvoce({ invoice: data }));
+      dispatch(sendInvoce({ invoice: data })).then((res) => {
+        if (res.payload === "REDIRECT") {
+          navigate("/invoices/sales");
+        }
+      });
     },
     (err: any) => {
       console.log("Error", err);
@@ -174,6 +178,12 @@ export default function InvoiceFormComponent({
     }
   }, [id]);
 
+  const watchFields = watch("warehouse_uuid");
+  React.useEffect(() => {
+    if (watchFields)
+      dispatch(getProducts({ marketPlace: watchFields as string }));
+  }, [watchFields]);
+
   React.useEffect(() => {
     const subscription: Subscription = watch((value, { name, type }) => {
       switch (name) {
@@ -191,9 +201,6 @@ export default function InvoiceFormComponent({
           );
           break;
         case "warehouse_uuid":
-          dispatch(
-            getProducts({ marketPlace: value.warehouse_uuid as string })
-          );
           setValue("finalSum", 0);
           break;
         default:

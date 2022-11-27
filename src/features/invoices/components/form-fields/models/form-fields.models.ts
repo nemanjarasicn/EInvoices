@@ -23,9 +23,9 @@ export interface AutocompleteItem {
 }
 
 export enum VATPointDate {
-  ISSUING_DATE = 1,
-  DELIVERY_DATE = 2,
-  PAYMENT_DATE = 3,
+  ISSUING_DATE = 3,
+  DELIVERY_DATE = 35,
+  PAYMENT_DATE = 432,
 }
 
 export enum SourceSelectionMode {

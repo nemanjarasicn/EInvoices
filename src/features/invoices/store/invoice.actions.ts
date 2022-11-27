@@ -85,8 +85,8 @@ const sendInvoce: AsyncThunk<any, { invoice: any }, {}> = createAsyncThunk<
   }));
 
   return await InvoicePublicService.sendInvoice(invoiceDto, apiKey).then(
-    (data) => console.log("ACTION DATA", data),
-    (err) => console.log("ACTION ERR", err)
+    (data) => _.fulfillWithValue("REDIRECT"),
+    (err) => _.rejectWithValue("ERR")
   );
 });
 
@@ -227,29 +227,35 @@ function createMonetaryTotal(invoice: any): any {
 }
 
 function createTaxTotal(invoiceLine: any): any[] {
-  console.log("ITEM ALLOW", invoiceLine);
   invoiceLine.map((item: any, index: number) => {
-    console.log("ITEM", item);
-
     item.allowanceCharge.multiplierFactorNumeric = Number(item.price.discount);
-    item.allowanceCharge.amount =
-      (Number(item.price.unitPrice) / Number(item.price.discount)) *
-      Number(item.invoicedQuantity);
     item.lineExtensionAmount =
       item.invoicedQuantity * item.price.newPrice - item.price.unitTaxAmount;
     item.id = index + 1;
-    item.price.priceAmount =
-      item.price.unitPrice -
-      calculateTax(
-        item.price.unitPrice,
-        item.item.classifiedTaxCategory.percent
-      );
-
-    console.log("ITEM ALLOW", item);
-    console.log("ITEM ALLOW", item.allowanceCharge);
+    item.price.priceAmount = Number(
+      (
+        item.price.unitPrice -
+        calculateTax(
+          item.price.unitPrice,
+          item.item.classifiedTaxCategory.percent
+        )
+      ).toFixed(2)
+    );
+    item.allowanceCharge.amount = Number(
+      (
+        (item.price.priceAmount -
+          item.lineExtensionAmount / item.invoicedQuantity) *
+        item.invoicedQuantity
+      ).toFixed(2)
+    );
+    item.price.discount = Number(
+      (item.price.unitPrice - item.price.newPrice) * item.invoicedQuantity
+    ).toFixed(2);
+    item.lineExtensionAmount = Number(item.lineExtensionAmount.toFixed(2));
+    item.price.unitTaxAmount = Number(item.price.unitTaxAmount.toFixed(2));
     return item;
   });
-
+  // TODO ZA MENE
   return [
     {
       currencyId: "RSD",
