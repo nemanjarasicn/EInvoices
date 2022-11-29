@@ -1,7 +1,13 @@
 import { AsyncThunk, createAsyncThunk } from "@reduxjs/toolkit";
 import { UserCompany } from "../../../app/core/core.models";
 import InvoicePublicService from "../services/invoice.service";
-import { calculateTax } from "../utils/utils";
+import {
+  calculateTax,
+  createMonetaryTotal,
+  createPaymentMeans,
+  createSupplayerData,
+  mapInvoiceLinesCreateTaxTotal,
+} from "../utils/utils";
 import { updateInvoiceStatus } from "./invoice.reducer";
 
 const getAllCompanies: AsyncThunk<any, void, {}> = createAsyncThunk(
@@ -75,7 +81,7 @@ const sendInvoce: AsyncThunk<any, { invoice: any }, {}> = createAsyncThunk<
   (invoiceDto.invoice as any)["legalMonetaryTotal"] = createMonetaryTotal(
     invoiceDto.invoice
   );
-  (invoiceDto.invoice as any)["taxTotal"] = createTaxTotal(
+  (invoiceDto.invoice as any)["taxTotal"] = mapInvoiceLinesCreateTaxTotal(
     invoiceDto.invoice.invoiceLine
   );
 
@@ -163,117 +169,3 @@ export {
   sendInvoce,
   updateStatusInvoice,
 };
-
-function createSupplayerData(userCompany: UserCompany): any {
-  console.log("USER COMP", userCompany);
-
-  return {
-    party: {
-      schemeID: "9948",
-      endpointID: userCompany.pib,
-      partyName: [
-        {
-          name: userCompany.companyName,
-        },
-      ],
-    },
-    postalAddress: {
-      cityName: userCompany.city,
-      country: {
-        identificationCode: "RS",
-      },
-    },
-    partyTaxScheme: {
-      companyID: `RS${userCompany.pib}`,
-      taxScheme: {
-        id: "VAT",
-      },
-    },
-    partyLegalEntity: {
-      registrationName: userCompany.companyName,
-      companyID: userCompany.mb,
-    },
-    contact: {
-      electronicMail: "dbogi89@gmail.com", //TODO
-    },
-  };
-}
-function createPaymentMeans(foundComapny: any, ref: any, model: any): any[] {
-  const accounts: any[] = [];
-  foundComapny.payeeFinancialAccountDto.map((item: any) => {
-    let acc = {
-      paymentMeansCode: "30", //TODO
-      paymentID: `(mod${model}) ${ref}`,
-      payeeFinancialAccount: {
-        id: item.payeeFinancialAccountValue, // id tekuceg racuna
-      },
-    };
-    accounts.push(acc);
-  });
-  return accounts;
-}
-function createMonetaryTotal(invoice: any): any {
-  // console.log("CIFRE", invoice);
-
-  return {
-    currencyId: "RSD",
-    lineExtensionAmount: Number(invoice.taxableAmount.toFixed(2)),
-    taxExclusiveAmount: Number(invoice.taxableAmount.toFixed(2)),
-    taxInclusiveAmount: Number(invoice.finalSum.toFixed(2)),
-    allowanceTotalAmount: 0,
-    prepaidAmount: 0,
-    payableAmount: invoice.finalSum.toFixed(2),
-  };
-}
-
-function createTaxTotal(invoiceLine: any): any[] {
-  invoiceLine.map((item: any, index: number) => {
-    item.allowanceCharge.multiplierFactorNumeric = Number(item.price.discount);
-    item.lineExtensionAmount =
-      item.invoicedQuantity * item.price.newPrice - item.price.unitTaxAmount;
-    item.id = index + 1;
-    item.price.priceAmount = Number(
-      (
-        item.price.unitPrice -
-        calculateTax(
-          item.price.unitPrice,
-          item.item.classifiedTaxCategory.percent
-        )
-      ).toFixed(2)
-    );
-    item.allowanceCharge.amount = Number(
-      (
-        (item.price.priceAmount -
-          item.lineExtensionAmount / item.invoicedQuantity) *
-        item.invoicedQuantity
-      ).toFixed(2)
-    );
-    item.price.discount = Number(
-      (item.price.unitPrice - item.price.newPrice) * item.invoicedQuantity
-    ).toFixed(2);
-    item.lineExtensionAmount = Number(item.lineExtensionAmount.toFixed(2));
-    item.price.unitTaxAmount = Number(item.price.unitTaxAmount.toFixed(2));
-    return item;
-  });
-  // TODO ZA MENE
-  return [
-    {
-      currencyId: "RSD",
-      taxAmount: 20,
-      taxSubtotal: [
-        {
-          currencyId: "RSD",
-          taxableAmount: 100,
-          taxAmount: 20,
-          taxCategory: {
-            id: "S",
-            percent: 20,
-            taxScheme: {
-              id: "VAT",
-            },
-          },
-        },
-      ],
-    },
-  ];
-}
