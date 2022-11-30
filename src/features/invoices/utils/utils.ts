@@ -141,7 +141,7 @@ const createPaymentMeans = (foundComapny: any, ref: any, model: any): any[] => {
 const mapInvoiceLinesCreateTaxTotal = (invoiceLine: any[]): any[] => {
   console.log(
     "%c-DA LI SE VIDI OVO-Z-TRAMPIC",
-    "color:blue; border: solid blue 1px;"
+    "color:red; border: solid red 1px;"
   );
   invoiceLine.map((item: any, index: number) => {
     item.allowanceCharge.multiplierFactorNumeric = Number(item.price.discount);
