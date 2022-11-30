@@ -68,6 +68,15 @@ const useFeatureSettings = (): FeatureSettings => {
           btnFn: () => console.log(""),
         },
       },
+      {
+        title: "Dekijeva kartica",
+        icon: CloudSyncIcon,
+        cardBtn: {
+          title: "Stisni me deki",
+          disabled: true,
+          btnFn: () => console.log(""),
+        },
+      },
     ],
     templatePageSettings: {
       [TemplatePageTypes.SALES]: {
