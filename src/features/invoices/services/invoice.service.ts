@@ -38,6 +38,9 @@ class InvoicePublicService {
     if (!params.sendToCir) {
       delete params.sendToCir;
     }
+    if (!params.date) {
+      delete params.date;
+    }
     return commonHttpClient.post<any>("invoices/search", params);
   }
 

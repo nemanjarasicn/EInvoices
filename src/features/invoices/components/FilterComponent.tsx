@@ -26,6 +26,7 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { Subscription } from "react-hook-form/dist/utils/createSubject";
+import dayjs from "dayjs";
 
 export type FilterComponentProps = {
   filterTitle: string;
@@ -41,7 +42,7 @@ export type FilterComponentProps = {
 export interface FillterItem {
   index: number;
   name: string;
-  value: string;
+  value: string | any;
 }
 
 type FilterType = "solo" | "multi" | "date";
@@ -69,7 +70,7 @@ export default function FilterComponent({
 
   const [openDate, setOpenDate] = React.useState<boolean>(false);
 
-  const handleToggle = (value: FillterItem) => () => {
+  const handleToggle = (value: FillterItem) => {
     if (checked) {
       const currentIndex = checked.indexOf(value);
       const newChecked = [...checked];
@@ -88,7 +89,7 @@ export default function FilterComponent({
     if (parentFn) parentFn(paramKey, filterValues);
   }, [checked]);
 
-  const handleClearAll = () => () => setChecked([]);
+  const handleClearAll = () => setChecked([]);
 
   const handleRemoveFilterItem = (item: FillterItem) => () => {
     const newArr: FillterItem[] = checked.filter((element: FillterItem) => {
@@ -97,11 +98,27 @@ export default function FilterComponent({
     setChecked([...newArr]);
   };
 
+  const handleDateFilter = () => {
+    if (openDate) {
+      reset();
+      handleClearAll();
+    }
+    setOpenDate(!openDate);
+  };
+
   React.useEffect(() => {
     const subscription: Subscription = watch((value, { name, type }) => {
-      console.log("NAME", name);
-      console.log("VALUE", value);
-      console.log("TYPE", type);
+      const { from, to } = value;
+      if (from && to) {
+        handleToggle({
+          index: 0,
+          name: props.filterTitle,
+          value: {
+            from: dayjs(from).format("YYYY-MM-DD"),
+            to: dayjs(to).format("YYYY-MM-DD"),
+          },
+        });
+      }
     });
     return () => subscription.unsubscribe();
   }, [watch]);
@@ -149,7 +166,7 @@ export default function FilterComponent({
                         <Button
                           style={filterComponentStyle.buttonStyles}
                           variant="text"
-                          onClick={handleClearAll()}
+                          onClick={() => handleClearAll()}
                         >
                           {`${t(props.transformedTitle)}`}
                         </Button>
@@ -176,7 +193,7 @@ export default function FilterComponent({
                                       >
                                         <ListItemButton
                                           role={undefined}
-                                          onClick={handleToggle(value)}
+                                          onClick={() => handleToggle(value)}
                                           dense
                                         >
                                           <ListItemIcon>
@@ -236,7 +253,7 @@ export default function FilterComponent({
                 <Button
                   style={filterComponentStyle.buttonStyles}
                   variant="text"
-                  onClick={
+                  onClick={() =>
                     checked.length
                       ? handleClearAll()
                       : handleToggle({
@@ -307,7 +324,7 @@ export default function FilterComponent({
                     background: "white",
                   }}
                   variant="text"
-                  onClick={() => setOpenDate(!openDate)}
+                  onClick={() => handleDateFilter()}
                 >
                   {openDate ? (
                     `${t(props.transformedTitle)}`

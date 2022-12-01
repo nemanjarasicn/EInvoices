@@ -146,7 +146,7 @@ const useFeatureSettings = (): FeatureSettings => {
             type: "date",
             soloValue: "auto",
             filterItems: [],
-            paramKey: "sendToCir",
+            paramKey: "date",
           },
         ],
         actions: [
@@ -238,6 +238,15 @@ const useFeatureSettings = (): FeatureSettings => {
               { index: 13, name: "InvoiceStatuses.unknown", value: "Unknown" },
             ],
             paramKey: "invoiceStatus",
+          },
+          {
+            transformedTitle: "FilterComponent.defaultAll",
+            filterTitle: "FilterComponent.allTime",
+            multiOption: true,
+            type: "date",
+            soloValue: "auto",
+            filterItems: [],
+            paramKey: "date",
           },
         ],
         actions: [

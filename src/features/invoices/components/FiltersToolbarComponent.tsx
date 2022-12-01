@@ -63,7 +63,10 @@ export default function FiltersToolbarComponent({
               ? params?.get("typeDocument")
               : "",
             // // subjectId?: string; klijent
-            // date?: { from: string; to: string }; datum
+            date:
+              params.get("date") && params?.get("date")[0]
+                ? { ...params?.get("date")[0] }
+                : "",
           } as InvoiceSearchParams,
         })
       );
