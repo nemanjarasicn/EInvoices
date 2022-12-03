@@ -298,7 +298,7 @@ export default function FilterComponent({
                       marginTop: "-1px",
                     }}
                   >
-                    From:
+                    {t(`Common.from`)}
                     <FormDateField
                       props={{
                         disabled: false,
@@ -307,7 +307,7 @@ export default function FilterComponent({
                         label: "",
                       }}
                     />
-                    To:
+                    {t(`Common.to`)}
                     <FormDateField
                       props={{
                         disabled: false,

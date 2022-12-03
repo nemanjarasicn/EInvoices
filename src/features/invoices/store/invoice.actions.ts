@@ -26,9 +26,12 @@ const sendInvoceXml: AsyncThunk<any, { file: File; id: string | number }, {}> =
   createAsyncThunk<any, { file: File; id: string | number }>(
     "POST/InvocieXML",
     async (asyncDTO, _) => {
+      const { core } = (_ as any).getState();
+      const { apiKey } = core.userCompany;
       return await InvoicePublicService.sendInvoiceXml(
         asyncDTO.file,
-        _.requestId
+        _.requestId,
+        apiKey
       ).then(
         (data) => asyncDTO.id,
         (err) =>

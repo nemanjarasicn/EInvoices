@@ -6,7 +6,12 @@
     "delete": "Obrisi",
     "none": "Nijedno",
     "send": "Pošalji",
-    "newInvoice": "Nova Faktura"
+    "newInvoice": "Nova Faktura",
+    "from": "Od:",
+    "to": "Do:"
+  },
+  "Dialog": {
+    "addComment": "Unesi komentar"
   },
   "Menu": {
     "home": "Pocetna",
@@ -54,7 +59,8 @@
     "overDue": "Istekao",
     "archived": "Arhivirano",
     "deleted": "Obrisano",
-    "unknown": "Nepoznato"
+    "unknown": "Nepoznato",
+    "seen": "Pogledano"
   },
   "TableColumns": {
     "InvoiceNumber": "Broj dokumenta",

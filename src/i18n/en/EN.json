@@ -6,7 +6,12 @@
     "delete": "Delete",
     "none": "None",
     "send": "Send",
-    "newInvoice": "New Invoice"
+    "newInvoice": "New Invoice",
+    "from": "From:",
+    "to": "To:"
+  },
+  "Dialog": {
+    "addComment": "Add comment"
   },
   "Menu": {
     "home": "Home",
@@ -54,7 +59,8 @@
     "overDue": "Over due",
     "archived": "Archived",
     "deleted": "Deleted",
-    "unknown": "Unknown"
+    "unknown": "Unknown",
+    "seen": "Seen"
   },
   "TableColumns": {
     "InvoiceNumber": "Document number",

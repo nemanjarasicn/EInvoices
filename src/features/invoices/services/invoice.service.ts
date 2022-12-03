@@ -97,7 +97,6 @@ class InvoicePublicService {
     return commonHttpClient.get<any>(`invoices/search/${idCompany}`);
   }
 
-  //TODO commonHttpClient api/v1/invoice
   public sendInvoice(data: any, apiKey: string) {
     const config = {
       headers: { apiKey: apiKey },
@@ -130,12 +129,13 @@ class InvoicePublicService {
    * @param requestId
    * @returns
    */
-  public sendInvoiceXml(file: File, requestId: string) {
+  public sendInvoiceXml(file: File, requestId: string, apiKey: string) {
     const formData = new FormData();
     formData.append("file", file);
     const config = {
       headers: {
         "content-type": "multipart/form-data",
+        apiKey: apiKey,
       },
     };
     return publicClient.post<any>(
@@ -148,25 +148,20 @@ class InvoicePublicService {
 export default new InvoicePublicService();
 
 function mapToRequestDTO(invoice: any): any {
-  console.log("INVOICE SERVICE", invoice);
   invoice.issueDate = dayjs(invoice.issueDate).format("YYYY-MM-DD");
   invoice.dueDate = dayjs(invoice.dueDate).format("YYYY-MM-DD");
   invoice["discount"] = invoice.priceWithoutDiscount - invoice.sumWithDiscount;
   invoice["sumWithDiscount"] = invoice.priceWithoutDiscount;
-  invoice["documentTypeId"] = 1;
+  invoice["documentTypeId"] = 1; //uvek je 1 jer si posiljalac
   invoice["invoiceTransactionType"] = "Sale";
   invoice["invoiceType"] = "Normal";
   invoice["inputAndOutputDocuments"] = "Output"; //TODO proveriti kod tipova faktura drugih
   invoice["invoicePeriod"] = [{ descriptionCode: invoice.vatPointDate }];
-
   invoice["orderReference"] = {
     id: invoice.orderNumber,
   };
-
   invoice["delivery"] = {
     actualDeliveryDate: invoice.issueDate,
   };
-
-  console.log("INVOICE POSEL", invoice);
   return invoice;
 }

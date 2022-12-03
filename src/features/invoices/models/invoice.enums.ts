@@ -13,6 +13,7 @@ export enum InvoiceStatus {
   ARCHIVED = "Archived",
   DELETED = "Deleted",
   UNKNOWN = "Unknown",
+  SEEN = "Seen",
 }
 export enum TemplatePageTypes {
   SALES = "sales",

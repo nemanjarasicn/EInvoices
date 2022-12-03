@@ -85,6 +85,8 @@ export default function SelectAllActionsComponent({
         return ["cancel", "approve", "reject"];
       case InvoiceStatus.NEW:
         return ["reject", "approve"];
+      case InvoiceStatus.SEEN:
+        return ["reject", "approve"];
       default:
         return [];
     }

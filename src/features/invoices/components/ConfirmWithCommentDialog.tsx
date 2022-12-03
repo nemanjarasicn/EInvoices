@@ -11,6 +11,7 @@ import { IProps } from "../models";
 import FormTextAreaField from "./form-fields/FormTextAreaField";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { useTranslation } from "react-i18next";
 
 type ConfirmWithCommentDialogProps = {
   id: string;
@@ -28,6 +29,7 @@ const schema = yup
 export default function ConfirmWithCommentDialog({
   props,
 }: IProps<ConfirmWithCommentDialogProps>) {
+  const { t } = useTranslation();
   const methods = useForm({
     defaultValues: { controlArea: "" },
     resolver: yupResolver(schema),
@@ -52,22 +54,22 @@ export default function ConfirmWithCommentDialog({
       open={open}
       {...other}
     >
-      <DialogTitle>Add Comment</DialogTitle>
+      <DialogTitle>{t("Dialog.addComment")}</DialogTitle>
       <DialogContent dividers>
         <FormTextAreaField
           props={{
             name: "controlArea",
             control: control,
             disabled: false,
-            label: "Text area",
+            label: "",
           }}
         />
       </DialogContent>
       <DialogActions>
         <Button autoFocus onClick={handleCancel}>
-          Cancel
+          {t("Common.close")}
         </Button>
-        <Button onClick={handleOk}>Ok</Button>
+        <Button onClick={handleOk}> {t("Common.send")}</Button>
       </DialogActions>
     </Dialog>
   );
