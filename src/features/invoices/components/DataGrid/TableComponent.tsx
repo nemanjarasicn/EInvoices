@@ -29,7 +29,6 @@ export default function TableComponent({
 
   const tableData: TableData<any>[] = useAppSelector(selectInvoices);
 
-
   const selection: GridSelectionModel = useAppSelector(selectSelection);
 
   return (
