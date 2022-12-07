@@ -63,7 +63,10 @@ export default function FiltersToolbarComponent({
               ? params?.get("typeDocument")
               : "",
             // // subjectId?: string; klijent
-            // date?: { from: string; to: string }; datum
+            date:
+              params.get("date") && params?.get("date")[0]
+                ? { ...params?.get("date")[0] }
+                : "",
           } as InvoiceSearchParams,
         })
       );
@@ -73,7 +76,9 @@ export default function FiltersToolbarComponent({
     <div style={filersToolbarStyles.wrapper}>
       {props.actions.length > 0 && (
         <div style={filersToolbarStyles.selectAllActions}>
-          <SelectAllActionsComponent props={{ actions: props.actions }} />
+          <SelectAllActionsComponent
+            props={{ actions: props.actions, pageType: props.type }}
+          />
         </div>
       )}
       {props.filters.length > 0 && (

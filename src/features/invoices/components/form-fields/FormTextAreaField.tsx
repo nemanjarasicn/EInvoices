@@ -18,7 +18,7 @@ export default function FormTextAreaField({
       render={({ field: { onChange, value }, fieldState: { error } }) => (
         <TextField
           fullWidth
-          placeholder="MultiLine with rows: 2 and rowsMax: 4"
+          placeholder=""
           multiline
           error={!!error}
           minRows={5}

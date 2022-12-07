@@ -1,46 +1,68 @@
-# Getting Started with Create React App
+## Backoffice
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), using the [Redux](https://redux.js.org/) and [Redux Toolkit](https://redux-toolkit.js.org/) TS template.
+# For .env setup
 
-## Available Scripts
+Use .env for production (e.g. when running build) and .env.local for local development (e.g. when running locally)
 
-In the project directory, you can run:
+## REACT_APP_PUBLIC_API_URL = "Add URL to GOV.e-fakture API"
 
-### `npm start`
+## GENERATE_SOURCEMAP = "false"
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## REACT_APP_GATEWAY = "Add Gateway URL"
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+Install packages localy
 
-### `npm test`
+## npm install
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Run application
 
-### `npm run build`
+## npm start
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Build for development
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## npm run build
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+# Opinionated deployment
 
-### `npm run eject`
+For main and develop branch, when code is pushed, there is Github Workflow that will do npm build and upload of build directory ( artifact ) to S3. Depending on branch, artifact will be upladed either to Developer AWS account of Master software or Production one.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+> main branch -> deploys static files to production hosting S3 bucket -> prod.mastersoftware.rs
+> </br>develop branch -> deploys static files to developer hosting S3 bucket -> dev.mastersoftware.rs
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+In workflow file, Node version Developer S3 bucket, Cloudfront distribution are hardcoded env variables, this can be adapted in future.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+<<<<<<< HEAD
+> main branch -> deploys static files to production hosting S3 bucket -> prod.mastersoftware.rs
+> develop branch -> deploys static files to developer hosting S3 bucket -> dev.mastersoftware.rs
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+=======
+>>>>>>> develop
+## Developer Account
 
-## Learn More
+```yaml
+env:
+  NODE_VERSION: "18.12.1"
+  S3_BUCKET: "frontend-mastersoftware-dev"
+  CDN_DISTRIBUTION_ID: "EU7V6NTH96AM0"
+  AWS_DEFAULT_REGION: eu-central-1
+  ROLE_TO_ASSUME: "arn:aws:iam::067493719983:role/github-action-s3-deployment-role"
+  REACT_APP_PUBLIC_API_URL: https://demoefaktura.mfin.gov.rs
+  REACT_APP_GATEWAY: https://api-gateway.mastersoftware.trampic.info
+  GENERATE_SOURCEMAP: false
+  DISABLE_ESLINT_PLUGIN: true
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Production Account
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+```yaml
+env:
+  NODE_VERSION: "18.12.1"
+  S3_BUCKET: "frontend-mastersoftware-prod"
+  CDN_DISTRIBUTION_ID: "E1S26P78GCDDHQ"
+  AWS_DEFAULT_REGION: eu-central-1
+  ROLE_TO_ASSUME: "arn:aws:iam::610055566994:role/github-action-s3-deployment-role"
+  REACT_APP_PUBLIC_API_URL: https://demoefaktura.mfin.gov.rs
+  REACT_APP_GATEWAY: https://api-gateway.mastersoftware.trampic.info
+  GENERATE_SOURCEMAP: false
+  DISABLE_ESLINT_PLUGIN: true
+```

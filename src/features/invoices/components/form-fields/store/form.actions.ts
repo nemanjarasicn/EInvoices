@@ -27,6 +27,22 @@ const getClientCompanies: AsyncThunk<any, { companyId: number | string }, {}> =
   );
 
 /**
+ * Get Async Doc Number
+ */
+const getCurrentDocumentNumber: AsyncThunk<
+  any,
+  { companyId: number | string },
+  {}
+> = createAsyncThunk<any, { companyId: number | string }>(
+  "GET/DocumentNumber",
+  async (params) => {
+    return await InvoicePublicService.getCurrentDocNumber(params.companyId)
+      .then((res) => res.data)
+      .catch((err) => console.log("Error", err));
+  }
+);
+
+/**
  * Get Async Products
  */
 const getProducts: AsyncThunk<any, { marketPlace: string }, {}> =
@@ -40,7 +56,7 @@ const getProducts: AsyncThunk<any, { marketPlace: string }, {}> =
   );
 
 /**
- * Get Async Products
+ * Get Async Market Places
  */
 const getMarketPlaces: AsyncThunk<any, { companyId: number | string }, {}> =
   createAsyncThunk<any, { companyId: number | string }>(
@@ -52,4 +68,23 @@ const getMarketPlaces: AsyncThunk<any, { companyId: number | string }, {}> =
     }
   );
 
-export { getAllUnitMesures, getClientCompanies, getProducts, getMarketPlaces };
+/**
+ * Get Async Document Types
+ */
+const getDocumentTypes: AsyncThunk<any, void, {}> = createAsyncThunk<any, void>(
+  "GET/Document types",
+  async () => {
+    return await InvoicePublicService.getDocumentsTypes()
+      .then((res) => res.data)
+      .catch((err) => []);
+  }
+);
+
+export {
+  getAllUnitMesures,
+  getClientCompanies,
+  getProducts,
+  getMarketPlaces,
+  getCurrentDocumentNumber,
+  getDocumentTypes,
+};

@@ -1,11 +1,15 @@
 /**
- * Check if token is valid
+ * Check if token is valid TODO user comparation and exp
  * @param token
  * @returns {boolean}
  */
 const validateToken = (token: string): boolean => {
-  const decodedJwt = parseJwt(token);
-  return !Boolean(Math.floor(new Date().getTime() / 1000) >= decodedJwt.exp);
+  try {
+    const decodedJwt = parseJwt(token);
+    return !Boolean(Math.floor(new Date().getTime() / 1000) >= decodedJwt.exp);
+  } catch (error) {
+    return false;
+  }
 };
 
 const b64DecodeUnicode = (str: string) =>

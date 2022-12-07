@@ -44,6 +44,14 @@ export const selectMarketPlaces = createSelector(
 );
 
 /**
+ * Select current Invoice id
+ */
+export const selectDocumentTypes = createSelector(
+  dropdownSelectors,
+  (state: DropdownData) => state.documentTypes
+);
+
+/**
  * Select unit mesures for autocomplete component
  */
 export const selectUnitMesures = createSelector(
@@ -83,6 +91,14 @@ export const selectProducts = createSelector(
     }))
 );
 
+/**
+ * Select current Invoice id
+ */
+export const selectCurrentDocNumber = createSelector(
+  formSelectors,
+  (state: FormState) => state.documentNumber
+);
+
 function convertToProductModel(item: any): ProductModel {
   return {
     idVat: item.productVatRequest?.idVat,
@@ -96,7 +112,7 @@ function convertToProductModel(item: any): ProductModel {
     allowanceCharge: {
       currencyId: "RSD",
       chargeIndicator: false,
-      multiplierFactorNumeric: 10,
+      multiplierFactorNumeric: 0,
       amount: 0,
     },
     item: {
@@ -104,9 +120,9 @@ function convertToProductModel(item: any): ProductModel {
       name: item.productName,
       sellersItemIdentification: { id: 1 },
       classifiedTaxCategory: {
-        id: 1,
+        id: item.vat,
         taxScheme: { id: "VAT" },
-        percent: Number(item.vatValue1) * 100,
+        percent: Number(((item.vatValue1 - 1) * 100).toFixed(2)),
       },
     },
     price: {

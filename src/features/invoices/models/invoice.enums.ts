@@ -1,35 +1,20 @@
-// TODO Capital letter uppercase string representation
-export enum SalesInvoiceStatus {
-  NEW,
-  DRAFT,
-  SENT,
-  PAID,
-  MISTAKE,
-  OVER_DUE,
-  ARCHIVED,
-  SSENDING,
-  DELETED,
-  APPROVED,
-  REJECTED,
-  CANCELLED,
-  STORNO,
-  UNKNOWN,
+export enum InvoiceStatus {
+  NEW = "New",
+  DRAFT = "Draft",
+  SENT = "Sent",
+  CANCELLED = "Cancelled",
+  APPROVED = "Approved",
+  REJECTED = "Rejected",
+  STORNO = "Storno",
+  SENDING = "Sending",
+  PAID = "Paid",
+  MISTAKE = "Mistake",
+  OVER_DUE = "OverDue",
+  ARCHIVED = "Archived",
+  DELETED = "Deleted",
+  UNKNOWN = "Unknown",
+  SEEN = "Seen",
 }
-// TODO Capital letter uppercase string representation
-export enum PurchaseInvoiceStatus {
-  NEW,
-  SEEN,
-  REMINDED,
-  RE_NOTIFIED,
-  RECIVED,
-  DELETED,
-  APPROVED,
-  REJECTED,
-  CANCELLED,
-  STORNO,
-  UNKNOWN,
-}
-
 export enum TemplatePageTypes {
   SALES = "sales",
   PURCHASES = "purchases",

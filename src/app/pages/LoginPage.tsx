@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import * as React from "react";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -8,7 +9,7 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { useAppDispatch, useAppSelector } from "../hooks";
 import { login } from "../core/core.actions";
-import { hasError, loginLoading, selectUser } from "../core/core.selectors";
+import { hasError, loginLoading } from "../core/core.selectors";
 import { resetError } from "../core/core.reducer";
 import { Backdrop, CircularProgress } from "@mui/material";
 import { useNavigate } from "react-router-dom";
@@ -36,16 +37,10 @@ export default function LoginPage(): JSX.Element {
   const dispatch = useAppDispatch();
   const error = useAppSelector(hasError);
   const loading = useAppSelector(loginLoading);
-  const user = useAppSelector(selectUser);
-  
 
   React.useEffect(() => {
-    localStorage.removeItem("token");
-  }, []);
-
-  React.useEffect(() => {
-    //if (user) navigate("/");
-  }, [user, dispatch, navigate]);
+    if (Boolean(sessionStorage.getItem("token"))) navigate("/");
+  }, [sessionStorage.getItem("token")]);
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
     event.preventDefault();

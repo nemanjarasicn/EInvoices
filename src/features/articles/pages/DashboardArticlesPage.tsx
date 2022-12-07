@@ -33,24 +33,32 @@ export default function DashboardArticlesPage({}: IProps<DashboardPageProps>): J
   const { cardsSettings } = useFeatureSettings();
   const { dashBoardStyles } = usePageStyles();
   // this is only test for zip file
-  /*const zip = new JSZip();
-  const dispatch = useAppDispatch();
-  const zipData  = useAppSelector(selectZip);
-  //const zip1 = zip.file("document.xml", zipData as unknown as Blob);
 
-  zip.loadAsync(zipData).then(function (content) {
-    saveAs(content.files, "example.xml")
-  });
+  /*const dispatch = useAppDispatch();
+  const zip = new JSZip();
+  const [value, setValue]  = React.useState("");
+  const [zipData1, setZipData]  =   React.useState(useAppSelector(selectZip));
 
-  //console.log(zipData);
+  const DownloadZip = () => {
+    zip.loadAsync(zipData1).then(function (zip) {
+      console.log(zip);
+      Object.keys(zip.files).map((filename) => {
+        zip.files[filename].async("blob").then(function (fileData) {
+        FileSaver.saveAs(fileData, `${filename}`);
+        });
+      });
+    });
+
+  }
 
   React.useEffect(() => {
-    dispatch(getZip())
+    dispatch(getZip()) 
   }, []);*/
 
   return (
     <Box sx={{ flexGrow: 1 }}>
       <Grid container spacing={2} sx={{display: 'flex', flexDirection: 'column'}}>
+        {/*<button onClick = {() => DownloadZip()} >XML</button>*/}
         <div style={dashBoardStyles.cardsWrapper}>
           {cardsSettings.filter((card)  => card.typeOfCard  ===   "company").map((card: CardProps, index: number) => {
             return <CardComponent key={index} props={card} />;
@@ -59,8 +67,5 @@ export default function DashboardArticlesPage({}: IProps<DashboardPageProps>): J
       </Grid>
     </Box>
   );
-}
-function saveAs(content: Blob, arg1: string) {
-  throw new Error("Function not implemented.");
 }
 

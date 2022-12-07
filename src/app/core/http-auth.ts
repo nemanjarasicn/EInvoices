@@ -1,5 +1,4 @@
 import axios from "axios";
-// TODO TOKEN AND AUTH
 
 export default axios.create({
   baseURL:

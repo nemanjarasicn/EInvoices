@@ -1,24 +1,32 @@
 import publicClient from "./htpp-public-gov";
 import commonHttpClient from "../../../app/http-common";
-import mockClient from "./json.mock.http";
 import dayjs from "dayjs";
 
 class InvoicePublicService {
-  //TODO commonHttpClient api/v1/search/products/pm/{pmuuid}
-  // https://api-gateway.mastersoftware.trampic.info/api/v1/search/products/pm/6205e800d9ce434a
   public getProducts(marketPlace: string) {
-    return commonHttpClient.get<any>(`search/products/pm/${marketPlace}`);
+    // TODO
+    const config = {
+      headers: { PETCOM: "dejan" },
+    };
+    return commonHttpClient.get<any>(
+      `search/products/pm/${marketPlace}`,
+      config
+    );
   }
 
-  getCustomerSubjects(companyId: number | string) {
+  public getCustomerSubjects(companyId: number | string) {
     return commonHttpClient.get<any>(`subject/${companyId}`);
   }
 
-  getMarketPlaces(companyId: number | string) {
+  public getMarketPlaces(companyId: number | string) {
     return commonHttpClient.get<any>(`marketplace/company/${companyId}`);
   }
 
-  searchInvoices(searchDTO: any) {
+  public getDocumentsTypes() {
+    return commonHttpClient.get<any>(`documents/type`);
+  }
+
+  public searchInvoices(searchDTO: any) {
     let { params } = searchDTO;
 
     if (!params.typeDocument) {
@@ -30,13 +38,71 @@ class InvoicePublicService {
     if (!params.sendToCir) {
       delete params.sendToCir;
     }
+    if (!params.date) {
+      delete params.date;
+    }
     return commonHttpClient.post<any>("invoices/search", params);
   }
 
-  //TODO commonHttpClient api/v1/invoice
-  sendInvoice(data: any) {
+  public stornoSales(data: any, apiKey: string) {
+    const dataToSend = {
+      invoiceId: data.invoiceId,
+      stornoNumber: "",
+      stornoComment: data.comment,
+    };
+    const config = {
+      headers: { apiKey: apiKey },
+    };
+    return commonHttpClient.put<any>(
+      "invoice/sales-storno",
+      { ...dataToSend },
+      config
+    );
+  }
+
+  public cancelSales(data: any, apiKey: string) {
+    const dataToSend = {
+      invoiceId: data.invoiceId,
+      cancelComments: data.comment,
+    };
+    const config = {
+      headers: { apiKey: apiKey },
+    };
+    return commonHttpClient.put<any>(
+      "invoice/sales-cancel",
+      {
+        ...dataToSend,
+      },
+      config
+    );
+  }
+
+  public rejectOrApprovePurchase(data: any, apiKey: string) {
+    const dataToSend = {
+      invoiceId: data.invoiceId,
+      accepted: Boolean(data.actionType === "approve"),
+      comment: data.comment,
+    };
+    const config = {
+      headers: { apiKey: apiKey },
+    };
+    return commonHttpClient.put<any>(
+      "invoice/purchase",
+      { ...dataToSend },
+      config
+    );
+  }
+
+  public getCurrentDocNumber(idCompany: any) {
+    return commonHttpClient.get<any>(`invoices/search/${idCompany}`);
+  }
+
+  public sendInvoice(data: any, apiKey: string) {
+    const config = {
+      headers: { apiKey: apiKey },
+    };
     const dataToSend = mapToRequestDTO(data.invoice);
-    return commonHttpClient.post<any>("invoice", { ...dataToSend });
+    return commonHttpClient.post<any>("invoice", { ...dataToSend }, config);
   }
 
   // Public E-Fakture
@@ -58,17 +124,18 @@ class InvoicePublicService {
   }
 
   /**
-   * UPLOAD MULTIPART FORM DATA //TODO send in CRF
+   * UPLOAD MULTIPART FORM DATA //TODO send in CRF and put in DB file with response data
    * @param file
    * @param requestId
    * @returns
    */
-  public sendInvoiceXml(file: File, requestId: string) {
+  public sendInvoiceXml(file: File, requestId: string, apiKey: string) {
     const formData = new FormData();
     formData.append("file", file);
     const config = {
       headers: {
         "content-type": "multipart/form-data",
+        apiKey: apiKey,
       },
     };
     return publicClient.post<any>(
@@ -81,19 +148,20 @@ class InvoicePublicService {
 export default new InvoicePublicService();
 
 function mapToRequestDTO(invoice: any): any {
-  console.log("INVOICE", invoice);
   invoice.issueDate = dayjs(invoice.issueDate).format("YYYY-MM-DD");
   invoice.dueDate = dayjs(invoice.dueDate).format("YYYY-MM-DD");
   invoice["discount"] = invoice.priceWithoutDiscount - invoice.sumWithDiscount;
-
-  invoice["documentTypeId"] = 1;
+  invoice["sumWithDiscount"] = invoice.priceWithoutDiscount;
+  invoice["documentTypeId"] = 1; //uvek je 1 jer si posiljalac
   invoice["invoiceTransactionType"] = "Sale";
   invoice["invoiceType"] = "Normal";
-  invoice["inputAndOutputDocuments"] = "Input";
-
+  invoice["inputAndOutputDocuments"] = "Output"; //TODO proveriti kod tipova faktura drugih
+  invoice["invoicePeriod"] = [{ descriptionCode: invoice.vatPointDate }];
   invoice["orderReference"] = {
     id: invoice.orderNumber,
   };
-  console.log("INVOICE", invoice);
+  invoice["delivery"] = {
+    actualDeliveryDate: invoice.issueDate,
+  };
   return invoice;
 }

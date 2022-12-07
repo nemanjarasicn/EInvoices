@@ -18,5 +18,5 @@ export const getTotalAmount = (
     );
     if (found) amount = amount + Number(found.finalSum);
   });
-  return amount;
+  return Number(amount.toFixed(2));
 };

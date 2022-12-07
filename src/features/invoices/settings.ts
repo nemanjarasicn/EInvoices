@@ -9,6 +9,10 @@ import { FilterComponentProps } from "./components/FilterComponent";
 import { SelectAllAction } from "./components/SelectAllActionsComponent";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import DownloadIcon from "@mui/icons-material/Download";
+import HistoryIcon from "@mui/icons-material/History";
+import EventBusyIcon from "@mui/icons-material/EventBusy";
+import AssignmentTurnedInIcon from "@mui/icons-material/AssignmentTurnedIn";
+import AssignmentLateIcon from "@mui/icons-material/AssignmentLate";
 import { InvoiceDropzoneProps } from "./components/InvoiceDropzoneComponent";
 import { InvoiceFormComponentProps } from "./components/InvoiceFormComponent";
 import { InvoiceType } from "./models";
@@ -112,26 +116,68 @@ const useFeatureSettings = (): FeatureSettings => {
             filterItems: [
               { index: 0, name: "InvoiceStatuses.draft", value: "Draft" },
               { index: 1, name: "InvoiceStatuses.sent", value: "Sent" },
-              { index: 2, name: "InvoiceStatuses.sending", value: "Sending" },
+              { index: 2, name: "InvoiceStatuses.new", value: "New" },
               {
                 index: 3,
                 name: "InvoiceStatuses.cancelled",
                 value: "Cancelled",
               },
+              { index: 4, name: "InvoiceStatuses.approved", value: "Approved" },
+              { index: 5, name: "InvoiceStatuses.rejected", value: "Rejected" },
+              { index: 6, name: "InvoiceStatuses.storno", value: "Storno" },
+              { index: 7, name: "InvoiceStatuses.sending", value: "Sending" },
+              { index: 8, name: "InvoiceStatuses.paid", value: "Paid" },
+              { index: 9, name: "InvoiceStatuses.mistake", value: "Mistake" },
+              { index: 10, name: "InvoiceStatuses.overDue", value: "OverDue" },
+              {
+                index: 11,
+                name: "InvoiceStatuses.archived",
+                value: "Archived",
+              },
+              { index: 12, name: "InvoiceStatuses.deleted", value: "Deleted" },
+              { index: 13, name: "InvoiceStatuses.unknown", value: "Unknown" },
+              { index: 14, name: "InvoiceStatuses.seen", value: "Seen" },
             ],
             paramKey: "invoiceStatus",
+          },
+          {
+            transformedTitle: "FilterComponent.defaultAll",
+            filterTitle: "FilterComponent.allTime",
+            multiOption: true,
+            type: "date",
+            soloValue: "auto",
+            filterItems: [],
+            paramKey: "date",
           },
         ],
         actions: [
           {
             actionIcon: DeleteForeverIcon,
-            actionName: "Common.delete",
-            actionFn: () => console.log("DELETE"),
+            actionName: "delete",
+            hidden: true,
+            title: "Common.delete",
+            disabled: true,
           },
           {
             actionIcon: DownloadIcon,
-            actionName: "Common.download",
-            actionFn: () => console.log("ACTION FN DOWNLOAD"),
+            actionName: "download",
+            hidden: false,
+            title: "Common.download",
+            disabled: true,
+          },
+          {
+            actionIcon: EventBusyIcon,
+            actionName: "cancel",
+            hidden: false,
+            title: "Otkazi",
+            disabled: false,
+          },
+          {
+            actionIcon: HistoryIcon,
+            actionName: "storno",
+            hidden: false,
+            title: "Storniraj",
+            disabled: false,
           },
         ],
         showTable: true,
@@ -171,26 +217,68 @@ const useFeatureSettings = (): FeatureSettings => {
             filterItems: [
               { index: 0, name: "InvoiceStatuses.draft", value: "Draft" },
               { index: 1, name: "InvoiceStatuses.sent", value: "Sent" },
-              { index: 2, name: "InvoiceStatuses.sending", value: "Sending" },
+              { index: 2, name: "InvoiceStatuses.new", value: "New" },
               {
                 index: 3,
                 name: "InvoiceStatuses.cancelled",
                 value: "Cancelled",
               },
+              { index: 4, name: "InvoiceStatuses.approved", value: "Approved" },
+              { index: 5, name: "InvoiceStatuses.rejected", value: "Rejected" },
+              { index: 6, name: "InvoiceStatuses.storno", value: "Storno" },
+              { index: 7, name: "InvoiceStatuses.sending", value: "Sending" },
+              { index: 8, name: "InvoiceStatuses.paid", value: "Paid" },
+              { index: 9, name: "InvoiceStatuses.mistake", value: "Mistake" },
+              { index: 10, name: "InvoiceStatuses.overDue", value: "OverDue" },
+              {
+                index: 11,
+                name: "InvoiceStatuses.archived",
+                value: "Archived",
+              },
+              { index: 12, name: "InvoiceStatuses.deleted", value: "Deleted" },
+              { index: 13, name: "InvoiceStatuses.unknown", value: "Unknown" },
+              { index: 14, name: "InvoiceStatuses.seen", value: "Seen" },
             ],
             paramKey: "invoiceStatus",
+          },
+          {
+            transformedTitle: "FilterComponent.defaultAll",
+            filterTitle: "FilterComponent.allTime",
+            multiOption: true,
+            type: "date",
+            soloValue: "auto",
+            filterItems: [],
+            paramKey: "date",
           },
         ],
         actions: [
           {
             actionIcon: DeleteForeverIcon,
-            actionName: "Common.delete",
-            actionFn: () => console.log("ACTION FN DELETE"),
+            actionName: "delete",
+            hidden: false,
+            title: "Common.delete",
+            disabled: true,
           },
           {
             actionIcon: DownloadIcon,
-            actionName: "Common.download",
-            actionFn: () => console.log("ACTION FN DOWNLOAD"),
+            actionName: "download",
+            hidden: false,
+            title: "Common.download",
+            disabled: true,
+          },
+          {
+            actionIcon: AssignmentLateIcon,
+            actionName: "reject",
+            hidden: false,
+            title: "Reject",
+            disabled: false,
+          },
+          {
+            actionIcon: AssignmentTurnedInIcon,
+            actionName: "approve",
+            hidden: false,
+            title: "Approve",
+            disabled: false,
           },
         ],
         showTable: true,

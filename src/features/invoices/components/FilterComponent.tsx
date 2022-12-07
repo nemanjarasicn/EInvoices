@@ -13,12 +13,20 @@ import {
   ListItemButton,
   ListItemIcon,
   ListItemText,
+  Box,
+  TextField,
 } from "@mui/material";
 import PopupState, { bindToggle, bindPopper } from "material-ui-popup-state";
 import { useComponentsStyles } from "./components.styles";
 import CancelRoundedIcon from "@mui/icons-material/CancelRounded";
 import { useTranslation } from "react-i18next";
 import { IProps } from "../models/invoice.models";
+import FormDateField from "./form-fields/FormDateField";
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useForm } from "react-hook-form";
+import { Subscription } from "react-hook-form/dist/utils/createSubject";
+import dayjs from "dayjs";
 
 export type FilterComponentProps = {
   filterTitle: string;
@@ -34,21 +42,35 @@ export type FilterComponentProps = {
 export interface FillterItem {
   index: number;
   name: string;
-  value: string;
+  value: string | any;
 }
 
 type FilterType = "solo" | "multi" | "date";
 
+const schema = yup
+  .object({
+    from: yup.string(),
+    to: yup.string(),
+  })
+  .required();
+
 export default function FilterComponent({
   props,
 }: IProps<FilterComponentProps>): JSX.Element {
+  const methods = useForm({
+    defaultValues: { from: "", to: "" },
+    resolver: yupResolver(schema),
+  });
+  const { handleSubmit, reset, control, watch } = methods;
   const { filterComponentStyle } = useComponentsStyles();
   const { t } = useTranslation();
   const { parentFn, paramKey } = props;
 
   const [checked, setChecked] = React.useState<FillterItem[]>([]);
 
-  const handleToggle = (value: FillterItem) => () => {
+  const [openDate, setOpenDate] = React.useState<boolean>(false);
+
+  const handleToggle = (value: FillterItem) => {
     if (checked) {
       const currentIndex = checked.indexOf(value);
       const newChecked = [...checked];
@@ -67,7 +89,7 @@ export default function FilterComponent({
     if (parentFn) parentFn(paramKey, filterValues);
   }, [checked]);
 
-  const handleClearAll = () => () => setChecked([]);
+  const handleClearAll = () => setChecked([]);
 
   const handleRemoveFilterItem = (item: FillterItem) => () => {
     const newArr: FillterItem[] = checked.filter((element: FillterItem) => {
@@ -75,6 +97,31 @@ export default function FilterComponent({
     });
     setChecked([...newArr]);
   };
+
+  const handleDateFilter = () => {
+    if (openDate) {
+      reset();
+      handleClearAll();
+    }
+    setOpenDate(!openDate);
+  };
+
+  React.useEffect(() => {
+    const subscription: Subscription = watch((value, { name, type }) => {
+      const { from, to } = value;
+      if (from && to) {
+        handleToggle({
+          index: 0,
+          name: props.filterTitle,
+          value: {
+            from: dayjs(from).format("YYYY-MM-DD"),
+            to: dayjs(to).format("YYYY-MM-DD"),
+          },
+        });
+      }
+    });
+    return () => subscription.unsubscribe();
+  }, [watch]);
 
   return (
     <>
@@ -119,7 +166,7 @@ export default function FilterComponent({
                         <Button
                           style={filterComponentStyle.buttonStyles}
                           variant="text"
-                          onClick={handleClearAll()}
+                          onClick={() => handleClearAll()}
                         >
                           {`${t(props.transformedTitle)}`}
                         </Button>
@@ -146,7 +193,7 @@ export default function FilterComponent({
                                       >
                                         <ListItemButton
                                           role={undefined}
-                                          onClick={handleToggle(value)}
+                                          onClick={() => handleToggle(value)}
                                           dense
                                         >
                                           <ListItemIcon>
@@ -206,7 +253,7 @@ export default function FilterComponent({
                 <Button
                   style={filterComponentStyle.buttonStyles}
                   variant="text"
-                  onClick={
+                  onClick={() =>
                     checked.length
                       ? handleClearAll()
                       : handleToggle({
@@ -217,6 +264,69 @@ export default function FilterComponent({
                   }
                 >
                   {checked.length > 0 ? (
+                    `${t(props.transformedTitle)}`
+                  ) : (
+                    <span style={filterComponentStyle.iconButtonStyles}>
+                      {/* <CheckBoxOutlineBlankIcon fontSize="small" /> */}
+                      {t(props.filterTitle)}
+                    </span>
+                  )}
+                </Button>
+              </div>
+            );
+          case "date":
+            return (
+              <div
+                style={{
+                  ...filterComponentStyle.wrapper,
+                  border: "thin solid transparent",
+                  background: "transparent",
+                }}
+              >
+                {openDate && (
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "row",
+                      alignContent: "space-around",
+                      height: "36.5px ",
+                      scale: "0.8",
+                      margin: "auto",
+                      width: "max-content",
+                      columnGap: "3%",
+                      alignItems: "baseline",
+                      marginTop: "-1px",
+                    }}
+                  >
+                    {t(`Common.from`)}
+                    <FormDateField
+                      props={{
+                        disabled: false,
+                        name: "from",
+                        control: control,
+                        label: "",
+                      }}
+                    />
+                    {t(`Common.to`)}
+                    <FormDateField
+                      props={{
+                        disabled: false,
+                        name: "to",
+                        control: control,
+                        label: "",
+                      }}
+                    />
+                  </div>
+                )}
+                <Button
+                  style={{
+                    ...filterComponentStyle.buttonStyles,
+                    background: "white",
+                  }}
+                  variant="text"
+                  onClick={() => handleDateFilter()}
+                >
+                  {openDate ? (
                     `${t(props.transformedTitle)}`
                   ) : (
                     <span style={filterComponentStyle.iconButtonStyles}>

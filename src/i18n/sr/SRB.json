@@ -4,7 +4,14 @@
     "close": "Zatvori",
     "download": "Preuzmi",
     "delete": "Obrisi",
-    "none": "Nijedno"
+    "none": "Nijedno",
+    "send": "Pošalji",
+    "newInvoice": "Nova Faktura",
+    "from": "Od:",
+    "to": "Do:"
+  },
+  "Dialog": {
+    "addComment": "Unesi komentar"
   },
   "Menu": {
     "home": "Pocetna",
@@ -31,7 +38,8 @@
     "defaultAll": "Očisti sve",
     "allDocumentTypes": "Svi tipovi dokumenata",
     "registeredInCIR": "Registrovane u CRF-u",
-    "allStatuses": "Svi statusi"
+    "allStatuses": "Svi statusi",
+    "allTime": "Bilo kada"
   },
   "InvoiceTypes": {
     "debitInvoice": "Faktura",
@@ -40,10 +48,21 @@
     "prepayment": "Avansni račun"
   },
   "InvoiceStatuses": {
+    "new": "Novo",
     "draft": "Nacrt",
     "sent": "Poslato",
+    "cancelled": "Otkazano",
+    "approved": "Odobreno",
+    "rejected": "Odbijeno",
+    "storno": "Storno",
     "sending": "Slanje",
-    "cancelled": "Otkazana"
+    "paid": "Placeno",
+    "mistake": "Greska",
+    "overDue": "Istekao",
+    "archived": "Arhivirano",
+    "deleted": "Obrisano",
+    "unknown": "Nepoznato",
+    "seen": "Pogledano"
   },
   "TableColumns": {
     "InvoiceNumber": "Broj dokumenta",
@@ -230,7 +249,11 @@
     "idMarketPlace": "Id prodajnog mesta",
     "uuidMarketPlace":  "Uuid prodajnog mesta",
     "uuid":  "Uuid"
+  },
 
+  "Validation": {
+    "buyer": "Potrebno je izabrati kupca",
+    "items": "Potrebno je izabrati stavku"
   }
 
 }

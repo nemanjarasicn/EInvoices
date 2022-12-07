@@ -282,7 +282,6 @@ export default function InvoiceDropzoneComponent({
           </Container>
         </Grid>
         <Grid item xs={3} style={{ maxHeight: "215px" }}>
-          {/* TODO */}
           {rejectedFiles.length > 0 && (
             <Box sx={dropzoneComponent.errorCard.wrapper}>
               <Paper elevation={8} style={dropzoneComponent.errorCard.card}>

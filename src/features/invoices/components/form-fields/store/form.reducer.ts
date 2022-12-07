@@ -2,6 +2,8 @@ import { ActionReducerMapBuilder, createSlice, Slice } from "@reduxjs/toolkit";
 import {
   getAllUnitMesures,
   getClientCompanies,
+  getCurrentDocumentNumber,
+  getDocumentTypes,
   getMarketPlaces,
   getProducts,
 } from "./form.actions";
@@ -15,12 +17,14 @@ export type AutocompleteData = {
 };
 export type DropdownData = {
   marketPlaces: any[];
+  documentTypes: any[];
 };
 
 export interface FormState {
   loading: boolean;
   autocompleteData: AutocompleteData;
   dropdownData: DropdownData;
+  documentNumber: string | null;
 }
 
 const initialState: FormState = {
@@ -32,7 +36,9 @@ const initialState: FormState = {
   },
   dropdownData: {
     marketPlaces: [],
+    documentTypes: [],
   },
+  documentNumber: null,
 };
 
 const formSlice: Slice<FormState> = createSlice({
@@ -51,6 +57,10 @@ const formSlice: Slice<FormState> = createSlice({
       ...state,
       dropdownData: { ...state.dropdownData, marketPlaces: [] },
     }),
+    clearDocumentTypes: (state) => ({
+      ...state,
+      dropdownData: { ...state.dropdownData, documentTypes: [] },
+    }),
   },
 
   extraReducers: (builder) => {
@@ -58,11 +68,17 @@ const formSlice: Slice<FormState> = createSlice({
     getAsyncClientCompanies(builder);
     getAsyncProducts(builder);
     getAsyncMarketPlaces(builder);
+    getAsyncCurrDocumentNumber(builder);
+    getAsyncDocumentTypes(builder);
   },
 });
 
-export const { clearCompanies, clearProducts, clearMarketPlaces } =
-  formSlice.actions;
+export const {
+  clearCompanies,
+  clearProducts,
+  clearMarketPlaces,
+  clearDocumentTypes,
+} = formSlice.actions;
 export default formSlice.reducer;
 
 /**
@@ -143,6 +159,49 @@ function getAsyncUnitMesures(builder: ActionReducerMapBuilder<FormState>) {
   builder.addCase(getAllUnitMesures.rejected, (state) => ({
     ...state,
     autocompleteData: { ...state.autocompleteData, unitMesures: [] },
+    loading: false,
+  }));
+}
+
+/**
+ * Handle async action getCurrent Doc Number
+ * @param builder ActionReducerMapBuilder
+ */
+function getAsyncCurrDocumentNumber(
+  builder: ActionReducerMapBuilder<FormState>
+) {
+  builder.addCase(getCurrentDocumentNumber.fulfilled, (state, { payload }) => ({
+    ...state,
+    loading: false,
+    documentNumber: `${new Date().getUTCFullYear().toString()}/${payload + 1}`,
+  }));
+  builder.addCase(getCurrentDocumentNumber.pending, (state) => ({
+    ...state,
+    loading: true,
+  }));
+  builder.addCase(getCurrentDocumentNumber.rejected, (state) => ({
+    ...state,
+    loading: false,
+  }));
+}
+
+/**
+ * Handle async document types
+ * @param builder ActionReducerMapBuilder
+ */
+function getAsyncDocumentTypes(builder: ActionReducerMapBuilder<FormState>) {
+  builder.addCase(getDocumentTypes.fulfilled, (state, { payload }) => ({
+    ...state,
+    dropdownData: { ...state.dropdownData, documentTypes: payload },
+    loading: false,
+  }));
+  builder.addCase(getDocumentTypes.pending, (state) => ({
+    ...state,
+    loading: true,
+  }));
+  builder.addCase(getDocumentTypes.rejected, (state) => ({
+    ...state,
+    dropdownData: { ...state.dropdownData, documentTypes: [] },
     loading: false,
   }));
 }

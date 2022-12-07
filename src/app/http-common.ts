@@ -12,12 +12,13 @@ AXIOS.interceptors.request.use(
   (config) => {
     const token: string = JSON.parse(String(sessionStorage.getItem("token")));
     config.headers = {
-      ContentType: "application/json",
+      "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
+      PETCOM: config?.headers?.PETCOM ? config?.headers?.PETCOM : "",
+      apiKey: config?.headers?.apiKey ? config?.headers?.apiKey : "",
     };
     return config;
   },
   (error) => Promise.reject(error)
 );
-
 export default AXIOS;

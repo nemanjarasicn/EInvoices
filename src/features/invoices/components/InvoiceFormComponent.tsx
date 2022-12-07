@@ -13,11 +13,11 @@ import {
   MenuItem,
   Select,
   IconButton,
+  Button,
 } from "@mui/material";
 import { useForm } from "react-hook-form";
 import { InvoiceFormModel, InvoiceType, IProps, ProductModel } from "../models";
 import FormTextField from "./form-fields/FormTextField";
-import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import FormDropdownField from "./form-fields/FormDropdownField";
 import FormTextAreaField from "./form-fields/FormTextAreaField";
@@ -33,7 +33,6 @@ import InvoiceGroupComponent from "./form-group/InvoiceGroupComponent";
 import AttachFileIcon from "@mui/icons-material/AttachFile";
 import RestoreRoundedIcon from "@mui/icons-material/RestoreRounded";
 import TextsmsOutlinedIcon from "@mui/icons-material/TextsmsOutlined";
-import { error } from "console";
 import {
   OptionItem,
   SourceSelectionMode,
@@ -44,11 +43,14 @@ import DebitNoteComponent from "./form-group/DebitNoteComponent";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import {
   getClientCompanies,
+  getCurrentDocumentNumber,
+  getDocumentTypes,
   getMarketPlaces,
   getProducts,
 } from "./form-fields/store/form.actions";
 import {
   selectClientCompanies,
+  selectCurrentDocNumber,
   selectMarketPlaces,
 } from "./form-fields/store/form.selectors";
 import ClientComponent from "./form-group/ClientComponent";
@@ -63,10 +65,13 @@ import { Subscription } from "react-hook-form/dist/utils/createSubject";
 import { selectCompany } from "../../../app/core/core.selectors";
 import {
   clearCompanies,
+  clearDocumentTypes,
   clearMarketPlaces,
   clearProducts,
 } from "./form-fields/store/form.reducer";
 import { sendInvoce } from "../store/invoice.actions";
+import { useSchemaValidator } from "../utils/utils.schema";
+import { useNavigate } from "react-router-dom";
 
 export type InvoiceFormComponentProps = {
   invoiceTypeOptions: any;
@@ -75,45 +80,25 @@ export type InvoiceFormComponentProps = {
   formFieldsLabels: any;
 };
 
-/**
- * Register Form validation schema for every field
- */
-const schema = yup
-  .object({
-    // client: yup
-    //   .object({
-    //     vatRegistrationCode: yup.string().required(),
-    //   })
-    //   .required(),
-    // dropdownValue: yup.string().required(),
-    // textAreaValue: yup.string().required(),
-    // dateValue: yup.string().required(), //validate date format
-    // autocompleteValue: yup.object().required(),
-    // checkbox: yup.bool().required(),
-    // numberValue: yup.number().required(),
-    // invoiceLine: yup.array().of(
-    //   yup.object({
-    //     invoicedQuantity: yup.number().moreThan(0, ""),
-    //   })
-    // ),
-  })
-  .required();
-
 export default function InvoiceFormComponent({
   props,
 }: IProps<InvoiceFormComponentProps>): JSX.Element {
   const defaultValues = new InvoiceFormModel();
   const { t } = useTranslation();
   const { formComponent } = useComponentsStyles();
-
+  const schema = useSchemaValidator();
+  let navigate = useNavigate();
   const dispatch = useAppDispatch();
   const companyId = useAppSelector(selectCompany) as number;
 
   const marketPlaces = useAppSelector(selectMarketPlaces);
+  const id = useAppSelector(selectCurrentDocNumber);
 
   const [invoiceType, setInvoiceType] = React.useState<InvoiceType>(
     InvoiceType.INVOICE
   );
+
+  const [lineError, setLineError] = React.useState<string | null>(null);
 
   const methods = useForm({
     defaultValues: defaultValues,
@@ -129,15 +114,20 @@ export default function InvoiceFormComponent({
     trigger,
     getFieldState,
     watch,
+    setError,
   } = methods;
 
   const onSubmit = handleSubmit(
     (data: InvoiceFormModel) => {
-      console.log("DATA", data);
-      dispatch(sendInvoce({ invoice: data }));
+      dispatch(sendInvoce({ invoice: data })).then((res) => {
+        if (res.payload === "REDIRECT") {
+          navigate("/invoices/sales");
+        }
+      });
     },
     (err: any) => {
       console.log("Error", err);
+      if (err.invoiceLine) setLineError(err.invoiceLine.message);
     }
   );
 
@@ -172,6 +162,8 @@ export default function InvoiceFormComponent({
   React.useEffect(() => {
     dispatch(getMarketPlaces({ companyId: companyId }));
     dispatch(getClientCompanies({ companyId: companyId }));
+    dispatch(getCurrentDocumentNumber({ companyId: companyId }));
+    dispatch(getDocumentTypes());
   }, []);
 
   React.useEffect(() => {
@@ -179,6 +171,18 @@ export default function InvoiceFormComponent({
       setValue("warehouse_uuid", marketPlaces[0].value);
     }
   }, [marketPlaces]);
+
+  React.useEffect(() => {
+    if (id) {
+      setValue("id", id);
+    }
+  }, [id]);
+
+  const watchFields = watch("warehouse_uuid");
+  React.useEffect(() => {
+    if (watchFields)
+      dispatch(getProducts({ marketPlace: watchFields as string }));
+  }, [watchFields]);
 
   React.useEffect(() => {
     const subscription: Subscription = watch((value, { name, type }) => {
@@ -190,15 +194,13 @@ export default function InvoiceFormComponent({
           );
           break;
         case "invoiceLine":
+          if (value.invoiceLine?.length) setLineError(null);
           patchFormFields(
             value.invoiceLine as ProductModel[],
             value.finalSum as number
           );
           break;
         case "warehouse_uuid":
-          dispatch(
-            getProducts({ marketPlace: value.warehouse_uuid as string })
-          );
           setValue("finalSum", 0);
           break;
         default:
@@ -216,6 +218,7 @@ export default function InvoiceFormComponent({
       dispatch(clearProducts({}));
       dispatch(clearCompanies({}));
       dispatch(clearMarketPlaces({}));
+      dispatch(clearDocumentTypes({}));
     },
     []
   );
@@ -231,7 +234,9 @@ export default function InvoiceFormComponent({
           textAlign: "center",
         }}
       >
-        <Typography sx={formComponent.typography}>NOVA FAKTURA</Typography>
+        <Typography sx={formComponent.typography}>
+          {t("Common.newInvoice").toUpperCase()}
+        </Typography>
       </Box>
       <Grid container spacing={2}>
         <Grid item xs={10}>
@@ -362,14 +367,6 @@ export default function InvoiceFormComponent({
                       disabled: false,
                     }}
                   />
-                  {/* <FormTextField
-                    props={{
-                      name: "warehouse_uuid",
-                      control: control,
-                      label: t(props.formFieldsLabels.warehouse_uuid),
-                      disabled: false,
-                    }}
-                  /> */}
                   <FormDropdownField
                     props={{
                       name: "warehouse_uuid",
@@ -451,11 +448,17 @@ export default function InvoiceFormComponent({
             sx={{
               ...formComponent.basicBox,
               textAlign: "start",
+              borderColor: () => (lineError ? "red" : "grey.100"),
             }}
           >
-            <Typography sx={formComponent.typography}>
-              {t(props.sectionTitles.title_2).toUpperCase()}
-            </Typography>
+            <div style={{ display: "flex", justifyContent: "space-between" }}>
+              <Typography sx={formComponent.typography}>
+                {t(props.sectionTitles.title_2).toUpperCase()}
+              </Typography>
+              <Typography color="error" sx={{ textAlign: "center" }}>
+                {lineError ?? ""}
+              </Typography>
+            </div>
             <Paper style={formComponent.groupPaperLowScale}>
               <InvoiceItemsComponent
                 props={{
@@ -688,45 +691,7 @@ export default function InvoiceFormComponent({
             sx={{
               ...formComponent.basicBox,
               textAlign: "start",
-            }}
-          >
-            <Typography sx={formComponent.typography}>
-              {t(props.sectionTitles.title_3).toUpperCase()}
-            </Typography>
-            <Paper style={formComponent.groupPaper}>
-              <Grid container spacing={2}>
-                <Grid item xs={5}>
-                  <FormCurrencyField
-                    props={{
-                      name: "finalSum",
-                      control: control,
-                      label: t(props.formFieldsLabels.finalSum),
-                      additional: { mask: {}, readonly: true },
-                      disabled: false,
-                    }}
-                  />
-                </Grid>
-                <Grid item xs={12} style={{ paddingTop: 0 }}>
-                  <FormTextField
-                    props={{
-                      name: "finalSumLetters",
-                      control: control,
-                      label: t(props.formFieldsLabels.finalSumLetters),
-                      disabled: true,
-                    }}
-                  />
-                </Grid>
-              </Grid>
-            </Paper>
-          </Box>
-        </Grid>
-      </Grid>
-      <Grid container spacing={2}>
-        <Grid item xs={5}>
-          <Box
-            sx={{
-              ...formComponent.basicBox,
-              textAlign: "start",
+              marginBottom: "1rem",
             }}
           >
             <Typography sx={formComponent.typography}>
@@ -777,39 +742,45 @@ export default function InvoiceFormComponent({
               </Grid>
             </Paper>
           </Box>
-        </Grid>
-        <Grid item xs={5}>
           <Box
             sx={{
               ...formComponent.basicBox,
               textAlign: "start",
+              marginBottom: "1rem",
             }}
           >
-            <Paper sx={formComponent.paper}>
-              <CustomButtonFc
-                groupButton={[
-                  {
-                    title: "DELETE",
-                    disabled: false,
-                    btnFn: () => reset(),
-                  },
-                  {
-                    title: "DOWNLOAD",
-                    disabled: false,
-                    btnFn: onSubmit,
-                  },
-                  {
-                    title: "UPDATE",
-                    disabled: false,
-                    btnFn: () => reset(),
-                  },
-                  {
-                    title: "SEND",
-                    disabled: false,
-                    btnFn: onSubmit,
-                  },
-                ]}
-              />
+            <Typography sx={formComponent.typography}>
+              {t(props.sectionTitles.title_3).toUpperCase()}
+            </Typography>
+            <Paper style={formComponent.groupPaper}>
+              <Grid container spacing={2}>
+                <Grid item xs={4}>
+                  <FormCurrencyField
+                    props={{
+                      name: "finalSum",
+                      control: control,
+                      label: t(props.formFieldsLabels.finalSum),
+                      additional: { mask: {}, readonly: true },
+                      disabled: false,
+                    }}
+                  />
+                </Grid>
+                <Grid item xs={4}></Grid>
+                <Grid item xs={4}>
+                  <Button
+                    sx={{
+                      width: "150px",
+                      borderRadius: "30px",
+                      float: "right",
+                    }}
+                    size="large"
+                    variant="outlined"
+                    onClick={onSubmit}
+                  >
+                    {t("Common.send")}
+                  </Button>
+                </Grid>
+              </Grid>
             </Paper>
           </Box>
         </Grid>

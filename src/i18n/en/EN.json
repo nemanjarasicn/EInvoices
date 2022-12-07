@@ -4,7 +4,14 @@
     "close": "Close",
     "download": "Download",
     "delete": "Delete",
-    "none": "None"
+    "none": "None",
+    "send": "Send",
+    "newInvoice": "New Invoice",
+    "from": "From:",
+    "to": "To:"
+  },
+  "Dialog": {
+    "addComment": "Add comment"
   },
   "Menu": {
     "home": "Home",
@@ -31,7 +38,8 @@
     "defaultAll": "Clear all",
     "allDocumentTypes": "All document types",
     "registeredInCIR": "Registered in CIR",
-    "allStatuses": "All Statuses"
+    "allStatuses": "All Statuses",
+    "allTime": "Any Time"
   },
   "InvoiceTypes": {
     "debitInvoice": "Invoice",
@@ -40,10 +48,21 @@
     "prepayment": "Prepayment"
   },
   "InvoiceStatuses": {
+    "new": "New",
     "draft": "Draft",
     "sent": "Sent",
+    "cancelled": "Cancelled",
+    "approved": "Approved",
+    "rejected": "Rejected",
+    "storno": "Storno",
     "sending": "Sending",
-    "cancelled": "Cancelled"
+    "paid": "Paid",
+    "mistake": "Mistake",
+    "overDue": "Over due",
+    "archived": "Archived",
+    "deleted": "Deleted",
+    "unknown": "Unknown",
+    "seen": "Seen"
   },
   "TableColumns": {
     "InvoiceNumber": "Document number",
@@ -229,6 +248,10 @@
     "idMarketPlace": "Id of marketplace",
     "uuidMarketPlace":  "Uuid of marketplace",
     "uuid":  "Uuid"
+  },
 
+  "Validation": {
+    "buyer": "Invoice need`s to have buyer.",
+    "items": "Invoice need`s to have items."
   }
 }

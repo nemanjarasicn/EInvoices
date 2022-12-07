@@ -244,8 +244,8 @@ const useComponentsStyles = (): {
     },
     searchField: {
       searchFieldDiv: {
-        textAlign: "center", 
-        margin: "10px 10px 10px -10px", 
+        textAlign: "center",
+        margin: "10px 10px 10px -10px",
       },
       searchFieldControl: {
         m: 1,
@@ -255,19 +255,19 @@ const useComponentsStyles = (): {
         borderWidth: 0,
       },
       outlinedInput: {
-        borderRadius : "8px"
+        borderRadius: "8px",
       },
       endAdornment: {
-         fontSize: "12px", 
-         color: "#dedede" 
+        fontSize: "12px",
+        color: "#dedede",
       },
       checkboxColor: {
         color: "#dedede",
       },
       iconButtonColor: {
         color: "#787993",
-      }
-    }
+      },
+    },
   };
 };
 

@@ -1,3 +1,4 @@
+import { UserCompany } from "../../../app/core/core.models";
 import { ProductModel } from "../models";
 
 /**
@@ -110,6 +111,152 @@ const handleInvoiceStatus = (status: number | string): string => {
   }
 };
 
+/**
+ * Handle PaymentsMeans when sending invoice
+ * @param foundComapny
+ * @param ref
+ * @param model
+ * @returns
+ */
+const createPaymentMeans = (foundComapny: any, ref: any, model: any): any[] => {
+  const accounts: any[] = [];
+  foundComapny.payeeFinancialAccountDto.map((item: any) => {
+    let acc = {
+      paymentMeansCode: "30", //TODO
+      paymentID: `(mod${model}) ${ref}`,
+      payeeFinancialAccount: {
+        id: item.payeeFinancialAccountValue, // id tekuceg racuna
+      },
+    };
+    accounts.push(acc);
+  });
+  return accounts;
+};
+
+/**
+ * Handle every line on invoice
+ * @param invoiceLine
+ * @returns
+ */
+const mapInvoiceLinesCreateTaxTotal = (invoiceLine: any[]): any[] => {
+  invoiceLine.map((item: any, index: number) => {
+    item.allowanceCharge.multiplierFactorNumeric = Number(item.price.discount);
+    item.lineExtensionAmount =
+      item.invoicedQuantity * item.price.newPrice - item.price.unitTaxAmount;
+    item.id = index + 1;
+    item.price.priceAmount = Number(
+      (
+        item.price.unitPrice -
+        calculateTax(
+          item.price.unitPrice,
+          item.item.classifiedTaxCategory.percent
+        )
+      ).toFixed(2)
+    );
+    item.allowanceCharge.amount = Number(
+      (
+        (item.price.priceAmount -
+          item.lineExtensionAmount / item.invoicedQuantity) *
+        item.invoicedQuantity
+      ).toFixed(2)
+    );
+    item.price.discount = Number(
+      (item.price.unitPrice - item.price.newPrice) * item.invoicedQuantity
+    ).toFixed(2);
+    item.lineExtensionAmount = Number(item.lineExtensionAmount.toFixed(2));
+    item.price.unitTaxAmount = Number(item.price.unitTaxAmount.toFixed(2));
+    return item;
+  });
+  const array: any[] = [];
+  array.push({ currencyId: "RSD", taxAmount: 0, taxSubtotal: [] });
+  invoiceLine.map((line) => {
+    array[0].taxAmount = Number(
+      (array[0].taxAmount + line.price.unitTaxAmount).toFixed(2)
+    );
+    let taxPresent: boolean = array[0].taxSubtotal.some(
+      (item: any) =>
+        item.taxCategory.percent === line.item.classifiedTaxCategory.percent
+    );
+    if (!taxPresent) {
+      array[0].taxSubtotal.push({
+        currencyId: "RSD",
+        taxableAmount: line.lineExtensionAmount,
+        taxAmount: line.price.unitTaxAmount,
+        taxCategory: {
+          id: "S",
+          percent: line.item.classifiedTaxCategory.percent,
+          taxScheme: {
+            id: "VAT",
+          },
+        },
+      });
+    } else {
+      array[0].taxSubtotal.map((total: any) => {
+        if (
+          total.taxCategory.percent === line.item.classifiedTaxCategory.percent
+        ) {
+          total.taxAmount = Number(
+            (total.taxAmount + line.price.unitTaxAmount).toFixed(2)
+          );
+          total.taxableAmount = Number(
+            (total.taxableAmount + line.lineExtensionAmount).toFixed(2)
+          );
+        }
+      });
+    }
+  });
+  return array;
+};
+
+const createSupplayerData = (userCompany: UserCompany): any => {
+  return {
+    party: {
+      schemeID: "9948",
+      endpointID: userCompany.pib,
+      partyName: [
+        {
+          name: userCompany.companyName,
+        },
+      ],
+    },
+    postalAddress: {
+      cityName: userCompany.city,
+      country: {
+        identificationCode: "RS",
+      },
+    },
+    partyTaxScheme: {
+      companyID: `RS${userCompany.pib}`,
+      taxScheme: {
+        id: "VAT",
+      },
+    },
+    partyLegalEntity: {
+      registrationName: userCompany.companyName,
+      companyID: userCompany.mb,
+    },
+    contact: {
+      electronicMail: "dbogi89@gmail.com", //TODO
+    },
+  };
+};
+/**
+ * Handle 2 decimal
+ * @param invoice
+ * @returns
+ */
+const createMonetaryTotal = (invoice: any): any => {
+  return {
+    currencyId: "RSD", //only rsd on system
+    lineExtensionAmount: Number(invoice.taxableAmount.toFixed(2)),
+    taxExclusiveAmount: Number(invoice.taxableAmount.toFixed(2)),
+    taxInclusiveAmount: Number(invoice.finalSum.toFixed(2)),
+    allowanceTotalAmount: 0, //TODO other types of invoice
+    prepaidAmount: 0, // TODO for prepayment
+    payableAmount: invoice.finalSum.toFixed(2),
+  };
+};
+
 export {
   handleInvoiceStatus,
   generateKey,
@@ -120,4 +267,8 @@ export {
   totalWithDiscount,
   sumTax,
   calculateBase,
+  createPaymentMeans,
+  mapInvoiceLinesCreateTaxTotal,
+  createSupplayerData,
+  createMonetaryTotal,
 };
