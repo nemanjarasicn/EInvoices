@@ -19,7 +19,13 @@ export enum ArticlesStatus {
   export enum TemplatePageRegistriesTypes {
     OBJECTS =  "objects",
     MARKETPLACE = "marketPlace",
-    POINTOFSALE = "pointOfSale"
+    POINTOFSALE = "pointOfSale",
+    COMPANIES = "companies",
+    WAREHOUSES =  "warehouses",
+    UNITS =  "units",
+    VAT  =  "vat",
+    USERS =  "users",
+    GROUPS  = "groups"
     // VAT = "vat",
     // CIR = "cir",
     // SEARCH = "search",
@@ -29,7 +35,13 @@ export enum ArticlesStatus {
   export enum HeaderSettingsTypes {
     OBJECTS =  "objects",
     MARKETPLACE = "marketPlace",
-    POINTOFSALE = "pointOfSale"
+    POINTOFSALE = "pointOfSale",
+    COMPANIES = "companies",
+    WAREHOUSES =  "warehouses",
+    UNITS =  "units",
+    VAT  =  "vat",
+    USERS =  "users",
+    GROUPS  = "groups"
     // VAT = "vat",
     // CIR = "cir",
     // SEARCH = "search",
@@ -44,7 +56,14 @@ export enum ArticlesStatus {
   export enum CreateType {
     FORMOBJECT = "formObject",
     FORMMARKETPLACE = "formMarketPlace",
-    FORMPOINTOFSALE = "formPos"
+    FORMPOINTOFSALE = "formPos",
+    FORMCOMPANY = "formCompany",
+    FORMWAREHOUSE  =  "formWarehouse",
+    FORMUNIT   =  "formUnit",
+    FORMGROUP  =    "formGroup",
+    FORMVAT  =   "formVat"
+
+
   }
   
   export enum SchemeID {

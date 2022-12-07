@@ -2,7 +2,7 @@ import React from "react";
 import { Autocomplete, TextField } from "@mui/material";
 import { Controller } from "react-hook-form";
 import { useAppSelector } from "../../../../app/hooks";
-import { IProps } from "../../models";
+import { IProps } from "../../../registries/models/registries.models";
 import { AutocompleteItem, FormFieldProps } from "./models/form-fields.models";
 
 type FormAutocompleteFieldProps = FormFieldProps & {
@@ -21,7 +21,7 @@ export default function FormAutocompleteField({
   props,
 }: IProps<FormAutocompleteFieldProps>) {
   const data: AutocompleteItem[] = useAppSelector(props.additional.selector);
-
+  console.log(props.control);
   return (
     <Controller
       name={props.name}

@@ -224,6 +224,7 @@
           borderRadius: 2,
           fontSize: "0.875rem",
           fontWeight: "700",
+          mb: 1,
         },
         typography: { fontWeight: 600, p: 0.5, fontSize: "0.9rem" },
         paper: {

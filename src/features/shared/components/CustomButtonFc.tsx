@@ -78,6 +78,17 @@ interface ButtonFcProps {
   soloButton?: ButtonProps;
 }
 
+export interface SelectButtonProps {
+  name: string;
+  label: string;
+  selector:  any;
+}
+// TODO MAX Factory
+interface ButtonFcProps {
+  groupButton?: ButtonProps[];
+  soloButton?: ButtonProps;
+}
+
 export default function CustomButtonFc({
   soloButton,
   groupButton,

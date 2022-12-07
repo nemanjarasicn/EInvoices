@@ -2,13 +2,18 @@ import { GridValueGetterParams } from "@mui/x-data-grid";
 import { HeaderSettingsTypes } from "../../models/registries.enums";
 import {
   sendObjects,
-  getObjects
+  getObjects,
+  getMarketPlaces,
+  getPointOfSales,
+  getCompanies,
+  getUnits,
+  getVat,
+  getGroups
 } from "../../store/registries.actions";
 import { TableComponentProps } from "./TableComponent";
-
-const dateFormater = new Intl.DateTimeFormat("en-US", {
-  localeMatcher: "best fit",
-});
+import { useAppDispatch, useAppSelector } from "../../../../app/hooks";
+import { selectCompany } from "../../../../app/core/core.selectors";
+import { selectObjects, selectIds, selectMarketPlaces, selectPointOfSales, selectCompanies, selectWarehouses, selectUnits, selectVat, selectGroups} from "../../store/registries.selectors";
 
 type TableSettings = {
   tableSettings: {
@@ -22,9 +27,514 @@ type TableSettings = {
  * @returns {TableSettings}
  */
 const useTableSettings = (): TableSettings => {
+
+  const company = useAppSelector(selectCompany) ?? "";
+
   return {
     tableSettings: {
       [HeaderSettingsTypes.OBJECTS]: {
+        dataGrid: {
+          columnsDef: [
+            {
+              field: "name",
+              headerName: "Objects.name",
+              flex: 1,
+              headerAlign: "center",
+              align: "center",
+              hideable: false,
+            },
+            {
+              field: "idObject",
+              headerName: "Objects.idObject",
+              flex: 1,
+              headerAlign: "center",
+              align: "center",
+              hideable: false,
+            },
+            {
+              field: "uuid",
+              headerName: "Objects.uuid",
+              flex: 1,
+              headerAlign: "center",
+              align: "center",
+              hideable: false,
+            },
+            {
+              field: "latitude",
+              headerName: "Objects.latitude",
+              flex: 1,
+              headerAlign: "center",
+              align: "center",
+              hideable: false,
+            },
+            {
+              field: "longitude",
+              headerName: "Objects.longitude",
+              flex: 1,
+              headerAlign: "center",
+              align: "center",
+              hideable: true,
+              hide: false,
+            },
+           
+          ],
+          toolbarProps: {
+            showFilters: false,
+            showDensity: false,
+            showHideColumns: true,
+            showExport: false,
+          },
+          getDataAction: getObjects({companyId: company}),
+          selectType:  "OBJECTS",
+          selector:  selectObjects,
+          parentColumn: "idObject",
+          footerProps: {
+            countTxt: "Table.FooterCountTxt",
+            totalAmountTxt: "Table.FooterTotalAmountTxt",
+          },
+        },
+      },
+      [HeaderSettingsTypes.MARKETPLACE]: {
+        dataGrid: {
+          columnsDef: [
+            {
+              field: "objectUuid",
+              headerName: "MarketPlace.uuidObject",
+              flex: 1,
+              headerAlign: "center",
+              align: "center",
+              hideable: false,
+            },
+            {
+              field: "marketPlaceName",
+              headerName: "MarketPlace.name",
+              flex: 1,
+              headerAlign: "center",
+              align: "center",
+              hideable: false,
+            },
+            {
+              field: "id",
+              headerName: "MarketPlace.idMarketPlace",
+              flex: 1,
+              headerAlign: "center",
+              align: "center",
+              hideable: false,
+            },
+            {
+              field: "idObject",
+              headerName: "MarketPlace.idObject",
+              flex: 1,
+              headerAlign: "center",
+              align: "center",
+              hideable: true,
+            },
+            
+            {
+              field: "idCompany",
+              headerName: "MarketPlace.idCompany",
+              flex: 1,
+              headerAlign: "center",
+              align: "center",
+              hideable: true,
+            },
+            
+            {
+              field: "uuid",
+              headerName: "MarketPlace.uuidMarketPlace",
+              flex: 1,
+              headerAlign: "center",
+              align: "center",
+              hideable: true,
+              hide: false,
+            },
+           
+          ],
+          toolbarProps: {
+            showFilters: false,
+            showDensity: false,
+            showHideColumns: true,
+            showExport: false,
+          },
+          getDataAction: getMarketPlaces({companyId: company}),
+          selectType:  "MARKETPLACES",
+          selector:  selectMarketPlaces,
+          parentColumn: "id",
+          footerProps: {
+            countTxt: "Table.FooterCountTxt",
+            totalAmountTxt: "Table.FooterTotalAmountTxt",
+          },
+        },
+      },
+      [HeaderSettingsTypes.POINTOFSALE]: {
+        dataGrid: {
+          columnsDef: [
+            {
+              field: "id",
+              headerName: "PointOfSale.idPointOfSale",
+              flex: 1,
+              headerAlign: "center",
+              align: "center",
+              hideable: false,
+            },
+            {
+              field: "namePointOfSale",
+              headerName: "PointOfSale.name",
+              flex: 1,
+              headerAlign: "center",
+              align: "center",
+              hideable: false,
+            },
+
+            {
+              field: "uuid",
+              headerName: "Uuid",
+              flex: 1,
+              headerAlign: "center",
+              align: "center",
+              hideable: false,
+            },
+            {
+              field: "idCompany",
+              headerName: "PointOfSale.idCompany",
+              flex: 1,
+              headerAlign: "center",
+              align: "center",
+              hideable: false,
+            },
+            
+            {
+              field: "companyName",
+              headerName: "PointOfSale.nameOfCompany",
+              flex: 1,
+              headerAlign: "center",
+              align: "center",
+              hideable: false,
+            },
+
+            {
+              field: "marketPlaceUuid",
+              headerName: "Uuid prodajnog mesta",
+              flex: 1,
+              headerAlign: "center",
+              align: "center",
+              hideable: false,
+            },
+        
+          ],
+          toolbarProps: {
+            showFilters: false,
+            showDensity: false,
+            showHideColumns: true,
+            showExport: false,
+          },
+          getDataAction: getPointOfSales({companyId: company}),
+          selectType:  "POINTOFSALES",
+          selector:   selectPointOfSales,
+          parentColumn: "id",
+          footerProps: {
+            countTxt: "Table.FooterCountTxt",
+            totalAmountTxt: "Table.FooterTotalAmountTxt",
+          },
+        },
+      },
+      [HeaderSettingsTypes.COMPANIES]: {
+        dataGrid: {
+          columnsDef: [
+            {
+              field: "idCompany",
+              headerName: "Companies.idCompany",
+              flex: 1,
+              headerAlign: "center",
+              align: "center",
+              hideable: false,
+            },
+            {
+              field: "companyName",
+              headerName: "Companies.nameOfCompany",
+              flex: 1,
+              headerAlign: "center",
+              align: "center",
+              hideable: true,
+            },
+            {
+              field: "pib",
+              headerName: "Companies.pib",
+              flex: 1,
+              headerAlign: "center",
+              align: "center",
+              hideable: false,
+            },
+            {
+              field: "date",
+              headerName: "Companies.date",
+              flex: 1,
+              headerAlign: "center",
+              align: "center",
+              hideable: false,
+            },
+            {
+              field: "mb",
+              headerName: "Companies.mb",
+              flex: 1,
+              headerAlign: "center",
+              align: "center",
+              hideable: true,
+              hide: false,
+            },
+            {
+              field: "address",
+              headerName: "Companies.adress",
+              flex: 1,
+              headerAlign: "center",
+              align: "center",
+              hideable: false,
+            },
+            {
+              field: "zip",
+              headerName: "Companies.zip",
+              flex: 1,
+              headerAlign: "center",
+              align: "center",
+              hideable: false,
+            },
+            {
+              field: "country",
+              headerName: "Companies.country",
+              flex: 1,
+              headerAlign: "center",
+              align: "center",
+              hideable: false,
+            },
+            {
+              field: "city",
+              headerName: "Companies.city",
+              flex: 1,
+              headerAlign: "center",
+              align: "center",
+              hideable: false,
+            },
+           
+          ],
+          toolbarProps: {
+            showFilters: false,
+            showDensity: false,
+            showHideColumns: true,
+            showExport: false,
+          },
+           getDataAction: getCompanies(),
+          selectType:  "COMPANIES",
+          selector:  selectCompanies,
+          parentColumn: "idCompany",
+          footerProps: {
+            countTxt: "Table.FooterCountTxt",
+            totalAmountTxt: "Table.FooterTotalAmountTxt",
+          },
+        },
+      },
+      [HeaderSettingsTypes.WAREHOUSES]: {
+        dataGrid: {
+          columnsDef: [
+            {
+              field: "id",
+              headerName: "Warehouses.idWarehouse",
+              flex: 1,
+              headerAlign: "center",
+              align: "center",
+              hideable: false,
+            },
+            {
+              field: "warehouseName",
+              headerName: "Warehouses.name",
+              flex: 1,
+              headerAlign: "center",
+              align: "center",
+              hideable: false,
+            },
+            {
+              field: "idMarketPlace",
+              headerName: "Warehouses.idMarketPlace",
+              flex: 1,
+              headerAlign: "center",
+              align: "center",
+              hideable: false,
+            },
+            {
+              field: "marketPlaceUuid",
+              headerName: "Warehouses.uuidMarketPlace",
+              flex: 1,
+              headerAlign: "center",
+              align: "center",
+              hideable: false,
+            },
+            {
+              field: "uuid",
+              headerName: "Warehouses.uuid",
+              flex: 1,
+              headerAlign: "center",
+              align: "center",
+              hideable: true,
+              hide: false,
+            },
+           
+          ],
+          toolbarProps: {
+            showFilters: false,
+            showDensity: false,
+            showHideColumns: true,
+            showExport: false,
+          },
+           getDataAction: getObjects({companyId: company}),
+          selectType:  "WAREHOUSES",
+          selector: selectWarehouses,
+          parentColumn: "id",
+          footerProps: {
+            countTxt: "Table.FooterCountTxt",
+            totalAmountTxt: "Table.FooterTotalAmountTxt",
+          },
+        },
+      },
+      [HeaderSettingsTypes.UNITS]: {
+        dataGrid: {
+          columnsDef: [
+            {
+              field: "id",
+              headerName: "Id unit",
+              flex: 1,
+              headerAlign: "center",
+              align: "center",
+              hideable: false,
+            },
+            {
+              field: "productUnitName",
+              headerName: "Ime unit",
+              flex: 1,
+              headerAlign: "center",
+              align: "center",
+              hideable: true,
+            },
+            {
+              field: "productUnitCode",
+              headerName: "Unit code",
+              flex: 1,
+              headerAlign: "center",
+              align: "center",
+              hideable: false,
+            },
+            {
+              field: "productUnitPlural",
+              headerName: "Unit plural",
+              flex: 1,
+              headerAlign: "center",
+              align: "center",
+              hideable: false,
+            },
+            {
+              field: "productUnitDecimalShow",
+              headerName: "Unit decimal show",
+              flex: 1,
+              headerAlign: "center",
+              align: "center",
+              hideable: true,
+              hide: false,
+            },
+            {
+              field: "productUnitPriority",
+              headerName: "Unit priority",
+              flex: 1,
+              headerAlign: "center",
+              align: "center",
+              hideable: false,
+            },
+            {
+              field: "deafult",
+              headerName: "Default",
+              flex: 1,
+              headerAlign: "center",
+              align: "center",
+              hideable: false,
+            },
+           
+          ],
+          toolbarProps: {
+            showFilters: false,
+            showDensity: false,
+            showHideColumns: true,
+            showExport: false,
+          },
+          getDataAction: getUnits(),
+          selectType:  "UNITS",
+          selector:  selectUnits,
+          parentColumn: "id",
+          footerProps: {
+            countTxt: "Table.FooterCountTxt",
+            totalAmountTxt: "Table.FooterTotalAmountTxt",
+          },
+        },
+      },
+      [HeaderSettingsTypes.VAT]: {
+        dataGrid: {
+          columnsDef: [
+            {
+              field: "name",
+              headerName: "Ime vat",
+              flex: 1,
+              headerAlign: "center",
+              align: "center",
+              hideable: false,
+            },
+            {
+              field: "value1",
+              headerName: "Value1",
+              flex: 1,
+              headerAlign: "center",
+              align: "center",
+              hideable: false,
+            },
+            {
+              field: "value2",
+              headerName: "Value2",
+              flex: 1,
+              headerAlign: "center",
+              align: "center",
+              hideable: false,
+            },
+            {
+              field: "value3",
+              headerName: "Value3",
+              flex: 1,
+              headerAlign: "center",
+              align: "center",
+              hideable: false,
+            },
+            {
+              field: "code",
+              headerName: "Code",
+              flex: 1,
+              headerAlign: "center",
+              align: "center",
+              hideable: true,
+              hide: false,
+            },
+           
+          ],
+          toolbarProps: {
+            showFilters: false,
+            showDensity: false,
+            showHideColumns: true,
+            showExport: false,
+          },
+          getDataAction: getVat(),
+          selectType:  "VAT",
+          selector:  selectVat,
+          parentColumn: "name",
+          footerProps: {
+            countTxt: "Table.FooterCountTxt",
+            totalAmountTxt: "Table.FooterTotalAmountTxt",
+          },
+        },
+      },
+      [HeaderSettingsTypes.USERS]: {
         dataGrid: {
           columnsDef: [
             {
@@ -41,7 +551,7 @@ const useTableSettings = (): TableSettings => {
               flex: 1,
               headerAlign: "center",
               align: "center",
-              hideable: true,
+              hideable: false,
             },
             {
               field: "uuid",
@@ -52,7 +562,7 @@ const useTableSettings = (): TableSettings => {
               hideable: false,
             },
             {
-              field: "Latitude",
+              field: "latitude",
               headerName: "Geografska Sirina",
               flex: 1,
               headerAlign: "center",
@@ -60,7 +570,7 @@ const useTableSettings = (): TableSettings => {
               hideable: false,
             },
             {
-              field: "Longitude",
+              field: "longitude",
               headerName: "Geografska duzina",
               flex: 1,
               headerAlign: "center",
@@ -76,64 +586,40 @@ const useTableSettings = (): TableSettings => {
             showHideColumns: true,
             showExport: false,
           },
-          //getDataAction: getObjects(),
+          getDataAction: getObjects({companyId: company}),
+          selectType:  "OBJECTS",
+          selector:  selectObjects,
+          parentColumn: "idObject",
           footerProps: {
             countTxt: "Table.FooterCountTxt",
             totalAmountTxt: "Table.FooterTotalAmountTxt",
           },
         },
       },
-      [HeaderSettingsTypes.MARKETPLACE]: {
+      [HeaderSettingsTypes.GROUPS]: {
         dataGrid: {
           columnsDef: [
             {
-              field: "objectUuid",
-              headerName: "Uuid objekta",
+              field: "groupName",
+              headerName: "Naziv grupe",
               flex: 1,
               headerAlign: "center",
               align: "center",
               hideable: false,
             },
             {
-              field: "Name",
-              headerName: "Ime prodajnog mesta",
+              field: "idPointOfSale",
+              headerName: "Id kase",
               flex: 1,
               headerAlign: "center",
               align: "center",
               hideable: false,
             },
+      
             {
-              field: "marketPlaceId",
-              headerName: "Id prodajnog mesta",
+              field: "parentGroupId",
+              headerName: "parentGroupId",
               flex: 1,
-              headerAlign: "center",
-              align: "center",
-              hideable: false,
-            },
-            {
-              field: "IdObject",
-              headerName: "Id objekta",
-              flex: 1,
-              headerAlign: "center",
-              align: "center",
-              hideable: false,
-            },
-            
-            {
-              field: "IdCompany",
-              headerName: "Id kompanije",
-              flex: 1,
-              headerAlign: "center",
-              align: "center",
-              hideable: false,
-            },
-            
-            {
-              field: "MarketPlaceUuid",
-              headerName: "UuidProdajnogMesta",
-              flex: 1,
-              valueGetter: (params: GridValueGetterParams) =>
-                dateFormater.format(params.row.InvoiceDateUtc),
               headerAlign: "center",
               align: "center",
               hideable: true,
@@ -147,58 +633,10 @@ const useTableSettings = (): TableSettings => {
             showHideColumns: true,
             showExport: false,
           },
-          //getDataAction: getObjects(),
-          footerProps: {
-            countTxt: "Table.FooterCountTxt",
-            totalAmountTxt: "Table.FooterTotalAmountTxt",
-          },
-        },
-      },
-      [HeaderSettingsTypes.POINTOFSALE]: {
-        dataGrid: {
-          columnsDef: [
-            {
-              field: "IdPointOfSale",
-              headerName: "Id kase",
-              flex: 1,
-              headerAlign: "center",
-              align: "center",
-              hideable: false,
-            },
-            {
-              field: "name",
-              headerName: "Ime kase",
-              flex: 1,
-              headerAlign: "center",
-              align: "center",
-              hideable: false,
-            },
-            {
-              field: "CompanyId",
-              headerName: "Id kompanije",
-              flex: 1,
-              headerAlign: "center",
-              align: "center",
-              hideable: false,
-            },
-            
-            {
-              field: "CompanyName",
-              headerName: "Ime kompanije",
-              flex: 1,
-              headerAlign: "center",
-              align: "center",
-              hideable: false,
-            },
-        
-          ],
-          toolbarProps: {
-            showFilters: false,
-            showDensity: false,
-            showHideColumns: true,
-            showExport: false,
-          },
-          //getDataAction: getObjects(),
+          getDataAction: getGroups({uuid: company}),
+          selectType:  "GROUPS",
+          selector:  selectGroups,
+          parentColumn: "id",
           footerProps: {
             countTxt: "Table.FooterCountTxt",
             totalAmountTxt: "Table.FooterTotalAmountTxt",

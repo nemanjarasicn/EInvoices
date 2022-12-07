@@ -9,7 +9,8 @@
   "Menu": {
     "home": "Pocetna",
     "invoice": "E-Faktura",
-    "registries": "Šifarnici"
+    "registries": "Šifarnici",
+    "articles":  "Artikli"
   },
   "UserAccount": {
     "logout": "Odjavi se"
@@ -176,20 +177,60 @@
     "redirectButtonTitle": "E-FAKTURE LINK"
   },
   "Objects": {
+    "title": "Objekti",
     "name": "Naziv objekta",
+    "idObject":  "Id objekta",
+    "uuid":  "Uuid",
     "longitude": "Geografska Duzina",
     "latitude":  "Geografska sirina",
-    "company":  "Kompanija"
+    "company":  "Kompanija",
+    "createNew": "Kreiraj novi objekat"
   },
   "MarketPlace": {
+    "title": "Prodajna mesta",
     "name": "Naziv prodajnog mesta",
-    "uuidObject":  "Uuid objekta"
+    "uuidMarketPlace":  "Uuid prodajnog mesta",
+    "idCompany":  "Id kompanije",
+    "idObject":  "Id objekta",
+    "idMarketPlace":  "Id prodajnog mesta",
+    "uuidObject":  "Uuid objekta",
+    "createNew":  "Kreiraj novo prodajno mesto"
   },
   "PointOfSale": {
+    "title":  "Kase",
     "name": "Naziv kase",
+    "nameOfCompany":  "Naziv kompanije",
+    "idCompany":  "Id kompanije",
+    "idPointOfSale":   "Id kase",
     "company":  "Kompanija",
     "marketPlace": "Prodajno mesto",
-    "code": "Code"
+    "code": "Code",
+    "createNew": "Kreiraj novu kasu"
+  },
+  "Companies":   {
+    "title":  "Kompanije",
+    "createNew": "Kreiraj novu kompaniju",
+    "idCompany":  "Id kompanije",
+    "nameOfCompany":  "Naziv kompanije",
+    "pib":  "PIB",
+    "date":  "Datum",
+    "mb":  "Mb",
+    "adress":   "Adresa",
+    "zip":  "Postanski broj",
+    "country":  "Drzava",
+    "city":  "Grad"
+  },
+
+  "Warehouses":  {
+    "title":   "Magacini",
+    "createNew":  "Kreiraj novi magacin",
+    "name":  "Naziv magacina",
+    "marketPlace": "Prodajno mesto",
+    "idWarehouse":   "Id magacina",
+    "idMarketPlace": "Id prodajnog mesta",
+    "uuidMarketPlace":  "Uuid prodajnog mesta",
+    "uuid":  "Uuid"
+
   }
 
 }

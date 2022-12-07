@@ -2,24 +2,26 @@
 import React from "react";
 import { DataGrid, GridColDef, GridSelectionModel } from "@mui/x-data-grid";
 import { useAppDispatch, useAppSelector } from "../../../../app/hooks";
-import { ObjectsDto,  IProps, TableData } from "../../models/registries.models";
-import { selectObjects } from "../../store/registries.selectors";
-import { selectUser } from "../../../../app/core/core.selectors";
+import { IProps, TableData } from "../../models/registries.models";
+
 import { useDataGridStyles } from "./dataGrid.styles";
 import { setSelection } from "./store/data-grid.reducer";
 import { selectSelection } from "./store/data-grid.selectors";
 import TableToolbar, { TableToolbarProps } from "./TableToolbar";
-import { AsyncThunkAction } from "@reduxjs/toolkit";
 import TableNoRowsOverlay from "./NoRowsOverlay";
 import { useTranslation } from "react-i18next";
 import TablePagination from "./TablePagination";
-import {getObjects} from  "../../store/registries.actions"
+import { selectCompany } from "../../../../app/core/core.selectors";
+import { AsyncThunkAction } from "@reduxjs/toolkit";
 
 
 export type TableComponentProps = {
   columnsDef: GridColDef[];
   toolbarProps: TableToolbarProps;
- // getDataAction: AsyncThunkAction<any, void, {}>;
+  getDataAction: AsyncThunkAction<any, void | {companyId: number | string } | {uuid:  number |  string}, {}>;
+  selectType: string;
+  selector:  any;
+  parentColumn: string;
   footerProps: any;
 };
 
@@ -28,21 +30,19 @@ export default function TableComponent({
 }: IProps<TableComponentProps>): JSX.Element {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
- // const getDataAction = props.getDataAction;
   const { tableComponentStyles } = useDataGridStyles();
   // TODO
-  //const [pageSize, setPageSize] = React.useState<number>(5);
- 
+  const [pageSize, setPageSize] = React.useState<number>(5);
 
-  const tableData: TableData<any>[] = useAppSelector(selectObjects).map(
+  const selectType = props.selector;
+
+  const tableData: TableData<any>[] = (useAppSelector(selectType) as any).map(
     (row: any) => ({
       ...row,
-      id: row.invoiceId,
+      id: row[props.parentColumn],
     })
   );
 
-  console.log('sasa',tableData);
-  
   const selection: GridSelectionModel = useAppSelector(selectSelection);
 
   return (
@@ -68,9 +68,9 @@ export default function TableComponent({
         autoHeight={true}
         density="compact"
         // pageSize={10}
-         //pageSize={pageSize}
+         pageSize={pageSize}
          rowsPerPageOptions={[5, 10, 15]}
-        // onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
+         onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
         components={{
           Toolbar: TableToolbar,
           NoRowsOverlay: TableNoRowsOverlay,

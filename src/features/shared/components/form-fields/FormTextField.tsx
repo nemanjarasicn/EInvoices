@@ -1,7 +1,7 @@
 import React from "react";
 import { Divider, InputAdornment, TextField } from "@mui/material";
 import { Controller } from "react-hook-form";
-import { IProps } from "../../models";
+import { IProps } from "../../../registries/models/registries.models";
 import { FormFieldProps } from "./models/form-fields.models";
 
 type FormTextFieldProps = FormFieldProps & {
@@ -25,10 +25,11 @@ export default function CustomTextField({
       control={props.control}
       render={({ field: { onChange, value },fieldState: { error } }) => (
         <TextField
-          disabled={props.disabled}
+          disabled={false}
           helperText={error ? error.message : " "}
           size="small"
           error={!!error}
+          onChange={(e) => onChange(e.target.value)}
           value={value ?? ""}
           fullWidth
           label={props.label}

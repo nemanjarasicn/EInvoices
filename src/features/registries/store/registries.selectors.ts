@@ -2,34 +2,17 @@ import { createDraftSafeSelector, createSelector } from "@reduxjs/toolkit";
 import { RootState } from "../../../app/store";
 import { FeatureState } from "./registries.reducer";
 
-// const selectSelf = (state: RootState) => state.invoices;
-
-// TODO
-// export const selectInvoicesWithStatusSent = createDraftSafeSelector(
-//   selectSelf,  
-//   (state) =>
-//     Object.values(state.entities).filter((invoice) => invoice?.InvoiceId === 3)
-// );
-
-/**
- * EntityAdapter selectors
- */
-/*export const entitySelector = registriesAdapter.getSelectors<RootState>(
-  (state) => state.registries
-);*/
-
 /**
  * Feature state
  */
 const featureSelectors = (state: RootState) => state.registries;
 
-/**
- * Select isLoading state
- */
-export const isLoading = createSelector(
+
+export const isLoadingRegistries = createSelector(
   featureSelectors,
   (state: FeatureState) => state.loading
 );
+
 
 export const selectIds = createSelector(
   featureSelectors,
@@ -45,6 +28,62 @@ export const selectIds = createSelector(
 export const selectObjects = createSelector(
   featureSelectors,
   (state: FeatureState) => {
-    return state.objects.filter((item) => Boolean(item.idObject));
+    return state.objects.map((item, index) => ({
+      name: item.name,
+      uuid: item.uuid,
+      idObject: item.idObject,
+      latitude:  item.point.latitude,
+      longitude: item.point.longitude
+    }))  
+  }
+);
+
+export const selectMarketPlaces = createSelector(
+  featureSelectors,
+  (state: FeatureState) => {
+    return state.marketPlaces;
+  }
+);
+
+export const selectPointOfSales = createSelector(
+  featureSelectors,
+  (state: FeatureState) => {
+    return state.pointOfSales;
+  }
+);
+
+
+export const selectCompanies = createSelector(
+  featureSelectors,
+  (state: FeatureState) => {
+    return state.companies;
+  }
+);
+
+export const selectUnits = createSelector(
+  featureSelectors,
+  (state: FeatureState) => {
+    return state.units;
+  }
+);
+
+export const selectVat = createSelector(
+  featureSelectors,
+  (state: FeatureState) => {
+    return state.vat;
+  }
+);
+
+export const selectGroups = createSelector(
+  featureSelectors,
+  (state: FeatureState) => {
+    return state.groups;
+  }
+);
+
+export const selectWarehouses = createSelector(
+  featureSelectors,
+  (state: FeatureState) => {
+    return state.warehouses;
   }
 );

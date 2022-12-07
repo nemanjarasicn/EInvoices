@@ -15,8 +15,11 @@ import { apiKeyExist } from "./app/core/core.selectors";
 import LoginPage from "./app/pages/LoginPage";
 import ProtectedLayout from "./app/components/ProtectedLayout";
 import RegistriesLayout from "./features/registries/components/RegistriesLayout";
+import ArticlesLayout from "./features/articles/components/ArticlesLayout";
 import { TemplatePageRegistriesTypes } from "../src/features/registries/models/registries.enums"
+import { TemplatePageArticlesTypes }  from "../src/features/articles/models/articles.enums"
 import { CreateType as CreateTyperegistries}  from "../src/features/registries/models/registries.enums"
+import { CreateType as CreateTypeArticles}  from "../src/features/articles/models/articles.enums"
 
 const DashboardPage = React.lazy(
   () => import("./features/invoices/pages/DashboardPage")
@@ -34,12 +37,24 @@ const DashboardRegistriesPage = React.lazy(
   () => import("./features/registries/pages/DashboardRegistriesPage")
 );
 
+const DashboardArticlesPage = React.lazy(
+  () => import("./features/articles/pages/DashboardArticlesPage")
+);
+
 const RegistriesTemplatePage = React.lazy(
   () => import("./features/registries/pages/registriesTemplatePage")
 );
 
+const ArticlesTemplatePage = React.lazy(
+  () => import("./features/articles/pages/articlesTemplatePage")
+);
+
 const RegistriesCreateTemplatePage = React.lazy(
   () => import("./features/registries/pages/RegistriesCreateTemplatePage")
+);
+
+const ArticlesCreateTemplatePage = React.lazy(
+  () => import("./features/articles/pages/ArticlesCreateTemplatePage")
 );
 
 function App() {
@@ -59,6 +74,7 @@ function App() {
           />
           {apiKeyPresent ? invoicesRoutes() : modalRoute()}
           {registriesRoutes()}
+          {articlesRoutes()}
           <Route path="*" element={<Navigate to="/" />} />
         </Route>
       </Routes>
@@ -149,11 +165,200 @@ function registriesRoutes(): React.ReactNode {
             </React.Suspense>
           }
         />
+         <Route
+          path="marketPlace"
+          element={
+            <React.Suspense fallback={<>...</>}>
+              <RegistriesTemplatePage
+                key={`key_${TemplatePageRegistriesTypes.MARKETPLACE}.id`}
+                props={{ templateType: TemplatePageRegistriesTypes.MARKETPLACE }}
+              />
+            </React.Suspense>
+          }
+        />
+         <Route
+          path="pointOfSale"
+          element={
+            <React.Suspense fallback={<>...</>}>
+              <RegistriesTemplatePage
+                key={`key_${TemplatePageRegistriesTypes.POINTOFSALE}.id`}
+                props={{ templateType: TemplatePageRegistriesTypes.POINTOFSALE }}
+              />
+            </React.Suspense>
+          }
+        />
+         <Route
+          path="companies"
+          element={
+            <React.Suspense fallback={<>...</>}>
+              <RegistriesTemplatePage
+                key={`key_${TemplatePageRegistriesTypes.COMPANIES}.id`}
+                props={{ templateType: TemplatePageRegistriesTypes.COMPANIES }}
+              />
+            </React.Suspense>
+          }
+        />
+         <Route
+          path="warehouse"
+          element={
+            <React.Suspense fallback={<>...</>}>
+              <RegistriesTemplatePage
+                key={`key_${TemplatePageRegistriesTypes.WAREHOUSES}.id`}
+                props={{ templateType: TemplatePageRegistriesTypes.WAREHOUSES }}
+              />
+            </React.Suspense>
+          }
+        />
+         <Route
+          path="units"
+          element={
+            <React.Suspense fallback={<>...</>}>
+              <RegistriesTemplatePage
+                key={`key_${TemplatePageRegistriesTypes.UNITS}.id`}
+                props={{ templateType: TemplatePageRegistriesTypes.UNITS }}
+              />
+            </React.Suspense>
+          }
+        />
+        <Route
+          path="vat"
+          element={
+            <React.Suspense fallback={<>...</>}>
+              <RegistriesTemplatePage
+                key={`key_${TemplatePageRegistriesTypes.VAT}.id`}
+                props={{ templateType: TemplatePageRegistriesTypes.VAT }}
+              />
+            </React.Suspense>
+          }
+        />
+         <Route
+          path="users"
+          element={
+            <React.Suspense fallback={<>...</>}>
+              <RegistriesTemplatePage
+                key={`key_${TemplatePageRegistriesTypes.USERS}.id`}
+                props={{ templateType: TemplatePageRegistriesTypes.USERS }}
+              />
+            </React.Suspense>
+          }
+        />
+        <Route
+          path="groups"
+          element={
+            <React.Suspense fallback={<>...</>}>
+              <RegistriesTemplatePage
+                key={`key_${TemplatePageRegistriesTypes.GROUPS}.id`}
+                props={{ templateType: TemplatePageRegistriesTypes.GROUPS }}
+              />
+            </React.Suspense>
+          }
+        />
         <Route
           path="createObject"
           element={
             <React.Suspense fallback={<>...</>}>
               <RegistriesCreateTemplatePage props={{ type: CreateTyperegistries.FORMOBJECT }} />
+            </React.Suspense>
+          }
+        />
+        <Route
+          path="createMarketPlace"
+          element={
+            <React.Suspense fallback={<>...</>}>
+              <RegistriesCreateTemplatePage props={{ type: CreateTyperegistries.FORMMARKETPLACE }} />
+            </React.Suspense>
+          }
+        />
+        <Route
+          path="createPointOfSale"
+          element={
+            <React.Suspense fallback={<>...</>}>
+              <RegistriesCreateTemplatePage props={{ type: CreateTyperegistries.FORMPOINTOFSALE }} />
+            </React.Suspense>
+          }
+        />
+        <Route
+          path="createCompany"
+          element={
+            <React.Suspense fallback={<>...</>}>
+              <RegistriesCreateTemplatePage props={{ type: CreateTyperegistries.FORMCOMPANY, typeFrom: "" }} />
+            </React.Suspense>
+          }
+        />
+        <Route
+          path="createCompanyWizard"
+          element={
+            <React.Suspense fallback={<>...</>}>
+              <RegistriesCreateTemplatePage props={{ type: CreateTyperegistries.FORMCOMPANY, typeFrom: "wizard" }} />
+            </React.Suspense>
+          }
+        />
+        <Route
+          path="createWarehouse"
+          element={
+            <React.Suspense fallback={<>...</>}>
+              <RegistriesCreateTemplatePage props={{ type: CreateTyperegistries.FORMWAREHOUSE }} />
+            </React.Suspense>
+          }
+        />
+        <Route
+          path="createUnit"
+          element={
+            <React.Suspense fallback={<>...</>}>
+              <RegistriesCreateTemplatePage props={{ type: CreateTyperegistries.FORMUNIT }} />
+            </React.Suspense>
+          }
+        />
+        <Route
+          path="createGroup"
+          element={
+            <React.Suspense fallback={<>...</>}>
+              <RegistriesCreateTemplatePage props={{ type: CreateTyperegistries.FORMGROUP }} />
+            </React.Suspense>
+          }
+        />
+
+        <Route
+          path="createVat"
+          element={ 
+            <React.Suspense fallback={<>...</>}>
+              <RegistriesCreateTemplatePage props={{ type: CreateTyperegistries.FORMVAT }} />
+            </React.Suspense>
+          }
+        />
+      </Route> 
+    </>
+  );
+}
+function articlesRoutes(): React.ReactNode {
+  return (
+    <>
+      <Route path="articles" element={<ArticlesLayout />}>
+        <Route
+            index
+            element={
+              <React.Suspense fallback={<>...</>}>
+                <DashboardArticlesPage  props={ {}} />
+              </React.Suspense>
+            }
+          />
+         <Route
+          path="articlesList"
+          element={
+            <React.Suspense fallback={<>...</>}>
+              <ArticlesTemplatePage
+                key={`key_${TemplatePageArticlesTypes.LIST}.id`}
+                props={{ templateType: TemplatePageArticlesTypes.LIST }}
+              />
+            </React.Suspense>
+          }
+        />
+
+        <Route
+          path="createArtikal"
+          element={
+            <React.Suspense fallback={<>...</>}>
+              <ArticlesCreateTemplatePage props={{ type: CreateTypeArticles.FORMARTICLES }} />
             </React.Suspense>
           }
         />

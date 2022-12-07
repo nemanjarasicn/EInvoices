@@ -15,14 +15,21 @@ import {
   } from "@mui/material";
 import { RegistriesFormComponentProps }  from "./RegistriesFormComponent"
 import { useTranslation } from "react-i18next";
-import FormTextField  from  "./form-fields/FormTextField"
-import { useComponentsStyles } from "./components.styles";
+import FormTextField  from  "../../shared/components/form-fields/FormTextField"
+import CustomButtonFc from "../../shared/components/CustomButtonFc";
+import { useComponentsStyles } from "../../shared/components/components.styles";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
-import { IProps, ProductModel } from "../models";
-import { selectClientCompanies } from "./form-fields/store/form.selectors";
-import FormAutocompleteField from "./form-fields/FormAutocompleteField";
+import { MarketPlaceFormModel } from "../models/registries.models";
+import { IProps  } from "../models/registries.models";
+import { selectClientCompanies } from "../../shared/components/form-fields/store/form.selectors";
+import FormAutocompleteField from "../../shared/components/form-fields/FormAutocompleteField";
+import { sendMarketPlace } from "../store/registries.actions";
+import { useNavigate } from 'react-router-dom';
+import { selectCompany, selectCompanyInfo } from "../../../app/core/core.selectors";
+import { useAppDispatch, useAppSelector } from "../../../app/hooks";
+import SucessModal   from "../../shared/components/SucessModal"
 //import ClientComponent from "./form-group/ClientComponent";
 
 
@@ -47,21 +54,32 @@ import FormAutocompleteField from "./form-fields/FormAutocompleteField";
    //     invoicedQuantity: yup.number().moreThan(0, ""),
    //   })
    // ),
+
+  
+   marketPlaceName: yup.string().required('ovo je obavezno polje'),
+   objectUuid:  yup.string().required('ovo je obavezno polje')
  })
  .required();
 
 export default function FormMarketPlaceComponent({
     props,
   }: IProps<RegistriesFormComponentProps>): JSX.Element {
+    const companyId = useAppSelector(selectCompany) as number;
+    const defaultValues:  MarketPlaceFormModel = {
+      companyId:  companyId,
+      marketPlaceName: "",
+      objectUuid: "",
+    };
     
     const { t } = useTranslation();
     const { formComponent } = useComponentsStyles();
-  
-  
-   
+    const navigate  = useNavigate();
+    const dispatch = useAppDispatch();
+    const [showError, setShowError] = React.useState(false)
 
+  
     const methods = useForm({
-        
+        defaultValues: defaultValues,
         resolver: yupResolver(schema),
       });
       const {
@@ -76,33 +94,62 @@ export default function FormMarketPlaceComponent({
         watch,
       } = methods;
 
+
+      const onSubmit = (data: MarketPlaceFormModel) => {
+        dispatch(sendMarketPlace({data})).then((res) => {
+            if(res.payload === 'sucsess') {
+              setShowError(true);
+              setTimeout(() => {
+                  setShowError(false);    
+                  navigate('/registries/marketPlace'
+                  )
+              }, 2000);
+            }
+        }
+        )
+      }
+
       
   
     return (
         <Grid item xs={12}>
+          <SucessModal    open={showError} ></SucessModal>
                 <Grid container spacing={2}>
                     <Grid item xs={6}>
+          
+                         {false ?
                         <FormAutocompleteField
                         props={{
-                            name: "foundClient",
+                            name: "companyId",
                             control: control,
                             label: t(props.formFieldsLabels.marketPlace.company),
-                            disabled: false,
+                            disabled: true,
                             additional: {
                             selector: selectClientCompanies,
                             
                             },
                         }}
-                        />
+                        /> : 
+                        <FormTextField
+                        props={{
+                            control: control,
+                            name: "companyId",
+                            label: t(props.formFieldsLabels.marketPlace.company),
+                            disabled: true,
+                            additional: { readonly: true, labelShrink: true}
+
+                        }}
+                    />
+                      }
                     </Grid>
                     <Grid item xs={6}>
                     <FormTextField
                         props={{
                             control: control,
-                            name: "accountingCustomerParty.partyLegalEntity.registrationName",
+                            name: "marketPlaceName",
                             label: t(props.formFieldsLabels.marketPlace.name),
                             disabled: false,
-                            additional: { readonly: true, labelShrink: true }
+                            additional: { readonly: false, labelShrink: true }
                         
                         }}
                     />
@@ -110,16 +157,51 @@ export default function FormMarketPlaceComponent({
                     <FormTextField
                         props={{
                             control: control,
-                            name: "accountingCustomerParty.partyLegalEntity.companyID",
+                            name: "objectUuid",
                             label: t(
                                 props.formFieldsLabels.marketPlace.uuidObject
                             ),
                             disabled: false,
-                            additional: { readonly: true, labelShrink: true },
+                            additional: { readonly: false, labelShrink: true },
                         }}
                     />
                     </Grid>
                 </Grid>
+                <Grid item xs={5}>
+                      <Box
+                        sx={{
+                          ...formComponent.basicBox,
+                          textAlign: "end",
+                        }}
+                      >
+                        <Paper sx={formComponent.paper}>
+                          <CustomButtonFc
+                            groupButton={[
+                              {
+                                title: "DELETE",
+                                disabled: true,
+                                btnFn: () => reset(),
+                              },
+                              {
+                                title: "DOWNLOAD",
+                                disabled: true,
+                                btnFn: () => reset(),
+                              },
+                              {
+                                title: "UPDATE",
+                                disabled: true,
+                                btnFn: () => reset(),
+                              },
+                              {
+                                title: "SACUVAJ",
+                                disabled: false,
+                                btnFn: handleSubmit(onSubmit),
+                              },
+                            ]}
+                          />
+                        </Paper>
+                      </Box>
+              </Grid>
         </Grid>
     )
 }

@@ -22,6 +22,7 @@ import { useTranslation } from "react-i18next";
 import LanguageSelector from "./LanguageSelector";
 import UserAccount from "./UserAccount";
 import Home from "@mui/icons-material/Home";
+import ArticleIcon from '@mui/icons-material/Article';
 import Payments from "@mui/icons-material/Payments";
 import { useAppComponentsStyles } from "./components.styles";
 import AppLoader from "./AppLoader";
@@ -93,6 +94,18 @@ export default function ClippedDrawer() {
       ],
     },
     {
+      name: t("Menu.articles"),
+      href: "/articles",
+      icon: "Articles",
+      children: [
+        {
+          name:  "Artikli lista",
+          href: "/articles/articlesList",
+          icon: "Payments",
+        },
+      ],
+    },
+    {
       name: t("Menu.registries"),
       href: "/registries",
       icon: "Home",
@@ -100,6 +113,26 @@ export default function ClippedDrawer() {
         {
           name: t("Objekti"),
           href: "/registries/objects",
+          icon: "Home",
+        },
+        {
+          name: t("Prodajna mesta"),
+          href: "/registries/marketPlace",
+          icon: "Home",
+        },
+        {
+          name: t("Kase"),
+          href: "/registries/pointOfSale",
+          icon: "Home",
+        },
+        {
+          name: t("Kompanije"),
+          href: "/registries/companies",
+          icon: "Home",
+        },
+        {
+          name: t("Magacini"),
+          href: "/registries/warehouse",
           icon: "Home",
         },
       ],
@@ -116,6 +149,8 @@ export default function ClippedDrawer() {
         return <Home />;
       case "Payments":
         return <Payments />;
+      case "Articles":
+          return <ArticleIcon />;
     }
   };
 

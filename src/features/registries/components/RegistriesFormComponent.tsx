@@ -14,22 +14,21 @@ import {
   Select,
   IconButton,
 } from "@mui/material";
-import { useForm } from "react-hook-form";
-import { IProps, ProductModel } from "../models";
+import { IProps } from "../models/registries.models";
 import * as yup from "yup";
 import { useTranslation } from "react-i18next";
-import { useComponentsStyles } from "./components.styles";
+import { useComponentsStyles } from "../../shared/components/components.styles";
 import AttachFileIcon from "@mui/icons-material/AttachFile";
 import RestoreRoundedIcon from "@mui/icons-material/RestoreRounded";
 import TextsmsOutlinedIcon from "@mui/icons-material/TextsmsOutlined";
-
-import { selectCompany } from "../../../app/core/core.selectors";
-
 import FormObjectComponent from "./FormObjectComponents"
 import FormMarketPlaceComponent from "./FormMarketPlaceComponent";
 import FormPointOfSaleComponents from "./FormPointOfSale";
-
-
+import FormCompaniesComponent from "./FormCompaniesComponent"
+import FormWarehouseComponent    from  "./FormWarehouseComponent"
+import FormUnitComponent from "./FormUnitComponent";
+import FormGroupComponent from "./FormGroupComponent";
+import FormVatComponent from "./FormVatComponent";
 
 export type RegistriesFormComponentProps = {
   invoiceTypeOptions: any;
@@ -79,7 +78,17 @@ export default function RegistriesFormComponent({
         return <FormMarketPlaceComponent  props={props} />;
 
       case "pointOfSale":
-        return <FormPointOfSaleComponents  props={props} />;  
+        return <FormPointOfSaleComponents  props={props} />;
+      case "companies":
+        return  <FormCompaniesComponent props={props}  />
+      case "warehouses":
+        return <FormWarehouseComponent  props={props} />;
+      case "units":
+        return <FormUnitComponent  props={props} />;
+      case "groups":
+        return <FormGroupComponent  props={props} />;
+      case "vats":
+          return <FormVatComponent  props={props} />;
     }
     return <div>test</div>
   }

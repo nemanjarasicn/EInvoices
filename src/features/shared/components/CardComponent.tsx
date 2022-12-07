@@ -10,13 +10,14 @@ import {
   import { useTranslation } from "react-i18next";
   import { OverridableComponent } from "@mui/material/OverridableComponent";
   import { useComponentsStyles } from "./components.styles";
-  import CustomButtonFc, { ButtonProps } from "./CustomButtonFc";
-  import { IProps } from "../models/registries.models";
+  import CustomButtonFc, { ButtonProps } from "../../shared/components/CustomButtonFc";
+  import { IProps } from "../../registries/models/registries.models";
   
   export interface CardProps {
     title: string;
     icon: OverridableComponent<SvgIconTypeMap<{}, "svg">> & { muiName: string };
     cardBtn: ButtonProps;
+    typeOfCard: string;
   }
   export default function InvoiceCardComponent({
     props,

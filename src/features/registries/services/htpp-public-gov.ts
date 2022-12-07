@@ -1,15 +1,23 @@
 import axios from "axios";
-// TODO TOKEN AND AUTH
-const token = JSON.parse(localStorage.getItem('token') || '{}')
 
-export default axios.create({
+const AXIOS = axios.create({
   baseURL:
     process.env.NODE_ENV === "production"
       ? process.env.REACT_APP_GATEWAY + "/api/v1/"
-      :  "/api/v1/",
+      : "/api/v1/",
   withCredentials: false,
-  headers: {
-    ContentType: "application/json",
-    Authorization: `Bearer ${token}`,
-  },
 });
+
+AXIOS.interceptors.request.use(
+  (config) => {
+    const token: string = JSON.parse(String(sessionStorage.getItem("token")));
+    config.headers = {
+      ContentType: "application/json",
+      Authorization: `Bearer ${token}`,
+    };
+    return config;
+  },
+  (error) => Promise.reject(error)
+);
+
+export default AXIOS;

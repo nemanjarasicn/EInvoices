@@ -8,6 +8,7 @@ import { useFeatureSettings } from "../settings";
 
 type RegistriesCreateTemplateProps = {
   type: CreateType;
+  typeFrom?:  string;
 };
 
 export default function RegistriesCreateTemplatePage({
@@ -48,6 +49,57 @@ export default function RegistriesCreateTemplatePage({
                   }
                 />
               );
+              case CreateType.FORMCOMPANY:
+                return (
+                  <RegistriesFormComponent
+                    props={
+                      RegistriesCreateTemplatePageSettings[
+                        CreateType.FORMCOMPANY
+                      ] as RegistriesFormComponentProps
+                    }
+                  />
+                );
+                case CreateType.FORMWAREHOUSE:
+                  return (
+                    <RegistriesFormComponent
+                      props={
+                        RegistriesCreateTemplatePageSettings[
+                          CreateType.FORMWAREHOUSE
+                        ] as RegistriesFormComponentProps
+                      }
+                    />
+                  );
+
+                case CreateType.FORMUNIT:
+                  return (
+                    <RegistriesFormComponent
+                      props={
+                        RegistriesCreateTemplatePageSettings[
+                          CreateType.FORMUNIT
+                        ] as RegistriesFormComponentProps
+                      }
+                    />
+                  );
+                case CreateType.FORMGROUP:
+                  return (
+                    <RegistriesFormComponent
+                      props={
+                        RegistriesCreateTemplatePageSettings[
+                          CreateType.FORMGROUP
+                        ] as RegistriesFormComponentProps
+                      }
+                    />
+                  );
+                  case CreateType.FORMVAT:
+                    return (
+                      <RegistriesFormComponent
+                        props={
+                          RegistriesCreateTemplatePageSettings[
+                            CreateType.FORMVAT
+                          ] as RegistriesFormComponentProps
+                        }
+                      />
+                    );
           default:
             throw new Error("Pass Type of creation");
         }

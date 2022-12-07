@@ -9,25 +9,39 @@ import {
   import { ObjectsDto } from "../models/registries.models";
   import {
     sendObjects,
+    getObjects,
+    getMarketPlaces,
+    getPointOfSales,
+    getCompanies,
+    getUnits,
+    getVat,
+    getGroups,
+    getWarehouses
   } from "./registries.actions";
   
   const FEATURE_REGISTRIES_KEY: string = "registries";
 
-  export interface FeatureState {
+  export interface  FeatureState {
     objects: any[];
+    marketPlaces: any[];
+    pointOfSales: any[];
+    companies:  any[];
+    units: any[],
+    vat:  any[];
+    groups:  any[];
+    warehouses:  any[];
     loading: boolean;
   }
-  
-  /*export const registriesAdapter: EntityAdapter<ObjectsDto> =
-    createEntityAdapter<ObjectsDto>({
-      selectId: (object) => object.idObject,
-      // sortComparer: (a, b) => a.id.localeCompare(b.id),
-    });
-  export interface FeatureState extends EntityState<ObjectsDto> {
-    loading: boolean;
-  }*/
+
   const initialState: FeatureState = {
     objects: [],
+    marketPlaces: [],
+    pointOfSales:   [],
+    companies:  [],
+    units: [],
+    vat:  [],
+    groups:  [],
+    warehouses: [],
     loading: false,
   };
   
@@ -35,21 +49,184 @@ import {
     name: FEATURE_REGISTRIES_KEY,
     initialState: initialState,
     reducers: {
-      
+     
       //custom
      },
+     extraReducers: (builder) => {
+      getAsyncObjects(builder);
+      getAsyncMarketPlaces(builder);
+      getAsyncPointOfSales(builder);
+      getAsyncCompanies(builder);
+      getAsyncUnits(builder);
+      getAsyncVat(builder);
+      getAsyncGroups(builder);
+      getAsyncWarehouses(builder);
+    },
     }
   )
   
   export const {
-    setAllRegistries,
-    updateOneRegistries,
-    setManyRegistries,
-    addOneRegistries,
+    increment
   } = registriesSlice.actions;
   
   export default registriesSlice.reducer;
+
+
+  function getAsyncObjects(builder: ActionReducerMapBuilder<FeatureState>) {
+    builder.addCase(getObjects.fulfilled, (state, { payload }) => ({
+      ...state,
+      loading: false,
+      error: "",
+      objects: payload,
+    }));
+    builder.addCase(getObjects.pending, (state) => ({
+      ...state,
+      loading: true,
+    }));
+    builder.addCase(getObjects.rejected, (state, { payload }) => ({
+      ...state,
+      loading: false,
+      objects: [],
+      error: (payload as any).error,
+    }));
+  }
+
+  function getAsyncMarketPlaces(builder: ActionReducerMapBuilder<FeatureState>) {
+    builder.addCase(getMarketPlaces.fulfilled, (state, { payload }) => ({
+      ...state,
+      loading: false,
+      error: "",
+      marketPlaces: payload,
+    }));
+    builder.addCase(getMarketPlaces.pending, (state) => ({
+      ...state,
+      loading: true,
+    }));
+    builder.addCase(getMarketPlaces.rejected, (state, { payload }) => ({
+      ...state,
+      loading: false,
+      marketPlaces: [],
+      error: (payload as any).error,
+    }));
+  }
+
+  function getAsyncPointOfSales(builder: ActionReducerMapBuilder<FeatureState>) {
+    builder.addCase(getPointOfSales.fulfilled, (state, { payload }) => ({
+      ...state,
+      loading: false,
+      error: "",
+      pointOfSales: payload,
+    }));
+    builder.addCase(getPointOfSales.pending, (state) => ({
+      ...state,
+      loading: true,
+    }));
+    builder.addCase(getPointOfSales.rejected, (state, { payload }) => ({
+      ...state,
+      loading: false,
+      pointOfSales: [],
+      error: (payload as any).error,
+    }));
+  }
+
+
+  function getAsyncCompanies(builder: ActionReducerMapBuilder<FeatureState>) {
+    builder.addCase(getCompanies.fulfilled, (state, { payload }) => ({
+      ...state,
+      loading: false,
+      error: "",
+      companies: payload,
+    }));
+    builder.addCase(getCompanies.pending, (state) => ({
+      ...state,
+      loading: true,
+    }));
+    builder.addCase(getCompanies.rejected, (state, { payload }) => ({
+      ...state,
+      loading: false,
+      companies: [],
+      error: (payload as any).error,
+    }));
+  }
+
+  function getAsyncUnits(builder: ActionReducerMapBuilder<FeatureState>) {
+    builder.addCase(getUnits.fulfilled, (state, { payload }) => ({
+      ...state,
+      loading: false,
+      error: "",
+      units: payload,
+    }));
+    builder.addCase(getUnits.pending, (state) => ({
+      ...state,
+      loading: true,
+    }));
+    builder.addCase(getUnits.rejected, (state, { payload }) => ({
+      ...state,
+      loading: false,
+      units: [],
+      error: (payload as any).error,
+    }));
+  }
+
+  function getAsyncVat(builder: ActionReducerMapBuilder<FeatureState>) {
+    builder.addCase(getVat.fulfilled, (state, { payload }) => ({
+      ...state,
+      loading: false,
+      error: "",
+      vat: payload,
+    }));
+    builder.addCase(getVat.pending, (state) => ({
+      ...state,
+      loading: true,
+    }));
+    builder.addCase(getVat.rejected, (state, { payload }) => ({
+      ...state,
+      loading: false,
+      vat: [],
+      error: (payload as any).error,
+    }));
+  }
   
+
+  function getAsyncGroups(builder: ActionReducerMapBuilder<FeatureState>) {
+    builder.addCase(getGroups.fulfilled, (state, { payload }) => ({
+      ...state,
+      loading: false,
+      error: "",
+      groups: payload,
+    }));
+    builder.addCase(getGroups.pending, (state) => ({
+      ...state,
+      loading: true,
+    }));
+    builder.addCase(getGroups.rejected, (state, { payload }) => ({
+      ...state,
+      loading: false,
+      groups: [],
+      error: (payload as any).error,
+    }));
+  }
+
+  
+  function getAsyncWarehouses(builder: ActionReducerMapBuilder<FeatureState>) {
+    builder.addCase(getWarehouses.fulfilled, (state, { payload }) => ({
+      ...state,
+      loading: false,
+      error: "",
+      warehouses: payload,
+    }));
+    builder.addCase(getWarehouses.pending, (state) => ({
+      ...state,
+      loading: true,
+    }));
+    builder.addCase(getWarehouses.rejected, (state, { payload }) => ({
+      ...state,
+      loading: false,
+      warehouses: [],
+      error: (payload as any).error,
+    }));
+  }
+
   
   
   // addOne: accepts a single entity, and adds it if it's not already present.

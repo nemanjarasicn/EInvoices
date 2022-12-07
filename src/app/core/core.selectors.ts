@@ -22,7 +22,7 @@ export const selectCompany = createSelector(
   coreSelectors,
   (state: CoreState) => state.user?.companyId
 );
-
+  
 /**
  * Select company apiKey
  */
@@ -52,4 +52,12 @@ export const hasError = createSelector(
 export const loginLoading = createSelector(
   coreSelectors,
   (state: CoreState) => state.loading
+);
+
+/**
+ * Select all info company
+ */
+ export const selectCompanyInfo = createSelector(
+  coreSelectors,
+  (state: CoreState) => state.userCompany
 );

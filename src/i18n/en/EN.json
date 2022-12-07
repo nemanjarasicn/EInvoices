@@ -9,7 +9,8 @@
   "Menu": {
     "home": "Home",
     "invoice": "E-Invocie",
-    "registries": "Registries"
+    "registries": "Registries",
+    "articles":  "Articles"
   },
   "UserAccount": {
     "logout": "Logout"
@@ -176,19 +177,58 @@
     "redirectButtonTitle": "E-INVOICE LINK"
   },
   "Objects": {
+    "title": "Objects",
     "name": "Name of object",
+    "idObject":  "Id of object",
+    "uuid":  "Uuid",
     "longitude": "Longitude",
     "latitude":  "Latitude",
-    "company":  "Company"
+    "company":  "Company",
+    "createNew": "Create new Object"
   },
   "MarketPlace": {
-    "name": "Naziv prodajnog mesta",
-    "uuidObject":  "Uuid objekta"
+    "title": "Marketplaces",
+    "name": "Name of marketplace",
+    "uuidMarketPlace":  "Uuid of marketplace",
+    "idCompany":  "Id of company",
+    "idObject":  "Id of object",
+    "idMarketPlace":  "Id of marketplace",
+    "uuidObject":  "Uuid of object",
+    "createNew":  "Create new marketplace"
   },
   "PointOfSale": {
+    "title":  "Point of sale",
     "name": "Name of point of sale",
+    "nameOfCompany":  "Name of company",
+    "idCompany":  "Id of company",
+    "idPointOfSale":   "Id of point of sale",
     "company":  "Company",
     "marketPlace": "MarketPlace",
-    "code": "Code"
+    "code": "Code",
+    "createNew": "Create new point of sale"
+  },
+  "Companies":   {
+    "title":  "Companies",
+    "createNew": "Create new company",
+    "idCompany":  "Id of company",
+    "nameOfCompany":  "Name of company",
+    "pib":  "PIB",
+    "date":  "Date",
+    "mb":  "Mb",
+    "adress":   "Adress",
+    "zip":  "Post number",
+    "country":  "Country",
+    "city":  "City"
+  },
+  "Warehouses":  {
+    "title":   "Warehouses",
+    "createNew":  "Create new Warehouse",
+    "name":  "Warehouse name",
+    "marketPlace": "MarketPlace",
+    "idWarehouse":   "Id of warehouse",
+    "idMarketPlace": "Id of marketplace",
+    "uuidMarketPlace":  "Uuid of marketplace",
+    "uuid":  "Uuid"
+
   }
 }

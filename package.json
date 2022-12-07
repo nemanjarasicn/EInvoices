@@ -21,8 +21,10 @@
     "@types/react-dom": "^18.0.6",
     "axios": "^0.27.2",
     "dayjs": "^1.11.5",
+    "file-saver": "^2.0.5",
     "http-proxy-middleware": "^2.0.6",
     "i18next": "^21.9.2",
+    "jszip": "^3.10.1",
     "material-ui-popup-state": "^4.1.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -61,5 +63,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@types/file-saver": "^2.0.5"
   }
 }

@@ -7,6 +7,7 @@ import Box from '@mui/material/Box';
 
 import Divider from '@mui/material/Divider';
 import WarningAmberIcon from '@mui/icons-material/WarningAmber';
+import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 
 
 
@@ -25,14 +26,14 @@ const style = {
     borderRadius: 2,
     p: 5,
     backgroundColor:  '#323b40',
-    display:  'flex'
+    display:  'flex',
+    justifyContent:  'center'
   };
 
 
   
 
 export default function  SucessModal(props: any)  {
-    console.log(props.open);
       return (
         <Modal
             open={props.open}
@@ -40,10 +41,10 @@ export default function  SucessModal(props: any)  {
             aria-describedby="modal-modal-description"
         >
             <Box sx={style} >
-                <Grid id="gridConteiner" className='gridConteiner'  >
-                    <Grid id="gridConteinerImg"    >
-                        <Box   sx={{display: 'flex', justifyContent: 'center',  alignItems:  'center'}}   >
-                          <WarningAmberIcon id="imgAlert"  className="imgAlert"   />
+                <Grid id="gridConteiner"    >
+                    <Grid id="gridConteinerImg"  sx={{display: 'flex', justifyContent:  'center'}}  >
+                        <Box  >
+                          <CheckCircleOutlineIcon id="imgAlert"  sx={{width: 100, height: 100,  color:   'green'}} />
                         </Box>
                     </Grid>
                     <Grid>

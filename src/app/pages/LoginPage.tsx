@@ -44,7 +44,7 @@ export default function LoginPage(): JSX.Element {
   }, []);
 
   React.useEffect(() => {
-    if (user) navigate("/");
+    //if (user) navigate("/");
   }, [user, dispatch, navigate]);
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
@@ -57,7 +57,9 @@ export default function LoginPage(): JSX.Element {
           password: data.get("password")?.toString() ?? "",
         },
       })
-    );
+    ).then((res)  => {
+      if(!res.payload.error)   navigate('/')
+    }) 
   };
 
   const handleFocus = (): void => {

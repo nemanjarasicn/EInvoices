@@ -9,6 +9,7 @@ import dataGridReducer from "../features/invoices/components/DataGrid/store/data
 import formReducer from "../features/invoices/components/form-fields/store/form.reducer";
 import coreReducer from "./core/core.reducer";
 import registriesReducer from "../features/registries/store/registries.reducer";
+import formSharedReducer from  "../features/shared/components/form-fields/store/form.reducer"
 import {
   FLUSH,
   PAUSE,
@@ -20,6 +21,7 @@ import {
 } from "redux-persist";
 import storage from "redux-persist/es/storage";
 import persistStore from "redux-persist/es/persistStore";
+import articlesReducer from "../features/articles/store/articles.reducer";
 
 const corePersistConfig = {
   key: "core",
@@ -31,7 +33,9 @@ const rootReducer = combineReducers({
   invoices: invoicesReducer,
   dataGrid: dataGridReducer,
   form: formReducer,
-  registries:  registriesReducer
+  registries:  registriesReducer,
+  formShared:  formSharedReducer,
+  articles: articlesReducer
 });
 
 export const store = configureStore({
@@ -45,7 +49,7 @@ export const store = configureStore({
 });
 export const persistor = persistStore(store);
 
-export type AppDispatch = typeof store.dispatch;
+export type AppDispatch = typeof store.dispatch;  
 export type RootState = ReturnType<typeof store.getState>;
 export type AppThunk<ReturnType = void> = ThunkAction<
   ReturnType,

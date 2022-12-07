@@ -15,24 +15,20 @@ import {
   } from "@mui/material";
 import { RegistriesFormComponentProps }  from "./RegistriesFormComponent"
 import { useTranslation } from "react-i18next";
-import FormTextField  from  "./form-fields/FormTextField"
-import { useComponentsStyles } from "./components.styles";
+import FormTextField  from  "../../shared/components/form-fields/FormTextField"
+import { useComponentsStyles } from "../../shared/components/components.styles";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
-import CustomButtonFc from "./CustomButtonFc";
+import CustomButtonFc from "../../shared/components/CustomButtonFc";
 import { ObjectFormModel, IProps } from "../models/registries.models";
-import { selectClientCompanies } from "./form-fields/store/form.selectors";
+import { selectClientCompanies } from "../../shared/components/form-fields/store/form.selectors";
 import { useNavigate } from 'react-router-dom';
-import FormAutocompleteField from "./form-fields/FormAutocompleteField";
-import {
-    getClientCompanies,
-    getMarketPlaces,
-    getProducts,
-  } from "./form-fields/store/form.actions";
+import FormAutocompleteField from "../../shared/components/form-fields/FormAutocompleteField";
+import { selectCompany, selectCompanyInfo } from "../../../app/core/core.selectors";
 import { sendObjects } from "../store/registries.actions";
-import SucessModal   from "./SucessModal"
+import SucessModal   from "../../shared/components/SucessModal"
 //import ClientComponent from "./form-group/ClientComponent";
 
 
@@ -57,25 +53,28 @@ import SucessModal   from "./SucessModal"
    //     invoicedQuantity: yup.number().moreThan(0, ""),
    //   })
    // ),
+   objectName: yup.string().required('ovo je obavezno polje'),
+   latitude:   yup.string().required('ovo je obavezno polje'),
+   longitude:  yup.string().required('ovo je obavezno polje')
  })
  .required();
 
 export default function FormObjectComponent({
     props,
   }: IProps<RegistriesFormComponentProps>): JSX.Element {
+    const companyId = useAppSelector(selectCompany) as number;
     const defaultValues:  ObjectFormModel = {
       id: "",
-      companyId: 7,
+      companyId: companyId ,
       objectName: "",
       latitude: "",
       longitude: "",
-
-
     };
     const { t } = useTranslation();
     const { formComponent } = useComponentsStyles();
     const navigate  = useNavigate();
     const dispatch = useAppDispatch();
+    const [showError, setShowError] = React.useState(false);
 
    
 
@@ -96,11 +95,14 @@ export default function FormObjectComponent({
       } = methods;
 
       const onSubmit = (data: ObjectFormModel) => {
-        console.log(data);
-        dispatch(sendObjects()).then((res) => {
+        dispatch(sendObjects({data})).then((res) => {
             if(res.payload === 'sucsses') {
-              navigate('/registries/objects'
-              )
+              setShowError(true);
+              setTimeout(() => {
+                  setShowError(false);
+                  navigate('/registries/objects'
+                  )
+              }, 2000);
             }
         } 
         )
@@ -109,21 +111,21 @@ export default function FormObjectComponent({
   
     return (
         <Grid item xs={12}>
-            <SucessModal    open={false} ></SucessModal>
+            <SucessModal    open={showError} ></SucessModal>
                 <Grid container spacing={2}>
                     <Grid item xs={6}>
                       {false ?
                         <FormAutocompleteField
-                        props={{
-                            name: "companyId",
-                            control: control,
-                            label: t(props.formFieldsLabels.objects.company),
-                            disabled: true,
-                            additional: {
-                            selector: selectClientCompanies,
-                            
-                            },
-                        }}
+                          props={{
+                              name: "companyId",
+                              control: control,
+                              label: t(props.formFieldsLabels.objects.company),
+                              disabled: true,
+                              additional: {
+                              selector: selectClientCompanies,
+                              
+                              },
+                          }}
                         /> : 
                         <FormTextField
                         props={{
