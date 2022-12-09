@@ -21,7 +21,6 @@ export default function FormMultiSelect({
   props,
 }: IProps<FormAutocompleteFieldProps>) {
   const data: AutocompleteItem[] = useAppSelector(props.additional.selector);
-  console.log(props.control);
   return (
     <Controller
       name={props.name}

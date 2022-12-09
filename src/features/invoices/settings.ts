@@ -160,10 +160,17 @@ const useFeatureSettings = (): FeatureSettings => {
           },
           {
             actionIcon: DownloadIcon,
-            actionName: "download",
+            actionName: "downloadPdf",
             hidden: false,
-            title: "Common.download",
-            disabled: true,
+            title: "Common.downloadPdf",
+            disabled: false,
+          },
+          {
+            actionIcon: DownloadIcon,
+            actionName: "downloadXml",
+            hidden: false,
+            title: "Common.downloadXml",
+            disabled: false,
           },
           {
             actionIcon: EventBusyIcon,
@@ -261,10 +268,17 @@ const useFeatureSettings = (): FeatureSettings => {
           },
           {
             actionIcon: DownloadIcon,
-            actionName: "download",
+            actionName: "downloadPdf",
             hidden: false,
-            title: "Common.download",
-            disabled: true,
+            title: "Common.downloadPdf",
+            disabled: false,
+          },
+          {
+            actionIcon: DownloadIcon,
+            actionName: "downloadXml",
+            hidden: false,
+            title: "Common.downloadXml",
+            disabled: false,
           },
           {
             actionIcon: AssignmentLateIcon,

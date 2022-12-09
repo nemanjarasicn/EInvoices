@@ -94,7 +94,6 @@ export default function FormVatComponent({
       } = methods;
 
       const onSubmit = (data: VatFormModel) => {
-        console.log(data);
         dispatch(sendVat({data})).then((res) => {
             if(res.payload === 'sucsses') {
               setShowError(true);

@@ -16,6 +16,12 @@ import { InvoiceStatus, TemplatePageTypes } from "../models";
 import ConfirmWithCommentDialog from "./ConfirmWithCommentDialog";
 import { updateStatusInvoice } from "../store/invoice.actions";
 
+//for zip
+import JSZip from  'jszip';
+import * as FileSaver from "file-saver";
+import {getZip }  from  "../store/invoice.actions"
+import { selectZip } from "../store/invoice.selectors";
+
 export type SelectAllAction = {
   title: string;
   actionName: string;
@@ -48,11 +54,48 @@ export default function SelectAllActionsComponent({
   const selection: any[] = useAppSelector(selectSelection);
   const invoices = useAppSelector(selectInvoices);
 
+  // --------------ZIP -------------------------------------
+  const dispatch = useAppDispatch();
+  const zip = new JSZip();
+  //const zipData = useAppSelector(selectZip);
+ 
+  // function for unzip file
+   const  unzipFile = async (flag: string, zipDataT: any) => {
+    await zip.loadAsync(zipDataT.payload).then(function (zip) {
+      Object.keys(zip.files).map((filename) => {
+        const extName =  flag === 'PDF' ?  '.pdf'  :  '.xml';
+        const filenameDownload  = filename.slice(0, filename.length-4) + extName;
+        zip.files[filename].async("blob").then(async function (fileData) {
+          const dataDownload =   await (fileData.slice(2).text());
+          flag ===  'PDF' ?  downloadPDF(dataDownload,filenameDownload) :   downloadXml(fileData,filenameDownload)  ;
+        });
+      });
+    });
+
+  }
+
+  function downloadPDF(pdf: string, fileName: string) {
+    const linkSource = `data:application/pdf;base64,${pdf}`;
+    const downloadLink = document.createElement("a");
+
+    downloadLink.href = linkSource;
+    downloadLink.download = fileName;
+    downloadLink.click();
+}
+
+function downloadXml(data: Blob, fileName: string) {
+  FileSaver.saveAs(data, fileName);
+}
+  
+
+  // ---------------END ZIP ----------------------------------
+
   React.useEffect(() => {
     if (selection.length === 0) {
       setChecked(false);
     }
   }, [selection.length]);
+
 
   /**
    *  Unmount
@@ -93,7 +136,7 @@ export default function SelectAllActionsComponent({
   };
 
   const renderActions = (): React.ReactNode => {
-    let actionsToRender = ["delete", "download", ...getStatus()];
+    let actionsToRender = ["delete", "downloadXml", "downloadPdf", ...getStatus()];
     return actions.map((action, index) => {
       const Icon = action.actionIcon;
       const key = `button-label-${action.title}.${index}.id`;
@@ -122,14 +165,30 @@ export default function SelectAllActionsComponent({
    * @param action Action object
    * @param id Invoice id
    */
-  const handleActionClick = (action: SelectAllAction, id: number): void => {
+  const handleActionClick =  async (action: SelectAllAction, id: number) => {
+
     setActionValue({
       actionType: action.actionName,
       invoiceId: id,
       invoiceType: props.pageType,
       comment: "",
     });
-    setOpenConfirm(true);
+    const typeInvoicesZip =  await props.pageType ===  'sales' ? 1 : 0;
+    const typeColumn  =   typeInvoicesZip === 1 ? 'salesInvoiceId' :  'purchaseInvoiceId';
+    if(action.actionName === 'downloadPdf') {
+      const invoiceSelectpdf   =  await  invoices.filter((item)  => item.id ===  id)[0][`${typeColumn}`]
+      const zipData = await dispatch(getZip({id: invoiceSelectpdf,typeDocument: typeInvoicesZip, typeInvoices: 'printPdf'}));
+      unzipFile('PDF', zipData)
+      .catch((err)   =>  console.log('greska'));
+    } else if(action.actionName === 'downloadXml') {
+      const invoiceSelectxml   =  await  invoices.filter((item)  => item.id ===  id)[0].salesInvoiceId;
+      const zipData = await dispatch(getZip({id: invoiceSelectxml,typeDocument: typeInvoicesZip, typeInvoices: 'downloadXml'}));
+      unzipFile('XML', zipData)
+      .catch((err)   =>  console.log('greska'));
+    }
+      else {
+      setOpenConfirm(true);
+    }
   };
 
   /**

@@ -165,10 +165,21 @@ const updateStatusInvoice: AsyncThunk<
   }
 });
 
+
+const getZip: AsyncThunk<any, {id: number | string; typeDocument: number | string;  typeInvoices: number  |  string}, {}> = createAsyncThunk<any, {id: number | string; typeDocument: number | string;  typeInvoices: number  |  string}>(
+  "GET/getZip",
+  async (data) => {
+    return     await InvoicePublicService.getZip(data.id,data.typeDocument,data.typeInvoices)
+    .then((res: any) => {return res.data})
+    .catch((err: any) => []);
+}
+);
+
 export {
   getAllCompanies,
   sendInvoceXml,
   searchInvoices,
   sendInvoce,
   updateStatusInvoice,
+  getZip
 };

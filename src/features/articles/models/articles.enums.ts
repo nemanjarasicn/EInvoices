@@ -38,7 +38,8 @@ export enum ArticlesStatus {
   }
 
   export enum CreateType {
-    FORMARTICLES  = "Articles"
+    FORMARTICLES  = "Articles",
+    FORMARTICLESPRICE =  "articlesPrice"
   }
   
   export enum SchemeID {

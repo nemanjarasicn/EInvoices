@@ -92,7 +92,6 @@ export default function FormUnitComponent({
       } = methods;
 
       const onSubmit = (data: any) => {
-        console.log(data);
         dispatch(sendUnit({data})).then((res) => {
             if(res.payload === 'sucsses') {
               setShowError(true);

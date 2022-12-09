@@ -65,7 +65,6 @@ export default function InvoiceTemplatePage({
 
 
   React.useEffect(() => {
-    console.log(settings.selectType);
     dispatch(getMarketPlacesAll({companyId: company}));
     dispatch(getDataActionSelect(settings.selectType));
   }, []);
@@ -76,7 +75,6 @@ export default function InvoiceTemplatePage({
 
  
   const handleChangeSelect = (value: any) =>  {
-    console.log('sassaqsaa', value);
     setSelectValue(value.item.uuid);
   }
 

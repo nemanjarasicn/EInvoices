@@ -32,7 +32,7 @@ import { selectCompany, selectCompanyInfo } from "../../../app/core/core.selecto
 import  { selectObjectsAll, selectUnitsAll,  selectVatsAll,   selectMarketPlaces }  from   "../../shared/components/form-fields/store/form.selectors"
 import FormCurrencyField from "../../shared/components/form-fields/FormCurrencyField";
 import CheckboxField from "../../shared/components/form-fields/FormCheckboxField";
-import { sendArticle } from "../store/articles.actions";
+import { sendArticle, sendArticlesPrice } from "../store/articles.actions";
 //import ClientComponent from "./form-group/ClientComponent";
 
 
@@ -131,17 +131,16 @@ export default function FormArticleComponent({
   
       }, []);
 
-      const onSubmit = (data: ArticleFormModel) => {
-        console.log('sasas', data);
-         dispatch(sendArticle({data})).then((res) => {
-          console.log('saasas', res);
-            if(res.payload === "sucsess") {
-                  setShowError(true);
-                  setTimeout(() => {
-                      setShowError(false);
-                      navigate('/articles/articlesList'
-                      )
-                  }, 2000);
+      const onSubmit = async  (data: ArticleFormModel) => {
+         await dispatch(sendArticle({data})).then(async (res) => {
+          console.log(res);
+            if(res.payload.message === "sucsess") {
+              setShowError(true);
+              setTimeout(() => {
+                  setShowError(false);
+                  navigate('/articles/createArtikalPrice', 
+                  {state: res.payload.data[0].createProduct})
+              }, 2000);
             }
         } 
         )
@@ -327,88 +326,11 @@ export default function FormArticleComponent({
                             },
                         }}
                         />
-
-                  <FormCurrencyField
-                    props={{
-                      name: "price",
-                      control: control,
-                      label: "Cena",
-                      additional: { mask: {}, readonly: false },
-                      disabled: false,
-                    }}
-                  />    
-                  
                     </Grid>
                 </Grid>
                 </Paper>
             </Box>
-            <Grid item xs={12}>
-                <Box
-                        sx={{
-                          ...formComponent.basicBox,
-                          textAlign: "start",
-                          display: marketPlacesAll.length  >  1 ? 'block'  :  'none'
-                        }}
-                      >
-                        <Typography sx={formComponent.typography}>
-                            {('Prodajna mesta').toUpperCase()}
-                        </Typography>
-                        <Paper style={formComponent.groupPaper}>
-                          <Grid container spacing={2}>
-                            <Grid item xs={6} >
-                              <FormAutocompleteField
-                                  props={{
-                                      name: "marketPlaceDtos",
-                                      control: control,
-                                      label:  "Prodajna mesta",
-                                      disabled: false,
-                                      additional: {
-                                      selector:  selectMarketPlaces,
-                                      
-                                      },
-                                  }}
-                                  />
-                            </Grid>
-                          </Grid>
-                        </Paper>
-
-                </Box>
-                 {/*not need only for e facture */}
-                {/*<Box
-                        sx={{
-                          ...formComponent.basicBox,
-                          textAlign: "start",
-                        }}
-                      >
-                        <Typography sx={formComponent.typography}>
-                            {('Kase').toUpperCase()}
-                        </Typography>
-                        <Paper style={formComponent.groupPaper}>
-                          <Grid container spacing={2}>
-                              
-              
-                          </Grid>
-                        </Paper>
-
-                </Box>
-                <Box
-                        sx={{
-                          ...formComponent.basicBox,
-                          textAlign: "start",
-                        }}
-                      >
-                        <Typography sx={formComponent.typography}>
-                            {('Magacini').toUpperCase()}
-                        </Typography>
-                        <Paper style={formComponent.groupPaper}>
-                          <Grid container spacing={2}>
-                              
-              
-                          </Grid>
-                        </Paper>
-
-                </Box>*/}
-            </Grid>
+           
             <Grid item xs={5}>
                   <Box
                     sx={{

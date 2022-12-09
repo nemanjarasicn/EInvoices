@@ -40,3 +40,9 @@ export const selectInvoices = createSelector(
     return state.invoicesR.filter((item) => Boolean(item.id));
   }
 );
+
+
+export const selectZip = createSelector(
+  featureSelectors,
+  (state: FeatureState) => state.zip
+);

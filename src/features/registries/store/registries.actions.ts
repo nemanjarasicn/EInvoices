@@ -22,10 +22,8 @@ const sendMarketPlace: AsyncThunk<any,  {data: MarketPlaceFormModel}, {}> = crea
     .then(async (res: any) => {
       let message: string = "";
       let err: boolean = false;
-      console.log('assa', res);
       await _.dispatch(createTypePriceList(res.data[0]))
       .then(async (resPrice: any) =>  {
-        console.log('sdasds', resPrice);
        await _.dispatch(createPriceList(resPrice))
         .then((res:  any)  =>  message = "sucsess")
         .catch((err:  any) =>  message = "error")
@@ -69,7 +67,6 @@ const sendPointOfSales: AsyncThunk<any, {data: PointOfSaleFormModel}, {}> = crea
 const sendWarehouse: AsyncThunk<any, {data: WarehouseFormModel}, {}> = createAsyncThunk<any, {data: WarehouseFormModel}>(
   "POST/warehouseSend",
   async (data,_) => {
-    console.log(data);
     return await RegistriesPublicService.sendWarehouse(data)
       .then((res: any) => 'sucsses')
       .catch((err: any) => 'error');
@@ -152,10 +149,19 @@ const sendCompanies: AsyncThunk<any, {data: CompanyFormModel}, {}> = createAsync
   }
 );
 
+
+const sendsubscribe: AsyncThunk<any, {data: CompanyFormModel}, {}> = createAsyncThunk<any, {data: CompanyFormModel}>(
+  "POST/subscribeSend",
+  async (data,_) => {
+    return await RegistriesPublicService.sendsubscribe(data)
+      .then((res: any) => 'sucsses')
+      .catch((err: any) => 'error');
+  }
+);
+
 const getWarehouses: AsyncThunk<any, { uuid:   string }, {}> = createAsyncThunk<any, { uuid:    string }>(
   "GET/Warehouses",
   async (params) => {
-    console.log(params);
     return     await RegistriesPublicService.getWarehouses(params.uuid)
     .then((res: any) => res.data)
     .catch((err: any) => []);
@@ -193,7 +199,6 @@ const getUsers: AsyncThunk<any, void, {}> = createAsyncThunk(
 const getGroups: AsyncThunk<any, { uuid: number | string }, {}> = createAsyncThunk<any, { uuid: number | string }>(
   "GET/groups",
   async (params) => {
-    console.log('asasass',params);
     return     await RegistriesPublicService.getGroups(params.uuid)
     .then((res: any) => res.data)
     .catch((err: any) => []);
@@ -218,5 +223,6 @@ export {
   sendWarehouse,
   sendUnit,
   sendGroup,
-  sendVat
+  sendVat,
+  sendsubscribe
 };

@@ -23,6 +23,7 @@ import LanguageSelector from "./LanguageSelector";
 import UserAccount from "./UserAccount";
 import Home from "@mui/icons-material/Home";
 import ArticleIcon from '@mui/icons-material/Article';
+import ApartmentIcon from '@mui/icons-material/Apartment';
 import Payments from "@mui/icons-material/Payments";
 import { useAppComponentsStyles } from "./components.styles";
 import AppLoader from "./AppLoader";
@@ -108,7 +109,7 @@ export default function ClippedDrawer() {
     {
       name: t("Menu.registries"),
       href: "/registries",
-      icon: "Home",
+      icon: "ApartmentIcon",
       children: [
         {
           name: t("Objekti"),
@@ -151,6 +152,8 @@ export default function ClippedDrawer() {
         return <Payments />;
       case "Articles":
           return <ArticleIcon />;
+      case "ApartmentIcon":
+          return <ApartmentIcon />;
     }
   };
 

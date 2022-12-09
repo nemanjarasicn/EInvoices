@@ -50,3 +50,8 @@
 
   }
 
+  
+  export class PriceFormModel {
+   price:  number  |  string   =  "";
+  }
+

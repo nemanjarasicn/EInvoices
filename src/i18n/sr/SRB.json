@@ -8,7 +8,9 @@
     "send": "Pošalji",
     "newInvoice": "Nova Faktura",
     "from": "Od:",
-    "to": "Do:"
+    "to": "Do:",
+    "downloadXml": "DownloadXml",
+    "downloadPdf": "DownloadPdf"
   },
   "Dialog": {
     "addComment": "Unesi komentar"

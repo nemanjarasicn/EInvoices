@@ -106,6 +106,17 @@ class RegistriesPublicService {
     );
   }
 
+  sendsubscribe(data: any) {
+    return publicClient.post<any>
+    ("subscribe",
+      {
+        "apiKey": "121221221222",
+        "companyId":  20,
+        "companyName":  "test kompanija"
+      }
+    );
+  }
+
 
   sendWarehouse(data: any) {
     return publicClient.post<any>

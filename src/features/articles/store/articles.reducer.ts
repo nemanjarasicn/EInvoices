@@ -7,8 +7,7 @@ import {
     Slice,
   } from "@reduxjs/toolkit";
   import {
-    getArticles,
-    getZip
+    getArticles
   } from "./articles.actions";
   
   const FEATURE_REGISTRIES_KEY: string = "articles";
@@ -34,7 +33,6 @@ import {
      },
      extraReducers: (builder) => {
       getAsyncArticles(builder);
-      getAsyncZipFile(builder);
     },
     }
   )
@@ -66,24 +64,8 @@ import {
   }
 
 
-  function getAsyncZipFile(builder: ActionReducerMapBuilder<FeatureState>) {
-    builder.addCase(getZip.fulfilled, (state, { payload }) => ({
-      ...state,
-      loading: false,
-      error: "",
-      zip: payload,
-    }));
-    builder.addCase(getZip.pending, (state) => ({
-      ...state,
-      loading: true,
-    }));
-    builder.addCase(getZip.rejected, (state, { payload }) => ({
-      ...state,
-      loading: false,
-      zip: [],
-      error: (payload as any).error,
-    }));
-  }
+
+
 
 
   

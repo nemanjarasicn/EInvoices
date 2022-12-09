@@ -8,7 +8,9 @@
     "send": "Send",
     "newInvoice": "New Invoice",
     "from": "From:",
-    "to": "To:"
+    "to": "To:",
+    "downloadXml": "DownloadXml",
+    "downloadPdf": "DownloadPdf"
   },
   "Dialog": {
     "addComment": "Add comment"

@@ -16,7 +16,6 @@ export const isLoadingArticles = createSelector(
 export const selectArticles = createSelector(
   featureSelectors,
   (state: FeatureState) => {
-    console.log('asas',  state.articles);
     return state.articles.map((item, index) => ({
         id: item.id,
         productName: item.productName,
@@ -32,7 +31,5 @@ export const selectArticles = createSelector(
   }
 );
 
-export const selectZip = createSelector(
-  featureSelectors,
-  (state: FeatureState) => state.zip
-);
+
+

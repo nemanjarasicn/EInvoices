@@ -94,6 +94,9 @@ export default function FormCompaniesComponent({
       const onSubmit = (data: CompanyFormModel) => {
         dispatch(sendCompanies({data})).then((res) => {
             if(res.payload === 'sucsses') {
+              if(data.apiKey) {
+                //dispatch(sendsubscribe({data}))
+              }
               setShowError(true);  
               setTimeout(() => {
                     setShowError(false);

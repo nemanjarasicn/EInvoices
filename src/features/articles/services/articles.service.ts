@@ -1,6 +1,5 @@
 
 import publicClient from "./htpp-public-gov";
-import publicClientZip from "../services/htpp-public-gov_zip"
 import  { selectMarketPlaces }  from  "../../shared/components/form-fields/store/form.selectors"
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 
@@ -9,7 +8,6 @@ class RegistriesPublicService {
   // MOCK CLIENT
 
   sendArticle(data: any) {
-    console.log('asaas', data);
     return publicClient.post<any>
     ("catalog",
     [
@@ -74,7 +72,6 @@ class RegistriesPublicService {
 }
 
 sendArticlesPrice(data: any) {
-   console.log('data1111',data);
     return publicClient.post<any>
     ("pricinglistdetails",
         [{
@@ -82,7 +79,7 @@ sendArticlesPrice(data: any) {
             "productName": data.data.productName,
             "date":"2022-05-02 01:01:01",
             "barCode":  data.data.barCode,
-            "price": data.price,
+            "price": data.price.price,
             "auditedEntity":{"createdBy":1,"lastUpdatedBy":1},
             "priceListDtoRequest":{
                 "id":5
@@ -100,11 +97,6 @@ sendArticlesPrice(data: any) {
     );
   }
 
-  getZip() {
-   return publicClientZip.get<any>
-   ('invoices/search/downloadXml/625486/1',
-   );
- }
 
   
   

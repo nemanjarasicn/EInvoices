@@ -6,6 +6,7 @@ import {
   searchInvoices,
   sendInvoce,
   sendInvoceXml,
+  getZip
 } from "./invoice.actions";
 
 const FEATURE_INVOICES_KEY: string = "invoices";
@@ -16,6 +17,7 @@ export interface FeatureState {
   loading: boolean;
   files: IFile[];
   invoicesR: any[];
+  zip: any;
 }
 const initialState: FeatureState = {
   unitMesures: [],
@@ -23,6 +25,7 @@ const initialState: FeatureState = {
   companies: [],
   files: [],
   invoicesR: [],
+  zip:   []
 };
 
 const invoicesSlice: Slice<FeatureState> = createSlice({
@@ -57,6 +60,7 @@ const invoicesSlice: Slice<FeatureState> = createSlice({
     sendAsyncInvoiceXML(builder);
     searchAsyncInvoices(builder);
     sendAsyncInvoice(builder);
+    getAsyncZipFile(builder);
   },
 });
 
@@ -142,5 +146,24 @@ function searchAsyncInvoices(builder: ActionReducerMapBuilder<FeatureState>) {
     ...state,
     loading: false,
     invoicesR: [],
+  }));
+}
+
+function getAsyncZipFile(builder: ActionReducerMapBuilder<FeatureState>) {
+  builder.addCase(getZip.fulfilled, (state, { payload }) => ({
+    ...state,
+    loading: false,
+    error: "",
+    zip: payload,
+  }));
+  builder.addCase(getZip.pending, (state) => ({
+    ...state,
+    loading: true,
+  }));
+  builder.addCase(getZip.rejected, (state, { payload }) => ({
+    ...state,
+    loading: false,
+    zip: [],
+    error: (payload as any).error,
   }));
 }

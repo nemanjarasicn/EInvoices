@@ -1,4 +1,5 @@
 import publicClient from "./htpp-public-gov";
+import publicClientZip from "../services/htpp-public-gov_zip"
 import commonHttpClient from "../../../app/http-common";
 import dayjs from "dayjs";
 
@@ -121,6 +122,12 @@ class InvoicePublicService {
 
   public getAllCompanies() {
     return publicClient.get<any[]>("/getAllCompanies");
+  }
+
+  getZip(id: number  |   string, typeDocument: number | string,  typeInvoices: number  |  string  ) {
+    return publicClientZip.get<any>
+    (`invoices/search/${typeInvoices}/${id}/${typeDocument}`,
+    );
   }
 
   /**

@@ -88,7 +88,6 @@ export default function InvoiceTemplatePage({
 
  
   const handleChangeSelect = (value: any) =>  {
-    console.log('sassa', value);
     setSelectValue(value.item.uuid)
   }
 

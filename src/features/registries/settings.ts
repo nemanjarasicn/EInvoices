@@ -7,7 +7,9 @@ import { TemplatePageRegistriesTypes } from "./models/registries.enums";
 import { ButtonProps, SelectButtonProps } from "../shared/components/CustomButtonFc";
 import { CreateType } from "./models/registries.enums";
 import { RegistriesFormComponentProps } from "./components/RegistriesFormComponent";
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { selectMarketPlaces, selectPointOfSale } from "../shared/components/form-fields/store/form.selectors";
+import { selectUser } from "../../app/core/core.selectors";
 
 
 type FeatureSettings = {
@@ -34,6 +36,8 @@ type FeatureSettings = {
  */
 const useFeatureSettings = (): FeatureSettings => {
   let navigate = useNavigate();
+  const user = useAppSelector(selectUser);
+  const showCard = user?.username  ===  "nemanjarasic" ?  false :  true;
   return {
     cardsSettings: [
       {
@@ -41,7 +45,7 @@ const useFeatureSettings = (): FeatureSettings => {
         icon: CodeIcon,
         cardBtn: {
           title: "InvoiceCard.preview",
-          disabled: false,
+          disabled: showCard,
           btnFn: () => navigate("/registries/companies"),
         },
         typeOfCard:  "company",
@@ -91,7 +95,7 @@ const useFeatureSettings = (): FeatureSettings => {
         icon: ExitToAppIcon,
         cardBtn: {
           title: "InvoiceCard.preview",
-          disabled: false,
+          disabled: showCard,
           btnFn: () => navigate("/registries/units"),
         },
         typeOfCard:  "articles",
@@ -101,7 +105,7 @@ const useFeatureSettings = (): FeatureSettings => {
         icon: ExitToAppIcon,
         cardBtn: {
           title: "InvoiceCard.preview",
-          disabled: false,
+          disabled: showCard,
           btnFn: () => navigate("/registries/vat"),
         },
         typeOfCard:  "articles",
@@ -112,7 +116,7 @@ const useFeatureSettings = (): FeatureSettings => {
         icon: ExitToAppIcon,
         cardBtn: {
           title: "InvoiceCard.preview",
-          disabled: false,
+          disabled: showCard,
           btnFn: () => navigate("/registries/users"),
         },
         typeOfCard:  "articles",

@@ -362,6 +362,14 @@ function articlesRoutes(): React.ReactNode {
             </React.Suspense>
           }
         />
+        <Route
+          path="createArtikalPrice"
+          element={
+            <React.Suspense fallback={<>...</>}>
+              <ArticlesCreateTemplatePage props={{ type: CreateTypeArticles.FORMARTICLESPRICE }} />
+            </React.Suspense>
+          }
+        />
       </Route> 
     </>
   );
