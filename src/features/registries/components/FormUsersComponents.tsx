@@ -23,10 +23,11 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import CustomButtonFc from "../../shared/components/CustomButtonFc";
 import { UsersFormModel, IProps } from "../models/registries.models";
-import { selectClientCompanies } from "../../shared/components/form-fields/store/form.selectors";
+import { selectCompaniesAll } from "../../shared/components/form-fields/store/form.selectors";
 import { useNavigate } from 'react-router-dom';
 import FormAutocompleteField from "../../shared/components/form-fields/FormAutocompleteField";
 import { selectCompany, selectCompanyInfo } from "../../../app/core/core.selectors";
+import { getCompaniesAll,  getMarketPlacesAll }  from  "../../shared/components/form-fields/store/form.actions"
 import { sendUsers } from "../store/registries.actions";
 import SucessModal   from "../../shared/components/SucessModal"
 //import ClientComponent from "./form-group/ClientComponent";
@@ -96,7 +97,7 @@ export default function FormUsersComponent({
 
       const onSubmit = (data: UsersFormModel) => {
         console.log('data', data);
-        dispatch(sendUsers({data})).then((res) => {
+        /*dispatch(sendUsers({data})).then((res) => {
             if(res.payload === 'sucsses') {
               setShowError(true);
               setTimeout(() => {
@@ -106,16 +107,20 @@ export default function FormUsersComponent({
               }, 2000);
             }
         } 
-        )
+        )*/
       }
-  
+      
+
+      React.useEffect(() => {
+        dispatch(getCompaniesAll());
+      }, []);
   
     return (
         <Grid item xs={12}>
             <SucessModal    open={showError} ></SucessModal>
                 <Grid container spacing={2}>
                     <Grid item xs={6}>
-                      {false ?
+                      {true ?
                         <FormAutocompleteField
                           props={{
                               name: "companyId",
@@ -123,7 +128,7 @@ export default function FormUsersComponent({
                               label: t(props.formFieldsLabels.users.company),
                               disabled: true,
                               additional: {
-                              selector: selectClientCompanies,
+                              selector: selectCompaniesAll,
                               
                               },
                           }}
