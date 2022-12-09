@@ -43,6 +43,8 @@ export default function TableComponent({
     })
   );
 
+  console.log(tableData);
+
 
   const selection: GridSelectionModel = useAppSelector(selectSelection);
 

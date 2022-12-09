@@ -97,6 +97,7 @@
   }
 
   export class VatFormModel {
+    id: number | string = "";
     name: string = "";
     value1: number  =  0;
     value2: number  =  0;

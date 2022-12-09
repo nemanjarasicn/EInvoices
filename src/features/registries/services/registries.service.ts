@@ -159,12 +159,9 @@ class RegistriesPublicService {
       "idPointOfSale": data.data.idPointOfSale.uuid,
       "groupName":  data.data.groupName,
       "orderGroup":1,
-      "idCompany": data.data.idCompany.id,
-      "idObject": data.data.idObject.id,
-      
-    
+      "idCompany": data.data.idCompany,
+      "idObject": data.data.idObject.idObject,
       "auditedEntity":
-  
       {
           "createdBy":1,
           "lastUpdatedBy":1

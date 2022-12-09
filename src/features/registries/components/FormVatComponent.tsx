@@ -60,6 +60,7 @@ export default function FormVatComponent({
     props,
   }: IProps<RegistriesFormComponentProps>): JSX.Element {
     const defaultValues:  VatFormModel = {
+        id: "",
         name: "",
         value1:  0,
         value2: 0,

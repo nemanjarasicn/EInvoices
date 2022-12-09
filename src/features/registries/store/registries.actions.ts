@@ -88,6 +88,7 @@ const sendUnit: AsyncThunk<any, {data: UnitFormModel}, {}> = createAsyncThunk<an
 const sendGroup: AsyncThunk<any, {data: GroupFormModel}, {}> = createAsyncThunk<any, {data: GroupFormModel}>(
   "POST/groupSend",
   async (data,_) => {
+    console.log('data', data);
     return await RegistriesPublicService.sendGroup(data)
       .then((res: any) => 'sucsses')
       .catch((err: any) => 'error');

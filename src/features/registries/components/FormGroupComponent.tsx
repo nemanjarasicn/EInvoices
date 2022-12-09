@@ -100,6 +100,7 @@ export default function FormGroupComponent({
       }, []);
 
       const onSubmit = (data: GroupFormModel) => {
+        console.log('group', data);
         dispatch(sendGroup({data})).then((res) => {
             if(res.payload === 'sucsses') {
               setShowError(true);

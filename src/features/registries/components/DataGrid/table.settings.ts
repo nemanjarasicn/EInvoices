@@ -527,7 +527,7 @@ const useTableSettings = (): TableSettings => {
           getDataAction: getVat(),
           selectType:  "VAT",
           selector:  selectVat,
-          parentColumn: "name",
+          parentColumn: "id",
           footerProps: {
             countTxt: "Table.FooterCountTxt",
             totalAmountTxt: "Table.FooterTotalAmountTxt",
