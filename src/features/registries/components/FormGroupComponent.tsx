@@ -27,6 +27,7 @@ import { selectClientCompanies } from "../../shared/components/form-fields/store
 import { useNavigate } from 'react-router-dom';
 import FormAutocompleteField from "../../shared/components/form-fields/FormAutocompleteField";
 import { sendGroup } from "../store/registries.actions";
+import { selectCompany, selectCompanyInfo } from "../../../app/core/core.selectors";
 import SucessModal   from "../../shared/components/SucessModal"
 
 import { getPointOfSalesAll, getObjectsAll }  from  "../../shared/components/form-fields/store/form.actions"
@@ -61,10 +62,11 @@ import  { selectPointOfSale, selectObjectsAll }  from  "../../shared/components/
 export default function FormGroupComponent({
     props,
   }: IProps<RegistriesFormComponentProps>): JSX.Element {
+    const companyId = useAppSelector(selectCompany) as number;
     const defaultValues:  GroupFormModel = {
         groupName:  "",
         idPointOfSale:   "",
-        idCompany:  7,
+        idCompany:  companyId,
         idObject:  0
       }
     
@@ -93,8 +95,8 @@ export default function FormGroupComponent({
       } = methods;
 
       React.useEffect(() => {
-        dispatch(getPointOfSalesAll({companyId: 7}));
-        dispatch(getObjectsAll({companyId: 7}));
+        dispatch(getPointOfSalesAll({companyId: companyId}));
+        dispatch(getObjectsAll({companyId: companyId}));
       }, []);
 
       const onSubmit = (data: GroupFormModel) => {

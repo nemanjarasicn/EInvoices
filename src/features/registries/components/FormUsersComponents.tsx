@@ -101,7 +101,7 @@ export default function FormUsersComponent({
               setShowError(true);
               setTimeout(() => {
                   setShowError(false);
-                  navigate('/registries/objects'
+                  navigate('/registries/users'
                   )
               }, 2000);
             }

@@ -199,12 +199,12 @@ class RegistriesPublicService {
 
   sendUsers(data: any) {
     return publicClient.post<any>
-    ("registration",
+    ("/user/registration",
     {
-      "username":  data.username,
-      "password":  data.password,
+      "username":  data.data.username,
+      "password":  data.data.password,
       "roleName":["ROLE_USER"],
-      "companyId": data.companyId
+      "companyId": data.data.companyId
   
   }
     );
