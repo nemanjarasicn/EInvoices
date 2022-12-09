@@ -5,6 +5,7 @@ import { OverridableComponent } from "@mui/material/OverridableComponent";
 import { IProps } from "../models/invoice.models";
 import { useComponentsStyles } from "./components.styles";
 import { useTranslation } from "react-i18next";
+import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import { selectIds, selectInvoices } from "../store/invoice.selectors";
 import {
@@ -53,6 +54,7 @@ export default function SelectAllActionsComponent({
   const tableDataIds = useAppSelector(selectIds);
   const selection: any[] = useAppSelector(selectSelection);
   const invoices = useAppSelector(selectInvoices);
+  const navigate  = useNavigate();
 
   // --------------ZIP -------------------------------------
   const dispatch = useAppDispatch();
@@ -204,6 +206,7 @@ function downloadXml(data: Blob, fileName: string) {
       dispach(updateStatusInvoice({ ...dataToSend }));
       setOpenConfirm(false);
       setActionValue(null);
+      navigate('/invoices/sales')
     }
   };
 

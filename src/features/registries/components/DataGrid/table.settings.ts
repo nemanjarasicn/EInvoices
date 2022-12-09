@@ -13,7 +13,7 @@ import {
 import { TableComponentProps } from "./TableComponent";
 import { useAppDispatch, useAppSelector } from "../../../../app/hooks";
 import { selectCompany } from "../../../../app/core/core.selectors";
-import { selectObjects, selectIds, selectMarketPlaces, selectPointOfSales, selectCompanies, selectWarehouses, selectUnits, selectVat, selectGroups} from "../../store/registries.selectors";
+import { selectObjects, selectIds, selectMarketPlaces, selectPointOfSales, selectCompanies, selectWarehouses, selectUnits, selectVat, selectGroups, selectUsers} from "../../store/registries.selectors";
 
 type TableSettings = {
   tableSettings: {
@@ -538,45 +538,28 @@ const useTableSettings = (): TableSettings => {
         dataGrid: {
           columnsDef: [
             {
-              field: "name",
-              headerName: "Ime objekta",
+              field: "username",
+              headerName: "Korisnicko ime",
               flex: 1,
               headerAlign: "center",
               align: "center",
               hideable: false,
             },
             {
-              field: "idObject",
-              headerName: "Id Objekta",
+              field: "compnyId",
+              headerName: "Id kompanije",
               flex: 1,
               headerAlign: "center",
               align: "center",
               hideable: false,
             },
             {
-              field: "uuid",
-              headerName: "Uuid",
+              field: "roleName",
+              headerName: "role Name",
               flex: 1,
               headerAlign: "center",
               align: "center",
               hideable: false,
-            },
-            {
-              field: "latitude",
-              headerName: "Geografska Sirina",
-              flex: 1,
-              headerAlign: "center",
-              align: "center",
-              hideable: false,
-            },
-            {
-              field: "longitude",
-              headerName: "Geografska duzina",
-              flex: 1,
-              headerAlign: "center",
-              align: "center",
-              hideable: true,
-              hide: false,
             },
            
           ],
@@ -587,9 +570,9 @@ const useTableSettings = (): TableSettings => {
             showExport: false,
           },
           getDataAction: getObjects({companyId: company}),
-          selectType:  "OBJECTS",
-          selector:  selectObjects,
-          parentColumn: "idObject",
+          selectType:  "USERS",
+          selector:  selectUsers,
+          parentColumn: "id",
           footerProps: {
             countTxt: "Table.FooterCountTxt",
             totalAmountTxt: "Table.FooterTotalAmountTxt",

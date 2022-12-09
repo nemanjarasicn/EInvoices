@@ -106,6 +106,15 @@
     default?: boolean = true;
     idCountry:  number  = 0;
   }
+
+
+  export class UsersFormModel {
+    id: string = "";
+    companyId: number = 0;
+    username: string = "";
+    password: string = "";
+    confirmpassword: string = "";
+  }
   
  
   export interface CustomerPartyModel {

@@ -87,3 +87,10 @@ export const selectWarehouses = createSelector(
     return state.warehouses;
   }
 );
+
+export const selectUsers = createSelector(
+  featureSelectors,
+  (state: FeatureState) => {
+    return state.users;
+  }
+);

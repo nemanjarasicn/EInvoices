@@ -326,6 +326,14 @@ function registriesRoutes(): React.ReactNode {
             </React.Suspense>
           }
         />
+        <Route
+          path="createUser"
+          element={
+            <React.Suspense fallback={<>...</>}>
+              <RegistriesCreateTemplatePage props={{ type: CreateTyperegistries.FORMUSERS }} />
+            </React.Suspense>
+          }
+        />
       </Route> 
     </>
   );

@@ -1,6 +1,6 @@
 import { AsyncThunk, createAsyncThunk } from "@reduxjs/toolkit";
 import RegistriesPublicService from "../services/registries.service";
-import { ObjectFormModel, IProps, CompanyFormModel, PointOfSaleFormModel, WarehouseFormModel,  UnitFormModel,   GroupFormModel, VatFormModel } from "../models/registries.models";
+import { ObjectFormModel, IProps, CompanyFormModel, PointOfSaleFormModel, WarehouseFormModel,  UnitFormModel,   GroupFormModel, VatFormModel, UsersFormModel } from "../models/registries.models";
 import { MarketPlaceFormModel } from "../models/registries.models";
 
 /**
@@ -18,6 +18,7 @@ const sendObjects: AsyncThunk<any, {data: ObjectFormModel}, {}> = createAsyncThu
 const sendMarketPlace: AsyncThunk<any,  {data: MarketPlaceFormModel}, {}> = createAsyncThunk<any, {data: MarketPlaceFormModel}>(
   "POST/marketPlacesSend",
   async (data,_) => {
+    console.log(data);
     return await RegistriesPublicService.sendMarketPlace(data)
     .then(async (res: any) => {
       let message: string = "";
@@ -98,6 +99,17 @@ const sendVat: AsyncThunk<any, {data: VatFormModel}, {}> = createAsyncThunk<any,
   "POST/vatSend",
   async (data,_) => {
     return await RegistriesPublicService.sendVat(data)
+      .then((res: any) => 'sucsses')
+      .catch((err: any) => 'error');
+  }
+);
+
+
+const sendUsers: AsyncThunk<any, {data: UsersFormModel}, {}> = createAsyncThunk<any, {data: UsersFormModel}>(
+  "POST/usersSend",
+  async (data,_) => {
+    console.log(data);
+    return await RegistriesPublicService.sendUsers(data)
       .then((res: any) => 'sucsses')
       .catch((err: any) => 'error');
   }
@@ -224,5 +236,6 @@ export {
   sendUnit,
   sendGroup,
   sendVat,
-  sendsubscribe
+  sendsubscribe,
+  sendUsers
 };

@@ -100,6 +100,16 @@ export default function RegistriesCreateTemplatePage({
                         }
                       />
                     );
+                    case CreateType.FORMUSERS:
+                      return (
+                        <RegistriesFormComponent
+                          props={
+                            RegistriesCreateTemplatePageSettings[
+                              CreateType.FORMUSERS
+                            ] as RegistriesFormComponentProps
+                          }
+                        />
+                      );
           default:
             throw new Error("Pass Type of creation");
         }

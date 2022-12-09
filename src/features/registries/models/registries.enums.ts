@@ -61,7 +61,8 @@ export enum ArticlesStatus {
     FORMWAREHOUSE  =  "formWarehouse",
     FORMUNIT   =  "formUnit",
     FORMGROUP  =    "formGroup",
-    FORMVAT  =   "formVat"
+    FORMVAT  =   "formVat",
+    FORMUSERS = "formUsers"
 
 
   }

@@ -16,21 +16,18 @@ import {
 import { RegistriesFormComponentProps }  from "./RegistriesFormComponent"
 import { useTranslation } from "react-i18next";
 import FormTextField  from  "../../shared/components/form-fields/FormTextField"
-import CustomButtonFc from "../../shared/components/CustomButtonFc";
 import { useComponentsStyles } from "../../shared/components/components.styles";
+import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
-import { MarketPlaceFormModel } from "../models/registries.models";
-import { IProps  } from "../models/registries.models";
+import CustomButtonFc from "../../shared/components/CustomButtonFc";
+import { UsersFormModel, IProps } from "../models/registries.models";
 import { selectClientCompanies } from "../../shared/components/form-fields/store/form.selectors";
-import FormAutocompleteField from "../../shared/components/form-fields/FormAutocompleteField";
-import { sendMarketPlace } from "../store/registries.actions";
 import { useNavigate } from 'react-router-dom';
+import FormAutocompleteField from "../../shared/components/form-fields/FormAutocompleteField";
 import { selectCompany, selectCompanyInfo } from "../../../app/core/core.selectors";
-import { useAppDispatch, useAppSelector } from "../../../app/hooks";
-import { selectObjectsAll } from "../../shared/components/form-fields/store/form.selectors";
-import { getObjectsAll } from "../../shared/components/form-fields/store/form.actions";
+import { sendUsers } from "../store/registries.actions";
 import SucessModal   from "../../shared/components/SucessModal"
 //import ClientComponent from "./form-group/ClientComponent";
 
@@ -56,29 +53,31 @@ import SucessModal   from "../../shared/components/SucessModal"
    //     invoicedQuantity: yup.number().moreThan(0, ""),
    //   })
    // ),
-
-  
-   marketPlaceName: yup.string().required('ovo je obavezno polje'),
+    password: yup.string().required('Password is required'),
+    confirmpassword: yup.string()
+       .oneOf([yup.ref('password'), null], 'Passwords must match')
  })
  .required();
 
-export default function FormMarketPlaceComponent({
+export default function FormUsersComponent({
     props,
   }: IProps<RegistriesFormComponentProps>): JSX.Element {
     const companyId = useAppSelector(selectCompany) as number;
-    const defaultValues:  MarketPlaceFormModel = {
-      companyId:  companyId,
-      marketPlaceName: "",
-      objectUuid: "",
+    const defaultValues:  UsersFormModel = {
+      id: "",
+      companyId: companyId ,
+      username: "",
+      password: "",
+      confirmpassword: "",
     };
-    
     const { t } = useTranslation();
     const { formComponent } = useComponentsStyles();
     const navigate  = useNavigate();
     const dispatch = useAppDispatch();
-    const [showError, setShowError] = React.useState(false)
+    const [showError, setShowError] = React.useState(false);
 
-  
+   
+
     const methods = useForm({
         defaultValues: defaultValues,
         resolver: yupResolver(schema),
@@ -95,51 +94,45 @@ export default function FormMarketPlaceComponent({
         watch,
       } = methods;
 
-
-      const onSubmit = (data: MarketPlaceFormModel) => {
-        dispatch(sendMarketPlace({data})).then((res) => {
-            if(res.payload === 'sucsess') {
+      const onSubmit = (data: UsersFormModel) => {
+        console.log('data', data);
+        dispatch(sendUsers({data})).then((res) => {
+            if(res.payload === 'sucsses') {
               setShowError(true);
               setTimeout(() => {
-                  setShowError(false);    
-                  navigate('/registries/marketPlace'
+                  setShowError(false);
+                  navigate('/registries/objects'
                   )
               }, 2000);
             }
-        }
+        } 
         )
       }
-
-      React.useEffect(() => {
-        dispatch(getObjectsAll({companyId: companyId}));
-      }, []);
-
-      
+  
   
     return (
         <Grid item xs={12}>
-          <SucessModal    open={showError} ></SucessModal>
+            <SucessModal    open={showError} ></SucessModal>
                 <Grid container spacing={2}>
                     <Grid item xs={6}>
-          
-                         {false ?
+                      {false ?
                         <FormAutocompleteField
-                        props={{
-                            name: "companyId",
-                            control: control,
-                            label: t(props.formFieldsLabels.marketPlace.company),
-                            disabled: true,
-                            additional: {
-                            selector: selectClientCompanies,
-                            
-                            },
-                        }}
+                          props={{
+                              name: "companyId",
+                              control: control,
+                              label: t(props.formFieldsLabels.users.company),
+                              disabled: true,
+                              additional: {
+                              selector: selectClientCompanies,
+                              
+                              },
+                          }}
                         /> : 
                         <FormTextField
                         props={{
                             control: control,
                             name: "companyId",
-                            label: t(props.formFieldsLabels.marketPlace.company),
+                            label: t(props.formFieldsLabels.users.company),
                             disabled: true,
                             additional: { readonly: true, labelShrink: true}
 
@@ -151,39 +144,35 @@ export default function FormMarketPlaceComponent({
                     <FormTextField
                         props={{
                             control: control,
-                            name: "marketPlaceName",
-                            label: t(props.formFieldsLabels.marketPlace.name),
+                            name: "username",
+                            label: t(props.formFieldsLabels.users.username),
                             disabled: false,
                             additional: { readonly: false, labelShrink: true }
                         
                         }}
                     />
-
-                    <FormAutocompleteField
-                        props={{
-                            name: "objectUuid",
-                            control: control,
-                            label: t(
-                              props.formFieldsLabels.marketPlace.uuidObject),
-                            disabled: true,
-                            additional: {
-                            selector: selectObjectsAll,
-                            
-                            },
-                        }}
-                        />
-            
-                    {/*<FormTextField
+                    <FormTextField
                         props={{
                             control: control,
-                            name: "objectUuid",
-                            label: t(
-                                props.formFieldsLabels.marketPlace.uuidObject
-                            ),
+                            name: "password",
+                            label: t(props.formFieldsLabels.users.password),
                             disabled: false,
                             additional: { readonly: false, labelShrink: true },
+                        
                         }}
-                      />*/}
+                    />
+
+                    <FormTextField
+                        props={{
+                            control: control,
+                            name: "confirmpassword",
+                            label: t(props.formFieldsLabels.users.confirmPassword),
+                            disabled: false,
+                            additional: { readonly: false, labelShrink: true },
+                        
+                        }}
+                    />
+                    
                     </Grid>
                 </Grid>
                 <Grid item xs={5}>

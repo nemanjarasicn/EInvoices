@@ -16,7 +16,8 @@ import {
     getUnits,
     getVat,
     getGroups,
-    getWarehouses
+    getWarehouses,
+    getUsers
   } from "./registries.actions";
   
   const FEATURE_REGISTRIES_KEY: string = "registries";
@@ -30,6 +31,7 @@ import {
     vat:  any[];
     groups:  any[];
     warehouses:  any[];
+    users: any[];
     loading: boolean;
   }
 
@@ -42,6 +44,7 @@ import {
     vat:  [],
     groups:  [],
     warehouses: [],
+    users:  [],
     loading: false,
   };
   
@@ -223,6 +226,25 @@ import {
       ...state,
       loading: false,
       warehouses: [],
+      error: (payload as any).error,
+    }));
+  }
+
+  function getAsyncUsers(builder: ActionReducerMapBuilder<FeatureState>) {
+    builder.addCase(getUsers.fulfilled, (state, { payload }) => ({
+      ...state,
+      loading: false,
+      error: "",
+      users: payload,
+    }));
+    builder.addCase(getUsers.pending, (state) => ({
+      ...state,
+      loading: true,
+    }));
+    builder.addCase(getUsers.rejected, (state, { payload }) => ({
+      ...state,
+      loading: false,
+      users: [],
       error: (payload as any).error,
     }));
   }

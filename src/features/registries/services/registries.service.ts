@@ -23,7 +23,7 @@ class RegistriesPublicService {
     return publicClient.post<any>
     ("marketplace",
     [{
-      "objectUuid": data.data.objectUuid,
+      "objectUuid": data.data.objectUuid.uuid,
       "marketPlaceName": data.data.marketPlaceName,
       "idCompany":  data.data.companyId
     }]
@@ -193,6 +193,20 @@ class RegistriesPublicService {
           "lastUpdatedBy":1
       }
   }]
+    );
+  }
+
+
+  sendUsers(data: any) {
+    return publicClient.post<any>
+    ("registration",
+    {
+      "username":  data.username,
+      "password":  data.password,
+      "roleName":["ROLE_USER"],
+      "companyId": data.companyId
+  
+  }
     );
   }
 

@@ -29,6 +29,7 @@ import FormWarehouseComponent    from  "./FormWarehouseComponent"
 import FormUnitComponent from "./FormUnitComponent";
 import FormGroupComponent from "./FormGroupComponent";
 import FormVatComponent from "./FormVatComponent";
+import FormUsersComponent from "./FormUsersComponents";
 
 export type RegistriesFormComponentProps = {
   invoiceTypeOptions: any;
@@ -89,6 +90,8 @@ export default function RegistriesFormComponent({
         return <FormGroupComponent  props={props} />;
       case "vats":
           return <FormVatComponent  props={props} />;
+      case "users":
+          return <FormUsersComponent  props={props} />;
     }
     return <div>test</div>
   }
