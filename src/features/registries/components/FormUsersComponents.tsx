@@ -97,7 +97,7 @@ export default function FormUsersComponent({
 
       const onSubmit = (data: UsersFormModel) => {
         console.log('data', data);
-        /*dispatch(sendUsers({data})).then((res) => {
+        dispatch(sendUsers({data})).then((res) => {
             if(res.payload === 'sucsses') {
               setShowError(true);
               setTimeout(() => {
@@ -107,7 +107,7 @@ export default function FormUsersComponent({
               }, 2000);
             }
         } 
-        )*/
+        )
       }
       
 
