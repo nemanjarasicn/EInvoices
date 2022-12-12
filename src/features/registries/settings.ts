@@ -91,7 +91,7 @@ const useFeatureSettings = (): FeatureSettings => {
         typeOfCard:  "company",
       },
       {
-        title: "Units",
+        title: "Units.title",
         icon: ExitToAppIcon,
         cardBtn: {
           title: "InvoiceCard.preview",
@@ -228,12 +228,12 @@ const useFeatureSettings = (): FeatureSettings => {
         showTable: true,
       },
       [TemplatePageRegistriesTypes.UNITS]: {
-        title: "Units",
+        title: "Units.title",
         showBtns: true,
         showBtnsSelect: false,
         buttons: [
           {
-            title: "Kreiraj novi unit",
+            title: "Units.createNew",
             disabled: false,
             btnFn: () => navigate("/registries/createUnit"),
           },

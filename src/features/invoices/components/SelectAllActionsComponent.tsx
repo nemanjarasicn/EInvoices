@@ -63,7 +63,10 @@ export default function SelectAllActionsComponent({
  
   // function for unzip file
    const  unzipFile = async (flag: string, zipDataT: any) => {
-    await zip.loadAsync(zipDataT.payload).then(function (zip) {
+    console.log('zip before',zipDataT )
+   
+    await zip.loadAsync(zipDataT.payload,{base64:true}).then(function (zip) {
+      console.log('zipload',zip)
       Object.keys(zip.files).map((filename) => {
         const extName =  flag === 'PDF' ?  '.pdf'  :  '.xml';
         const filenameDownload  = filename.slice(0, filename.length-4) + extName;
@@ -181,7 +184,7 @@ function downloadXml(data: Blob, fileName: string) {
       const invoiceSelectpdf   =  await  invoices.filter((item)  => item.id ===  id)[0][`${typeColumn}`]
       const zipData = await dispatch(getZip({id: invoiceSelectpdf,typeDocument: typeInvoicesZip, typeInvoices: 'printPdf'}));
       unzipFile('PDF', zipData)
-      .catch((err)   =>  console.log('greska'));
+      .catch((err)   =>  console.log('greska',err));
     } else if(action.actionName === 'downloadXml') {
       const invoiceSelectxml   =  await  invoices.filter((item)  => item.id ===  id)[0].salesInvoiceId;
       const zipData = await dispatch(getZip({id: invoiceSelectxml,typeDocument: typeInvoicesZip, typeInvoices: 'downloadXml'}));
@@ -197,16 +200,17 @@ function downloadXml(data: Blob, fileName: string) {
    * Handle close dialog comment = false on cancel comment = string on confirm
    * @param comment input value on dialog
    */
-  const handleClose = (comment?: string | boolean): void => {
-    if (!comment) {
+  const handleClose = (data: {comment?: string | boolean, flagButton: string}): void => {
+    console.log(data.flagButton);
+    if (data.flagButton  === "cancel") {
       setOpenConfirm(false);
       setActionValue(null);
     } else {
-      const dataToSend = { ...actionValue, comment: comment };
+      const dataToSend = { ...actionValue, comment: data.comment };
       dispach(updateStatusInvoice({ ...dataToSend }));
       setOpenConfirm(false);
       setActionValue(null);
-      navigate('/invoices/sales')
+      navigate(`/invoices/${props.pageType}`)
     }
   };
 

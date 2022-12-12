@@ -13,6 +13,7 @@ import FiltersToolbarComponent from "../components/FiltersToolbarComponent";
 import { IProps } from "../models/invoice.models";
 import TableComponent from "../components/DataGrid/TableComponent";
 import { useTableSettings } from "../components/DataGrid/table.settings";
+import { format } from 'date-fns'
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import { searchInvoices } from "../store/invoice.actions";
 import { selectCompany } from "../../../app/core/core.selectors";
@@ -42,12 +43,21 @@ export default function InvoiceTemplatePage({
   const id = useAppSelector(selectCompany);
 
   React.useEffect(() => {
+    const date  = new Date();
+    const dateTmp = new Date(date)
+  
+    const today = format(date, 'yyyy-MM-dd');
+    const yesterday  = format(dateTmp.setDate(dateTmp.getDate() - 1), 'yyyy-MM-dd');
+
+    
     const param = Path[props.templateType.toString() as keyof Object] as any;
     dispatch(
       searchInvoices({
         params: {
           inputAndOutputDocuments: String(param),
           companyId: String(id),
+          date: 
+          {from: yesterday, to:  today}
         },
       })
     );

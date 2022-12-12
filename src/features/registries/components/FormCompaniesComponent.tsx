@@ -1,31 +1,20 @@
 import React from "react";
 import {
     Paper,
-    Typography,
     Grid,
     Box,
-    Switch,
-    FormControlLabel,
-    FormControl,
-    FormHelperText,
-    InputLabel,
-    MenuItem,
-    Select,
-    IconButton,
   } from "@mui/material";
 import { RegistriesFormComponentProps }  from "./RegistriesFormComponent"
 import { useTranslation } from "react-i18next";
-import FormTextField  from  "../../shared/components/form-fields/FormTextField"
+import { useNavigate } from 'react-router-dom';
 import { useComponentsStyles } from "../../shared/components/components.styles";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
+import FormTextField  from  "../../shared/components/form-fields/FormTextField"
 import CustomButtonFc from "../../shared/components/CustomButtonFc";
-import { CompanyFormModel, IProps } from "../models/registries.models";
-import { selectClientCompanies } from "../../shared/components/form-fields/store/form.selectors";
-import { useNavigate } from 'react-router-dom';
-import FormAutocompleteField from "../../shared/components/form-fields/FormAutocompleteField";
+import { CompanyFormModel, IProps } from "../models/registries.models"
 import { sendCompanies } from "../store/registries.actions";
 import SucessModal   from "../../shared/components/SucessModal"
 
@@ -34,22 +23,6 @@ import SucessModal   from "../../shared/components/SucessModal"
  */
  const schema = yup
  .object({
-   // client: yup
-   //   .object({
-   //     vatRegistrationCode: yup.string().required(),
-   //   })
-   //   .required(),
-   // dropdownValue: yup.string().required(),
-   // textAreaValue: yup.string().required(),
-   // dateValue: yup.string().required(), //validate date format
-   // autocompleteValue: yup.object().required(),
-   // checkbox: yup.bool().required(),
-   // numberValue: yup.number().required(),
-   // invoiceLine: yup.array().of(
-   //   yup.object({
-   //     invoicedQuantity: yup.number().moreThan(0, ""),
-   //   })
-   // ),
  })
  .required();
 

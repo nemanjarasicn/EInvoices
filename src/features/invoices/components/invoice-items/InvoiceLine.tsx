@@ -129,7 +129,7 @@ export default function InvoiceLine({
             name: `invoiceLine[${index}].invoicedQuantity`,
             additional: {
               mask: {
-                decimalScale: 0,
+                decimalScale: 1, //put condition if decimal show to be 1 else 0,
                 prefix: "",
                 allowNegative: true,
                 maxValue: 100000,

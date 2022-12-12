@@ -399,7 +399,7 @@ const useTableSettings = (): TableSettings => {
           columnsDef: [
             {
               field: "id",
-              headerName: "Id unit",
+              headerName: "Units.idUnit",
               flex: 1,
               headerAlign: "center",
               align: "center",
@@ -407,7 +407,7 @@ const useTableSettings = (): TableSettings => {
             },
             {
               field: "productUnitName",
-              headerName: "Ime unit",
+              headerName: "Units.nameUnit",
               flex: 1,
               headerAlign: "center",
               align: "center",
@@ -415,7 +415,7 @@ const useTableSettings = (): TableSettings => {
             },
             {
               field: "productUnitCode",
-              headerName: "Unit code",
+              headerName: "Units.unitCode",
               flex: 1,
               headerAlign: "center",
               align: "center",
@@ -423,7 +423,7 @@ const useTableSettings = (): TableSettings => {
             },
             {
               field: "productUnitPlural",
-              headerName: "Unit plural",
+              headerName: "Units.unitPlural",
               flex: 1,
               headerAlign: "center",
               align: "center",
@@ -431,7 +431,7 @@ const useTableSettings = (): TableSettings => {
             },
             {
               field: "productUnitDecimalShow",
-              headerName: "Unit decimal show",
+              headerName: "Units.decimalShow",
               flex: 1,
               headerAlign: "center",
               align: "center",
@@ -440,7 +440,7 @@ const useTableSettings = (): TableSettings => {
             },
             {
               field: "productUnitPriority",
-              headerName: "Unit priority",
+              headerName: "Units.unitPriority",
               flex: 1,
               headerAlign: "center",
               align: "center",
@@ -448,7 +448,7 @@ const useTableSettings = (): TableSettings => {
             },
             {
               field: "deafult",
-              headerName: "Default",
+              headerName: "Units.default",
               flex: 1,
               headerAlign: "center",
               align: "center",

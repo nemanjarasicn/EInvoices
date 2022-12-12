@@ -66,11 +66,12 @@ export default function InvoiceTemplatePage({
 
   React.useEffect(() => {
     dispatch(getMarketPlacesAll({companyId: company}));
-    dispatch(getDataActionSelect(settings.selectType));
   }, []);
 
   React.useEffect(() => {
+    if(selectValue !==   "") {
       dispatch(getDataActionSelect(settings.selectType));
+    }
   }, [selectValue]);
 
  

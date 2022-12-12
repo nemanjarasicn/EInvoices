@@ -77,13 +77,22 @@ export default function InvoiceTemplatePage({
 
 
   React.useEffect(() => {
-    dispatch(getMarketPlacesAll({companyId: company}));
-    dispatch(getPointOfSalesAll({companyId: company}));
-    dispatch(getDataActionSelect(settings.selectType));
+    console.log(props);
+    if(props.templateType === "warehouses") { 
+      dispatch(getMarketPlacesAll({companyId: company}))
+    };
+    if(props.templateType === "groups") { 
+        dispatch(getPointOfSalesAll({companyId: company}));
+    }
+    if((!(props.templateType === 'warehouses'  ||  props.templateType  ===   'groups')))   {
+          dispatch(getDataActionSelect(settings.selectType));
+    }
   }, []);
 
   React.useEffect(() => {
+    if((props.templateType === 'warehouses'  ||  props.templateType  ===   'groups')  &&  selectValue !==   "") {
       dispatch(getDataActionSelect(settings.selectType));
+    }
   }, [selectValue]);
 
  

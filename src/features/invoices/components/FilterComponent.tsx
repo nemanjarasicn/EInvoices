@@ -26,6 +26,7 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { Subscription } from "react-hook-form/dist/utils/createSubject";
+import { format } from 'date-fns'
 import dayjs from "dayjs";
 
 export type FilterComponentProps = {
@@ -57,6 +58,14 @@ const schema = yup
 export default function FilterComponent({
   props,
 }: IProps<FilterComponentProps>): JSX.Element {
+
+  //if want to dispalay date in data piker on load page
+  /*const date  = new Date();
+  const dateTmp = new Date(date)
+  
+  const today = format(date, 'yyyy-MM-dd');
+  const yesterday  = format(dateTmp.setDate(dateTmp.getDate() - 1), 'yyyy-MM-dd');*/
+
   const methods = useForm({
     defaultValues: { from: "", to: "" },
     resolver: yupResolver(schema),

@@ -22,7 +22,7 @@ type ConfirmWithCommentDialogProps = {
 
 const schema = yup
   .object({
-    controlArea: yup.string().trim().required(" "),
+    //controlArea: yup.string().trim().required(" "),
   })
   .required();
 
@@ -38,12 +38,12 @@ export default function ConfirmWithCommentDialog({
   const { onClose, open, ...other } = props;
 
   const handleCancel = (): void => {
-    onClose();
+    onClose({flagButton: 'cancel'});
     reset();
   };
 
   const handleOk = handleSubmit((data: { controlArea: string }): void => {
-    onClose(data.controlArea);
+    onClose({comment: data.controlArea, flagButton: 'send'});
     reset();
   });
 

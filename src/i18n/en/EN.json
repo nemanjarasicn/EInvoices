@@ -255,5 +255,17 @@
   "Validation": {
     "buyer": "Invoice need`s to have buyer.",
     "items": "Invoice need`s to have items."
+  },
+
+  "Units": {
+    "title": "Units",
+    "idUnit": "Id unit",
+    "nameUnit":  "Name of unit",
+    "unitCode":  "Unit code",
+    "unitPlural": "Unit plural",
+    "decimalShow":  "Unit decimal show",
+    "unitPriority":  "Unit priority",
+    "default": "Default",
+    "createNew": "Create new Unit"
   }
 }

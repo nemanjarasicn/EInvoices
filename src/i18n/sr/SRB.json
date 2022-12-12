@@ -256,6 +256,19 @@
   "Validation": {
     "buyer": "Potrebno je izabrati kupca",
     "items": "Potrebno je izabrati stavku"
+  },
+
+  "Units": {
+    "title": "Jedinica mere",
+    "idUnit": "Id unit",
+    "nameUnit":  "Name of unit",
+    "unitCode":  "Unit code",
+    "unitPlural": "Unit plural",
+    "decimalShow":  "Unit decimal show",
+    "unitPriority":  "Unit priority",
+    "default": "Default",
+    "createNew": "Kreiraj novi  Unit"
   }
+
 
 }

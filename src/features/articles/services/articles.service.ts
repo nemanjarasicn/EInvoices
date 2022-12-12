@@ -8,6 +8,7 @@ class RegistriesPublicService {
   // MOCK CLIENT
 
   sendArticle(data: any) {
+   console.log('data articles', data);
     return publicClient.post<any>
     ("catalog",
     [

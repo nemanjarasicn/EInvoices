@@ -132,6 +132,7 @@ export default function FormArticleComponent({
       }, []);
 
       const onSubmit = async  (data: ArticleFormModel) => {
+        console.log('saass', data);
          await dispatch(sendArticle({data})).then(async (res) => {
           console.log(res);
             if(res.payload.message === "sucsess") {
