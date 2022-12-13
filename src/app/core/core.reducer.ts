@@ -16,7 +16,7 @@ const initialState: CoreState = {
   user: null,
   userCompany: null,
   loading: false,
-  color: "",
+  color: "#ef3e56",
   error: "",
 };
 

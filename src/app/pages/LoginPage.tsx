@@ -10,7 +10,7 @@ import Container from "@mui/material/Container";
 import { useAppDispatch, useAppSelector } from "../hooks";
 import { login } from "../core/core.actions";
 import { hasError, loginLoading } from "../core/core.selectors";
-import { resetError, setColor } from "../core/core.reducer";
+import { resetError } from "../core/core.reducer";
 import { Backdrop, CircularProgress } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
@@ -53,7 +53,7 @@ export default function LoginPage(): JSX.Element {
         },
       })
     ).then((res)  => {
-      if(!res.payload.error) { dispatch(setColor('#ef3e56')); navigate('/') }
+      if(!res.payload.error)   navigate('/')
     }) 
   };
 

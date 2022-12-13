@@ -10,7 +10,7 @@ export const theme = (colorSecondary: string) => createTheme({
       main: "#24292e",
     },
     secondary: {
-      main:   '#ef3e56',  //#ef3e56
+      main:   colorSecondary,  //#ef3e56
     },
     info: {
       main: "#FFFFFF",
