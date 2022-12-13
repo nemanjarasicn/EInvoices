@@ -19,7 +19,8 @@
     "home": "Home",
     "invoice": "E-Invocie",
     "registries": "Registries",
-    "articles":  "Articles"
+    "articles":  "Articles",
+    "administration":  "Administration"
   },
   "UserAccount": {
     "logout": "Logout"

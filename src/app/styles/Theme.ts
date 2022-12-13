@@ -2,13 +2,15 @@ import { createTheme } from "@mui/material/styles";
 import type {} from "@mui/x-data-grid/themeAugmentation";
 import type {} from "@mui/x-date-pickers/themeAugmentation";
 
-export const theme = createTheme({
+
+export const theme = (colorSecondary: string) => createTheme({
+  
   palette: {
     primary: {
       main: "#24292e",
     },
     secondary: {
-      main: "#ef3e56",
+      main:   colorSecondary,  //#ef3e56
     },
     info: {
       main: "#FFFFFF",
@@ -24,3 +26,4 @@ export const theme = createTheme({
     },
   },
 });
+

@@ -20,6 +20,9 @@ import { TemplatePageRegistriesTypes } from "../src/features/registries/models/r
 import { TemplatePageArticlesTypes }  from "../src/features/articles/models/articles.enums"
 import { CreateType as CreateTyperegistries}  from "../src/features/registries/models/registries.enums"
 import { CreateType as CreateTypeArticles}  from "../src/features/articles/models/articles.enums"
+import { selectColor } from "./app/core/core.selectors";
+
+
 
 const DashboardPage = React.lazy(
   () => import("./features/invoices/pages/DashboardPage")
@@ -59,8 +62,9 @@ const ArticlesCreateTemplatePage = React.lazy(
 
 function App() {
   const apiKeyPresent = useAppSelector(apiKeyExist);
+  const color = useAppSelector(selectColor);
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={theme(color)}>
       <Routes>
         <Route path="/login" element={<LoginPage />} />
         <Route path="/" element={<ProtectedLayout />}>

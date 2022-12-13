@@ -19,7 +19,8 @@
     "home": "Pocetna",
     "invoice": "E-Faktura",
     "registries": "Šifarnici",
-    "articles":  "Artikli"
+    "articles":  "Artikli",
+    "administration":  "Administracija"
   },
   "UserAccount": {
     "logout": "Odjavi se"

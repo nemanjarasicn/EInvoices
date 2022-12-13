@@ -33,9 +33,9 @@ const authSlice: Slice<CoreState> = createSlice({
       ...state,
       error: "",
     }),
-    setColor: (state) => ({
+    setColor: (state,{payload}) => ({
       ...state,
-      color: "",
+      color: payload,
     }),
   },
   extraReducers: (builder) => {
@@ -44,7 +44,7 @@ const authSlice: Slice<CoreState> = createSlice({
   },
 });
 
-export const { removeUser, resetError } = authSlice.actions;
+export const { removeUser, resetError, setColor } = authSlice.actions;
 
 export default authSlice.reducer;
 

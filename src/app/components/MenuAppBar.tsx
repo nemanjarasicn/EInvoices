@@ -31,8 +31,12 @@ import { useTheme } from '@mui/material/styles';
 import AppLoader from "./AppLoader";
 import { NavItem } from "../models/navItem.models";
 import NestedMenuItem  from   "@lazy-react/material-ui-nested-menu-item"
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faFaceRelieved } from '@fortawesome/pro-solid-svg-icons'
+import { selectColor } from "../../app/core/core.selectors";
+import { useAppSelector } from "../../app/hooks";
 
-const drawerWidth = 200;
+const drawerWidth =  200;
 
 const DrawerHeader = styled("div")(({ theme }) => ({
   display: "flex",
@@ -72,7 +76,17 @@ export default function ClippedDrawer() {
   const [calcNumber, setCalcNumber] =  React.useState<number>(1);
   const [showSubMenu,  setShowSubMenu] =  React.useState<boolean>(false);
   const [parentItem, setParentItem] =  React.useState<any>();
-  const stepPosition = 140;
+  const stepPosition = window.devicePixelRatio == 1.5 ?  90  : 140;
+  const sizeIcons = window.devicePixelRatio == 1.5 ? '40px' : '80px'; 
+  const logoSize = window.devicePixelRatio == 1.5 ?  100 : 150; 
+  const paddingLeftMain = window.devicePixelRatio == 1.5 ? '100px' : '160px';
+  const leftSubmenu = window.devicePixelRatio == 1.5 ? '118px' : '245px'; 
+  const startPositionSubmenu = window.devicePixelRatio == 1.5 ? '180px' : '260px'; 
+  const subMenuWidth = window.devicePixelRatio == 1.5 ? 200 : 350 ; 
+  const subMenuHeight = window.devicePixelRatio == 1.5 ? 210 : 350 ; 
+  const subMenuPadding = window.devicePixelRatio == 1.5 ?  0 :   2; 
+  const fontSizeText = window.devicePixelRatio == 1.5 ? '12px' : '18px';
+  const appBarHeight = window.devicePixelRatio == 1.5 ? '50px' : '65px';  
 
   const navItems: NavItem[] = [
     { name: t("Menu.home"), href: "/", icon: "Home",submenu: false, },
@@ -106,7 +120,7 @@ export default function ClippedDrawer() {
       ],
     },
     {
-      name: t("Menu.articles"),
+      name: t("Menu.registries"),
       href: "/articles",
       icon: "Articles",
       listNumber: 2,
@@ -120,7 +134,7 @@ export default function ClippedDrawer() {
       ],
     },
     {
-      name: t("Menu.registries"),
+      name: t("Menu.administration"),
       href: "/registries",
       icon: "ApartmentIcon",
       listNumber:  3,
@@ -158,17 +172,17 @@ export default function ClippedDrawer() {
   const icon = (icon: string): any => {
     switch (icon) {
       case "InboxIcon":
-        return <InboxIcon sx={{fontSize:  '80px'}} />;
+        return <InboxIcon sx={{fontSize:  sizeIcons}} />;
       case "MailIcon":
-        return <MailIcon sx={{fontSize:  '80px'}} />;
+        return <MailIcon sx={{fontSize:  sizeIcons}} />;
       case "Home":
-        return <Home sx={{fontSize:  '80px'}} />;
+        return <Home sx={{fontSize:  sizeIcons}} />;
       case "Payments":
-        return <Payments sx={{fontSize:  '80px'}} />;
+        return <Payments sx={{fontSize:  sizeIcons}} />;
       case "Articles":
-          return <ArticleIcon sx={{fontSize:  '80px'}} />;
+          return <ArticleIcon sx={{fontSize:  sizeIcons}} />;
       case "ApartmentIcon":
-          return <ApartmentIcon sx={{fontSize:  '80px'}} />;
+          return <ApartmentIcon sx={{fontSize:  sizeIcons}} />;
     }
   };
 
@@ -182,18 +196,20 @@ export default function ClippedDrawer() {
     setOpen(false);
   };
 
+
+  console.log('daasasa', useAppSelector(selectColor));
+
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
-      <AppBar position="fixed" sx={{backgroundColor: "white"}}>
+      <AppBar position="fixed" sx={{backgroundColor: "white", height:  appBarHeight}}>
         <Toolbar style={menuAppBarStyles.toolbar}>
           <div style={menuAppBarStyles.logoDiv}>
             <Typography variant="h6" noWrap component="div">
-              <img src="/logoMaster.png" alt="Master logo" style={{maxWidth:150}}  />
+              <img src="/logoMaster.png" alt="Master logo" style={{maxWidth: logoSize}}  />
             </Typography>
           </div>
           <div style={menuAppBarStyles.langUserDiv}>
-            
             <LanguageSelector />
             <UserAccount />
           </div>
@@ -263,6 +279,7 @@ export default function ClippedDrawer() {
                     </ListItemIcon>
                     <ListItemText
                       key={`${item.name}_list_nav_text${index}`}
+                      primaryTypographyProps={{fontSize:  fontSizeText, fontWeight: 500}} 
                       primary={item.name}
                       sx={{
                         display:  "block" ,
@@ -274,13 +291,13 @@ export default function ClippedDrawer() {
                 </ListItem>
                 <Box sx={{position: 'fixed',
                           transform: 'translate(-50%, -50%)',
-                          width:  350 , 
-                          height: 350 ,
-                          top: `calc(260px + ${calcNumber}*${stepPosition}px)`,
-                          left: '245px',
+                          width:  subMenuWidth , 
+                          height:  subMenuHeight ,
+                          top: `calc(${startPositionSubmenu} + ${calcNumber}*${stepPosition}px)`,
+                          left: `${leftSubmenu}`,
         
                           borderRadius: 2,
-                          p: 2,
+                          p:  subMenuPadding,
                           backgroundColor:  'white',
                           ml: 10,
                           zIndex: 1,
@@ -295,7 +312,8 @@ export default function ClippedDrawer() {
                                component={Link}
                                to={itemChild.href}>
                           <ListItemButton>
-                          <ListItemText primary={itemChild.name} 
+                          <ListItemText   primaryTypographyProps={{fontSize:  fontSizeText,   fontWeight:   500}} 
+                                          primary={itemChild.name} 
                                           sx={{
                                             display:  "block" ,
                                             color: "black", // fff
@@ -357,7 +375,7 @@ export default function ClippedDrawer() {
       </Drawer>
       <Box
         component="main"
-        sx={{ flexGrow: 1, paddingLeft: "160px", paddingRight: "20px", backgroundColor:  "#EAEDED", height: '100vh' }}
+        sx={{ flexGrow: 1, paddingLeft:  paddingLeftMain, paddingRight: "20px", backgroundColor:  "#EAEDED", height: '150vh' }}
       >
         <Toolbar />
         <AppLoader />

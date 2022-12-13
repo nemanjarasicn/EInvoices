@@ -17,8 +17,10 @@ export default function LanguageSelector(): JSX.Element {
     i18n.changeLanguage(event.target.value);
   };
 
+  const marginLanguage = window.devicePixelRatio == 1.5 ? 0.5 : 1; 
+
   return (
-    <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
+    <FormControl sx={{ m:  marginLanguage, minWidth: 120 }} size="small">
       <Select
         sx={{ color: "black" }}
         id="demo-select-small"

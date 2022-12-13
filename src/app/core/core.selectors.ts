@@ -61,3 +61,12 @@ export const loginLoading = createSelector(
   coreSelectors,
   (state: CoreState) => state.userCompany
 );
+
+
+/**
+ * Select color
+ */
+ export const selectColor = createSelector(
+  coreSelectors,
+  (state: CoreState) => state.color
+);
