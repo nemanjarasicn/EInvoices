@@ -9,6 +9,7 @@ import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
+import Button from "@mui/material/Button";
 // import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
@@ -26,8 +27,10 @@ import ArticleIcon from '@mui/icons-material/Article';
 import ApartmentIcon from '@mui/icons-material/Apartment';
 import Payments from "@mui/icons-material/Payments";
 import { useAppComponentsStyles } from "./components.styles";
+import { useTheme } from '@mui/material/styles';
 import AppLoader from "./AppLoader";
 import { NavItem } from "../models/navItem.models";
+import NestedMenuItem  from   "@lazy-react/material-ui-nested-menu-item"
 
 const drawerWidth = 200;
 
@@ -63,14 +66,22 @@ const AppBar = styled(MuiAppBar, {
 
 export default function ClippedDrawer() {
   const { t } = useTranslation();
+  const theme  =  useTheme();
   const { menuAppBarStyles } = useAppComponentsStyles();
 
+  const [calcNumber, setCalcNumber] =  React.useState<number>(1);
+  const [showSubMenu,  setShowSubMenu] =  React.useState<boolean>(false);
+  const [parentItem, setParentItem] =  React.useState<any>();
+  const stepPosition = 140;
+
   const navItems: NavItem[] = [
-    { name: t("Menu.home"), href: "/", icon: "Home" },
+    { name: t("Menu.home"), href: "/", icon: "Home",submenu: false, },
     {
       name: t("Menu.invoice"),
       href: "/invoices",
       icon: "Payments",
+      listNumber: 1,
+      submenu: true,
       children: [
         {
           name: t("InvoiceCard.cardTitleSales"),
@@ -98,9 +109,11 @@ export default function ClippedDrawer() {
       name: t("Menu.articles"),
       href: "/articles",
       icon: "Articles",
+      listNumber: 2,
+      submenu: true,
       children: [
         {
-          name:  "Artikli lista",
+          name:  t("Artikli lista"),
           href: "/articles/articlesList",
           icon: "Payments",
         },
@@ -110,6 +123,8 @@ export default function ClippedDrawer() {
       name: t("Menu.registries"),
       href: "/registries",
       icon: "ApartmentIcon",
+      listNumber:  3,
+      submenu: true,
       children: [
         {
           name: t("Objekti"),
@@ -143,17 +158,17 @@ export default function ClippedDrawer() {
   const icon = (icon: string): any => {
     switch (icon) {
       case "InboxIcon":
-        return <InboxIcon />;
+        return <InboxIcon sx={{fontSize:  '80px'}} />;
       case "MailIcon":
-        return <MailIcon />;
+        return <MailIcon sx={{fontSize:  '80px'}} />;
       case "Home":
-        return <Home />;
+        return <Home sx={{fontSize:  '80px'}} />;
       case "Payments":
-        return <Payments />;
+        return <Payments sx={{fontSize:  '80px'}} />;
       case "Articles":
-          return <ArticleIcon />;
+          return <ArticleIcon sx={{fontSize:  '80px'}} />;
       case "ApartmentIcon":
-          return <ApartmentIcon />;
+          return <ApartmentIcon sx={{fontSize:  '80px'}} />;
     }
   };
 
@@ -170,14 +185,15 @@ export default function ClippedDrawer() {
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
-      <AppBar position="fixed">
+      <AppBar position="fixed" sx={{backgroundColor: "white"}}>
         <Toolbar style={menuAppBarStyles.toolbar}>
           <div style={menuAppBarStyles.logoDiv}>
             <Typography variant="h6" noWrap component="div">
-              {"LOGO"}
+              <img src="/logoMaster.png" alt="Master logo" style={{maxWidth:150}}  />
             </Typography>
           </div>
           <div style={menuAppBarStyles.langUserDiv}>
+            
             <LanguageSelector />
             <UserAccount />
           </div>
@@ -191,22 +207,22 @@ export default function ClippedDrawer() {
           onMouseLeave: handleDrawerClose,
         }}
       >
-        <DrawerHeader></DrawerHeader>
-        <Divider />
+        
+       
         {/* <IconButton
           onClick={handleDrawerClose}
           sx={menuAppBarStyles.styleFunction(open).chevronLeftIconButton}
         >
           <ChevronLeftIcon sx={{ float: "right" }} />
         </IconButton> */}
-        <IconButton
+        {/*<IconButton
           aria-label="open drawer"
           onClick={handleDrawerOpen}
           edge="start"
           sx={menuAppBarStyles.styleFunction(open).menuIconButton}
         >
           <MenuIcon />
-        </IconButton>
+      </IconButton>*/}
 
         <List key={"list_nav"}>
           {navItems.map((item, index) => {
@@ -223,20 +239,25 @@ export default function ClippedDrawer() {
                   <ListItemButton
                     key={`${item.name}_list_nav_button_${index}`}
                     sx={{
-                      minHeight: 48,
+                      minHeight: 80, //48
                       justifyContent: open ? "initial" : "center",
                       px: 2.5,
+                      display:  'flex',
+                      flexDirection:  'column'
                     }}
+                    onMouseEnter={(e)  => {setCalcNumber(item.listNumber as number); setShowSubMenu(item.submenu as boolean); setParentItem(item as any)}}
+                    onMouseLeave={()  =>  setShowSubMenu(false)}
+                    onClick={()  =>  setShowSubMenu(false)}
                   >
                     <ListItemIcon
                       key={`${item.name}_list_nav_icon${index}`}
                       sx={{
                         minWidth: 0,
-                        mr: open ? 3 : "auto",
-                        justifyContent: "center",
-                        color: "#fff",
+                        display: 'block',
+                        color: "black", //  #fff
                         opacity: 0.5,
                       }}
+                      
                     >
                       {icon(item.icon)}
                     </ListItemIcon>
@@ -244,19 +265,54 @@ export default function ClippedDrawer() {
                       key={`${item.name}_list_nav_text${index}`}
                       primary={item.name}
                       sx={{
-                        display: open ? "block" : "none",
-                        color: "#fff",
-                        opacity: 0.5,
+                        display:  "block" ,
+                        color: theme.palette.secondary.main, // fff
+                        opacity: 0.9,
                       }}
                     />
                   </ListItemButton>
                 </ListItem>
-                <List key={`list_nav_${index}`}>
+                <Box sx={{position: 'fixed',
+                          transform: 'translate(-50%, -50%)',
+                          width:  350 , 
+                          height: 350 ,
+                          top: `calc(260px + ${calcNumber}*${stepPosition}px)`,
+                          left: '245px',
+        
+                          borderRadius: 2,
+                          p: 2,
+                          backgroundColor:  'white',
+                          ml: 10,
+                          zIndex: 1,
+                          display:  showSubMenu ?  'flex'  :  'none'
+                      }}
+                      onMouseEnter = {()   =>  setShowSubMenu(true)}
+                      onMouseLeave = {()  =>   setShowSubMenu(false)}> 
+               
+                  <List key={`list_subnav`}>
+                  {navItems.filter((item) =>  item?.name  ===  parentItem?.name)[0]?.children?.map((itemChild, childIndex) => (
+                     <ListItem disablePadding
+                               component={Link}
+                               to={itemChild.href}>
+                          <ListItemButton>
+                          <ListItemText primary={itemChild.name} 
+                                          sx={{
+                                            display:  "block" ,
+                                            color: "black", // fff
+                                            opacity: 0.9,
+                                          }}/>
+                          </ListItemButton>
+                   </ListItem>
+
+                  ))}
+                </List>
+                </Box>
+                {/*<List key={`list_nav_${index}`}>
                   {item.children?.map((itemChild, childIndex) => (
                     <ListItem
                       key={`${itemChild.name}_list_nav_${childIndex}`}
                       disablePadding
-                      sx={{ display: open ? "block" : "none" }}
+                      sx={{ display:  "block"  }}
                       component={Link}
                       to={itemChild.href}
                       className="item-class"
@@ -265,7 +321,7 @@ export default function ClippedDrawer() {
                         key={`${itemChild.name}_list_nav_child_button${childIndex}`}
                         sx={{
                           minHeight: 48,
-                          justifyContent: open ? "initial" : "center",
+                          justifyContent: "initial" ,
                           px: 2.5,
                         }}
                       >
@@ -273,9 +329,9 @@ export default function ClippedDrawer() {
                           key={`${itemChild.name}_list_nav_child_icon${childIndex}`}
                           sx={{
                             minWidth: 0,
-                            mr: open ? 3 : "auto",
+                            mr: 1,
                             justifyContent: "center",
-                            color: "#fff",
+                            color: "green",
                             opacity: 0,
                           }}
                         >
@@ -285,15 +341,15 @@ export default function ClippedDrawer() {
                           key={`${itemChild.name}_list_nav_child_text${childIndex}`}
                           primary={itemChild.name}
                           sx={{
-                            display: open ? "block" : "none",
-                            color: "#fff",
+                            display: "block",
+                            color: "green",
                             opacity: 0.5,
                           }}
                         />
                       </ListItemButton>
                     </ListItem>
                   ))}
-                </List>
+                        </List>*/}
               </div>
             );
           })}
@@ -301,7 +357,7 @@ export default function ClippedDrawer() {
       </Drawer>
       <Box
         component="main"
-        sx={{ flexGrow: 1, paddingLeft: "85px", paddingRight: "20px" }}
+        sx={{ flexGrow: 1, paddingLeft: "160px", paddingRight: "20px", backgroundColor:  "#EAEDED", height: '100vh' }}
       >
         <Toolbar />
         <AppLoader />

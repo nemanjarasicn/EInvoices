@@ -3,4 +3,6 @@ export interface NavItem {
     href: string;
     icon: string;
     children?: NavItem[] | undefined;
+    listNumber?:  number;
+    submenu?:   boolean;
   }

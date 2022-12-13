@@ -2,7 +2,7 @@
  * Feature Components styles
  * @returns {}
  */
- const useComponentsStyles = (): {
+ const useComponentsStyles = (disabledShow?: boolean): {
     invoiceCardStyles: any;
     filersToolbarStyles: any;
     filterComponentStyle: any;
@@ -19,14 +19,20 @@
           alignItems: "center",
           justifyContent: "center",
           flexDirection: "column",
-          background: "#eeeeee",
+          background: "white",  //#eeeeee
           opacity: "0.9",
           borderRadius: "7px",
           margin: "10px",
           "&:hover": {
+            cursor: !disabledShow ? "pointer"  : ' not-allowed',
             color: "gray",
             backgroundColor: "#dedede",
           },
+        },
+        cardHeader: {
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "start",
         },
         cardContent: {
           display: "flex",

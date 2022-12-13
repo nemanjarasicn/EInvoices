@@ -5,6 +5,7 @@ import CloudSyncIcon from "@mui/icons-material/CloudSync";
 import { useNavigate } from "react-router-dom";
 import { TemplatePageArticlesTypes } from  "./models/articles.enums"
 import { ButtonProps, SelectButtonProps } from "../shared/components/CustomButtonFc";
+import ArticleIcon from '@mui/icons-material/Article';
 import { selectMarketPlaces, selectPointOfSale } from "../shared/components/form-fields/store/form.selectors";
 
 import { ArticlesFormComponentProps }  from "../articles/components/ArticlesFormComponent"
@@ -38,13 +39,13 @@ const useFeatureSettings = (): FeatureSettings => {
   return {
     cardsSettings: [{
             title: "Artikli lista",
-            icon: CodeIcon,
+            icon: ArticleIcon,
             cardBtn: {
               title: "InvoiceCard.preview",
               disabled: false,
               btnFn: () => navigate("/articles/articlesList"),
             },
-            typeOfCard:  "company",
+            typeOfCard:  "articles",
     }],
     templatePageSettings: {
         [TemplatePageArticlesTypes.LIST]: {

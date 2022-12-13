@@ -20,7 +20,7 @@ export default function LanguageSelector(): JSX.Element {
   return (
     <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
       <Select
-        sx={{ color: "white" }}
+        sx={{ color: "black" }}
         id="demo-select-small"
         value={language}
         onChange={handleChange}

@@ -20,11 +20,11 @@ export default function RegistriesLayout({}: RegistriesLayoutProps): JSX.Element
   const { t } = useTranslation();
   return (
     <>
-     <Grid item xs={4} mb={2} mt={2}>
+     {/*<Grid item xs={4} mb={2} mt={2}>
           <Item>
             <h3>{t("Menu.registries")}</h3>
           </Item>
-      </Grid>
+  </Grid>*/}
       <Outlet />
     </>
   );

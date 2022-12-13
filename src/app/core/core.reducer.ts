@@ -8,6 +8,7 @@ export interface CoreState {
   user: Partial<User> | null;
   userCompany: UserCompany | null;
   loading: boolean;
+  color:  string; // must change with theme mode
   error: string;
 }
 
@@ -15,6 +16,7 @@ const initialState: CoreState = {
   user: null,
   userCompany: null,
   loading: false,
+  color: "",
   error: "",
 };
 
@@ -30,6 +32,10 @@ const authSlice: Slice<CoreState> = createSlice({
     resetError: (state) => ({
       ...state,
       error: "",
+    }),
+    setColor: (state) => ({
+      ...state,
+      color: "",
     }),
   },
   extraReducers: (builder) => {

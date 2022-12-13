@@ -1,7 +1,7 @@
 import React from "react";
-import InvoiceCardComponent, {
+import CardComponent, {
   CardProps,
-} from "../components/InvoiceCardComponent";
+} from "../../shared/components/CardComponent";
 import { IProps } from "../models/invoice.models";
 import { useFeatureSettings } from "../settings";
 import { usePageStyles } from "./pages.styles";
@@ -14,7 +14,7 @@ export default function DashboardPage({}: IProps<DashboardPageProps>): JSX.Eleme
   return (
     <div style={dashBoardStyles.cardsWrapper}>
       {cardsSettings.map((card: CardProps, index: number) => {
-        return <InvoiceCardComponent key={index} props={card} />;
+        return <CardComponent key={index} props={card} />;
       })}
     </div>
   );

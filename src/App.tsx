@@ -68,7 +68,7 @@ function App() {
             index
             element={
               <div style={{ maxWidth: "500px" }}>
-                <img alt="x" src="/logopetcom.svg"></img>
+                {/*<img alt="x" src="/logopetcom.svg"></img>*/}
               </div>
             }
           />

@@ -29,9 +29,9 @@ export default function DashboardArticlesPage({}: IProps<DashboardPageProps>): J
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <Grid container spacing={2} sx={{display: 'flex', flexDirection: 'column'}}>
+      <Grid container spacing={2} sx={{display: 'flex', flexDirection: 'column', m: 2.5}}>
         <div style={dashBoardStyles.cardsWrapper}>
-          {cardsSettings.filter((card)  => card.typeOfCard  ===   "company").map((card: CardProps, index: number) => {
+          {cardsSettings.map((card: CardProps, index: number) => {
             return <CardComponent key={index} props={card} />;
           })}
         </div>

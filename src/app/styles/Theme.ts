@@ -7,12 +7,18 @@ export const theme = createTheme({
     primary: {
       main: "#24292e",
     },
+    secondary: {
+      main: "#ef3e56",
+    },
+    info: {
+      main: "#FFFFFF",
+    },
   },
   components: {
     MuiDataGrid: {
       styleOverrides: {
         root: {
-          backgroundColor: "white",
+          backgroundColor: "#EAEDED",
         },
       },
     },

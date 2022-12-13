@@ -49,6 +49,7 @@ const useFeatureSettings = (): FeatureSettings => {
           disabled: false,
           btnFn: () => navigate("/invoices/sales"),
         },
+        typeOfCard:  "invoices",
       },
       {
         title: "InvoiceCard.cardTitlePurchases",
@@ -58,6 +59,7 @@ const useFeatureSettings = (): FeatureSettings => {
           disabled: false,
           btnFn: () => navigate("/invoices/purchases"),
         },
+        typeOfCard:  "invoices",
       },
       {
         title: "InvoiceCard.summaryVAT",
@@ -67,6 +69,7 @@ const useFeatureSettings = (): FeatureSettings => {
           disabled: true,
           btnFn: () => console.log(""),
         },
+        typeOfCard:  "invoicesSummary",
       },
     ],
     templatePageSettings: {

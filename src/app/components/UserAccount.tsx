@@ -55,7 +55,7 @@ export default function UserAccount(): JSX.Element {
                   sx={{
                     width: "100%",
                     maxWidth: 360,
-                    bgcolor: "#24292e",
+                    bgcolor: "#24292e", 
                     marginTop: "10px",
                     color: "white",
                     opacity: 0.9,

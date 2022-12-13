@@ -3,7 +3,7 @@
  * @returns {}
  */
 const useAppComponentsStyles = (): { menuAppBarStyles: any } => {
-  const iconColor: string = "white";
+  const iconColor: string = "black";  //white
 
   return {
     menuAppBarStyles: {
@@ -14,6 +14,7 @@ const useAppComponentsStyles = (): { menuAppBarStyles: any } => {
       logoDiv: {
         display: "flex",
         alignItems: "inherit",
+        color: "black"
       },
       langUserDiv: {
         display: "flex",
@@ -22,8 +23,10 @@ const useAppComponentsStyles = (): { menuAppBarStyles: any } => {
       styleFunction(open: boolean) {
         return {
           drawer: {
-            backgroundColor: "#24292e",
+            backgroundColor: "white", //#24292e
             opacity: open ? 0.9 : 1,
+            width: "150px",
+            mt: 9
           },
           chevronLeftIconButton: {
             display: open ? "block" : "none",

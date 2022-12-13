@@ -26,23 +26,23 @@ export default function DashboardPage({}: IProps<DashboardPageProps>): JSX.Eleme
   const { dashBoardStyles } = usePageStyles();
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <Grid container spacing={2} sx={{display: 'flex', flexDirection: 'column'}}>
-        <Grid item xs={4}>
+      <Grid container spacing={2} sx={{display: 'flex', flexDirection: 'column', m: 2.5}}>
+        {/*<Grid item xs={4}>
           <Item>
             <h3>Za kompanije</h3>
           </Item>
-        </Grid>
+        </Grid>*/}
 
         <div style={dashBoardStyles.cardsWrapper}>
           {cardsSettings.filter((card)  => card.typeOfCard  ===   "company").map((card: CardProps, index: number) => {
             return <CardComponent key={index} props={card} />;
           })}
         </div>
-        <Grid item xs={4}>
+        {/*<Grid item xs={4}>
           <Item>
             <h3>Za Artikle</h3>
           </Item>
-        </Grid>
+        </Grid>*/}
         <div style={dashBoardStyles.cardsWrapper}>
           {cardsSettings.filter((card)  => card.typeOfCard  ===   "articles").map((card: CardProps, index: number) => {
             return <CardComponent key={index} props={card} />;
