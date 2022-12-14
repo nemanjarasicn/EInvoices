@@ -33,10 +33,6 @@ const style = {
   
 
 export default function  ErrorModal(props: any)  {
-    
-    let open = useAppSelector(hasError) ? true : false;
-    const error = useAppSelector(hasError);
-
       return (
         <Modal
             open={props.open}
