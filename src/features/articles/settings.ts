@@ -1,12 +1,9 @@
 import { CardProps } from "../shared/components/CardComponent";
-import CodeIcon from "@mui/icons-material/Code";
-import ExitToAppIcon from "@mui/icons-material/ExitToApp";
-import CloudSyncIcon from "@mui/icons-material/CloudSync";
 import { useNavigate } from "react-router-dom";
 import { TemplatePageArticlesTypes } from  "./models/articles.enums"
 import { ButtonProps, SelectButtonProps } from "../shared/components/CustomButtonFc";
 import ArticleIcon from '@mui/icons-material/Article';
-import { selectMarketPlaces, selectPointOfSale } from "../shared/components/form-fields/store/form.selectors";
+import { selectMarketPlaces } from "../shared/components/form-fields/store/form.selectors";
 
 import { ArticlesFormComponentProps }  from "../articles/components/ArticlesFormComponent"
 import { CreateType } from   "../articles/models/articles.enums"
@@ -38,7 +35,7 @@ const useFeatureSettings = (): FeatureSettings => {
   let navigate = useNavigate();
   return {
     cardsSettings: [{
-            title: "Artikli lista",
+            title: "Articles.title",
             icon: ArticleIcon,
             cardBtn: {
               title: "InvoiceCard.preview",
@@ -49,12 +46,12 @@ const useFeatureSettings = (): FeatureSettings => {
     }],
     templatePageSettings: {
         [TemplatePageArticlesTypes.LIST]: {
-          title: "Artikli list",
+          title: "Articles.title",
           showBtns: true,
           showBtnsSelect: true,
           buttons: [
             {
-              title: "Kreiraj novi artikal",
+              title: "Articles.createNew",
               disabled: false,
               btnFn: () => navigate("/articles/createArtikal"),
             },

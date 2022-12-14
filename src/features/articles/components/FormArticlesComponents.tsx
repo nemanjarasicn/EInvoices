@@ -4,17 +4,8 @@ import {
     Typography,
     Grid,
     Box,
-    Switch,
-    FormControlLabel,
-    FormControl,
-    FormHelperText,
-    InputLabel,
-    MenuItem,
-    Select,
-    IconButton,
   } from "@mui/material";
 import { ArticlesFormComponentProps }  from "./ArticlesFormComponent"
-import { useTranslation } from "react-i18next";
 import FormTextField  from  "../../shared/components/form-fields/FormTextField"
 import { useComponentsStyles } from "../../shared/components/components.styles";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
@@ -23,16 +14,14 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import CustomButtonFc from "../../shared/components/CustomButtonFc";
 import { ArticleFormModel,   IProps } from "../models/articles.models";
-import { selectClientCompanies } from "../../shared/components/form-fields/store/form.selectors";
 import { useNavigate } from 'react-router-dom';
 import FormAutocompleteField from "../../shared/components/form-fields/FormAutocompleteField";
+import  ErrorModal   from   "../../shared/components/ErrorModals"
 import SucessModal   from "../../shared/components/SucessModal"
 import  { getObjectsAll,  getUnitsAll, getVatAll, getMarketPlacesAll }  from  "../../shared/components/form-fields/store/form.actions"
-import { selectCompany, selectCompanyInfo } from "../../../app/core/core.selectors";
-import  { selectObjectsAll, selectUnitsAll,  selectVatsAll,   selectMarketPlaces }  from   "../../shared/components/form-fields/store/form.selectors"
-import FormCurrencyField from "../../shared/components/form-fields/FormCurrencyField";
-import CheckboxField from "../../shared/components/form-fields/FormCheckboxField";
-import { sendArticle, sendArticlesPrice } from "../store/articles.actions";
+import { selectCompany } from "../../../app/core/core.selectors";
+import  {  selectUnitsAll,  selectVatsAll,   selectMarketPlaces }  from   "../../shared/components/form-fields/store/form.selectors"
+import { sendArticle } from "../store/articles.actions";
 //import ClientComponent from "./form-group/ClientComponent";
 
 
@@ -67,11 +56,11 @@ export default function FormArticleComponent({
 
 
 
-    const marketPlacesAll = useAppSelector(selectMarketPlaces).map((item) => ({
+    /*const marketPlacesAll = useAppSelector(selectMarketPlaces).map((item) => ({
       uuid:  item.item.uuid,
       id:  item.item.id,
       marketPlaceName:   item.item.marketPlaceName
-    }));
+    }));*/
 
 
 
@@ -98,11 +87,11 @@ export default function FormArticleComponent({
         marketPlaceName:   item.item.marketPlaceName
       }))
     };
-    const { t } = useTranslation();
     const { formComponent } = useComponentsStyles();
     const navigate  = useNavigate();
     const dispatch = useAppDispatch();
     const [showError, setShowError] = React.useState(false);
+    const [showErrorModal, setShowErrorModal] = React.useState(false);
   
 
 
@@ -114,12 +103,6 @@ export default function FormArticleComponent({
         handleSubmit,
         reset,
         control,
-        setValue,
-        formState,
-        getValues,
-        trigger,
-        getFieldState,
-        watch,
       } = methods;
 
 
@@ -132,15 +115,20 @@ export default function FormArticleComponent({
       }, []);
 
       const onSubmit = async  (data: ArticleFormModel) => {
-        console.log('saass', data);
          await dispatch(sendArticle({data})).then(async (res) => {
-          console.log(res);
             if(res.payload.message === "sucsess") {
               setShowError(true);
               setTimeout(() => {
                   setShowError(false);
                   navigate('/articles/createArtikalPrice', 
                   {state: res.payload.data[0].createProduct})
+              }, 2000);
+            }  else {
+              setShowErrorModal(true);  
+              setTimeout(() => {
+                    setShowErrorModal(false);
+                    /*navigate('/registries/companies'
+                    )*/
               }, 2000);
             }
         } 
@@ -151,6 +139,7 @@ export default function FormArticleComponent({
     return (
         <Grid item xs={12}>
             <SucessModal    open={showError} ></SucessModal>
+            <ErrorModal    open={showErrorModal} ></ErrorModal>
             <Box
               sx={{
                 ...formComponent.basicBox,

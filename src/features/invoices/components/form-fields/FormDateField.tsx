@@ -5,7 +5,7 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { TextField } from "@mui/material";
 import { Controller } from "react-hook-form";
-import dayjs, { Dayjs } from "dayjs";
+import dayjs  from "dayjs";
 
 type FormDateFieldProps = FormFieldProps & {
   additional?: {

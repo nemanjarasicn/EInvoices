@@ -130,7 +130,6 @@ class RegistriesPublicService {
     );
   }
 
-
   sendUnit(data: any) {
     return publicClient.post<any>
     ("unit",

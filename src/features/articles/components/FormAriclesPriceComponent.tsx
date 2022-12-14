@@ -4,32 +4,23 @@ import {
     Typography,
     Grid,
     Box,
-    Switch,
-    FormControlLabel,
-    FormControl,
-    FormHelperText,
-    InputLabel,
-    MenuItem,
-    Select,
-    IconButton,
   } from "@mui/material";
 import { ArticlesFormComponentProps }  from "./ArticlesFormComponent"
 import { useTranslation } from "react-i18next";
-import FormTextField  from  "../../shared/components/form-fields/FormTextField"
 import { useComponentsStyles } from "../../shared/components/components.styles";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import CustomButtonFc from "../../shared/components/CustomButtonFc";
-import { PriceFormModel,   IProps, ArticleFormModel } from "../models/articles.models";
+import { PriceFormModel,   IProps } from "../models/articles.models";
 import { useNavigate } from 'react-router-dom';
-import FormAutocompleteField from "../../shared/components/form-fields/FormAutocompleteField";
+import  ErrorModal   from   "../../shared/components/ErrorModals"
 import SucessModal   from "../../shared/components/SucessModal"
 import  { getObjectsAll,  getUnitsAll, getVatAll, getMarketPlacesAll }  from  "../../shared/components/form-fields/store/form.actions"
-import { selectCompany, selectCompanyInfo } from "../../../app/core/core.selectors";
+import { selectCompany } from "../../../app/core/core.selectors";
 import {useLocation} from 'react-router-dom';
-import { sendArticle, sendArticlesPrice } from "../store/articles.actions";
+import {  sendArticlesPrice } from "../store/articles.actions";
 import FormCurrencyField from "../../shared/components/form-fields/FormCurrencyField";
 //import ClientComponent from "./form-group/ClientComponent";
 
@@ -71,6 +62,7 @@ export default function FormArticlePriceComponent({
     const navigate  = useNavigate();
     const dispatch = useAppDispatch();
     const [showError, setShowError] = React.useState(false);
+    const [showErrorModal, setShowErrorModal] = React.useState(false);
     
     const location = useLocation();
   
@@ -111,6 +103,13 @@ export default function FormArticlePriceComponent({
                       navigate('/articles/articlesList'
                       )
                   }, 2000);
+            }  else {
+              setShowErrorModal(true);  
+              setTimeout(() => {
+                    setShowErrorModal(false);
+                    /*navigate('/registries/companies'
+                    )*/
+              }, 2000);
             }
           });
       }
@@ -119,6 +118,7 @@ export default function FormArticlePriceComponent({
     return (
         <Grid item xs={12}>
             <SucessModal    open={showError} ></SucessModal>
+            <ErrorModal    open={showErrorModal} ></ErrorModal>
             <Box
               sx={{
                 ...formComponent.basicBox,

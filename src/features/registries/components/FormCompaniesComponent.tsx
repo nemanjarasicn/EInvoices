@@ -8,7 +8,7 @@ import { RegistriesFormComponentProps }  from "./RegistriesFormComponent"
 import { useTranslation } from "react-i18next";
 import { useNavigate } from 'react-router-dom';
 import { useComponentsStyles } from "../../shared/components/components.styles";
-import { useAppDispatch, useAppSelector } from "../../../app/hooks";
+import { useAppDispatch } from "../../../app/hooks";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
@@ -16,6 +16,7 @@ import FormTextField  from  "../../shared/components/form-fields/FormTextField"
 import CustomButtonFc from "../../shared/components/CustomButtonFc";
 import { CompanyFormModel, IProps } from "../models/registries.models"
 import { sendCompanies } from "../store/registries.actions";
+import  ErrorModal   from   "../../shared/components/ErrorModals"
 import SucessModal   from "../../shared/components/SucessModal"
 
 /**
@@ -47,6 +48,7 @@ export default function FormCompaniesComponent({
     const navigate  = useNavigate();
     const dispatch = useAppDispatch();
     const [showError, setShowError] = React.useState(false);
+    const [showErrorModal, setShowErrorModal] = React.useState(false);
 
     const methods = useForm({
         defaultValues: defaultValues,
@@ -56,12 +58,6 @@ export default function FormCompaniesComponent({
         handleSubmit,
         reset,
         control,
-        setValue,
-        formState,
-        getValues,
-        trigger,
-        getFieldState,
-        watch,
       } = methods;
 
       const onSubmit = (data: CompanyFormModel) => {
@@ -76,6 +72,13 @@ export default function FormCompaniesComponent({
                     navigate('/registries/companies'
                     )
               }, 2000);
+            } else {
+              setShowErrorModal(true);  
+              setTimeout(() => {
+                    setShowErrorModal(false);
+                    /*navigate('/registries/companies'
+                    )*/
+              }, 2000);
             }
         } 
         )
@@ -85,6 +88,7 @@ export default function FormCompaniesComponent({
     return (
         <Grid item xs={12}>
             <SucessModal    open={showError} ></SucessModal>
+            <ErrorModal    open={showErrorModal} ></ErrorModal>
                 <Grid container spacing={2}>
                     <Grid item xs={6}>
                         <FormTextField

@@ -1,7 +1,5 @@
-import { GridValueGetterParams } from "@mui/x-data-grid";
 import { HeaderSettingsTypes } from "../../models/registries.enums";
 import {
-  sendObjects,
   getObjects,
   getMarketPlaces,
   getPointOfSales,
@@ -11,9 +9,9 @@ import {
   getGroups
 } from "../../store/registries.actions";
 import { TableComponentProps } from "./TableComponent";
-import { useAppDispatch, useAppSelector } from "../../../../app/hooks";
+import {   useAppSelector } from "../../../../app/hooks";
 import { selectCompany } from "../../../../app/core/core.selectors";
-import { selectObjects, selectIds, selectMarketPlaces, selectPointOfSales, selectCompanies, selectWarehouses, selectUnits, selectVat, selectGroups, selectUsers} from "../../store/registries.selectors";
+import { selectObjects, selectMarketPlaces, selectPointOfSales, selectCompanies, selectWarehouses, selectUnits, selectVat, selectGroups, selectUsers} from "../../store/registries.selectors";
 
 type TableSettings = {
   tableSettings: {

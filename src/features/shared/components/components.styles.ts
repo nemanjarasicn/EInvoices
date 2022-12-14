@@ -14,7 +14,7 @@
     return {
       invoiceCardStyles: {
         card: {
-          height: window.devicePixelRatio == 1.5 ?  170 : 235,
+          height: window.devicePixelRatio === 1.5 ?  170 : 235,
           display: "flex",
           alignItems: "center",
           justifyContent: "center",

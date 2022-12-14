@@ -7,7 +7,7 @@ import { TemplatePageRegistriesTypes } from "./models/registries.enums";
 import { ButtonProps, SelectButtonProps } from "../shared/components/CustomButtonFc";
 import { CreateType } from "./models/registries.enums";
 import { RegistriesFormComponentProps } from "./components/RegistriesFormComponent";
-import { useAppDispatch, useAppSelector } from "../../app/hooks";
+import {   useAppSelector } from "../../app/hooks";
 import { selectMarketPlaces, selectPointOfSale } from "../shared/components/form-fields/store/form.selectors";
 import { selectUser } from "../../app/core/core.selectors";
 

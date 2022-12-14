@@ -1,14 +1,11 @@
 
 import publicClient from "./htpp-public-gov";
-import  { selectMarketPlaces }  from  "../../shared/components/form-fields/store/form.selectors"
-import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 
 
 class RegistriesPublicService {
   // MOCK CLIENT
 
   sendArticle(data: any) {
-   console.log('data articles', data);
     return publicClient.post<any>
     ("catalog",
     [

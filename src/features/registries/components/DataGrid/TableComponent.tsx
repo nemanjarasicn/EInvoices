@@ -11,7 +11,6 @@ import TableToolbar, { TableToolbarProps } from "./TableToolbar";
 import TableNoRowsOverlay from "./NoRowsOverlay";
 import { useTranslation } from "react-i18next";
 import TablePagination from "./TablePagination";
-import { selectCompany } from "../../../../app/core/core.selectors";
 import { AsyncThunkAction } from "@reduxjs/toolkit";
 
 
@@ -42,8 +41,6 @@ export default function TableComponent({
       id: row[props.parentColumn],
     })
   );
-
-  console.log(tableData);
 
 
   const selection: GridSelectionModel = useAppSelector(selectSelection);

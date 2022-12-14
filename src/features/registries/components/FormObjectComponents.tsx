@@ -19,6 +19,7 @@ import { useNavigate } from 'react-router-dom';
 import FormAutocompleteField from "../../shared/components/form-fields/FormAutocompleteField";
 import { selectCompany } from "../../../app/core/core.selectors";
 import { sendObjects } from "../store/registries.actions";
+import  ErrorModal   from   "../../shared/components/ErrorModals"
 import SucessModal   from "../../shared/components/SucessModal"
 //import ClientComponent from "./form-group/ClientComponent";
 
@@ -50,6 +51,7 @@ export default function FormObjectComponent({
     const navigate  = useNavigate();
     const dispatch = useAppDispatch();
     const [showError, setShowError] = React.useState(false);
+    const [showErrorModal, setShowErrorModal] = React.useState(false);
 
    
 
@@ -61,12 +63,6 @@ export default function FormObjectComponent({
         handleSubmit,
         reset,
         control,
-        setValue,
-        formState,
-        getValues,
-        trigger,
-        getFieldState,
-        watch,
       } = methods;
 
       const onSubmit = (data: ObjectFormModel) => {
@@ -78,6 +74,13 @@ export default function FormObjectComponent({
                   navigate('/registries/objects'
                   )
               }, 2000);
+            }  else {
+              setShowErrorModal(true);  
+              setTimeout(() => {
+                    setShowErrorModal(false);
+                    /*navigate('/registries/companies'
+                    )*/
+              }, 2000);
             }
         } 
         )
@@ -87,6 +90,7 @@ export default function FormObjectComponent({
     return (
         <Grid item xs={12}>
             <SucessModal    open={showError} ></SucessModal>
+            <ErrorModal    open={showErrorModal} ></ErrorModal>
                 <Grid container spacing={2}>
                     <Grid item xs={6}>
                       {false ?

@@ -1,23 +1,13 @@
 import React from "react";
 import {
     Paper,
-    Typography,
     Grid,
     Box,
-    Switch,
-    FormControlLabel,
-    FormControl,
-    FormHelperText,
-    InputLabel,
-    MenuItem,
-    Select,
-    IconButton,
   } from "@mui/material";
 import { RegistriesFormComponentProps }  from "./RegistriesFormComponent"
-import { useTranslation } from "react-i18next";
 import FormTextField  from  "../../shared/components/form-fields/FormTextField"
 import { useComponentsStyles } from "../../shared/components/components.styles";
-import { useAppDispatch, useAppSelector } from "../../../app/hooks";
+import { useAppDispatch } from "../../../app/hooks";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
@@ -27,6 +17,7 @@ import { selectClientCompanies } from "../../shared/components/form-fields/store
 import { useNavigate } from 'react-router-dom';
 import FormAutocompleteField from "../../shared/components/form-fields/FormAutocompleteField";
 import { sendVat } from "../store/registries.actions";
+import  ErrorModal   from   "../../shared/components/ErrorModals"
 import SucessModal   from "../../shared/components/SucessModal"
 //import ClientComponent from "./form-group/ClientComponent";
 
@@ -70,11 +61,11 @@ export default function FormVatComponent({
         default:   true,
         idCountry:    0,
     };
-    const { t } = useTranslation();
     const { formComponent } = useComponentsStyles();
     const navigate  = useNavigate();
     const dispatch = useAppDispatch();
     const [showError, setShowError] = React.useState(false);
+    const [showErrorModal, setShowErrorModal] = React.useState(false);
 
    
 
@@ -86,12 +77,6 @@ export default function FormVatComponent({
         handleSubmit,
         reset,
         control,
-        setValue,
-        formState,
-        getValues,
-        trigger,
-        getFieldState,
-        watch,
       } = methods;
 
       const onSubmit = (data: VatFormModel) => {
@@ -103,6 +88,13 @@ export default function FormVatComponent({
                   navigate('/registries/objects'
                   )
               }, 2000);
+            }   else {
+              setShowErrorModal(true);  
+              setTimeout(() => {
+                    setShowErrorModal(false);
+                    /*navigate('/registries/companies'
+                    )*/
+              }, 2000);
             }
         } 
         )
@@ -112,6 +104,7 @@ export default function FormVatComponent({
     return (
         <Grid item xs={12}>
             <SucessModal    open={showError} ></SucessModal>
+            <ErrorModal    open={showErrorModal} ></ErrorModal>
                 <Grid container spacing={2}>
                     <Grid item xs={6}>
                         <FormTextField

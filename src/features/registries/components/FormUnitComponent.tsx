@@ -5,10 +5,9 @@ import {
     Box
   } from "@mui/material";
 import { RegistriesFormComponentProps }  from "./RegistriesFormComponent"
-import { useTranslation } from "react-i18next";
 import FormTextField  from  "../../shared/components/form-fields/FormTextField"
 import { useComponentsStyles } from "../../shared/components/components.styles";
-import { useAppDispatch, useAppSelector } from "../../../app/hooks";
+import { useAppDispatch } from "../../../app/hooks";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
@@ -16,6 +15,7 @@ import CustomButtonFc from "../../shared/components/CustomButtonFc";
 import { UnitFormModel, IProps } from "../models/registries.models";
 import { useNavigate } from 'react-router-dom';
 import { sendUnit } from "../store/registries.actions";
+import  ErrorModal   from   "../../shared/components/ErrorModals"
 import SucessModal   from "../../shared/components/SucessModal"
 import  CheckboxField  from  "../../shared/components/form-fields/FormCheckboxField"
 //import ClientComponent from "./form-group/ClientComponent";
@@ -40,11 +40,11 @@ export default function FormUnitComponent({
         productUnitPriority:  1,
         productUnitDecimalShow:  0,
     };
-    const { t } = useTranslation();
     const { formComponent } = useComponentsStyles();
     const navigate  = useNavigate();
     const dispatch = useAppDispatch();
     const [showError, setShowError] = React.useState(false);
+    const [showErrorModal, setShowErrorModal] = React.useState(false);
 
    
 
@@ -56,12 +56,6 @@ export default function FormUnitComponent({
         handleSubmit,
         reset,
         control,
-        setValue,
-        formState,
-        getValues,
-        trigger,
-        getFieldState,
-        watch,
       } = methods;
 
       const onSubmit = (data: any) => {
@@ -73,6 +67,13 @@ export default function FormUnitComponent({
                   navigate('/registries/units'
                   )
               }, 2000);
+            }  else {
+              setShowErrorModal(true);  
+              setTimeout(() => {
+                    setShowErrorModal(false);
+                    /*navigate('/registries/companies'
+                    )*/
+              }, 2000);
             }
         } 
         )
@@ -82,6 +83,7 @@ export default function FormUnitComponent({
     return (
         <Grid item xs={12}>
             <SucessModal    open={showError} ></SucessModal>
+            <ErrorModal    open={showErrorModal} ></ErrorModal>
                 <Grid container spacing={2}>
                     <Grid item xs={6}>
                         <FormTextField

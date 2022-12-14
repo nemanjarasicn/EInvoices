@@ -31,7 +31,6 @@ const sendArticle: AsyncThunk<any, {data: ArticleFormModel }, {}> = createAsyncT
 const sendArticlesPrice: AsyncThunk<any, {data: any, price: any}, {}> = createAsyncThunk<any, {data: any;  price: any}>(
     "POST/articleSend",
     async (data,_) => {
-    console.log('sendArticle', data)
       return await RegistriesPublicService.sendArticlesPrice(data)
         .then((res: any) =>  'sucsess')
         .catch((err: any) => 'error');

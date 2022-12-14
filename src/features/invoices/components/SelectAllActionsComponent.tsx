@@ -21,7 +21,6 @@ import { updateStatusInvoice } from "../store/invoice.actions";
 import JSZip from  'jszip';
 import * as FileSaver from "file-saver";
 import {getZip }  from  "../store/invoice.actions"
-import { selectZip } from "../store/invoice.selectors";
 
 export type SelectAllAction = {
   title: string;
@@ -63,10 +62,7 @@ export default function SelectAllActionsComponent({
  
   // function for unzip file
    const  unzipFile = async (flag: string, zipDataT: any) => {
-    console.log('zip before',zipDataT )
-   
     await zip.loadAsync(zipDataT.payload,{base64:true}).then(function (zip) {
-      console.log('zipload',zip)
       Object.keys(zip.files).map((filename) => {
         const extName =  flag === 'PDF' ?  '.pdf'  :  '.xml';
         const filenameDownload  = filename.slice(0, filename.length-4) + extName;
@@ -201,7 +197,6 @@ function downloadXml(data: Blob, fileName: string) {
    * @param comment input value on dialog
    */
   const handleClose = (data: {comment?: string | boolean, flagButton: string}): void => {
-    console.log(data.flagButton);
     if (data.flagButton  === "cancel") {
       setOpenConfirm(false);
       setActionValue(null);

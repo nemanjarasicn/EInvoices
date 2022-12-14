@@ -18,6 +18,7 @@ import { selectMarketPlaces } from "../../shared/components/form-fields/store/fo
 import { useNavigate } from 'react-router-dom';
 import FormAutocompleteField from "../../shared/components/form-fields/FormAutocompleteField";
 import { sendWarehouse } from "../store/registries.actions";
+import  ErrorModal   from   "../../shared/components/ErrorModals"
 import SucessModal   from "../../shared/components/SucessModal"
 import { selectCompany } from "../../../app/core/core.selectors";
 import { getMarketPlacesAll }  from  "../../shared/components/form-fields/store/form.actions"
@@ -52,6 +53,7 @@ export default function FormWarehouseComponent({
     const dispatch = useAppDispatch();
     const [showError, setShowError] = React.useState(false);
     const companyId = useAppSelector(selectCompany) as number;
+    const [showErrorModal, setShowErrorModal] = React.useState(false);
 
    
 
@@ -63,12 +65,6 @@ export default function FormWarehouseComponent({
         handleSubmit,
         reset,
         control,
-        setValue,
-        formState,
-        getValues,
-        trigger,
-        getFieldState,
-        watch,
       } = methods;
 
 
@@ -85,6 +81,13 @@ export default function FormWarehouseComponent({
                   navigate('/registries/warehouse'
                   )
               }, 2000);
+            }  else {
+              setShowErrorModal(true);  
+              setTimeout(() => {
+                    setShowErrorModal(false);
+                    /*navigate('/registries/companies'
+                    )*/
+              }, 2000);
             }
         }
         )
@@ -94,6 +97,7 @@ export default function FormWarehouseComponent({
     return (
         <Grid item xs={12}>
             <SucessModal    open={showError} ></SucessModal>
+            <ErrorModal    open={showErrorModal} ></ErrorModal>
                 <Grid container spacing={2}>
                     <Grid item xs={6}>
                         <FormAutocompleteField

@@ -1,17 +1,8 @@
 import React from "react";
 import {
     Paper,
-    Typography,
     Grid,
-    Box,
-    Switch,
-    FormControlLabel,
-    FormControl,
-    FormHelperText,
-    InputLabel,
-    MenuItem,
-    Select,
-    IconButton,
+    Box
   } from "@mui/material";
 import { RegistriesFormComponentProps }  from "./RegistriesFormComponent"
 import { useTranslation } from "react-i18next";
@@ -26,9 +17,10 @@ import { UsersFormModel, IProps } from "../models/registries.models";
 import { selectCompaniesAll } from "../../shared/components/form-fields/store/form.selectors";
 import { useNavigate } from 'react-router-dom';
 import FormAutocompleteField from "../../shared/components/form-fields/FormAutocompleteField";
-import { selectCompany, selectCompanyInfo } from "../../../app/core/core.selectors";
-import { getCompaniesAll,  getMarketPlacesAll }  from  "../../shared/components/form-fields/store/form.actions"
+import { selectCompany } from "../../../app/core/core.selectors";
+import { getCompaniesAll }  from  "../../shared/components/form-fields/store/form.actions"
 import { sendUsers } from "../store/registries.actions";
+import  ErrorModal   from   "../../shared/components/ErrorModals"
 import SucessModal   from "../../shared/components/SucessModal"
 //import ClientComponent from "./form-group/ClientComponent";
 
@@ -76,6 +68,7 @@ export default function FormUsersComponent({
     const navigate  = useNavigate();
     const dispatch = useAppDispatch();
     const [showError, setShowError] = React.useState(false);
+    const [showErrorModal, setShowErrorModal] = React.useState(false);
 
    
 
@@ -87,16 +80,9 @@ export default function FormUsersComponent({
         handleSubmit,
         reset,
         control,
-        setValue,
-        formState,
-        getValues,
-        trigger,
-        getFieldState,
-        watch,
       } = methods;
 
       const onSubmit = (data: UsersFormModel) => {
-        console.log('data', data);
         dispatch(sendUsers({data})).then((res) => {
             if(res.payload === 'sucsses') {
               setShowError(true);
@@ -105,7 +91,14 @@ export default function FormUsersComponent({
                   navigate('/registries/users'
                   )
               }, 2000);
-            }
+            }   else {
+                setShowErrorModal(true);  
+                setTimeout(() => {
+                      setShowErrorModal(false);
+                      /*navigate('/registries/companies'
+                      )*/
+                }, 2000);
+              }
         } 
         )
       }
@@ -118,6 +111,7 @@ export default function FormUsersComponent({
     return (
         <Grid item xs={12}>
             <SucessModal    open={showError} ></SucessModal>
+            <ErrorModal    open={showErrorModal} ></ErrorModal>
                 <Grid container spacing={2}>
                     <Grid item xs={6}>
                       {true ?

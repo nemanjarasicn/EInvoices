@@ -4,8 +4,9 @@ import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 
 import Box from '@mui/material/Box';
-
-import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
+import {    useAppSelector } from "../../../app/hooks";
+import { hasError} from "../../../app/core/core.selectors";
+import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
 
 
 
@@ -31,7 +32,11 @@ const style = {
 
   
 
-export default function  SucessModal(props: any)  {
+export default function  ErrorModal(props: any)  {
+    
+    let open = useAppSelector(hasError) ? true : false;
+    const error = useAppSelector(hasError);
+
       return (
         <Modal
             open={props.open}
@@ -42,12 +47,12 @@ export default function  SucessModal(props: any)  {
                 <Grid id="gridConteiner"    >
                     <Grid id="gridConteinerImg"  sx={{display: 'flex', justifyContent:  'center'}}  >
                         <Box  >
-                          <CheckCircleOutlineIcon id="imgAlert"  sx={{width: 100, height: 100,  color:   'green'}} />
+                          <ErrorOutlineIcon id="imgAlert"  sx={{width: 100, height: 100,  color:   'red'}} />
                         </Box>
                     </Grid>
                     <Grid>
                     <Typography id="modal-modal-message" sx={{display: 'flex', justifyContent: 'center',  alignItems:  'center'}} variant="h6" color={'white'} component="h2">
-                        Uspesno ste sacuvali podatak
+                        Greska
                     </Typography>
                     </Grid>
                 </Grid>

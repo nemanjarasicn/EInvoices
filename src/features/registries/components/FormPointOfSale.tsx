@@ -21,6 +21,7 @@ import { sendPointOfSales } from "../store/registries.actions";
 import { PointOfSaleFormModel }  from "../models/registries.models"
 import { getCompaniesAll,  getMarketPlacesAll }  from  "../../shared/components/form-fields/store/form.actions"
 import { selectCompany, selectCompanyInfo } from "../../../app/core/core.selectors";
+import  ErrorModal   from   "../../shared/components/ErrorModals"
 import SucessModal   from "../../shared/components/SucessModal"
 //import ClientComponent from "./form-group/ClientComponent";
 
@@ -64,6 +65,7 @@ export default function FormPointOfSaleComponents({
     const dispatch = useAppDispatch();
     const [showError, setShowError] = React.useState(false)
     const companyInfo = useAppSelector(selectCompanyInfo);
+    const [showErrorModal, setShowErrorModal] = React.useState(false);
 
     const methods = useForm({
         defaultValues: defaultValues,
@@ -73,12 +75,6 @@ export default function FormPointOfSaleComponents({
         handleSubmit,
         reset,
         control,
-        setValue,
-        formState,
-        getValues,
-        trigger,
-        getFieldState,
-        watch,
       } = methods;
 
       React.useEffect(() => {
@@ -101,6 +97,13 @@ export default function FormPointOfSaleComponents({
                     navigate('/registries/pointOfSale'
                     )
               }, 2000);
+            }  else {
+              setShowErrorModal(true);  
+              setTimeout(() => {
+                    setShowErrorModal(false);
+                    /*navigate('/registries/companies'
+                    )*/
+              }, 2000);
             }
         } 
         )
@@ -109,6 +112,7 @@ export default function FormPointOfSaleComponents({
     return (
         <Grid item xs={12}>
           <SucessModal    open={showError} ></SucessModal>
+          <ErrorModal    open={showErrorModal} ></ErrorModal>
                 <Grid container spacing={2}>
                     <Grid item xs={6}>
                         {false ?

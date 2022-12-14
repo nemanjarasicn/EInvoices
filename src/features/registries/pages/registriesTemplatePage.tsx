@@ -15,16 +15,8 @@ import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import { IProps } from "../models/registries.models";
 import TableComponent from "../components/DataGrid/TableComponent";
 import { useTableSettings } from "../components/DataGrid/table.settings";
-import { selectMarketPlaces } from "../../shared/components/form-fields/store/form.selectors";
 import { getMarketPlacesAll, getPointOfSalesAll }  from  "../../shared/components/form-fields/store/form.actions"
 import {
-  sendObjects,
-  getObjects,
-  getMarketPlaces,
-  getPointOfSales,
-  getCompanies,
-  getUnits,
-  getVat,
   getGroups,
   getWarehouses
 } from "../../registries/store/registries.actions";
@@ -57,7 +49,6 @@ export default function InvoiceTemplatePage({
   });
   const {
     control,
-    getValues
   } = methods;
 
   const settings = tableSettings[props.templateType].dataGrid;
@@ -77,7 +68,6 @@ export default function InvoiceTemplatePage({
 
 
   React.useEffect(() => {
-    console.log(props);
     if(props.templateType === "warehouses") { 
       dispatch(getMarketPlacesAll({companyId: company}))
     };

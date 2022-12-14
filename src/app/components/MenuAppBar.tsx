@@ -6,10 +6,6 @@ import Toolbar from "@mui/material/Toolbar";
 import List from "@mui/material/List";
 import CssBaseline from "@mui/material/CssBaseline";
 import Typography from "@mui/material/Typography";
-import Divider from "@mui/material/Divider";
-import IconButton from "@mui/material/IconButton";
-import MenuIcon from "@mui/icons-material/Menu";
-import Button from "@mui/material/Button";
 // import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
@@ -27,24 +23,20 @@ import ArticleIcon from '@mui/icons-material/Article';
 import ApartmentIcon from '@mui/icons-material/Apartment';
 import Payments from "@mui/icons-material/Payments";
 import { useAppComponentsStyles } from "./components.styles";
+import ErrorModal from "../../features/shared/components/ErrorModals";
 import { useTheme } from '@mui/material/styles';
 import AppLoader from "./AppLoader";
 import { NavItem } from "../models/navItem.models";
-import NestedMenuItem  from   "@lazy-react/material-ui-nested-menu-item"
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faFaceRelieved } from '@fortawesome/pro-solid-svg-icons'
-import { selectColor } from "../../app/core/core.selectors";
-import { useAppSelector } from "../../app/hooks";
 
 const drawerWidth =  200;
 
-const DrawerHeader = styled("div")(({ theme }) => ({
+/*const DrawerHeader = styled("div")(({ theme }) => ({
   display: "flex",
   alignItems: "center",
   justifyContent: "flex-end",
   padding: theme.spacing(0, 1),
   ...theme.mixins.toolbar,
-}));
+}));*/
 
 interface AppBarProps extends MuiAppBarProps {
   open?: boolean;
@@ -76,17 +68,17 @@ export default function ClippedDrawer() {
   const [calcNumber, setCalcNumber] =  React.useState<number>(1);
   const [showSubMenu,  setShowSubMenu] =  React.useState<boolean>(false);
   const [parentItem, setParentItem] =  React.useState<any>();
-  const stepPosition = window.devicePixelRatio == 1.5 ?  90  : 140;
-  const sizeIcons = window.devicePixelRatio == 1.5 ? '40px' : '80px'; 
-  const logoSize = window.devicePixelRatio == 1.5 ?  100 : 150; 
-  const paddingLeftMain = window.devicePixelRatio == 1.5 ? '100px' : '160px';
-  const leftSubmenu = window.devicePixelRatio == 1.5 ? '118px' : '245px'; 
-  const startPositionSubmenu = window.devicePixelRatio == 1.5 ? '180px' : '260px'; 
-  const subMenuWidth = window.devicePixelRatio == 1.5 ? 200 : 350 ; 
-  const subMenuHeight = window.devicePixelRatio == 1.5 ? 210 : 350 ; 
-  const subMenuPadding = window.devicePixelRatio == 1.5 ?  0 :   2; 
-  const fontSizeText = window.devicePixelRatio == 1.5 ? '12px' : '18px';
-  const appBarHeight = window.devicePixelRatio == 1.5 ? '50px' : '65px';  
+  const stepPosition = window.devicePixelRatio === 1.5 ?  90  : 140;
+  const sizeIcons = window.devicePixelRatio === 1.5 ? '40px' : '80px'; 
+  const logoSize = window.devicePixelRatio === 1.5 ?  100 : 150; 
+  const paddingLeftMain = window.devicePixelRatio === 1.5 ? '100px' : '160px';
+  const leftSubmenu = window.devicePixelRatio === 1.5 ? '118px' : '245px'; 
+  const startPositionSubmenu = window.devicePixelRatio === 1.5 ? '180px' : '260px'; 
+  const subMenuWidth = window.devicePixelRatio === 1.5 ? 200 : 350 ; 
+  const subMenuHeight = window.devicePixelRatio === 1.5 ? 210 : 350 ; 
+  const subMenuPadding = window.devicePixelRatio === 1.5 ?  0 :   2; 
+  const fontSizeText = window.devicePixelRatio === 1.5 ? '12px' : '18px';
+  const appBarHeight = window.devicePixelRatio === 1.5 ? '50px' : '65px';  
 
   const navItems: NavItem[] = [
     { name: t("Menu.home"), href: "/", icon: "Home",submenu: false, },
@@ -127,7 +119,7 @@ export default function ClippedDrawer() {
       submenu: true,
       children: [
         {
-          name:  t("Artikli lista"),
+          name:  t("Articles.title"),
           href: "/articles/articlesList",
           icon: "Payments",
         },
@@ -141,27 +133,27 @@ export default function ClippedDrawer() {
       submenu: true,
       children: [
         {
-          name: t("Objekti"),
+          name: t("Objects.title"),
           href: "/registries/objects",
           icon: "Home",
         },
         {
-          name: t("Prodajna mesta"),
+          name: t("MarketPlace.title"),
           href: "/registries/marketPlace",
           icon: "Home",
         },
         {
-          name: t("Kase"),
+          name: t("PointOfSale.title"),
           href: "/registries/pointOfSale",
           icon: "Home",
         },
         {
-          name: t("Kompanije"),
+          name: t("Companies.title"),
           href: "/registries/companies",
           icon: "Home",
         },
         {
-          name: t("Magacini"),
+          name: t("Warehouses.title"),
           href: "/registries/warehouse",
           icon: "Home",
         },
@@ -188,16 +180,14 @@ export default function ClippedDrawer() {
 
   const [open, setOpen] = React.useState(false);
 
-  const handleDrawerOpen = () => {
+  /*const handleDrawerOpen = () => {
     setOpen(true);
-  };
+  };*/
 
   const handleDrawerClose = () => {
     setOpen(false);
   };
 
-
-  console.log('daasasa', useAppSelector(selectColor));
 
   return (
     <Box sx={{ display: "flex" }}>

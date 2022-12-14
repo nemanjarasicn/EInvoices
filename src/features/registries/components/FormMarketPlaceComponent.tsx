@@ -1,17 +1,8 @@
 import React from "react";
 import {
     Paper,
-    Typography,
     Grid,
     Box,
-    Switch,
-    FormControlLabel,
-    FormControl,
-    FormHelperText,
-    InputLabel,
-    MenuItem,
-    Select,
-    IconButton,
   } from "@mui/material";
 import { RegistriesFormComponentProps }  from "./RegistriesFormComponent"
 import { useTranslation } from "react-i18next";
@@ -27,10 +18,11 @@ import { selectClientCompanies } from "../../shared/components/form-fields/store
 import FormAutocompleteField from "../../shared/components/form-fields/FormAutocompleteField";
 import { sendMarketPlace } from "../store/registries.actions";
 import { useNavigate } from 'react-router-dom';
-import { selectCompany, selectCompanyInfo } from "../../../app/core/core.selectors";
+import { selectCompany } from "../../../app/core/core.selectors";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import { selectObjectsAll } from "../../shared/components/form-fields/store/form.selectors";
 import { getObjectsAll } from "../../shared/components/form-fields/store/form.actions";
+import  ErrorModal   from   "../../shared/components/ErrorModals"
 import SucessModal   from "../../shared/components/SucessModal"
 //import ClientComponent from "./form-group/ClientComponent";
 
@@ -76,7 +68,8 @@ export default function FormMarketPlaceComponent({
     const { formComponent } = useComponentsStyles();
     const navigate  = useNavigate();
     const dispatch = useAppDispatch();
-    const [showError, setShowError] = React.useState(false)
+    const [showError, setShowError] = React.useState(false);
+    const [showErrorModal, setShowErrorModal] = React.useState(false);
 
   
     const methods = useForm({
@@ -87,12 +80,6 @@ export default function FormMarketPlaceComponent({
         handleSubmit,
         reset,
         control,
-        setValue,
-        formState,
-        getValues,
-        trigger,
-        getFieldState,
-        watch,
       } = methods;
 
 
@@ -104,6 +91,13 @@ export default function FormMarketPlaceComponent({
                   setShowError(false);    
                   navigate('/registries/marketPlace'
                   )
+              }, 2000);
+            }  else {
+              setShowErrorModal(true);  
+              setTimeout(() => {
+                    setShowErrorModal(false);
+                    /*navigate('/registries/companies'
+                    )*/
               }, 2000);
             }
         }
@@ -119,6 +113,7 @@ export default function FormMarketPlaceComponent({
     return (
         <Grid item xs={12}>
           <SucessModal    open={showError} ></SucessModal>
+          <ErrorModal    open={showErrorModal} ></ErrorModal>
                 <Grid container spacing={2}>
                     <Grid item xs={6}>
           

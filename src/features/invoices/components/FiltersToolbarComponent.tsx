@@ -42,7 +42,6 @@ export default function FiltersToolbarComponent({
    * @param items filters
    */
   const handleFilters = (paramKey: string, items: any): void => {
-    console.log('filters', params)
     setParams((state) => {
       state?.set(paramKey, items);
       return state;

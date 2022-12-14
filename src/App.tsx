@@ -63,7 +63,6 @@ const ArticlesCreateTemplatePage = React.lazy(
 function App() {
   const apiKeyPresent = useAppSelector(apiKeyExist);
   const color = useAppSelector(selectColor);
-  console.log('asasas', useAppSelector(selectColor));
   return (
     <ThemeProvider theme={theme(color)}>
       <Routes>

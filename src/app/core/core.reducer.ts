@@ -37,6 +37,10 @@ const authSlice: Slice<CoreState> = createSlice({
       ...state,
       color: payload,
     }),
+    setError: (state,{payload}) => ({
+      ...state,
+      error: payload,
+    }),
   },
   extraReducers: (builder) => {
     loginAsync(builder);
@@ -44,7 +48,7 @@ const authSlice: Slice<CoreState> = createSlice({
   },
 });
 
-export const { removeUser, resetError, setColor } = authSlice.actions;
+export const { removeUser, resetError, setColor,  setError } = authSlice.actions;
 
 export default authSlice.reducer;
 

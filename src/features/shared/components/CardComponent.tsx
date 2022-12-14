@@ -4,14 +4,13 @@ import {
     CardContent,
     CardHeader,
     Typography,
-    CardActions,
     SvgIconTypeMap,
   } from "@mui/material";
   import React from "react";
   import { useTranslation } from "react-i18next";
   import { OverridableComponent } from "@mui/material/OverridableComponent";
   import { useComponentsStyles } from "./components.styles";
-  import CustomButtonFc, { ButtonProps } from "../../shared/components/CustomButtonFc";
+  import  { ButtonProps } from "../../shared/components/CustomButtonFc";
   import { useTheme } from '@mui/material/styles';
   import { IProps } from "../../registries/models/registries.models";
   
@@ -28,10 +27,10 @@ import {
     const theme  =  useTheme();
     const { invoiceCardStyles } = useComponentsStyles(props.cardBtn.disabled);
     const Icon = props.icon;
-    const sizeIcons = window.devicePixelRatio == 1.5 ? '40px' : '80px'; 
-    const sizeTitleCard = window.devicePixelRatio == 1.5 ? '22px' : '32px'; 
-    const sizeSubTitleCard = window.devicePixelRatio == 1.5 ? '12px' : '16px'; 
-    const minWidthCard = window.devicePixelRatio == 1.5 ?  200 : 275; 
+    const sizeIcons = window.devicePixelRatio === 1.5 ? '40px' : '80px'; 
+    const sizeTitleCard = window.devicePixelRatio === 1.5 ? '22px' : '32px'; 
+    const sizeSubTitleCard = window.devicePixelRatio === 1.5 ? '12px' : '16px'; 
+    const minWidthCard = window.devicePixelRatio === 1.5 ?  200 : 275; 
     return (
       <Box sx={{ minWidth:   minWidthCard }}>
         <Card sx={invoiceCardStyles.card}   onClick={!props.cardBtn.disabled ?  props.cardBtn.btnFn  : undefined }>

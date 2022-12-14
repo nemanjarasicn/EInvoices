@@ -1,17 +1,8 @@
 import React from "react";
 import {
     Paper,
-    Typography,
     Grid,
     Box,
-    Switch,
-    FormControlLabel,
-    FormControl,
-    FormHelperText,
-    InputLabel,
-    MenuItem,
-    Select,
-    IconButton,
   } from "@mui/material";
 import { RegistriesFormComponentProps }  from "./RegistriesFormComponent"
 import { useTranslation } from "react-i18next";
@@ -23,12 +14,12 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import CustomButtonFc from "../../shared/components/CustomButtonFc";
 import { GroupFormModel, IProps } from "../models/registries.models";
-import { selectClientCompanies } from "../../shared/components/form-fields/store/form.selectors";
 import { useNavigate } from 'react-router-dom';
 import FormAutocompleteField from "../../shared/components/form-fields/FormAutocompleteField";
 import { sendGroup } from "../store/registries.actions";
-import { selectCompany, selectCompanyInfo } from "../../../app/core/core.selectors";
+import { selectCompany } from "../../../app/core/core.selectors";
 import SucessModal   from "../../shared/components/SucessModal"
+import  ErrorModal   from   "../../shared/components/ErrorModals"
 
 import { getPointOfSalesAll, getObjectsAll }  from  "../../shared/components/form-fields/store/form.actions"
 import  { selectPointOfSale, selectObjectsAll }  from  "../../shared/components/form-fields/store/form.selectors"
@@ -75,6 +66,7 @@ export default function FormGroupComponent({
     const navigate  = useNavigate();
     const dispatch = useAppDispatch();
     const [showError, setShowError] = React.useState(false);
+    const [showErrorModal, setShowErrorModal] = React.useState(false);
 
    
 
@@ -86,12 +78,6 @@ export default function FormGroupComponent({
         handleSubmit,
         reset,
         control,
-        setValue,
-        formState,
-        getValues,
-        trigger,
-        getFieldState,
-        watch,
       } = methods;
 
       React.useEffect(() => {
@@ -100,7 +86,6 @@ export default function FormGroupComponent({
       }, []);
 
       const onSubmit = (data: GroupFormModel) => {
-        console.log('group', data);
         dispatch(sendGroup({data})).then((res) => {
             if(res.payload === 'sucsses') {
               setShowError(true);
@@ -108,6 +93,13 @@ export default function FormGroupComponent({
                   setShowError(false);
                   navigate('/registries/groups'
                   )
+              }, 2000);
+            }  else {
+              setShowErrorModal(true);  
+              setTimeout(() => {
+                    setShowErrorModal(false);
+                    /*navigate('/registries/companies'
+                    )*/
               }, 2000);
             }
         } 
@@ -118,6 +110,7 @@ export default function FormGroupComponent({
     return (
         <Grid item xs={12}>
             <SucessModal    open={showError} ></SucessModal>
+            <ErrorModal    open={showErrorModal} ></ErrorModal>
                 <Grid container spacing={2}>
                     <Grid item xs={6}>
                         
