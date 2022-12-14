@@ -269,6 +269,41 @@
     "unitPriority":  "Unit priority",
     "default": "Default",
     "createNew": "Kreiraj novi  Unit"
+  },
+
+
+  "Vats": {
+    "title": "PDV Stope",
+    "nameVat":  "Ime stope",
+    "value1":  "Value1",
+    "value2":  "Value2",
+    "code":  "Code",
+    "value3": "Value3",
+    "createNew": "Kreiraj novu PDV stopu"
+  },
+
+  
+  "Users": {
+    "title": "Korisnici",
+    "username":   "Korisnicko ime",
+    "compnyId":  "Id Kompanije",
+    "roleName":  "roleName",
+    "createNew": "Kreiraj novog Korisnika"
+  },
+
+  "Groups": {
+    "title": "Grupe",
+    "groupName":  "Ime grupe",
+    "idPointOfSale":  "Id kase",
+    "parentGroupId":  "Id nadredjene grupe",
+    "createNew": "Kreiraj novu grupu"
+  },
+
+
+  "Articles":  {
+    "title":  "Artikli lista",
+    "createNew":  "Kreiraj novi artikal"
+
   }
 
 

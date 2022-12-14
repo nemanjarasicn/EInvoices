@@ -34,7 +34,7 @@ import {
     const minWidthCard = window.devicePixelRatio == 1.5 ?  200 : 275; 
     return (
       <Box sx={{ minWidth:   minWidthCard }}>
-        <Card sx={invoiceCardStyles.card}   onClick={props.cardBtn.btnFn} >
+        <Card sx={invoiceCardStyles.card}   onClick={!props.cardBtn.disabled ?  props.cardBtn.btnFn  : undefined }>
           <React.Fragment>
             <CardHeader
               sx={invoiceCardStyles.cardHeader}

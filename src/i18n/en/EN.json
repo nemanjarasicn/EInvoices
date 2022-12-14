@@ -268,5 +268,40 @@
     "unitPriority":  "Unit priority",
     "default": "Default",
     "createNew": "Create new Unit"
+  },
+
+  "Vats": {
+    "title": "Vats",
+    "nameVat":  "Name of vat",
+    "value1":  "Value1",
+    "value2":  "Value2",
+    "code":  "Code",
+    "value3": "Value3",
+    "createNew": "Create new Vat"
+  },
+
+
+  "Users": {
+    "title": "Users",
+    "username":   "Username",
+    "compnyId":  "Id of company",
+    "roleName":  "roleName",
+    "createNew": "Create new User"
+  },
+
+  
+  "Groups": {
+    "title": "Groups",
+    "groupName":  "Name of group",
+    "idPointOfSale":  "Id of pointOfSale",
+    "parentGroupId":  "Parent group id",
+    "createNew": "Create new Group"
+  },
+
+
+  "Articles":  {
+    "title":  "Articles list",
+    "createNew":  "Create new Artical"
+
   }
 }

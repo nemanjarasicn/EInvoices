@@ -477,7 +477,7 @@ const useTableSettings = (): TableSettings => {
           columnsDef: [
             {
               field: "name",
-              headerName: "Ime vat",
+              headerName: "Vats.nameVat",
               flex: 1,
               headerAlign: "center",
               align: "center",
@@ -485,7 +485,7 @@ const useTableSettings = (): TableSettings => {
             },
             {
               field: "value1",
-              headerName: "Value1",
+              headerName: "Vats.value1",
               flex: 1,
               headerAlign: "center",
               align: "center",
@@ -493,7 +493,7 @@ const useTableSettings = (): TableSettings => {
             },
             {
               field: "value2",
-              headerName: "Value2",
+              headerName: "Vats.value2",
               flex: 1,
               headerAlign: "center",
               align: "center",
@@ -501,7 +501,7 @@ const useTableSettings = (): TableSettings => {
             },
             {
               field: "value3",
-              headerName: "Value3",
+              headerName: "Vats.value3",
               flex: 1,
               headerAlign: "center",
               align: "center",
@@ -509,7 +509,7 @@ const useTableSettings = (): TableSettings => {
             },
             {
               field: "code",
-              headerName: "Code",
+              headerName: "Vats.code",
               flex: 1,
               headerAlign: "center",
               align: "center",
@@ -539,7 +539,7 @@ const useTableSettings = (): TableSettings => {
           columnsDef: [
             {
               field: "username",
-              headerName: "Korisnicko ime",
+              headerName: "Users.username",
               flex: 1,
               headerAlign: "center",
               align: "center",
@@ -547,7 +547,7 @@ const useTableSettings = (): TableSettings => {
             },
             {
               field: "compnyId",
-              headerName: "Id kompanije",
+              headerName: "Users.companyId",
               flex: 1,
               headerAlign: "center",
               align: "center",
@@ -555,7 +555,7 @@ const useTableSettings = (): TableSettings => {
             },
             {
               field: "roleName",
-              headerName: "role Name",
+              headerName: "Users.roleName",
               flex: 1,
               headerAlign: "center",
               align: "center",
@@ -584,7 +584,7 @@ const useTableSettings = (): TableSettings => {
           columnsDef: [
             {
               field: "groupName",
-              headerName: "Naziv grupe",
+              headerName: "Groups.groupName",
               flex: 1,
               headerAlign: "center",
               align: "center",
@@ -592,7 +592,7 @@ const useTableSettings = (): TableSettings => {
             },
             {
               field: "idPointOfSale",
-              headerName: "Id kase",
+              headerName: "Groups.idPointOfSale",
               flex: 1,
               headerAlign: "center",
               align: "center",
@@ -601,7 +601,7 @@ const useTableSettings = (): TableSettings => {
       
             {
               field: "parentGroupId",
-              headerName: "parentGroupId",
+              headerName: "Groups.parentGroupId",
               flex: 1,
               headerAlign: "center",
               align: "center",

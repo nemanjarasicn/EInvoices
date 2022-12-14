@@ -101,7 +101,7 @@ const useFeatureSettings = (): FeatureSettings => {
         typeOfCard:  "articles",
       },
       {
-        title: "PDV",
+        title: "Vats.title",
         icon: ExitToAppIcon,
         cardBtn: {
           title: "InvoiceCard.preview",
@@ -112,7 +112,7 @@ const useFeatureSettings = (): FeatureSettings => {
       },
       
       {
-        title: "Korisnici",
+        title: "Users.title",
         icon: ExitToAppIcon,
         cardBtn: {
           title: "InvoiceCard.preview",
@@ -122,7 +122,7 @@ const useFeatureSettings = (): FeatureSettings => {
         typeOfCard:  "articles",
       },
       {
-        title: "Grupe",
+        title: "Groups.title",
         icon: ExitToAppIcon,
         cardBtn: {
           title: "InvoiceCard.preview",
@@ -246,12 +246,12 @@ const useFeatureSettings = (): FeatureSettings => {
         showTable: true,
       },
       [TemplatePageRegistriesTypes.VAT]: {
-        title: "PDV",
+        title: "Vats.title",
         showBtns: true,
         showBtnsSelect: false,
         buttons: [
           {
-            title: "Kreiraj novi pdv",
+            title: "Vats.createNew",
             disabled: false,
             btnFn: () => navigate("/registries/createVat"),
           },
@@ -264,12 +264,12 @@ const useFeatureSettings = (): FeatureSettings => {
         showTable: true,
       },
       [TemplatePageRegistriesTypes.USERS]: {
-        title: "Korisnici",
+        title: "Users.title",
         showBtns: true,
         showBtnsSelect: false,
         buttons: [
           {
-            title: "Kreiraj novog korisnika",
+            title: "Users.createNew",
             disabled: false,
             btnFn: () => navigate("/registries/createUser"),
           },
@@ -282,12 +282,12 @@ const useFeatureSettings = (): FeatureSettings => {
         showTable: true,
       },
       [TemplatePageRegistriesTypes.GROUPS]: {
-        title: "Grupe",
+        title: "Groups.title",
         showBtns: true,
         showBtnsSelect: true,
         buttons: [
           {
-            title: "Kreiraj novu grupu",
+            title: "Groups.createNew",
             disabled: false,
             btnFn: () => navigate("/registries/createGroup"),
           },
