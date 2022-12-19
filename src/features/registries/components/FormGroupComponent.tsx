@@ -53,11 +53,11 @@ import  { selectPointOfSale, selectObjectsAll }  from  "../../shared/components/
 export default function FormGroupComponent({
     props,
   }: IProps<RegistriesFormComponentProps>): JSX.Element {
-    const companyId = useAppSelector(selectCompany) as number;
+    const companyId = useAppSelector(selectCompany) as number[];
     const defaultValues:  GroupFormModel = {
         groupName:  "",
         idPointOfSale:   "",
-        idCompany:  companyId,
+        idCompany:  companyId[0],
         idObject:  0
       }
     
@@ -81,8 +81,8 @@ export default function FormGroupComponent({
       } = methods;
 
       React.useEffect(() => {
-        dispatch(getPointOfSalesAll({companyId: companyId}));
-        dispatch(getObjectsAll({companyId: companyId}));
+        dispatch(getPointOfSalesAll({companyId: companyId[0]}));
+        dispatch(getObjectsAll({companyId: companyId[0]}));
       }, []);
 
       const onSubmit = (data: GroupFormModel) => {

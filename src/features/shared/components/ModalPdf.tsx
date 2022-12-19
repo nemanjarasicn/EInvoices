@@ -3,9 +3,12 @@ import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
 import Modal from '@mui/material/Modal';
+import { Viewer } from '@react-pdf-viewer/core';
+
 import Divider from '@mui/material/Divider';
 import  { setopenModalPdf }  from   '../../invoices/store/invoice.reducer'
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
+
 
 import Box from '@mui/material/Box'
 
@@ -73,9 +76,7 @@ const style = {
                     <Divider sx={{backgroundColor:  '#6cb238'}} />
 
                     <Grid sx={{display:  'flex', height:  '90%', justifyContent: 'center', mt: 2.5}} >
-                        {/*<PDFViewer  width={'90%'}  showToolbar={false}>
-                                <MyDocument />
-                                </PDFViewer>*/}
+                                <Viewer fileUrl="/testPdf" />;
                     </Grid>
                     
                     <Grid sx={{display:  'flex', height:  '10%', mt: 2.5, justifyContent:  'center'}} >

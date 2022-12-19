@@ -12,6 +12,7 @@ type FormAutocompleteFieldProps = FormFieldProps & {
     labelShrink?: boolean;
     placeholder?: string;
     noResultText?: string;
+    data?: any;
   };
 };
 /**
@@ -21,6 +22,8 @@ export default function FormAutocompleteField({
   props,
 }: IProps<FormAutocompleteFieldProps>) {
   const data: AutocompleteItem[] = useAppSelector(props.additional.selector);
+  const options: any =  props.additional.data;
+  const dataTmp = props.additional.data ? options : data;
   return (
     <Controller
       name={props.name}
@@ -29,7 +32,7 @@ export default function FormAutocompleteField({
         <Autocomplete
           disablePortal
           id={`combo-box-demo_${props.name}`}
-          options={[...data]}
+          options={[...dataTmp]}
           noOptionsText={props.additional.noResultText ?? "No options"}
           getOptionLabel={(item: AutocompleteItem) => item.name}
           isOptionEqualToValue={(option, value) =>

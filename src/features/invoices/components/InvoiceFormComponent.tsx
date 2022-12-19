@@ -89,7 +89,7 @@ export default function InvoiceFormComponent({
   const schema = useSchemaValidator();
   let navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const companyId = useAppSelector(selectCompany) as number;
+  const companyId = useAppSelector(selectCompany) as number[];
 
   const marketPlaces = useAppSelector(selectMarketPlaces);
   const id = useAppSelector(selectCurrentDocNumber);
@@ -160,9 +160,9 @@ export default function InvoiceFormComponent({
   };
 
   React.useEffect(() => {
-    dispatch(getMarketPlaces({ companyId: companyId }));
-    dispatch(getClientCompanies({ companyId: companyId }));
-    dispatch(getCurrentDocumentNumber({ companyId: companyId }));
+    dispatch(getMarketPlaces({ companyId: companyId[0] }));
+    dispatch(getClientCompanies({ companyId: companyId[0] }));
+    dispatch(getCurrentDocumentNumber({ companyId: companyId[0] }));
     dispatch(getDocumentTypes());
   }, []);
 

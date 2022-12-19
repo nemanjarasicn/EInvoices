@@ -52,7 +52,7 @@ export default function FormWarehouseComponent({
     const navigate  = useNavigate();
     const dispatch = useAppDispatch();
     const [showError, setShowError] = React.useState(false);
-    const companyId = useAppSelector(selectCompany) as number;
+    const companyId = useAppSelector(selectCompany) as number[];
     const [showErrorModal, setShowErrorModal] = React.useState(false);
 
    
@@ -69,7 +69,7 @@ export default function FormWarehouseComponent({
 
 
       React.useEffect(() => {
-        dispatch(getMarketPlacesAll({companyId: companyId}));
+        dispatch(getMarketPlacesAll({companyId: companyId[0]}));
       }, []);
 
       const onSubmit = (data: WarehouseFormModel) => {

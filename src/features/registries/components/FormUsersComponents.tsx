@@ -55,10 +55,10 @@ import SucessModal   from "../../shared/components/SucessModal"
 export default function FormUsersComponent({
     props,
   }: IProps<RegistriesFormComponentProps>): JSX.Element {
-    const companyId = useAppSelector(selectCompany) as number;
+    const companyId = useAppSelector(selectCompany) as number[];
     const defaultValues:  UsersFormModel = {
       id: "",
-      companyId: companyId ,
+      companyId: companyId[0] ,
       username: "",
       password: "",
       confirmpassword: "",

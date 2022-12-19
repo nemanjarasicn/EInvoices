@@ -65,7 +65,7 @@ export default function InvoiceTemplatePage({
 
 
   React.useEffect(() => {
-    dispatch(getMarketPlacesAll({companyId: company}));
+    dispatch(getMarketPlacesAll({companyId: company[0]}));
   }, []);
 
   React.useEffect(() => {

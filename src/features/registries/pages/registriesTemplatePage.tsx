@@ -69,10 +69,10 @@ export default function InvoiceTemplatePage({
 
   React.useEffect(() => {
     if(props.templateType === "warehouses") { 
-      dispatch(getMarketPlacesAll({companyId: company}))
+      dispatch(getMarketPlacesAll({companyId: company[0]}))
     };
     if(props.templateType === "groups") { 
-        dispatch(getPointOfSalesAll({companyId: company}));
+        dispatch(getPointOfSalesAll({companyId: company[0]}));
     }
     if((!(props.templateType === 'warehouses'  ||  props.templateType  ===   'groups')))   {
           dispatch(getDataActionSelect(settings.selectType));

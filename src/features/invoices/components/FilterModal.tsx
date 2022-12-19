@@ -146,7 +146,7 @@ export default function  FilterModal(props: any)  {
         control,
       } = methods;
 
-      const companyId = useAppSelector(selectCompany) as number;
+      const companyId = useAppSelector(selectCompany) as number[];
 
 
       const onSubmit = async  (data: any) => {
