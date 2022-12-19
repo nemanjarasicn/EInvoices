@@ -17,6 +17,7 @@ import { selectFilters }   from  "../../../invoices/store/invoice.selectors"
 import { searchInvoices } from "../../../invoices/store/invoice.actions";
 import { format } from 'date-fns'
 import dayjs from "dayjs";
+import FormAutocompleteField from "../form-fields/FormAutocompleteField";
 import FilterComponent, { FilterComponentProps } from "../../../invoices/components/FilterComponent";
 import SelectAllActionsComponent, {
     SelectAllAction,
@@ -45,20 +46,20 @@ export default function CustomFilterBox({
 }: IProps<FiltersToolbarComponentProps>): JSX.Element {
   const { t } = useTranslation();
   const { templatePageSettings } = useFeatureSettings();
-  const companyId = useAppSelector(selectCompany) as number;
+  const companyId = useAppSelector(selectCompany) as number[];
 
-
-  console.log(props);
 
   const date  = new Date();
     //const dateTmp = new Date(date)
     const today = format(date, 'yyyy-MM-dd');
     const inputAndOutputDocumentsTmp =  props.type === 'sales' ?  'Output'  :  'Input';
 
+
   const defaultFilters = {
-    companyId:  companyId,  
+    companyId:  companyId[0],  
     inputAndOutputDocuments:  inputAndOutputDocumentsTmp,
     sendToCir: "",
+    
     invoiceStatus:  "",
     typeDocument:  "",
     date: {from: today, to:  today}
@@ -67,6 +68,7 @@ export default function CustomFilterBox({
   const dispatch = useAppDispatch();
   const [filtersSearch, setFiltersSearch]  =  React.useState(defaultFilters);
   const openModalFilter =  useAppSelector(selectOpenFilter)
+  const [selectValue, setSelectValue]  =  React.useState('');
 
 
   
@@ -110,6 +112,10 @@ export default function CustomFilterBox({
     })
 }
 
+const handleChangeSelect = (value: any) =>  {
+    setSelectValue(value.item.uuid)
+  }
+
   return (
     <>
      <FilterModal  open={openModalFilter.open} data={props.filters} filterName={openModalFilter.filterName} onSubmitFromFilterModal={addFiltersFromModal} ></FilterModal>
@@ -132,7 +138,7 @@ export default function CustomFilterBox({
             />
             )}
         </Grid>
-        <Grid item xs={6} sx={{display:  'flex'}}>  
+        <Grid item xs={5} sx={{display:  'flex'}}>  
                     <div
                       style={{
                         display: "flex",
@@ -178,6 +184,23 @@ export default function CustomFilterBox({
                         </div>
                     </div>
         </Grid>
+        {/*<Grid item  xs={12} sx={{dispaly: 'flex', justifyContent: 'center', alignContent: 'center', mt: 3}} >
+        
+                <FormAutocompleteField
+                            props={{
+                                name: 'companyId',
+                                control: control,
+                                label:  'Kompanija',
+                                disabled: true,
+                                additional: {
+                                    parentFn: handleChangeSelect,
+                                    data: [{id: 7,item: [], name: 'Palisad' }],
+                                    selector:  selectCompany ,
+                                },
+                            }}
+                        />
+      
+                        </Grid>*/}
     </>
   );
 }

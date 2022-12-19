@@ -45,13 +45,13 @@ import SucessModal   from "../../shared/components/SucessModal"
 export default function FormPointOfSaleComponents({
     props,
   }: IProps<RegistriesFormComponentProps>): JSX.Element {
-    const companyId = useAppSelector(selectCompany) as number;
+    const companyId = useAppSelector(selectCompany) as number[];
     const defaultValues:  PointOfSaleFormModel = {
       id: "",
       namePointOfSale: "",
       idMarketPlace: 0,
       companyName:  "",
-      idCompany:   companyId,
+      idCompany:   companyId[0],
       uuidMarketPlace:  "",
       code: "",
       lastUpdatedBy: "",
@@ -79,7 +79,7 @@ export default function FormPointOfSaleComponents({
 
       React.useEffect(() => {
         dispatch(getCompaniesAll());
-        dispatch(getMarketPlacesAll({companyId: companyId}));
+        dispatch(getMarketPlacesAll({companyId: companyId[0]}));
       }, []);
 
 

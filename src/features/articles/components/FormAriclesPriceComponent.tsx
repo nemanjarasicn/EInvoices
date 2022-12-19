@@ -52,7 +52,7 @@ import FormCurrencyField from "../../shared/components/form-fields/FormCurrencyF
 export default function FormArticlePriceComponent({
     props,
   }: IProps<ArticlesFormComponentProps>): JSX.Element {
-    const companyId = useAppSelector(selectCompany) as number;
+    const companyId = useAppSelector(selectCompany) as number[];
 
     const  defaultValues:  PriceFormModel = {
       price: ""
@@ -86,10 +86,10 @@ export default function FormArticlePriceComponent({
 
 
       React.useEffect(() => {
-        dispatch(getObjectsAll({companyId: companyId}));
+        dispatch(getObjectsAll({companyId: companyId[0]}));
         dispatch(getUnitsAll());
         dispatch(getVatAll());
-        dispatch(getMarketPlacesAll({companyId: companyId}));
+        dispatch(getMarketPlacesAll({companyId: companyId[0]}));
   
       }, []);
 

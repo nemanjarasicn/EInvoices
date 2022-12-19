@@ -52,7 +52,7 @@ import { sendArticle } from "../store/articles.actions";
 export default function FormArticleComponent({
     props,
   }: IProps<ArticlesFormComponentProps>): JSX.Element {
-    const companyId = useAppSelector(selectCompany) as number;
+    const companyId = useAppSelector(selectCompany) as number[];
 
 
 
@@ -76,7 +76,7 @@ export default function FormArticleComponent({
       priceChangeForbidden:   true,
       barCode:   "",
       code:   "",
-      idCompany:  companyId,
+      idCompany:  companyId[0],
       idObject:   0,
       productUnitRequest:  "",
       productVatRequest:  "",
@@ -107,10 +107,10 @@ export default function FormArticleComponent({
       
 
       React.useEffect(() => {
-        dispatch(getObjectsAll({companyId: companyId}));
+        dispatch(getObjectsAll({companyId: companyId[0]}));
         dispatch(getUnitsAll());
         dispatch(getVatAll());
-        dispatch(getMarketPlacesAll({companyId: companyId}));
+        dispatch(getMarketPlacesAll({companyId: companyId[0]}));
   
       }, []);
 

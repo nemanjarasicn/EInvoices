@@ -23,12 +23,12 @@ export default function FiltersToolbarComponent({
   const { filersToolbarStyles } = useComponentsStyles();
   const [params, setParams] = React.useState<Map<string, any> | null>(null);
   const dispatch = useAppDispatch();
-  const id = useAppSelector(selectCompany) as number;
+  const id = useAppSelector(selectCompany) as number[];
 
   React.useEffect(() => {
     let map = new Map<string, any>();
     props.filters.map((filter) => map.set(filter.paramKey, []));
-    map.set("companyId", id);
+    map.set("companyId", id[0]);
     map.set(
       "inputAndOutputDocuments",
       Path[props.type.toString() as keyof Object]

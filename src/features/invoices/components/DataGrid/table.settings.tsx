@@ -13,6 +13,7 @@ import { TableComponentProps } from "./TableComponent";
 import { styled } from '@mui/material/styles';
 import Tooltip, { TooltipProps, tooltipClasses } from '@mui/material/Tooltip';
 import { unzipFile }  from  "../../pages/InvoiceTemplatePage"
+import {getZip }  from  "../../store/invoice.actions"
 
 
 
@@ -48,8 +49,12 @@ const useTableSettings = (): TableSettings => {
 
   const dispach = useAppDispatch();
 
-  const getZipData = (flag: string, zipDataT: any) =>  {
-
+  const getZipData = async  (flag: string, typeInvoicesZip:  number,  id: any) =>  {
+    const  typeInvoices =  flag ===  'XML'  ?   'downloadXml'  :  'printPdf';
+    const zipData = await dispach(getZip({id: id,typeDocument: typeInvoicesZip, typeInvoices:  typeInvoices}));
+    console.log(zipData);
+    unzipFile(flag, zipData)
+    .catch((err)   =>  console.log('greska prilikom download ' + flag));
   }
 
   return {
@@ -186,12 +191,12 @@ const useTableSettings = (): TableSettings => {
               renderCell: (params) => (
                 <Box sx={{display:  'flex', justifyContent: 'space-between', p: 2}}>
                   <LightTooltip title="PDF preview">
-                  <IconButton sx={{mr: 2}} color="primary" aria-label="pdf" component="label"  onClick={() => {dispach(setopenModalPdf(true))}}>
+                  <IconButton sx={{mr: 2}} color="primary" aria-label="pdf" component="label"  onClick={() => {getZipData('PDF', 1, params.row.salesInvoiceId);dispach(setopenModalPdf(true))}}>
                     <PictureAsPdfIcon  sx={{ color: "#ef3e56" }} />
                   </IconButton>
                   </LightTooltip>
                   <LightTooltip title="XML download">
-                  <IconButton color="primary" aria-label="xml" component="label"   onClick={() => {getZipData('XML', params.row.salesInvoiceId)}} >
+                  <IconButton color="primary" aria-label="xml" component="label"   onClick={() => {getZipData('XML', 1, params.row.salesInvoiceId)}} >
                     <CloudDownloadIcon  sx={{  color: "#0D78DE"}} />
                   </IconButton>
                   </LightTooltip>
@@ -326,12 +331,12 @@ const useTableSettings = (): TableSettings => {
               renderCell: (params) => (
                 <Box sx={{display:  'flex', justifyContent: 'space-between', p: 2}}>
                   <LightTooltip title="PDF preview">
-                  <IconButton sx={{mr: 2}} color="primary" aria-label="pdf" component="label"  onClick={() => {dispach(setopenModalPdf(true))}}>
+                  <IconButton sx={{mr: 2}} color="primary" aria-label="pdf" component="label"  onClick={() => {getZipData('PDF', 0,  params.row.purchaseInvoiceId);dispach(setopenModalPdf(true))}}>
                     <PictureAsPdfIcon  sx={{ color: "#ef3e56" }} />
                   </IconButton>
                   </LightTooltip>
                   <LightTooltip title="XML download">
-                  <IconButton color="primary" aria-label="xml" component="label"   onClick={() => {getZipData('XML', params.row.salesInvoiceId)}} >
+                  <IconButton color="primary" aria-label="xml" component="label"   onClick={() => {getZipData('XML', 0,  params.row.purchaseInvoiceId)}} >
                     <CloudDownloadIcon  sx={{  color: "#0D78DE"}} />
                   </IconButton>
                   </LightTooltip>

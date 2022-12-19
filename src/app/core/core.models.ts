@@ -3,7 +3,7 @@ export interface User {
   type: string;
   username: string;
   authorities: { authority: string }[];
-  companyId: number;
+  companyId: number[];
 }
 
 export interface UserCompany {

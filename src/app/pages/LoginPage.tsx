@@ -53,6 +53,7 @@ export default function LoginPage(): JSX.Element {
         },
       })
     ).then((res)  => {
+      console.log(res.payload);
       if(!res.payload.error)   navigate('/')
     }) 
   };

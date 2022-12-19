@@ -38,10 +38,10 @@ import SucessModal   from "../../shared/components/SucessModal"
 export default function FormObjectComponent({
     props,
   }: IProps<RegistriesFormComponentProps>): JSX.Element {
-    const companyId = useAppSelector(selectCompany) as number;
+    const companyId = useAppSelector(selectCompany) as number[];
     const defaultValues:  ObjectFormModel = {
       id: "",
-      companyId: companyId ,
+      companyId: companyId[0] ,
       objectName: "",
       latitude: "",
       longitude: "",

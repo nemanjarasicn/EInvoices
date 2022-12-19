@@ -33,7 +33,6 @@ import { selectFilters }   from  "../store/invoice.selectors"
 //for zip
 import JSZip from  'jszip';
 import * as FileSaver from "file-saver";
-import {getZip }  from  "../store/invoice.actions"
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",

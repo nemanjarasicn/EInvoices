@@ -57,9 +57,9 @@ import SucessModal   from "../../shared/components/SucessModal"
 export default function FormMarketPlaceComponent({
     props,
   }: IProps<RegistriesFormComponentProps>): JSX.Element {
-    const companyId = useAppSelector(selectCompany) as number;
+    const companyId = useAppSelector(selectCompany) as number[];
     const defaultValues:  MarketPlaceFormModel = {
-      companyId:  companyId,
+      companyId:  companyId[0],
       marketPlaceName: "",
       objectUuid: "",
     };
@@ -105,7 +105,7 @@ export default function FormMarketPlaceComponent({
       }
 
       React.useEffect(() => {
-        dispatch(getObjectsAll({companyId: companyId}));
+        dispatch(getObjectsAll({companyId: companyId[0]}));
       }, []);
 
       
