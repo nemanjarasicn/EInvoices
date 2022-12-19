@@ -25,6 +25,7 @@ import SelectAllActionsComponent, {
   import { useAppDispatch, useAppSelector } from "../../../../app/hooks";
   import  { selectOpenFilter  }  from   "../../../invoices/store/invoice.selectors"
   import FilterModal from "../../../invoices/components/FilterModal";
+  import { selectCompany } from "../../../../app/core/core.selectors";
 
 
 export interface ButtonProps {
@@ -44,15 +45,19 @@ export default function CustomFilterBox({
 }: IProps<FiltersToolbarComponentProps>): JSX.Element {
   const { t } = useTranslation();
   const { templatePageSettings } = useFeatureSettings();
+  const companyId = useAppSelector(selectCompany) as number;
+
+
+  console.log(props);
 
   const date  = new Date();
     //const dateTmp = new Date(date)
-  
     const today = format(date, 'yyyy-MM-dd');
+    const inputAndOutputDocumentsTmp =  props.type === 'sales' ?  'Output'  :  'Input';
 
   const defaultFilters = {
-    companyId: "7",
-    inputAndOutputDocuments:  "Output",
+    companyId:  companyId,  
+    inputAndOutputDocuments:  inputAndOutputDocumentsTmp,
     sendToCir: "",
     invoiceStatus:  "",
     typeDocument:  "",

@@ -314,6 +314,31 @@ const useTableSettings = (): TableSettings => {
               hideable: true,
               hide: true,
             },
+
+
+            {
+              field: 'action',
+              headerName: 'Action',
+              flex: 1,
+              headerAlign: "center",
+              align: "center",
+              hideable: true,
+              renderCell: (params) => (
+                <Box sx={{display:  'flex', justifyContent: 'space-between', p: 2}}>
+                  <LightTooltip title="PDF preview">
+                  <IconButton sx={{mr: 2}} color="primary" aria-label="pdf" component="label"  onClick={() => {dispach(setopenModalPdf(true))}}>
+                    <PictureAsPdfIcon  sx={{ color: "#ef3e56" }} />
+                  </IconButton>
+                  </LightTooltip>
+                  <LightTooltip title="XML download">
+                  <IconButton color="primary" aria-label="xml" component="label"   onClick={() => {getZipData('XML', params.row.salesInvoiceId)}} >
+                    <CloudDownloadIcon  sx={{  color: "#0D78DE"}} />
+                  </IconButton>
+                  </LightTooltip>
+
+                </Box>
+              )
+            },
           ],
           toolbarProps: {
             showFilters: false,

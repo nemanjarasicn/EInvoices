@@ -143,7 +143,7 @@ export default function InvoiceTemplatePage({
       <Grid container spacing={2}  pl={5}>
         <Grid item xs={4}>
           {/*<Item>*/}
-            <h1>{t(templatePageSettings[props.templateType].title)}</h1>
+            <h3 style={{color: 'grey'}}>{t(templatePageSettings[props.templateType].title)}</h3>
           {/*</Item>*/}
         </Grid>
         <Grid container  sx={{backgroundColor: 'white', p: 2.5}}   spacing={2}>
@@ -238,11 +238,10 @@ export default function InvoiceTemplatePage({
               </Grid>
               <Grid item xs={12}>
                 {templatePageSettings[props.templateType].showTable && (
-                  <div style={templatePageStyles.tableWrapper}>
+
                     <TableComponent
                       props={tableSettings[props.templateType].dataGrid}
                     />
-                  </div>
                 )}
               </Grid>
               <Grid item xs={12}></Grid>
