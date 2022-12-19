@@ -18,8 +18,9 @@ const useDataGridStyles = (): {
     },
     tableComponentStyles: {
       wrapper: {
-        maxHeight: 800,
         width: "100%",
+        backgroundColor: 'green'
+
       },
       dataGrid: {
         // until MUI add prop disableSelectAllCheckbox

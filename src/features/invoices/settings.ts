@@ -97,6 +97,7 @@ const useFeatureSettings = (): FeatureSettings => {
             soloValue: "auto",
             filterItems: [],
             paramKey: "sendToCir",
+            filterId: 1,
           },
           {
             transformedTitle: "FilterComponent.defaultAll",
@@ -110,6 +111,7 @@ const useFeatureSettings = (): FeatureSettings => {
               { index: 3, name: "InvoiceTypes.prepayment", value: "386" },
             ],
             paramKey: "typeDocument",
+            filterId: 2,
           },
           {
             transformedTitle: "FilterComponent.defaultAll",
@@ -142,6 +144,7 @@ const useFeatureSettings = (): FeatureSettings => {
               { index: 14, name: "InvoiceStatuses.seen", value: "Seen" },
             ],
             paramKey: "invoiceStatus",
+            filterId:  3,
           },
           {
             transformedTitle: "FilterComponent.defaultAll",
@@ -151,6 +154,7 @@ const useFeatureSettings = (): FeatureSettings => {
             soloValue: "auto",
             filterItems: [],
             paramKey: "date",
+            filterId:  4,
           },
         ],
         actions: [

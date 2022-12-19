@@ -82,7 +82,7 @@ export default function FiltersToolbarComponent({
           />
         </div>
       )}
-      {props.filters.length > 0 && (
+      {/*{props.filters.length > 0 && (
         <div style={filersToolbarStyles.basicFilters}>
           {props.filters.map((filter: FilterComponentProps, index) => {
             return (
@@ -93,7 +93,7 @@ export default function FiltersToolbarComponent({
             );
           })}
         </div>
-      )}
+        )}*/}
     </div>
   );
 }

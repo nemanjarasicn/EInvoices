@@ -3,7 +3,11 @@ import clsx from "clsx";
 import { ButtonUnstyledProps, useButton } from "@mui/base/ButtonUnstyled";
 import { styled } from "@mui/system";
 import Stack from "@mui/material/Stack";
+import FilterModal from "../FilterModal";
 import { useTranslation } from "react-i18next";
+import { useAppDispatch, useAppSelector } from "../../../../app/hooks";
+import  { setopenModalFilter }  from  "../../store/invoice.reducer"
+import  { selectOpenFilter  }  from   "../../store/invoice.selectors"
 
 const red = {
   600: "rgb(231, 49, 79)",
@@ -67,53 +71,62 @@ const CustomButton = React.forwardRef(function CustomButton(
   );
 });
 
-export interface ButtonProps {
-  disabled: boolean;
-  title: string;
-  btnFn: () => void;
+export interface ButtonPropsFilters {
+    filterTitle: string;
+    transformedTitle: string;
+    type: FilterType;
+    multiOption?: boolean;
+    filterItems: FillterItem[];
+    parentFn?: Function;
+    paramKey: string;
+    soloValue?: any;
+    filterId?:  number;
 }
 // TODO MAX Factory
-interface ButtonFcProps {
-  groupButton?: ButtonProps[];
-  soloButton?: ButtonProps;
+interface ButtonFilterProps {
+  groupButton?: ButtonPropsFilters[];
+  soloButton?: ButtonPropsFilters;
 }
 
-export interface SelectButtonProps {
-  name: string;
-  label: string;
-  selector:  any;
-}
-// TODO MAX Factory
-interface ButtonFcProps {
-  groupButton?: ButtonProps[];
-  soloButton?: ButtonProps;
-}
+export interface FillterItem {
+    index: number;
+    name: string;
+    value: string | any;
+  }
 
-export default function CustomButtonFc({
+type FilterType = "solo" | "multi" | "date";
+
+export default function CustomButtonFilters({
   soloButton,
   groupButton,
-}: ButtonFcProps): JSX.Element {
+}: ButtonFilterProps): JSX.Element {
   const { t } = useTranslation();
+  const dispach = useAppDispatch();
+  
+
   return (
     <>
+    
       {groupButton && (
         <Stack spacing={2} direction="row">
-          {groupButton.map((button: ButtonProps, index: number) => {
+          {groupButton.filter((item)  => item.filterId === 2  ||   item.filterId ===   3 ).map((button: ButtonPropsFilters, index: number) => {
             return (
               <CustomButton
                 key={index}
-                onClick={button.btnFn}
-                disabled={button.disabled}
+                onClick={async ()  =>  await dispach(setopenModalFilter({open: true, filterName: t(button.filterTitle)}))}
+                //disabled={button.disabled}
               >
-                {t(button.title)}
+                {t(button.filterTitle)}
               </CustomButton>
             );
           })}
         </Stack>
       )}
       {soloButton && (
-        <CustomButton onClick={soloButton.btnFn} disabled={soloButton.disabled}>
-          {t(soloButton.title)}
+        <CustomButton //onClick={soloButton.btnFn} 
+                      //disabled={soloButton.disabled}
+        >
+          {t(soloButton.filterTitle)}
         </CustomButton>
       )}
     </>

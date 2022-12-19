@@ -70,7 +70,7 @@ export const selectUnits = createSelector(
 export const selectVat = createSelector(
   featureSelectors,
   (state: FeatureState) => {
-    return state.vat;
+    return state. vat;
   }
 );
 
@@ -92,5 +92,13 @@ export const selectUsers = createSelector(
   featureSelectors,
   (state: FeatureState) => {
     return state.users;
+  }
+);
+
+
+export const selectOpenPdf = createSelector(
+  featureSelectors,
+  (state: FeatureState) => {
+    return state.openModalPdf;
   }
 );

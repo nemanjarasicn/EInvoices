@@ -93,13 +93,20 @@ export default function InvoiceTemplatePage({
   
   return (
     <Box sx={{ flexGrow: 1, m:2.5}}>
-      <Grid container spacing={2}>
+      <Grid container >
         <Grid item xs={4}>
-          <Item>
-            <h3>{t(templatePageSettings[props.templateType].title)}</h3>
-          </Item>
+          {/*<Item>*/}
+            <h1>{t(templatePageSettings[props.templateType].title)}</h1>
+          {/*</Item>*/}
         </Grid>
-        <Grid item xs={8} style={templatePageStyles.buttonsGrid}>
+        <Grid item xs={12} style={templatePageStyles.buttonsConteiner}>
+            <Grid item xs={4} style={templatePageStyles.buttonsGrid}>
+              {templatePageSettings[props.templateType].showBtns && (
+                <CustomButtonFc
+                  groupButton={templatePageSettings[props.templateType].buttons}
+                />
+              )}
+            </Grid>
             <Grid item xs={4} sx={{alignItems: 'center'}} >
               {templatePageSettings[props.templateType].showBtnsSelect && (
                 <FormAutocompleteField
@@ -113,13 +120,6 @@ export default function InvoiceTemplatePage({
                             selector: templatePageSettings[props.templateType].buttonsSelect.selector,
                           },
                       }}
-                />
-              )}
-            </Grid>
-            <Grid item xs={4} style={templatePageStyles.buttonsGrid}>
-              {templatePageSettings[props.templateType].showBtns && (
-                <CustomButtonFc
-                  groupButton={templatePageSettings[props.templateType].buttons}
                 />
               )}
             </Grid>

@@ -177,3 +177,5 @@ export interface InvoiceSearchParams {
   typeDocument?: string[];
   date?: { from: string; to: string };
 }
+
+

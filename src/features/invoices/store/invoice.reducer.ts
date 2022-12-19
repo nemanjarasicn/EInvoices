@@ -1,6 +1,7 @@
 import { ActionReducerMapBuilder, createSlice, Slice } from "@reduxjs/toolkit";
 import { FileStatus } from "../models";
 import { IFile } from "../models/invoice.models";
+import { InvoiceSearchParams }  from  "../models/invoice.models"
 import {
   getAllCompanies,
   searchInvoices,
@@ -18,6 +19,10 @@ export interface FeatureState {
   files: IFile[];
   invoicesR: any[];
   zip: any;
+  openModalPdf:  boolean;
+  openModalFilter:  {open: boolean, filterName:  string }  ;
+  filters: InvoiceSearchParams;
+  
 }
 const initialState: FeatureState = {
   unitMesures: [],
@@ -25,7 +30,16 @@ const initialState: FeatureState = {
   companies: [],
   files: [],
   invoicesR: [],
-  zip:   []
+  zip:   [],
+  openModalPdf:  false,
+  openModalFilter:  {open: false, filterName: ""},
+  filters: {
+    companyId: "7",
+    inputAndOutputDocuments:  "Output",
+    //sendToCir: "",
+   
+    date: {from: "", to: ""}
+  }
 };
 
 const invoicesSlice: Slice<FeatureState> = createSlice({
@@ -54,6 +68,21 @@ const invoicesSlice: Slice<FeatureState> = createSlice({
       });
       return newState;
     },
+    
+    setopenModalPdf: (state,{payload}) => ({
+      ...state,
+      openModalPdf: payload,
+    }),
+
+    setopenModalFilter: (state,{payload}) => ({
+      ...state,
+      openModalFilter: payload,
+    }),
+
+    setFilters: (state,{payload}) => ({
+      ...state,
+      filters: payload,
+    }),
   },
   extraReducers: (builder) => {
     getAsyncCompanies(builder);
@@ -64,7 +93,7 @@ const invoicesSlice: Slice<FeatureState> = createSlice({
   },
 });
 
-export const { setManyFiles, removeFile, updateInvoiceStatus } =
+export const { setManyFiles, removeFile, updateInvoiceStatus, setopenModalPdf, setopenModalFilter, setFilters } =
   invoicesSlice.actions;
 
 export default invoicesSlice.reducer;

@@ -365,7 +365,7 @@ export default function ClippedDrawer() {
       </Drawer>
       <Box
         component="main"
-        sx={{ flexGrow: 1, paddingLeft:  paddingLeftMain, paddingRight: "20px", backgroundColor:  "#EAEDED", height: '150vh' }}
+        sx={{ flexGrow: 1, paddingLeft:  paddingLeftMain, paddingRight: "20px", backgroundColor:  "#EAEDED", height: '160vh' }}
       >
         <Toolbar />
         <AppLoader />

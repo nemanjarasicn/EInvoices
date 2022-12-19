@@ -12,6 +12,7 @@ import TableNoRowsOverlay from "./NoRowsOverlay";
 import { useTranslation } from "react-i18next";
 import TablePagination from "./TablePagination";
 import { AsyncThunkAction } from "@reduxjs/toolkit";
+import { Button } from "@mui/material";
 
 
 export type TableComponentProps = {
@@ -31,9 +32,10 @@ export default function TableComponent({
   const dispatch = useAppDispatch();
   const { tableComponentStyles } = useDataGridStyles();
   // TODO
-  const [pageSize, setPageSize] = React.useState<number>(5);
+  const [pageSize, setPageSize] = React.useState<number>(30);
 
   const selectType = props.selector;
+
 
   const tableData: TableData<any>[] = (useAppSelector(selectType) as any).map(
     (row: any) => ({
@@ -42,16 +44,16 @@ export default function TableComponent({
     })
   );
 
-
   const selection: GridSelectionModel = useAppSelector(selectSelection);
 
   return (
-    <div style={tableComponentStyles.wrapper}>
+    <>
       <DataGrid
-        style={{ minHeight: tableData.length ? undefined : 400 }}
+        style={{ minHeight: tableData.length ? undefined : 400, backgroundColor: 'white' }}
         disableColumnMenu
         pagination
         disableColumnFilter
+        disableSelectionOnClick
         showCellRightBorder={true}
         localeText={{
           toolbarColumns: "",
@@ -69,7 +71,7 @@ export default function TableComponent({
         density="compact"
         // pageSize={10}
          pageSize={pageSize}
-         rowsPerPageOptions={[5, 10, 15]}
+         rowsPerPageOptions={[5, 10, 15, 30]}
          onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
         components={{
           Toolbar: TableToolbar,
@@ -93,12 +95,12 @@ export default function TableComponent({
           },
         }}
         sx={tableComponentStyles.dataGrid}
-        checkboxSelection
+        /*checkboxSelection
         onSelectionModelChange={(newSelectionModel) => {
           dispatch(setSelection(newSelectionModel));
         }}
-        selectionModel={selection}
+        selectionModel={selection}*/
       />
-    </div>
+    </>
   );
 }

@@ -7,7 +7,7 @@ type InvoiceLayoutProps = {};
 export default function InvoiceLayout({}: InvoiceLayoutProps): JSX.Element {
   return (
     <>
-      <SearchField />
+      {/*<SearchField />*/}
       <Outlet />
     </>
   );

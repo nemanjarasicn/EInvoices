@@ -1,4 +1,5 @@
 import { HeaderSettingsTypes } from "../../models/registries.enums";
+
 import {
   getObjects,
   getMarketPlaces,
@@ -9,9 +10,10 @@ import {
   getGroups
 } from "../../store/registries.actions";
 import { TableComponentProps } from "./TableComponent";
-import {   useAppSelector } from "../../../../app/hooks";
+import {   useAppSelector    } from "../../../../app/hooks";
 import { selectCompany } from "../../../../app/core/core.selectors";
 import { selectObjects, selectMarketPlaces, selectPointOfSales, selectCompanies, selectWarehouses, selectUnits, selectVat, selectGroups, selectUsers} from "../../store/registries.selectors";
+
 
 type TableSettings = {
   tableSettings: {
@@ -74,6 +76,8 @@ const useTableSettings = (): TableSettings => {
               hideable: true,
               hide: false,
             },
+          
+
            
           ],
           toolbarProps: {
