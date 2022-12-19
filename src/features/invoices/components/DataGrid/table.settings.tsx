@@ -1,8 +1,20 @@
 import { GridValueGetterParams } from "@mui/x-data-grid";
 import dayjs from "dayjs";
 import { HeaderSettingsTypes } from "../../models/invoice.enums";
+import Button from '@mui/material/Button';
+import IconButton from '@mui/material/IconButton';
+import {   useAppSelector, useAppDispatch } from "../../../../app/hooks";
+import CloudDownloadIcon from '@mui/icons-material/CloudDownload';
+import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
+import  { setopenModalPdf }  from   '../../store/invoice.reducer'
+import Box from "@mui/material/Box";
 import { handleInvoiceStatus } from "../../utils/utils";
 import { TableComponentProps } from "./TableComponent";
+import { styled } from '@mui/material/styles';
+import Tooltip, { TooltipProps, tooltipClasses } from '@mui/material/Tooltip';
+import { unzipFile }  from  "../../pages/InvoiceTemplatePage"
+
+
 
 type TableSettings = {
   tableSettings: {
@@ -11,11 +23,35 @@ type TableSettings = {
     };
   };
 };
+
+ 
+
+
+const LightTooltip = styled(({ className, ...props }: TooltipProps) => (
+  <Tooltip {...props} classes={{ popper: className }} />
+))(({ theme }) => ({
+  [`& .${tooltipClasses.tooltip}`]: {
+    backgroundColor: theme.palette.common.white,
+    color: 'rgba(0, 0, 0, 0.87)',
+    boxShadow: theme.shadows[1],
+    fontSize: 11,
+  },
+}));
+
+
 /**
  * hook predefine table settings
  * @returns {TableSettings}
  */
+
 const useTableSettings = (): TableSettings => {
+
+  const dispach = useAppDispatch();
+
+  const getZipData = (flag: string, zipDataT: any) =>  {
+
+  }
+
   return {
     tableSettings: {
       [HeaderSettingsTypes.SALES]: {
@@ -137,6 +173,31 @@ const useTableSettings = (): TableSettings => {
               align: "center",
               hideable: true,
               hide: true,
+            },
+
+
+            {
+              field: 'action',
+              headerName: 'Action',
+              flex: 1,
+              headerAlign: "center",
+              align: "center",
+              hideable: true,
+              renderCell: (params) => (
+                <Box sx={{display:  'flex', justifyContent: 'space-between', p: 2}}>
+                  <LightTooltip title="PDF preview">
+                  <IconButton sx={{mr: 2}} color="primary" aria-label="pdf" component="label"  onClick={() => {dispach(setopenModalPdf(true))}}>
+                    <PictureAsPdfIcon  sx={{ color: "#ef3e56" }} />
+                  </IconButton>
+                  </LightTooltip>
+                  <LightTooltip title="XML download">
+                  <IconButton color="primary" aria-label="xml" component="label"   onClick={() => {getZipData('XML', params.row.salesInvoiceId)}} >
+                    <CloudDownloadIcon  sx={{  color: "#0D78DE"}} />
+                  </IconButton>
+                  </LightTooltip>
+
+                </Box>
+              )
             },
           ],
           toolbarProps: {

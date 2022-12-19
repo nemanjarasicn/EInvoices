@@ -2,6 +2,7 @@ import React from "react";
 import { Divider, InputAdornment, TextField } from "@mui/material";
 import { Checkbox,  FormControlLabel } from "@mui/material";
 import { Controller } from "react-hook-form";
+import { withStyles } from '@mui/material/styles';
 import { IProps } from "../../../registries/models/registries.models";
 import { FormFieldProps } from "./models/form-fields.models";
 
@@ -12,8 +13,11 @@ type FormCheckboxFieldProps = FormFieldProps & {
     readonly?: boolean;
     labelShrink?: boolean;
     valueForm?: string;
+    defaultValue?: string,
+    color?: string, 
   };
 };
+
 
 /**
  * Facade MUI Text Field component
@@ -29,11 +33,14 @@ export default function CheckboxField({
         <FormControlLabel
             key={value}
             label={props.label}
+            sx={{color: props.additional?.color ? props.additional.color  :  'white'}}
             control={
                 <Checkbox
                     {...props}
                     checked={value}
-                    onChange={(e) => onChange(e.target.checked ? 1 : 0)}
+                    value={props.additional?.defaultValue}
+                    onChange={(e) => {onChange(e.target.checked ? e.target.value : false)}}
+                    sx={{ color: props.additional?.color ? props.additional.color  :  'white', '&.Mui-checked': {color: '#6cb238' }}}
                 />
             }
         />

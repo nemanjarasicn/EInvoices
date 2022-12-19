@@ -14,10 +14,14 @@
         },
       },
       templatePageStyles: {
+        buttonsConteiner: {
+          display: "flex",
+          marginBottom: '20px',
+        },
         buttonsGrid: {
           display: "flex",
           alignItems: "center",
-          justifyContent: "flex-end",
+          justifyContent: "flex-start",
         },
         selectGrid: {
           alignItems: "center",

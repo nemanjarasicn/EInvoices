@@ -46,3 +46,28 @@ export const selectZip = createSelector(
   featureSelectors,
   (state: FeatureState) => state.zip
 );
+
+
+
+export const selectOpenPdf = createSelector(
+  featureSelectors,
+  (state: FeatureState) => {
+    return state.openModalPdf;
+  }
+);
+
+
+export const selectOpenFilter = createSelector(
+  featureSelectors,
+  (state: FeatureState) => {
+    return state.openModalFilter;
+  }
+);
+
+
+export const selectFilters = createSelector(
+  featureSelectors,
+  (state: FeatureState) => {
+    return state.filters;
+  }
+);

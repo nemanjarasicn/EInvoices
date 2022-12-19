@@ -104,7 +104,7 @@ export default function FormArticleComponent({
         reset,
         control,
       } = methods;
-
+      
 
       React.useEffect(() => {
         dispatch(getObjectsAll({companyId: companyId}));

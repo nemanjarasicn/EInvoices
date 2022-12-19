@@ -32,6 +32,7 @@ import {
     groups:  any[];
     warehouses:  any[];
     users: any[];
+    openModalPdf: boolean;
     loading: boolean;
   }
 
@@ -45,6 +46,7 @@ import {
     groups:  [],
     warehouses: [],
     users:  [],
+    openModalPdf:  false,
     loading: false,
   };
   
@@ -52,7 +54,10 @@ import {
     name: FEATURE_REGISTRIES_KEY,
     initialState: initialState,
     reducers: {
-     
+      setopenModalPdf: (state,{payload}) => ({
+        ...state,
+        openModalPdf: payload,
+      }),
       //custom
      },
      extraReducers: (builder) => {
@@ -69,7 +74,7 @@ import {
   )
   
   export const {
-    increment
+    setopenModalPdf
   } = registriesSlice.actions;
   
   export default registriesSlice.reducer;

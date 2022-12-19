@@ -38,6 +38,7 @@ export type FilterComponentProps = {
   parentFn?: Function;
   paramKey: string;
   soloValue?: any;
+  filterId?: number;
 };
 
 export interface FillterItem {

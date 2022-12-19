@@ -53,3 +53,4 @@ export enum Path {
   "sales" = "Output",
   "purchases" = "Input",
 }
+
