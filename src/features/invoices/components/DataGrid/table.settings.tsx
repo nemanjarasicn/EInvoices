@@ -12,7 +12,7 @@ import { handleInvoiceStatus } from "../../utils/utils";
 import { TableComponentProps } from "./TableComponent";
 import { styled } from '@mui/material/styles';
 import Tooltip, { TooltipProps, tooltipClasses } from '@mui/material/Tooltip';
-import { unzipFile }  from  "../../pages/InvoiceTemplatePage"
+import { unzipFile,  unzipFileData }  from  "../../pages/InvoiceTemplatePage"
 import {getZip }  from  "../../store/invoice.actions"
 
 
@@ -52,7 +52,10 @@ const useTableSettings = (): TableSettings => {
   const getZipData = async  (flag: string, typeInvoicesZip:  number,  id: any) =>  {
     const  typeInvoices =  flag ===  'XML'  ?   'downloadXml'  :  'printPdf';
     const zipData = await dispach(getZip({id: id,typeDocument: typeInvoicesZip, typeInvoices:  typeInvoices}));
-    console.log(zipData);
+    //const unzipData = await  unzipFileData(zipData);
+    if(flag ===  'PDF') {
+      dispach(setopenModalPdf(true))
+    }
     unzipFile(flag, zipData)
     .catch((err)   =>  console.log('greska prilikom download ' + flag));
   }
@@ -191,7 +194,7 @@ const useTableSettings = (): TableSettings => {
               renderCell: (params) => (
                 <Box sx={{display:  'flex', justifyContent: 'space-between', p: 2}}>
                   <LightTooltip title="PDF preview">
-                  <IconButton sx={{mr: 2}} color="primary" aria-label="pdf" component="label"  onClick={() => {getZipData('PDF', 1, params.row.salesInvoiceId);dispach(setopenModalPdf(true))}}>
+                  <IconButton sx={{mr: 2}} color="primary" aria-label="pdf" component="label"  onClick={() => {getZipData('PDF', 1, params.row.salesInvoiceId)}}>
                     <PictureAsPdfIcon  sx={{ color: "#ef3e56" }} />
                   </IconButton>
                   </LightTooltip>

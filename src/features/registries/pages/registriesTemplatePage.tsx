@@ -20,7 +20,7 @@ import {
   getGroups,
   getWarehouses
 } from "../../registries/store/registries.actions";
-import { selectCompany } from "../../../app/core/core.selectors";
+import { selectCompanyCurrent } from "../../../app/core/core.selectors";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -43,7 +43,7 @@ export default function InvoiceTemplatePage({
   const { templatePageSettings } = useFeatureSettings();
   const { tableSettings } = useTableSettings();
   const { templatePageStyles } = usePageStyles();
-  const company = useAppSelector(selectCompany) ?? "";
+  const company = useAppSelector(selectCompanyCurrent);
   const methods = useForm({
     defaultValues: {},
   });
@@ -69,10 +69,10 @@ export default function InvoiceTemplatePage({
 
   React.useEffect(() => {
     if(props.templateType === "warehouses") { 
-      dispatch(getMarketPlacesAll({companyId: company[0]}))
+      dispatch(getMarketPlacesAll({companyId: company}))
     };
     if(props.templateType === "groups") { 
-        dispatch(getPointOfSalesAll({companyId: company[0]}));
+        dispatch(getPointOfSalesAll({companyId: company}));
     }
     if((!(props.templateType === 'warehouses'  ||  props.templateType  ===   'groups')))   {
           dispatch(getDataActionSelect(settings.selectType));

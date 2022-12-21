@@ -11,7 +11,7 @@ import {
 } from "../../store/registries.actions";
 import { TableComponentProps } from "./TableComponent";
 import {   useAppSelector    } from "../../../../app/hooks";
-import { selectCompany } from "../../../../app/core/core.selectors";
+import { selectCompanyCurrent } from "../../../../app/core/core.selectors";
 import { selectObjects, selectMarketPlaces, selectPointOfSales, selectCompanies, selectWarehouses, selectUnits, selectVat, selectGroups, selectUsers} from "../../store/registries.selectors";
 
 
@@ -28,7 +28,7 @@ type TableSettings = {
  */
 const useTableSettings = (): TableSettings => {
 
-  const company = useAppSelector(selectCompany) ?? "";
+  const company = useAppSelector(selectCompanyCurrent) ?? "";
 
   return {
     tableSettings: {
@@ -86,7 +86,7 @@ const useTableSettings = (): TableSettings => {
             showHideColumns: true,
             showExport: false,
           },
-          getDataAction: getObjects({companyId: company[0]}),
+          getDataAction: getObjects({companyId: company}),
           selectType:  "OBJECTS",
           selector:  selectObjects,
           parentColumn: "idObject",
@@ -158,7 +158,7 @@ const useTableSettings = (): TableSettings => {
             showHideColumns: true,
             showExport: false,
           },
-          getDataAction: getMarketPlaces({companyId: company[0]}),
+          getDataAction: getMarketPlaces({companyId: company}),
           selectType:  "MARKETPLACES",
           selector:  selectMarketPlaces,
           parentColumn: "id",
@@ -230,7 +230,7 @@ const useTableSettings = (): TableSettings => {
             showHideColumns: true,
             showExport: false,
           },
-          getDataAction: getPointOfSales({companyId: company[0]}),
+          getDataAction: getPointOfSales({companyId: company}),
           selectType:  "POINTOFSALES",
           selector:   selectPointOfSales,
           parentColumn: "id",
@@ -386,7 +386,7 @@ const useTableSettings = (): TableSettings => {
             showHideColumns: true,
             showExport: false,
           },
-           getDataAction: getObjects({companyId: company[0]}),
+           getDataAction: getObjects({companyId: company}),
           selectType:  "WAREHOUSES",
           selector: selectWarehouses,
           parentColumn: "id",
@@ -571,7 +571,7 @@ const useTableSettings = (): TableSettings => {
             showHideColumns: true,
             showExport: false,
           },
-          getDataAction: getObjects({companyId: company[0]}),
+          getDataAction: getObjects({companyId: company}),
           selectType:  "USERS",
           selector:  selectUsers,
           parentColumn: "id",
@@ -618,7 +618,7 @@ const useTableSettings = (): TableSettings => {
             showHideColumns: true,
             showExport: false,
           },
-          getDataAction: getGroups({uuid: company[0]}),
+          getDataAction: getGroups({uuid: company}),
           selectType:  "GROUPS",
           selector:  selectGroups,
           parentColumn: "id",

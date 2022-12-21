@@ -18,7 +18,7 @@ import { useNavigate } from 'react-router-dom';
 import  ErrorModal   from   "../../shared/components/ErrorModals"
 import SucessModal   from "../../shared/components/SucessModal"
 import  { getObjectsAll,  getUnitsAll, getVatAll, getMarketPlacesAll }  from  "../../shared/components/form-fields/store/form.actions"
-import { selectCompany } from "../../../app/core/core.selectors";
+import { selectCompanyCurrent } from "../../../app/core/core.selectors";
 import {useLocation} from 'react-router-dom';
 import {  sendArticlesPrice } from "../store/articles.actions";
 import FormCurrencyField from "../../shared/components/form-fields/FormCurrencyField";
@@ -52,7 +52,7 @@ import FormCurrencyField from "../../shared/components/form-fields/FormCurrencyF
 export default function FormArticlePriceComponent({
     props,
   }: IProps<ArticlesFormComponentProps>): JSX.Element {
-    const companyId = useAppSelector(selectCompany) as number[];
+    const companyId = useAppSelector(selectCompanyCurrent);
 
     const  defaultValues:  PriceFormModel = {
       price: ""
@@ -86,10 +86,10 @@ export default function FormArticlePriceComponent({
 
 
       React.useEffect(() => {
-        dispatch(getObjectsAll({companyId: companyId[0]}));
+        dispatch(getObjectsAll({companyId: companyId}));
         dispatch(getUnitsAll());
         dispatch(getVatAll());
-        dispatch(getMarketPlacesAll({companyId: companyId[0]}));
+        dispatch(getMarketPlacesAll({companyId: companyId}));
   
       }, []);
 

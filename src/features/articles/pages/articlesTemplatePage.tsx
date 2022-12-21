@@ -17,7 +17,7 @@ import { IProps } from "../models/articles.models";
 import { useTableSettings } from "../components/DataGrid/table.settings";
 import { selectMarketPlaces } from "../../shared/components/form-fields/store/form.selectors";
 import { getMarketPlacesAll, getPointOfSalesAll }  from  "../../shared/components/form-fields/store/form.actions"
-import { selectCompany } from "../../../app/core/core.selectors";
+import { selectCompanyCurrent } from "../../../app/core/core.selectors";
 import { getArticles } from "../store/articles.actions";
 
 const Item = styled(Paper)(({ theme }) => ({
@@ -41,7 +41,7 @@ export default function InvoiceTemplatePage({
   const { templatePageSettings } = useFeatureSettings();
   const { tableSettings } = useTableSettings();
   const { templatePageStyles } = usePageStyles();
-  const company = useAppSelector(selectCompany) ?? "";
+  const company = useAppSelector(selectCompanyCurrent);
   const methods = useForm({
     defaultValues: {},
   });
@@ -65,7 +65,7 @@ export default function InvoiceTemplatePage({
 
 
   React.useEffect(() => {
-    dispatch(getMarketPlacesAll({companyId: company[0]}));
+    dispatch(getMarketPlacesAll({companyId: company}));
   }, []);
 
   React.useEffect(() => {

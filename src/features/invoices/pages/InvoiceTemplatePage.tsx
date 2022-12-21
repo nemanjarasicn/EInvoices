@@ -29,6 +29,7 @@ import { selectCompany } from "../../../app/core/core.selectors";
 import { setFilters } from "../store/invoice.reducer";
 import CustomFilterBox from "../../shared/components/form-fields/CustomFilterBox";
 import { selectFilters }   from  "../store/invoice.selectors"
+import { selectCompanyCurrent } from "../../../app/core/core.selectors";
 
 //for zip
 import JSZip from  'jszip';
@@ -51,6 +52,18 @@ export type InvoiceTemplatePageProps = {
  //const dispatch = useAppDispatch();
  const zip = new JSZip();
  //const zipData = useAppSelector(selectZip);
+
+
+ export const  unzipFileData = async (zipDataT: any) => {
+  await zip.loadAsync(zipDataT.payload,{base64:true}).then(function (zip) {
+    Object.keys(zip.files).map((filename) => {
+      zip.files[filename].async("blob").then(async function (fileData) {
+        return await (fileData.slice(2).text());
+      });
+    });
+  });
+
+}
 
  // function for unzip file
   export const  unzipFile = async (flag: string, zipDataT: any) => {
@@ -108,7 +121,7 @@ export default function InvoiceTemplatePage({
   .required();
 
   const dispatch = useAppDispatch();
-  const id = useAppSelector(selectCompany);
+  const id = useAppSelector(selectCompanyCurrent);
   const methods = useForm({
     defaultValues: { 
       from: today, 

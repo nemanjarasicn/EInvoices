@@ -17,7 +17,7 @@ import { GroupFormModel, IProps } from "../models/registries.models";
 import { useNavigate } from 'react-router-dom';
 import FormAutocompleteField from "../../shared/components/form-fields/FormAutocompleteField";
 import { sendGroup } from "../store/registries.actions";
-import { selectCompany } from "../../../app/core/core.selectors";
+import { selectCompanyCurrent } from "../../../app/core/core.selectors";
 import SucessModal   from "../../shared/components/SucessModal"
 import  ErrorModal   from   "../../shared/components/ErrorModals"
 
@@ -53,11 +53,11 @@ import  { selectPointOfSale, selectObjectsAll }  from  "../../shared/components/
 export default function FormGroupComponent({
     props,
   }: IProps<RegistriesFormComponentProps>): JSX.Element {
-    const companyId = useAppSelector(selectCompany) as number[];
+    const companyId = useAppSelector(selectCompanyCurrent) as any;
     const defaultValues:  GroupFormModel = {
         groupName:  "",
         idPointOfSale:   "",
-        idCompany:  companyId[0],
+        idCompany:  companyId,
         idObject:  0
       }
     

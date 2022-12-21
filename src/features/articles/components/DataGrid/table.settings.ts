@@ -2,7 +2,7 @@ import { GridValueGetterParams } from "@mui/x-data-grid";
 import { HeaderSettingsTypes } from "../../models/articles.enums";
 import { TableComponentProps } from "./TableComponent";
 import { useAppDispatch, useAppSelector } from "../../../../app/hooks";
-import { selectCompany } from "../../../../app/core/core.selectors";
+import { selectCompanyCurrent } from "../../../../app/core/core.selectors";
 
 import { getArticles }   from "../../store/articles.actions"
 import  { selectArticles }  from "../../store/articles.selectors"
@@ -20,7 +20,7 @@ type TableSettings = {
  */
 const useTableSettings = (): TableSettings => {
 
-  const company = useAppSelector(selectCompany) ?? "";
+  const company = useAppSelector(selectCompanyCurrent);
 
   return {
     tableSettings: {

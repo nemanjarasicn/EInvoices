@@ -1,5 +1,5 @@
 import { ActionReducerMapBuilder, createSlice, Slice } from "@reduxjs/toolkit";
-import { getLoggedSubject, login } from "./core.actions";
+import { getLoggedSubject, login ,   getCompaniesAllLogin } from "./core.actions";
 import { User, UserCompany } from "./core.models";
 
 const CORE_KEY: string = "core";
@@ -10,6 +10,8 @@ export interface CoreState {
   loading: boolean;
   color:  string; // must change with theme mode
   error: string;
+  companyCurrent: number  |  string;
+  companyList:  UserCompany[];
 }
 
 const initialState: CoreState = {
@@ -18,6 +20,8 @@ const initialState: CoreState = {
   loading: false,
   color: "#ef3e56",
   error: "",
+  companyCurrent:  "",
+  companyList:  []
 };
 
 const authSlice: Slice<CoreState> = createSlice({
@@ -41,14 +45,19 @@ const authSlice: Slice<CoreState> = createSlice({
       ...state,
       error: payload,
     }),
+    setCompanyCurrent: (state,{payload}) => ({
+      ...state,
+      companyCurrent: payload,
+    }),
   },
   extraReducers: (builder) => {
     loginAsync(builder);
     getAsyncUserCompany(builder);
+    getAsyncCompanyAll(builder);
   },
 });
 
-export const { removeUser, resetError, setColor,  setError } = authSlice.actions;
+export const { removeUser, resetError, setColor,  setError, setCompanyCurrent } = authSlice.actions;
 
 export default authSlice.reducer;
 
@@ -84,5 +93,24 @@ function getAsyncUserCompany(builder: ActionReducerMapBuilder<CoreState>) {
     ...state,
     loading: false,
     userCompany: null,
+  }));
+}
+
+
+function getAsyncCompanyAll(builder: ActionReducerMapBuilder<CoreState>) {
+  builder.addCase(getCompaniesAllLogin.fulfilled, (state, { payload }) => ({
+    ...state,
+    loading: false,
+    error: "",
+    companyList: payload,
+  }));
+  builder.addCase(getCompaniesAllLogin.pending, (state) => ({
+    ...state,
+    loading: true,
+  }));
+  builder.addCase(getCompaniesAllLogin.rejected, (state, { payload }) => ({
+    ...state,
+    loading: false,
+    error: (payload as any).error,
   }));
 }

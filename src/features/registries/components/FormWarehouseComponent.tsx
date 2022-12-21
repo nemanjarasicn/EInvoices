@@ -20,7 +20,7 @@ import FormAutocompleteField from "../../shared/components/form-fields/FormAutoc
 import { sendWarehouse } from "../store/registries.actions";
 import  ErrorModal   from   "../../shared/components/ErrorModals"
 import SucessModal   from "../../shared/components/SucessModal"
-import { selectCompany } from "../../../app/core/core.selectors";
+import { selectCompanyCurrent } from "../../../app/core/core.selectors";
 import { getMarketPlacesAll }  from  "../../shared/components/form-fields/store/form.actions"
 //import ClientComponent from "./form-group/ClientComponent";
 
@@ -52,7 +52,7 @@ export default function FormWarehouseComponent({
     const navigate  = useNavigate();
     const dispatch = useAppDispatch();
     const [showError, setShowError] = React.useState(false);
-    const companyId = useAppSelector(selectCompany) as number[];
+    const companyId = useAppSelector(selectCompanyCurrent);
     const [showErrorModal, setShowErrorModal] = React.useState(false);
 
    
@@ -69,7 +69,7 @@ export default function FormWarehouseComponent({
 
 
       React.useEffect(() => {
-        dispatch(getMarketPlacesAll({companyId: companyId[0]}));
+        dispatch(getMarketPlacesAll({companyId: companyId}));
       }, []);
 
       const onSubmit = (data: WarehouseFormModel) => {
