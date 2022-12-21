@@ -13,6 +13,8 @@ import { hasError, loginLoading } from "../core/core.selectors";
 import { resetError } from "../core/core.reducer";
 import { Backdrop, CircularProgress } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import { setCompanyCurrent }  from  "../core/core.reducer";
+
 
 function Copyright(props: any): JSX.Element {
   return (
@@ -37,6 +39,7 @@ export default function LoginPage(): JSX.Element {
   const dispatch = useAppDispatch();
   const error = useAppSelector(hasError);
   const loading = useAppSelector(loginLoading);
+  
 
   React.useEffect(() => {
     if (Boolean(sessionStorage.getItem("token"))) navigate("/");
@@ -53,7 +56,7 @@ export default function LoginPage(): JSX.Element {
         },
       })
     ).then((res)  => {
-      console.log(res.payload);
+      dispatch(setCompanyCurrent(res.payload.companyId[0]));
       if(!res.payload.error)   navigate('/')
     }) 
   };

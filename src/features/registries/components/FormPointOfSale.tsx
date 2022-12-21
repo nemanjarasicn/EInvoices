@@ -20,7 +20,7 @@ import CustomButtonFc from "../../shared/components/CustomButtonFc";
 import { sendPointOfSales } from "../store/registries.actions";
 import { PointOfSaleFormModel }  from "../models/registries.models"
 import { getCompaniesAll,  getMarketPlacesAll }  from  "../../shared/components/form-fields/store/form.actions"
-import { selectCompany, selectCompanyInfo } from "../../../app/core/core.selectors";
+import { selectCompanyCurrent, selectCompanyInfo } from "../../../app/core/core.selectors";
 import  ErrorModal   from   "../../shared/components/ErrorModals"
 import SucessModal   from "../../shared/components/SucessModal"
 //import ClientComponent from "./form-group/ClientComponent";
@@ -45,13 +45,13 @@ import SucessModal   from "../../shared/components/SucessModal"
 export default function FormPointOfSaleComponents({
     props,
   }: IProps<RegistriesFormComponentProps>): JSX.Element {
-    const companyId = useAppSelector(selectCompany) as number[];
+    const companyId = useAppSelector(selectCompanyCurrent) as any;
     const defaultValues:  PointOfSaleFormModel = {
       id: "",
       namePointOfSale: "",
       idMarketPlace: 0,
       companyName:  "",
-      idCompany:   companyId[0],
+      idCompany:   companyId,
       uuidMarketPlace:  "",
       code: "",
       lastUpdatedBy: "",
@@ -79,7 +79,7 @@ export default function FormPointOfSaleComponents({
 
       React.useEffect(() => {
         dispatch(getCompaniesAll());
-        dispatch(getMarketPlacesAll({companyId: companyId[0]}));
+        dispatch(getMarketPlacesAll({companyId: companyId}));
       }, []);
 
 

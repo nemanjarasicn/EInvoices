@@ -70,3 +70,22 @@ export const loginLoading = createSelector(
   coreSelectors,
   (state: CoreState) => state.color
 );
+
+
+/**
+ * Select company current
+ */
+ export const selectCompanyCurrent = createSelector(
+  coreSelectors,
+  (state: CoreState) => state.companyCurrent
+);
+
+
+/**
+ * Select all company
+ */
+ export const selectCompanyList = createSelector(
+  coreSelectors,
+  (state: CoreState) => state.companyList
+);
+

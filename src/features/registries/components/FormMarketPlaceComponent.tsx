@@ -18,7 +18,7 @@ import { selectClientCompanies } from "../../shared/components/form-fields/store
 import FormAutocompleteField from "../../shared/components/form-fields/FormAutocompleteField";
 import { sendMarketPlace } from "../store/registries.actions";
 import { useNavigate } from 'react-router-dom';
-import { selectCompany } from "../../../app/core/core.selectors";
+import { selectCompanyCurrent } from "../../../app/core/core.selectors";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import { selectObjectsAll } from "../../shared/components/form-fields/store/form.selectors";
 import { getObjectsAll } from "../../shared/components/form-fields/store/form.actions";
@@ -57,9 +57,9 @@ import SucessModal   from "../../shared/components/SucessModal"
 export default function FormMarketPlaceComponent({
     props,
   }: IProps<RegistriesFormComponentProps>): JSX.Element {
-    const companyId = useAppSelector(selectCompany) as number[];
+    const companyId = useAppSelector(selectCompanyCurrent) as any;
     const defaultValues:  MarketPlaceFormModel = {
-      companyId:  companyId[0],
+      companyId:  companyId,
       marketPlaceName: "",
       objectUuid: "",
     };
@@ -105,7 +105,7 @@ export default function FormMarketPlaceComponent({
       }
 
       React.useEffect(() => {
-        dispatch(getObjectsAll({companyId: companyId[0]}));
+        dispatch(getObjectsAll({companyId: companyId}));
       }, []);
 
       

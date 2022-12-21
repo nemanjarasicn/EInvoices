@@ -17,7 +17,7 @@ import { UsersFormModel, IProps } from "../models/registries.models";
 import { selectCompaniesAll } from "../../shared/components/form-fields/store/form.selectors";
 import { useNavigate } from 'react-router-dom';
 import FormAutocompleteField from "../../shared/components/form-fields/FormAutocompleteField";
-import { selectCompany } from "../../../app/core/core.selectors";
+import { selectCompanyCurrent } from "../../../app/core/core.selectors";
 import { getCompaniesAll }  from  "../../shared/components/form-fields/store/form.actions"
 import { sendUsers } from "../store/registries.actions";
 import  ErrorModal   from   "../../shared/components/ErrorModals"
@@ -55,10 +55,10 @@ import SucessModal   from "../../shared/components/SucessModal"
 export default function FormUsersComponent({
     props,
   }: IProps<RegistriesFormComponentProps>): JSX.Element {
-    const companyId = useAppSelector(selectCompany) as number[];
+    const companyId = useAppSelector(selectCompanyCurrent) as any;
     const defaultValues:  UsersFormModel = {
       id: "",
-      companyId: companyId[0] ,
+      companyId: companyId ,
       username: "",
       password: "",
       confirmpassword: "",

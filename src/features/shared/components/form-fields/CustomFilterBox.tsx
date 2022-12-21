@@ -27,6 +27,7 @@ import SelectAllActionsComponent, {
   import  { selectOpenFilter  }  from   "../../../invoices/store/invoice.selectors"
   import FilterModal from "../../../invoices/components/FilterModal";
   import { selectCompany } from "../../../../app/core/core.selectors";
+  import { selectCompanyCurrent }  from  "../../../../app/core/core.selectors"
 
 
 export interface ButtonProps {
@@ -46,7 +47,7 @@ export default function CustomFilterBox({
 }: IProps<FiltersToolbarComponentProps>): JSX.Element {
   const { t } = useTranslation();
   const { templatePageSettings } = useFeatureSettings();
-  const companyId = useAppSelector(selectCompany) as number[];
+  const companyId = useAppSelector(selectCompanyCurrent);
 
 
   const date  = new Date();
@@ -56,7 +57,7 @@ export default function CustomFilterBox({
 
 
   const defaultFilters = {
-    companyId:  companyId[0],  
+    companyId:  companyId,  
     inputAndOutputDocuments:  inputAndOutputDocumentsTmp,
     sendToCir: "",
     
@@ -82,6 +83,7 @@ export default function CustomFilterBox({
         setFiltersSearch((prevState: any)  => {
           return({
             ...prevState,
+            companyId: companyId,
             date: 
             {from: dayjs(value.from).format("YYYY-MM-DD"), to:  dayjs(value.to).format("YYYY-MM-DD")},
             sendToCir:  sendToCirValue
@@ -89,7 +91,7 @@ export default function CustomFilterBox({
       });
     })
     return () => subscription.unsubscribe();
-  }, [watch]);
+  }, [watch, companyId]);
 
 
   React.useEffect(() => {
@@ -98,13 +100,14 @@ export default function CustomFilterBox({
         params: filtersSearch,
       })
     );
-  }, [filtersSearch]);
+  }, [filtersSearch, companyId]);
 
 
   const addFiltersFromModal  = (data: any)  => {
     setFiltersSearch((prevState: any)  => {
         return({
           ...prevState,
+          companyId: companyId,
           invoiceStatus:  data.invoiceStatus,
           typeDocument:  data.typeDocument
         });

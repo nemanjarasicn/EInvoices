@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React from "react";
-import { selectCompany } from "../../../app/core/core.selectors";
+import { selectCompanyCurrent } from "../../../app/core/core.selectors";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import { Path, TemplatePageTypes } from "../models";
 import { InvoiceSearchParams, IProps } from "../models/invoice.models";
@@ -23,12 +23,12 @@ export default function FiltersToolbarComponent({
   const { filersToolbarStyles } = useComponentsStyles();
   const [params, setParams] = React.useState<Map<string, any> | null>(null);
   const dispatch = useAppDispatch();
-  const id = useAppSelector(selectCompany) as number[];
+  const id = useAppSelector(selectCompanyCurrent);
 
   React.useEffect(() => {
     let map = new Map<string, any>();
     props.filters.map((filter) => map.set(filter.paramKey, []));
-    map.set("companyId", id[0]);
+    map.set("companyId", id);
     map.set(
       "inputAndOutputDocuments",
       Path[props.type.toString() as keyof Object]

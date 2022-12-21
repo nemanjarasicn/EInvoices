@@ -16,6 +16,7 @@ import MailIcon from "@mui/icons-material/Mail";
 import Drawer from "@mui/material/Drawer";
 import { Link, Outlet } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import CompaniesSelector from "./CompaniesSelector";
 import LanguageSelector from "./LanguageSelector";
 import UserAccount from "./UserAccount";
 import Home from "@mui/icons-material/Home";
@@ -27,6 +28,8 @@ import ErrorModal from "../../features/shared/components/ErrorModals";
 import { useTheme } from '@mui/material/styles';
 import AppLoader from "./AppLoader";
 import { NavItem } from "../models/navItem.models";
+import { useAppSelector } from "../hooks";
+import  {  selectCompany  }  from "../core/core.selectors"
 
 const drawerWidth =  200;
 
@@ -64,6 +67,7 @@ export default function ClippedDrawer() {
   const { t } = useTranslation();
   const theme  =  useTheme();
   const { menuAppBarStyles } = useAppComponentsStyles();
+  const companyUser = useAppSelector(selectCompany) as any;
 
   const [calcNumber, setCalcNumber] =  React.useState<number>(1);
   const [showSubMenu,  setShowSubMenu] =  React.useState<boolean>(false);
@@ -200,6 +204,9 @@ export default function ClippedDrawer() {
             </Typography>
           </div>
           <div style={menuAppBarStyles.langUserDiv}>
+          {companyUser.length > 1 && 
+          <CompaniesSelector /> 
+           }
             <LanguageSelector />
             <UserAccount />
           </div>

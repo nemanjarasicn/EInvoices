@@ -14,7 +14,7 @@ import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import FormTextField  from  "../../shared/components/form-fields/FormTextField"
 import * as yup from "yup";
 import { useTranslation } from "react-i18next";
-import { selectCompany } from "../../../app/core/core.selectors";
+import { selectCompanyCurrent } from "../../../app/core/core.selectors";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { setFilters } from "../store/invoice.reducer";
 import { InvoiceSearchParams, IProps } from "../models/invoice.models";
@@ -146,7 +146,7 @@ export default function  FilterModal(props: any)  {
         control,
       } = methods;
 
-      const companyId = useAppSelector(selectCompany) as number[];
+      const companyId = useAppSelector(selectCompanyCurrent);
 
 
       const onSubmit = async  (data: any) => {

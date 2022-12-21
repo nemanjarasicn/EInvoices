@@ -103,7 +103,6 @@ export default function CustomButtonFilters({
   const { t } = useTranslation();
   const dispach = useAppDispatch();
   
-  console.log(groupButton);
 
   return (
     <>

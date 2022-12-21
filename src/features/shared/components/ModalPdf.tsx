@@ -8,7 +8,8 @@ import { Viewer } from '@react-pdf-viewer/core';
 import Divider from '@mui/material/Divider';
 import  { setopenModalPdf }  from   '../../invoices/store/invoice.reducer'
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
-
+import DocumentPdf from './DocumentPdf';
+import { sampleBase64pdf } from "./sampleBase64pdf";
 
 import Box from '@mui/material/Box'
 
@@ -21,7 +22,7 @@ const style = {
     transform: 'translate(-50%, -50%)',
     width: () => window.devicePixelRatio == 1.5 ? 550 : 828 , 
     height: () => window.devicePixelRatio == 1.5 ? 350 : 978 ,
-   
+ 
 
     bgcolor: 'background.paper',
     border: '2px solid #000',
@@ -75,8 +76,8 @@ const style = {
                     </Grid>
                     <Divider sx={{backgroundColor:  '#6cb238'}} />
 
-                    <Grid sx={{display:  'flex', height:  '90%', justifyContent: 'center', mt: 2.5}} >
-                                <Viewer fileUrl="/testPdf" />;
+                    <Grid sx={{display:  'flex', height:  '90%', overflow: "auto", scrollBehavior: "smooth", justifyContent: 'center', mt: 2.5}} >
+                                <DocumentPdf  pdf={sampleBase64pdf}  />
                     </Grid>
                     
                     <Grid sx={{display:  'flex', height:  '10%', mt: 2.5, justifyContent:  'center'}} >

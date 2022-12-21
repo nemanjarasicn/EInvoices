@@ -13,7 +13,7 @@ const login: AsyncThunk<any, { credentials: Credentials }, {}> =
       return await AuthService.login(params.credentials)
         .then((res) => {
           sessionStorage.setItem("token", JSON.stringify(res.data.token));
-          _.dispatch(getLoggedSubject({ id: res.data.companyId }));
+          _.dispatch(getLoggedSubject({ id: res.data.companyId[0] }));
           delete res.data.token;
           delete res.data.type;
           return res.data;
@@ -39,4 +39,17 @@ const getLoggedSubject: AsyncThunk<any, { id: number }, {}> = createAsyncThunk<
     .catch((err) => console.log(err));
 });
 
-export { login, getLoggedSubject };
+/**
+ * Get Async Companies
+ */
+ const getCompaniesAllLogin: AsyncThunk<any, void, {}> =
+ createAsyncThunk(
+   "GET/CompaniesAllLogin",
+   async () => {
+     return await AppService.getCompaniesAll()
+       .then((res) => res.data)
+       .catch((err) => []);
+   } 
+ );
+
+export { login, getLoggedSubject,  getCompaniesAllLogin };

@@ -19,7 +19,7 @@ import FormAutocompleteField from "../../shared/components/form-fields/FormAutoc
 import  ErrorModal   from   "../../shared/components/ErrorModals"
 import SucessModal   from "../../shared/components/SucessModal"
 import  { getObjectsAll,  getUnitsAll, getVatAll, getMarketPlacesAll }  from  "../../shared/components/form-fields/store/form.actions"
-import { selectCompany } from "../../../app/core/core.selectors";
+import { selectCompanyCurrent } from "../../../app/core/core.selectors";
 import  {  selectUnitsAll,  selectVatsAll,   selectMarketPlaces }  from   "../../shared/components/form-fields/store/form.selectors"
 import { sendArticle } from "../store/articles.actions";
 //import ClientComponent from "./form-group/ClientComponent";
@@ -52,7 +52,7 @@ import { sendArticle } from "../store/articles.actions";
 export default function FormArticleComponent({
     props,
   }: IProps<ArticlesFormComponentProps>): JSX.Element {
-    const companyId = useAppSelector(selectCompany) as number[];
+    const companyId = useAppSelector(selectCompanyCurrent) as any;
 
 
 
@@ -76,7 +76,7 @@ export default function FormArticleComponent({
       priceChangeForbidden:   true,
       barCode:   "",
       code:   "",
-      idCompany:  companyId[0],
+      idCompany:  companyId,
       idObject:   0,
       productUnitRequest:  "",
       productVatRequest:  "",
@@ -107,10 +107,10 @@ export default function FormArticleComponent({
       
 
       React.useEffect(() => {
-        dispatch(getObjectsAll({companyId: companyId[0]}));
+        dispatch(getObjectsAll({companyId: companyId}));
         dispatch(getUnitsAll());
         dispatch(getVatAll());
-        dispatch(getMarketPlacesAll({companyId: companyId[0]}));
+        dispatch(getMarketPlacesAll({companyId: companyId}));
   
       }, []);
 
