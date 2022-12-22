@@ -16,7 +16,9 @@ import CustomButtonFc from "../../shared/components/CustomButtonFc";
 import { UsersFormModel, IProps } from "../models/registries.models";
 import { selectCompaniesAll } from "../../shared/components/form-fields/store/form.selectors";
 import { useNavigate } from 'react-router-dom';
+import FormDropdownField from "../../shared/components/form-fields/FormDropdownField";
 import FormAutocompleteField from "../../shared/components/form-fields/FormAutocompleteField";
+import  MultipleSelect  from  "../../shared/components/form-fields/FormDropdownFieldNew"
 import { selectCompanyCurrent } from "../../../app/core/core.selectors";
 import { getCompaniesAll }  from  "../../shared/components/form-fields/store/form.actions"
 import { sendUsers } from "../store/registries.actions";
@@ -62,6 +64,7 @@ export default function FormUsersComponent({
       username: "",
       password: "",
       confirmpassword: "",
+      companyList: []
     };
     const { t } = useTranslation();
     const { formComponent } = useComponentsStyles();
@@ -83,25 +86,27 @@ export default function FormUsersComponent({
       } = methods;
 
       const onSubmit = (data: UsersFormModel) => {
-        dispatch(sendUsers({data})).then((res) => {
-            if(res.payload === 'sucsses') {
-              setShowError(true);
-              setTimeout(() => {
-                  setShowError(false);
-                  navigate('/registries/users'
-                  )
-              }, 2000);
-            }   else {
-                setShowErrorModal(true);  
-                setTimeout(() => {
-                      setShowErrorModal(false);
-                      /*navigate('/registries/companies'
-                      )*/
-                }, 2000);
-              }
-        } 
-        )
-      }
+       console.log(data);
+       dispatch(sendUsers({data})).then((res) => {
+        if(res.payload === 'sucsses') {
+          setShowError(true);
+          setTimeout(() => {
+              setShowError(false);
+              navigate('/registries/users'
+              )
+          }, 2000);
+        }   else {
+            setShowErrorModal(true);  
+            setTimeout(() => {
+                  setShowErrorModal(false);
+                  /*navigate('/registries/companies'
+                  )*/
+            }, 2000);
+          }
+      })
+    
+    }
+  
       
 
       React.useEffect(() => {
@@ -115,18 +120,11 @@ export default function FormUsersComponent({
                 <Grid container spacing={2}>
                     <Grid item xs={6}>
                       {true ?
-                        <FormAutocompleteField
-                          props={{
-                              name: "companyId",
-                              control: control,
-                              label: t(props.formFieldsLabels.users.company),
-                              disabled: true,
-                              additional: {
-                              selector: selectCompaniesAll,
-                              
-                              },
-                          }}
-                        /> : 
+                        <MultipleSelect  props={{
+                          selector: selectCompaniesAll,
+                          control: control,
+                          name: 'companyList'
+                        }}/> : 
                         <FormTextField
                         props={{
                             control: control,

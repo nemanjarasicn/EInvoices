@@ -32,11 +32,9 @@ import { Document, Page } from "react-pdf";
 
     const companyCurrentId =  useAppSelector(selectCompanyCurrent);
     const [company, setCompany] = React.useState(companyCurrentId as any);
-    const [firstRender, setFirstRender] = React.useState(false);
-    console.log(companyCurrentId);
+
   
     const handleChange = (event: SelectChangeEvent) => {
-      console.log(event.target.value)
       setCompany(event.target.value);
       dispatch(setCompanyCurrent(event.target.value));
       window.location.reload();
@@ -77,7 +75,7 @@ import { Document, Page } from "react-pdf";
         <div>
         <Backdrop
           sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
-          open={loading}
+          open={loading || companyList.length === 0}
         >
           <CircularProgress color="inherit" />
         </Backdrop>

@@ -115,6 +115,7 @@
     username: string = "";
     password: string = "";
     confirmpassword: string = "";
+    companyList: number[]  |  string[]  = [];
   }
   
  

@@ -194,13 +194,14 @@ class RegistriesPublicService {
 
 
   sendUsers(data: any) {
+    console.log(data);
     return publicClient.post<any>
     ("/user/registration",
     {
       "username":  data.data.username,
       "password":  data.data.password,
       "roleName":["ROLE_USER"],
-      "companyId": data.data.companyId.main.idCompany
+      "companies": data.data.companyList
   
   }
     );
