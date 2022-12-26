@@ -11,7 +11,8 @@ const usePageStyles = (): {
       cardsWrapper: {
         display: "flex",
         flexWrap: "wrap",
-        margin: '20px'
+        margin: '20px',
+        marginTop:  '80px',
       },
     },
     templatePageStyles: {
@@ -19,6 +20,11 @@ const usePageStyles = (): {
         display: "flex",
         alignItems: "center",
         justifyContent: "flex-start",
+      },
+      buttonsActionGrid: {
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "flex-end",
       },
       tableWrapper: {
         padding: "10px",

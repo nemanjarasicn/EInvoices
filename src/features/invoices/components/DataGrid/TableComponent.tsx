@@ -43,7 +43,7 @@ export default function TableComponent({
       <ModalPdf    open={openPdf} ></ModalPdf>
       
             <DataGrid
-              style={{ minHeight: tableData.length ? undefined : 400,   backgroundColor: 'white' }}
+              style={{ minHeight: tableData.length ? undefined : 200,   backgroundColor: 'white' }}
               disableColumnMenu
               pagination
               disableColumnFilter
@@ -72,7 +72,7 @@ export default function TableComponent({
               rowsPerPageOptions={[5, 10, 15, 30]}
               onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
               components={{
-                Toolbar: TableToolbar,
+                //Toolbar: TableToolbar,
                 NoRowsOverlay: TableNoRowsOverlay,
                 Pagination: TablePagination,
               }}

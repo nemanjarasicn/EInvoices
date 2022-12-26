@@ -151,22 +151,26 @@ export default function InvoiceTemplatePage({
 
 
   return (
-    <Box sx={{ flexGrow: 1}}>
-      <Grid container spacing={2}  pl={5}>
+    <Box sx={{ flexGrow: 1,  mt: 10  }}>
+      <Grid container spacing={2}  pl={5} >
         <Grid item xs={4}>
           {/*<Item>*/}
-            <h3 style={{color: 'grey'}}>{t(templatePageSettings[props.templateType].title)}</h3>
+            <h3 style={{color: 'grey'}}>{t('E-FAKTURA') + '/' + t(templatePageSettings[props.templateType].title)}</h3>
           {/*</Item>*/}
         </Grid>
-        <Grid container  sx={{backgroundColor: 'white', p: 2.5}}   spacing={2}>
+        <Grid item  xs={8}   sx={{display:  'flex', alignItems:  'center',  justifyContent:  'flex-end'}} >
+            <Grid item xs={12} style={templatePageStyles.buttonsActionGrid}    >
+                    {templatePageSettings[props.templateType].showBtns && (
+                      <CustomButtonFc
+                        groupButton={templatePageSettings[props.templateType].buttons}
+                      />
+                    )}
+            </Grid>
+        </Grid>
+    
+        <Grid container  sx={{backgroundColor: 'white', mt: 2,   borderRadius:  '15px'}}   spacing={2}>
+
               <Grid item xs={12} style={templatePageStyles.buttonsGrid}>
-                {templatePageSettings[props.templateType].showBtns && (
-                  <CustomButtonFc
-                    groupButton={templatePageSettings[props.templateType].buttons}
-                  />
-                )}
-              </Grid>
-              <Grid item xs={12} style={templatePageStyles.buttonsGrid}  sx={{mb: 2.5}}>
                   <CustomFilterBox  props={{
                         filters: templatePageSettings[props.templateType].filters,
                         actions: templatePageSettings[props.templateType].actions,
