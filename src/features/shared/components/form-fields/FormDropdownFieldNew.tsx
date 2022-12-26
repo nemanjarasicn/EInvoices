@@ -26,7 +26,6 @@ export default function MultipleSelect(props: any) {
   const data: any[]  =  useAppSelector(props.props.selector);
   const theme = useTheme();
   const [selectedItem, setSelectedItem] = React.useState<string[]>([]);
-  console.log(data);
 
   return (
     <div>

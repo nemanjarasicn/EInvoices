@@ -69,6 +69,7 @@ import {
       getAsyncVat(builder);
       getAsyncGroups(builder);
       getAsyncWarehouses(builder);
+      getAsyncUsers(builder);
     },
     }
   )

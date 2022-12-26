@@ -30,39 +30,31 @@ export default function InvoiceGroupComponent({
 }: IProps<InvoiceGroupComponentProps>): JSX.Element {
   const { formComponent } = useComponentsStyles();
   return (
-    <Box
-      sx={{
-        ...formComponent.basicBox,
-        textAlign: "start",
-      }}
-    >
-      <Typography sx={formComponent.typography}>{props.title}</Typography>
-      <Paper style={formComponent.groupPaper}>
-        <Grid container spacing={2}>
-          <Grid item xs={6}>
-            <FormDateField
-              props={{
-                ...props.invoiceFileds.issueDate,
-                control: props.control,
-              }}
-            />
-            <FormDateField
-              props={{
-                ...props.invoiceFileds.dueDate,
-                control: props.control,
-              }}
-            />
-          </Grid>
-          <Grid item xs={6}>
-            <FormDropdownField
-              props={{
-                ...props.invoiceFileds.vatPointDate,
-                control: props.control,
-              }}
-            />
-          </Grid>
-        </Grid>
-      </Paper>
-    </Box>
+    
+    <Grid container spacing={2}>
+      <Grid item xs={6}>
+        <FormDateField
+          props={{
+            ...props.invoiceFileds.issueDate,
+            control: props.control,
+          }}
+        />
+        <FormDateField
+          props={{
+            ...props.invoiceFileds.dueDate,
+            control: props.control,
+          }}
+        />
+      </Grid>
+      <Grid item xs={6}>
+        <FormDropdownField
+          props={{
+            ...props.invoiceFileds.vatPointDate,
+            control: props.control,
+          }}
+        />
+      </Grid>
+    </Grid>
+
   );
 }

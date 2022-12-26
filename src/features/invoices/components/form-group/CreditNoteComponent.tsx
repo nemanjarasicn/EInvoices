@@ -46,14 +46,7 @@ export default function CreditNoteComponent({
   }, []);
 
   return (
-    <Box
-      sx={{
-        ...formComponent.basicBox,
-        textAlign: "start",
-      }}
-    >
-      <Typography sx={formComponent.typography}>{props.title}</Typography>
-      <Paper style={formComponent.groupPaper}>
+    
         <Grid container spacing={2}>
           <Grid item xs={6}>
             <FormDropdownField
@@ -93,7 +86,5 @@ export default function CreditNoteComponent({
             )}
           </Grid>
         </Grid>
-      </Paper>
-    </Box>
   );
 }

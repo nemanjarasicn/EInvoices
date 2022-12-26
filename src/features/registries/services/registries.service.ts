@@ -48,7 +48,7 @@ class RegistriesPublicService {
   }
 
 
-  createPriceList(data: any) {
+  createPriceList(data: any) { 
     return publicClient.post<any>
     ("pricinglist",
     [
@@ -60,7 +60,7 @@ class RegistriesPublicService {
       "activ":"true",
       "auditedEntity":{"createdBy":1,"lastUpdatedBy":1},
       "pricingTypeDtoRequest":{
-          "id": data.id
+          "id": data.payload.data.id
       }
       }   
       
@@ -194,7 +194,6 @@ class RegistriesPublicService {
 
 
   sendUsers(data: any) {
-    console.log(data);
     return publicClient.post<any>
     ("/user/registration",
     {
@@ -245,9 +244,10 @@ class RegistriesPublicService {
   }
 
 
-  getUsers() {
+  getUsers(id:   number  |  string) {
     return publicClient.get<any>
-    ("users",
+    (`user/${id}`,
+
     );
   }
 
