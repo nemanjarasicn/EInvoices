@@ -226,9 +226,9 @@ export default function InvoiceFormComponent({
 
   return (
     <Box
-      sx={{ flexGrow: 1, rowGap: 1, display: "flex", flexDirection: "column" }}
+      sx={{ flexGrow: 1, rowGap: 1, display: "flex", flexDirection: "column", mt: '120px' }}
     >
-      <Box
+      {/*<Box
         sx={{
           ...formComponent.basicBox,
           width: "25%",
@@ -238,7 +238,7 @@ export default function InvoiceFormComponent({
         <Typography sx={formComponent.typography}>
           {t("Common.newInvoice").toUpperCase()}
         </Typography>
-      </Box>
+      </Box>*/}
       <Grid container spacing={2}>
         <Grid item xs={12}>
           <Box

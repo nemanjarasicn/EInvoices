@@ -20,9 +20,10 @@
           justifyContent: "center",
           flexDirection: "column",
           background: "white",  //#eeeeee
-          opacity: "0.9",
+          //opacity: "0.9",
           borderRadius: "7px",
           margin: "10px",
+          marginTop:  '80px',
           "&:hover": {
             cursor: !disabledShow ? "pointer"  : ' not-allowed',
             color: "gray",

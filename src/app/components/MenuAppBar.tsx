@@ -49,18 +49,7 @@ const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== "open",
 })<AppBarProps>(({ theme, open }) => ({
   zIndex: theme.zIndex.drawer + 1,
-  transition: theme.transitions.create(["width", "margin"], {
-    easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.leavingScreen,
-  }),
-  ...(open && {
-    marginLeft: drawerWidth,
-    width: `calc(100% - ${drawerWidth}px)`,
-    transition: theme.transitions.create(["width", "margin"], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-  }),
+  width: '86.5%'
 }));
 
 export default function ClippedDrawer() {
@@ -73,12 +62,12 @@ export default function ClippedDrawer() {
   const [showSubMenu,  setShowSubMenu] =  React.useState<boolean>(false);
   const [parentItem, setParentItem] =  React.useState<any>();
   const stepPosition = window.devicePixelRatio === 1.5 ?  90  : 140;
-  const sizeIcons = window.devicePixelRatio === 1.5 ? '40px' : '80px'; 
+  const sizeIcons = window.devicePixelRatio === 1.5 ? '40px' : '50px'; 
   const logoSize = window.devicePixelRatio === 1.5 ?  100 : 150; 
   const paddingLeftMain = window.devicePixelRatio === 1.5 ? '100px' : '160px';
-  const leftSubmenu = window.devicePixelRatio === 1.5 ? '118px' : '245px'; 
+  const leftSubmenu = window.devicePixelRatio === 1.5 ? '118px' : '140px'; 
   const startPositionSubmenu = window.devicePixelRatio === 1.5 ? '180px' : '260px'; 
-  const subMenuWidth = window.devicePixelRatio === 1.5 ? 200 : 350 ; 
+  const subMenuWidth = window.devicePixelRatio === 1.5 ? 200 : 259 ; 
   const subMenuHeight = window.devicePixelRatio === 1.5 ? 210 : 350 ; 
   const subMenuPadding = window.devicePixelRatio === 1.5 ?  0 :   2; 
   const fontSizeText = window.devicePixelRatio === 1.5 ? '12px' : '18px';
@@ -194,9 +183,9 @@ export default function ClippedDrawer() {
 
 
   return (
-    <Box sx={{ display: "flex" }}>
+    <Box sx={{ display: "flex"  }}>
       <CssBaseline />
-      <AppBar position="fixed" sx={{backgroundColor: "white", height:  appBarHeight}}>
+      <AppBar position="fixed" sx={{ backgroundColor:  "#323b40",  height:  appBarHeight, mr: 11, mt: 1}}>
         <Toolbar style={menuAppBarStyles.toolbar}>
           <div style={menuAppBarStyles.logoDiv}>
             <Typography variant="h6" noWrap component="div">
@@ -274,7 +263,7 @@ export default function ClippedDrawer() {
                     >
                       {icon(item.icon)}
                     </ListItemIcon>
-                    <ListItemText
+                    {/*<ListItemText
                       key={`${item.name}_list_nav_text${index}`}
                       primaryTypographyProps={{fontSize:  fontSizeText, fontWeight: 500}} 
                       primary={item.name}
@@ -283,7 +272,7 @@ export default function ClippedDrawer() {
                         color: theme.palette.secondary.main, // fff
                         opacity: 0.9,
                       }}
-                    />
+                    />*/}
                   </ListItemButton>
                 </ListItem>
                 <Box sx={{position: 'fixed',
@@ -372,7 +361,7 @@ export default function ClippedDrawer() {
       </Drawer>
       <Box
         component="main"
-        sx={{ flexGrow: 1, paddingLeft:  paddingLeftMain, paddingRight: "20px", backgroundColor:  "#EAEDED", height: '190vh' }}
+        sx={{ flexGrow: 1, paddingLeft:  paddingLeftMain, paddingRight: "90px", background:  "linear-gradient(180deg, #323b40 15%, #f3f3f4 0%)", height: '190vh' }}
       >
         <Toolbar />
         <AppLoader />

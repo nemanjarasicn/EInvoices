@@ -224,6 +224,7 @@ const useComponentsStyles = (): {
         borderRadius: 2,
         fontSize: "0.875rem",
         fontWeight: "700",
+        overflowX: "auto"
       },
       typography: { fontWeight: 600, p: 0.5, fontSize: "0.9rem" },
       paper: {
