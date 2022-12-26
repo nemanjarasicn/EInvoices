@@ -44,7 +44,6 @@ export default function FormDropdownField({
   const optionsList: any[]= useAppSelector(props.selector);
 
   const handleChange = (event: SelectChangeEvent<typeof selectedItems>) => {
-    console.log('asass', event)
     const {
       target: { value },
     } = event;

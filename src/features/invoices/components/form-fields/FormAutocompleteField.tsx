@@ -18,6 +18,7 @@ type FormAutocompleteFieldProps = FormFieldProps & {
     labelShrink?: boolean;
     placeholder?: string;
     noResultText?: string;
+    reset?: any
   };
 };
 
@@ -28,6 +29,7 @@ export default function FormAutocompleteField({
   props,
 }: IProps<FormAutocompleteFieldProps>) {
   const data: AutocompleteItem[] = useAppSelector(props.additional.selector);
+  const [name, setName] = React.useState('');
 
   const StyledPopper = styled(Popper)({
     [`& .${autocompleteClasses.listbox}`]: {
@@ -44,8 +46,11 @@ export default function FormAutocompleteField({
     <Controller
       name={props.name}
       control={props.control}
-      render={({ field: { onChange, value }, fieldState: { error } }) => (
+      render={({ field: { onChange, value, ref }, fieldState: { error } }) => (
         <Autocomplete
+          ref={ref}
+          value={null}
+          blurOnSelect={true}
           disablePortal
           PopperComponent={StyledPopper}
           id={`combo-box-demo_${props.name}`}

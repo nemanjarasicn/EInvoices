@@ -195,11 +195,11 @@ const getVat: AsyncThunk<any, void, {}> = createAsyncThunk(
 }
 );
 
-const getUsers: AsyncThunk<any, void, {}> = createAsyncThunk(
+const getUsers: AsyncThunk<any, { companyId: number | string }, {}> = createAsyncThunk<any, { companyId: number | string }>(
   "GET/Users",
-  async () => {
-    return     await RegistriesPublicService.getUsers()
-    .then((res: any) => res.data.objectDtoResponse)
+  async (params) => {
+    return     await RegistriesPublicService.getUsers(params.companyId)
+    .then((res: any) => res.data)
     .catch((err: any) => []);
 }
 );

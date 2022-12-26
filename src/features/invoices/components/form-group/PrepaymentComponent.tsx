@@ -38,14 +38,6 @@ export default function PrepaymentComponent({
   }, []);
 
   return (
-    <Box
-      sx={{
-        ...formComponent.basicBox,
-        textAlign: "start",
-      }}
-    >
-      <Typography sx={formComponent.typography}>{props.title}</Typography>
-      <Paper style={formComponent.groupPaper}>
         <Grid container spacing={2}>
           <Grid item xs={6}>
             <FormDateField
@@ -64,7 +56,7 @@ export default function PrepaymentComponent({
             />
           </Grid>
         </Grid>
-      </Paper>
-    </Box>
+
+        
   );
 }

@@ -86,7 +86,6 @@ export default function FormUsersComponent({
       } = methods;
 
       const onSubmit = (data: UsersFormModel) => {
-       console.log(data);
        dispatch(sendUsers({data})).then((res) => {
         if(res.payload === 'sucsses') {
           setShowError(true);

@@ -3,6 +3,8 @@ import React from "react";
 import { IProps } from "../../models";
 import { Grid, IconButton } from "@mui/material";
 import FormTextField from "../form-fields/FormTextField";
+import AddCircleIcon from '@mui/icons-material/AddCircle';
+import AddIcon from '@mui/icons-material/Add';
 import DeleteIcon from "@mui/icons-material/Delete";
 import FormCurrencyField from "../form-fields/FormCurrencyField";
 import {
@@ -16,7 +18,7 @@ type InvoiceLineProps = {
   item: any;
   control: any;
   index: number;
-  handleDelete: Function;
+  handleAddItemList: Function;
   formWatch: Function;
   formSetValue: Function;
   formGetValues: Function;
@@ -35,6 +37,12 @@ export default function InvoiceLine({
     index,
     fieldLabels,
   } = props;
+
+
+  const vatRate =  formGetValues(`invoiceLine[${index}].item.classifiedTaxCategory.percent`) ? true  :  false;
+
+
+
 
   //Subscribe on watch invoicedQuantity
   React.useEffect(() => {
@@ -92,10 +100,10 @@ export default function InvoiceLine({
 
   return (
     <Grid container spacing={1}>
-      <Grid item xs={0.2}>
+      {/*<Grid item xs={0.2}>
         <p>{`${index + 1}.`}</p>
-      </Grid>
-      <Grid item xs={2.5}>
+      </Grid>*/}
+      <Grid item xs={2}>
         <FormTextField
           props={{
             control: control,
@@ -108,19 +116,9 @@ export default function InvoiceLine({
             },
           }}
         />
-      </Grid>
-      <Grid item xs={1.5}>
-        <FormCurrencyField
-          props={{
-            control: control,
-            label: t(fieldLabels.unitPrice),
-            name: `invoiceLine[${index}].price.unitPrice`,
-            additional: { mask: {}, readonly: true },
-            disabled: true,
-          }}
-        />
-      </Grid>
-      <Grid item xs={0.8}>
+        </Grid>
+        
+      <Grid item xs={0.5}>
         <FormCurrencyField
           props={{
             control: control,
@@ -142,7 +140,19 @@ export default function InvoiceLine({
 
         {/* `0` */}
       </Grid>
-      <Grid item xs={0.7}>
+
+      <Grid item xs={1}>
+        <FormCurrencyField
+          props={{
+            control: control,
+            label: t(fieldLabels.unitPrice),
+            name: `invoiceLine[${index}].price.unitPrice`,
+            additional: { mask: {}, readonly: true },
+            disabled: true,
+          }}
+        />
+      </Grid>
+      <Grid item xs={0.5}>
         <FormTextField
           props={{
             control: control,
@@ -177,7 +187,7 @@ export default function InvoiceLine({
           }}
         />
       </Grid>
-      <Grid item xs={1.5}>
+      <Grid item xs={1}>
         <FormCurrencyField
           props={{
             control: control,
@@ -213,7 +223,7 @@ export default function InvoiceLine({
           }}
         />
       </Grid>
-      <Grid item xs={1.5}>
+      <Grid item xs={1}>
         <FormCurrencyField
           props={{
             control: control,
@@ -225,12 +235,36 @@ export default function InvoiceLine({
         />
       </Grid>
 
+      <Grid item xs={1.5}>
+        <FormTextField
+          props={{
+            control: control,
+            disabled: vatRate,
+            label: t('Sifra osnove'),
+            name: 'sifraOsnove',
+            additional: { mask: {}, readonly: vatRate  },
+          }}
+        />
+        </Grid>
+
+      <Grid item xs={1}>
+        <FormTextField
+          props={{
+            control: control,
+            disabled: vatRate,
+            label: t('Broj odluke'),
+            name: 'brojOdluke',
+            additional: { mask: {}, readonly:   vatRate   },
+          }}
+        />
+        </Grid>
+
       <Grid item xs={0.3}>
         <IconButton
           aria-label="delete"
-          onClick={() => props.handleDelete(index)}
+          onClick={() => props.handleAddItemList(index)}
         >
-          <DeleteIcon />
+          <AddCircleIcon />
         </IconButton>
       </Grid>
     </Grid>

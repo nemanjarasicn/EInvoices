@@ -7,7 +7,8 @@ import {
   getCompanies,
   getUnits,
   getVat,
-  getGroups
+  getGroups,
+  getUsers
 } from "../../store/registries.actions";
 import { TableComponentProps } from "./TableComponent";
 import {   useAppSelector    } from "../../../../app/hooks";
@@ -548,8 +549,8 @@ const useTableSettings = (): TableSettings => {
               hideable: false,
             },
             {
-              field: "compnyId",
-              headerName: "Users.companyId",
+              field: "companyId",
+              headerName: "Users.compnyId",
               flex: 1,
               headerAlign: "center",
               align: "center",
@@ -571,10 +572,10 @@ const useTableSettings = (): TableSettings => {
             showHideColumns: true,
             showExport: false,
           },
-          getDataAction: getObjects({companyId: company}),
+          getDataAction: getUsers({companyId: company}),
           selectType:  "USERS",
           selector:  selectUsers,
-          parentColumn: "id",
+          parentColumn: "username",
           footerProps: {
             countTxt: "Table.FooterCountTxt",
             totalAmountTxt: "Table.FooterTotalAmountTxt",
