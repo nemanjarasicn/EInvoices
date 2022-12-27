@@ -95,23 +95,21 @@ export default function RegistriesFormComponent({
     }
     return <div>test</div>
   }
- 
+
+
+
+  const marginTopBox  =    window.devicePixelRatio === 1.5 ?     4 :   10;
 
   return (
     <Box
-      sx={{ flexGrow: 1, rowGap: 1, display: "flex", flexDirection: "column" }}
+      sx={{ flexGrow: 1, rowGap: 1, display: "flex", flexDirection: "column" , mt:   marginTopBox}}
     >
-      <Box
-        sx={{
-          ...formComponent.basicBox,
-          width: "25%",
-          textAlign: "center",
-        }}
-      >
-        <Typography sx={formComponent.typography}>{t(props.createTitle.title)}</Typography>
-      </Box>
+      
+      <h3 style={{color:  'white'}}>{t(props.createTitle.title)}</h3>
+
+
       <Grid container spacing={2}>
-        <Grid item xs={10}>
+        <Grid item xs={12}>
           <Box
             sx={{
               ...formComponent.basicBox,
@@ -129,7 +127,7 @@ export default function RegistriesFormComponent({
             </Paper>
           </Box>
         </Grid>
-        <Grid item xs={2}>
+        {/*<Grid item xs={2}>
           <Grid item xs={12}>
             <IconButton
               color="primary"
@@ -180,7 +178,7 @@ export default function RegistriesFormComponent({
               <RestoreRoundedIcon />
             </IconButton>
           </Grid>
-        </Grid>
+            </Grid>*/}
       </Grid>
     </Box>
   );

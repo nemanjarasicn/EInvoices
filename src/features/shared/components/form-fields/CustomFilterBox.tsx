@@ -119,6 +119,9 @@ const handleChangeSelect = (value: any) =>  {
     setSelectValue(value.item.uuid)
   }
 
+
+  const scaleDate  =   window.devicePixelRatio === 1.5 ?  0.7 : 0.9; 
+
   return (
     <>
      <FilterModal  open={openModalFilter.open} data={props.filters} filterName={openModalFilter.filterName} onSubmitFromFilterModal={addFiltersFromModal} ></FilterModal>
@@ -134,14 +137,14 @@ const handleChangeSelect = (value: any) =>  {
                     }}
             />
         </Grid>
-        <Grid item xs={3}>    
+        <Grid item xs={3.5}>    
             {props.filters && (
                 <CustomButtonFilters
                 groupButton={props.filters} 
             />
             )}
         </Grid>
-        <Grid item xs={5} sx={{display:  'flex'}}>  
+        <Grid item xs={4} sx={{display:  'flex'}}>  
                     <div
                       style={{
                         display: "flex",
@@ -158,7 +161,7 @@ const handleChangeSelect = (value: any) =>  {
                             flexDirection: "row",
                             //alignContent: "space-around",
                             height: "36.5px ",
-                            scale: "0.8",
+                            scale: `${scaleDate}`,
                             margin: "auto",
                             width: "max-content",
                             columnGap: "3%",

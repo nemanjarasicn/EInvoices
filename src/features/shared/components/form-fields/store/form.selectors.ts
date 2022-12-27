@@ -74,6 +74,7 @@ export const selectCompaniesAll = createSelector(
     })) 
 );
 
+
 /**
  * Select companies for autocomplete component
  * map to Autocomplete item

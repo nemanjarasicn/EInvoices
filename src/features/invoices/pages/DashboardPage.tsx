@@ -12,17 +12,22 @@ type DashboardPageProps = {};
 export default function DashboardPage({}: IProps<DashboardPageProps>): JSX.Element {
   const { cardsSettings } = useFeatureSettings();
   const { dashBoardStyles } = usePageStyles();
+
+  const boxMarginTop   =    window.devicePixelRatio === 1.5 ?  3 :  10;
   return (
-    <div style={dashBoardStyles.cardsWrapper}>
-      
-        {/*<Item>*/}
-          <h3 style={{color: 'grey'}}>E-FAKTURA</h3>
-        {/*</Item>*/}
-          
-          {cardsSettings.map((card: CardProps, index: number) => {
-            return <CardComponent key={index} props={card} />;
-          })}
-         
-    </div>
+    
+    <Grid container >
+
+      <Grid item xs={4}  sx={{mt: boxMarginTop}}>
+        <h3 style={{color:  'white'}}>E-FAKTURA</h3>
+      </Grid>
+        <div style={dashBoardStyles.cardsWrapper}>
+        
+              {cardsSettings.map((card: CardProps, index: number) => {
+                return <CardComponent key={index} props={card} />;
+              })}
+            
+        </div>
+    </Grid>
   );
 }

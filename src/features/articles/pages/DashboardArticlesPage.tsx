@@ -30,6 +30,9 @@ export default function DashboardArticlesPage({}: IProps<DashboardPageProps>): J
   return (
     <Box sx={{ flexGrow: 1 }}>
       <Grid container spacing={2} sx={{display: 'flex', flexDirection: 'column', m: 2.5}}>
+        <Grid item xs={4}  mt={5} >
+          <h3 style={{color:  'white'}}>ARTIKLI</h3>
+        </Grid>
         <div style={dashBoardStyles.cardsWrapper}>
           {cardsSettings.map((card: CardProps, index: number) => {
             return <CardComponent key={index} props={card} />;

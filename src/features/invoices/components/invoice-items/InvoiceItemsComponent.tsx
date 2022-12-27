@@ -121,6 +121,9 @@ export default function InvoiceItemsComponent({
   }
 
 
+  const fontSize  =    window.devicePixelRatio === 1.5 ?    '12px' :  '16px';
+
+
   return (
     <>
       {/*<div style={{ width: "20%" }}>*/}
@@ -168,7 +171,7 @@ export default function InvoiceItemsComponent({
         </Grid>
     </Grid>
     <DataGrid
-      style={{ minHeight:  400,   backgroundColor: 'white',  overflow: "auto", scrollBehavior: "smooth" }}
+      style={{ minHeight:  400,   backgroundColor: 'white',  overflow: "auto", scrollBehavior: "smooth", borderRadius:  '15px',  fontSize:   fontSize }}
       disableColumnMenu
       pagination
       disableColumnFilter

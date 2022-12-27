@@ -16,7 +16,7 @@ export interface MaskProps {
 
 const defaultValues: MaskProps = {
   decimalScale: 2,
-  prefix: "RSD ",
+  prefix: window.devicePixelRatio === 1.5 ? ""  :  "RSD ",
   allowNegative: false,
   maxValue: 1000000000,
   suffix: "",

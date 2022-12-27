@@ -12,18 +12,22 @@ const gray = {
   600: "rgb(181 181 181)",
 };
 
+const paddingButton =  window.devicePixelRatio === 1.5 ?  '8px  15px' :     '12px 24px';
+const widthButton  =   window.devicePixelRatio === 1.5 ?  '150px' :     '220px';
+const  fontSizeButton   =    window.devicePixelRatio === 1.5 ?  '10px' :     '16px';
+
 const CustomButtonRoot = styled("button")`
   font-family: IBM Plex Sans, sans-serif;
   font-weight: bold;
-  font-size: 0.875rem;
+  font-size:   ${fontSizeButton};
   background-color: #ef3e56;
-  padding: 12px 24px;
+  padding: ${paddingButton};
   border-radius: 10px;
   color: white;
   transition: all 150ms ease;
   cursor: pointer;
   border: 1px solid  #323b40 ;
-  width: 220px;
+  width: ${widthButton};
   &:hover {
     background-color: ${gray[600]};
   }

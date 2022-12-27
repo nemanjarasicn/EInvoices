@@ -20,7 +20,7 @@ import {
   getGroups,
   getWarehouses
 } from "../../registries/store/registries.actions";
-import { selectCompanyCurrent } from "../../../app/core/core.selectors";
+import { selectCompany } from "../../../app/core/core.selectors";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -43,7 +43,7 @@ export default function InvoiceTemplatePage({
   const { templatePageSettings } = useFeatureSettings();
   const { tableSettings } = useTableSettings();
   const { templatePageStyles } = usePageStyles();
-  const company = useAppSelector(selectCompanyCurrent);
+  const company = useAppSelector(selectCompany) ?? "";
   const methods = useForm({
     defaultValues: {},
   });
@@ -69,10 +69,10 @@ export default function InvoiceTemplatePage({
 
   React.useEffect(() => {
     if(props.templateType === "warehouses") { 
-      dispatch(getMarketPlacesAll({companyId: company}))
+      dispatch(getMarketPlacesAll({companyId: company[0]}))
     };
     if(props.templateType === "groups") { 
-        dispatch(getPointOfSalesAll({companyId: company}));
+        dispatch(getPointOfSalesAll({companyId: company[0]}));
     }
     if((!(props.templateType === 'warehouses'  ||  props.templateType  ===   'groups')))   {
           dispatch(getDataActionSelect(settings.selectType));
@@ -90,23 +90,28 @@ export default function InvoiceTemplatePage({
     setSelectValue(value.item.uuid)
   }
 
+
+  const  marginTopBox  =     window.devicePixelRatio === 1.5 ?  4 :  10;
   
   return (
-    <Box sx={{ flexGrow: 1, m:2.5}}>
+    <Box sx={{ flexGrow: 1,  mt:   marginTopBox}}>
       <Grid container >
-        <Grid item xs={4}>
+        <Grid item xs={4} >
           {/*<Item>*/}
-            <h1>{t(templatePageSettings[props.templateType].title)}</h1>
+          <h3 style={{color:  'white'}}>{t(templatePageSettings[props.templateType].title)}</h3>
           {/*</Item>*/}
         </Grid>
-        <Grid item xs={12} style={templatePageStyles.buttonsConteiner}>
-            <Grid item xs={4} style={templatePageStyles.buttonsGrid}>
-              {templatePageSettings[props.templateType].showBtns && (
-                <CustomButtonFc
-                  groupButton={templatePageSettings[props.templateType].buttons}
-                />
-              )}
+        <Grid item  xs={8}   sx={{display:  'flex', alignItems:  'center',  justifyContent:  'flex-end'}} >
+            <Grid item xs={12} style={templatePageStyles.buttonsActionGrid}    >
+                    {templatePageSettings[props.templateType].showBtns && (
+                      <CustomButtonFc
+                        groupButton={templatePageSettings[props.templateType].buttons}
+                      />
+                    )}
             </Grid>
+        </Grid>
+        <Grid item xs={12} style={templatePageStyles.buttonsConteiner}>
+            
             <Grid item xs={4} sx={{alignItems: 'center'}} >
               {templatePageSettings[props.templateType].showBtnsSelect && (
                 <FormAutocompleteField
@@ -124,13 +129,13 @@ export default function InvoiceTemplatePage({
               )}
             </Grid>
         </Grid>
-        <Grid item xs={12}>
+        <Grid item xs={12}  >
           {templatePageSettings[props.templateType].showTable && (
-            <div style={templatePageStyles.tableWrapper}>
+            
               <TableComponent
                 props={tableSettings[props.templateType].dataGrid}
               />
-            </div>
+           
           )}
         </Grid>
         <Grid item xs={12}></Grid>

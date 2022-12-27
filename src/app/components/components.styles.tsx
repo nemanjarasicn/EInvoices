@@ -26,11 +26,11 @@ const useAppComponentsStyles = (): { menuAppBarStyles: any } => {
           drawer: {
             backgroundColor: "white", //#24292e
             opacity: open ? 0.9 : 1,
-            width: window.devicePixelRatio == 1.5 ? '97px' : '90px',
+            width: window.devicePixelRatio == 1.5 ? '50px' : '90px',
             borderTopRightRadius:   '15px',
             borderBottomRightRadius:   '15px',
-            height: '700px',
-            mt:  window.devicePixelRatio == 1.5 ?  7 :  20
+            height: window.devicePixelRatio == 1.5 ?  '500px':  '700px',
+            mt:  window.devicePixelRatio == 1.5 ?  14 :  20
           },
           chevronLeftIconButton: {
             display: open ? "block" : "none",

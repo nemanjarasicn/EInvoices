@@ -75,19 +75,12 @@ export default function ArticlesFormComponent({
 
   return (
     <Box
-      sx={{ flexGrow: 1, rowGap: 1, display: "flex", flexDirection: "column" }}
+      sx={{ flexGrow: 1, rowGap: 1, display: "flex", flexDirection: "column", mt: 18 }}
     >
-      <Box
-        sx={{
-          ...formComponent.basicBox,
-          width: "25%",
-          textAlign: "center",
-        }}
-      >
-        <Typography sx={formComponent.typography}>{t(props.createTitle.title)}</Typography>
-      </Box>
+
+
       <Grid container spacing={2}>
-        <Grid item xs={10}>
+        <Grid item xs={12}>
           <Box
             sx={{
               ...formComponent.basicBox,
@@ -105,58 +98,7 @@ export default function ArticlesFormComponent({
             </Paper>
           </Box>
         </Grid>
-        <Grid item xs={2}>
-          <Grid item xs={12}>
-            <IconButton
-              color="primary"
-              aria-label="TextsmsOutlinedIcon"
-              size="large"
-              disabled
-              sx={{
-                backgroundColor: "#f5f5f5",
-                "&:disabled": {
-                  backgroundColor: "#f5f5f5"
-                }
-              }}
-            >
-              <TextsmsOutlinedIcon />
-            </IconButton>
-          </Grid>
-          <br />
-          <Grid item xs={12}>
-            <IconButton
-              color="primary"
-              aria-label="AttachFileIcon"
-              size="large"
-              disabled
-              sx={{
-                backgroundColor: "#f5f5f5",
-                "&:disabled": {
-                  backgroundColor: "#f5f5f5"
-                }
-              }}
-            >
-              <AttachFileIcon />
-            </IconButton>
-          </Grid>
-          <br />
-          <Grid item xs={12}>
-            <IconButton
-              color="primary"
-              aria-label="RestoreRoundedIcon"
-              size="large"
-              disabled
-              sx={{
-                backgroundColor: "#f5f5f5",
-                "&:disabled": {
-                  backgroundColor: "#f5f5f5"
-                }
-              }}
-            >
-              <RestoreRoundedIcon />
-            </IconButton>
-          </Grid>
-        </Grid>
+        
       </Grid>
     </Box>
   );

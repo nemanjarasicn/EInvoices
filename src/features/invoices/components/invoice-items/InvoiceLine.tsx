@@ -103,7 +103,7 @@ export default function InvoiceLine({
       {/*<Grid item xs={0.2}>
         <p>{`${index + 1}.`}</p>
       </Grid>*/}
-      <Grid item xs={2}>
+      <Grid item xs={1.5}>
         <FormTextField
           props={{
             control: control,
@@ -118,7 +118,7 @@ export default function InvoiceLine({
         />
         </Grid>
         
-      <Grid item xs={0.5}>
+      <Grid item xs={0.8}>
         <FormCurrencyField
           props={{
             control: control,
@@ -152,7 +152,7 @@ export default function InvoiceLine({
           }}
         />
       </Grid>
-      <Grid item xs={0.5}>
+      <Grid item xs={0.8}>
         <FormTextField
           props={{
             control: control,
@@ -212,7 +212,7 @@ export default function InvoiceLine({
           }}
         />
       </Grid>
-      <Grid item xs={1.2}>
+      <Grid item xs={1}>
         <FormCurrencyField
           props={{
             control: control,
@@ -234,8 +234,8 @@ export default function InvoiceLine({
           }}
         />
       </Grid>
-
-      <Grid item xs={1.5}>
+   
+      <Grid item xs={1}>
         <FormTextField
           props={{
             control: control,

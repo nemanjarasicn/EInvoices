@@ -22,8 +22,8 @@
           background: "white",  //#eeeeee
           //opacity: "0.9",
           borderRadius: "7px",
-          margin: "10px",
-          marginTop:  '80px',
+          marginRight: "15px",
+          marginTop:  '10px',
           "&:hover": {
             cursor: !disabledShow ? "pointer"  : ' not-allowed',
             color: "gray",
@@ -232,6 +232,7 @@
           fontSize: "0.875rem",
           fontWeight: "700",
           mb: 1,
+          mt: 1
         },
         typography: { fontWeight: 600, p: 0.5, fontSize: "0.9rem" },
         paper: {
