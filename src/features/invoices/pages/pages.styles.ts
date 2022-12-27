@@ -11,8 +11,6 @@ const usePageStyles = (): {
       cardsWrapper: {
         display: "flex",
         flexWrap: "wrap",
-        margin: '20px',
-        marginTop:  '80px',
       },
     },
     templatePageStyles: {

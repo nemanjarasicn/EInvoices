@@ -123,6 +123,7 @@ export default function FormArticlePriceComponent({
               sx={{
                 ...formComponent.basicBox,
                 textAlign: "start",
+                mt: 18
               }}
             >
                 <Typography sx={formComponent.typography}>

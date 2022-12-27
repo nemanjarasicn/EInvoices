@@ -82,11 +82,11 @@ export default function InvoiceTemplatePage({
   
   return (
     <Box sx={{ flexGrow: 1, m: 2.5 }}>
-      <Grid container spacing={2}>
-        <Grid item xs={4}>
-          <Item>
-            <h3>{t(templatePageSettings[props.templateType].title)}</h3>
-          </Item>
+      <Grid container spacing={2}  mt={8}>
+        <Grid item xs={4} >
+         
+              <h3 style={{color:  'white'}}>{t(templatePageSettings[props.templateType].title)}</h3>
+         
         </Grid>
         <Grid item xs={8} style={templatePageStyles.buttonsGrid}>
             <Grid item xs={4} sx={{alignItems: 'center'}} >
@@ -115,11 +115,11 @@ export default function InvoiceTemplatePage({
         </Grid>
         <Grid item xs={12}>
           {templatePageSettings[props.templateType].showTable && (
-            <div style={templatePageStyles.tableWrapper}>
+  
               <TableComponent
                 props={tableSettings[props.templateType].dataGrid}
               />
-            </div>
+              
           )}
         </Grid>
         <Grid item xs={12}></Grid>

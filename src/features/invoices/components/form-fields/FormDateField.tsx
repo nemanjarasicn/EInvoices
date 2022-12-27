@@ -26,6 +26,7 @@ export default function FormDateField({
       render={({ field: { onChange, value }, fieldState: { error } }) => (
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <DatePicker
+            
             value={dayjs(value)}
             inputFormat="DD/MM/YYYY"
             onChange={(newValue) => onChange(dayjs(newValue).toDate())}
@@ -34,6 +35,7 @@ export default function FormDateField({
               <TextField
                 {...params}
                 fullWidth
+                sx={{fontSize:  '10px'}}
                 helperText={error ? error.message : " "}
                 size="small"
                 error={!!error}

@@ -24,14 +24,15 @@ const Item = styled(Paper)(({ theme }) => ({
 export default function DashboardPage({}: IProps<DashboardPageProps>): JSX.Element {
   const { cardsSettings } = useFeatureSettings();
   const { dashBoardStyles } = usePageStyles();
+
+  
+  const  marginTopBox  =     window.devicePixelRatio === 1.5 ?  4 :  10;
   return (
-    <Box sx={{ flexGrow: 1 }}>
+    <Box sx={{ flexGrow: 1 ,  mt:   marginTopBox}}>
       <Grid container spacing={2} sx={{display: 'flex', flexDirection: 'column', m: 2.5}}>
-        {/*<Grid item xs={4}>
-          <Item>
-            <h3>Za kompanije</h3>
-          </Item>
-        </Grid>*/}
+          
+        <h3 style={{color:  'white'}}>ADMINISTRACIJA</h3>
+          
 
         <div style={dashBoardStyles.cardsWrapper}>
           {cardsSettings.filter((card)  => card.typeOfCard  ===   "company").map((card: CardProps, index: number) => {

@@ -13,7 +13,7 @@ const getCompaniesAll: AsyncThunk<any, void, {}> =
       return await PublicService.getCompaniesAll()
         .then((res) => res.data)
         .catch((err) => []);
-    }
+    } 
   );
 
 /**

@@ -16,6 +16,7 @@ import MailIcon from "@mui/icons-material/Mail";
 import Drawer from "@mui/material/Drawer";
 import { Link, Outlet } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import Divider from '@mui/material/Divider';
 import CompaniesSelector from "./CompaniesSelector";
 import LanguageSelector from "./LanguageSelector";
 import UserAccount from "./UserAccount";
@@ -24,12 +25,16 @@ import ArticleIcon from '@mui/icons-material/Article';
 import ApartmentIcon from '@mui/icons-material/Apartment';
 import Payments from "@mui/icons-material/Payments";
 import { useAppComponentsStyles } from "./components.styles";
+import LogoutIcon from "@mui/icons-material/Logout";
 import ErrorModal from "../../features/shared/components/ErrorModals";
 import { useTheme } from '@mui/material/styles';
 import AppLoader from "./AppLoader";
 import { NavItem } from "../models/navItem.models";
 import { useAppSelector } from "../hooks";
 import  {  selectCompany  }  from "../core/core.selectors"
+import { useNavigate } from "react-router-dom";
+import { useAppDispatch } from "../hooks";
+import { removeUser } from "../core/core.reducer";
 
 const drawerWidth =  200;
 
@@ -49,10 +54,12 @@ const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== "open",
 })<AppBarProps>(({ theme, open }) => ({
   zIndex: theme.zIndex.drawer + 1,
-  width: '86.5%'
+  width: '90%'
 }));
 
 export default function ClippedDrawer() {
+  const dispach = useAppDispatch();
+  const navigate = useNavigate();
   const { t } = useTranslation();
   const theme  =  useTheme();
   const { menuAppBarStyles } = useAppComponentsStyles();
@@ -61,17 +68,20 @@ export default function ClippedDrawer() {
   const [calcNumber, setCalcNumber] =  React.useState<number>(1);
   const [showSubMenu,  setShowSubMenu] =  React.useState<boolean>(false);
   const [parentItem, setParentItem] =  React.useState<any>();
-  const stepPosition = window.devicePixelRatio === 1.5 ?  90  : 140;
-  const sizeIcons = window.devicePixelRatio === 1.5 ? '40px' : '50px'; 
+  const stepPosition = window.devicePixelRatio === 1.5 ?  50  : 80;
+  const sizeIcons = window.devicePixelRatio === 1.5 ? '30px' : '50px'; 
   const logoSize = window.devicePixelRatio === 1.5 ?  100 : 150; 
   const paddingLeftMain = window.devicePixelRatio === 1.5 ? '100px' : '160px';
-  const leftSubmenu = window.devicePixelRatio === 1.5 ? '118px' : '140px'; 
-  const startPositionSubmenu = window.devicePixelRatio === 1.5 ? '180px' : '260px'; 
-  const subMenuWidth = window.devicePixelRatio === 1.5 ? 200 : 259 ; 
+  const leftSubmenu = window.devicePixelRatio === 1.5 ? '60px' : '140px'; 
+  const startPositionSubmenu = window.devicePixelRatio === 1.5 ? '230px' : '345px'; 
+  const subMenuWidth = window.devicePixelRatio === 1.5 ? 180 : 259 ; 
   const subMenuHeight = window.devicePixelRatio === 1.5 ? 210 : 350 ; 
   const subMenuPadding = window.devicePixelRatio === 1.5 ?  0 :   2; 
   const fontSizeText = window.devicePixelRatio === 1.5 ? '12px' : '18px';
-  const appBarHeight = window.devicePixelRatio === 1.5 ? '50px' : '65px';  
+  const appBarHeight = window.devicePixelRatio === 1.5 ? '40px' : '65px'; 
+  const logoutIconMarginTop    =     window.devicePixelRatio === 1.5 ? '190px' : '270px'; 
+  const gradiantSize = window.devicePixelRatio === 1.5 ?   '20%' : '15%';
+  const minWidthIcon    =    window.devicePixelRatio === 1.5 ?  20 :  80; 
 
   const navItems: NavItem[] = [
     { name: t("Menu.home"), href: "/", icon: "Home",submenu: false, },
@@ -152,6 +162,7 @@ export default function ClippedDrawer() {
         },
       ],
     },
+    
   ];
 
   const icon = (icon: string): any => {
@@ -166,6 +177,9 @@ export default function ClippedDrawer() {
         return <Payments sx={{fontSize:  sizeIcons}} />;
       case "Articles":
           return <ArticleIcon sx={{fontSize:  sizeIcons}} />;
+
+      case "Logout":
+            return <LogoutIcon style={{ fontSize:  sizeIcons }} />;
       case "ApartmentIcon":
           return <ApartmentIcon sx={{fontSize:  sizeIcons}} />;
     }
@@ -182,10 +196,22 @@ export default function ClippedDrawer() {
   };
 
 
+
+  /**
+   * Handle Log out
+   */
+   const handleLogout = (): void => {
+    dispach(removeUser({}));
+    sessionStorage.removeItem("token");
+    navigate("/login");
+  };
+
+  
+
   return (
     <Box sx={{ display: "flex"  }}>
       <CssBaseline />
-      <AppBar position="fixed" sx={{ backgroundColor:  "#323b40",  height:  appBarHeight, mr: 11, mt: 1}}>
+      <AppBar position="fixed" elevation={0} sx={{ backgroundColor:  "#323b40",  height:  appBarHeight, mr: 6, mt: 1}}>
         <Toolbar style={menuAppBarStyles.toolbar}>
           <div style={menuAppBarStyles.logoDiv}>
             <Typography variant="h6" noWrap component="div">
@@ -197,9 +223,10 @@ export default function ClippedDrawer() {
           <CompaniesSelector /> 
            }
             <LanguageSelector />
-            <UserAccount />
+            {/*<UserAccount />*/}
           </div>
         </Toolbar>
+        <Divider   sx={{width: '97%', ml: 2,  backgroundColor:  'white'}}/>
       </AppBar>
       <Drawer
         variant="permanent"
@@ -227,6 +254,7 @@ export default function ClippedDrawer() {
       </IconButton>*/}
 
         <List key={"list_nav"}>
+
           {navItems.map((item, index) => {
             return (
               <div key={index}>
@@ -241,7 +269,7 @@ export default function ClippedDrawer() {
                   <ListItemButton
                     key={`${item.name}_list_nav_button_${index}`}
                     sx={{
-                      minHeight: 80, //48
+                      minHeight:  minWidthIcon, //48
                       justifyContent: open ? "initial" : "center",
                       px: 2.5,
                       display:  'flex',
@@ -357,11 +385,56 @@ export default function ClippedDrawer() {
               </div>
             );
           })}
+
+
+          <div key={'logout'}  style={{marginTop:    logoutIconMarginTop}}>
+                <ListItem
+                  key={`logaout`}
+                  disablePadding
+                  sx={{ display: "block" }}
+                  className="item-class"
+                >
+                  <ListItemButton
+                    key={`logaout`}
+                    sx={{
+                      minHeight: 80, //48
+                      justifyContent: open ? "initial" : "center",
+                      px: 2.5,
+                      display:  'flex',
+                      flexDirection:  'column'
+                    }}
+                    onClick={()  =>  handleLogout()}
+                  >
+                    <ListItemIcon
+                      key={'logout_icon'}
+                      sx={{
+                        minWidth: 0,
+                        display: 'block',
+                        color: "black", //  #fff
+                        opacity: 0.5,
+                      }}
+                      
+                    >
+                      <LogoutIcon style={{ fontSize:  sizeIcons }} />
+                    </ListItemIcon>
+                    {/*<ListItemText
+                      key={`${item.name}_list_nav_text${index}`}
+                      primaryTypographyProps={{fontSize:  fontSizeText, fontWeight: 500}} 
+                      primary={item.name}
+                      sx={{
+                        display:  "block" ,
+                        color: theme.palette.secondary.main, // fff
+                        opacity: 0.9,
+                      }}
+                    />*/}
+                  </ListItemButton>
+                </ListItem>
+        </div>
         </List>
       </Drawer>
       <Box
         component="main"
-        sx={{ flexGrow: 1, paddingLeft:  paddingLeftMain, paddingRight: "90px", background:  "linear-gradient(180deg, #323b40 15%, #f3f3f4 0%)", height: '190vh' }}
+        sx={{ flexGrow: 1, paddingLeft:  paddingLeftMain, paddingRight: "90px", background:  `linear-gradient(180deg, #323b40  ${gradiantSize} , #f3f3f4 0%)`, height: '190vh' }}
       >
         <Toolbar />
         <AppLoader />

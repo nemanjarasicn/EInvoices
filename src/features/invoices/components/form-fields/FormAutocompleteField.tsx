@@ -31,6 +31,9 @@ export default function FormAutocompleteField({
   const data: AutocompleteItem[] = useAppSelector(props.additional.selector);
   const [name, setName] = React.useState('');
 
+
+  const fontSize  =    window.devicePixelRatio === 1.5 ?    '12px' :  '16px';
+
   const StyledPopper = styled(Popper)({
     [`& .${autocompleteClasses.listbox}`]: {
       boxSizing: "border-box",
@@ -56,6 +59,11 @@ export default function FormAutocompleteField({
           id={`combo-box-demo_${props.name}`}
           options={[...data]}
           noOptionsText={props.additional.noResultText ?? "No options"}
+          sx={{
+            '& .MuiAutocomplete-input, & .MuiInputLabel-root': {
+              fontSize: fontSize,
+            },
+          }}
           getOptionLabel={(item: AutocompleteItem) => item.name}
           isOptionEqualToValue={(option, value) =>
             Boolean(option.id === value.id)

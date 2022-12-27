@@ -48,10 +48,13 @@ export default function TableComponent({
 
   const selection: GridSelectionModel = useAppSelector(selectSelection);
 
+
+  const fontSize  =    window.devicePixelRatio === 1.5 ?    '12px' :  '16px';
+
   return (
     <>
       <DataGrid
-        style={{ minHeight: tableData.length ? undefined : 400, backgroundColor: 'white' }}
+        style={{ minHeight: tableData.length ? undefined : 400, backgroundColor: 'white', borderRadius:  '15px',  fontSize:  fontSize }}
         disableColumnMenu
         pagination
         disableColumnFilter

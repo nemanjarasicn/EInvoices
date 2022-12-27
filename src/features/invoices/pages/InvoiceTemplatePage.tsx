@@ -105,6 +105,8 @@ export default function InvoiceTemplatePage({
   const { templatePageSettings } = useFeatureSettings();
   const { tableSettings } = useTableSettings();
   const { templatePageStyles } = usePageStyles();
+
+  const boxMarginTop   =    window.devicePixelRatio === 1.5 ?  4 :  10;
   const [filtersSearch, setFiltersSearch]  =  React.useState(useAppSelector(selectFilters));
 
     const date  = new Date();
@@ -151,8 +153,8 @@ export default function InvoiceTemplatePage({
 
 
   return (
-    <Box sx={{ flexGrow: 1,  mt: 10  }}>
-      <Grid container spacing={2}  pl={5} >
+    <Box sx={{ flexGrow: 1,  mt:   boxMarginTop  }}>
+      <Grid container spacing={2}  pl={5}   >
         <Grid item xs={4}>
           {/*<Item>*/}
             <h3 style={{color: 'grey'}}>{t('E-FAKTURA') + '/' + t(templatePageSettings[props.templateType].title)}</h3>
@@ -168,9 +170,9 @@ export default function InvoiceTemplatePage({
             </Grid>
         </Grid>
     
-        <Grid container  sx={{backgroundColor: 'white', mt: 2,   borderRadius:  '15px'}}   spacing={2}>
-
-              <Grid item xs={12} style={templatePageStyles.buttonsGrid}>
+        <Grid container  sx={{backgroundColor: 'white', mt: 2, borderRadius:  '15px'}}   spacing={2}>
+              
+              <Grid item xs={12} style={templatePageStyles.buttonsGrid}  >
                   <CustomFilterBox  props={{
                         filters: templatePageSettings[props.templateType].filters,
                         actions: templatePageSettings[props.templateType].actions,

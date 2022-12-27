@@ -38,12 +38,15 @@ export default function TableComponent({
 
   const selection: GridSelectionModel = useAppSelector(selectSelection);
 
+
+  const fontSize  =    window.devicePixelRatio === 1.5 ?    '12px' :  '16px';
+
   return (
     <>
       <ModalPdf    open={openPdf} ></ModalPdf>
       
             <DataGrid
-              style={{ minHeight: tableData.length ? undefined : 200,   backgroundColor: 'white' }}
+              style={{ minHeight: tableData.length ? undefined : 200,   backgroundColor: 'white',  fontSize:   fontSize }}
               disableColumnMenu
               pagination
               disableColumnFilter

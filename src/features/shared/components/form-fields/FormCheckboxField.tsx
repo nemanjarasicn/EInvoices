@@ -25,6 +25,9 @@ type FormCheckboxFieldProps = FormFieldProps & {
 export default function CheckboxField({
   props,
 }: IProps<FormCheckboxFieldProps>): JSX.Element {
+
+  const fontSizeCheckbox  =   window.devicePixelRatio === 1.5 ?  '12px' :     '20px';
+  const widthCheckbox  =   window.devicePixelRatio === 1.5 ?  '20' :     '40px';
   return (
     <Controller
       name={props.name}
@@ -33,14 +36,14 @@ export default function CheckboxField({
         <FormControlLabel
             key={value}
             label={props.label}
-            sx={{color: props.additional?.color ? props.additional.color  :  'white'}}
+            sx={{color: props.additional?.color ? props.additional.color  :  'white',  '& .MuiFormControlLabel-label': { fontSize:  fontSizeCheckbox }}}
             control={
                 <Checkbox
                     {...props}
                     checked={value}
                     value={props.additional?.defaultValue}
                     onChange={(e) => {onChange(e.target.checked ? e.target.value : false)}}
-                    sx={{ color: props.additional?.color ? props.additional.color  :  'white', '&.Mui-checked': {color: '#6cb238' }}}
+                    sx={{ color: props.additional?.color ? props.additional.color  :  'white', '&.Mui-checked': {color: '#6cb238' }, '& .MuiSvgIcon-root': { fontSize:   widthCheckbox }}}
                 />
             }
         />

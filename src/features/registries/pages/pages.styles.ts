@@ -23,6 +23,12 @@
           alignItems: "center",
           justifyContent: "flex-start",
         },
+        
+        buttonsActionGrid: {
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "flex-end",
+        },
         selectGrid: {
           alignItems: "center",
           width: '70%'
