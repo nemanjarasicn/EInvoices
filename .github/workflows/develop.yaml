@@ -20,7 +20,7 @@ jobs:
       AWS_DEFAULT_REGION: eu-central-1
       ROLE_TO_ASSUME: "arn:aws:iam::067493719983:role/github-action-s3-deployment-role"
       REACT_APP_PUBLIC_API_URL: https://demoefaktura.mfin.gov.rs
-      REACT_APP_GATEWAY: https://api-gateway.mastersoftware.trampic.info
+      REACT_APP_GATEWAY: https://api.dev.mastersoftware.rs
       GENERATE_SOURCEMAP: false
       DISABLE_ESLINT_PLUGIN: true
     steps:
