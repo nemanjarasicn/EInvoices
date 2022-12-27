@@ -10,6 +10,7 @@ type FormNumberFieldProps = FormFieldProps & {
     mask: MaskProps;
     readonly: boolean;
     labelShrink?: boolean;
+    parentFn?:  Function;
   };
 };
 
@@ -18,17 +19,32 @@ export default function FormCurrencyField({
 }: IProps<FormNumberFieldProps>): JSX.Element {
 
 
+  
+  const focusFlag =  props.label  ===  "Količina"  ?  true  :  false;
   const fontSize  =    window.devicePixelRatio === 1.5 ?    '10px' :  '16px';
+
+
+  const handleOnKeyDown  =  (event: any) =>  {
+    if(event.key === 'Enter'  &&  props.additional?.parentFn){
+      console.log('enter press here! ');
+      props.additional?.parentFn();
+    }
+  }
   return (
     <Controller
       control={props.control}
       name={props.name}
       render={({ field: { onChange, value }, fieldState: { error } }) => (
         <TextField
+          onKeyDown={(event)  =>  handleOnKeyDown(event)}
+          autoFocus={focusFlag}
           disabled={props.disabled}
           helperText={error ? error.message : " "}
           size="small"
-          error={!!error}
+          onFocus={event => {
+            event.target.select();
+          }}
+          error={!!error} 
           onChange={onChange}
           value={value}
           fullWidth

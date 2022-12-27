@@ -24,16 +24,25 @@ export default function FormDropdownField({
   props,
 }: IProps<FormDropdownFieldProps>): JSX.Element {
   const { t } = useTranslation();
+
+
+  const fontSize  =    window.devicePixelRatio === 1.5 ?    '10px' :  '16px';
   return (
     <Controller
       control={props.control}
       name={props.name}
       render={({ field: { onChange, value }, fieldState: { error } }) => (
         <FormControl size={"small"} error={!!error} fullWidth>
-          <InputLabel id={`select-label_${props.label}.id`}>
+          <InputLabel id={`select-label_${props.label}.id`} sx={{fontSize:  fontSize}}>
             {t(props.label)}
           </InputLabel>
           <Select
+            sx={{
+              '& .MuiSelect-select': {
+                  fontSize: `${fontSize}`,
+                 
+               }
+             }}
             labelId={`select-label_${props.label}.id`}
             id={`select-component_${props.name}.id`}
             onChange={(e) => {
@@ -50,7 +59,7 @@ export default function FormDropdownField({
             )}
             {props.options.map((option: OptionItem, index) => {
               return (
-                <MenuItem key={`${index}_${option.name}`} value={option.value}>
+                <MenuItem sx={{fontSize: fontSize}} key={`${index}_${option.name}`} value={option.value}>
                   {`${t(option.name)}`}
                 </MenuItem>
               );

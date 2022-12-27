@@ -9,6 +9,7 @@ type FormTextFieldProps = FormFieldProps & {
     suffix?: string;
     readonly?: boolean;
     labelShrink?: boolean;
+    parentFn?:   Function; 
   };
 };
 
@@ -20,12 +21,22 @@ export default function FormTextField({
 }: IProps<FormTextFieldProps>): JSX.Element {
 
   const fontSize  =    window.devicePixelRatio === 1.5 ?    '10px' :  '16px';
+
+
+
+  const handleOnKeyDown  =  (event: any) =>  {
+    if(event.key === 'Enter'  &&  props.additional?.parentFn){
+      console.log('enter press here! ');
+      props.additional?.parentFn();
+    }
+  }
   return (
     <Controller
       name={props.name}
       control={props.control}
       render={({ field: { onChange, value }, fieldState: { error } }) => (
         <TextField
+        onKeyDown={(event)  =>  handleOnKeyDown(event)}
           disabled={props.disabled}
           helperText={error ? error.message : " "}
           size="small"

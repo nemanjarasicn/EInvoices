@@ -35,8 +35,11 @@ import  {  selectCompany  }  from "../core/core.selectors"
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../hooks";
 import { removeUser } from "../core/core.reducer";
+import useScrollTrigger from '@mui/material/useScrollTrigger';
+import Slide from '@mui/material/Slide';
 
 const drawerWidth =  200;
+
 
 /*const DrawerHeader = styled("div")(({ theme }) => ({
   display: "flex",
@@ -53,7 +56,7 @@ interface AppBarProps extends MuiAppBarProps {
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== "open",
 })<AppBarProps>(({ theme, open }) => ({
-  zIndex: theme.zIndex.drawer + 1,
+  zIndex: 1,
   width: '90%'
 }));
 
@@ -69,19 +72,22 @@ export default function ClippedDrawer() {
   const [showSubMenu,  setShowSubMenu] =  React.useState<boolean>(false);
   const [parentItem, setParentItem] =  React.useState<any>();
   const stepPosition = window.devicePixelRatio === 1.5 ?  50  : 80;
-  const sizeIcons = window.devicePixelRatio === 1.5 ? '30px' : '50px'; 
+  const sizeIcons = window.devicePixelRatio === 1.5 ? '30px' : '40px'; 
   const logoSize = window.devicePixelRatio === 1.5 ?  100 : 150; 
   const paddingLeftMain = window.devicePixelRatio === 1.5 ? '100px' : '160px';
-  const leftSubmenu = window.devicePixelRatio === 1.5 ? '60px' : '140px'; 
-  const startPositionSubmenu = window.devicePixelRatio === 1.5 ? '230px' : '345px'; 
+  const leftSubmenu = window.devicePixelRatio === 1.5 ? '60px' : '118px'; 
+  const startPositionSubmenu = window.devicePixelRatio === 1.5 ? '230px' : '335px'; 
   const subMenuWidth = window.devicePixelRatio === 1.5 ? 180 : 259 ; 
   const subMenuHeight = window.devicePixelRatio === 1.5 ? 210 : 350 ; 
   const subMenuPadding = window.devicePixelRatio === 1.5 ?  0 :   2; 
   const fontSizeText = window.devicePixelRatio === 1.5 ? '12px' : '18px';
   const appBarHeight = window.devicePixelRatio === 1.5 ? '40px' : '65px'; 
-  const logoutIconMarginTop    =     window.devicePixelRatio === 1.5 ? '190px' : '270px'; 
+  const logoutIconMarginTop    =     window.devicePixelRatio === 1.5 ? '190px' : '370px'; 
   const gradiantSize = window.devicePixelRatio === 1.5 ?   '20%' : '15%';
   const minWidthIcon    =    window.devicePixelRatio === 1.5 ?  20 :  80; 
+
+
+  const trigger = useScrollTrigger();
 
   const navItems: NavItem[] = [
     { name: t("Menu.home"), href: "/", icon: "Home",submenu: false, },
@@ -211,7 +217,8 @@ export default function ClippedDrawer() {
   return (
     <Box sx={{ display: "flex"  }}>
       <CssBaseline />
-      <AppBar position="fixed" elevation={0} sx={{ backgroundColor:  "#323b40",  height:  appBarHeight, mr: 6, mt: 1}}>
+      <Slide appear={false} direction="down" in={!trigger}>
+      <AppBar position="absolute" elevation={0} sx={{ backgroundColor:  "#323b40",  height:  appBarHeight, mr: 6, mt: 1, top: 0}}>
         <Toolbar style={menuAppBarStyles.toolbar}>
           <div style={menuAppBarStyles.logoDiv}>
             <Typography variant="h6" noWrap component="div">
@@ -228,6 +235,7 @@ export default function ClippedDrawer() {
         </Toolbar>
         <Divider   sx={{width: '97%', ml: 2,  backgroundColor:  'white'}}/>
       </AppBar>
+     </Slide>
       <Drawer
         variant="permanent"
         open={open}
@@ -434,7 +442,7 @@ export default function ClippedDrawer() {
       </Drawer>
       <Box
         component="main"
-        sx={{ flexGrow: 1, paddingLeft:  paddingLeftMain, paddingRight: "90px", background:  `linear-gradient(180deg, #323b40  ${gradiantSize} , #f3f3f4 0%)`, height: '190vh' }}
+        sx={{ flexGrow: 1, paddingLeft:  paddingLeftMain, paddingRight: "90px", background:  `linear-gradient(180deg, #323b40  ${gradiantSize} , #f3f3f4 0%)`, height: '220vh' }}
       >
         <Toolbar />
         <AppLoader />
