@@ -45,7 +45,7 @@ import {
             />
             <CardContent sx={invoiceCardStyles.cardContent}>
               <Typography>
-                <Icon  sx={{fontSize: sizeIcons, color: theme.palette.secondary.main}} />
+                <Icon  sx={{fontSize: sizeIcons, color: 'gray'}} />
               </Typography>
             </CardContent>
             <div style={invoiceCardStyles.cardContent}>

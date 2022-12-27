@@ -29,7 +29,7 @@ export default function DashboardPage({}: IProps<DashboardPageProps>): JSX.Eleme
   const  marginTopBox  =     window.devicePixelRatio === 1.5 ?  4 :  10;
   return (
     <Box sx={{ flexGrow: 1 ,  mt:   marginTopBox}}>
-      <Grid container spacing={2} sx={{display: 'flex', flexDirection: 'column', m: 2.5}}>
+      <Grid container spacing={2} sx={{display: 'flex', flexDirection: 'column', ml: 1}}>
           
         <h3 style={{color:  'white'}}>ADMINISTRACIJA</h3>
           

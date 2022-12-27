@@ -13,6 +13,7 @@ import TableNoRowsOverlay from "../DataGrid/NoRowsOverlay";
 import { useTranslation } from "react-i18next";
 import TablePagination from "../DataGrid/TablePagination";
 import DeleteIcon from "@mui/icons-material/Delete";
+import FormTextField from "../form-fields/FormTextField";
 
 
 type InvoiceItemsComponentProps = Omit<GroupFieldProps, "title"> & {
@@ -31,6 +32,7 @@ export default function InvoiceItemsComponent({
   const { t } = useTranslation();
   const [items, setItems] = React.useState<any[]>([]);
   const [itemsList, setItemsList] = React.useState<any[]>([]);
+  const [name, setName] = React.useState<any>("");
   const childRef = React.useRef();
 
 
@@ -57,6 +59,8 @@ export default function InvoiceItemsComponent({
         ...formGetValues("invoiceLine"),
         { idLine: id, ...item?.item },
       ]);
+      formSetValue(
+        `naziv`, item?.name);
       formSetValue("invoiceLine", [
         ...formGetValues("invoiceLine"),
         { idLine: id, ...item?.item },
@@ -71,17 +75,21 @@ export default function InvoiceItemsComponent({
     const newItems: any[] = [];
     const newItemsList: any = formGetValues("invoiceLine").slice(-1)[0];
 
-   
-  setItems([]);
-    setItemsList((prevState)   =>  [...prevState, 
-                                    {id:  newItemsList.id, 
-                                     name: newItemsList.item.name, 
-                                     unitCode: newItemsList.unitCode,
-                                     vatName:  newItemsList.vatName,
-                                     invoicedQuantity:    newItemsList.invoicedQuantity,
-                                     price:   newItemsList.price.unitPrice,
-                                     discount:  newItemsList.price.discount,
-                                     priceAmount:  newItemsList.price.priceAmount }]);
+    console.log(newItemsList);
+
+  if(newItemsList.invoicedQuantity)  {
+      setItems([]);
+        setItemsList((prevState)   =>  [...prevState, 
+                                        {id:  newItemsList.id, 
+                                        name: newItemsList.item.name, 
+                                        unitCode: newItemsList.unitCode,
+                                        vatName:  newItemsList.vatName,
+                                        invoicedQuantity:    newItemsList.invoicedQuantity,
+                                        price:   newItemsList.price.unitPrice,
+                                        discount:  newItemsList.price.discount,
+                                        priceAmount:  newItemsList.price.priceAmount }]);
+        formSetValue(`naziv`, "");
+  }
                                       
   };  
 
@@ -128,7 +136,7 @@ export default function InvoiceItemsComponent({
     <>
       {/*<div style={{ width: "20%" }}>*/}
       <Grid container spacing={1}  >
-        <Grid item xs={2} >
+        <Grid item xs={3} >
             <FormAutocompleteField
               props={{
                 name: "foundProduct",
@@ -146,8 +154,22 @@ export default function InvoiceItemsComponent({
               }}
             />
         </Grid>
+        <Grid item xs={2}>
+        <FormTextField
+          props={{
+            control: control,
+            disabled: true,
+            label: t('Naziv'),
+            name: `naziv`,
+            additional: {
+              suffix: "",
+              readonly: true,
+            },
+          }}
+        />
+        </Grid>
       {/*</div>*/}
-        <Grid item xs={10} >
+        <Grid item xs={12} >
             {items.map((item: any, index: number) => {
               if(items.length - 1 === index) {
               return (

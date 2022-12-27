@@ -19,6 +19,8 @@ type FormDateFieldProps = FormFieldProps & {
 export default function FormDateField({
   props,
 }: IProps<FormDateFieldProps>): JSX.Element {
+
+  const fontSize  =    window.devicePixelRatio === 1.5 ?    '10px' :  '16px';
   return (
     <Controller
       name={props.name}
@@ -26,7 +28,7 @@ export default function FormDateField({
       render={({ field: { onChange, value }, fieldState: { error } }) => (
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <DatePicker
-            
+            InputProps={{style: { fontSize: fontSize}}}
             value={dayjs(value)}
             inputFormat="DD/MM/YYYY"
             onChange={(newValue) => onChange(dayjs(newValue).toDate())}
@@ -35,7 +37,7 @@ export default function FormDateField({
               <TextField
                 {...params}
                 fullWidth
-                sx={{fontSize:  '10px'}}
+                sx={{fontSize:  fontSize}}
                 helperText={error ? error.message : " "}
                 size="small"
                 error={!!error}

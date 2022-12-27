@@ -34,6 +34,8 @@ export default function SalesTemplatePage({
 
           case CreateType.FORM:
             return (
+              <>
+              <h3 style={{color:  'white',  marginTop:  90}}>KREIRAJ NOVU FAKTURU</h3>
               <InvoiceFormComponent
                 props={
                   salesTemplatePageSettings[
@@ -41,6 +43,7 @@ export default function SalesTemplatePage({
                   ] as InvoiceFormComponentProps
                 }
               />
+              </>
             );
           default:
             throw new Error("Pass Type of creation");

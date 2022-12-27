@@ -226,7 +226,7 @@ export default function InvoiceFormComponent({
 
   return (
     <Box
-      sx={{ flexGrow: 1, rowGap: 1, display: "flex", flexDirection: "column", mt: '120px' }}
+      sx={{ flexGrow: 1, rowGap: 1, display: "flex", flexDirection: "column", mt: '20px' }}
     >
       {/*<Box
         sx={{
