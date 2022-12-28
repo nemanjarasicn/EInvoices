@@ -26,21 +26,31 @@ export default function FormDropdownField({
   const { t } = useTranslation();
 
 
-  const fontSize  =    window.devicePixelRatio === 1.5 ?    '10px' :  '16px';
+  const fontSize  =    window.devicePixelRatio === 1.5 ?    '12px' :  '16px';
+  
+  const heightSize  =     window.devicePixelRatio === 1.5 ?    '15px' :  '';
   return (
     <Controller
       control={props.control}
       name={props.name}
       render={({ field: { onChange, value }, fieldState: { error } }) => (
         <FormControl size={"small"} error={!!error} fullWidth>
-          <InputLabel id={`select-label_${props.label}.id`} sx={{fontSize:  fontSize}}>
+          <InputLabel id={`select-label_${props.label}.id`} 
+          sx={{
+            fontSize:  fontSize, 
+            fontFamily: "Roboto",
+            lineHeight: "16px",
+            fontWeight:  400
+            }}>
             {t(props.label)}
           </InputLabel>
           <Select
             sx={{
               '& .MuiSelect-select': {
                   fontSize: `${fontSize}`,
-                 
+                  height:  heightSize,
+                  alignItems: 'center',
+                  display:  'flex'
                }
              }}
             labelId={`select-label_${props.label}.id`}

@@ -2,6 +2,8 @@
  * Feature Components styles
  * @returns {}
  */
+
+ const marginTopCardheader  = window.devicePixelRatio === 1.5 ?   -4:  0; 
  const useComponentsStyles = (disabledShow?: boolean): {
     invoiceCardStyles: any;
     filersToolbarStyles: any;
@@ -34,6 +36,12 @@
           display: "flex",
           alignItems: "center",
           justifyContent: "start",
+          fontFamily:  'Roboto',
+          lineHeight:   "32px",
+          fontWeight:  700,
+          color:   'black',
+          marginTop:  marginTopCardheader
+          
         },
         cardContent: {
           display: "flex",
@@ -41,6 +49,7 @@
           justifyContent: "center",
           flexDirection: "column",
           rowGap: "20px",
+          
         },
       },
       filersToolbarStyles: {

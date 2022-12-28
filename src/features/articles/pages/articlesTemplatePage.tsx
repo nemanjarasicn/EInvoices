@@ -19,6 +19,9 @@ import { selectMarketPlaces } from "../../shared/components/form-fields/store/fo
 import { getMarketPlacesAll, getPointOfSalesAll }  from  "../../shared/components/form-fields/store/form.actions"
 import { selectCompanyCurrent } from "../../../app/core/core.selectors";
 import { getArticles } from "../store/articles.actions";
+import Breadcrumbs from '@mui/material/Breadcrumbs';
+import Link from '@mui/material/Link';
+import Typography from '@mui/material/Typography';
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -84,9 +87,14 @@ export default function InvoiceTemplatePage({
     <Box sx={{ flexGrow: 1, m: 2.5 }}>
       <Grid container spacing={2}  mt={8}>
         <Grid item xs={4} >
-         
-              <h3 style={{color:  'white'}}>{t(templatePageSettings[props.templateType].title)}</h3>
-         
+        
+        
+              <Breadcrumbs aria-label="breadcrumb">
+                <Link  sx={{color: '#60737C', fontSize:  "20px", fontFamily:  "Roboto",  lineHeight:  "32px",  fontWeight:  700}}  href="/articles">
+                        ARTIKLI
+                </Link>
+                <Typography  sx={{color: 'white', fontSize:  "20px", fontFamily:  "Roboto",  lineHeight:  "32px",  fontWeight:  700}}>{t(templatePageSettings[props.templateType].title)}</Typography>
+          </Breadcrumbs>  
         </Grid>
         <Grid item xs={8} style={templatePageStyles.buttonsGrid}>
             <Grid item xs={4} sx={{alignItems: 'center'}} >

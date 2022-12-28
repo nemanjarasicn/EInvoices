@@ -20,7 +20,7 @@ export default function FormDateField({
   props,
 }: IProps<FormDateFieldProps>): JSX.Element {
 
-  const fontSize  =    window.devicePixelRatio === 1.5 ?    '10px' :  '16px';
+  const fontSize  =    window.devicePixelRatio === 1.5 ?    '12px' :  '16px';
   return (
     <Controller
       name={props.name}

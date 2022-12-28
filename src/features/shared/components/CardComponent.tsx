@@ -27,14 +27,21 @@ import {
     const theme  =  useTheme();
     const { invoiceCardStyles } = useComponentsStyles(props.cardBtn.disabled);
     const Icon = props.icon;
-    const sizeIcons = window.devicePixelRatio === 1.5 ? '40px' : '80px'; 
-    const sizeTitleCard = window.devicePixelRatio === 1.5 ? '22px' : '32px'; 
+    const sizeIcons = window.devicePixelRatio === 1.5 ? '40px' : '40px'; 
+    const sizeTitleCard = window.devicePixelRatio === 1.5 ? '16px' : '20px'; 
     const sizeSubTitleCard = window.devicePixelRatio === 1.5 ? '12px' : '16px'; 
-    const minWidthCard = window.devicePixelRatio === 1.5 ?  200 : 275; 
+    const minWidthCard = window.devicePixelRatio === 1.5 ?  200 : 275;
+    const  marginTopCard    =   window.devicePixelRatio === 1.5 ? '15px' : '40px'; 
     return (
       <Box sx={{ minWidth:   minWidthCard }}>
         <Card sx={invoiceCardStyles.card}   onClick={!props.cardBtn.disabled ?  props.cardBtn.btnFn  : undefined }>
           <React.Fragment>
+
+            <CardContent sx={invoiceCardStyles.cardContent}>
+              <Typography>
+                <Icon  sx={{fontSize: sizeIcons, color: 'black', mt:  marginTopCard}} />
+              </Typography>
+            </CardContent>
             <CardHeader
               sx={invoiceCardStyles.cardHeader}
               titleTypographyProps={{
@@ -43,21 +50,15 @@ import {
               }}
               title= {t(`${props.title}`)}
             />
-            <CardContent sx={invoiceCardStyles.cardContent}>
-              <Typography>
-                <Icon  sx={{fontSize: sizeIcons, color: 'gray'}} />
-              </Typography>
-            </CardContent>
-            <div style={invoiceCardStyles.cardContent}>
-                <Typography
+            <Typography
                     component="h5"
                     variant="subtitle1"
                     gutterBottom
-                    sx={{ textAlign: "center", p: 2, color: '#979A9A', fontSize:   sizeSubTitleCard, fontWeight: 500}}
+                    sx={{ textAlign: "center", p: 2, color: '#979A9A', fontSize:   sizeSubTitleCard, fontWeight: 400, mt: -4}}
                   >
                     {t('Pogledajte sve artikle, izmenite ili napravite novi artikal')}
                 </Typography>
-          </div>
+            
           </React.Fragment>
         </Card>
       </Box>

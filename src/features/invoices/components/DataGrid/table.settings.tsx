@@ -54,7 +54,7 @@ const useTableSettings = (): TableSettings => {
     const zipData = await dispach(getZip({id: id,typeDocument: typeInvoicesZip, typeInvoices:  typeInvoices}));
     //const unzipData = await  unzipFileData(zipData);
     if(flag ===  'PDF') {
-      dispach(setopenModalPdf(true))
+      //dispach(setopenModalPdf(true))
     }
     unzipFile(flag, zipData)
     .catch((err)   =>  console.log('greska prilikom download ' + flag));
@@ -334,7 +334,7 @@ const useTableSettings = (): TableSettings => {
               renderCell: (params) => (
                 <Box sx={{display:  'flex', justifyContent: 'space-between', p: 2}}>
                   <LightTooltip title="PDF preview">
-                  <IconButton sx={{mr: 2}} color="primary" aria-label="pdf" component="label"  onClick={() => {getZipData('PDF', 0,  params.row.purchaseInvoiceId);dispach(setopenModalPdf(true))}}>
+                  <IconButton sx={{mr: 2}} color="primary" aria-label="pdf" component="label"  onClick={() => {getZipData('PDF', 0,  params.row.purchaseInvoiceId)}}>
                     <PictureAsPdfIcon  sx={{ color: "#ef3e56" }} />
                   </IconButton>
                   </LightTooltip>

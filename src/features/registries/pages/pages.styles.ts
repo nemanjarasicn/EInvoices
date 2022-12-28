@@ -11,6 +11,7 @@
         cardsWrapper: {
           display: "flex",
           flexWrap: "wrap",
+          marginTop: "38px"
         },
       },
       templatePageStyles: {

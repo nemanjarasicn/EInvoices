@@ -4,6 +4,7 @@ import { ButtonUnstyledProps, useButton } from "@mui/base/ButtonUnstyled";
 import { styled } from "@mui/system";
 import Stack from "@mui/material/Stack";
 import { useTranslation } from "react-i18next";
+import AddIcon from '@mui/icons-material/Add';
 
 const red = {
   600: "rgb(231, 49, 79)",
@@ -65,7 +66,7 @@ const CustomButton = React.forwardRef(function CustomButton(
   };
 
   return (
-    <CustomButtonRoot {...getRootProps()} className={clsx(classes)}>
+    <CustomButtonRoot  {...getRootProps()} className={clsx(classes)}  >
       {children}
     </CustomButtonRoot>
   );
@@ -98,7 +99,7 @@ export default function CustomButtonFc({
                 onClick={button.btnFn}
                 disabled={button.disabled}
               >
-                {t(button.title)}
+                 {t(button.title)}
               </CustomButton>
             );
           })}

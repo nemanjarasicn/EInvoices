@@ -29,6 +29,17 @@ const calculateNewPrice = (unitPrice: number, discount: number): number => {
   return unitPrice - unitPrice * (discount / 100);
 };
 
+
+/**
+ * Calculate New Discount
+ * @param unitPrice Unit Price
+ * @param newPrice  New Price
+ * @returns {number} discount
+ */
+ const calculateNewDiscount = (unitPrice: number, newPrice: number): number => {
+  return  (100 * newPrice) / unitPrice ;
+};
+
 /**
  * Calculate total
  * @param productList List of products
@@ -271,4 +282,5 @@ export {
   mapInvoiceLinesCreateTaxTotal,
   createSupplayerData,
   createMonetaryTotal,
+  calculateNewDiscount
 };

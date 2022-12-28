@@ -170,7 +170,7 @@
       "newPrice": "Nova cena",
       "percent": "PDV",
       "unitTaxAmount": "Iznos PDV",
-      "priceAmount": "Konačna cena",
+      "priceAmount": "Ukupno",
       "priceWithoutDiscount": "Ukupan iznos bez popusta",
       "taxableAmount": "Osnovica za PDV",
       "sumWithDiscount": "Ukupan iznos sa popustom",

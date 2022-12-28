@@ -11,6 +11,7 @@
         cardsWrapper: {
           display: "flex",
           flexWrap: "wrap",
+          marginTop: "38px"
         },
       },
       templatePageStyles: {
@@ -18,6 +19,7 @@
           display: "flex",
           alignItems: "center",
           justifyContent: "flex-end",
+          marginTop:  '38px'
         },
         selectGrid: {
           alignItems: "center",

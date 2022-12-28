@@ -9,6 +9,9 @@ import { styled } from "@mui/material/styles";
 import Paper from "@mui/material/Paper";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
+import Breadcrumbs from '@mui/material/Breadcrumbs';
+import Link from '@mui/material/Link';
+import Typography from '@mui/material/Typography';
 
 type DashboardPageProps = {};
 
@@ -26,13 +29,15 @@ export default function DashboardPage({}: IProps<DashboardPageProps>): JSX.Eleme
   const { dashBoardStyles } = usePageStyles();
 
   
-  const  marginTopBox  =     window.devicePixelRatio === 1.5 ?  4 :  10;
+  const  marginTopBox  =     window.devicePixelRatio === 1.5 ?  8 :  12;
+  const fontSizeBreadcrumbs  =   window.devicePixelRatio === 1.5 ?  '16px' :  '20px';
   return (
     <Box sx={{ flexGrow: 1 ,  mt:   marginTopBox}}>
       <Grid container spacing={2} sx={{display: 'flex', flexDirection: 'column', ml: 1}}>
           
-        <h3 style={{color:  'white'}}>ADMINISTRACIJA</h3>
-          
+          <Breadcrumbs aria-label="breadcrumb">
+                <Typography  sx={{color: 'white', fontSize:     fontSizeBreadcrumbs, fontFamily:  "Roboto",  lineHeight:  "32px",  fontWeight:  700}}>ADMINISTRACIJA</Typography>
+          </Breadcrumbs>
 
         <div style={dashBoardStyles.cardsWrapper}>
           {cardsSettings.filter((card)  => card.typeOfCard  ===   "company").map((card: CardProps, index: number) => {

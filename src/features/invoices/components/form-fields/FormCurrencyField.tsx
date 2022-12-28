@@ -11,6 +11,7 @@ type FormNumberFieldProps = FormFieldProps & {
     readonly: boolean;
     labelShrink?: boolean;
     parentFn?:  Function;
+    parentFnChange?:   Function;  
   };
 };
 
@@ -21,13 +22,20 @@ export default function FormCurrencyField({
 
   
   const focusFlag =  props.label  ===  "Količina"  ?  true  :  false;
-  const fontSize  =    window.devicePixelRatio === 1.5 ?    '10px' :  '16px';
+  const fontSize  =    window.devicePixelRatio === 1.5 ?    '12px' :  '16px';
 
 
   const handleOnKeyDown  =  (event: any) =>  {
     if(event.key === 'Enter'  &&  props.additional?.parentFn){
       console.log('enter press here! ');
       props.additional?.parentFn();
+    }
+  }
+
+  const handleParent  =  () =>  {
+    if( props.additional?.parentFnChange){
+      console.log('enter press here! ');
+      props.additional?.parentFnChange();
     }
   }
   return (
@@ -46,6 +54,7 @@ export default function FormCurrencyField({
           }}
           error={!!error} 
           onChange={onChange}
+          onBlur={()  =>  handleParent()}
           value={value}
           fullWidth
           label={props.label}
