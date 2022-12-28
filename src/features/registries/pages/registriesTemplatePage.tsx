@@ -21,6 +21,9 @@ import {
   getWarehouses
 } from "../../registries/store/registries.actions";
 import { selectCompany } from "../../../app/core/core.selectors";
+import Breadcrumbs from '@mui/material/Breadcrumbs';
+import Link from '@mui/material/Link';
+import Typography from '@mui/material/Typography';
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -91,15 +94,20 @@ export default function InvoiceTemplatePage({
   }
 
 
-  const  marginTopBox  =     window.devicePixelRatio === 1.5 ?  4 :  10;
+  const  marginTopBox  =     window.devicePixelRatio === 1.5 ?  6 :  10;
+  
+  const fontSizeBreadcrumbs  =   window.devicePixelRatio === 1.5 ?  '16px' :  '20px';
   
   return (
     <Box sx={{ flexGrow: 1,  mt:   marginTopBox}}>
       <Grid container >
         <Grid item xs={4} >
-          {/*<Item>*/}
-          <h3 style={{color:  'white'}}>{t(templatePageSettings[props.templateType].title)}</h3>
-          {/*</Item>*/}
+          <Breadcrumbs aria-label="breadcrumb">
+                <Link  sx={{color: '#60737C', fontSize:   fontSizeBreadcrumbs, fontFamily:  "Roboto",  lineHeight:  "32px",  fontWeight:  700}}  href="/registries">
+                        ADMINISTRACIJA
+                </Link>
+                <Typography  sx={{color: 'white', fontSize:   fontSizeBreadcrumbs, fontFamily:  "Roboto",  lineHeight:  "32px",  fontWeight:  700}}>{t(templatePageSettings[props.templateType].title)}</Typography>
+          </Breadcrumbs>  
         </Grid>
         <Grid item  xs={8}   sx={{display:  'flex', alignItems:  'center',  justifyContent:  'flex-end'}} >
             <Grid item xs={12} style={templatePageStyles.buttonsActionGrid}    >

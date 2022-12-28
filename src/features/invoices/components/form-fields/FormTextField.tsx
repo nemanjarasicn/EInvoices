@@ -10,6 +10,7 @@ type FormTextFieldProps = FormFieldProps & {
     readonly?: boolean;
     labelShrink?: boolean;
     parentFn?:   Function; 
+    parentFnChange?:   Function
   };
 };
 
@@ -20,7 +21,8 @@ export default function FormTextField({
   props,
 }: IProps<FormTextFieldProps>): JSX.Element {
 
-  const fontSize  =    window.devicePixelRatio === 1.5 ?    '10px' :  '16px';
+  
+  const fontSize  =    window.devicePixelRatio === 1.5 ?    '12px' :  '16px';
 
 
 
@@ -30,18 +32,27 @@ export default function FormTextField({
       props.additional?.parentFn();
     }
   }
+
+
+  const  handleParent   =  ()  =>  {
+    if(props.additional?.parentFnChange){
+        console.log('sasasas');
+        props.additional?.parentFnChange();
+    }
+  }
   return (
     <Controller
       name={props.name}
       control={props.control}
-      render={({ field: { onChange, value }, fieldState: { error } }) => (
+      render={({ field: { onChange, value, }, fieldState: { error } }) => (
         <TextField
         onKeyDown={(event)  =>  handleOnKeyDown(event)}
           disabled={props.disabled}
           helperText={error ? error.message : " "}
           size="small"
           error={!!error}
-          onChange={(e) => onChange(e.target.value)}
+          onChange={(e) => {onChange(e.target.value)}}
+          onBlur={() => handleParent()}
           value={value ?? ""}
           fullWidth
           label={props.label}

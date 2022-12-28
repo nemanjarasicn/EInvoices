@@ -30,6 +30,9 @@ import { setFilters } from "../store/invoice.reducer";
 import CustomFilterBox from "../../shared/components/form-fields/CustomFilterBox";
 import { selectFilters }   from  "../store/invoice.selectors"
 import { selectCompanyCurrent } from "../../../app/core/core.selectors";
+import Breadcrumbs from '@mui/material/Breadcrumbs';
+import Link from '@mui/material/Link';
+import Typography from '@mui/material/Typography';
 
 //for zip
 import JSZip from  'jszip';
@@ -106,7 +109,7 @@ export default function InvoiceTemplatePage({
   const { tableSettings } = useTableSettings();
   const { templatePageStyles } = usePageStyles();
 
-  const boxMarginTop   =    window.devicePixelRatio === 1.5 ?  4 :  10;
+  const boxMarginTop   =    window.devicePixelRatio === 1.5 ?  6 :  10;
   const [filtersSearch, setFiltersSearch]  =  React.useState(useAppSelector(selectFilters));
 
     const date  = new Date();
@@ -150,17 +153,22 @@ export default function InvoiceTemplatePage({
   }, [watch]);
 
 
-
+  const fontSizeBreadcrumbs  =   window.devicePixelRatio === 1.5 ?  '16px' :  '20px';
 
   return (
     <Box sx={{ flexGrow: 1,  mt:   boxMarginTop  }}>
-      <Grid container spacing={2}  pl={5}   >
+      <Grid container spacing={2}   >
         <Grid item xs={4}>
           {/*<Item>*/}
-            <h3 style={{color: 'grey'}}>{t('E-FAKTURA') + '/' + t(templatePageSettings[props.templateType].title)}</h3>
+          <Breadcrumbs aria-label="breadcrumb">
+                <Link  sx={{color: '#60737C', fontSize:  fontSizeBreadcrumbs, fontFamily:  "Roboto",  lineHeight:  "32px",  fontWeight:  700}}  href="/invoices">
+                        E-FAKTURA
+                </Link>
+                <Typography  sx={{color: 'white', fontSize:  fontSizeBreadcrumbs, fontFamily:  "Roboto",  lineHeight:  "32px",  fontWeight:  700}}>{t(templatePageSettings[props.templateType].title)}</Typography>
+          </Breadcrumbs>
           {/*</Item>*/}
         </Grid>
-        <Grid item  xs={8}   sx={{display:  'flex', alignItems:  'center',  justifyContent:  'flex-end'}} >
+        <Grid item  xs={8}   sx={{display:  'flex', alignItems:  'center',  justifyContent:  'flex-end', mt: '38px'}}   >
             <Grid item xs={12} style={templatePageStyles.buttonsActionGrid}    >
                     {templatePageSettings[props.templateType].showBtns && (
                       <CustomButtonFc
@@ -170,7 +178,7 @@ export default function InvoiceTemplatePage({
             </Grid>
         </Grid>
     
-        <Grid container  sx={{backgroundColor: 'white', mt: 2, borderRadius:  '15px'}}   spacing={2}>
+        <Grid container  sx={{backgroundColor: 'white', mt: 2, borderRadius:  '15px', ml: 2}}   spacing={2}>
               
               <Grid item xs={12} style={templatePageStyles.buttonsGrid}  >
                   <CustomFilterBox  props={{

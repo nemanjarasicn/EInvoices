@@ -6,6 +6,10 @@ import { IProps } from "../models/invoice.models";
 import { useFeatureSettings } from "../settings";
 import Grid from "@mui/material/Grid";
 import { usePageStyles } from "./pages.styles";
+import Breadcrumbs from '@mui/material/Breadcrumbs';
+import Link from '@mui/material/Link';
+import Typography from '@mui/material/Typography';
+
 
 type DashboardPageProps = {};
 
@@ -13,13 +17,16 @@ export default function DashboardPage({}: IProps<DashboardPageProps>): JSX.Eleme
   const { cardsSettings } = useFeatureSettings();
   const { dashBoardStyles } = usePageStyles();
 
-  const boxMarginTop   =    window.devicePixelRatio === 1.5 ?  3 :  10;
+  const boxMarginTop   =    window.devicePixelRatio === 1.5 ?  6 :  10;
+  const fontSizeBreadcrumbs  =   window.devicePixelRatio === 1.5 ?  '16px' :  '20px';
   return (
     
     <Grid container >
 
       <Grid item xs={4}  sx={{mt: boxMarginTop}}>
-        <h3 style={{color:  'white'}}>E-FAKTURA</h3>
+          <Breadcrumbs aria-label="breadcrumb">
+                <Typography  sx={{color: 'white', fontSize:   fontSizeBreadcrumbs, fontFamily:  "Roboto",  lineHeight:  "32px",  fontWeight:  700}}>E-FAKTURA</Typography>
+          </Breadcrumbs>
       </Grid>
         <div style={dashBoardStyles.cardsWrapper}>
         

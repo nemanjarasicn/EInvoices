@@ -70,7 +70,7 @@ export default function FormAutocompleteField({
           }
           renderOption={(props, option) => {
             return (
-              <li {...props} key={option.id}>
+              <li  style={{fontSize:   fontSize}} {...props} key={option.id}>
                 {option.name}
               </li>
             );

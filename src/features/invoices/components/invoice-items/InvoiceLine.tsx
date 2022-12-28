@@ -8,6 +8,7 @@ import AddIcon from '@mui/icons-material/Add';
 import DeleteIcon from "@mui/icons-material/Delete";
 import FormCurrencyField from "../form-fields/FormCurrencyField";
 import {
+  calculateNewDiscount,
   calculateNewPrice,
   calculateTax,
   calculateTotal,
@@ -41,6 +42,14 @@ export default function InvoiceLine({
 
 
   const vatRate =  formGetValues(`invoiceLine[${index}].item.classifiedTaxCategory.percent`) ? true  :  false;
+
+
+  const  handleTab  =  (event: any)    =>  {
+    console.log(event.key);
+    if(event.key  ===  'Tab'  )   {
+      props.handleAddItemList(index);
+    }
+  }
 
 
 
@@ -77,11 +86,11 @@ export default function InvoiceLine({
 
   //Subscribe on watch price discount
   React.useEffect(() => {
-    const newPrice = calculateNewPrice(
+    /*const newPrice = calculateNewPrice(
       Number(formGetValues(`invoiceLine[${index}].price.unitPrice`)),
       Number(formWatch(`invoiceLine[${index}].price.discount`))
     );
-    formSetValue(`invoiceLine[${index}].price.newPrice`, newPrice);
+    formSetValue(`invoiceLine[${index}].price.newPrice`, newPrice);*/
   }, [formWatch(`invoiceLine[${index}].price.discount`)]);
 
   //Subscribe on watch price discount
@@ -98,6 +107,25 @@ export default function InvoiceLine({
     const total = calculateTotal(formGetValues(`invoiceLine`));
     formSetValue(`finalSum`, total);
   }, [formWatch(`invoiceLine[${index}].price.priceAmount`)]);
+
+
+  const  handleChangeDiscount  =  ()   =>   {
+    const newPrice = calculateNewPrice(
+      Number(formGetValues(`invoiceLine[${index}].price.unitPrice`)),
+      Number(formWatch(`invoiceLine[${index}].price.discount`))
+    );
+    formSetValue(`invoiceLine[${index}].price.newPrice`, newPrice);
+  }
+
+
+  const  handleChangeNewPrice  =  ()   =>   {
+    const newDiscount = calculateNewDiscount(
+      Number(formGetValues(`invoiceLine[${index}].price.unitPrice`)),
+      Number(formWatch(`invoiceLine[${index}].price.newPrice`))
+    );
+    formSetValue(`invoiceLine[${index}].price.discount`, newDiscount);
+  }
+  
 
   return (
     <Grid container spacing={1}>
@@ -186,19 +214,22 @@ export default function InvoiceLine({
               },
               labelShrink: true,
               readonly: false,
-              parentFn:  props.handleAddItemList
+              parentFn:  props.handleAddItemList,
+              parentFnChange: handleChangeDiscount
+              
             },
           }}
         />
       </Grid>
       <Grid item xs={1.5}>
-        <FormCurrencyField
+        <FormTextField
           props={{
             control: control,
             label: t(fieldLabels.newPrice),
             name: `invoiceLine[${index}].price.newPrice`,
-            additional: { mask: {}, readonly: true },
-            disabled: true,
+            additional: { mask: {}, readonly: false, parentFnChange: handleChangeNewPrice },
+            disabled: false,
+
           }}
         />
       </Grid>
@@ -217,7 +248,7 @@ export default function InvoiceLine({
         />
       </Grid>
 
-      <Grid item xs={1}>
+      <Grid item xs={2}>
         {/*<FormTextField
           props={{
             control: control,
@@ -253,7 +284,7 @@ export default function InvoiceLine({
         </Grid>
 
 
-        <Grid item xs={1}>
+        {/*<Grid item xs={1}>
         <FormCurrencyField
           props={{
             control: control,
@@ -263,7 +294,7 @@ export default function InvoiceLine({
             disabled: true,
           }}
         />
-      </Grid>
+        </Grid>*/}
 
 
       <Grid item xs={1.5}>
@@ -281,6 +312,7 @@ export default function InvoiceLine({
       <Grid item xs={0.3} sx={{display:  'flex', alignItems:  'flex-start',  justifyContent:  'center'}}>
         <IconButton
           aria-label="delete"
+          onKeyDown={(event)  => handleTab(event)}
           onClick={() => props.handleAddItemList(index)}
           sx={{bottom: 3}}
         >
