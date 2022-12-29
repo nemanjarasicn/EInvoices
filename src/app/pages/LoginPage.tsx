@@ -25,8 +25,8 @@ function Copyright(props: any): JSX.Element {
       {...props}
     >
       {"Copyright © "}
-      <Link color="inherit" href="https://petcom.rs/">
-        petcom.rs
+      <Link color="inherit" href="http://www.mastersoftware.rs/">
+        mastersoftware.rs
       </Link>{" "}
       {new Date().getFullYear()}
       {"."}
@@ -77,7 +77,7 @@ export default function LoginPage(): JSX.Element {
         }}
       >
         <Typography component="h1" variant="h5">
-          Log in
+          Prijava
         </Typography>
         <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
           <TextField
@@ -85,7 +85,7 @@ export default function LoginPage(): JSX.Element {
             required
             fullWidth
             id="username"
-            label="Username"
+            label="Email"
             name="username"
             autoComplete="username"
             autoFocus
@@ -96,7 +96,7 @@ export default function LoginPage(): JSX.Element {
             required
             fullWidth
             name="password"
-            label="Password"
+            label="Šifra "
             type="password"
             id="password"
             autoComplete="current-password"
@@ -108,7 +108,7 @@ export default function LoginPage(): JSX.Element {
             variant="contained"
             sx={{ mt: 3, mb: 2 }}
           >
-            Log In
+            Prijava
           </Button>
         </Box>
       </Box>

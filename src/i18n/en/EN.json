@@ -11,7 +11,10 @@
     "from": "From:",
     "to": "To:",
     "downloadXml": "DownloadXml",
-    "downloadPdf": "DownloadPdf"
+    "downloadPdf": "DownloadPdf",
+    "storno": "Storno",
+    "reject": "Reject",
+    "approve": "Approve"
   },
   "Dialog": {
     "addComment": "Add comment"
@@ -29,7 +32,8 @@
     "invoicePurshaes": "View, print and change the status of received documents.",
     "registries": "Registries",
     "articles":  "View, edit and create new or existing items.",
-    "administration":  "Administration"
+    "administration":  "Administration",
+    "default":   "Here we need some text for a more detailed description of the card"
   },
   "UserAccount": {
     "logout": "Logout"
@@ -314,6 +318,14 @@
   "Articles":  {
     "title":  "Articles list",
     "createNew":  "Create new Artical"
+
+  },
+
+
+  
+  "Subject":  {
+    "title":  "Subject",
+    "createNew":  "Create new Subject"
 
   }
 }

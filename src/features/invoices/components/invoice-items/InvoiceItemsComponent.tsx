@@ -198,8 +198,8 @@ export default function InvoiceItemsComponent({
             <Box sx={{ display: "flex" }}>  {t("Form.formFieldsLabels.priceWithoutDiscount")} :  {currencyFormat(priceWithoutDiscount)}</Box>
             <Box sx={{ display: "flex" }}>  {t("Form.formFieldsLabels.sumWithDiscount")} :    {currencyFormat(sumWithDiscount)}</Box>
             <Box sx={{  display: "flex" }}>   {t("Form.formFieldsLabels.taxableAmount")}:    {currencyFormat(taxableAmount)}</Box>
-            <Box sx={{  display: "flex" }}>   {t("Form.formFieldsLabels.priceAmount")}:   {currencyFormat(taxAmount)}</Box>
-            <Box sx={{ paddingTop:   '10px', display: "flex", fontWeight: 700 }}>Ukupno : {currencyFormat(totalSum)}</Box>
+            <Box sx={{  display: "flex" }}>   {t("Form.formFieldsLabels.taxAmount")}:   {currencyFormat(taxAmount)}</Box>
+            <Box sx={{ paddingTop:   '10px', display: "flex", fontWeight: 700 }}>   {t("Form.formFieldsLabels.priceAmount")}  : {currencyFormat(totalSum)}</Box>
       </Box>
       </>
     );

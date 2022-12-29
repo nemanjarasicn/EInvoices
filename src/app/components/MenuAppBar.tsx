@@ -225,7 +225,7 @@ export default function ClippedDrawer() {
     <Box sx={{ display: "flex"  }}>
       <CssBaseline />
       <Slide appear={false} direction="down" in={!trigger}>
-      <AppBar position="absolute" elevation={0} sx={{ backgroundColor:  "#323b40",  height:  appBarHeight, mr: 6, mt: 1, top: 0}}>
+      <AppBar position="absolute" elevation={0} sx={menuAppBarStyles.root}>
         <Toolbar style={menuAppBarStyles.toolbar}>
           <div style={menuAppBarStyles.logoDiv}>
             <Typography variant="h6" noWrap component="div">
@@ -240,7 +240,7 @@ export default function ClippedDrawer() {
             {/*<UserAccount />*/}
           </div>
         </Toolbar>
-        <Divider   sx={{width: '97%', ml: 2,  backgroundColor:  '#8E999F'}}/>
+        <Divider   sx={menuAppBarStyles.divider}/>
       </AppBar>
      </Slide>
       <Drawer
