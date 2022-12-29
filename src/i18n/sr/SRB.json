@@ -10,8 +10,11 @@
     "newInvoice": "Nova Faktura",
     "from": "Od:",
     "to": "Do:",
-    "downloadXml": "DownloadXml",
-    "downloadPdf": "DownloadPdf"
+    "downloadXml": "preuzmiXml",
+    "downloadPdf": "preuzmiPdf",
+    "storno": "Storno",
+    "reject": "Odbij",
+    "approve": "Odobri"
   },
   "Dialog": {
     "addComment": "Unesi komentar"
