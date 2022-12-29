@@ -23,6 +23,14 @@
     "articles":  "Articles",
     "administration":  "Administration"
   },
+  "MenuDescription": {
+    "home": "Home",
+    "invoiceSales": "Review, print and change the status of sent documents.",
+    "invoicePurshaes": "View, print and change the status of received documents.",
+    "registries": "Registries",
+    "articles":  "View, edit and create new or existing items.",
+    "administration":  "Administration"
+  },
   "UserAccount": {
     "logout": "Logout"
   },

@@ -94,7 +94,7 @@ export default function TableComponent({
                   },
                 },
                 noRowsOverlay: {
-                  props: { message: "Table.NoRows" },
+                  props: { message: t("Table.NoRows") },
                 },
                 pagination: {
                   labelRowsPerPage: t('redova po strani')

@@ -23,6 +23,15 @@
     "articles":  "Artikli",
     "administration":  "Administracija"
   },
+  "MenuDescription": {
+    "home": "Pocetna",
+    "invoiceSales": "Pregled, štampa i promena statusa poslatih dokumenta.",
+    "invoicePurshaes": "Pregled, štampa u promena statusa primljenih dokumenata. ",
+    "registries": "Šifarnici",
+    "articles":  "Pregled, izmena i kreiranje novih ili postojećih artikala.",
+    "administration":  "Administracija",
+    "default":   "Ovde treba neki text za opis detaljniji o kartici"
+  },
   "UserAccount": {
     "logout": "Odjavi se"
   },

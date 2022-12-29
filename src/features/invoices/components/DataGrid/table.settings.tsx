@@ -62,6 +62,23 @@ const useTableSettings = (): TableSettings => {
     .catch((err)   =>  console.log('greska prilikom download ' + flag));
   }
 
+
+  const handleInvoiceStatus = (status: number | string): string => {
+    switch (Number(status)) {
+      case 380:
+        return t("InvoiceTypes.debitInvoice");
+      case 381:
+        return   t("InvoiceTypes.creditNote");
+      case 383:
+        return    t("InvoiceTypes.debitNote");
+      case 386:
+        return    t("InvoiceTypes.prepayment");
+      default:
+        throw new Error("No such type!!!");
+    }
+  };
+
+
   const handleStatus  =  (status:  any)  =>   {
     switch (status) {
       case 'Seen':

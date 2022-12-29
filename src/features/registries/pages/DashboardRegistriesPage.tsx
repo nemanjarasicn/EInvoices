@@ -12,6 +12,7 @@ import Grid from "@mui/material/Grid";
 import Breadcrumbs from '@mui/material/Breadcrumbs';
 import Link from '@mui/material/Link';
 import Typography from '@mui/material/Typography';
+import { useTranslation } from "react-i18next";
 
 type DashboardPageProps = {};
 
@@ -27,6 +28,7 @@ const Item = styled(Paper)(({ theme }) => ({
 export default function DashboardPage({}: IProps<DashboardPageProps>): JSX.Element {
   const { cardsSettings } = useFeatureSettings();
   const { dashBoardStyles } = usePageStyles();
+  const { t } = useTranslation();
 
   
   const  marginTopBox  =     window.devicePixelRatio === 1.5 ?  8 :  12;
@@ -36,7 +38,7 @@ export default function DashboardPage({}: IProps<DashboardPageProps>): JSX.Eleme
       <Grid container spacing={2} sx={{display: 'flex', flexDirection: 'column', ml: 1}}>
           
           <Breadcrumbs aria-label="breadcrumb"   sx={{'& .MuiBreadcrumbs-separator': {color: ' #60737C'}}}>
-                <Typography  sx={{color: 'white', fontSize:     fontSizeBreadcrumbs, fontFamily:  "Roboto",  lineHeight:  "32px",  fontWeight:  700}}>ADMINISTRACIJA</Typography>
+                <Typography  sx={{color: 'white', fontSize:     fontSizeBreadcrumbs, fontFamily:  "Roboto",  lineHeight:  "32px",  fontWeight:  700}}>{t("Menu.administration")}</Typography>
           </Breadcrumbs>
 
         <div style={dashBoardStyles.cardsWrapper}>

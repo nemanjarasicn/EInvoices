@@ -43,6 +43,7 @@ const useFeatureSettings = (): FeatureSettings => {
               btnFn: () => navigate("/articles/articlesList"),
             },
             typeOfCard:  "articles",
+            description:  "MenuDescription.articles"
     }],
     templatePageSettings: {
         [TemplatePageArticlesTypes.LIST]: {

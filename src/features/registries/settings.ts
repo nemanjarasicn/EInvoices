@@ -37,7 +37,7 @@ type FeatureSettings = {
 const useFeatureSettings = (): FeatureSettings => {
   let navigate = useNavigate();
   const user = useAppSelector(selectUser);
-  const showCard = user?.username  ===  "nemanjarasic" ?  false :  true;
+  const showCard = user?.username  ===  "dejan" ?  false :  true;
   return {
     cardsSettings: [
       {

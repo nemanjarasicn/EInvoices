@@ -276,6 +276,7 @@ export default function InvoiceItemsComponent({
       disableColumnFilter
       showCellRightBorder={false}
       components={{
+        NoRowsOverlay: TableNoRowsOverlay,
         Footer: CustomFooterTotalComponent
       }}
       
@@ -285,6 +286,15 @@ export default function InvoiceItemsComponent({
       columns={columns}
       autoHeight={true}
       density="compact"
+      componentsProps={{
+        
+        noRowsOverlay: {
+          props: { message: t("Table.NoRows") },
+        },
+        pagination: {
+          labelRowsPerPage: t('redova po strani')
+        }
+      }}
       pageSize={10}
       sx={{ "& .MuiDataGrid-columnHeaderCheckbox .MuiDataGrid-columnHeaderTitleContainer":
       {

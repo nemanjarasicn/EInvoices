@@ -913,7 +913,7 @@ export default function InvoiceFormComponent({
             }
           })()}
         </Grid>*/}
-        <Grid item xs={6}>
+        <Grid item xs={4}   ml={1}>
           {/*<Box
             sx={{
               ...formComponent.basicBox,
@@ -969,16 +969,10 @@ export default function InvoiceFormComponent({
               </Grid>
             </Paper>
                   </Box>*/}
-          <Box
-            sx={{
-              ...formComponent.basicBox,
-              textAlign: "start",
-              marginBottom: "1rem",
-            }}
-          >
-            <Typography sx={formComponent.typography}>
+          
+            {/*<Typography sx={formComponent.typography}>
               {t(props.sectionTitles.title_3).toUpperCase()}
-            </Typography>
+                </Typography>*/}
             <Paper style={formComponent.groupPaper}>
               <Grid container spacing={2}>
                  {/*<Grid item xs={3}>
@@ -993,9 +987,9 @@ export default function InvoiceFormComponent({
                   />
                   </Grid>*/}
                 <Grid item xs={4}></Grid>
-                <Grid item xs={4}>
+                <Grid item xs={2}>
                 </Grid>
-                <Grid item xs={4}  sx={{display:  'flex'}}>
+                <Grid item xs={6}  sx={{display:  'flex'}}>
                 <Button
                     sx={{
                       width: "150px",
@@ -1024,7 +1018,7 @@ export default function InvoiceFormComponent({
                 </Grid>
               </Grid>
             </Paper>
-          </Box>
+          
         </Grid>
       </Grid>
     </Box>

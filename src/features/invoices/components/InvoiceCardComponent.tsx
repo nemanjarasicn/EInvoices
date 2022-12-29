@@ -18,6 +18,7 @@ export interface CardProps {
   icon: OverridableComponent<SvgIconTypeMap<{}, "svg">> & { muiName: string };
   cardBtn: ButtonProps;
   typeOfCard:  string;
+  description?:  string;
 }
 export default function InvoiceCardComponent({
   props,
