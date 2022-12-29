@@ -102,7 +102,7 @@ export default function InvoiceTemplatePage({
     <Box sx={{ flexGrow: 1,  mt:   marginTopBox}}>
       <Grid container >
         <Grid item xs={4} >
-          <Breadcrumbs aria-label="breadcrumb">
+          <Breadcrumbs aria-label="breadcrumb"    sx={{'& .MuiBreadcrumbs-separator': {color: ' #60737C'}}}>
                 <Link  sx={{color: '#60737C', fontSize:   fontSizeBreadcrumbs, fontFamily:  "Roboto",  lineHeight:  "32px",  fontWeight:  700}}  href="/registries">
                         ADMINISTRACIJA
                 </Link>

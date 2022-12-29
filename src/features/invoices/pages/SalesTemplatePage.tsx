@@ -43,7 +43,7 @@ export default function SalesTemplatePage({
             return (
               <>
               <Box     sx={{mt:   boxMarginTop, mb: "38px"}} >
-                      <Breadcrumbs aria-label="breadcrumb">
+                      <Breadcrumbs aria-label="breadcrumb"   sx={{'& .MuiBreadcrumbs-separator': {color: ' #60737C'}}}>
                               <Link  sx={{color: '#60737C', fontSize:  fontSizeBreadcrumbs, fontFamily:  "Roboto",  lineHeight:  "32px",  fontWeight:  700}}  href="/invoices">
                                       E-FAKTURA
                               </Link>

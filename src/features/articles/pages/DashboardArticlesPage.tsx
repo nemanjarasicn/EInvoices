@@ -38,7 +38,7 @@ export default function DashboardArticlesPage({}: IProps<DashboardPageProps>): J
     <Box sx={{ flexGrow: 1 }}>
       <Grid container spacing={2} sx={{display: 'flex', flexDirection: 'column',  ml:  1, mt:  boxMarginTop}}>
         <Grid item xs={4}  mt={12} >
-              <Breadcrumbs aria-label="breadcrumb">
+              <Breadcrumbs aria-label="breadcrumb"    sx={{'& .MuiBreadcrumbs-separator': {color: ' #60737C'}}}>
                       <Typography  sx={{color: 'white', fontSize:  fontSizeBreadcrumbs, fontFamily:  "Roboto",  lineHeight:  "32px",  fontWeight:  700}}>ARTIKLI</Typography>
                 </Breadcrumbs>
         </Grid>

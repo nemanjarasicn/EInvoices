@@ -107,7 +107,7 @@ function convertToProductModel(item: any): ProductModel {
     idUnit: item.productUnitRequest?.idUnit,
     currencyID: "RSD",
     id: item.prodctId,
-    invoicedQuantity: 0,
+    invoicedQuantity: NaN,
     lineExtensionAmount: 0,
     allowanceCharge: {
       currencyId: "RSD",

@@ -89,7 +89,7 @@ export default function InvoiceTemplatePage({
         <Grid item xs={4} >
         
         
-              <Breadcrumbs aria-label="breadcrumb">
+              <Breadcrumbs aria-label="breadcrumb"     sx={{'& .MuiBreadcrumbs-separator': {color: ' #60737C'}}}>
                 <Link  sx={{color: '#60737C', fontSize:  "20px", fontFamily:  "Roboto",  lineHeight:  "32px",  fontWeight:  700}}  href="/articles">
                         ARTIKLI
                 </Link>

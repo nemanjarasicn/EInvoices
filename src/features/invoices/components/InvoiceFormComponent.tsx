@@ -399,7 +399,7 @@ export default function InvoiceFormComponent({
                     }}
                   />
                 </Grid>
-                <Grid item xs={6}>
+                <Grid item xs={12}>
                   {(() => {
                     switch (invoiceType) {
                       case InvoiceType.INVOICE:

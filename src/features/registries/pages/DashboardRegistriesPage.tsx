@@ -35,7 +35,7 @@ export default function DashboardPage({}: IProps<DashboardPageProps>): JSX.Eleme
     <Box sx={{ flexGrow: 1 ,  mt:   marginTopBox}}>
       <Grid container spacing={2} sx={{display: 'flex', flexDirection: 'column', ml: 1}}>
           
-          <Breadcrumbs aria-label="breadcrumb">
+          <Breadcrumbs aria-label="breadcrumb"   sx={{'& .MuiBreadcrumbs-separator': {color: ' #60737C'}}}>
                 <Typography  sx={{color: 'white', fontSize:     fontSizeBreadcrumbs, fontFamily:  "Roboto",  lineHeight:  "32px",  fontWeight:  700}}>ADMINISTRACIJA</Typography>
           </Breadcrumbs>
 

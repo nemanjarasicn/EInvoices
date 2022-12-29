@@ -197,7 +197,7 @@ export default function InvoiceItemsComponent({
       disableColumnMenu
       pagination
       disableColumnFilter
-      showCellRightBorder={true}
+      showCellRightBorder={false}
       components={{
         Footer: CustomFooterTotalComponent
       }}
@@ -282,6 +282,17 @@ export default function InvoiceItemsComponent({
       autoHeight={true}
       density="compact"
       pageSize={10}
+      sx={{ "& .MuiDataGrid-columnHeaderCheckbox .MuiDataGrid-columnHeaderTitleContainer":
+      {
+        display: "none",
+      },
+
+    ".MuiDataGrid-columnSeparator": {
+      display: "none",
+    },
+    "&.MuiDataGrid-root": {
+      border: "none",
+    },}}
 
     />
     </>

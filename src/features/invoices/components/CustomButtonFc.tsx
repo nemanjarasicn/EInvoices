@@ -14,7 +14,7 @@ const gray = {
 };
 
 const paddingButton =  window.devicePixelRatio === 1.5 ?  '8px  15px' :     '12px 24px';
-const widthButton  =   window.devicePixelRatio === 1.5 ?  '150px' :     '220px';
+const widthButton  =   window.devicePixelRatio === 1.5 ?  '160px' :     '200';
 const  fontSizeButton   =    window.devicePixelRatio === 1.5 ?  '10px' :     '16px';
 
 const CustomButtonRoot = styled("button")`
@@ -64,18 +64,26 @@ const CustomButton = React.forwardRef(function CustomButton(
     disabled,
     focusVisible,
   };
-
+  if(props.id === '1') {
   return (
-    <CustomButtonRoot  {...getRootProps()} className={clsx(classes)}  >
-      {children}
+    <CustomButtonRoot   {...getRootProps()} className={clsx(classes)}  >
+      <div style={{display:  'flex', alignItems: 'center', justifyContent:  'space-between' }}><AddIcon  sx={{mr: 1, fontSize:  fontSizeButton}} />{children}</div>
     </CustomButtonRoot>
   );
+  } else  {
+    return (
+      <CustomButtonRoot   {...getRootProps()} className={clsx(classes)}  >
+        {children}
+      </CustomButtonRoot>
+    );
+  }
 });
 
 export interface ButtonProps {
   disabled: boolean;
   title: string;
   btnFn: () => void;
+  buttonId?:   number;
 }
 // TODO MAX Factory
 interface ButtonFcProps {
@@ -96,6 +104,7 @@ export default function CustomButtonFc({
             return (
               <CustomButton
                 key={index}
+                id={`${button.buttonId}`}
                 onClick={button.btnFn}
                 disabled={button.disabled}
               >

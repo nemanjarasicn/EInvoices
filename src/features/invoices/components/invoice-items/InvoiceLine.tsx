@@ -15,6 +15,9 @@ import {
 } from "../../utils/utils";
 import { useTranslation } from "react-i18next";
 import FormDropdownField from "../form-fields/FormDropdownField";
+import { useAppDispatch, useAppSelector } from "../../../../app/hooks";
+import { getTaxBase }  from  '../../store/invoice.actions'
+import { selectTaxBase }  from '../../store/invoice.selectors'
 
 type InvoiceLineProps = {
   item: any;
@@ -30,6 +33,7 @@ type InvoiceLineProps = {
 export default function InvoiceLine({
   props,
 }: IProps<InvoiceLineProps>): JSX.Element {
+  const dispatch = useAppDispatch();
   const { t } = useTranslation();
   const {
     control,
@@ -43,6 +47,7 @@ export default function InvoiceLine({
 
   const vatRate =  formGetValues(`invoiceLine[${index}].item.classifiedTaxCategory.percent`) ? true  :  false;
 
+  const [options, setOptions]  =   React.useState(useAppSelector(selectTaxBase));
 
   const  handleTab  =  (event: any)    =>  {
     console.log(event.key);
@@ -125,6 +130,11 @@ export default function InvoiceLine({
     );
     formSetValue(`invoiceLine[${index}].price.discount`, newDiscount);
   }
+
+
+  React.useEffect(() => {
+    dispatch(getTaxBase());
+  }, []);
   
 
   return (
@@ -264,7 +274,7 @@ export default function InvoiceLine({
               name: "invoiceTypeCode",
               control: control,
               label:  t('Sifra osnove'),
-              options: [],
+              options: options,
               disabled: vatRate,
               
             }}

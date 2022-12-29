@@ -26,8 +26,8 @@ export default function CheckboxField({
   props,
 }: IProps<FormCheckboxFieldProps>): JSX.Element {
 
-  const fontSizeCheckbox  =   window.devicePixelRatio === 1.5 ?  '12px' :     '20px';
-  const widthCheckbox  =   window.devicePixelRatio === 1.5 ?  '20' :     '40px';
+  const fontSizeCheckbox  =   window.devicePixelRatio === 1.5 ?  '12px' :     '14px';
+  const widthCheckbox  =   window.devicePixelRatio === 1.5 ?  '12px' :     '20px';
   return (
     <Controller
       name={props.name}

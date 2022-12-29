@@ -233,7 +233,7 @@ export default function ClippedDrawer() {
             {/*<UserAccount />*/}
           </div>
         </Toolbar>
-        <Divider   sx={{width: '97%', ml: 2,  backgroundColor:  'white'}}/>
+        <Divider   sx={{width: '97%', ml: 2,  backgroundColor:  '#8E999F'}}/>
       </AppBar>
      </Slide>
       <Drawer

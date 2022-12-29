@@ -19,7 +19,7 @@ const gray = {
 
 const paddingButton =  window.devicePixelRatio === 1.5 ?  '8px  15px' :     '12px 24px';
 const widthButton  =   window.devicePixelRatio === 1.5 ?  '150px' :     '220px';
-const  fontSizeButton   =    window.devicePixelRatio === 1.5 ?  '10px' :     '16px';
+const  fontSizeButton   =    window.devicePixelRatio === 1.5 ?  '10px' :     '14px';
 
 const CustomButtonRoot = styled("button")`
   font-family: IBM Plex Sans, sans-serif;
@@ -28,7 +28,7 @@ const CustomButtonRoot = styled("button")`
   background-color: white;
   padding: ${paddingButton}  ;
   border-radius: 10px;
-  color: black;
+  color: #;
   transition: all 150ms ease;
   cursor: pointer;
   border: thin solid ${gray[600]};
