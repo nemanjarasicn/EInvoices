@@ -24,7 +24,7 @@ export default function DashboardPage({}: IProps<DashboardPageProps>): JSX.Eleme
     <Grid container >
 
       <Grid item xs={4}  sx={{mt: boxMarginTop}}>
-          <Breadcrumbs aria-label="breadcrumb">
+          <Breadcrumbs aria-label="breadcrumb"  sx={{'& .MuiBreadcrumbs-separator': {color: 'red'}}}>
                 <Typography  sx={{color: 'white', fontSize:   fontSizeBreadcrumbs, fontFamily:  "Roboto",  lineHeight:  "32px",  fontWeight:  700}}>E-FAKTURA</Typography>
           </Breadcrumbs>
       </Grid>

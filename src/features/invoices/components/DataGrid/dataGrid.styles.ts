@@ -31,10 +31,20 @@ const useDataGridStyles = (): {
 
         ".MuiDataGrid-columnSeparator": {
           display: "none",
+          
         },
         "&.MuiDataGrid-root": {
           border: "none",
+
         },
+
+        '& .MuiDataGrid-columnHeader':  {
+          color:  'black',
+          
+          fontStyle: 'normal',
+          fontWeight: 700,
+          fontSize: '14px',
+          lineHeight: '16px'}
       },
     },
   };

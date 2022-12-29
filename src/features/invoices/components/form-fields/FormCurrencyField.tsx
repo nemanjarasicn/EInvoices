@@ -38,6 +38,10 @@ export default function FormCurrencyField({
       props.additional?.parentFnChange();
     }
   }
+
+  const textFieldFocus = React.createRef();
+
+  
   return (
     <Controller
       control={props.control}
@@ -46,17 +50,17 @@ export default function FormCurrencyField({
         <TextField
           onKeyDown={(event)  =>  handleOnKeyDown(event)}
           autoFocus={focusFlag}
+          inputRef={textFieldFocus} 
           disabled={props.disabled}
           helperText={error ? error.message : " "}
           size="small"
-          onFocus={event => {
-            event.target.select();
-          }}
           error={!!error} 
           onChange={onChange}
           onBlur={()  =>  handleParent()}
           value={value}
           fullWidth
+         
+         
           label={props.label}
           InputLabelProps={{ 
             style: {fontSize: fontSize} ,

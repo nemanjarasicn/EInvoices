@@ -78,14 +78,16 @@ const useFeatureSettings = (): FeatureSettings => {
         showBtns: true,
         buttons: [
           {
-            title: "ButtonsText.TemplatePage.createXML",
-            disabled: false,
-            btnFn: () => navigate("/invoices/create-xml"),
-          },
-          {
             title: "ButtonsText.TemplatePage.createDocument",
             disabled: false,
             btnFn: () => navigate("/invoices/create"),
+            buttonId: 1,
+          },
+          {
+            title: "ButtonsText.TemplatePage.createXML",
+            disabled: false,
+            btnFn: () => navigate("/invoices/create-xml"),
+            buttonId:  2,
           },
         ],
         filters: [

@@ -160,7 +160,7 @@ export default function InvoiceTemplatePage({
       <Grid container spacing={2}   >
         <Grid item xs={4}>
           {/*<Item>*/}
-          <Breadcrumbs aria-label="breadcrumb">
+          <Breadcrumbs aria-label="breadcrumb"    sx={{'& .MuiBreadcrumbs-separator': {color: ' #60737C'}}}>
                 <Link  sx={{color: '#60737C', fontSize:  fontSizeBreadcrumbs, fontFamily:  "Roboto",  lineHeight:  "32px",  fontWeight:  700}}  href="/invoices">
                         E-FAKTURA
                 </Link>

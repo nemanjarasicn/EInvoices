@@ -71,3 +71,8 @@ export const selectFilters = createSelector(
     return state.filters;
   }
 );
+
+export const selectTaxBase = createSelector(
+  featureSelectors,
+  (state: FeatureState) => state.taxBase
+);

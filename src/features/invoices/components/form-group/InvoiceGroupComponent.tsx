@@ -32,13 +32,15 @@ export default function InvoiceGroupComponent({
   return (
     
     <Grid container spacing={2}>
-      <Grid item xs={6}>
+      <Grid item xs={3}>
         <FormDateField
           props={{
             ...props.invoiceFileds.issueDate,
             control: props.control,
           }}
         />
+      </Grid>
+      <Grid item xs={3}>
         <FormDateField
           props={{
             ...props.invoiceFileds.dueDate,
@@ -46,7 +48,10 @@ export default function InvoiceGroupComponent({
           }}
         />
       </Grid>
-      <Grid item xs={6}>
+
+      <Grid item xs={3}></Grid>
+
+      <Grid item xs={3}>
         <FormDropdownField
           props={{
             ...props.invoiceFileds.vatPointDate,

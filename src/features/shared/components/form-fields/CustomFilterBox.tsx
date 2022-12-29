@@ -121,75 +121,77 @@ const handleChangeSelect = (value: any) =>  {
 
 
   const scaleDate  =   window.devicePixelRatio === 1.5 ?  0.7 : 0.9; 
+  const fontSizeDate  =   window.devicePixelRatio === 1.5 ?  '12px' :   '14px'; 
 
   return (
     <>
      <FilterModal  open={openModalFilter.open} data={props.filters} filterName={openModalFilter.filterName} onSubmitFromFilterModal={addFiltersFromModal} ></FilterModal>
-      <Grid item xs={2}  sx={{ml: 3}}>    
-            <CheckboxField 
-                    props={{
-                        control: control,
-                        name: 'sendToCir',
-                        label: 'Registrovano u CRF',
-                        disabled: false,
-                        additional: { readonly: false, labelShrink: true ,  defaultValue: "1", color: 'black'},
-                    
-                    }}
-            />
-        </Grid>
-        <Grid item xs={3.5}>    
-            {props.filters && (
-                <CustomButtonFilters
-                groupButton={props.filters} 
-            />
-            )}
-        </Grid>
-        <Grid item xs={4} sx={{display:  'flex'}}>  
-                    <div
-                      style={{
-                        display: "flex",
-                        alignItems: "flex-start",
-                        justifyContent: "flex-start",
-                        border: "thin solid transparent",
-                        background: "transparent",
-                      }}
-                    >
-                      
-                        <div
-                          style={{
-                            display: "flex",
-                            flexDirection: "row",
-                            //alignContent: "space-around",
-                            height: "36.5px ",
-                            scale: `${scaleDate}`,
-                            margin: "auto",
-                            width: "max-content",
-                            columnGap: "3%",
-                            alignItems: "baseline",
-                            marginTop: "-1px",
-                          }}
-                        >
-                          {t(`Common.from`)}
-                          <FormDateField
-                            props={{
-                              disabled: false,
-                              name: "from",
-                              control: control,
-                              label: "",
-                            }}
-                          />
-                          {t(`Common.to`)}
-                          <FormDateField
-                            props={{
-                              disabled: false,
-                              name: "to",
-                              control: control,
-                              label: "",
-                            }}
-                          />
-                        </div>
-                    </div>
-        </Grid>
+     <Grid item xs={12} sx={{display:  'flex'}} spacing={2}>
+        <Grid item xs={3.5}  mr={2}>    
+                {props.filters && (
+                    <CustomButtonFilters
+                    groupButton={props.filters} 
+                />
+                )}
+            </Grid>
+
+            <Grid item xs={3.5} sx={{display:  'flex'}}  mr={2}>  
+
+                            <div
+                              style={{
+                                display: "flex",
+                                flexDirection: "row",
+                                justifyContent:  'flex-start',
+                                alignContent:  'flex-start',
+                                //alignContent: "space-around",
+                                height: "20px ",
+                                
+                                margin: "auto",
+                                width: "max-content",
+                                
+                                columnGap: "3%",
+                                alignItems: "baseline",
+                                marginTop: "-1px",
+                              }}
+                            >
+                              {/*{t(`Common.from`)}*/}
+                              <FormDateField
+                                props={{
+                                  disabled: false,
+                                  name: "from",
+                                  control: control,
+                                  label: "",
+                                }}
+                              />
+                              <span style={{fontSize:  fontSizeDate}}>{t(`Common.to`)}</span>
+                              <FormDateField
+                                props={{
+                                  disabled: false,
+                                  name: "to",
+                                  control: control,
+                                  label: "",
+                                }}
+                              />
+                            </div>
+                        
+            </Grid>
+
+          <Grid item xs={4}   sx={{color:  ' #323B40'}}>    
+                <CheckboxField 
+                        props={{
+                            control: control,
+                            name: 'sendToCir',
+                            label: 'Registrovano u CRF',
+                            disabled: false,
+                            additional: { readonly: false, labelShrink: true ,  defaultValue: "1", color: 'black'},
+                        
+                        }}
+                />
+            </Grid>
+
+      </Grid>
+
+
         {/*<Grid item  xs={12} sx={{dispaly: 'flex', justifyContent: 'center', alignContent: 'center', mt: 3}} >
         
                 <FormAutocompleteField

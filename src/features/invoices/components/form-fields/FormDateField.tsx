@@ -28,11 +28,12 @@ export default function FormDateField({
       render={({ field: { onChange, value }, fieldState: { error } }) => (
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <DatePicker
-            InputProps={{style: { fontSize: fontSize}}}
+            InputProps={{style: { fontSize: '12px'}}}
             value={dayjs(value)}
             inputFormat="DD/MM/YYYY"
             onChange={(newValue) => onChange(dayjs(newValue).toDate())}
             minDate={props.additional?.disablePast ? new Date() : null}
+            OpenPickerButtonProps={{style: { fontSize: '10px'}}}
             renderInput={(params) => (
               <TextField
                 {...params}

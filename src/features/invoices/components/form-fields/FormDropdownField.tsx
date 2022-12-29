@@ -38,7 +38,7 @@ export default function FormDropdownField({
           <InputLabel id={`select-label_${props.label}.id`} 
           sx={{
             fontSize:  fontSize, 
-            fontFamily: "Roboto",
+            
             lineHeight: "16px",
             fontWeight:  400
             }}>

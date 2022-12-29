@@ -130,6 +130,10 @@ class InvoicePublicService {
     );
   }
 
+  public getTaxBase() {
+    return publicClient.get<any[]>("/tax/base/1");
+  }
+
   /**
    * UPLOAD MULTIPART FORM DATA //TODO send in CRF and put in DB file with response data
    * @param file
@@ -152,6 +156,8 @@ class InvoicePublicService {
     );
   }
 }
+
+
 export default new InvoicePublicService();
 
 function mapToRequestDTO(invoice: any): any {
