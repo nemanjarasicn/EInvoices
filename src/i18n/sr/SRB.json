@@ -317,6 +317,13 @@
     "title":  "Artikli lista",
     "createNew":  "Kreiraj novi artikal"
 
+  },
+
+
+  "Subject":  {
+    "title":  "Komitenti",
+    "createNew":  "Kreiraj novi komitent"
+
   }
 
 

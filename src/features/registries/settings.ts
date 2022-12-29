@@ -131,6 +131,16 @@ const useFeatureSettings = (): FeatureSettings => {
         },
         typeOfCard:  "articles",
       },
+      {
+        title: "Subject.title",
+        icon: CodeIcon,
+        cardBtn: {
+          title: "InvoiceCard.preview",
+          disabled: true,
+          btnFn: () => navigate("/registries/companies"),
+        },
+        typeOfCard:  "company",
+      },
     ],
     templatePageSettings: {
       [TemplatePageRegistriesTypes.OBJECTS]: {
