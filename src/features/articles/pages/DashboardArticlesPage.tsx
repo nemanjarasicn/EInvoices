@@ -12,6 +12,7 @@ import Grid from "@mui/material/Grid";
 import Breadcrumbs from '@mui/material/Breadcrumbs';
 import Link from '@mui/material/Link';
 import Typography from '@mui/material/Typography';
+import { useTranslation } from "react-i18next";
 
 type DashboardPageProps = {};
 
@@ -27,6 +28,7 @@ const Item = styled(Paper)(({ theme }) => ({
 export default function DashboardArticlesPage({}: IProps<DashboardPageProps>): JSX.Element {
   const { cardsSettings } = useFeatureSettings();
   const { dashBoardStyles } = usePageStyles();
+  const { t } = useTranslation();
 
 
 
@@ -39,7 +41,7 @@ export default function DashboardArticlesPage({}: IProps<DashboardPageProps>): J
       <Grid container spacing={2} sx={{display: 'flex', flexDirection: 'column',  ml:  1, mt:  boxMarginTop}}>
         <Grid item xs={4}  mt={12} >
               <Breadcrumbs aria-label="breadcrumb"    sx={{'& .MuiBreadcrumbs-separator': {color: ' #60737C'}}}>
-                      <Typography  sx={{color: 'white', fontSize:  fontSizeBreadcrumbs, fontFamily:  "Roboto",  lineHeight:  "32px",  fontWeight:  700}}>ARTIKLI</Typography>
+                      <Typography  sx={{color: 'white', fontSize:  fontSizeBreadcrumbs, fontFamily:  "Roboto",  lineHeight:  "32px",  fontWeight:  700}}>{t("Menu.registries")}</Typography>
                 </Breadcrumbs>
         </Grid>
         <div style={dashBoardStyles.cardsWrapper}>

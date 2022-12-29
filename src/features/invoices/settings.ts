@@ -50,6 +50,7 @@ const useFeatureSettings = (): FeatureSettings => {
           btnFn: () => navigate("/invoices/sales"),
         },
         typeOfCard:  "invoices",
+        description: "MenuDescription.invoiceSales",
       },
       {
         title: "InvoiceCard.cardTitlePurchases",
@@ -60,8 +61,9 @@ const useFeatureSettings = (): FeatureSettings => {
           btnFn: () => navigate("/invoices/purchases"),
         },
         typeOfCard:  "invoices",
+        description:  "MenuDescription.invoicePurshaes",
       },
-      {
+      /*{
         title: "InvoiceCard.summaryVAT",
         icon: CloudSyncIcon,
         cardBtn: {
@@ -70,7 +72,7 @@ const useFeatureSettings = (): FeatureSettings => {
           btnFn: () => console.log(""),
         },
         typeOfCard:  "invoicesSummary",
-      },
+      },*/
     ],
     templatePageSettings: {
       [TemplatePageTypes.SALES]: {
@@ -85,7 +87,7 @@ const useFeatureSettings = (): FeatureSettings => {
           },
           {
             title: "ButtonsText.TemplatePage.createXML",
-            disabled: false,
+            disabled: true,
             btnFn: () => navigate("/invoices/create-xml"),
             buttonId:  2,
           },

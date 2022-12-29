@@ -90,7 +90,7 @@ export default function ClippedDrawer() {
   const minWidthIcon    =    window.devicePixelRatio === 1.5 ?  20 :  80; 
 
 
-  const userAuthority  =  user.username ===  'nemanjarasic'  ?  true  :  false;
+  const userAuthority  =  user.username ===  'dejan'  ?  true  :  false;
 
   const trigger = useScrollTrigger();
 
@@ -145,6 +145,7 @@ export default function ClippedDrawer() {
       icon: "ApartmentIcon",
       listNumber:  3,
       submenu: true,
+      disabled:   !userAuthority,
       children: [
         {
           name: t("Objects.title"),
@@ -270,139 +271,142 @@ export default function ClippedDrawer() {
         <List key={"list_nav"}>
 
           {navItems.map((item, index) => {
-            return (
-              <div key={index}>
-                <ListItem
-                  key={`${item.name}_list_nav_${index}`}
-                  disablePadding
-                  sx={{ display: "block" }}
-                  component={Link}
-                  to={item.href}
-                  className="item-class"
-                >
-                  <ListItemButton
-                    key={`${item.name}_list_nav_button_${index}`}
-                    sx={{
-                      minHeight:  minWidthIcon, //48
-                      justifyContent: open ? "initial" : "center",
-                      px: 2.5,
-                      display:  'flex',
-                      flexDirection:  'column'
-                    }}
-                    onMouseEnter={(e)  => {setCalcNumber(item.listNumber as number); setShowSubMenu(item.submenu as boolean); setParentItem(item as any)}}
-                    onMouseLeave={()  =>  setShowSubMenu(false)}
-                    onClick={()  =>  setShowSubMenu(false)}
-                  >
-                    <ListItemIcon
-                      key={`${item.name}_list_nav_icon${index}`}
-                      sx={{
-                        minWidth: 0,
-                        display: 'block',
-                        color: "black", //  #fff
-                        opacity: 0.5,
-                      }}
-                      
-                    >
-                      {icon(item.icon)}
-                    </ListItemIcon>
-                    {/*<ListItemText
-                      key={`${item.name}_list_nav_text${index}`}
-                      primaryTypographyProps={{fontSize:  fontSizeText, fontWeight: 500}} 
-                      primary={item.name}
-                      sx={{
-                        display:  "block" ,
-                        color: theme.palette.secondary.main, // fff
-                        opacity: 0.9,
-                      }}
-                    />*/}
-                  </ListItemButton>
-                </ListItem>
-                <Box sx={{position: 'fixed',
-                          transform: 'translate(-50%, -50%)',
-                          width:  subMenuWidth , 
-                          height:  subMenuHeight ,
-                          top: `calc(${startPositionSubmenu} + ${calcNumber}*${stepPosition}px)`,
-                          left: `${leftSubmenu}`,
-        
-                          borderRadius: 2,
-                          p:  subMenuPadding,
-                          backgroundColor:  'white',
-                          ml: 10,
-                          zIndex: 1,
-                          display:  showSubMenu ?  'flex'  :  'none'
-                      }}
-                      onMouseEnter = {()   =>  setShowSubMenu(true)}
-                      onMouseLeave = {()  =>   setShowSubMenu(false)}> 
-               
-                  <List key={`list_subnav`}>
-                  {navItems.filter((item) =>  item?.name  ===  parentItem?.name)[0]?.children?.map((itemChild, childIndex) => (
-                     <ListItem disablePadding
-                               component={Link}
-                               to={ !itemChild.disabled ? itemChild.href  :  "#"}
-                               disabled={itemChild.disabled}>
-                          <ListItemButton>
-                          <ListItemText   primaryTypographyProps={{fontSize:  fontSizeText,   fontWeight:   500}} 
-                                          primary={itemChild.name} 
-                                          sx={{
-                                            display:  "block" ,
-                                            color: "black", // fff
-                                            opacity: 0.9,
-                                          }}/>
-                          </ListItemButton>
-                   </ListItem>
-
-                  ))}
-                </List>
-                </Box>
-                {/*<List key={`list_nav_${index}`}>
-                  {item.children?.map((itemChild, childIndex) => (
+            {if(!item.disabled)  {
+                return (
+                  <div key={index}>
                     <ListItem
-                      key={`${itemChild.name}_list_nav_${childIndex}`}
+                      key={`${item.name}_list_nav_${index}`}
                       disablePadding
-                      sx={{ display:  "block"  }}
+                      sx={{ display: "block" }}
                       component={Link}
-                      to={itemChild.href}
+                      to={item.href}
                       className="item-class"
                     >
                       <ListItemButton
-                        key={`${itemChild.name}_list_nav_child_button${childIndex}`}
+                        key={`${item.name}_list_nav_button_${index}`}
                         sx={{
-                          minHeight: 48,
-                          justifyContent: "initial" ,
+                          minHeight:  minWidthIcon, //48
+                          justifyContent: open ? "initial" : "center",
                           px: 2.5,
+                          display:  'flex',
+                          flexDirection:  'column'
                         }}
+                        onMouseEnter={(e)  => {setCalcNumber(item.listNumber as number); setShowSubMenu(item.submenu as boolean); setParentItem(item as any)}}
+                        onMouseLeave={()  =>  setShowSubMenu(false)}
+                        onClick={()  =>  setShowSubMenu(false)}
                       >
                         <ListItemIcon
-                          key={`${itemChild.name}_list_nav_child_icon${childIndex}`}
+                          key={`${item.name}_list_nav_icon${index}`}
                           sx={{
                             minWidth: 0,
-                            mr: 1,
-                            justifyContent: "center",
-                            color: "green",
-                            opacity: 0,
-                          }}
-                        >
-                          {icon(itemChild.icon)}
-                        </ListItemIcon>
-                        <ListItemText
-                          key={`${itemChild.name}_list_nav_child_text${childIndex}`}
-                          primary={itemChild.name}
-                          sx={{
-                            display: "block",
-                            color: "green",
+                            display: 'block',
+                            color: "black", //  #fff
                             opacity: 0.5,
                           }}
-                        />
+                          
+                        >
+                          {icon(item.icon)}
+                        </ListItemIcon>
+                        {/*<ListItemText
+                          key={`${item.name}_list_nav_text${index}`}
+                          primaryTypographyProps={{fontSize:  fontSizeText, fontWeight: 500}} 
+                          primary={item.name}
+                          sx={{
+                            display:  "block" ,
+                            color: theme.palette.secondary.main, // fff
+                            opacity: 0.9,
+                          }}
+                        />*/}
                       </ListItemButton>
                     </ListItem>
-                  ))}
-                        </List>*/}
-              </div>
-            );
+                    <Box sx={{position: 'fixed',
+                              transform: 'translate(-50%, -50%)',
+                              width:  subMenuWidth , 
+                              height:  subMenuHeight ,
+                              top: `calc(${startPositionSubmenu} + ${calcNumber}*${stepPosition}px)`,
+                              left: `${leftSubmenu}`,
+            
+                              borderRadius: 2,
+                              p:  subMenuPadding,
+                              backgroundColor:  'white',
+                              ml: 10,
+                              zIndex: 1,
+                              display:  showSubMenu ?  'flex'  :  'none'
+                          }}
+                          onMouseEnter = {()   =>  setShowSubMenu(true)}
+                          onMouseLeave = {()  =>   setShowSubMenu(false)}> 
+                  
+                      <List key={`list_subnav`}>
+                      {navItems.filter((item) =>  item?.name  ===  parentItem?.name)[0]?.children?.map((itemChild, childIndex) => (
+                        <ListItem disablePadding
+                                  component={Link}
+                                  to={ !itemChild.disabled ? itemChild.href  :  "#"}
+                                  disabled={itemChild.disabled}>
+                              <ListItemButton>
+                              <ListItemText   primaryTypographyProps={{fontSize:  fontSizeText,   fontWeight:   500}} 
+                                              primary={itemChild.name} 
+                                              sx={{
+                                                display:  "block" ,
+                                                color: "black", // fff
+                                                opacity: 0.9,
+                                              }}/>
+                              </ListItemButton>
+                      </ListItem>
+
+                      ))}
+                    </List>
+                    </Box>
+                    {/*<List key={`list_nav_${index}`}>
+                      {item.children?.map((itemChild, childIndex) => (
+                        <ListItem
+                          key={`${itemChild.name}_list_nav_${childIndex}`}
+                          disablePadding
+                          sx={{ display:  "block"  }}
+                          component={Link}
+                          to={itemChild.href}
+                          className="item-class"
+                        >
+                          <ListItemButton
+                            key={`${itemChild.name}_list_nav_child_button${childIndex}`}
+                            sx={{
+                              minHeight: 48,
+                              justifyContent: "initial" ,
+                              px: 2.5,
+                            }}
+                          >
+                            <ListItemIcon
+                              key={`${itemChild.name}_list_nav_child_icon${childIndex}`}
+                              sx={{
+                                minWidth: 0,
+                                mr: 1,
+                                justifyContent: "center",
+                                color: "green",
+                                opacity: 0,
+                              }}
+                            >
+                              {icon(itemChild.icon)}
+                            </ListItemIcon>
+                            <ListItemText
+                              key={`${itemChild.name}_list_nav_child_text${childIndex}`}
+                              primary={itemChild.name}
+                              sx={{
+                                display: "block",
+                                color: "green",
+                                opacity: 0.5,
+                              }}
+                            />
+                          </ListItemButton>
+                        </ListItem>
+                      ))}
+                            </List>*/}
+                  </div>
+                );
+            }
+            }
           })}
 
 
-          <div key={'logout'}  style={{marginTop:    logoutIconMarginTop}}>
+          <div key={'logout'}  style={{bottom: '40px', position:  'fixed'}}>
                 <ListItem
                   key={`logaout`}
                   disablePadding

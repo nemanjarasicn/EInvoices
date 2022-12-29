@@ -19,6 +19,7 @@ import {
     icon: OverridableComponent<SvgIconTypeMap<{}, "svg">> & { muiName: string };
     cardBtn: ButtonProps;
     typeOfCard: string;
+    description?: string;
   }
   export default function InvoiceCardComponent({
     props,
@@ -32,6 +33,8 @@ import {
     const sizeSubTitleCard = window.devicePixelRatio === 1.5 ? '12px' : '16px'; 
     const minWidthCard = window.devicePixelRatio === 1.5 ?  200 : 275;
     const  marginTopCard    =   window.devicePixelRatio === 1.5 ? '15px' : '40px'; 
+
+    const  description =  props.description ?  props.description : 'MenuDescription.default'
     return (
       <Box sx={{ minWidth:   minWidthCard }}>
         <Card sx={invoiceCardStyles.card}   onClick={!props.cardBtn.disabled ?  props.cardBtn.btnFn  : undefined }>
@@ -56,7 +59,7 @@ import {
                     gutterBottom
                     sx={{ textAlign: "center", p: 2, color: '#979A9A', fontSize:   sizeSubTitleCard, fontWeight: 400, mt: -4}}
                   >
-                    {t('Pogledajte sve artikle, izmenite ili napravite novi artikal')}
+                    {t(`${description}`)}
                 </Typography>
             
           </React.Fragment>
