@@ -11,6 +11,7 @@ import Box from "@mui/material/Box";
 import { handleInvoiceStatus } from "../../utils/utils";
 import { TableComponentProps } from "./TableComponent";
 import { styled } from '@mui/material/styles';
+import { useTranslation } from "react-i18next";
 import Tooltip, { TooltipProps, tooltipClasses } from '@mui/material/Tooltip';
 import { unzipFile,  unzipFileData }  from  "../../pages/InvoiceTemplatePage"
 import {getZip }  from  "../../store/invoice.actions"
@@ -48,6 +49,7 @@ const LightTooltip = styled(({ className, ...props }: TooltipProps) => (
 const useTableSettings = (): TableSettings => {
 
   const dispach = useAppDispatch();
+  const { t } = useTranslation();
 
   const getZipData = async  (flag: string, typeInvoicesZip:  number,  id: any) =>  {
     const  typeInvoices =  flag ===  'XML'  ?   'downloadXml'  :  'printPdf';
@@ -58,6 +60,33 @@ const useTableSettings = (): TableSettings => {
     }
     unzipFile(flag, zipData)
     .catch((err)   =>  console.log('greska prilikom download ' + flag));
+  }
+
+  const handleStatus  =  (status:  any)  =>   {
+    switch (status) {
+      case 'Seen':
+        return t("InvoiceStatuses.seen");
+      case 'Approved':
+        return t("InvoiceStatuses.approved");
+      case 'Sent':
+        return t("InvoiceStatuses.sent");
+      case 'Cancelled':
+        return t("InvoiceStatuses.cancelled");
+      case 'Rejected':
+        return t("InvoiceStatuses.rejected");
+      case 'New':
+        return t("InvoiceStatuses.new");
+      case 'Storno':
+        return t("InvoiceStatuses.storno");
+      case 'Draft':
+        return t("InvoiceStatuses.draft");
+      case 'Mistake':
+        return t("InvoiceStatuses.mistake");
+      case 'Paid':
+        return t("InvoiceStatuses.paid");
+      default:
+       return status;
+    }
   }
 
   return {
@@ -103,6 +132,8 @@ const useTableSettings = (): TableSettings => {
               field: "invoiceStatus",
               headerName: "TableColumns.Status",
               flex: 1,
+              valueGetter: (params: GridValueGetterParams) =>
+                    handleStatus(params.row.invoiceStatus),
               headerAlign: "center",
               align: "center",
               hideable: true,
@@ -128,7 +159,7 @@ const useTableSettings = (): TableSettings => {
               headerName: "TableColumns.InvoiceDateUtc",
               flex: 1,
               valueGetter: (params: GridValueGetterParams) =>
-                dayjs(params.row.deliveryDate).format("YYYY-MM-DD"),
+                dayjs(params.row.deliveryDate).format("DD/MM/YYYY"),
               headerAlign: "center",
               align: "center",
               hideable: true,
@@ -139,7 +170,7 @@ const useTableSettings = (): TableSettings => {
               headerName: "TableColumns.InvoiceSentDateUtc",
               flex: 1,
               valueGetter: (params: GridValueGetterParams) =>
-                dayjs(params.row.dateIssue).format("YYYY-MM-DD"),
+                dayjs(params.row.dateIssue).format("DD/MM/YYYY"),
               headerAlign: "center",
               align: "center",
               hideable: false,
@@ -261,6 +292,8 @@ const useTableSettings = (): TableSettings => {
               field: "invoiceStatus",
               headerName: "TableColumns.Status",
               flex: 1,
+              valueGetter: (params: GridValueGetterParams) =>
+                    handleStatus(params.row.invoiceStatus),
               headerAlign: "center",
               align: "center",
               hideable: true,
@@ -286,7 +319,7 @@ const useTableSettings = (): TableSettings => {
               headerName: "TableColumns.InvoiceDateUtc",
               flex: 1,
               valueGetter: (params: GridValueGetterParams) =>
-                dayjs(params.row.deliveryDate).format("YYYY-MM-DD"),
+                dayjs(params.row.deliveryDate).format("DD/MM/YYYY"),
               headerAlign: "center",
               align: "center",
               hideable: true,
@@ -297,7 +330,7 @@ const useTableSettings = (): TableSettings => {
               headerName: "TableColumns.InvoiceSentDateUtc",
               flex: 1,
               valueGetter: (params: GridValueGetterParams) =>
-                dayjs(params.row.dateIssue).format("YYYY-MM-DD"),
+                dayjs(params.row.dateIssue).format("DD/MM/YYYY"),
               headerAlign: "center",
               align: "center",
               hideable: false,

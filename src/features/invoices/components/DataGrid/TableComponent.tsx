@@ -16,6 +16,7 @@ import { useTranslation } from "react-i18next";
 import TablePagination from "./TablePagination";
 import ModalPdf from "../../../shared/components/ModalPdf";
 import  { selectOpenPdf }    from  "../../store/invoice.selectors"
+
 import { getTotalAmount } from "./util";
 
 export type TableComponentProps = {
@@ -49,6 +50,7 @@ export default function TableComponent({
               style={{ minHeight: tableData.length ? undefined : 200,   backgroundColor: 'white',  fontSize:   fontSize }}
               disableColumnMenu
               pagination
+              
               disableColumnFilter
               showCellRightBorder={true}
               localeText={{
@@ -94,6 +96,9 @@ export default function TableComponent({
                 noRowsOverlay: {
                   props: { message: "Table.NoRows" },
                 },
+                pagination: {
+                  labelRowsPerPage: t('redova po strani')
+                }
               }}
               sx={tableComponentStyles.dataGrid}
               checkboxSelection
