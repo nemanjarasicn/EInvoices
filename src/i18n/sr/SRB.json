@@ -6,6 +6,7 @@
     "delete": "Obrisi",
     "none": "Nijedno",
     "send": "Pošalji",
+    "cancell": "Otkazi",
     "newInvoice": "Nova Faktura",
     "from": "Od:",
     "to": "Do:",
@@ -171,10 +172,13 @@
       "percent": "PDV",
       "unitTaxAmount": "Iznos PDV",
       "priceAmount": "Ukupno",
-      "priceWithoutDiscount": "Ukupan iznos bez popusta",
+      "priceWithoutDiscount": "Ukupan iznos bez popusta ili nove cene",
       "taxableAmount": "Osnovica za PDV",
-      "sumWithDiscount": "Ukupan iznos sa popustom",
-      "taxAmount": "Iznos PDV"
+      "sumWithDiscount": "Ukupan iznos sa popustom  ili sa novom cenom" ,
+      "taxAmount": "Iznos PDV",
+      "note":  "Napomena",
+      "price":  "Cena",
+      "delete":  "Brisanje"
     }
   },
   "Client": {

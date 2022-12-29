@@ -5,4 +5,5 @@ export interface NavItem {
     children?: NavItem[] | undefined;
     listNumber?:  number;
     submenu?:   boolean;
+    disabled?:  boolean;
   }

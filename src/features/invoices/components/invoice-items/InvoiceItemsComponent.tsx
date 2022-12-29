@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React from "react";
 import { IProps } from "../../models";
-import FormAutocompleteField from "../form-fields/FormAutocompleteField";
+import {FormAutocompleteField} from "../form-fields/FormAutocompleteField";
 import { GroupFieldProps } from "../form-fields/models/form-fields.models";
 import InvoiceLine from "./InvoiceLine";
 import { selectProducts } from "../form-fields/store/form.selectors";
@@ -24,6 +24,8 @@ type InvoiceItemsComponentProps = Omit<GroupFieldProps, "title"> & {
   reset?: any;
 };
 
+
+
 export default function InvoiceItemsComponent({
   props,
 }: IProps<InvoiceItemsComponentProps>): JSX.Element {
@@ -36,6 +38,81 @@ export default function InvoiceItemsComponent({
   const childRef = React.useRef();
 
 
+
+  const columns: GridColDef[] =  [
+    {
+      field: "name",
+      headerName: t("Form.formFieldsLabels.productName"),
+      flex: 1,
+      headerAlign: "center",
+      align: "center",
+      hideable: false,
+    }, 
+    {
+    field: "invoicedQuantity",
+    headerName: t("Form.formFieldsLabels.invoicedQuantity"),
+    flex: 1,
+    headerAlign: "center",
+    align: "center",
+    hideable: false,
+  },
+  {
+    field: "price",
+    headerName: t("Form.formFieldsLabels.price"),
+    flex: 1,
+    headerAlign: "center",
+    align: "center",
+    hideable: false,
+  },
+  {
+    field: "unitCode",
+    headerName: t("Form.formFieldsLabels.unitCode"),
+    flex: 1,
+    headerAlign: "center",
+    align: "center",
+    hideable: false,
+  },
+  {
+    field: "discount",
+    headerName: t("Form.formFieldsLabels.discount"),
+    flex: 1,
+    headerAlign: "center",
+    align: "center",
+    hideable: false,
+  },
+  {
+    field: "vatName",
+    headerName: t("Form.formFieldsLabels.percent"),
+    flex: 1,
+    headerAlign: "center",
+    align: "center",
+    hideable: false,
+  },
+
+  {
+    field: "priceAmount",
+    headerName: t("Form.formFieldsLabels.priceAmount"),
+    flex: 1,
+    headerAlign: "center",
+    align: "center",
+    hideable: false,
+  },
+  {
+    field: 'action',
+    headerName: t("Form.formFieldsLabels.delete"),
+    flex: 1,
+    headerAlign: "center",
+    align: "center",
+    hideable: true,
+    renderCell: (params: any) => (
+      <Box sx={{display:  'flex', justifyContent: 'space-between', p: 2}}>
+            <IconButton color="primary" aria-label="xml" component="label"    onClick={() => deleteListItem(params.row.id)} >
+                <DeleteIcon  sx={{  color: "#0D78DE"}} />
+              </IconButton>
+      </Box>
+    )
+  },
+]
 
 
 
@@ -118,10 +195,10 @@ export default function InvoiceItemsComponent({
       <>
       <Box sx={{display:  'flex', mt: 7, flexDirection:  'column',  justifyContent: 'center', alignItems:  'flex-end'}}>
 
-            <Box sx={{ display: "flex" }}>Ukupan iznos bez popusta :  {currencyFormat(priceWithoutDiscount)}</Box>
-            <Box sx={{ display: "flex" }}>Ukupan iznos sa popustom :    {currencyFormat(sumWithDiscount)}</Box>
-            <Box sx={{  display: "flex" }}>Osnovica za PDV :    {currencyFormat(taxableAmount)}</Box>
-            <Box sx={{  display: "flex" }}>Iznos PDV :   {currencyFormat(taxAmount)}</Box>
+            <Box sx={{ display: "flex" }}>  {t("Form.formFieldsLabels.priceWithoutDiscount")} :  {currencyFormat(priceWithoutDiscount)}</Box>
+            <Box sx={{ display: "flex" }}>  {t("Form.formFieldsLabels.sumWithDiscount")} :    {currencyFormat(sumWithDiscount)}</Box>
+            <Box sx={{  display: "flex" }}>   {t("Form.formFieldsLabels.taxableAmount")}:    {currencyFormat(taxableAmount)}</Box>
+            <Box sx={{  display: "flex" }}>   {t("Form.formFieldsLabels.priceAmount")}:   {currencyFormat(taxAmount)}</Box>
             <Box sx={{ paddingTop:   '10px', display: "flex", fontWeight: 700 }}>Ukupno : {currencyFormat(totalSum)}</Box>
       </Box>
       </>
@@ -159,7 +236,7 @@ export default function InvoiceItemsComponent({
           props={{
             control: control,
             disabled: true,
-            label: t('Naziv'),
+            label: t('Form.formFieldsLabels.productName'),
             name: `naziv`,
             additional: {
               suffix: "",
@@ -205,80 +282,7 @@ export default function InvoiceItemsComponent({
       rows={itemsList}
       getRowId={(row: any) =>  Math.random()}
       rowsPerPageOptions={[5, 10, 15, 30]}
-      columns={[
-        {
-          field: "name",
-          headerName: "naziv",
-          flex: 1,
-          headerAlign: "center",
-          align: "center",
-          hideable: false,
-        }, 
-        {
-        field: "invoicedQuantity",
-        headerName: "kolicina",
-        flex: 1,
-        headerAlign: "center",
-        align: "center",
-        hideable: false,
-      },
-      {
-        field: "price",
-        headerName: "cena",
-        flex: 1,
-        headerAlign: "center",
-        align: "center",
-        hideable: false,
-      },
-      {
-        field: "unitCode",
-        headerName: "Mera",
-        flex: 1,
-        headerAlign: "center",
-        align: "center",
-        hideable: false,
-      },
-      {
-        field: "discount",
-        headerName: "popust",
-        flex: 1,
-        headerAlign: "center",
-        align: "center",
-        hideable: false,
-      },
-      {
-        field: "vatName",
-        headerName: "pdv",
-        flex: 1,
-        headerAlign: "center",
-        align: "center",
-        hideable: false,
-      },
-  
-      {
-        field: "priceAmount",
-        headerName: "konacna cena",
-        flex: 1,
-        headerAlign: "center",
-        align: "center",
-        hideable: false,
-      },
-      {
-        field: 'action',
-        headerName: 'Action',
-        flex: 1,
-        headerAlign: "center",
-        align: "center",
-        hideable: true,
-        renderCell: (params) => (
-          <Box sx={{display:  'flex', justifyContent: 'space-between', p: 2}}>
-                <IconButton color="primary" aria-label="xml" component="label"    onClick={() => deleteListItem(params.row.id)} >
-                    <DeleteIcon  sx={{  color: "#0D78DE"}} />
-                  </IconButton>
-          </Box>
-        )
-      },
-    ]}
+      columns={columns}
       autoHeight={true}
       density="compact"
       pageSize={10}

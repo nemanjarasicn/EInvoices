@@ -6,6 +6,7 @@
     "delete": "Delete",
     "none": "None",
     "send": "Send",
+    "cancell": "Cancell",
     "newInvoice": "New Invoice",
     "from": "From:",
     "to": "To:",
@@ -171,10 +172,13 @@
       "percent": "VAT",
       "unitTaxAmount": "VAT amount",
       "priceAmount": "Final amount",
-      "priceWithoutDiscount": "Total without discount",
+      "priceWithoutDiscount": "Total without discount or new price",
       "taxableAmount": "VAT base",
-      "sumWithDiscount": "Total with discount",
-      "taxAmount": "Amount of VAT"
+      "sumWithDiscount": "Total with discount or new price",
+      "taxAmount": "Amount of VAT",
+      "note":  "Note",
+      "price":  "Price",
+      "delete":  "Delete"
     }
   },
   "Client": {

@@ -37,6 +37,7 @@ import { useAppDispatch } from "../hooks";
 import { removeUser } from "../core/core.reducer";
 import useScrollTrigger from '@mui/material/useScrollTrigger';
 import Slide from '@mui/material/Slide';
+import { selectUser }  from  "../core/core.selectors"
 
 const drawerWidth =  200;
 
@@ -67,6 +68,8 @@ export default function ClippedDrawer() {
   const theme  =  useTheme();
   const { menuAppBarStyles } = useAppComponentsStyles();
   const companyUser = useAppSelector(selectCompany) as any;
+  const user  =  useAppSelector(selectUser) as any;
+
 
   const [calcNumber, setCalcNumber] =  React.useState<number>(1);
   const [showSubMenu,  setShowSubMenu] =  React.useState<boolean>(false);
@@ -86,6 +89,8 @@ export default function ClippedDrawer() {
   const gradiantSize = window.devicePixelRatio === 1.5 ?   '20%' : '15%';
   const minWidthIcon    =    window.devicePixelRatio === 1.5 ?  20 :  80; 
 
+
+  const userAuthority  =  user.username ===  'nemanjarasic'  ?  true  :  false;
 
   const trigger = useScrollTrigger();
 
@@ -160,6 +165,7 @@ export default function ClippedDrawer() {
           name: t("Companies.title"),
           href: "/registries/companies",
           icon: "Home",
+          disabled: !userAuthority,
         },
         {
           name: t("Warehouses.title"),
@@ -332,7 +338,8 @@ export default function ClippedDrawer() {
                   {navItems.filter((item) =>  item?.name  ===  parentItem?.name)[0]?.children?.map((itemChild, childIndex) => (
                      <ListItem disablePadding
                                component={Link}
-                               to={itemChild.href}>
+                               to={ !itemChild.disabled ? itemChild.href  :  "#"}
+                               disabled={itemChild.disabled}>
                           <ListItemButton>
                           <ListItemText   primaryTypographyProps={{fontSize:  fontSizeText,   fontWeight:   500}} 
                                           primary={itemChild.name} 

@@ -8,7 +8,7 @@ import {
   GroupFieldProps,
 } from "../form-fields/models/form-fields.models";
 import { selectClientCompanies } from "../form-fields/store/form.selectors";
-import FormAutocompleteField from "../form-fields/FormAutocompleteField";
+import {FormAutocompleteField} from "../form-fields/FormAutocompleteField";
 import { UseFormSetValue } from "react-hook-form";
 
 type ClientComponentProps = GroupFieldProps & {

@@ -126,7 +126,7 @@ const handleChangeSelect = (value: any) =>  {
   return (
     <>
      <FilterModal  open={openModalFilter.open} data={props.filters} filterName={openModalFilter.filterName} onSubmitFromFilterModal={addFiltersFromModal} ></FilterModal>
-     <Grid item xs={12} sx={{display:  'flex'}} spacing={2}>
+     <Grid item xs={12} sx={{display:  'flex'}}   >
         <Grid item xs={3.5}  mr={2}>    
                 {props.filters && (
                     <CustomButtonFilters

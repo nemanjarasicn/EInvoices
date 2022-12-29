@@ -23,7 +23,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import FormDropdownField from "./form-fields/FormDropdownField";
 import FormTextAreaField from "./form-fields/FormTextAreaField";
 import FormDateField from "./form-fields/FormDateField";
-import FormAutocompleteField from "./form-fields/FormAutocompleteField";
+import {FormAutocompleteField} from "./form-fields/FormAutocompleteField";
 import { useTranslation } from "react-i18next";
 import { useComponentsStyles } from "./components.styles";
 import CustomButtonFc from "./CustomButtonFc";
@@ -338,7 +338,7 @@ export default function InvoiceFormComponent({
                     <Grid item xs={12}  sx={{display:  'flex', justifyContent:  'center', alignItems:   'center', mt: -10}} >
                     <TextField
                           sx={{width:  '100%'}}
-                          placeholder="Napomena"
+                          placeholder =  {t("Form.formFieldsLabels.note")}
                           multiline
                           rows={3}
                           maxRows={4}
@@ -1007,7 +1007,7 @@ export default function InvoiceFormComponent({
                     variant="outlined"
                     onClick={() => navigate("/invoices/sales")}
                   >
-                    {t('Otkazi')}
+                    {t('Common.cancell')}
                   </Button>
                   <Button
                     sx={{

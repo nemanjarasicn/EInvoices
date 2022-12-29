@@ -25,9 +25,9 @@ type FormAutocompleteFieldProps = FormFieldProps & {
 /**
  * Facade MUI Autocomplete Field component
  */
-export default function FormAutocompleteField({
+export const   FormAutocompleteField  = ({
   props,
-}: IProps<FormAutocompleteFieldProps>) {
+}: IProps<FormAutocompleteFieldProps>)  => {
   const data: AutocompleteItem[] = useAppSelector(props.additional.selector);
   const [name, setName] = React.useState('');
 

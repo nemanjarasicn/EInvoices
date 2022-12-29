@@ -124,11 +124,16 @@ export default function InvoiceLine({
 
 
   const  handleChangeNewPrice  =  ()   =>   {
-    const newDiscount = calculateNewDiscount(
-      Number(formGetValues(`invoiceLine[${index}].price.unitPrice`)),
-      Number(formWatch(`invoiceLine[${index}].price.newPrice`))
-    );
-    formSetValue(`invoiceLine[${index}].price.discount`, newDiscount);
+    if(Number(formWatch(`invoiceLine[${index}].price.newPrice`)) <=   Number(formGetValues(`invoiceLine[${index}].price.unitPrice`))) {
+          const newDiscount = calculateNewDiscount(
+            Number(formGetValues(`invoiceLine[${index}].price.unitPrice`)),
+            Number(formWatch(`invoiceLine[${index}].price.newPrice`))
+          );
+          formSetValue(`invoiceLine[${index}].price.discount`, newDiscount);
+
+    }  else{
+          formSetValue(`invoiceLine[${index}].price.discount`, 0);
+     }
   }
 
 

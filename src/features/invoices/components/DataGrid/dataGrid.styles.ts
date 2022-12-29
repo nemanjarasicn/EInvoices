@@ -38,6 +38,8 @@ const useDataGridStyles = (): {
 
         },
 
+        
+
         '& .MuiDataGrid-columnHeader':  {
           color:  'black',
           

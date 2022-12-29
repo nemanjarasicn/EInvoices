@@ -162,7 +162,7 @@ export default function InvoiceTemplatePage({
           {/*<Item>*/}
           <Breadcrumbs aria-label="breadcrumb"    sx={{'& .MuiBreadcrumbs-separator': {color: ' #60737C'}}}>
                 <Link  sx={{color: '#60737C', fontSize:  fontSizeBreadcrumbs, fontFamily:  "Roboto",  lineHeight:  "32px",  fontWeight:  700}}  href="/invoices">
-                        E-FAKTURA
+                        {t("Menu.invoice")}
                 </Link>
                 <Typography  sx={{color: 'white', fontSize:  fontSizeBreadcrumbs, fontFamily:  "Roboto",  lineHeight:  "32px",  fontWeight:  700}}>{t(templatePageSettings[props.templateType].title)}</Typography>
           </Breadcrumbs>

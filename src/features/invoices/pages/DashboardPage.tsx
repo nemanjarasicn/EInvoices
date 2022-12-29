@@ -3,6 +3,7 @@ import CardComponent, {
   CardProps,
 } from "../../shared/components/CardComponent";
 import { IProps } from "../models/invoice.models";
+import { useTranslation } from "react-i18next";
 import { useFeatureSettings } from "../settings";
 import Grid from "@mui/material/Grid";
 import { usePageStyles } from "./pages.styles";
@@ -14,6 +15,7 @@ import Typography from '@mui/material/Typography';
 type DashboardPageProps = {};
 
 export default function DashboardPage({}: IProps<DashboardPageProps>): JSX.Element {
+  const { t } = useTranslation();
   const { cardsSettings } = useFeatureSettings();
   const { dashBoardStyles } = usePageStyles();
 
@@ -25,7 +27,7 @@ export default function DashboardPage({}: IProps<DashboardPageProps>): JSX.Eleme
 
       <Grid item xs={4}  sx={{mt: boxMarginTop}}>
           <Breadcrumbs aria-label="breadcrumb"  sx={{'& .MuiBreadcrumbs-separator': {color: 'red'}}}>
-                <Typography  sx={{color: 'white', fontSize:   fontSizeBreadcrumbs, fontFamily:  "Roboto",  lineHeight:  "32px",  fontWeight:  700}}>E-FAKTURA</Typography>
+                <Typography  sx={{color: 'white', fontSize:   fontSizeBreadcrumbs, fontFamily:  "Roboto",  lineHeight:  "32px",  fontWeight:  700}}>{t("Menu.invoice")}</Typography>
           </Breadcrumbs>
       </Grid>
         <div style={dashBoardStyles.cardsWrapper}>
