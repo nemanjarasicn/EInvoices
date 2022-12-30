@@ -19,6 +19,7 @@ import AssignmentTurnedInIcon from "@mui/icons-material/AssignmentTurnedIn";
 import AssignmentLateIcon from "@mui/icons-material/AssignmentLate";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFilePdf }   from '@fortawesome/pro-solid-svg-icons';
+import { faCheckCircle }   from '@fortawesome/pro-solid-svg-icons';
 import { faFile }   from '@fortawesome/pro-solid-svg-icons';
 import { faFileCircleXmark }   from '@fortawesome/pro-solid-svg-icons';
 import {
@@ -249,19 +250,32 @@ const useTableSettings = (): TableSettings => {
               align: "center",
               hideable: true,
               renderCell: (params) => (
-                <Box sx={{display:  'flex', justifyContent: 'space-between', p: 2}}>
-                  <LightTooltip title="PDF preview">
-                  <IconButton sx={{mr: 2}} color="primary" aria-label="pdf" component="label"  onClick={() => {getZipData('PDF', 1, params.row.salesInvoiceId)}}>
-                    <PictureAsPdfIcon  sx={{ color: "#ef3e56" }} />
-                  </IconButton>
-                  </LightTooltip>
-                  <LightTooltip title="XML download">
-                  <IconButton color="primary" aria-label="xml" component="label"   onClick={() => {getZipData('XML', 1, params.row.salesInvoiceId)}} >
-                    <CloudDownloadIcon  sx={{  color: "#0D78DE"}} />
-                  </IconButton>
-                  </LightTooltip>
+                <Grid  container sx={{display:  'flex'}}>
+                      <Grid item xs={3} >
+                      <LightTooltip title="PDF preview">
+                        <IconButton sx={{mr: 2}} color="primary" aria-label="pdf" component="label"  onClick={() => {getZipData('PDF', 1, params.row.salesInvoiceId)}}>
+                        <FontAwesomeIcon icon={faFilePdf}   color="#E9950C"   />
+                        </IconButton>
+                        </LightTooltip>
+                      </Grid>
+                      <Grid item xs={3} >
+                      <LightTooltip title="XML download">
+                        <IconButton color="primary" aria-label="xml" component="label"   onClick={() => {getZipData('XML', 1, params.row.salesInvoiceId)}} >
+                        <FontAwesomeIcon icon={faFile}   color="#0D78DE"   />
+                        </IconButton>
+                        </LightTooltip>
+                      </Grid>
+                      <Grid item xs={3}>
+                        {(params.row.invoiceStatus  ===  'Sent') && 
+                            <LightTooltip title="Otkazi">
+                                <IconButton color="primary" aria-label="pdf" component="label"  onClick={() => {console.log(params.row)}}>
+                                  <FontAwesomeIcon icon={faFileCircleXmark}   color="red"   />
+                                </IconButton>
+                            </LightTooltip>
+                        }
+                      </Grid>
+                </Grid>
 
-                </Box>
               )
             },
           ],
@@ -420,7 +434,7 @@ const useTableSettings = (): TableSettings => {
                       {(params.row.invoiceStatus  ===  'Seen') && 
                           <LightTooltip title="Odobri">
                               <IconButton color="primary" aria-label="pdf" component="label"  onClick={() => {console.log(params.row)}}>
-                                <AssignmentTurnedInIcon  sx={{ color: "green" }} />
+                                <FontAwesomeIcon icon={faCheckCircle}   color="green"   />
                               </IconButton>
                           </LightTooltip>
                       }
