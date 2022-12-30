@@ -150,7 +150,7 @@ export default function ClippedDrawer() {
       icon: "ApartmentIcon",
       listNumber:  3,
       submenu: true,
-      disabled:   !userAuthority,
+      disabled:   false,
       children: [
         {
           name: t("Objects.title"),
@@ -171,7 +171,7 @@ export default function ClippedDrawer() {
           name: t("Companies.title"),
           href: "/registries/companies",
           icon: "Home",
-          disabled: !userAuthority,
+          disabled: false,
         },
         {
           name: t("Warehouses.title"),

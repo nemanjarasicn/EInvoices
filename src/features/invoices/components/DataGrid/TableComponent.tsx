@@ -12,9 +12,11 @@ import { setSelection } from "./store/data-grid.reducer";
 import { selectSelection } from "./store/data-grid.selectors";
 import TableToolbar, { TableToolbarProps } from "./TableToolbar";
 import TableNoRowsOverlay from "./NoRowsOverlay";
+import ConfirmWithCommentDialog from "../ConfirmWithCommentDialog";
 import { useTranslation } from "react-i18next";
 import TablePagination from "./TablePagination";
 import ModalPdf from "../../../shared/components/ModalPdf";
+import  { SelectAllAction }  from '../SelectAllActionsComponent'
 import  { selectOpenPdf }    from  "../../store/invoice.selectors"
 
 import { getTotalAmount } from "./util";
@@ -32,7 +34,8 @@ export default function TableComponent({
   const dispatch = useAppDispatch();
   const { tableComponentStyles } = useDataGridStyles();
   const [pageSize, setPageSize] = React.useState<number>(30);
-
+  const [openConfirm, setOpenConfirm] = React.useState(false);
+  const [actionValue, setActionValue] = React.useState<any>(null);
   const openPdf = useAppSelector(selectOpenPdf);
 
   const tableData: TableData<any>[] = useAppSelector(selectInvoices);
@@ -42,10 +45,47 @@ export default function TableComponent({
 
   const fontSize  =    window.devicePixelRatio === 1.5 ?    '12px' :  '14px';
 
+
+   /**
+   * Handle close dialog comment = false on cancel comment = string on confirm
+   * @param comment input value on dialog
+   */
+    const handleClose = (data: {comment?: string | boolean, flagButton: string}): void => {
+      if (data.flagButton  === "cancel") {
+        setOpenConfirm(false);
+        setActionValue(null);
+      } else {
+        const dataToSend = { ...actionValue, comment: data.comment };
+        //dispach(updateStatusInvoice({ ...dataToSend }));
+        setOpenConfirm(false);
+        setActionValue(null);
+        //navigate(`/invoices/${props.pageType}`)
+      }
+    };
+
+    const handleActionClick =  async (action: SelectAllAction, id: number) => {
+
+      setActionValue({
+        actionType: action.actionName,
+        invoiceId: id,
+        invoiceType: "",
+        comment: "",
+      });
+        setOpenConfirm(true);
+
+    };
+
   return (
     <>
       <ModalPdf    open={openPdf} ></ModalPdf>
-      
+      <ConfirmWithCommentDialog
+        props={{
+          id: "ringtone-menu",
+          keepMounted: true,
+          open: openConfirm,
+          onClose: handleClose,
+        }}
+      ></ConfirmWithCommentDialog>
             <DataGrid
               style={{ minHeight: tableData.length ? undefined : 200,   backgroundColor: 'white',  fontSize:   fontSize }}
               disableColumnMenu
