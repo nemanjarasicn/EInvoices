@@ -17,7 +17,10 @@ import { unzipFile,  unzipFileData }  from  "../../pages/InvoiceTemplatePage"
 import {getZip }  from  "../../store/invoice.actions"
 import AssignmentTurnedInIcon from "@mui/icons-material/AssignmentTurnedIn";
 import AssignmentLateIcon from "@mui/icons-material/AssignmentLate";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faFilePdf }   from '@fortawesome/pro-solid-svg-icons';
+import { faFile }   from '@fortawesome/pro-solid-svg-icons';
+import { faFileCircleXmark }   from '@fortawesome/pro-solid-svg-icons';
 import {
   Grid,
 } from "@mui/material";
@@ -393,14 +396,14 @@ const useTableSettings = (): TableSettings => {
                     <Grid item xs={3} >
                       <LightTooltip title="PDF preview">
                           <IconButton sx={{mr: 1}} color="primary" aria-label="pdf" component="label"  onClick={() => {getZipData('PDF', 0,  params.row.purchaseInvoiceId)}}>
-                            <PictureAsPdfIcon  sx={{ color: "#E9950C" }} />
+                                <FontAwesomeIcon icon={faFilePdf}   color="#E9950C"   />
                           </IconButton>
                       </LightTooltip>
                     </Grid>
                     <Grid item xs={3} >
                       <LightTooltip title="XML download">
                         <IconButton color="primary" aria-label="xml" component="label"   onClick={() => {getZipData('XML', 0,  params.row.purchaseInvoiceId)}} >
-                          <CloudDownloadIcon  sx={{ mr: 1, color: "#0D78DE"}} />
+                          <FontAwesomeIcon icon={faFile}   color="#0D78DE"   />
                         </IconButton>
                       </LightTooltip>
                     </Grid>
@@ -408,7 +411,7 @@ const useTableSettings = (): TableSettings => {
                       {(params.row.invoiceStatus  ===  'Seen') && 
                           <LightTooltip title="Odbij">
                               <IconButton color="primary" aria-label="pdf" component="label"  onClick={() => {console.log(params.row)}}>
-                                <AssignmentLateIcon  sx={{ color: "red" }} />
+                                <FontAwesomeIcon icon={faFileCircleXmark}   color="red"   />
                               </IconButton>
                           </LightTooltip>
                       }
