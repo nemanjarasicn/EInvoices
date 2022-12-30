@@ -76,7 +76,7 @@ export type InvoiceTemplatePageProps = {
        const filenameDownload  = filename.slice(0, filename.length-4) + extName;
        zip.files[filename].async("blob").then(async function (fileData) {
          const dataDownload =   await (fileData.slice(2).text());
-         flag ===  'PDF' ?  downloadPDF(dataDownload,filenameDownload) :   downloadXml(fileData,filenameDownload)  ;
+         flag ===  'PDF' ?  downloadPDF(dataDownload,filenameDownload) :   downloadXml(fileData.slice(2),filenameDownload)  ;
        });
      });
    });

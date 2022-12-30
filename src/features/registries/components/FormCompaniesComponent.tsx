@@ -64,6 +64,7 @@ export default function FormCompaniesComponent({
         dispatch(sendCompanies({data})).then((res) => {
             if(res.payload === 'sucsses') {
               if(data.apiKey) {
+               console.log(res.payload);
                 //dispatch(sendsubscribe({data}))
               }
               setShowError(true);  

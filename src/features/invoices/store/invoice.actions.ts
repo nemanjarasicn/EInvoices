@@ -168,8 +168,10 @@ const updateStatusInvoice: AsyncThunk<
 
 const getZip: AsyncThunk<any, {id: number | string; typeDocument: number | string;  typeInvoices: number  |  string}, {}> = createAsyncThunk<any, {id: number | string; typeDocument: number | string;  typeInvoices: number  |  string}>(
   "GET/getZip",
-  async (data) => {
-    return     await InvoicePublicService.getZip(data.id,data.typeDocument,data.typeInvoices)
+  async (data,_) => {
+    const { core } = (_ as any).getState();
+    const { apiKey } = core.userCompany;
+    return     await InvoicePublicService.getZip(data.id,data.typeDocument,data.typeInvoices, apiKey)
     .then((res: any) => {return res.data})
     .catch((err: any) => []);
 }

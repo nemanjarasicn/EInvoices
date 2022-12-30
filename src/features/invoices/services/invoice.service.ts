@@ -124,9 +124,15 @@ class InvoicePublicService {
     return publicClient.get<any[]>("/getAllCompanies");
   }
 
-  getZip(id: number  |   string, typeDocument: number | string,  typeInvoices: number  |  string  ) {
+  getZip(id: number  |   string, typeDocument: number | string,  typeInvoices: number  |  string,  apiKey: string  ) {
+    const config = {
+      headers: {
+        "content-type": "application/json",
+        apiKey: apiKey,
+      },
+    };
     return publicClientZip.get<any>
-    (`invoices/search/${typeInvoices}/${id}/${typeDocument}`,
+    (`invoices/search/${typeInvoices}/${id}/${typeDocument}`,config
     );
   }
 

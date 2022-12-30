@@ -110,9 +110,9 @@ class RegistriesPublicService {
     return publicClient.post<any>
     ("subscribe",
       {
-        "apiKey": "121221221222",
+        "apiKey": data.data.apiKey,
         "companyId":  20,
-        "companyName":  "test kompanija"
+        "companyName":  data.data.companyName
       }
     );
   }

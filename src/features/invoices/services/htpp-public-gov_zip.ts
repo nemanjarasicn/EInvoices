@@ -1,4 +1,5 @@
 import axios from "axios";
+import { UserCompany } from "../../../app/core/core.models";
 
 const AXIOS = axios.create({
   baseURL:
@@ -14,7 +15,8 @@ AXIOS.interceptors.request.use(
     const token: string = JSON.parse(String(sessionStorage.getItem("token")));
     config.headers = {
       ContentType: "application/json",
-      apiKey:  "1a51e09d-e74d-4cd5-9d62-67de819e36ff",
+      //apiKey:  "1a51e09d-e74d-4cd5-9d62-67de819e36ff",
+      apiKey: config?.headers?.apiKey ? config?.headers?.apiKey : "",
     };
     return config;
   },
