@@ -15,6 +15,12 @@ import { useTranslation } from "react-i18next";
 import Tooltip, { TooltipProps, tooltipClasses } from '@mui/material/Tooltip';
 import { unzipFile,  unzipFileData }  from  "../../pages/InvoiceTemplatePage"
 import {getZip }  from  "../../store/invoice.actions"
+import AssignmentTurnedInIcon from "@mui/icons-material/AssignmentTurnedIn";
+import AssignmentLateIcon from "@mui/icons-material/AssignmentLate";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import {
+  Grid,
+} from "@mui/material";
 
 
 
@@ -382,19 +388,43 @@ const useTableSettings = (): TableSettings => {
               align: "center",
               hideable: true,
               renderCell: (params) => (
-                <Box sx={{display:  'flex', justifyContent: 'space-between', p: 2}}>
-                  <LightTooltip title="PDF preview">
-                  <IconButton sx={{mr: 2}} color="primary" aria-label="pdf" component="label"  onClick={() => {getZipData('PDF', 0,  params.row.purchaseInvoiceId)}}>
-                    <PictureAsPdfIcon  sx={{ color: "#ef3e56" }} />
-                  </IconButton>
-                  </LightTooltip>
-                  <LightTooltip title="XML download">
-                  <IconButton color="primary" aria-label="xml" component="label"   onClick={() => {getZipData('XML', 0,  params.row.purchaseInvoiceId)}} >
-                    <CloudDownloadIcon  sx={{  color: "#0D78DE"}} />
-                  </IconButton>
-                  </LightTooltip>
+      
+                  <Grid  container sx={{display:  'flex'}}>
+                    <Grid item xs={3} >
+                      <LightTooltip title="PDF preview">
+                          <IconButton sx={{mr: 1}} color="primary" aria-label="pdf" component="label"  onClick={() => {getZipData('PDF', 0,  params.row.purchaseInvoiceId)}}>
+                            <PictureAsPdfIcon  sx={{ color: "#E9950C" }} />
+                          </IconButton>
+                      </LightTooltip>
+                    </Grid>
+                    <Grid item xs={3} >
+                      <LightTooltip title="XML download">
+                        <IconButton color="primary" aria-label="xml" component="label"   onClick={() => {getZipData('XML', 0,  params.row.purchaseInvoiceId)}} >
+                          <CloudDownloadIcon  sx={{ mr: 1, color: "#0D78DE"}} />
+                        </IconButton>
+                      </LightTooltip>
+                    </Grid>
+                    <Grid item xs={3}>
+                      {(params.row.invoiceStatus  ===  'Seen') && 
+                          <LightTooltip title="Odbij">
+                              <IconButton color="primary" aria-label="pdf" component="label"  onClick={() => {console.log(params.row)}}>
+                                <AssignmentLateIcon  sx={{ color: "red" }} />
+                              </IconButton>
+                          </LightTooltip>
+                      }
+                    </Grid>
+                    <Grid item xs={3}>
+                      {(params.row.invoiceStatus  ===  'Seen') && 
+                          <LightTooltip title="Odobri">
+                              <IconButton color="primary" aria-label="pdf" component="label"  onClick={() => {console.log(params.row)}}>
+                                <AssignmentTurnedInIcon  sx={{ color: "green" }} />
+                              </IconButton>
+                          </LightTooltip>
+                      }
+                    </Grid>
+                  </Grid>
 
-                </Box>
+              
               )
             },
           ],

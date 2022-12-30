@@ -8,16 +8,11 @@ import AddIcon from '@mui/icons-material/Add';
 import DeleteIcon from "@mui/icons-material/Delete";
 import FormCurrencyField from "../form-fields/FormCurrencyField";
 import {
-  calculateNewDiscount,
   calculateNewPrice,
   calculateTax,
   calculateTotal,
 } from "../../utils/utils";
 import { useTranslation } from "react-i18next";
-import FormDropdownField from "../form-fields/FormDropdownField";
-import { useAppDispatch, useAppSelector } from "../../../../app/hooks";
-import { getTaxBase }  from  '../../store/invoice.actions'
-import { selectTaxBase }  from '../../store/invoice.selectors'
 
 type InvoiceLineProps = {
   item: any;
@@ -33,7 +28,6 @@ type InvoiceLineProps = {
 export default function InvoiceLine({
   props,
 }: IProps<InvoiceLineProps>): JSX.Element {
-  const dispatch = useAppDispatch();
   const { t } = useTranslation();
   const {
     control,
@@ -46,15 +40,6 @@ export default function InvoiceLine({
 
 
   const vatRate =  formGetValues(`invoiceLine[${index}].item.classifiedTaxCategory.percent`) ? true  :  false;
-
-  const [options, setOptions]  =   React.useState(useAppSelector(selectTaxBase));
-
-  const  handleTab  =  (event: any)    =>  {
-    console.log(event.key);
-    if(event.key  ===  'Tab'  )   {
-      props.handleAddItemList(index);
-    }
-  }
 
 
 
@@ -91,11 +76,11 @@ export default function InvoiceLine({
 
   //Subscribe on watch price discount
   React.useEffect(() => {
-    /*const newPrice = calculateNewPrice(
+    const newPrice = calculateNewPrice(
       Number(formGetValues(`invoiceLine[${index}].price.unitPrice`)),
       Number(formWatch(`invoiceLine[${index}].price.discount`))
     );
-    formSetValue(`invoiceLine[${index}].price.newPrice`, newPrice);*/
+    formSetValue(`invoiceLine[${index}].price.newPrice`, newPrice);
   }, [formWatch(`invoiceLine[${index}].price.discount`)]);
 
   //Subscribe on watch price discount
@@ -113,41 +98,12 @@ export default function InvoiceLine({
     formSetValue(`finalSum`, total);
   }, [formWatch(`invoiceLine[${index}].price.priceAmount`)]);
 
-
-  const  handleChangeDiscount  =  ()   =>   {
-    const newPrice = calculateNewPrice(
-      Number(formGetValues(`invoiceLine[${index}].price.unitPrice`)),
-      Number(formWatch(`invoiceLine[${index}].price.discount`))
-    );
-    formSetValue(`invoiceLine[${index}].price.newPrice`, newPrice);
-  }
-
-
-  const  handleChangeNewPrice  =  ()   =>   {
-    if(Number(formWatch(`invoiceLine[${index}].price.newPrice`)) <=   Number(formGetValues(`invoiceLine[${index}].price.unitPrice`))) {
-          const newDiscount = calculateNewDiscount(
-            Number(formGetValues(`invoiceLine[${index}].price.unitPrice`)),
-            Number(formWatch(`invoiceLine[${index}].price.newPrice`))
-          );
-          formSetValue(`invoiceLine[${index}].price.discount`, newDiscount);
-
-    }  else{
-          formSetValue(`invoiceLine[${index}].price.discount`, 0);
-     }
-  }
-
-
-  React.useEffect(() => {
-    dispatch(getTaxBase());
-  }, []);
-  
-
   return (
     <Grid container spacing={1}>
       {/*<Grid item xs={0.2}>
         <p>{`${index + 1}.`}</p>
       </Grid>*/}
-      {/*<Grid item xs={1.5}>
+      <Grid item xs={2}>
         <FormTextField
           props={{
             control: control,
@@ -160,9 +116,9 @@ export default function InvoiceLine({
             },
           }}
         />
-        </Grid>*/}
+        </Grid>
         
-      <Grid item xs={1}>
+      <Grid item xs={0.5}>
         <FormCurrencyField
           props={{
             control: control,
@@ -178,7 +134,6 @@ export default function InvoiceLine({
                 suffix: "",
               },
               readonly: false,
-              parentFn:  props.handleAddItemList
             },
           }}
         />
@@ -186,19 +141,18 @@ export default function InvoiceLine({
         {/* `0` */}
       </Grid>
 
-      <Grid item xs={1.5}>
-        <FormTextField
+      <Grid item xs={1}>
+        <FormCurrencyField
           props={{
             control: control,
             label: t(fieldLabels.unitPrice),
             name: `invoiceLine[${index}].price.unitPrice`,
-            additional: { mask: {}, readonly: false,  parentFn:  props.handleAddItemList },
-            disabled: false,
-
+            additional: { mask: {}, readonly: true },
+            disabled: true,
           }}
         />
       </Grid>
-      <Grid item xs={1}>
+      <Grid item xs={0.5}>
         <FormTextField
           props={{
             control: control,
@@ -212,7 +166,7 @@ export default function InvoiceLine({
           }}
         />
       </Grid>
-      <Grid item xs={1}>
+      <Grid item xs={0.8}>
         <FormCurrencyField
           props={{
             control: control,
@@ -229,22 +183,18 @@ export default function InvoiceLine({
               },
               labelShrink: true,
               readonly: false,
-              parentFn:  props.handleAddItemList,
-              parentFnChange: handleChangeDiscount
-              
             },
           }}
         />
       </Grid>
-      <Grid item xs={1.5}>
-        <FormTextField
+      <Grid item xs={1}>
+        <FormCurrencyField
           props={{
             control: control,
             label: t(fieldLabels.newPrice),
             name: `invoiceLine[${index}].price.newPrice`,
-            additional: { mask: {}, readonly: false, parentFnChange: handleChangeNewPrice },
-            disabled: false,
-
+            additional: { mask: {}, readonly: true },
+            disabled: true,
           }}
         />
       </Grid>
@@ -262,9 +212,31 @@ export default function InvoiceLine({
           }}
         />
       </Grid>
+      <Grid item xs={1.2}>
+        <FormCurrencyField
+          props={{
+            control: control,
+            label: t(fieldLabels.unitTaxAmount),
+            name: `invoiceLine[${index}].price.unitTaxAmount`,
+            additional: { mask: {}, readonly: true, labelShrink: true },
+            disabled: true,
+          }}
+        />
+      </Grid>
+      <Grid item xs={1}>
+        <FormCurrencyField
+          props={{
+            control: control,
+            label: t(fieldLabels.priceAmount),
+            name: `invoiceLine[${index}].price.priceAmount`,
+            additional: { mask: {}, readonly: true },
+            disabled: true,
+          }}
+        />
+      </Grid>
 
-      <Grid item xs={2}>
-        {/*<FormTextField
+      <Grid item xs={1.5}>
+        <FormTextField
           props={{
             control: control,
             disabled: vatRate,
@@ -272,18 +244,7 @@ export default function InvoiceLine({
             name: 'sifraOsnove',
             additional: { mask: {}, readonly: vatRate  },
           }}
-        />*/}
-
-        <FormDropdownField
-            props={{
-              name: "invoiceTypeCode",
-              control: control,
-              label:  t('Sifra osnove'),
-              options: options,
-              disabled: vatRate,
-              
-            }}
-          />
+        />
         </Grid>
 
       <Grid item xs={1}>
@@ -298,38 +259,10 @@ export default function InvoiceLine({
         />
         </Grid>
 
-
-        {/*<Grid item xs={1}>
-        <FormCurrencyField
-          props={{
-            control: control,
-            label: t(fieldLabels.unitTaxAmount),
-            name: `invoiceLine[${index}].price.unitTaxAmount`,
-            additional: { mask: {}, readonly: true, labelShrink: true },
-            disabled: true,
-          }}
-        />
-        </Grid>*/}
-
-
-      <Grid item xs={1.5}>
-        <FormCurrencyField
-          props={{
-            control: control,
-            label: t(fieldLabels.priceAmount),
-            name: `invoiceLine[${index}].price.priceAmount`,
-            additional: { mask: {}, readonly: true },
-            disabled: true,
-          }}
-        />
-      </Grid>
-
-      <Grid item xs={0.3} sx={{display:  'flex', alignItems:  'flex-start',  justifyContent:  'center'}}>
+      <Grid item xs={0.3}>
         <IconButton
           aria-label="delete"
-          onKeyDown={(event)  => handleTab(event)}
           onClick={() => props.handleAddItemList(index)}
-          sx={{bottom: 3}}
         >
           <AddCircleIcon />
         </IconButton>
