@@ -136,9 +136,9 @@ export default function FormArticleComponent({
 
 
       React.useEffect(() => {
-        const taxCode1 = getValues('taxCode');
+        const taxCode1 = getValues('productTaxCategory');
         if(taxCode1.value1 === 1) {
-          dispatch(getTaxBase({id: Number(getValues('taxCode').idTaxCategory)}));
+          dispatch(getTaxBase({id: Number(getValues('productTaxCategory').idTaxCategory)}));
           setShowTaxBase('block');
         } else {
           setShowTaxBase('none')
@@ -146,7 +146,7 @@ export default function FormArticleComponent({
           
         }
         setValue("taxcodeValue",  String(taxCode1.value1));
-      }, [watch('taxCode')]);
+      }, [watch('productTaxCategory')]);
 
 
 

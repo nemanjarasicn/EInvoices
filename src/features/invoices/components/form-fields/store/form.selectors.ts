@@ -121,7 +121,7 @@ function convertToProductModel(item: any): ProductModel {
       name: item.productName,
       sellersItemIdentification: { id: 1 },
       classifiedTaxCategory: {
-        id: 2,
+        id: item.taxName,
         taxScheme: { id: "VAT" },
         percent: Number(((item.taxValue1 - 1) * 100).toFixed(2)),
       },
