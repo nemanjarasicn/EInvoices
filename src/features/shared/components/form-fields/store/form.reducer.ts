@@ -5,7 +5,12 @@ import {
   getPointOfSalesAll,
   getObjectsAll,
   getUnitsAll,
-  getVatAll
+  getVatAll,
+  getUserRole,
+  getSubjectCategory,
+  getSubjectType,
+  getTaxCode,
+  getTaxBase
 } from "./form.actions";
 
 const FORM_FIELDS_KEY: string = "formShared";
@@ -14,6 +19,11 @@ export type AutocompleteData = {
   unitMesures: any[];
   companies: any[];
   products: any[];
+  userRole:  any[];
+  subjectCategory:  any[];
+  subjectType:  any[];
+  taxCode:   any[];
+  taxBase:   any[];
 };
 export type DropdownData = {
   marketPlaces: any[];
@@ -36,6 +46,11 @@ const initialState: FormSharedState = {
     unitMesures: [],
     companies: [],
     products: [],
+    userRole:  [],
+    subjectCategory:  [],
+    subjectType:  [],
+    taxCode:  [],
+    taxBase:  []
   },
   dropdownData: {
     marketPlaces: [],
@@ -71,6 +86,11 @@ const formSharedSlice: Slice<FormSharedState> = createSlice({
     getAsyncObjectsAll(builder);
     getAsyncUnitsAll(builder);
     getAsyncVatAll(builder);
+    getAsyncUserRole(builder);
+    getAsyncSubjectCategory(builder);
+    getAsyncSubjectType(builder);
+    getAsyncTaxCode(builder);
+    getAsyncTaxBase(builder);
   },
 });
 
@@ -205,3 +225,113 @@ function getAsyncClientCompanies(builder: ActionReducerMapBuilder<FormSharedStat
     loading: false,
   }));
 }
+
+/**
+ * Handle async action GET USER ROLE
+ * @param builder ActionReducerMapBuilder
+ */
+ function getAsyncUserRole(builder: ActionReducerMapBuilder<FormSharedState>) {
+  builder.addCase(getUserRole.fulfilled, (state, { payload }) => ({
+    ...state,
+    autocompleteData: { ...state.autocompleteData, userRole: payload },
+    loading: false,
+  }));
+  builder.addCase(getUserRole.pending, (state) => ({
+    ...state,
+    loading: true,
+  }));
+  builder.addCase(getUserRole.rejected, (state) => ({
+    ...state,
+    autocompleteData: { ...state.autocompleteData, userRole: [] },
+    loading: false,
+  }));
+}
+
+
+/**
+ * Handle async action GET TAXCODE
+ * @param builder ActionReducerMapBuilder
+ */
+ function getAsyncTaxCode(builder: ActionReducerMapBuilder<FormSharedState>) {
+  builder.addCase(getTaxCode.fulfilled, (state, { payload }) => ({
+    ...state,
+    autocompleteData: { ...state.autocompleteData, taxCode: payload },
+    loading: false,
+  }));
+  builder.addCase(getTaxCode.pending, (state) => ({
+    ...state,
+    loading: true,
+  }));
+  builder.addCase(getTaxCode.rejected, (state) => ({
+    ...state,
+    autocompleteData: { ...state.autocompleteData, taxCode: [] },
+    loading: false,
+  }));
+}
+
+
+/**
+ * Handle async action GET SUBJECT CATEGORY
+ * @param builder ActionReducerMapBuilder
+ */
+ function getAsyncSubjectCategory(builder: ActionReducerMapBuilder<FormSharedState>) {
+  builder.addCase(getSubjectCategory.fulfilled, (state, { payload }) => ({
+    ...state,
+    autocompleteData: { ...state.autocompleteData, subjectCategory: payload },
+    loading: false,
+  }));
+  builder.addCase(getSubjectCategory.pending, (state) => ({
+    ...state,
+    loading: true,
+  }));
+  builder.addCase(getSubjectCategory.rejected, (state) => ({
+    ...state,
+    autocompleteData: { ...state.autocompleteData, subjectCategory: [] },
+    loading: false,
+  }));
+}
+
+
+/**
+ * Handle async action GET  SUBJECT TYPE
+ * @param builder ActionReducerMapBuilder
+ */
+ function getAsyncSubjectType(builder: ActionReducerMapBuilder<FormSharedState>) {
+  builder.addCase(getSubjectType.fulfilled, (state, { payload }) => ({
+    ...state,
+    autocompleteData: { ...state.autocompleteData, subjectType: payload },
+    loading: false,
+  }));
+  builder.addCase(getSubjectType.pending, (state) => ({
+    ...state,
+    loading: true,
+  }));
+  builder.addCase(getSubjectType.rejected, (state) => ({
+    ...state,
+    autocompleteData: { ...state.autocompleteData, subjectType: [] },
+    loading: false,
+  }));
+}
+
+
+/**
+ * Handle async action GET TAXBASE
+ * @param builder ActionReducerMapBuilder
+ */
+ function getAsyncTaxBase(builder: ActionReducerMapBuilder<FormSharedState>) {
+  builder.addCase(getTaxBase.fulfilled, (state, { payload }) => ({
+    ...state,
+    autocompleteData: { ...state.autocompleteData, taxBase: payload },
+    loading: false,
+  }));
+  builder.addCase(getTaxBase.pending, (state) => ({
+    ...state,
+    loading: true,
+  }));
+  builder.addCase(getTaxBase.rejected, (state) => ({
+    ...state,
+    autocompleteData: { ...state.autocompleteData, taxBase: [] },
+    loading: false,
+  }));
+}
+

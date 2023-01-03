@@ -16,7 +16,7 @@ import { AsyncThunkAction } from "@reduxjs/toolkit";
 export type TableComponentProps = {
   columnsDef: GridColDef[];
   toolbarProps: TableToolbarProps;
-  getDataAction: AsyncThunkAction<any, void | {uuid:  number |  string}, {}>;
+  getDataAction: AsyncThunkAction<any, void | {uuid:  number |  string} | {companyId: number | string}, {}>;
   selectType: string;
   selector:  any;
   parentColumn: string;

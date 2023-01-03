@@ -46,12 +46,46 @@
     productUnitRequest:  any;
     productVatRequest:  any;
     price:  string   =  "";
-    marketPlaceDtos: any   = []
-
+    marketPlaceDtos: any   = [];
+    taxcodeValue: string = "";
+    taxCode!: {
+      idTaxCategory: number | string;
+      taxCategoryName: string;
+      taxCategoryCode: string;
+      value1: number | string;
+      idCountry: number | string;
+    };
+    taxBaseValue:  number   |  string =  "";
+    taxBase!: {
+      id: number | string;
+      name: string;
+      description:  string;
+      taxCategory:   string;
+    };
   }
 
   
   export class PriceFormModel {
    price:  number  |  string   =  "";
   }
+
+  export class SubjectFormModel {
+    firstName:  string = "";
+    lastName:  string =  "";
+    companyName: string  =  "";
+    identificationNumber:   string = "";
+    pib:  string = "";
+    mb:  string = "";
+    companyId:  number | string = "";
+    address:  string = "";
+    city:  string = "";
+    zip:  string = "";
+    phone:  string = "";
+    email:  string = "";
+    jbkjs:  string = "";
+    subjectIdCategory:  number | string = "";
+    subjectIdType: number  |  string = "";
+    payeeFinancialAccountDto:  string  =  "";
+
+   }
 

@@ -89,3 +89,12 @@ export const loginLoading = createSelector(
   (state: CoreState) => state.companyList
 );
 
+
+
+/**
+ * Select company admin
+ */
+ export const selectCompanyAdmin = createSelector(
+  coreSelectors,
+  (state: CoreState) => state.companyAdmin
+);

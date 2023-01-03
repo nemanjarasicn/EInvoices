@@ -11,7 +11,7 @@ import {
   CreateType,
   TemplatePageTypes,
 } from "./features/invoices/models/invoice.enums";
-import { apiKeyExist } from "./app/core/core.selectors";
+import { apiKeyExist, selectUser } from "./app/core/core.selectors";
 import LoginPage from "./app/pages/LoginPage";
 import ProtectedLayout from "./app/components/ProtectedLayout";
 import RegistriesLayout from "./features/registries/components/RegistriesLayout";
@@ -21,6 +21,8 @@ import { TemplatePageArticlesTypes }  from "../src/features/articles/models/arti
 import { CreateType as CreateTyperegistries}  from "../src/features/registries/models/registries.enums"
 import { CreateType as CreateTypeArticles}  from "../src/features/articles/models/articles.enums"
 import { selectColor } from "./app/core/core.selectors";
+
+import InfoCompany from "./features/registries/components/InfoCompany";
 
 
 
@@ -63,6 +65,7 @@ const ArticlesCreateTemplatePage = React.lazy(
 function App() {
   const apiKeyPresent = useAppSelector(apiKeyExist);
   const color = useAppSelector(selectColor);
+  const userAuthority = useAppSelector(selectUser)?.authorities?.slice(0,1)[0].authority === "ROLE_ADMIN" ? true  :   false;
   return (
     <ThemeProvider theme={theme(color)}>
       <Routes>
@@ -71,9 +74,9 @@ function App() {
           <Route
             index
             element={
-              <div style={{ maxWidth: "500px" }}>
+              !userAuthority ? <div style={{ maxWidth: "500px" }}>
                 {/*<img alt="x" src="/logopetcom.svg"></img>*/}
-              </div>
+              </div>  :  <Navigate to="/registries/companies" />
             }
           />
           {apiKeyPresent ? invoicesRoutes() : modalRoute()}
@@ -339,6 +342,13 @@ function registriesRoutes(): React.ReactNode {
           }
         />
       </Route> 
+      <Route
+          path="/registries/infoCompany"
+          element={
+            <InfoCompany />
+          }
+        />
+
     </>
   );
 }
@@ -365,6 +375,17 @@ function articlesRoutes(): React.ReactNode {
             </React.Suspense>
           }
         />
+        <Route
+          path="subject"
+          element={
+            <React.Suspense fallback={<>...</>}>
+              <ArticlesTemplatePage
+                key={`key_${TemplatePageArticlesTypes.SUBJECT}.id`}
+                props={{ templateType: TemplatePageArticlesTypes.SUBJECT }}
+              />
+            </React.Suspense>
+          }
+        />
 
         <Route
           path="createArtikal"
@@ -379,6 +400,15 @@ function articlesRoutes(): React.ReactNode {
           element={
             <React.Suspense fallback={<>...</>}>
               <ArticlesCreateTemplatePage props={{ type: CreateTypeArticles.FORMARTICLESPRICE }} />
+            </React.Suspense>
+          }
+        />
+
+        <Route
+          path="createSubject"
+          element={
+            <React.Suspense fallback={<>...</>}>
+              <ArticlesCreateTemplatePage props={{ type: CreateTypeArticles.FORMSUBJECT }} />
             </React.Suspense>
           }
         />

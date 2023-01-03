@@ -10,11 +10,32 @@ import {
   getGroups,
   getUsers
 } from "../../store/registries.actions";
+import Tooltip, { TooltipProps, tooltipClasses } from '@mui/material/Tooltip';
 import { TableComponentProps } from "./TableComponent";
+import IconButton from '@mui/material/IconButton';
+import {
+  Grid,
+} from "@mui/material";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faFile }   from '@fortawesome/pro-solid-svg-icons';
+import { faFilePdf }   from '@fortawesome/pro-solid-svg-icons';
+import { useNavigate } from 'react-router-dom';
 import {   useAppSelector    } from "../../../../app/hooks";
+import { styled } from '@mui/material/styles';
 import { selectCompanyCurrent } from "../../../../app/core/core.selectors";
 import { selectObjects, selectMarketPlaces, selectPointOfSales, selectCompanies, selectWarehouses, selectUnits, selectVat, selectGroups, selectUsers} from "../../store/registries.selectors";
 
+
+const LightTooltip = styled(({ className, ...props }: TooltipProps) => (
+  <Tooltip {...props} classes={{ popper: className }} />
+))(({ theme }) => ({
+  [`& .${tooltipClasses.tooltip}`]: {
+    backgroundColor: theme.palette.common.white,
+    color: 'rgba(0, 0, 0, 0.87)',
+    boxShadow: theme.shadows[1],
+    fontSize: 11,
+  },
+}));
 
 type TableSettings = {
   tableSettings: {
@@ -28,6 +49,8 @@ type TableSettings = {
  * @returns {TableSettings}
  */
 const useTableSettings = (): TableSettings => {
+
+  const navigate  = useNavigate();
 
   const company = useAppSelector(selectCompanyCurrent) ?? "";
 
@@ -316,6 +339,29 @@ const useTableSettings = (): TableSettings => {
               headerAlign: "center",
               align: "center",
               hideable: false,
+            },
+            {
+              field: 'action',
+              headerName: 'Action',
+              flex: 1,
+              headerAlign: "center",
+              align: "center",
+              hideable: true,
+              renderCell: (params) => (
+       
+                <Grid item xs={3} >
+                <LightTooltip title="Informacije o kompaniji">
+                  <IconButton sx={{mr: 2}} color="primary" aria-label="pdf" component="label"  onClick={() => {  
+                  navigate('/registries/infoCompany', {
+                    state: {
+                      company: params.row.idCompany
+                    }
+                  })}}>
+                  <FontAwesomeIcon icon={faFile}   color="#E9950C"   />
+                  </IconButton>
+                  </LightTooltip>
+                </Grid>
+              )
             },
            
           ],

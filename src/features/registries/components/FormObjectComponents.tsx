@@ -19,7 +19,10 @@ import { useNavigate } from 'react-router-dom';
 import FormAutocompleteField from "../../shared/components/form-fields/FormAutocompleteField";
 import { selectCompanyCurrent } from "../../../app/core/core.selectors";
 import { sendObjects } from "../store/registries.actions";
+import { selectUser, selectCompanyAdmin }  from  "../../../app/core/core.selectors"
 import  ErrorModal   from   "../../shared/components/ErrorModals"
+import  {  getCompaniesAll }   from   "../../shared/components/form-fields/store/form.actions"
+import { useLocation } from "react-router-dom";
 import SucessModal   from "../../shared/components/SucessModal"
 //import ClientComponent from "./form-group/ClientComponent";
 
@@ -39,9 +42,11 @@ export default function FormObjectComponent({
     props,
   }: IProps<RegistriesFormComponentProps>): JSX.Element {
     const companyId = useAppSelector(selectCompanyCurrent) as any;
+    const location = useLocation();
+    const id = location.state.company?.idCompany;
     const defaultValues:  ObjectFormModel = {
       id: "",
-      companyId: companyId ,
+      companyId:  id,  //companyId ,
       objectName: "",
       latitude: "",
       longitude: "",
@@ -51,6 +56,7 @@ export default function FormObjectComponent({
     const navigate  = useNavigate();
     const dispatch = useAppDispatch();
     const [showError, setShowError] = React.useState(false);
+    const userAuthority = useAppSelector(selectUser)?.authorities?.slice(0,1)[0].authority === "ROLE_ADMIN" ? true  :   false;
     const [showErrorModal, setShowErrorModal] = React.useState(false);
 
    
@@ -71,8 +77,16 @@ export default function FormObjectComponent({
               setShowError(true);
               setTimeout(() => {
                   setShowError(false);
-                  navigate('/registries/objects'
-                  )
+                  if(!userAuthority) {
+                    navigate('/registries/objects')
+                  } else{
+                      navigate('/registries/createMarketPlace', {
+                        state: {
+                          company: id
+                        }
+                      })
+                  }
+              
               }, 2000);
             }  else {
               setShowErrorModal(true);  
@@ -85,6 +99,15 @@ export default function FormObjectComponent({
         } 
         )
       }
+
+
+      React.useEffect(
+        () => () => {
+          dispatch(getCompaniesAll());
+        },
+        []
+      );
+    
   
   
     return (

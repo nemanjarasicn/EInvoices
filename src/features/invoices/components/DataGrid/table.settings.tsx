@@ -266,10 +266,10 @@ const useTableSettings = (): TableSettings => {
                         </LightTooltip>
                       </Grid>
                       <Grid item xs={3}>
-                        {(params.row.invoiceStatus  ===  'Sent') && 
+                        {(params.row.invoiceStatus  ===  'Sent' ||  params.row.invoiceStatus  ===  'Sending') && 
                             <LightTooltip title="Otkazi">
                                 <IconButton color="primary" aria-label="pdf" component="label"  onClick={() => {console.log(params.row)}}>
-                                  <FontAwesomeIcon icon={faFileCircleXmark}   color="red"   />
+                                  <FontAwesomeIcon icon={faFileCircleXmark}    color="red"   />
                                 </IconButton>
                             </LightTooltip>
                         }

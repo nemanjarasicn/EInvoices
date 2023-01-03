@@ -122,7 +122,7 @@ function convertToProductModel(item: any): ProductModel {
       classifiedTaxCategory: {
         id: item.vat,
         taxScheme: { id: "VAT" },
-        percent: Number(((item.vatValue1 - 1) * 100).toFixed(2)),
+        percent: Number(((item.taxValue1 - 1) * 100).toFixed(2)),
       },
     },
     price: {
@@ -132,6 +132,10 @@ function convertToProductModel(item: any): ProductModel {
       unitPrice: resolvePrice(item.priceLists),
       unitTaxAmount: 0,
     },
+      taxCode: item.taxCode,
+      taxName:     item.taxName,
+      taxValue1:    item.taxValue1,
+      baseCode:    item.baseCode,
   };
 }
 function convertToCompanyModel(item: any): CustomerPartyModel {

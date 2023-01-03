@@ -9,6 +9,19 @@ class PublicService {
     return commonHttpClient.get<any>(`marketplace/company/${companyId}`);
   }
 
+
+  getSubjectCategory() {
+    return commonHttpClient.get<any>(`subject/category`);
+  }
+
+  getSubjectType() {
+    return commonHttpClient.get<any>(`subject/type`);
+  }
+
+  getUserRole() {
+    return commonHttpClient.get<any>(`role`);
+  }
+
   getPointOfSalesAll(companyId: number | string) {
     return commonHttpClient.get<any>(`pointofsale/company/${companyId}`);
   }
@@ -20,6 +33,16 @@ class PublicService {
   getUnitsAll() {
     return commonHttpClient.get<any>("unit");
   }
+
+
+  getTaxCode() {
+    return commonHttpClient.get<any>("tax");
+  }
+
+  getTaxBase(id:  number  |  string) {
+    return commonHttpClient.get<any>(`tax/base/${id}`);
+  }
+
 
   getVatAll() {
     return commonHttpClient.get<any>("vat");

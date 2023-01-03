@@ -341,7 +341,7 @@ export default function InvoiceFormComponent({
                           placeholder =  {t("Form.formFieldsLabels.note")}
                           multiline
                           rows={3}
-                          maxRows={4}
+                          
                         />
                     </Grid>
                 </Grid>

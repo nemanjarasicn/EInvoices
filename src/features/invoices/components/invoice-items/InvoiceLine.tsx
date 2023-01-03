@@ -45,12 +45,12 @@ export default function InvoiceLine({
   } = props;
 
 
+
   const vatRate =  formGetValues(`invoiceLine[${index}].item.classifiedTaxCategory.percent`) ? true  :  false;
 
   const [options, setOptions]  =   React.useState(useAppSelector(selectTaxBase));
 
   const  handleTab  =  (event: any)    =>  {
-    console.log(event.key);
     if(event.key  ===  'Tab'  )   {
       props.handleAddItemList(index);
     }
@@ -115,7 +115,7 @@ export default function InvoiceLine({
   React.useEffect(() => {
     const total = calculateTotal(formGetValues(`invoiceLine`));
     formSetValue(`finalSum`, total);
-  }, [formWatch(`invoiceLine[${index}].price.priceAmount`)]);
+  }, [formWatch(`invoiceLine[${index}].price.priceAmount`)]); 
 
 
   const  handleChangeDiscount  =  ()   =>   {
@@ -142,7 +142,8 @@ export default function InvoiceLine({
 
 
   React.useEffect(() => {
-    dispatch(getTaxBase());
+    //dispatch(getTaxBase());
+    
   }, []);
   
 
@@ -278,16 +279,16 @@ export default function InvoiceLine({
           }}
         />*/}
 
-        <FormDropdownField
+        
+           <FormTextField
             props={{
-              name: "invoiceTypeCode",
-              control: control,
-              label:  t('Sifra osnove'),
-              options: options,
-              disabled: vatRate,
-              
-            }}
-          />
+            name: `invoiceLine[${index}].baseCode`,
+            control: control,
+            label:  t('Sifra osnove'),
+            disabled: vatRate,
+            additional: { mask: {}, readonly:   true   },
+          }}
+        />
         </Grid>
 
       <Grid item xs={1}>

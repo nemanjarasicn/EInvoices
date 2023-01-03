@@ -17,7 +17,8 @@ export enum ArticlesStatus {
   }
   
   export enum TemplatePageArticlesTypes {
-    LIST =  "list"
+    LIST =  "list",
+    SUBJECT  =   "subject"
     // VAT = "vat",
     // CIR = "cir",
     // SEARCH = "search",
@@ -25,7 +26,8 @@ export enum ArticlesStatus {
   }
   
   export enum HeaderSettingsTypes {
-    LIST  =  "list"
+    LIST  =  "list", 
+    SUBJECT  = "subject"
     // VAT = "vat",
     // CIR = "cir",
     // SEARCH = "search",
@@ -39,7 +41,8 @@ export enum ArticlesStatus {
 
   export enum CreateType {
     FORMARTICLES  = "Articles",
-    FORMARTICLESPRICE =  "articlesPrice"
+    FORMARTICLESPRICE =  "articlesPrice",
+    FORMSUBJECT  =  "subject"
   }
   
   export enum SchemeID {

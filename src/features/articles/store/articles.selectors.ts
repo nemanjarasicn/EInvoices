@@ -32,4 +32,10 @@ export const selectArticles = createSelector(
 );
 
 
+export const   selectSubject = createSelector(
+  featureSelectors,
+  (state: FeatureState) => state.subject
+);
+
+
 

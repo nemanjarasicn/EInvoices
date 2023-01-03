@@ -68,7 +68,11 @@ export default function InvoiceTemplatePage({
 
 
   React.useEffect(() => {
-    dispatch(getMarketPlacesAll({companyId: company}));
+    if(settings.selectType === 'ARTICLES')  {
+        dispatch(getMarketPlacesAll({companyId: company}));
+    } else  {
+        dispatch(getDataActionSelect(settings.selectType));
+    }
   }, []);
 
   React.useEffect(() => {

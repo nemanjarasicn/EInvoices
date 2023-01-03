@@ -12,6 +12,7 @@ export interface CoreState {
   error: string;
   companyCurrent: number  |  string;
   companyList:  UserCompany[];
+  companyAdmin: number  |  string;
 }
 
 const initialState: CoreState = {
@@ -21,7 +22,8 @@ const initialState: CoreState = {
   color: "#ef3e56",
   error: "",
   companyCurrent:  "",
-  companyList:  []
+  companyList:  [],
+  companyAdmin:  "",
 };
 
 const authSlice: Slice<CoreState> = createSlice({
@@ -49,6 +51,10 @@ const authSlice: Slice<CoreState> = createSlice({
       ...state,
       companyCurrent: payload,
     }),
+    setCompanyAdmin: (state,{payload}) => ({
+      ...state,
+      companyAdmin: payload,
+    }),
   },
   extraReducers: (builder) => {
     loginAsync(builder);
@@ -57,7 +63,7 @@ const authSlice: Slice<CoreState> = createSlice({
   },
 });
 
-export const { removeUser, resetError, setColor,  setError, setCompanyCurrent } = authSlice.actions;
+export const { removeUser, resetError, setColor,  setError, setCompanyCurrent,  setCompanyAdmin } = authSlice.actions;
 
 export default authSlice.reducer;
 

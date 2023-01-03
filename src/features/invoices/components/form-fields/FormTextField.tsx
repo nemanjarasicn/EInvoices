@@ -28,7 +28,6 @@ export default function FormTextField({
 
   const handleOnKeyDown  =  (event: any) =>  {
     if(event.key === 'Enter'  &&  props.additional?.parentFn){
-      console.log('enter press here! ');
       props.additional?.parentFn();
     }
   }
@@ -36,7 +35,6 @@ export default function FormTextField({
 
   const  handleParent   =  ()  =>  {
     if(props.additional?.parentFnChange){
-        console.log('sasasas');
         props.additional?.parentFnChange();
     }
   }

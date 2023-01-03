@@ -32,6 +32,48 @@ const getMarketPlacesAll: AsyncThunk<any, { companyId: number | string }, {}> =
 
 
   /**
+ * Get Async subject category
+ */
+const getSubjectCategory: AsyncThunk<any, void, {}> =
+createAsyncThunk(
+  "GET/subjectCategoryget",
+  async () => {
+    return await PublicService.getSubjectCategory()
+      .then((res) => res.data)
+      .catch((err) => []);
+  }
+);
+
+ /**
+ * Get Async subject  type
+ */
+  const getSubjectType: AsyncThunk<any, void, {}> =
+  createAsyncThunk(
+    "GET/subjectTypeget",
+    async () => {
+      return await PublicService.getSubjectType()
+        .then((res) => res.data)
+        .catch((err) => []);
+    }
+  );
+
+  
+
+  /**
+ * Get Async userRole
+ */
+  const getUserRole: AsyncThunk<any, void, {}> =createAsyncThunk(
+    "GET/getUserRole",
+    async () => {
+      return await PublicService.getUserRole()
+        .then((res) => res.data)
+        .catch((err) => []);
+    }
+  );
+
+
+
+  /**
  * Get Async Point of sales
  */
 const getPointOfSalesAll: AsyncThunk<any, { companyId: number | string }, {}> =
@@ -70,6 +112,34 @@ createAsyncThunk<any, { companyId: number | string }>(
    }
  );
 
+
+ /**
+ * Get Async taxCode
+ */
+  const getTaxBase: AsyncThunk<any,  { id: number | string }, {}> =
+  createAsyncThunk<any, { id: number | string }>(
+    "GET/taxBaseget",
+    async (params) => {
+      return await PublicService.getTaxBase(params.id)
+        .then((res) => res.data)
+        .catch((err) => []);
+    }
+  );
+
+
+ /**
+ * Get Async taxCode
+ */
+  const getTaxCode: AsyncThunk<any,  void, {}> =
+  createAsyncThunk(
+    "GET/taxCodeget",
+    async () => {
+      return await PublicService.getTaxCode()
+        .then((res) => res.data)
+        .catch((err) => []);
+    }
+  );
+
  /**
  * Get Async Vat
  */
@@ -83,5 +153,17 @@ createAsyncThunk<any, { companyId: number | string }>(
     }
   );
 
+  
 
-export { getCompaniesAll, getMarketPlacesAll, getPointOfSalesAll, getObjectsAll, getUnitsAll,  getVatAll };
+
+export { getCompaniesAll, 
+         getMarketPlacesAll, 
+         getPointOfSalesAll, 
+         getObjectsAll, 
+         getUnitsAll,  
+         getVatAll,  
+         getUserRole,   
+         getSubjectCategory,   
+         getSubjectType,
+         getTaxCode,
+         getTaxBase };

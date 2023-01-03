@@ -2,6 +2,7 @@ import React from "react";
 import ArticlesFormComponent, {
     ArticlesFormComponentProps,
 } from "../components/ArticlesFormComponent";
+import  FormSubjectComponent   from  "../components/FormSubjectComponent"
 import FormArticlePriceComponent from "../components/FormAriclesPriceComponent";
 import { CreateType } from "../models/articles.enums";
 import { IProps } from "../models/articles.models";
@@ -36,6 +37,18 @@ export default function RegistriesCreateTemplatePage({
                 props={
                   ArticlesCreateTemplatePageSettings[
                     CreateType.FORMARTICLESPRICE
+                  ] as ArticlesFormComponentProps
+                }
+              />
+            );
+
+
+            case CreateType.FORMSUBJECT:
+            return (
+              <FormSubjectComponent
+                props={
+                  ArticlesCreateTemplatePageSettings[
+                    CreateType.FORMSUBJECT
                   ] as ArticlesFormComponentProps
                 }
               />

@@ -38,7 +38,6 @@ export default function InvoiceItemsComponent({
   const childRef = React.useRef();
 
 
-
   const columns: GridColDef[] =  [
     {
       field: "name",
@@ -126,6 +125,7 @@ export default function InvoiceItemsComponent({
   }, [formWatch("warehouse_uuid")]);
 
 
+
   /**
    * Handle Add New Line
    */
@@ -151,8 +151,6 @@ export default function InvoiceItemsComponent({
   const handleAddItemList = (index: any) => {
     const newItems: any[] = [];
     const newItemsList: any = formGetValues("invoiceLine").slice(-1)[0];
-
-    console.log(newItemsList);
 
   if(newItemsList.invoicedQuantity)  {
       setItems([]);
