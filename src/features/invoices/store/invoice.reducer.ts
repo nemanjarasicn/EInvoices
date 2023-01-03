@@ -20,6 +20,7 @@ export interface FeatureState {
   files: IFile[];
   invoicesR: any[];
   zip: any;
+  openModalConfirm:  boolean;
   openModalPdf:  boolean;
   openModalFilter:  {open: boolean, filterName:  string }  ;
   filters: InvoiceSearchParams;
@@ -33,6 +34,7 @@ const initialState: FeatureState = {
   files: [],
   invoicesR: [],
   zip:   [],
+  openModalConfirm:  false,
   openModalPdf:  false,
   openModalFilter:  {open: false, filterName: ""},
   filters: {
@@ -71,6 +73,12 @@ const invoicesSlice: Slice<FeatureState> = createSlice({
       });
       return newState;
     },
+
+    setopenModalConfirm: (state,{payload}) => ({
+      ...state,
+      openModalConfirm: payload,
+    }),
+
     
     setopenModalPdf: (state,{payload}) => ({
       ...state,
@@ -97,7 +105,7 @@ const invoicesSlice: Slice<FeatureState> = createSlice({
   },
 });
 
-export const { setManyFiles, removeFile, updateInvoiceStatus, setopenModalPdf, setopenModalFilter, setFilters } =
+export const { setManyFiles, removeFile, updateInvoiceStatus, setopenModalPdf, setopenModalFilter, setFilters,  setopenModalConfirm } =
   invoicesSlice.actions;
 
 export default invoicesSlice.reducer;

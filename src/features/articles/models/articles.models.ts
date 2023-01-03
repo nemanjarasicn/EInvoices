@@ -45,6 +45,7 @@
     idObject:  number  =  0;
     productUnitRequest:  any;
     productVatRequest:  any;
+    productTaxCategory:  any;
     price:  string   =  "";
     marketPlaceDtos: any   = [];
     taxcodeValue: string = "";

@@ -24,9 +24,9 @@ class RegistriesPublicService {
               "code":  data.code,
               "idCompany":   data.idCompany,
               "idObject": 1,
-              "taxCode": data.taxCode.taxCategoryCode,
-              "taxName": data.taxCode.taxCategoryName,
-              "taxValue1":  data.taxCode.value1,
+              "taxCode": data.productTaxCategory.taxCategoryCode,
+              "taxName": data.productTaxCategory.taxCategoryName,
+              "taxValue1":  data.productTaxCategory.value1,
                "baseCode":  data.taxBase.name,
               "productGroupRequest":[
                  {
@@ -47,6 +47,13 @@ class RegistriesPublicService {
                  "vatName":  data.productVatRequest.name
 
               },
+              "productTaxCategory":{
+                     "idTaxCategory": data.productTaxCategory.idTaxCategory,
+                     "taxCategoryCode": data.productTaxCategory.taxCategoryCode,
+                     "taxCategoryName": data.productTaxCategory.taxCategoryName,
+                     "value1":  data.productTaxCategory.value1,
+                     "idCountry":  data.productTaxCategory.idCountry,
+              }, 
               "marketPlaceDtos": data.marketPlaceDtos
               /*[{
                   "uuid":"96ad51f3da3e40bb",

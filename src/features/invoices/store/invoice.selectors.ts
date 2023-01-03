@@ -48,6 +48,14 @@ export const selectZip = createSelector(
 );
 
 
+export const selectOpenConfirm = createSelector(
+  featureSelectors,
+  (state: FeatureState) => {
+    return state.openModalConfirm;
+  }
+);
+
+
 
 export const selectOpenPdf = createSelector(
   featureSelectors,

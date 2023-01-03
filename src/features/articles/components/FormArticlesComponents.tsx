@@ -80,6 +80,7 @@ export default function FormArticleComponent({
       idObject:   0,
       productUnitRequest:  "",
       productVatRequest:  "",
+      productTaxCategory:  "",
       price:  "",
       marketPlaceDtos:  useAppSelector(selectMarketPlaces).map((item) => ({
         uuid:  item.item.uuid,
@@ -154,7 +155,6 @@ export default function FormArticleComponent({
       }, [watch('taxBase')]);
 
       const onSubmit = async  (data: ArticleFormModel) => {
-        console.log(data);
          await dispatch(sendArticle({data})).then(async (res) => {
             if(res.payload.message === "sucsess") {
               setShowError(true);
@@ -216,7 +216,7 @@ export default function FormArticleComponent({
                     />
                     <FormAutocompleteField
                         props={{
-                            name: "taxCode",
+                            name: "productTaxCategory",
                             control: control,
                             label:  "Taxcode",
                             disabled: false,
