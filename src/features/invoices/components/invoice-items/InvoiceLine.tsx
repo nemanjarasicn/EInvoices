@@ -46,6 +46,9 @@ export default function InvoiceLine({
 
 
 
+  console.log(props);
+
+
   const vatRate =  formGetValues(`invoiceLine[${index}].item.classifiedTaxCategory.percent`) ? true  :  false;
 
   const [options, setOptions]  =   React.useState(useAppSelector(selectTaxBase));

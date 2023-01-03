@@ -11,6 +11,7 @@ import Box from "@mui/material/Box";
 import { handleInvoiceStatus } from "../../utils/utils";
 import { TableComponentProps } from "./TableComponent";
 import { styled } from '@mui/material/styles';
+import  { setopenModalConfirm }  from   "../../store/invoice.reducer"
 import { useTranslation } from "react-i18next";
 import Tooltip, { TooltipProps, tooltipClasses } from '@mui/material/Tooltip';
 import { unzipFile,  unzipFileData }  from  "../../pages/InvoiceTemplatePage"
@@ -268,7 +269,7 @@ const useTableSettings = (): TableSettings => {
                       <Grid item xs={3}>
                         {(params.row.invoiceStatus  ===  'Sent' ||  params.row.invoiceStatus  ===  'Sending') && 
                             <LightTooltip title="Otkazi">
-                                <IconButton color="primary" aria-label="pdf" component="label"  onClick={() => {console.log(params.row)}}>
+                                <IconButton color="primary" aria-label="pdf" component="label"  onClick={() => {console.log(params); dispach(setopenModalConfirm(true));}}>
                                   <FontAwesomeIcon icon={faFileCircleXmark}    color="red"   />
                                 </IconButton>
                             </LightTooltip>

@@ -100,9 +100,10 @@ export const selectCurrentDocNumber = createSelector(
 );
 
 function convertToProductModel(item: any): ProductModel {
+  console.log('asasass',item)
   return {
     idVat: item.productVatRequest?.idVat,
-    vatName: item.productVatRequest?.vatName,
+    vatName: item.taxName,  //vatName
     unitCode: item.productUnitRequest?.unitName,
     idUnit: item.productUnitRequest?.idUnit,
     currencyID: "RSD",
@@ -120,7 +121,7 @@ function convertToProductModel(item: any): ProductModel {
       name: item.productName,
       sellersItemIdentification: { id: 1 },
       classifiedTaxCategory: {
-        id: item.vat,
+        id: 2,
         taxScheme: { id: "VAT" },
         percent: Number(((item.taxValue1 - 1) * 100).toFixed(2)),
       },
@@ -132,10 +133,10 @@ function convertToProductModel(item: any): ProductModel {
       unitPrice: resolvePrice(item.priceLists),
       unitTaxAmount: 0,
     },
-      taxCode: item.taxCode,
+      /*taxCode: item.taxCode,
       taxName:     item.taxName,
       taxValue1:    item.taxValue1,
-      baseCode:    item.baseCode,
+      baseCode:    item.baseCode,*/
   };
 }
 function convertToCompanyModel(item: any): CustomerPartyModel {

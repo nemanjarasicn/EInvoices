@@ -7,12 +7,14 @@ import { useComponentsStyles } from "./components.styles";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
-import { selectIds, selectInvoices } from "../store/invoice.selectors";
+import { selectIds, selectInvoices, selectOpenConfirm } from "../store/invoice.selectors";
 import {
   resetSelectionState,
   setSelection,
 } from "./DataGrid/store/data-grid.reducer";
 import { selectSelection } from "./DataGrid/store/data-grid.selectors";
+import  { setopenModalConfirm }  from   "../store/invoice.reducer"
+import  { selectOpenPdf }    from  "../store/invoice.selectors"
 import { InvoiceStatus, TemplatePageTypes } from "../models";
 import ConfirmWithCommentDialog from "./ConfirmWithCommentDialog";
 import { updateStatusInvoice } from "../store/invoice.actions";
@@ -54,6 +56,8 @@ export default function SelectAllActionsComponent({
   const selection: any[] = useAppSelector(selectSelection);
   const invoices = useAppSelector(selectInvoices);
   const navigate  = useNavigate();
+
+  const openConfirmModal = useAppSelector(selectOpenConfirm);
 
   // --------------ZIP -------------------------------------
   const dispatch = useAppDispatch();
@@ -199,11 +203,14 @@ function downloadXml(data: Blob, fileName: string) {
   const handleClose = (data: {comment?: string | boolean, flagButton: string}): void => {
     if (data.flagButton  === "cancel") {
       setOpenConfirm(false);
+      //dispach(setopenModalConfirm(false));
       setActionValue(null);
     } else {
       const dataToSend = { ...actionValue, comment: data.comment };
+      console.log(dataToSend);
       dispach(updateStatusInvoice({ ...dataToSend }));
       setOpenConfirm(false);
+      //dispach(setopenModalConfirm(false))
       setActionValue(null);
       navigate(`/invoices/${props.pageType}`)
     }
