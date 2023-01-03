@@ -143,6 +143,11 @@ export interface ProductModel {
     unitPrice: number;
     unitTaxAmount: number;
   };
+    taxCode?: string;
+    taxName?:  string;
+    taxValue1?:  number |  string;
+    baseCode?:  string;
+
 }
 
 export interface CustomerPartyModel {

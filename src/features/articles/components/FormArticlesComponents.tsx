@@ -18,9 +18,9 @@ import { useNavigate } from 'react-router-dom';
 import FormAutocompleteField from "../../shared/components/form-fields/FormAutocompleteField";
 import  ErrorModal   from   "../../shared/components/ErrorModals"
 import SucessModal   from "../../shared/components/SucessModal"
-import  { getObjectsAll,  getUnitsAll, getVatAll, getMarketPlacesAll }  from  "../../shared/components/form-fields/store/form.actions"
+import  { getObjectsAll,  getUnitsAll, getVatAll, getMarketPlacesAll,  getTaxCode,    getTaxBase }  from  "../../shared/components/form-fields/store/form.actions"
 import { selectCompanyCurrent } from "../../../app/core/core.selectors";
-import  {  selectUnitsAll,  selectVatsAll,   selectMarketPlaces }  from   "../../shared/components/form-fields/store/form.selectors"
+import  {  selectUnitsAll,  selectVatsAll,   selectMarketPlaces,  selectTaxCode, selectTaxBase }  from   "../../shared/components/form-fields/store/form.selectors"
 import { sendArticle } from "../store/articles.actions";
 //import ClientComponent from "./form-group/ClientComponent";
 
@@ -85,13 +85,29 @@ export default function FormArticleComponent({
         uuid:  item.item.uuid,
         id:  item.item.id,
         marketPlaceName:   item.item.marketPlaceName
-      }))
+      })),
+      taxcodeValue: "",
+      taxCode:  {
+                  idTaxCategory: "",
+                  taxCategoryName:  "",
+                  taxCategoryCode:  "",
+                  value1:  "",
+                  idCountry: ""
+                },
+      taxBaseValue: "",
+      taxBase:  {
+                  id: "",
+                  name:  "",
+                  description:  "",
+                  taxCategory: ""
+                }
     };
     const { formComponent } = useComponentsStyles();
     const navigate  = useNavigate();
     const dispatch = useAppDispatch();
     const [showError, setShowError] = React.useState(false);
     const [showErrorModal, setShowErrorModal] = React.useState(false);
+    const [showTaxBase, setShowTaxBase] = React.useState('none');
   
 
 
@@ -103,18 +119,42 @@ export default function FormArticleComponent({
         handleSubmit,
         reset,
         control,
+        watch, 
+        setValue,
+        getValues
       } = methods;
       
 
       React.useEffect(() => {
         dispatch(getObjectsAll({companyId: companyId}));
         dispatch(getUnitsAll());
-        dispatch(getVatAll());
+        dispatch(getTaxCode());
         dispatch(getMarketPlacesAll({companyId: companyId}));
   
       }, []);
 
+
+      React.useEffect(() => {
+        const taxCode1 = getValues('taxCode');
+        if(taxCode1.value1 === 1) {
+          dispatch(getTaxBase({id: Number(getValues('taxCode').idTaxCategory)}));
+          setShowTaxBase('block');
+        } else {
+          setShowTaxBase('none')
+          setValue('taxcodeValue', "" )
+          
+        }
+        setValue("taxcodeValue",  String(taxCode1.value1));
+      }, [watch('taxCode')]);
+
+
+
+      React.useEffect(() => {
+      
+      }, [watch('taxBase')]);
+
       const onSubmit = async  (data: ArticleFormModel) => {
+        console.log(data);
          await dispatch(sendArticle({data})).then(async (res) => {
             if(res.payload.message === "sucsess") {
               setShowError(true);
@@ -174,6 +214,33 @@ export default function FormArticleComponent({
                         
                         }}
                     />
+                    <FormAutocompleteField
+                        props={{
+                            name: "taxCode",
+                            control: control,
+                            label:  "Taxcode",
+                            disabled: false,
+                            additional: {
+                            selector:  selectTaxCode,
+                            
+                            },
+                        }}
+                        />
+                      
+                      <div style={{display: showTaxBase}} > 
+                      <FormAutocompleteField
+                        props={{
+                            name: "taxBase",
+                            control: control,
+                            label:  "taxBase",
+                            disabled: false,
+                            additional: {
+                            selector:  selectTaxBase,
+                            
+                            },
+                        }}
+                        />
+                      </div>
                      {/*not need only for e facture */}
                      {/* <Grid container sx={{display:   'flex' }} >
 
@@ -304,7 +371,31 @@ export default function FormArticleComponent({
                         }}
                         />
 
-                    <FormAutocompleteField
+                    <FormTextField
+                        props={{
+                            control: control,
+                            name: "taxcodeValue",
+                            label:   "TaxCodeValue",
+                            disabled: false,
+                            additional: { readonly: true, labelShrink: true }
+                        
+                        }}
+                    />
+
+                    {/*<div   style={{display:  showTaxBase  }}   >
+                    <FormTextField
+                        props={{
+                            control: control,
+                            name: "taxBaseValue",
+                            label:   "TaxBase value",
+                            disabled: false,
+                            additional: { readonly: true, labelShrink: true }
+                        
+                        }}
+                    />                      
+                      </div>*/}
+
+                    {/*<FormAutocompleteField
                         props={{
                             name: "productVatRequest",
                             control: control,
@@ -315,7 +406,7 @@ export default function FormArticleComponent({
                             
                             },
                         }}
-                        />
+                      />*/}
                     </Grid>
                 </Grid>
                 </Paper>

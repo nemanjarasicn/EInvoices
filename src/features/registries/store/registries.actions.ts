@@ -153,7 +153,7 @@ const sendCompanies: AsyncThunk<any, {data: CompanyFormModel}, {}> = createAsync
   "POST/companySend",
   async (data,_) => {
     return await RegistriesPublicService.sendCompanies(data)
-      .then((res: any) => 'sucsses')
+      .then((res: any) => ({message: 'sucsses', data: res.data}))
       .catch((err: any) => 'error');
   }
 );
@@ -215,6 +215,19 @@ const getGroups: AsyncThunk<any, { uuid: number | string }, {}> = createAsyncThu
 );
 
 
+/**
+ * Get CompanyInfo Async
+ */
+ const getCompanyInfo: AsyncThunk<any, { id: number}, {}> = createAsyncThunk<
+ any,
+ { id: number }
+>("GET/companyInfo", async (params, _) => {
+ return await RegistriesPublicService.getCompanyInfo(params.id)
+   .then((res) => res.data)
+   .catch((err) => console.log(err));
+});
+
+
 export {
   sendObjects,
   getObjects,
@@ -234,5 +247,6 @@ export {
   sendGroup,
   sendVat,
   sendsubscribe,
-  sendUsers
+  sendUsers,
+  getCompanyInfo
 };

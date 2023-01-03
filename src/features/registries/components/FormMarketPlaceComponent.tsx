@@ -21,8 +21,11 @@ import { useNavigate } from 'react-router-dom';
 import { selectCompanyCurrent } from "../../../app/core/core.selectors";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import { selectObjectsAll } from "../../shared/components/form-fields/store/form.selectors";
+import { selectUser, selectCompanyAdmin }  from  "../../../app/core/core.selectors"
 import { getObjectsAll } from "../../shared/components/form-fields/store/form.actions";
 import  ErrorModal   from   "../../shared/components/ErrorModals"
+import { useLocation } from "react-router-dom";
+import  {  getCompaniesAll }   from   "../../shared/components/form-fields/store/form.actions"
 import SucessModal   from "../../shared/components/SucessModal"
 //import ClientComponent from "./form-group/ClientComponent";
 
@@ -58,8 +61,10 @@ export default function FormMarketPlaceComponent({
     props,
   }: IProps<RegistriesFormComponentProps>): JSX.Element {
     const companyId = useAppSelector(selectCompanyCurrent) as any;
+    const location = useLocation();
+    const id = location.state.company;
     const defaultValues:  MarketPlaceFormModel = {
-      companyId:  companyId,
+      companyId:  id, //{main: {idCompany: 0}},
       marketPlaceName: "",
       objectUuid: "",
     };
@@ -69,7 +74,9 @@ export default function FormMarketPlaceComponent({
     const navigate  = useNavigate();
     const dispatch = useAppDispatch();
     const [showError, setShowError] = React.useState(false);
+    const userAuthority = useAppSelector(selectUser)?.authorities?.slice(0,1)[0].authority === "ROLE_ADMIN" ? true  :   false;
     const [showErrorModal, setShowErrorModal] = React.useState(false);
+    const dataObject = useAppSelector(selectObjectsAll);
 
   
     const methods = useForm({
@@ -80,34 +87,53 @@ export default function FormMarketPlaceComponent({
         handleSubmit,
         reset,
         control,
+        watch,
+        getValues
       } = methods;
 
 
       const onSubmit = (data: MarketPlaceFormModel) => {
         dispatch(sendMarketPlace({data})).then((res) => {
-            if(res.payload === 'sucsess') {
-              setShowError(true);
-              setTimeout(() => {
-                  setShowError(false);    
+          if(res.payload === 'sucsess') {
+            setShowError(true);
+            setTimeout(() => {
+                setShowError(false);    
+                if(!userAuthority) {
                   navigate('/registries/marketPlace'
                   )
-              }, 2000);
-            }  else {
-              setShowErrorModal(true);  
-              setTimeout(() => {
-                    setShowErrorModal(false);
-                    /*navigate('/registries/companies'
-                    )*/
-              }, 2000);
-            }
-        }
-        )
+                } else{
+                    navigate('/registries/createUser', {
+                      state: {
+                        company: id
+                      }
+                    })
+                }
+            }, 2000);
+          }  else {
+            setShowErrorModal(true);  
+            setTimeout(() => {
+                  setShowErrorModal(false);
+                  /*navigate('/registries/companies'
+                  )*/
+            }, 2000);
+          }
+      }
+      )
       }
 
       React.useEffect(() => {
-        dispatch(getObjectsAll({companyId: companyId}));
+        dispatch(getObjectsAll({companyId: id}));
+        dispatch(getCompaniesAll());
       }, []);
 
+      
+
+     /* React.useEffect(() => {
+      const id =  getValues(`companyId`).main.idCompany;
+      if(id)  {
+          dispatch(getObjectsAll({companyId: id}));
+      }
+      }, [watch("companyId")]);*/
       
   
     return (
@@ -163,6 +189,7 @@ export default function FormMarketPlaceComponent({
                             disabled: true,
                             additional: {
                             selector: selectObjectsAll,
+                            //data: dataObject
                             
                             },
                         }}

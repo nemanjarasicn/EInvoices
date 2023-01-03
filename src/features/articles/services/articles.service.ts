@@ -24,6 +24,10 @@ class RegistriesPublicService {
               "code":  data.code,
               "idCompany":   data.idCompany,
               "idObject": 1,
+              "taxCode": data.taxCode.taxCategoryCode,
+              "taxName": data.taxCode.taxCategoryName,
+              "taxValue1":  data.taxCode.value1,
+               "baseCode":  data.taxBase.name,
               "productGroupRequest":[
                  {
                     "idGroup":1,
@@ -89,11 +93,50 @@ sendArticlesPrice(data: any) {
 }
  
 
+
+sendSubject(data: any) {
+   return publicClient.post<any>
+   ("subject",
+       {
+           
+            "firstName":  data.data.firstName,
+            "lastName":  data.data.lastName,
+            "companyName":  data.data.companyName,
+            "identificationNumber":     data.data.identificationNumber,
+            "pib":     data.data.pib,
+            "mb":  data.data.mb,
+            "companyId":    data.data.companyId,
+            "address":   data.data.address,
+            "city":  data.data.city, 
+            "zip":    data.data.zip,
+            "phone":    data.data.phone,
+            "email":   data.data.email,
+            "jbkjs":   data.data.email,
+            "subjectIdCategory":   data.data.subjectIdCategory.id,
+            "subjectIdType":  data.data.subjectIdType.id,
+            "payeeFinancialAccountDto": [`${data.data.payeeFinancialAccountDto}`],
+            "userId":   "",
+            "discount": 0,
+            "idVat": 1,
+            "vatName":  "",
+      }
+   );
+}
+
   getArticles(uuid:   number  |  string) {
     return publicClient.get<any>
     (`search/products/pm/${uuid}`,
     );
   }
+
+
+  
+
+  getSubject(companyId:   number  |  string) {
+   return publicClient.get<any>
+   (`subject/${companyId}`,
+   );
+ }
 
 
   

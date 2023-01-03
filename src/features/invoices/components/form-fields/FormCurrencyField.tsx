@@ -27,14 +27,12 @@ export default function FormCurrencyField({
 
   const handleOnKeyDown  =  (event: any) =>  {
     if(event.key === 'Enter'  &&  props.additional?.parentFn){
-      console.log('enter press here! ');
       props.additional?.parentFn();
     }
   }
 
   const handleParent  =  () =>  {
     if( props.additional?.parentFnChange){
-      console.log('enter press here! ');
       props.additional?.parentFnChange();
     }
   }

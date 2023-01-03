@@ -102,6 +102,77 @@ export const selectClientCompanies = createSelector(
 
 
 /**
+ * Select   SubjectCategory for dropdown component
+ */
+ export const selectSubjectGategory = createSelector(
+  autocompleteSelectors,
+  (state: AutocompleteData) =>
+    state.subjectCategory.map((item, index) => ({
+      name: item.categoryName,
+      id: item.id,
+      item: item,
+    })) 
+);
+
+
+/**
+ * Select   subjectType for dropdown component
+ */
+ export const  selectSubjectType = createSelector(
+  autocompleteSelectors,
+  (state: AutocompleteData) =>
+    state.subjectType.map((item, index) => ({
+      name: item.type,
+      id: item.id,
+      item: item,
+    })) 
+);
+
+
+/**
+ * Select   userRole for dropdown component
+ */
+ export const selectUserRole = createSelector(
+  autocompleteSelectors,
+  (state: AutocompleteData) =>
+    state.userRole.map((item, index) => ({
+      name: item.roleName,
+      id: item.id_role,
+      item: item,
+    })) 
+);
+
+
+
+/**
+ * Select  taxBase  for dropdown component
+ */
+ export const selectTaxBase = createSelector(
+  autocompleteSelectors,
+  (state: AutocompleteData) =>
+    state.taxBase.map((item, index) => ({
+      name: item.name,
+      id: item.id,
+      item: item,
+    })) 
+);
+
+
+/**
+ * Select  taxcode  for dropdown component
+ */
+ export const selectTaxCode = createSelector(
+  autocompleteSelectors,
+  (state: AutocompleteData) =>
+    state.taxCode.map((item, index) => ({
+      name: item.taxCategoryName,
+      id: item.idTaxCategory,
+      item: item,
+    })) 
+);
+
+
+/**
  * Select vat for dropdown component
  */
  export const selectVatsAll = createSelector(

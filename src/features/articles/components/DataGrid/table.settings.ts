@@ -4,8 +4,8 @@ import { TableComponentProps } from "./TableComponent";
 import { useAppDispatch, useAppSelector } from "../../../../app/hooks";
 import { selectCompanyCurrent } from "../../../../app/core/core.selectors";
 
-import { getArticles }   from "../../store/articles.actions"
-import  { selectArticles }  from "../../store/articles.selectors"
+import { getArticles,  getSubject }   from "../../store/articles.actions"
+import  { selectArticles, selectSubject }  from "../../store/articles.selectors"
 
 type TableSettings = {
   tableSettings: {
@@ -126,6 +126,97 @@ const useTableSettings = (): TableSettings => {
           getDataAction:  getArticles(company as any) ,
           selectType:  "ARTICLES",
           selector:  selectArticles,
+          parentColumn: "id",
+        },
+      },
+
+      [HeaderSettingsTypes.SUBJECT]: {
+        dataGrid: {
+          columnsDef: [
+            {
+              field: "id",
+              headerName: "Id komitenta",
+              flex: 1,
+              headerAlign: "center",
+              align: "center",
+              hideable: false,
+            },
+            {
+              field: "firstName",
+              headerName: "Ime komitenta",
+              flex: 1,
+              headerAlign: "center",
+              align: "center",
+              hideable: false,
+            },
+            {
+              field: "lastName",
+              headerName: "Prezime komitenta",
+              flex: 1,
+              headerAlign: "center",
+              align: "center",
+              hideable: false,
+            },
+    
+            {
+              field: "companyName",
+              headerName: "Naziv kompanije",
+              flex: 1,
+              headerAlign: "center",
+              align: "center",
+              hideable: true,
+              hide: false,
+            },
+            {
+                field: "pib",
+                headerName: "PIB",
+                flex: 1,
+                headerAlign: "center",
+                align: "center",
+                hideable: true,
+                hide: false,
+              },
+              {
+                field: "mb",
+                headerName: "mb",
+                flex: 1,
+                headerAlign: "center",
+                align: "center",
+                hideable: true,
+                hide: false,
+              },
+        
+              {
+                field: "subjectIdCategory",
+                headerName: "Kategorija komitenta",
+                flex: 1,
+                headerAlign: "center",
+                align: "center",
+                hideable: true,
+                hide: false,
+              },
+              {
+                field: "subjectIdType",
+                headerName: "Tip komitenta",
+                flex: 1,
+                headerAlign: "center",
+                align: "center",
+                hideable: true,
+                hide: false,
+              },
+      
+  
+              
+          ],
+          toolbarProps: {
+            showFilters: false,
+            showDensity: false,
+            showHideColumns: true,
+            showExport: false,
+          },
+          getDataAction:  getSubject({companyId: company}) ,
+          selectType:  "SUBJECT",
+          selector:  selectSubject,
           parentColumn: "id",
         },
       }

@@ -74,6 +74,7 @@ export default function ClippedDrawer() {
   const { menuAppBarStyles } = useAppComponentsStyles();
   const companyUser = useAppSelector(selectCompany) as any;
   const user  =  useAppSelector(selectUser) as any;
+  const userAuthority = useAppSelector(selectUser)?.authorities?.slice(0,1)[0].authority === "ROLE_ADMIN" ? true  :   false;
 
 
   const [calcNumber, setCalcNumber] =  React.useState<number>(1);
@@ -94,19 +95,17 @@ export default function ClippedDrawer() {
   const gradiantSize = window.devicePixelRatio === 1.5 ?   '20%' : '15%';
   const minWidthIcon    =    window.devicePixelRatio === 1.5 ?  20 :  80; 
 
-
-  const userAuthority  =  user.username ===  'dejan'  ?  true  :  false;
-
   const trigger = useScrollTrigger();
 
   const navItems: NavItem[] = [
-    { name: t("Menu.home"), href: "/", icon: "Home",submenu: false, },
+    { name: t("Menu.home"), href: "/", icon: "Home",submenu: false,   disabled:   userAuthority, },
     {
       name: t("Menu.invoice"),
       href: "/invoices",
       icon: "Payments",
       listNumber: 1,
       submenu: true,
+      disabled:   userAuthority,
       children: [
         {
           name: t("InvoiceCard.cardTitleSales"),
@@ -136,10 +135,16 @@ export default function ClippedDrawer() {
       icon: "Articles",
       listNumber: 2,
       submenu: true,
+      disabled:   userAuthority,
       children: [
         {
           name:  t("Articles.title"),
           href: "/articles/articlesList",
+          icon: "Payments",
+        },
+        {
+          name:  t("Komitenti"),
+          href: "/articles/subject",
           icon: "Payments",
         },
       ],
@@ -150,7 +155,7 @@ export default function ClippedDrawer() {
       icon: "ApartmentIcon",
       listNumber:  3,
       submenu: true,
-      disabled:   false,
+      disabled:   true ,
       children: [
         {
           name: t("Objects.title"),
@@ -401,7 +406,7 @@ export default function ClippedDrawer() {
                   className="item-class"
                 >
                   <ListItemButton
-                    key={`logaout`}
+                    key={`logaout_button`}
                     sx={{
                       minHeight: 80, //48
                       justifyContent: open ? "initial" : "center",

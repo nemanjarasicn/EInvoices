@@ -7,7 +7,8 @@ import {
     Slice,
   } from "@reduxjs/toolkit";
   import {
-    getArticles
+    getArticles,
+    getSubject
   } from "./articles.actions";
   
   const FEATURE_REGISTRIES_KEY: string = "articles";
@@ -15,12 +16,14 @@ import {
   export interface  FeatureState {
     articles: any[];
     zip: any;
+    subject:  any[];
     loading: boolean;
   }
 
   const initialState: FeatureState = {
     articles: [],
     zip: "",
+    subject:  [],
     loading: false,
   };
   
@@ -33,6 +36,7 @@ import {
      },
      extraReducers: (builder) => {
       getAsyncArticles(builder);
+      getAsyncSubject(builder);
     },
     }
   )
@@ -59,6 +63,26 @@ import {
       ...state,
       loading: false,
       articles: [],
+      error: (payload as any).error,
+    }));
+  }
+  
+
+  function getAsyncSubject(builder: ActionReducerMapBuilder<FeatureState>) {
+    builder.addCase(getSubject.fulfilled, (state, { payload }) => ({
+      ...state,
+      loading: false,
+      error: "",
+      subject: payload,
+    }));
+    builder.addCase(getSubject.pending, (state) => ({
+      ...state,
+      loading: true,
+    }));
+    builder.addCase(getSubject.rejected, (state, { payload }) => ({
+      ...state,
+      loading: false,
+      subject: [],
       error: (payload as any).error,
     }));
   }

@@ -38,10 +38,31 @@ const sendArticlesPrice: AsyncThunk<any, {data: any, price: any}, {}> = createAs
   );
 
 
+
+  const sendSubject: AsyncThunk<any, {data: any}, {}> = createAsyncThunk<any, {data: any}>(
+    "POST/subjectSend",
+    async (data,_) => {
+      return await RegistriesPublicService.sendSubject(data)
+        .then((res: any) =>  'sucsess')
+        .catch((err: any) => 'error');
+    }
+  );
+
+
 const getArticles: AsyncThunk<any, { uuid: number | string }, {}> = createAsyncThunk<any, { uuid: number | string }>(
   "GET/articles",
   async (params) => {
     return     await RegistriesPublicService.getArticles(params.uuid)
+    .then((res: any) => res.data)
+    .catch((err: any) => []);
+}
+);
+
+
+const getSubject: AsyncThunk<any, { companyId: number | string }, {}> = createAsyncThunk<any, { companyId: number | string }>(
+  "GET/subjectget",
+  async (params) => {
+    return     await RegistriesPublicService.getSubject(params.companyId)
     .then((res: any) => res.data)
     .catch((err: any) => []);
 }
@@ -53,5 +74,7 @@ const getArticles: AsyncThunk<any, { uuid: number | string }, {}> = createAsyncT
 export {
   sendArticle,
   getArticles,
-  sendArticlesPrice
+  sendArticlesPrice,
+  getSubject,
+  sendSubject
 };

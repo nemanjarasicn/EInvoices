@@ -21,7 +21,5 @@ export default function ProtectedLayout(): JSX.Element {
 
   return !token || !validateToken(token) ? (
     <Navigate to="/login" />
-  ) : (
-    <MenuAppBar />
-  );
+  ) : (<MenuAppBar />);
 }

@@ -38,7 +38,7 @@
   }
 
   export class MarketPlaceFormModel {
-    companyId: number = 0;
+    companyId: any;
     marketPlaceName: string = "";
     objectUuid: string = "";
   }
@@ -116,6 +116,7 @@
     password: string = "";
     confirmpassword: string = "";
     companyList: number[]  |  string[]  = [];
+    userRole: string  = "";
   }
   
  

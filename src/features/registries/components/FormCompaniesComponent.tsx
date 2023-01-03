@@ -8,7 +8,7 @@ import { RegistriesFormComponentProps }  from "./RegistriesFormComponent"
 import { useTranslation } from "react-i18next";
 import { useNavigate } from 'react-router-dom';
 import { useComponentsStyles } from "../../shared/components/components.styles";
-import { useAppDispatch } from "../../../app/hooks";
+import { useAppDispatch,   useAppSelector } from "../../../app/hooks";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
@@ -17,7 +17,11 @@ import CustomButtonFc from "../../shared/components/CustomButtonFc";
 import { CompanyFormModel, IProps } from "../models/registries.models"
 import { sendCompanies } from "../store/registries.actions";
 import  ErrorModal   from   "../../shared/components/ErrorModals"
+import { selectUser }  from  "../../../app/core/core.selectors"
 import SucessModal   from "../../shared/components/SucessModal"
+import  {  sendsubscribe  }  from   "../store/registries.actions"
+
+import { setCompanyAdmin } from "../../../app/core/core.reducer";
 
 /**
  * Register Form validation schema for every field
@@ -48,6 +52,7 @@ export default function FormCompaniesComponent({
     const navigate  = useNavigate();
     const dispatch = useAppDispatch();
     const [showError, setShowError] = React.useState(false);
+    const userAuthority = useAppSelector(selectUser)?.authorities?.slice(0,1)[0].authority === "ROLE_ADMIN" ? true  :   false;
     const [showErrorModal, setShowErrorModal] = React.useState(false);
 
     const methods = useForm({
@@ -60,18 +65,26 @@ export default function FormCompaniesComponent({
         control,
       } = methods;
 
-      const onSubmit = (data: CompanyFormModel) => {
-        dispatch(sendCompanies({data})).then((res) => {
-            if(res.payload === 'sucsses') {
+      const onSubmit = async (data: CompanyFormModel) => {
+        dispatch(sendCompanies({data})).then(async (res) => { 
+            if(res.payload.message === 'sucsses') {
               if(data.apiKey) {
-               console.log(res.payload);
-                //dispatch(sendsubscribe({data}))
+      
+                dispatch(sendsubscribe({data: res.payload.data}))
               }
               setShowError(true);  
-              setTimeout(() => {
+              setTimeout(async () => {
                     setShowError(false);
-                    navigate('/registries/companies'
-                    )
+                    if(!userAuthority) {
+                        navigate('/registries/companies')
+                    } else{
+                       await navigate('/registries/createObject',{
+                        state: {
+                          company: res.payload.data
+                        }
+                       })
+                    }
+                    
               }, 2000);
             } else {
               setShowErrorModal(true);  

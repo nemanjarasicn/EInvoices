@@ -21,6 +21,7 @@ import {
   getWarehouses
 } from "../../registries/store/registries.actions";
 import { selectCompany } from "../../../app/core/core.selectors";
+import { selectUser, selectCompanyAdmin }  from  "../../../app/core/core.selectors"
 import Breadcrumbs from '@mui/material/Breadcrumbs';
 import Link from '@mui/material/Link';
 import Typography from '@mui/material/Typography';
@@ -95,7 +96,8 @@ export default function InvoiceTemplatePage({
 
 
   const  marginTopBox  =     window.devicePixelRatio === 1.5 ?  6 :  10;
-  
+  const userAuthority = useAppSelector(selectUser)?.authorities?.slice(0,1)[0].authority === "ROLE_ADMIN" ? true  :   false;
+  const hrefAdmin = userAuthority  ? "#" : "/registries";
   const fontSizeBreadcrumbs  =   window.devicePixelRatio === 1.5 ?  '16px' :  '20px';
   
   return (
@@ -103,7 +105,7 @@ export default function InvoiceTemplatePage({
       <Grid container >
         <Grid item xs={4} >
           <Breadcrumbs aria-label="breadcrumb"    sx={{'& .MuiBreadcrumbs-separator': {color: ' #60737C'}}}>
-                <Link  sx={{color: '#60737C', fontSize:   fontSizeBreadcrumbs, fontFamily:  "Roboto",  lineHeight:  "32px",  fontWeight:  700}}  href="/registries">
+                <Link  sx={{color: '#60737C', fontSize:   fontSizeBreadcrumbs, fontFamily:  "Roboto",  lineHeight:  "32px",  fontWeight:  700}}  href={hrefAdmin}>
                         ADMINISTRACIJA
                 </Link>
                 <Typography  sx={{color: 'white', fontSize:   fontSizeBreadcrumbs, fontFamily:  "Roboto",  lineHeight:  "32px",  fontWeight:  700}}>{t(templatePageSettings[props.templateType].title)}</Typography>

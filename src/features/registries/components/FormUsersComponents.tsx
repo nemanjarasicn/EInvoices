@@ -21,8 +21,12 @@ import FormAutocompleteField from "../../shared/components/form-fields/FormAutoc
 import  MultipleSelect  from  "../../shared/components/form-fields/FormDropdownFieldNew"
 import { selectCompanyCurrent } from "../../../app/core/core.selectors";
 import { getCompaniesAll }  from  "../../shared/components/form-fields/store/form.actions"
+import { selectUser, selectCompanyAdmin }  from  "../../../app/core/core.selectors"
 import { sendUsers } from "../store/registries.actions";
 import  ErrorModal   from   "../../shared/components/ErrorModals"
+import  {   getUserRole   }   from  "../../shared/components/form-fields/store/form.actions"
+import   { selectUserRole }  from  '../../shared/components/form-fields/store/form.selectors'
+import { useLocation } from "react-router-dom";
 import SucessModal   from "../../shared/components/SucessModal"
 //import ClientComponent from "./form-group/ClientComponent";
 
@@ -58,22 +62,25 @@ export default function FormUsersComponent({
     props,
   }: IProps<RegistriesFormComponentProps>): JSX.Element {
     const companyId = useAppSelector(selectCompanyCurrent) as any;
+    const location = useLocation();
+    const id = location.state.company;
     const defaultValues:  UsersFormModel = {
       id: "",
-      companyId: companyId ,
+      companyId:  id, //companyId ,
       username: "",
       password: "",
       confirmpassword: "",
-      companyList: []
+      companyList: [], 
+      userRole: ""
     };
     const { t } = useTranslation();
     const { formComponent } = useComponentsStyles();
     const navigate  = useNavigate();
     const dispatch = useAppDispatch();
     const [showError, setShowError] = React.useState(false);
+    const userAuthority = useAppSelector(selectUser)?.authorities?.slice(0,1)[0].authority === "ROLE_ADMIN" ? true  :   false;
     const [showErrorModal, setShowErrorModal] = React.useState(false);
 
-   
 
     const methods = useForm({
         defaultValues: defaultValues,
@@ -91,8 +98,17 @@ export default function FormUsersComponent({
           setShowError(true);
           setTimeout(() => {
               setShowError(false);
-              navigate('/registries/users'
+             
+              if(!userAuthority) {
+                navigate('/registries/users'
               )
+              } else{
+                  navigate('/registries/infoCompany', {
+                    state: {
+                      company: id
+                    }
+                  })
+              }
           }, 2000);
         }   else {
             setShowErrorModal(true);  
@@ -110,6 +126,7 @@ export default function FormUsersComponent({
 
       React.useEffect(() => {
         dispatch(getCompaniesAll());
+        dispatch(getUserRole());
       }, []);
   
     return (
@@ -118,7 +135,7 @@ export default function FormUsersComponent({
             <ErrorModal    open={showErrorModal} ></ErrorModal>
                 <Grid container spacing={2}>
                     <Grid item xs={6}>
-                      {true ?
+                      {false ?
                         <MultipleSelect  props={{
                           selector: selectCompaniesAll,
                           control: control,
@@ -147,6 +164,20 @@ export default function FormUsersComponent({
                         
                         }}
                     />
+
+                    <FormAutocompleteField
+                        props={{
+                            name: "userRole",
+                            control: control,
+                            label: 'user Rola',
+                            disabled: true,
+                            additional: {
+                            selector: selectUserRole,
+                            //data: dataObject
+                            
+                            },
+                        }}
+                        />
                     <FormTextField
                         props={{
                             control: control,

@@ -5,6 +5,7 @@ class RegistriesPublicService {
   // MOCK CLIENT
 
   sendObject(data: any) {
+    
     return publicClient.post<any>
     ("object",
     {
@@ -101,17 +102,19 @@ class RegistriesPublicService {
       "address":  data.data.address,
       "zip": data.data.zip,
       "city":  data.data.city,
-      "country":  data.data.country
+      "country":  data.data.country,
+      "email": "nemanja@gmail.com"
   }
     );
   }
 
   sendsubscribe(data: any) {
+    
     return publicClient.post<any>
     ("subscribe",
       {
         "apiKey": data.data.apiKey,
-        "companyId":  20,
+        "companyId":  data.data.idCompany,
         "companyName":  data.data.companyName
       }
     );
@@ -199,8 +202,8 @@ class RegistriesPublicService {
     {
       "username":  data.data.username,
       "password":  data.data.password,
-      "roleName":["ROLE_USER"],
-      "companies": data.data.companyList
+      "roleName":[data.data.userRole.roleName],
+      "companies": [data.data.companyId]
   
   }
     );
@@ -261,6 +264,13 @@ class RegistriesPublicService {
   getWarehouses(uuidMarketPlace:  string) {
     return publicClient.get<any>
     (`warehouse//marketplace/${uuidMarketPlace}`,
+    );
+  }
+  
+
+  getCompanyInfo(id:  number  |  string) {
+    return publicClient.get<any>
+    (`company/company/${id}`,
     );
   }
   
