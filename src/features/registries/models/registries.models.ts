@@ -55,6 +55,20 @@
     zip:  string  = "";
     city: string  = "";
     country:  string =  "";
+    distributor: any = "";
+  }
+
+  export class DistributorFormModel {
+    id: string = "";
+    companyName: string =  "";
+    primaryVat: boolean = false;
+    pib: string = "";
+    date: string = "";
+    mb:  string = "";
+    address: string = "";
+    zip:  string  = "";
+    city: string  = "";
+    country:  string =  "";
   }
 
 

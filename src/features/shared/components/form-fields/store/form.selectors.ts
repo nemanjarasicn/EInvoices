@@ -143,6 +143,20 @@ export const selectClientCompanies = createSelector(
 );
 
 
+/**
+ * Select   distributor for dropdown component
+ */
+ export const selectDistributor = createSelector(
+  autocompleteSelectors,
+  (state: AutocompleteData) =>
+    state.distributor.map((item, index) => ({
+      name: item.distributorName,
+      id: item.idDistributor,
+      item: item,
+    })) 
+);
+
+
 
 /**
  * Select  taxBase  for dropdown component

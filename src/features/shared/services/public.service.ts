@@ -43,6 +43,10 @@ class PublicService {
     return commonHttpClient.get<any>(`tax/base/${id}`);
   }
 
+  getDistributor() {
+    return commonHttpClient.get<any>(`distributor`);
+  }
+
 
   getVatAll() {
     return commonHttpClient.get<any>("vat");

@@ -69,6 +69,17 @@ export default function RegistriesCreateTemplatePage({
                       }
                     />
                   );
+                  
+                case CreateType.FORMDISTRIBUTOR:
+                    return (
+                      <RegistriesFormComponent
+                        props={
+                          RegistriesCreateTemplatePageSettings[
+                            CreateType.FORMDISTRIBUTOR
+                          ] as RegistriesFormComponentProps
+                        }
+                      />
+                    );
 
                 case CreateType.FORMUNIT:
                   return (

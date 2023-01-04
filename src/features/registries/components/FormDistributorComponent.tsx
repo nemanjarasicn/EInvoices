@@ -14,17 +14,14 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import FormTextField  from  "../../shared/components/form-fields/FormTextField"
 import CustomButtonFc from "../../shared/components/CustomButtonFc";
-import { CompanyFormModel, IProps } from "../models/registries.models"
-import { sendCompanies } from "../store/registries.actions";
+import { DistributorFormModel, IProps } from "../models/registries.models"
+import { sendDistributor } from "../store/registries.actions";
 import  ErrorModal   from   "../../shared/components/ErrorModals"
 import { selectUser }  from  "../../../app/core/core.selectors"
 import SucessModal   from "../../shared/components/SucessModal"
-import FormAutocompleteField from "../../shared/components/form-fields/FormAutocompleteField";
 import  {  sendsubscribe  }  from   "../store/registries.actions"
-import   { selectUserRole, selectDistributor }  from  '../../shared/components/form-fields/store/form.selectors'
+
 import { setCompanyAdmin } from "../../../app/core/core.reducer";
-import { getDistributor } from "../../shared/components/form-fields/store/form.actions";
-import { sendDistributorCompany } from  "../store/registries.actions"
 
 /**
  * Register Form validation schema for every field
@@ -34,22 +31,20 @@ import { sendDistributorCompany } from  "../store/registries.actions"
  })
  .required();
 
-export default function FormCompaniesComponent({
+export default function FormDistributorComponent({
     props,
   }: IProps<RegistriesFormComponentProps>): JSX.Element {
-    const defaultValues:  CompanyFormModel = {
+    const defaultValues:  DistributorFormModel = {
       id: "",
       companyName: "",
       primaryVat: false,
       pib: "",
       date: "",
-      apiKey: "",
       mb: "",
       address: "",
       zip: "",
       city: "",
       country: "",
-      distributor:  ""
     };
     const { t } = useTranslation();
     const { formComponent } = useComponentsStyles();
@@ -69,31 +64,16 @@ export default function FormCompaniesComponent({
         control,
       } = methods;
 
-      const onSubmit = async (data: CompanyFormModel) => {
-        console.log('asasas', data);
-        dispatch(sendCompanies({data})).then(async (res) => { 
+      const onSubmit = async (data: DistributorFormModel) => {
+        console.log(data);
+        dispatch(sendDistributor({data})).then(async (res) => { 
             if(res.payload.message === 'sucsses') {
-              if(data.apiKey) {
-                dispatch(sendsubscribe({data: res.payload.data}));
-              }
-              /*if(data.distributor) {
-                console.log('distributer', res.payload.idCompany);
-                dispatch(sendDistributorCompany({companyId: res.payload.idCompany, }))
-              }*/
               setShowError(true);  
               setTimeout(async () => {
                     setShowError(false);
-                    if(!userAuthority) {
                         navigate('/registries/companies')
-                    } else{
-                       await navigate('/registries/createObject',{
-                        state: {
-                          company: res.payload.data
-                        }
-                       })
-                    }
                     
-              }, 2000);
+                     }, 2000);
             } else {
               setShowErrorModal(true);  
               setTimeout(() => {
@@ -105,11 +85,6 @@ export default function FormCompaniesComponent({
         } 
         )
       }
-
-
-      React.useEffect(() => {
-        dispatch(getDistributor());
-      }, []);
 
       
     return (
@@ -191,7 +166,7 @@ export default function FormCompaniesComponent({
                         }}
                     />
                    
-                    <FormTextField
+                    {/*<FormTextField
                         props={{
                             control: control,
                             name: "apiKey",
@@ -201,22 +176,7 @@ export default function FormCompaniesComponent({
                             disabled: false,
                             additional: { readonly: false, labelShrink: true },
                         }}
-                    />
-
-
-                    <FormAutocompleteField
-                        props={{
-                            name: "distributor",
-                            control: control,
-                            label: 'Distributer',
-                            disabled: true,
-                            additional: {
-                            selector: selectDistributor,
-                            //data:  []
-                            
-                            },
-                        }}
-                        />
+                    />*/}
                     </Grid>
                 </Grid>
                 <Grid item xs={5}>

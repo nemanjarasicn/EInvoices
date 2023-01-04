@@ -31,6 +31,8 @@ import FormGroupComponent from "./FormGroupComponent";
 import FormVatComponent from "./FormVatComponent";
 import FormUsersComponent from "./FormUsersComponents";
 
+import FormDistributorComponent from "./FormDistributorComponent";
+
 export type RegistriesFormComponentProps = {
   invoiceTypeOptions: any;
   sectionTitles: any;
@@ -81,7 +83,9 @@ export default function RegistriesFormComponent({
       case "pointOfSale":
         return <FormPointOfSaleComponents  props={props} />;
       case "companies":
-        return  <FormCompaniesComponent props={props}  />
+        return  <FormCompaniesComponent props={props}  />;
+      case "distributor":
+          return <FormDistributorComponent props={props}  />;
       case "warehouses":
         return <FormWarehouseComponent  props={props} />;
       case "units":

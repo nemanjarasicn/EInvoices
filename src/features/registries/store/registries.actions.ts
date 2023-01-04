@@ -1,6 +1,6 @@
 import { AsyncThunk, createAsyncThunk } from "@reduxjs/toolkit";
 import RegistriesPublicService from "../services/registries.service";
-import { ObjectFormModel, CompanyFormModel, PointOfSaleFormModel, WarehouseFormModel,  UnitFormModel,   GroupFormModel, VatFormModel, UsersFormModel } from "../models/registries.models";
+import { ObjectFormModel, CompanyFormModel, PointOfSaleFormModel, WarehouseFormModel,  UnitFormModel,   GroupFormModel, VatFormModel, UsersFormModel,  DistributorFormModel } from "../models/registries.models";
 import { MarketPlaceFormModel } from "../models/registries.models";
 
 /**
@@ -153,6 +153,32 @@ const sendCompanies: AsyncThunk<any, {data: CompanyFormModel}, {}> = createAsync
   "POST/companySend",
   async (data,_) => {
     return await RegistriesPublicService.sendCompanies(data)
+      .then((res: any) => { 
+        if(data.data.distributor) {
+            _.dispatch(sendDistributorCompany({companyId: res.data.idCompany, idDistributor: data.data.distributor.idDistributor }));
+        }
+        return ({message: 'sucsses', data: res.data})
+      })
+      .catch((err: any) => 'error');
+  }
+);
+
+
+const sendDistributor: AsyncThunk<any, {data: DistributorFormModel}, {}> = createAsyncThunk<any, {data: DistributorFormModel}>(
+  "POST/companySend",
+  async (data,_) => {
+    return await RegistriesPublicService.sendDistributor(data)
+      .then((res: any) => ({message: 'sucsses', data: res.data}))
+      .catch((err: any) => 'error');
+  }
+);
+
+
+const sendDistributorCompany: AsyncThunk<any, {companyId: number | string; idDistributor?: number | string}, {}> = createAsyncThunk<any, {companyId: number | string;  idDistributor?: number | string}>(
+  "POST/distributorCompanySend",
+  async (data,_) => {
+    console.log('usao u distributor',data);
+    return await RegistriesPublicService.sendDistributorCompany(data.companyId, data.idDistributor)
       .then((res: any) => ({message: 'sucsses', data: res.data}))
       .catch((err: any) => 'error');
   }
@@ -248,5 +274,7 @@ export {
   sendVat,
   sendsubscribe,
   sendUsers,
-  getCompanyInfo
+  getCompanyInfo,
+  sendDistributor,
+  sendDistributorCompany
 };
