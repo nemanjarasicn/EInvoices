@@ -59,6 +59,8 @@ export default function SelectAllActionsComponent({
 
   const openConfirmModal = useAppSelector(selectOpenConfirm);
 
+  console.log('saasass',openConfirmModal);
+
   // --------------ZIP -------------------------------------
   const dispatch = useAppDispatch();
   const zip = new JSZip();
@@ -178,6 +180,8 @@ function downloadXml(data: Blob, fileName: string) {
       invoiceType: props.pageType,
       comment: "",
     });
+
+    console.log(action);
     const typeInvoicesZip =  await props.pageType ===  'sales' ? 1 : 0;
     const typeColumn  =   typeInvoicesZip === 1 ? 'salesInvoiceId' :  'purchaseInvoiceId';
     if(action.actionName === 'downloadPdf') {
@@ -201,16 +205,17 @@ function downloadXml(data: Blob, fileName: string) {
    * @param comment input value on dialog
    */
   const handleClose = (data: {comment?: string | boolean, flagButton: string}): void => {
+    const dataFromAction =  openConfirmModal.dataAction;
     if (data.flagButton  === "cancel") {
       setOpenConfirm(false);
-      //dispach(setopenModalConfirm(false));
+      dispach(setopenModalConfirm({open: false}));
       setActionValue(null);
     } else {
+      //const dataToSend = { ...actionValue, comment: data.comment };
       const dataToSend = { ...actionValue, comment: data.comment };
-      console.log(dataToSend);
       dispach(updateStatusInvoice({ ...dataToSend }));
       setOpenConfirm(false);
-      //dispach(setopenModalConfirm(false))
+      dispach(setopenModalConfirm({open:  false}))
       setActionValue(null);
       navigate(`/invoices/${props.pageType}`)
     }
@@ -243,7 +248,7 @@ function downloadXml(data: Blob, fileName: string) {
         props={{
           id: "ringtone-menu",
           keepMounted: true,
-          open: openConfirm,
+          open: openConfirmModal.open,
           onClose: handleClose,
         }}
       ></ConfirmWithCommentDialog>
