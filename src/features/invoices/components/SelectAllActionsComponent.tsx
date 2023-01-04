@@ -208,14 +208,14 @@ function downloadXml(data: Blob, fileName: string) {
     const dataFromAction =  openConfirmModal.dataAction;
     if (data.flagButton  === "cancel") {
       setOpenConfirm(false);
-      dispach(setopenModalConfirm({open: false}));
+      //dispach(setopenModalConfirm({open: false}));
       setActionValue(null);
     } else {
-      //const dataToSend = { ...actionValue, comment: data.comment };
       const dataToSend = { ...actionValue, comment: data.comment };
+      //const dataToSend = { ...actionValue, comment: data.comment };
       dispach(updateStatusInvoice({ ...dataToSend }));
       setOpenConfirm(false);
-      dispach(setopenModalConfirm({open:  false}))
+      //dispach(setopenModalConfirm({open:  false}))
       setActionValue(null);
       navigate(`/invoices/${props.pageType}`)
     }
@@ -248,7 +248,7 @@ function downloadXml(data: Blob, fileName: string) {
         props={{
           id: "ringtone-menu",
           keepMounted: true,
-          open: openConfirmModal.open,
+          open: openConfirm,
           onClose: handleClose,
         }}
       ></ConfirmWithCommentDialog>
