@@ -189,18 +189,34 @@ const mapInvoiceLinesCreateTaxTotal = (invoiceLine: any[]): any[] => {
         item.taxCategory.percent === line.item.classifiedTaxCategory.percent
     );
     if (!taxPresent) {
-      array[0].taxSubtotal.push({
-        currencyId: "RSD",
-        taxableAmount: line.lineExtensionAmount,
-        taxAmount: line.price.unitTaxAmount,
-        taxCategory: {
-          id: "S",
-          percent: line.item.classifiedTaxCategory.percent,
-          taxScheme: {
-            id: "VAT",
-          },
-        },
-      });
+      if(line.baseCode) {
+          array[0].taxSubtotal.push({
+            currencyId: "RSD",
+            taxableAmount: line.lineExtensionAmount,
+            taxAmount: line.price.unitTaxAmount,
+            taxCategory: {
+              id: "S",
+              percent: line.item.classifiedTaxCategory.percent,
+              taxScheme: {
+                id: "VAT",
+              },
+              taxreson: "PDV-RS-10-1",
+            },
+          });
+        } else {
+          array[0].taxSubtotal.push({
+            currencyId: "RSD",
+            taxableAmount: line.lineExtensionAmount,
+            taxAmount: line.price.unitTaxAmount,
+            taxCategory: {
+              id: "S",
+              percent: line.item.classifiedTaxCategory.percent,
+              taxScheme: {
+                id: "VAT",
+              },
+            },
+          });
+        }
     } else {
       array[0].taxSubtotal.map((total: any) => {
         if (

@@ -20,7 +20,7 @@ export interface FeatureState {
   files: IFile[];
   invoicesR: any[];
   zip: any;
-  openModalConfirm:  boolean;
+  openModalConfirm:  {open: boolean, dataAction?: any };
   openModalPdf:  boolean;
   openModalFilter:  {open: boolean, filterName:  string }  ;
   filters: InvoiceSearchParams;
@@ -34,7 +34,7 @@ const initialState: FeatureState = {
   files: [],
   invoicesR: [],
   zip:   [],
-  openModalConfirm:  false,
+  openModalConfirm:  {open: false, dataAction: "" },
   openModalPdf:  false,
   openModalFilter:  {open: false, filterName: ""},
   filters: {

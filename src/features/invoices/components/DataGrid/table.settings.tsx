@@ -269,7 +269,15 @@ const useTableSettings = (): TableSettings => {
                       <Grid item xs={3}>
                         {(params.row.invoiceStatus  ===  'Sent' ||  params.row.invoiceStatus  ===  'Sending') && 
                             <LightTooltip title="Otkazi">
-                                <IconButton color="primary" aria-label="pdf" component="label"  onClick={() => {console.log(params); dispach(setopenModalConfirm(true));}}>
+                                <IconButton color="primary" aria-label="pdf" component="label"  onClick={() => {console.log(params); dispach(setopenModalConfirm({open:  true, 
+                                    dataAction: {
+                                      actionType:  "cancel",
+                                      invoiceId:  params.row.invoiceId,
+                                      invoiceType: 'sales',
+                                      comment: ""
+                                    }
+                                }));
+                                }}>
                                   <FontAwesomeIcon icon={faFileCircleXmark}    color="red"   />
                                 </IconButton>
                             </LightTooltip>

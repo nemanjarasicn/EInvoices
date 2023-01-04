@@ -135,8 +135,8 @@ function convertToProductModel(item: any): ProductModel {
     },
       /*taxCode: item.taxCode,
       taxName:     item.taxName,
-      taxValue1:    item.taxValue1,
-      baseCode:    item.baseCode,*/
+      taxValue1:    item.taxValue1,*/
+      baseCode:    item.baseCode,
   };
 }
 function convertToCompanyModel(item: any): CustomerPartyModel {
