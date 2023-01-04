@@ -10,7 +10,8 @@ import {
   getSubjectCategory,
   getSubjectType,
   getTaxCode,
-  getTaxBase
+  getTaxBase,
+  getDistributor
 } from "./form.actions";
 
 const FORM_FIELDS_KEY: string = "formShared";
@@ -24,6 +25,7 @@ export type AutocompleteData = {
   subjectType:  any[];
   taxCode:   any[];
   taxBase:   any[];
+  distributor:  any[];
 };
 export type DropdownData = {
   marketPlaces: any[];
@@ -50,7 +52,8 @@ const initialState: FormSharedState = {
     subjectCategory:  [],
     subjectType:  [],
     taxCode:  [],
-    taxBase:  []
+    taxBase:  [],
+    distributor:  []
   },
   dropdownData: {
     marketPlaces: [],
@@ -91,6 +94,7 @@ const formSharedSlice: Slice<FormSharedState> = createSlice({
     getAsyncSubjectType(builder);
     getAsyncTaxCode(builder);
     getAsyncTaxBase(builder);
+    getAsyncDistributor(builder);
   },
 });
 
@@ -331,6 +335,28 @@ function getAsyncClientCompanies(builder: ActionReducerMapBuilder<FormSharedStat
   builder.addCase(getTaxBase.rejected, (state) => ({
     ...state,
     autocompleteData: { ...state.autocompleteData, taxBase: [] },
+    loading: false,
+  }));
+}
+
+
+/**
+ * Handle async action GET Distributor
+ * @param builder ActionReducerMapBuilder
+ */
+ function getAsyncDistributor(builder: ActionReducerMapBuilder<FormSharedState>) {
+  builder.addCase(getDistributor.fulfilled, (state, { payload }) => ({
+    ...state,
+    autocompleteData: { ...state.autocompleteData, distributor: payload },
+    loading: false,
+  }));
+  builder.addCase(getDistributor.pending, (state) => ({
+    ...state,
+    loading: true,
+  }));
+  builder.addCase(getDistributor.rejected, (state) => ({
+    ...state,
+    autocompleteData: { ...state.autocompleteData, distributor: [] },
     loading: false,
   }));
 }

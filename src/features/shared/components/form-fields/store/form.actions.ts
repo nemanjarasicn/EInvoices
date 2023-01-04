@@ -126,6 +126,19 @@ createAsyncThunk<any, { companyId: number | string }>(
     }
   );
 
+  /**
+ * Get Async distributor
+ */
+   const getDistributor: AsyncThunk<any, void, {}> =
+   createAsyncThunk(
+     "GET/distributorget",
+     async () => {
+       return await PublicService.getDistributor()
+         .then((res) => res.data)
+         .catch((err) => []);
+     }
+   );
+
 
  /**
  * Get Async taxCode
@@ -166,4 +179,5 @@ export { getCompaniesAll,
          getSubjectCategory,   
          getSubjectType,
          getTaxCode,
-         getTaxBase };
+         getTaxBase,
+         getDistributor };

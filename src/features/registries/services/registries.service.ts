@@ -1,4 +1,5 @@
 import publicClient from "./htpp-public-gov";
+import { format } from 'date-fns'
 
 
 class RegistriesPublicService {
@@ -105,6 +106,34 @@ class RegistriesPublicService {
       "country":  data.data.country,
       "email": "nemanja@gmail.com"
   }
+    );
+  }
+
+
+  sendDistributor(data: any) {
+    console.log('sasas',data);
+    let today = new Date()
+    const todayFormat = format(today, 'yyyy-MM-dd');
+    return publicClient.post<any>
+    ("distributor",
+    {
+      "distributorName": data.data.companyName,
+      "pib":   data.data.pib,
+      "date":  todayFormat,
+      "mb":  data.data.mb,
+      "address": data.data.address,
+      "zip":  data.data.zip,
+      "city":  data.data.city,
+      "country":  data.data.country,
+      "email":"nemanja@gmail.com"
+    }
+    );
+  }
+
+  sendDistributorCompany(idCompany:   number  |  string,  idDistributor?: number  |  string ) {
+    console.log('sasas',idCompany + " " +  idDistributor);
+    return publicClient.put<any>
+    (`distributor/${idCompany}/${idDistributor}`,
     );
   }
 

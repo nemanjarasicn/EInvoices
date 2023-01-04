@@ -66,6 +66,7 @@ function App() {
   const apiKeyPresent = useAppSelector(apiKeyExist);
   const color = useAppSelector(selectColor);
   const userAuthority =  useAppSelector(selectUser)?.authorities?.slice(0,1)[0]?.authority === "ROLE_ADMIN" ? true  :   false;
+  console.log(useAppSelector(selectUser)?.authorities?.length);
   return (
     <ThemeProvider theme={theme(color)}>
       <Routes>
@@ -289,6 +290,14 @@ function registriesRoutes(): React.ReactNode {
           element={
             <React.Suspense fallback={<>...</>}>
               <RegistriesCreateTemplatePage props={{ type: CreateTyperegistries.FORMCOMPANY, typeFrom: "" }} />
+            </React.Suspense>
+          }
+        />
+        <Route
+          path="createDistributor"
+          element={
+            <React.Suspense fallback={<>...</>}>
+              <RegistriesCreateTemplatePage props={{ type: CreateTyperegistries.FORMDISTRIBUTOR, typeFrom: "" }} />
             </React.Suspense>
           }
         />
