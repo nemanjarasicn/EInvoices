@@ -111,7 +111,7 @@ export default function InfoCompany(): JSX.Element {
                         </Grid>
                         <Grid  sx={{display:  'flex',  flexDirection:  "column"}}>
                             <Typography sx={{ fontSize: fontSize, mt: 4}}  >
-                                Adresa za primanjenotifikacije o izlaznim fakturama
+                                Adresa za primanjenotifikacije o ulaznim fakturama
                             </Typography>
                             <Box component="span" sx={{ p: 2, border: '1px solid grey',  backgroundColor:  '#f3f3f4' }}>
                                     <Typography sx={{ fontSize: fontSize}}  >
