@@ -20,7 +20,7 @@ class RegistriesPublicService {
               "modificationRequired":   "true",
               "decimalShow": "true",
               "priceChangeForbidden":  "true",
-              "barCode": data.barCode,
+              "barCode": data.barCode ? data.barCode  :  "00000",
               "code":  data.code,
               "idCompany":   data.idCompany,
               "idObject": 1,

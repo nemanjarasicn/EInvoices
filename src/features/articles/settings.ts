@@ -83,7 +83,7 @@ const useFeatureSettings = (): FeatureSettings => {
           showBtnsSelect: false,
           buttons: [
             {
-              title: "Kreiraj novi komitent",
+              title: "Kreiraj novog komitenta",
               disabled: false,
               btnFn: () => navigate("/articles/createSubject"),
             },
