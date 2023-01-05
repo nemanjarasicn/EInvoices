@@ -37,6 +37,7 @@ type FeatureSettings = {
 const useFeatureSettings = (): FeatureSettings => {
   let navigate = useNavigate();
   const user = useAppSelector(selectUser);
+  const userAuthority = useAppSelector(selectUser)?.authorities?.slice(0,1)[0].authority === "ROLE_ADMIN" ? true  :   false;
   //const showCard = user?.username  ===  "dejan" ?  false :  true;
   const showCard = false;
   return {
@@ -208,7 +209,7 @@ const useFeatureSettings = (): FeatureSettings => {
         buttons: [
           {
             title: "Kreiraj distributera",
-            disabled: false,
+            disabled: !userAuthority,
             btnFn: () => navigate("/registries/createDistributor"),
           },
           {
