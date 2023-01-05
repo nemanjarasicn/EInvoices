@@ -56,6 +56,7 @@ export default function FormSubjectComponent({
     props,
   }: IProps<ArticlesFormComponentProps>): JSX.Element {
     const companyId = useAppSelector(selectCompanyCurrent);
+    const [disableJbkjs,  setDisableJbkjs]  =   React.useState(true);
 
     const  defaultValues:  SubjectFormModel = {
         firstName:  "",
@@ -129,6 +130,17 @@ export default function FormSubjectComponent({
             }
           });
       }
+
+      React.useEffect(() => {
+        const subjectCategory = getValues('subjectIdCategory');
+
+        if(subjectCategory.categoryName === "Javna preduzeća") {
+          setDisableJbkjs(false);
+        } else {
+          setDisableJbkjs(true)
+        }
+        
+      }, [watch('subjectIdCategory')]);
       
   
     return (
@@ -215,16 +227,8 @@ export default function FormSubjectComponent({
                           additional: { mask: {}, readonly: false },
                           disabled: false,
                         }}
-                     /> 
-                      <FormTextField
-                        props={{
-                          name: "jbkjs",
-                          control: control,
-                          label: "jbkjs",
-                          additional: { mask: {}, readonly: false },
-                          disabled: false,
-                        }}
-                     />  
+                     />
+
 
                      
                      <FormAutocompleteField
@@ -240,6 +244,17 @@ export default function FormSubjectComponent({
                             },
                         }}
                         /> 
+
+                      
+                      <FormTextField
+                        props={{
+                          name: "jbkjs",
+                          control: control,
+                          label: "jbkjs",
+                          additional: { mask: {}, readonly: disableJbkjs },
+                          disabled: disableJbkjs,
+                        }}
+                     />  
                     </Grid>
                     <Grid item xs={4}>
                     <FormTextField

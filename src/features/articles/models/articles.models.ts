@@ -84,7 +84,7 @@
     phone:  string = "";
     email:  string = "";
     jbkjs:  string = "";
-    subjectIdCategory:  number | string = "";
+    subjectIdCategory: any = "";
     subjectIdType: number  |  string = "";
     payeeFinancialAccountDto:  string  =  "";
 

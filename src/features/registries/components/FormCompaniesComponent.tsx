@@ -35,6 +35,14 @@ import  {  selectDistributorCompanies }  from  "../store/registries.selectors"
  */
  const schema = yup
  .object({
+  companyName: yup.string().required('ovo je obavezno polje'),
+  address:   yup.string().required('ovo je obavezno polje'),
+  city:  yup.string().required('ovo je obavezno polje'),
+  zip: yup.string().required('ovo je obavezno polje'),
+  mb: yup.string().required('ovo je obavezno polje'),
+  apiKey: yup.string().required('ovo je obavezno polje'),
+  country: yup.string().required('ovo je obavezno polje'),
+  pib: yup.string().required('ovo je obavezno polje'),
  })
  .required();
 
