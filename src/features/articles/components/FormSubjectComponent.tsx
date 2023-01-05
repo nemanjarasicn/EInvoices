@@ -247,7 +247,7 @@ export default function FormSubjectComponent({
                           name: "companyId",
                           control: control,
                           label: "Id kompanije",
-                          additional: { mask: {}, readonly: false },
+                          additional: { mask: {}, readonly: true },
                           disabled: true,
                         }}
                      /> 
