@@ -104,14 +104,15 @@ class RegistriesPublicService {
       "zip": data.data.zip,
       "city":  data.data.city,
       "country":  data.data.country,
-      "email": "nemanja@gmail.com"
+      "email": ""
   }
     );
   }
 
 
   sendDistributor(data: any) {
-    console.log('sasas',data);
+   
+
     let today = new Date()
     const todayFormat = format(today, 'yyyy-MM-dd');
     return publicClient.post<any>
@@ -131,7 +132,8 @@ class RegistriesPublicService {
   }
 
   sendDistributorCompany(idCompany:   number  |  string,  idDistributor?: number  |  string ) {
-    console.log('sasas',idCompany + " " +  idDistributor);
+   
+    
     return publicClient.put<any>
     (`distributor/${idCompany}/${idDistributor}`,
     );
@@ -260,6 +262,12 @@ class RegistriesPublicService {
   getCompanies() {
     return publicClient.get<any>
     ("company",
+    );
+  }
+
+  getCompaniesDistributor(idCompany: number | string) {
+    return publicClient.get<any>
+    (`distributor/company/${idCompany}`,
     );
   }
 

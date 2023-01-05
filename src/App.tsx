@@ -65,8 +65,12 @@ const ArticlesCreateTemplatePage = React.lazy(
 function App() {
   const apiKeyPresent = useAppSelector(apiKeyExist);
   const color = useAppSelector(selectColor);
-  const userAuthority =  useAppSelector(selectUser)?.authorities?.slice(0,1)[0]?.authority === "ROLE_ADMIN" ? true  :   false;
-  console.log(useAppSelector(selectUser)?.authorities?.length);
+  const isDistributor  =  useAppSelector(selectUser)?.authorities?.slice(0,1)[0].authority === "ROLE_DISTRIBUTER" ? true  :   false;
+  const isAdmin  =  useAppSelector(selectUser)?.authorities?.slice(0,1)[0].authority === "ROLE_ADMIN" ? true  :   false;
+  const userAuthority =  isAdmin || isDistributor ? true  :   false;
+
+  
+  const isUserAuthorityList  =   useAppSelector(selectUser)?.authorities?.length  ?  true :  false;
   return (
     <ThemeProvider theme={theme(color)}>
       <Routes>

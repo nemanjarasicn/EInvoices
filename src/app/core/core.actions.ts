@@ -14,6 +14,9 @@ const login: AsyncThunk<any, { credentials: Credentials }, {}> =
         .then((res) => {
           sessionStorage.setItem("token", JSON.stringify(res.data.token));
           _.dispatch(getLoggedSubject({ id: res.data.companyId[0] }));
+          if(res.data.authorities[0]?.authority === "ROLE_DISTRIBUTER")  {
+              _.dispatch(getCompaniesDistributor({ id: res.data.companyId[0] }));
+          }
           delete res.data.token;
           delete res.data.type;
           return res.data;
@@ -40,6 +43,19 @@ const getLoggedSubject: AsyncThunk<any, { id: number }, {}> = createAsyncThunk<
 });
 
 /**
+ * Get distributor Async
+ */
+
+const getCompaniesDistributor: AsyncThunk<any, { id: number } , {}> = createAsyncThunk<any, { id: number }>(
+  "GET/companiesDistributorGet",
+  async (data) => {
+    return     await AppService.getCompaniesDistributor(data.id)
+    .then((res: any) => res.data)
+    .catch((err: any) => []);
+}
+);
+
+/**
  * Get Async Companies
  */
  const getCompaniesAllLogin: AsyncThunk<any, void, {}> =
@@ -52,4 +68,4 @@ const getLoggedSubject: AsyncThunk<any, { id: number }, {}> = createAsyncThunk<
    } 
  );
 
-export { login, getLoggedSubject,  getCompaniesAllLogin };
+export { login, getLoggedSubject,  getCompaniesAllLogin,  getCompaniesDistributor };

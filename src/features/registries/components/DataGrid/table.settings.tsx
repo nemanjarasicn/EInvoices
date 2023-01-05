@@ -8,7 +8,8 @@ import {
   getUnits,
   getVat,
   getGroups,
-  getUsers
+  getUsers,
+  getCompaniesDistributor
 } from "../../store/registries.actions";
 import Tooltip, { TooltipProps, tooltipClasses } from '@mui/material/Tooltip';
 import { TableComponentProps } from "./TableComponent";
@@ -21,9 +22,10 @@ import { faFile }   from '@fortawesome/pro-solid-svg-icons';
 import { faFilePdf }   from '@fortawesome/pro-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
 import {   useAppSelector    } from "../../../../app/hooks";
+import { selectUser } from "../../../../app/core/core.selectors";
 import { styled } from '@mui/material/styles';
 import { selectCompanyCurrent } from "../../../../app/core/core.selectors";
-import { selectObjects, selectMarketPlaces, selectPointOfSales, selectCompanies, selectWarehouses, selectUnits, selectVat, selectGroups, selectUsers} from "../../store/registries.selectors";
+import { selectObjects, selectMarketPlaces, selectPointOfSales, selectCompanies, selectWarehouses, selectUnits, selectVat, selectGroups, selectUsers, selectDistributorCompanies} from "../../store/registries.selectors";
 
 
 const LightTooltip = styled(({ className, ...props }: TooltipProps) => (
@@ -43,7 +45,7 @@ type TableSettings = {
       dataGrid: TableComponentProps;
     };
   };
-};
+};  
 /**
  * hook predefine table settings
  * @returns {TableSettings}
@@ -53,6 +55,7 @@ const useTableSettings = (): TableSettings => {
   const navigate  = useNavigate();
 
   const company = useAppSelector(selectCompanyCurrent) ?? "";
+  const isDistributor  =  useAppSelector(selectUser)?.authorities?.slice(0,1)[0].authority === "ROLE_DISTRIBUTER" ? true  :   false;
 
   return {
     tableSettings: {
@@ -371,10 +374,10 @@ const useTableSettings = (): TableSettings => {
             showHideColumns: true,
             showExport: false,
           },
-           getDataAction: getCompanies(),
+           getDataAction: isDistributor ? getCompaniesDistributor({companyId:   company}) :  getCompanies(),
           selectType:  "COMPANIES",
-          selector:  selectCompanies,
-          parentColumn: "idCompany",
+          selector:  isDistributor ?  selectDistributorCompanies  :   selectCompanies,
+          parentColumn:  "idCompany",
           footerProps: {
             countTxt: "Table.FooterCountTxt",
             totalAmountTxt: "Table.FooterTotalAmountTxt",

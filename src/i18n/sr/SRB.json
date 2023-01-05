@@ -14,10 +14,12 @@
     "downloadPdf": "preuzmiPdf",
     "storno": "Storno",
     "reject": "Odbij",
-    "approve": "Odobri"
+    "approve": "Odobri",
+    "yes":   "Da"
   },
   "Dialog": {
-    "addComment": "Unesi komentar"
+    "addComment": "Unesi komentar",
+    "addCommentNew":  "Da li zelite da izvrsite akciju"
   },
   "Menu": {
     "home": "Pocetna",

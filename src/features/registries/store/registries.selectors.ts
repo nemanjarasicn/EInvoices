@@ -110,3 +110,11 @@ export const selectCompanyInfo = createSelector(
     return state.companyInfo;
   }
 );
+
+
+export const selectDistributorCompanies = createSelector(
+  featureSelectors,
+  (state: FeatureState) => {
+    return state.companyDistributor;
+  }
+);

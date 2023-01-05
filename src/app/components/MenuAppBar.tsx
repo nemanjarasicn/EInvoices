@@ -75,7 +75,9 @@ export default function ClippedDrawer() {
   const companyUser = useAppSelector(selectCompany) as any;
   const user  =  useAppSelector(selectUser) as any;
   const userAuthority = useAppSelector(selectUser)?.authorities?.slice(0,1)[0].authority === "ROLE_ADMIN" ? true  :   false;
-
+  const isDistributor  =  useAppSelector(selectUser)?.authorities?.slice(0,1)[0].authority === "ROLE_DISTRIBUTER" ? true  :   false;
+  const isUser  =  useAppSelector(selectUser)?.authorities?.slice(0,1)[0].authority === "ROLE_USER" ? true  :   false;
+  const showAdmin =  isDistributor;
 
   const [calcNumber, setCalcNumber] =  React.useState<number>(1);
   const [showSubMenu,  setShowSubMenu] =  React.useState<boolean>(false);
@@ -151,26 +153,29 @@ export default function ClippedDrawer() {
     },
     {
       name: t("Menu.administration"),
-      href: "/registries",
+      href:  "/registries/companies", //"/registries",
       icon: "ApartmentIcon",
       listNumber:  3,
       submenu: true,
-      disabled:   true ,
-      children: [
+      disabled:   !isDistributor ,
+      /*children: [
         {
           name: t("Objects.title"),
           href: "/registries/objects",
           icon: "Home",
+          disabled: false,
         },
         {
           name: t("MarketPlace.title"),
           href: "/registries/marketPlace",
           icon: "Home",
+          disabled: false,
         },
         {
           name: t("PointOfSale.title"),
           href: "/registries/pointOfSale",
           icon: "Home",
+          disabled: false,
         },
         {
           name: t("Companies.title"),
@@ -183,7 +188,7 @@ export default function ClippedDrawer() {
           href: "/registries/warehouse",
           icon: "Home",
         },
-      ],
+      ],*/
     },
     
   ];
@@ -283,7 +288,10 @@ export default function ClippedDrawer() {
                               display:  'flex',
                               flexDirection:  'column'
                             }}
-                            onMouseEnter={(e)  => {setCalcNumber(item.listNumber as number); setShowSubMenu(item.submenu as boolean); setParentItem(item as any)}}
+                            onMouseEnter={(e)  => {setCalcNumber(item.listNumber as number); 
+                                                   if(item.listNumber !== 3) { setShowSubMenu(item.submenu as boolean)}; 
+                                                   setParentItem(item as any)}
+                                                  }
                             onMouseLeave={()  =>  setShowSubMenu(false)}
                             onClick={()  =>  setShowSubMenu(false)}
                           >

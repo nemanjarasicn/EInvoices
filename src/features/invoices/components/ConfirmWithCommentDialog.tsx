@@ -54,7 +54,7 @@ export default function ConfirmWithCommentDialog({
       open={open}
       {...other}
     >
-      <DialogTitle>{t("Dialog.addComment")}</DialogTitle>
+      <DialogTitle>{t("Dialog.addCommentNew")}</DialogTitle>
       <DialogContent dividers>
         <FormTextAreaField
           props={{
@@ -69,7 +69,7 @@ export default function ConfirmWithCommentDialog({
         <Button autoFocus onClick={handleCancel}>
           {t("Common.close")}
         </Button>
-        <Button onClick={handleOk}> {t("Common.send")}</Button>
+        <Button onClick={handleOk}> {t("Common.yes")}</Button>
       </DialogActions>
     </Dialog>
   );
