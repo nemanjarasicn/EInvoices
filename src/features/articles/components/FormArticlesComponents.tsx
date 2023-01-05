@@ -138,7 +138,7 @@ export default function FormArticleComponent({
       React.useEffect(() => {
         const taxCode1 = getValues('productTaxCategory');
         if(taxCode1.value1 === 1) {
-          dispatch(getTaxBase({id: Number(getValues('productTaxCategory').idTaxCategory)}));
+          dispatch(getTaxBase({id: Number(getValues('productTaxCategory').idTaxCategory)}));  
           setShowTaxBase('block');
         } else {
           setShowTaxBase('none')
@@ -155,6 +155,7 @@ export default function FormArticleComponent({
       }, [watch('taxBase')]);
 
       const onSubmit = async  (data: ArticleFormModel) => {
+        console.log(data);
          await dispatch(sendArticle({data})).then(async (res) => {
             if(res.payload.message === "sucsess") {
               setShowError(true);

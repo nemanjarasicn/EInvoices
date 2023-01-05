@@ -8,6 +8,7 @@ import { TemplatePageArticlesTypes } from "../models/articles.enums";
 import { useTranslation } from "react-i18next";
 import CustomButtonFc from "../../shared/components/CustomButtonFc";
 import FormAutocompleteField from "../../shared/components/form-fields/FormAutocompleteField";
+import FormAutocompleteFieldSelect from "../../shared/components/form-fields/FormAutocompleteFieldSelect";
 import { usePageStyles } from "./pages.styles";
 import TableComponent from "../components/DataGrid/TableComponent"; 
 import { useForm } from "react-hook-form";
@@ -101,9 +102,9 @@ export default function InvoiceTemplatePage({
           </Breadcrumbs>  
         </Grid>
         <Grid item xs={8} style={templatePageStyles.buttonsGrid}>
-            <Grid item xs={4} sx={{alignItems: 'center'}} >
+            <Grid item xs={4} sx={{alignItems: 'center', mt: 2}} >
               {templatePageSettings[props.templateType].showBtnsSelect && (
-                <FormAutocompleteField
+                <FormAutocompleteFieldSelect
                       props={{
                           name: templatePageSettings[props.templateType].buttonsSelect.name,
                           control: control,

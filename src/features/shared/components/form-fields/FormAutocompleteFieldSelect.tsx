@@ -18,7 +18,7 @@ type FormAutocompleteFieldProps = FormFieldProps & {
 /**
  * Facade MUI Autocomplete Field component
  */
-export default function FormAutocompleteFieldSelect({
+export default function FormAutocompleteField({
   props,
 }: IProps<FormAutocompleteFieldProps>) {
   const data: AutocompleteItem[] = useAppSelector(props.additional.selector);
@@ -31,6 +31,44 @@ export default function FormAutocompleteFieldSelect({
       render={({ field: { onChange, value }, fieldState: { error } }) => (
         <Autocomplete
           disablePortal
+          sx={{
+            '& .MuiInput-underline:after': {
+              borderBottomColor: 'white',
+            },
+            '& .MuiOutlinedInput-root': {
+              '& fieldset': {
+                borderColor: 'white',
+              },
+              '&:hover fieldset': {
+                borderColor: 'white',
+              },
+              '&.Mui-focused fieldset': {
+                borderColor: 'white',
+              },
+            },
+            "& label": {
+              color: 'white',
+            },
+            "& label.Mui-focused": {
+              color: 'white',
+            },
+            "& .MuiAutocomplete-inputRoot": {
+              color: "white",
+            },
+            '& .MuiAutocomplete-option': {
+              backgroundColor: 'red',
+            },
+            '& .Mui-focused': {
+              backgroundColor: 'transparent',
+            },
+            "& .MuiButtonBase-root.MuiAutocomplete-clearIndicator": {
+              color: "white",
+              visibility: "visible"
+            },
+            "& .MuiAutocomplete-popupIndicator":  {
+              color:  "white"
+            }
+          }}
           id={`combo-box-demo_${props.name}`}
           options={[...dataTmp]}
           noOptionsText={props.additional.noResultText ?? "No options"}
@@ -56,6 +94,7 @@ export default function FormAutocompleteFieldSelect({
               size="small"
               error={!!error}
               value={value}
+              sx={{backgroundColor:  'transparent', height: "40px", borderRadius: '10px'}}
               fullWidth
               placeholder={props.additional.placeholder ?? ""}
               label={props.label}
