@@ -79,6 +79,8 @@ export default function InvoiceTemplatePage({
         dispatch(getPointOfSalesAll({companyId: company[0]}));
     }
     if((!(props.templateType === 'warehouses'  ||  props.templateType  ===   'groups')))   {
+        
+      
           dispatch(getDataActionSelect(settings.selectType));
     }
   }, []);
@@ -88,6 +90,8 @@ export default function InvoiceTemplatePage({
       dispatch(getDataActionSelect(settings.selectType));
     }
   }, [selectValue]);
+
+  
 
  
   const handleChangeSelect = (value: any) =>  {

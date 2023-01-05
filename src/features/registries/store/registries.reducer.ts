@@ -18,7 +18,8 @@ import {
     getGroups,
     getWarehouses,
     getUsers,
-    getCompanyInfo
+    getCompanyInfo,
+    getCompaniesDistributor
   } from "./registries.actions";
   
   const FEATURE_REGISTRIES_KEY: string = "registries";
@@ -35,6 +36,7 @@ import {
     users: any[];
     openModalPdf: boolean;
     companyInfo: any;
+    companyDistributor:  any[];
     loading: boolean;
   }
 
@@ -50,6 +52,7 @@ import {
     users:  [],
     openModalPdf:  false,
     companyInfo: {},
+    companyDistributor: [],
     loading: false,
   };
   
@@ -74,6 +77,7 @@ import {
       getAsyncWarehouses(builder);
       getAsyncUsers(builder);
       getAsyncCompanyInfo(builder);
+      getAsyncDistributorCompanies(builder);
     },
     }
   )
@@ -275,6 +279,26 @@ import {
       ...state,
       loading: false,
       companyInfo:  {},
+      error: (payload as any).error,
+    }));
+  }
+
+
+  function getAsyncDistributorCompanies(builder: ActionReducerMapBuilder<FeatureState>) {
+    builder.addCase(getCompaniesDistributor.fulfilled, (state, { payload }) => ({
+      ...state,
+      loading: false,
+      error: "",
+      companyDistributor: payload,
+    }));
+    builder.addCase(getCompaniesDistributor.pending, (state) => ({
+      ...state,
+      loading: true,
+    }));
+    builder.addCase(getCompaniesDistributor.rejected, (state, { payload }) => ({
+      ...state,
+      loading: false,
+      companyDistributor: [],
       error: (payload as any).error,
     }));
   }

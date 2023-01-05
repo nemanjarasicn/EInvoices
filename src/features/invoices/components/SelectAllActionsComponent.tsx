@@ -59,7 +59,7 @@ export default function SelectAllActionsComponent({
 
   const openConfirmModal = useAppSelector(selectOpenConfirm);
 
-  console.log('saasass',openConfirmModal);
+
 
   // --------------ZIP -------------------------------------
   const dispatch = useAppDispatch();
@@ -181,7 +181,7 @@ function downloadXml(data: Blob, fileName: string) {
       comment: "",
     });
 
-    console.log(action);
+    
     const typeInvoicesZip =  await props.pageType ===  'sales' ? 1 : 0;
     const typeColumn  =   typeInvoicesZip === 1 ? 'salesInvoiceId' :  'purchaseInvoiceId';
     if(action.actionName === 'downloadPdf') {

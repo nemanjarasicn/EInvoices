@@ -25,6 +25,10 @@ import   { selectUserRole, selectDistributor }  from  '../../shared/components/f
 import { setCompanyAdmin } from "../../../app/core/core.reducer";
 import { getDistributor } from "../../shared/components/form-fields/store/form.actions";
 import { sendDistributorCompany } from  "../store/registries.actions"
+import { getCompaniesDistributor }  from  "../store/registries.actions"
+import { selectCompanyCurrent } from "../../../app/core/core.selectors";
+import  { selectDistributorInfo  }   from  "../../../app/core/core.selectors"
+import  {  selectDistributorCompanies }  from  "../store/registries.selectors"
 
 /**
  * Register Form validation schema for every field
@@ -37,27 +41,36 @@ import { sendDistributorCompany } from  "../store/registries.actions"
 export default function FormCompaniesComponent({
     props,
   }: IProps<RegistriesFormComponentProps>): JSX.Element {
+    const isDistributor  =  useAppSelector(selectUser)?.authorities?.slice(0,1)[0].authority === "ROLE_DISTRIBUTER" ? true  :   false;
+    const company = useAppSelector(selectCompanyCurrent) ?? "";
+    const idDistributor  = useAppSelector(selectDistributorInfo)[0]?.idDistributor;
+  
+
     const defaultValues:  CompanyFormModel = {
       id: "",
       companyName: "",
       primaryVat: false,
       pib: "",
       date: "",
-      apiKey: "",
+      apiKey: "", 
       mb: "",
       address: "",
       zip: "",
       city: "",
       country: "",
-      distributor:  ""
+      distributor: isDistributor ? idDistributor :  ""
     };
     const { t } = useTranslation();
     const { formComponent } = useComponentsStyles();
     const navigate  = useNavigate();
     const dispatch = useAppDispatch();
     const [showError, setShowError] = React.useState(false);
-    const userAuthority = useAppSelector(selectUser)?.authorities?.slice(0,1)[0].authority === "ROLE_ADMIN" ? true  :   false;
+    
+    const isAdmin  =  useAppSelector(selectUser)?.authorities?.slice(0,1)[0].authority === "ROLE_ADMIN" ? true  :   false;
+    const userAuthority =  isAdmin || isDistributor ? true  :   false;
     const [showErrorModal, setShowErrorModal] = React.useState(false);
+
+  
 
     const methods = useForm({
         defaultValues: defaultValues,
@@ -70,7 +83,7 @@ export default function FormCompaniesComponent({
       } = methods;
 
       const onSubmit = async (data: CompanyFormModel) => {
-        console.log('asasas', data);
+       
         dispatch(sendCompanies({data})).then(async (res) => { 
             if(res.payload.message === 'sucsses') {
               if(data.apiKey) {
@@ -109,6 +122,9 @@ export default function FormCompaniesComponent({
 
       React.useEffect(() => {
         dispatch(getDistributor());
+        /*if(idDistributor) {
+            dispatch(getCompaniesDistributor({companyId:   company as any}));
+        }*/
       }, []);
 
       
@@ -203,20 +219,21 @@ export default function FormCompaniesComponent({
                         }}
                     />
 
-
-                    <FormAutocompleteField
-                        props={{
-                            name: "distributor",
-                            control: control,
-                            label: 'Distributer',
-                            disabled: true,
-                            additional: {
-                            selector: selectDistributor,
-                            //data:  []
-                            
-                            },
-                        }}
-                        />
+                    <div style={{visibility: isDistributor ?  'hidden' : 'visible'}}>
+                        <FormAutocompleteField
+                            props={{
+                                name: "distributor",
+                                control: control,
+                                label: 'Distributer',
+                                disabled: true,
+                                additional: {
+                                selector: selectDistributor,
+                                //data:  []
+                                
+                                },
+                            }}
+                            />
+                    </div>
                     </Grid>
                 </Grid>
                 <Grid item xs={5}>

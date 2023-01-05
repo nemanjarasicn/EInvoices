@@ -65,7 +65,7 @@ export default function FormDistributorComponent({
       } = methods;
 
       const onSubmit = async (data: DistributorFormModel) => {
-        console.log(data);
+       
         dispatch(sendDistributor({data})).then(async (res) => { 
             if(res.payload.message === 'sucsses') {
               setShowError(true);  

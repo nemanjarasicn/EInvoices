@@ -14,10 +14,12 @@
     "downloadPdf": "DownloadPdf",
     "storno": "Storno",
     "reject": "Reject",
-    "approve": "Approve"
+    "approve": "Approve",
+    "yes":   "Yes"
   },
   "Dialog": {
-    "addComment": "Add comment"
+    "addComment": "Add comment",
+    "addCommentNew":  "Do you want to perform an action"
   },
   "Menu": {
     "home": "Home",

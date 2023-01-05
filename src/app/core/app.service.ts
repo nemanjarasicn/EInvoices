@@ -8,6 +8,10 @@ class AppService {
   getCompaniesAll() {
     return httpClient.get<any>("company");
   }
+
+  getCompaniesDistributor(id: number) {
+    return httpClient.get<any>(`distributor/company/${id}`);
+  }
 }
 
 export default new AppService();

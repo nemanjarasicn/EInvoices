@@ -149,13 +149,23 @@ const getCompanies: AsyncThunk<any, void, {}> = createAsyncThunk(
 }
 );
 
+const getCompaniesDistributor: AsyncThunk<any, { companyId: number | string } , {}> = createAsyncThunk<any, { companyId: number | string }>(
+  "GET/companiesDistributor",
+  async (data) => {
+    return     await RegistriesPublicService.getCompaniesDistributor(data.companyId)
+    .then((res: any) => res.data[0]?.companyList)
+    .catch((err: any) => []);
+}
+);
+
 const sendCompanies: AsyncThunk<any, {data: CompanyFormModel}, {}> = createAsyncThunk<any, {data: CompanyFormModel}>(
   "POST/companySend",
   async (data,_) => {
+    const idDistributor = data.data.distributor.idDistributor ? data.data.distributor.idDistributor :  data.data.distributor;
     return await RegistriesPublicService.sendCompanies(data)
       .then((res: any) => { 
-        if(data.data.distributor) {
-            _.dispatch(sendDistributorCompany({companyId: res.data.idCompany, idDistributor: data.data.distributor.idDistributor }));
+        if(data.data.distributor !== ""  &&  data.data.distributor  !==  undefined) {
+            _.dispatch(sendDistributorCompany({companyId: res.data.idCompany, idDistributor: idDistributor }));
         }
         return ({message: 'sucsses', data: res.data})
       })
@@ -177,7 +187,7 @@ const sendDistributor: AsyncThunk<any, {data: DistributorFormModel}, {}> = creat
 const sendDistributorCompany: AsyncThunk<any, {companyId: number | string; idDistributor?: number | string}, {}> = createAsyncThunk<any, {companyId: number | string;  idDistributor?: number | string}>(
   "POST/distributorCompanySend",
   async (data,_) => {
-    console.log('usao u distributor',data);
+   
     return await RegistriesPublicService.sendDistributorCompany(data.companyId, data.idDistributor)
       .then((res: any) => ({message: 'sucsses', data: res.data}))
       .catch((err: any) => 'error');
@@ -276,5 +286,6 @@ export {
   sendUsers,
   getCompanyInfo,
   sendDistributor,
-  sendDistributorCompany
+  sendDistributorCompany,
+  getCompaniesDistributor
 };
