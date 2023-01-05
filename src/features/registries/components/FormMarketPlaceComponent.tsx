@@ -35,25 +35,8 @@ import SucessModal   from "../../shared/components/SucessModal"
  */
  const schema = yup
  .object({
-   // client: yup
-   //   .object({
-   //     vatRegistrationCode: yup.string().required(),
-   //   })
-   //   .required(),
-   // dropdownValue: yup.string().required(),
-   // textAreaValue: yup.string().required(),
-   // dateValue: yup.string().required(), //validate date format
-   // autocompleteValue: yup.object().required(),
-   // checkbox: yup.bool().required(),
-   // numberValue: yup.number().required(),
-   // invoiceLine: yup.array().of(
-   //   yup.object({
-   //     invoicedQuantity: yup.number().moreThan(0, ""),
-   //   })
-   // ),
-
-  
    marketPlaceName: yup.string().required('ovo je obavezno polje'),
+   objectUuid:   yup.object().required('ovo je obavezno polje')
  })
  .required();
 

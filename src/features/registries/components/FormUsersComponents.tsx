@@ -36,25 +36,13 @@ import SucessModal   from "../../shared/components/SucessModal"
  */
  const schema = yup
  .object({
-   // client: yup
-   //   .object({
-   //     vatRegistrationCode: yup.string().required(),
-   //   })
-   //   .required(),
-   // dropdownValue: yup.string().required(),
-   // textAreaValue: yup.string().required(),
-   // dateValue: yup.string().required(), //validate date format
-   // autocompleteValue: yup.object().required(),
-   // checkbox: yup.bool().required(),
-   // numberValue: yup.number().required(),
-   // invoiceLine: yup.array().of(
-   //   yup.object({
-   //     invoicedQuantity: yup.number().moreThan(0, ""),
-   //   })
-   // ),
-    password: yup.string().required('Password is required'),
+    password: yup.string().required('Ovo je obavezno polje'),
     confirmpassword: yup.string()
-       .oneOf([yup.ref('password'), null], 'Passwords must match')
+       .oneOf([yup.ref('password'), null], 'Lozinke se ne poklapaju'),
+    username: yup.string().required('Ovo je obavezno polje'),
+    userRole: yup.object().shape({
+      roleName: yup.string().required('')
+    }),
  })
  .required();
 
