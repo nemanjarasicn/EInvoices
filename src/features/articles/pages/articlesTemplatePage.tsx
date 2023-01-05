@@ -103,6 +103,7 @@ export default function InvoiceTemplatePage({
         </Grid>
         <Grid item xs={8} style={templatePageStyles.buttonsGrid}>
             <Grid item xs={4} sx={{alignItems: 'center', mt: 2}} >
+              
               {templatePageSettings[props.templateType].showBtnsSelect && (
                 <FormAutocompleteFieldSelect
                       props={{
