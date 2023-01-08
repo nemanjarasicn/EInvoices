@@ -258,7 +258,9 @@
     "adress":   "Adress",
     "zip":  "Post number",
     "country":  "Country",
-    "city":  "City"
+    "city":  "City",
+    "email":  "Email",
+    "payeeFinancialAccount":   "payeeFinancialAccount"
   },
   "Warehouses":  {
     "title":   "Warehouses",

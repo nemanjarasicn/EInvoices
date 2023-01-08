@@ -253,6 +253,7 @@
           gridRowGap: "20px",
           padding: "20px",
           background: "white",
+          minHeight: "300px"
         },
         groupPaperLowScale: {
           display: "grid",

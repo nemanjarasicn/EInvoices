@@ -1,5 +1,6 @@
 import { AsyncThunk, createAsyncThunk } from "@reduxjs/toolkit";
 import { UserCompany } from "../../../app/core/core.models";
+import { useAppSelector } from "../../../app/hooks";
 import InvoicePublicService from "../services/invoice.service";
 import {
   calculateTax,
@@ -9,6 +10,7 @@ import {
   mapInvoiceLinesCreateTaxTotal,
 } from "../utils/utils";
 import { updateInvoiceStatus } from "./invoice.reducer";
+import  { selectCompanyInfo }  from  "../../../app/core/core.selectors"
 
 const getAllCompanies: AsyncThunk<any, void, {}> = createAsyncThunk(
   "GET/Companies",
@@ -58,20 +60,25 @@ const searchInvoices: AsyncThunk<any, { params: any }, {}> = createAsyncThunk<
 /**
  * Create Async Action send E-Invoic via DTO
  */
-const sendInvoce: AsyncThunk<any, { invoice: any }, {}> = createAsyncThunk<
+const sendInvoce: AsyncThunk<any, { invoice: any, companyInfo?: any }, {}> = createAsyncThunk<
   any,
-  { invoice: any }
+  { invoice: any,  companyInfo?: any }
 >("POST/Invoice", async (invoiceDto, _) => {
   const { core, form } = (_ as any).getState();
   const { apiKey } = core.userCompany;
   const { autocompleteData } = form;
+  const  payeeFinancialAccountDtoCompany =  invoiceDto?.companyInfo?.payeeFinancialAccountDto;
+ 
   const foundCompany = autocompleteData.companies.find(
     (buyer: any) =>
       buyer.mb ===
       invoiceDto.invoice.accountingCustomerParty.partyLegalEntity.companyID
   );
+
+
   (invoiceDto.invoice as any)["paymentMeans"] = createPaymentMeans(
-    foundCompany,
+    //foundCompany,
+    payeeFinancialAccountDtoCompany,
     invoiceDto.invoice.referenceNumber,
     invoiceDto.invoice.modelNumber
   );

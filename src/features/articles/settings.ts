@@ -7,6 +7,8 @@ import { selectMarketPlaces } from "../shared/components/form-fields/store/form.
 
 import { ArticlesFormComponentProps }  from "../articles/components/ArticlesFormComponent"
 import { CreateType } from   "../articles/models/articles.enums"
+import { useAppDispatch } from "../../app/hooks";
+import  { setopenModalCreateArtical }  from  "./store/articles.reducer"
 
 
 type FeatureSettings = {
@@ -33,6 +35,7 @@ type FeatureSettings = {
  */
 const useFeatureSettings = (): FeatureSettings => {
   let navigate = useNavigate();
+  const  dispatch = useAppDispatch();
   return {
     cardsSettings: [{
             title: "Articles.title",
@@ -65,7 +68,7 @@ const useFeatureSettings = (): FeatureSettings => {
             {
               title: "Articles.createNew",
               disabled: false,
-              btnFn: () => navigate("/articles/createArtikal"),
+              btnFn: () => navigate("/articles/createArtikal"), //dispatch(setopenModalCreateArtical(true)),//navigate("/articles/createArtikal"),
             },
           ],
           buttonsSelect:  {

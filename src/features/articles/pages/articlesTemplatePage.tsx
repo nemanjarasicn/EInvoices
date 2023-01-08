@@ -24,6 +24,12 @@ import Breadcrumbs from '@mui/material/Breadcrumbs';
 import Link from '@mui/material/Link';
 import Typography from '@mui/material/Typography';
 
+
+import  { selectOpenCreateArtical,  selectOpenCreateArticalPrice }  from  "../store/articles.selectors"
+import ModalCreateArtical from "../components/ModalCreateArtical";
+import ModalCreateArticalPrice from "../components/ModalCreateArticalPrice";
+
+
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
   ...theme.typography.body2,
@@ -45,6 +51,8 @@ export default function InvoiceTemplatePage({
   const { templatePageSettings } = useFeatureSettings();
   const { tableSettings } = useTableSettings();
   const { templatePageStyles } = usePageStyles();
+  const openModalCreateArtical = useAppSelector(selectOpenCreateArtical);
+  const openModalCreateArticalPrice = useAppSelector(selectOpenCreateArtical);
   const company = useAppSelector(selectCompanyCurrent);
   const methods = useForm({
     defaultValues: {},
@@ -89,6 +97,9 @@ export default function InvoiceTemplatePage({
 
   
   return (
+    <>
+    <ModalCreateArtical    open={openModalCreateArtical} ></ModalCreateArtical>
+    <ModalCreateArticalPrice    open={openModalCreateArticalPrice} ></ModalCreateArticalPrice>
     <Box sx={{ flexGrow: 1, m: 2.5 }}>
       <Grid container spacing={2}  mt={8}>
         <Grid item xs={4} >
@@ -139,5 +150,6 @@ export default function InvoiceTemplatePage({
         <Grid item xs={12}></Grid>
       </Grid>
     </Box>
+  </>
   );
 }
