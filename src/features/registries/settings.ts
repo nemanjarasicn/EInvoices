@@ -656,7 +656,9 @@ const useFeatureSettings = (): FeatureSettings => {
             adress:  "Companies.adress",
             zip:  "Companies.zip",
             city:  "Companies.city",
-            country:  "Companies.country"
+            country:  "Companies.country",
+            email:  "Companies.email",
+            payeeFinancialAccount:  "Companies.payeeFinancialAccount"
           }
         },
       },

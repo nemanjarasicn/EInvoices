@@ -129,14 +129,15 @@ const handleInvoiceStatus = (status: number | string): string => {
  * @param model
  * @returns
  */
-const createPaymentMeans = (foundComapny: any, ref: any, model: any): any[] => {
+const createPaymentMeans = (foundComapny: any[], ref: any, model: any): any[] => {
   const accounts: any[] = [];
-  foundComapny.payeeFinancialAccountDto.map((item: any) => {
+  //foundComapny.payeeFinancialAccountDto.map((item: any) => {
+    foundComapny.map((item: any) => {
     let acc = {
       paymentMeansCode: "30", //TODO
       paymentID: `(mod${model}) ${ref}`,
       payeeFinancialAccount: {
-        id: item.payeeFinancialAccountValue, // id tekuceg racuna
+        id: item.payeeFinancialAccountValue, // id tekuceg racuna  
       },
     };
     accounts.push(acc);
@@ -164,11 +165,10 @@ const mapInvoiceLinesCreateTaxTotal = (invoiceLine: any[]): any[] => {
         )
       ).toFixed(2)
     );
+    const totalDivide = Number(item.lineExtensionAmount / item.invoicedQuantity).toFixed(2);
     item.allowanceCharge.amount = Number(
       (
-        (item.price.priceAmount -
-          item.lineExtensionAmount / item.invoicedQuantity) *
-        item.invoicedQuantity
+        (item.price.priceAmount - Number(totalDivide)) * item.invoicedQuantity
       ).toFixed(2)
     );
     item.price.discount = Number(

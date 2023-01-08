@@ -17,6 +17,8 @@ import {
     articles: any[];
     zip: any;
     subject:  any[];
+    openCreateArticles:  boolean;
+    openCreateArticlesPrice:  boolean;
     loading: boolean;
   }
 
@@ -24,6 +26,8 @@ import {
     articles: [],
     zip: "",
     subject:  [],
+    openCreateArticles:  false,
+    openCreateArticlesPrice:  false,
     loading: false,
   };
   
@@ -31,7 +35,14 @@ import {
     name: FEATURE_REGISTRIES_KEY,
     initialState: initialState,
     reducers: {
-     
+      setopenModalCreateArtical: (state,{payload}) => ({
+        ...state,
+        openCreateArticles: payload,
+      }),
+      setopenModalCreateArticalPrice: (state,{payload}) => ({
+        ...state,
+        openCreateArticlesPrice: payload,
+      }),
       //custom
      },
      extraReducers: (builder) => {
@@ -42,7 +53,9 @@ import {
   )
   
   export const {
-    increment
+    increment,
+    setopenModalCreateArtical,
+    setopenModalCreateArticalPrice
   } = articlesSlice.actions;
   
   export default articlesSlice.reducer;

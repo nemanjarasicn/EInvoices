@@ -258,7 +258,9 @@
     "adress":   "Adresa",
     "zip":  "Postanski broj",
     "country":  "Drzava",
-    "city":  "Grad"
+    "city":  "Grad",
+    "email":  "Email",
+    "payeeFinancialAccount":   "Ziro racun"
   },
 
   "Warehouses":  {

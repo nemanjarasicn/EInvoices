@@ -22,6 +22,7 @@ import  { getObjectsAll,  getUnitsAll, getVatAll, getMarketPlacesAll,  getTaxCod
 import { selectCompanyCurrent } from "../../../app/core/core.selectors";
 import  {  selectUnitsAll,  selectVatsAll,   selectMarketPlaces,  selectTaxCode, selectTaxBase }  from   "../../shared/components/form-fields/store/form.selectors"
 import { sendArticle } from "../store/articles.actions";
+import { setopenModalCreateArtical,  setopenModalCreateArticalPrice  } from "../store/articles.reducer";
 //import ClientComponent from "./form-group/ClientComponent";
 
 
@@ -155,9 +156,10 @@ export default function FormArticleComponent({
       }, [watch('taxBase')]);
 
       const onSubmit = async  (data: ArticleFormModel) => {
-        console.log(data);
          await dispatch(sendArticle({data})).then(async (res) => {
             if(res.payload.message === "sucsess") {
+              //dispatch(setopenModalCreateArtical(false));
+              //dispatch(setopenModalCreateArticalPrice(true));
               setShowError(true);
               setTimeout(() => {
                   setShowError(false);
@@ -178,10 +180,10 @@ export default function FormArticleComponent({
       
   
     return (
-        <Grid item xs={12}>
+        <Grid item xs={12}  sx  = {{mt: 5}}>
             <SucessModal    open={showError} ></SucessModal>
             <ErrorModal    open={showErrorModal} ></ErrorModal>
-            <Box
+            {/*<Box
               sx={{
                 ...formComponent.basicBox,
                 textAlign: "start",
@@ -189,7 +191,7 @@ export default function FormArticleComponent({
             >
                 <Typography sx={formComponent.typography}>
                     {('Osnovni podaci').toUpperCase()}
-                </Typography>
+            </Typography>*/}
                 <Paper style={formComponent.groupPaper}>
                 <Grid container spacing={2}>
                     <Grid item xs={6}>
@@ -411,19 +413,14 @@ export default function FormArticleComponent({
                     </Grid>
                 </Grid>
                 </Paper>
-            </Box>
+           {/* </Box> */}
            
-            <Grid item xs={5}>
-                  <Box
-                    sx={{
-                      ...formComponent.basicBox,
-                      textAlign: "end",
-                    }}
-                  >
-                    <Paper sx={formComponent.paper}>
+            <Grid item xs={5}  sx ={{mt: 3}}>
+
+                    
                       <CustomButtonFc
                         groupButton={[
-                          {
+                          /*{
                             title: "DELETE",
                             disabled: true,
                             btnFn: () => reset(),
@@ -432,11 +429,11 @@ export default function FormArticleComponent({
                             title: "DOWNLOAD",
                             disabled: true,
                             btnFn: () => reset(),
-                          },
+                          },*/
                           {
-                            title: "UPDATE",
-                            disabled: true,
-                            btnFn: () => reset(),
+                            title: "ODUSTANI",
+                            disabled: false,
+                            btnFn: () => dispatch(setopenModalCreateArtical(false)),
                           },
                           {
                             title: "SACUVAJ",
@@ -445,8 +442,8 @@ export default function FormArticleComponent({
                           },
                         ]}
                       />
-                    </Paper>
-                  </Box>
+                
+
             </Grid>
   
         </Grid>

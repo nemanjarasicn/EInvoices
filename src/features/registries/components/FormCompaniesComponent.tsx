@@ -39,10 +39,11 @@ import  {  selectDistributorCompanies }  from  "../store/registries.selectors"
   address:   yup.string().required('ovo je obavezno polje'),
   city:  yup.string().required('ovo je obavezno polje'),
   zip: yup.string().required('ovo je obavezno polje'),
-  mb: yup.string().required('ovo je obavezno polje'),
+  mb: yup.string().trim().required('ovo je obavezno polje'),
   apiKey: yup.string().required('ovo je obavezno polje'),
   country: yup.string().required('ovo je obavezno polje'),
-  pib: yup.string().required('ovo je obavezno polje'),
+  pib: yup.string().trim().required('ovo je obavezno polje'),
+  payeeFinancialAccount: yup.string().required('ovo je obavezno polje'),
  })
  .required();
 
@@ -66,7 +67,9 @@ export default function FormCompaniesComponent({
       zip: "",
       city: "",
       country: "",
-      distributor: isDistributor ? idDistributor :  ""
+      distributor: isDistributor ? idDistributor :  "",
+      email:    "",
+      payeeFinancialAccount:   "",
     };
     const { t } = useTranslation();
     const { formComponent } = useComponentsStyles();
@@ -91,7 +94,7 @@ export default function FormCompaniesComponent({
       } = methods;
 
       const onSubmit = async (data: CompanyFormModel) => {
-       
+      
         dispatch(sendCompanies({data})).then(async (res) => { 
             if(res.payload.message === 'sucsses') {
               if(data.apiKey) {
@@ -180,6 +183,27 @@ export default function FormCompaniesComponent({
                             disabled: false,
                             additional: { readonly: false, labelShrink: true },
                         
+                        }}
+                    />
+
+                    <FormTextField
+                        props={{
+                            control: control,
+                            name: "email",
+                            label: t(props.formFieldsLabels.companies.email),
+                            disabled: false,
+                            additional: { readonly: false, labelShrink: true}
+
+                        }}
+                    />
+                    <FormTextField
+                        props={{
+                            control: control,
+                            name: "payeeFinancialAccount",
+                            label: t(props.formFieldsLabels.companies.payeeFinancialAccount),
+                            disabled: false,
+                            additional: { readonly: false, labelShrink: true}
+
                         }}
                     />
                     </Grid>

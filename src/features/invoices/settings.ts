@@ -16,6 +16,7 @@ import AssignmentLateIcon from "@mui/icons-material/AssignmentLate";
 import { InvoiceDropzoneProps } from "./components/InvoiceDropzoneComponent";
 import { InvoiceFormComponentProps } from "./components/InvoiceFormComponent";
 import { InvoiceType } from "./models";
+import { useAppDispatch } from "../../app/hooks";
 
 type FeatureSettings = {
   cardsSettings: CardProps[];
@@ -39,6 +40,7 @@ type FeatureSettings = {
  */
 const useFeatureSettings = (): FeatureSettings => {
   let navigate = useNavigate();
+  const dispatch = useAppDispatch();
   return {
     cardsSettings: [
       {

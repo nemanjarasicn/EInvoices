@@ -56,6 +56,8 @@
     city: string  = "";
     country:  string =  "";
     distributor: any = "";
+    email: string  = "";
+    payeeFinancialAccount:  string =  "";
   }
 
   export class DistributorFormModel {

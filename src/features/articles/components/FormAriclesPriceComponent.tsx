@@ -22,6 +22,7 @@ import { selectCompanyCurrent } from "../../../app/core/core.selectors";
 import {useLocation} from 'react-router-dom';
 import {  sendArticlesPrice } from "../store/articles.actions";
 import FormCurrencyField from "../../shared/components/form-fields/FormCurrencyField";
+import { setopenModalCreateArticalPrice } from "../store/articles.reducer";
 //import ClientComponent from "./form-group/ClientComponent";
 
 
@@ -116,19 +117,10 @@ export default function FormArticlePriceComponent({
       
   
     return (
-        <Grid item xs={12}>
+        <Grid item xs={12}  sx={{mt: 2}}>
             <SucessModal    open={showError} ></SucessModal>
             <ErrorModal    open={showErrorModal} ></ErrorModal>
-            <Box
-              sx={{
-                ...formComponent.basicBox,
-                textAlign: "start",
-                mt: 18
-              }}
-            >
-                <Typography sx={formComponent.typography}>
-                    {('PODACI O CENI').toUpperCase()}
-                </Typography>
+            
                 <Paper style={formComponent.groupPaper}>
                 <Grid container spacing={2}>
                     <Grid item xs={6}>
@@ -144,32 +136,17 @@ export default function FormArticlePriceComponent({
                     </Grid>
                 </Grid>
                 </Paper>
-            </Box>
+
             
-            <Grid item xs={5}>
-                  <Box
-                    sx={{
-                      ...formComponent.basicBox,
-                      textAlign: "end",
-                    }}
-                  >
-                    <Paper sx={formComponent.paper}>
+            <Grid item xs={5}  sx={{mt: 5}}>
+            
                       <CustomButtonFc
                         groupButton={[
+                          
                           {
-                            title: "DELETE",
-                            disabled: true,
-                            btnFn: () => reset(),
-                          },
-                          {
-                            title: "DOWNLOAD",
-                            disabled: true,
-                            btnFn: () => reset(),
-                          },
-                          {
-                            title: "UPDATE",
-                            disabled: true,
-                            btnFn: () => reset(),
+                            title: "ODUSTANI",
+                            disabled: false,
+                            btnFn: () => dispatch(setopenModalCreateArticalPrice(false)),
                           },
                           {
                             title: "SACUVAJ",
@@ -178,8 +155,7 @@ export default function FormArticlePriceComponent({
                           },
                         ]}
                       />
-                    </Paper>
-                  </Box>
+
             </Grid>
   
         </Grid>

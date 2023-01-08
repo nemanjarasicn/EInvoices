@@ -63,7 +63,7 @@ import {
   totalWithoutDiscount,
 } from "../utils/utils";
 import { Subscription } from "react-hook-form/dist/utils/createSubject";
-import { selectCompanyCurrent } from "../../../app/core/core.selectors";
+import { selectCompanyCurrent, selectCompanyInfo } from "../../../app/core/core.selectors";
 import {
   clearCompanies,
   clearDocumentTypes,
@@ -91,6 +91,7 @@ export default function InvoiceFormComponent({
   let navigate = useNavigate();
   const dispatch = useAppDispatch();
   const companyId = useAppSelector(selectCompanyCurrent);
+  const companyInfo = useAppSelector(selectCompanyInfo);
 
   const marketPlaces = useAppSelector(selectMarketPlaces);
   const id = useAppSelector(selectCurrentDocNumber);
@@ -120,7 +121,7 @@ export default function InvoiceFormComponent({
 
   const onSubmit = handleSubmit(
     (data: InvoiceFormModel) => {
-      dispatch(sendInvoce({ invoice: data })).then((res) => {
+      dispatch(sendInvoce({ invoice: data, companyInfo: companyInfo })).then((res) => {
         if (res.payload === "REDIRECT") {
           navigate("/invoices/sales");
         }

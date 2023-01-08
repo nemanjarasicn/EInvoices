@@ -104,7 +104,11 @@ class RegistriesPublicService {
       "zip": data.data.zip,
       "city":  data.data.city,
       "country":  data.data.country,
-      "email": ""
+      "email": data.data.email,
+      "payeeFinancialAccountDto":[{
+
+        "payeeFinancialAccountValue":   data.data.payeeFinancialAccount
+    }]
   }
     );
   }
