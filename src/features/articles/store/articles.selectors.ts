@@ -26,7 +26,8 @@ export const selectArticles = createSelector(
         vat: item.vat,
         groupName: item.groupName,
         typeName: item.typeName,
-        price: item.priceLists ?  item.priceLists[0].price  :  "",
+        price: item.priceLists ?  item.priceLists.slice(-1)[0].price  :  "",
+        prodctId: item.prodctId
       }))  
   }
 );

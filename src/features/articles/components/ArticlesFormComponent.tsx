@@ -32,6 +32,7 @@ export type ArticlesFormComponentProps = {
   createTitle: any;
   typeForm: any;
   data?: any;
+  flag?: string;
 };
 
 /**

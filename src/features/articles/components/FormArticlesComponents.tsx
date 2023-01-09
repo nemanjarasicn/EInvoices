@@ -165,7 +165,7 @@ export default function FormArticleComponent({
               setTimeout(() => {
                   //setShowError(false);
                   dispatch(setOpenSucessModal(false));
-                  dispatch(setopenModalCreateArticalPrice({open: true, data: res.payload.data[0].createProduct }));
+                  dispatch(setopenModalCreateArticalPrice({open: true, data: res.payload.data[0].createProduct, flag: "" }));
       
               }, 2000);
             }  else {
@@ -213,7 +213,7 @@ export default function FormArticleComponent({
                         props={{
                             control: control,
                             name: "code",
-                            label:  "Code",
+                            label:  "Šifra",
                             disabled: false,
                             additional: { readonly: false, labelShrink: true }
                         
@@ -223,7 +223,7 @@ export default function FormArticleComponent({
                         props={{
                             name: "productTaxCategory",
                             control: control,
-                            label:  "Taxcode",
+                            label:  "PDV kategorija",
                             disabled: false,
                             additional: {
                             selector:  selectTaxCode,
@@ -237,7 +237,7 @@ export default function FormArticleComponent({
                         props={{
                             name: "taxBase",
                             control: control,
-                            label:  "taxBase",
+                            label:  "Osnov oslobodjenja pdv",
                             disabled: false,
                             additional: {
                             selector:  selectTaxBase,
@@ -343,7 +343,7 @@ export default function FormArticleComponent({
                         props={{
                             control: control,
                             name: "barCode",
-                            label:  "Barcode",
+                            label:  "barkod",
                             disabled: false,
                             additional: { readonly: false, labelShrink: true }
                         
@@ -367,7 +367,7 @@ export default function FormArticleComponent({
                         props={{
                             name: "productUnitRequest",
                             control: control,
-                            label:  "Unit",
+                            label:  "Jm",
                             disabled: false,
                             additional: {
                             selector:  selectUnitsAll,
@@ -380,7 +380,7 @@ export default function FormArticleComponent({
                         props={{
                             control: control,
                             name: "taxcodeValue",
-                            label:   "TaxCodeValue",
+                            label:   "Poreska stopa",
                             disabled: false,
                             additional: { readonly: true, labelShrink: true }
                         
