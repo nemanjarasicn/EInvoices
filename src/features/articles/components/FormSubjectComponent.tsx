@@ -33,22 +33,14 @@ import FormCurrencyField from "../../shared/components/form-fields/FormCurrencyF
  */
  const schema = yup
  .object({
-   // client: yup
-   //   .object({
-   //     vatRegistrationCode: yup.string().required(),
-   //   })
-   //   .required(),
-   // dropdownValue: yup.string().required(),
-   // textAreaValue: yup.string().required(),
-   // dateValue: yup.string().required(), //validate date format
-   // autocompleteValue: yup.object().required(),
-   // checkbox: yup.bool().required(),
-   // numberValue: yup.number().required(),
-   // invoiceLine: yup.array().of(
-   //   yup.object({
-   //     invoicedQuantity: yup.number().moreThan(0, ""),
-   //   })
-   // ),
+  companyName: yup.string().required('ovo je obavezno polje'),
+  address:   yup.string().required('ovo je obavezno polje'),
+  city:  yup.string().required('ovo je obavezno polje'),
+  zip: yup.string().required('ovo je obavezno polje'),
+  mb: yup.string().trim().required('ovo je obavezno polje'),
+  pib: yup.string().trim().required('ovo je obavezno polje'),
+  payeeFinancialAccount: yup.string().required('ovo je obavezno polje'),
+  email: yup.string().email('email mora biti ispravnog formata'),
  })
  .required();
 

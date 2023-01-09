@@ -37,6 +37,8 @@ export default function  ErrorModal(props: any)  {
     let open = useAppSelector(hasError) ? true : false;
     const error = useAppSelector(hasError);
 
+    
+
       return (
         <Modal
             open={props.open}
@@ -51,9 +53,17 @@ export default function  ErrorModal(props: any)  {
                         </Box>
                     </Grid>
                     <Grid>
-                    <Typography id="modal-modal-message" sx={{display: 'flex', justifyContent: 'center',  alignItems:  'center'}} variant="h6" color={'white'} component="h2">
-                        Greska
-                    </Typography>
+                    <Grid sx ={{display:  'flex',  flexDirection:   'column'}}  container  >
+                      <Typography id="modal-modal-message" sx={{display: 'flex', justifyContent: 'center',  alignItems:  'center'}} variant="h6" color={'white'} component="h2">
+                          Greska
+                      </Typography>
+                      <Typography id="modal-modal-message" sx={{display: 'flex', justifyContent: 'center',  alignItems:  'center',  color:  'gray', fontSize:  '12px'}} variant="h6" color={'white'} component="h2">
+                          {props?.message}
+                      </Typography>
+                      <Typography id="modal-modal-message" sx={{display: 'flex', justifyContent: 'center',  alignItems:  'center',  color:  'gray', fontSize:  '12px'}} variant="h6" color={'white'} component="h2">
+                          Molimo pozovite administratora
+                      </Typography>
+                    </Grid>
                     </Grid>
                 </Grid>
 

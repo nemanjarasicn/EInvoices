@@ -101,8 +101,8 @@ const sendInvoce: AsyncThunk<any, { invoice: any, companyInfo?: any }, {}> = cre
   }));
 
   return await InvoicePublicService.sendInvoice(invoiceDto, apiKey).then(
-    (data) => _.fulfillWithValue("REDIRECT"),
-    (err) => _.rejectWithValue("ERR")
+    (data) =>  _.fulfillWithValue({message: "REDIRECT" , data: data}),
+    (err) => _.rejectWithValue({message: "ERR", error: err})
   );
 });
 
