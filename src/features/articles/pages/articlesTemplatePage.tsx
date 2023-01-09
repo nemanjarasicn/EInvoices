@@ -99,7 +99,7 @@ export default function InvoiceTemplatePage({
   return (
     <>
     <ModalCreateArtical    open={openModalCreateArtical} ></ModalCreateArtical>
-    <ModalCreateArticalPrice    open={openModalCreateArticalPrice} ></ModalCreateArticalPrice>
+    {/*<ModalCreateArticalPrice    open={openModalCreateArticalPrice} ></ModalCreateArticalPrice>*/}
     <Box sx={{ flexGrow: 1, m: 2.5 }}>
       <Grid container spacing={2}  mt={8}>
         <Grid item xs={4} >

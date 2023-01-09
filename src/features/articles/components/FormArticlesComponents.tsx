@@ -158,9 +158,9 @@ export default function FormArticleComponent({
       const onSubmit = async  (data: ArticleFormModel) => {
          await dispatch(sendArticle({data})).then(async (res) => {
             if(res.payload.message === "sucsess") {
-              //dispatch(setopenModalCreateArtical(false));
-              //dispatch(setopenModalCreateArticalPrice(true));
-              setShowError(true);
+              dispatch(setopenModalCreateArtical(false));
+              dispatch(setopenModalCreateArticalPrice(true));
+              //setShowError(true);
               setTimeout(() => {
                   setShowError(false);
                   navigate('/articles/createArtikalPrice', 
