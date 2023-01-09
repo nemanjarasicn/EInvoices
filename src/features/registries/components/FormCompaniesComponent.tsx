@@ -44,6 +44,7 @@ import  {  selectDistributorCompanies }  from  "../store/registries.selectors"
   country: yup.string().required('ovo je obavezno polje'),
   pib: yup.string().trim().required('ovo je obavezno polje'),
   payeeFinancialAccount: yup.string().required('ovo je obavezno polje'),
+  email: yup.string().email('email mora biti ispravnog formata'),
  })
  .required();
 
@@ -142,7 +143,7 @@ export default function FormCompaniesComponent({
     return (
         <Grid item xs={12}>
             <SucessModal    open={showError} ></SucessModal>
-            <ErrorModal    open={showErrorModal} ></ErrorModal>
+            <ErrorModal    open={showErrorModal}  ></ErrorModal>
                 <Grid container spacing={2}>
                     <Grid item xs={6}>
                         <FormTextField

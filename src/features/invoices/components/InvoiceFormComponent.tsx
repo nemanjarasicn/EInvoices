@@ -32,7 +32,9 @@ import FormCurrencyField from "./form-fields/FormCurrencyField";
 import PrepaymentComponent from "./form-group/PrepaymentComponent";
 import InvoiceGroupComponent from "./form-group/InvoiceGroupComponent";
 import AttachFileIcon from "@mui/icons-material/AttachFile";
+import SucessModal   from "../../shared/components/SucessModal"
 import RestoreRoundedIcon from "@mui/icons-material/RestoreRounded";
+import  ErrorModal   from   "../../shared/components/ErrorModals"
 import TextsmsOutlinedIcon from "@mui/icons-material/TextsmsOutlined";
 import {
   OptionItem,
@@ -94,6 +96,8 @@ export default function InvoiceFormComponent({
   const companyInfo = useAppSelector(selectCompanyInfo);
 
   const marketPlaces = useAppSelector(selectMarketPlaces);
+  const [errorMessage, setErrorMessage] = React.useState("");
+  const [showErrorModal, setShowErrorModal] = React.useState(false);
   const id = useAppSelector(selectCurrentDocNumber);
 
   const [invoiceType, setInvoiceType] = React.useState<InvoiceType>(
@@ -101,6 +105,7 @@ export default function InvoiceFormComponent({
   );
 
   const [lineError, setLineError] = React.useState<string | null>(null);
+  const [showError, setShowError] = React.useState(false);
 
   const methods = useForm({
     defaultValues: defaultValues,
@@ -122,8 +127,22 @@ export default function InvoiceFormComponent({
   const onSubmit = handleSubmit(
     (data: InvoiceFormModel) => {
       dispatch(sendInvoce({ invoice: data, companyInfo: companyInfo })).then((res) => {
-        if (res.payload === "REDIRECT") {
-          navigate("/invoices/sales");
+        if (res.payload.message === "REDIRECT") {
+           setShowError(true);  
+              setTimeout(async () => {
+                    setShowError(false);
+                    navigate("/invoices/sales");
+                    
+              }, 2000);
+        } else {
+          setShowErrorModal(true); 
+          setErrorMessage(res.payload?.error?.response?.data?.description) 
+              setTimeout(() => {
+                    setShowErrorModal(false);
+                    setErrorMessage("")
+                    /*navigate('/registries/companies'
+                    )*/
+              }, 2000);
         }
       });
     },
@@ -226,6 +245,9 @@ export default function InvoiceFormComponent({
   );
 
   return (
+    <>
+    <SucessModal    open={showError} ></SucessModal>
+    <ErrorModal    open={showErrorModal}  message={errorMessage} ></ErrorModal>
     <Box
       sx={{ flexGrow: 1, rowGap: 1, display: "flex", flexDirection: "column", mt: '20px' }}
     >
@@ -1023,5 +1045,6 @@ export default function InvoiceFormComponent({
         </Grid>
       </Grid>
     </Box>
+    </>
   );
 }
