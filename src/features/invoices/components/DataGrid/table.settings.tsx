@@ -273,7 +273,7 @@ const useTableSettings = (): TableSettings => {
                                     dataAction: {
                                       actionType:  "cancel",
                                       invoiceId:  params.row.invoiceId,
-                                      invoiceType: 'sales',
+                                      invoiceType: 'SALES',
                                       comment: ""
                                     }
                                 }));

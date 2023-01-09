@@ -98,7 +98,16 @@ export default function FormArticlePriceComponent({
 
       const onSubmit = async  (dataPrice: PriceFormModel) => {
           const dataArtikal =  props?.data; //location.state;
-          await dispatch(sendArticlesPrice({data:dataArtikal , price: dataPrice })).then((res) => {
+          const data = {
+            barCode: props?.data.barCode,
+            code: props?.data.code,
+            decimalShow: props?.data.decimalShow,
+            groupName: props?.data.groupName,
+            id:  props?.flag === 'edit' ? props?.data.prodctId  : props?.data.id,
+            productName: props?.data.productName,
+            typeName:  props?.data.typeName
+          }
+          await dispatch(sendArticlesPrice({data:data , price: dataPrice })).then((res) => {
             if(res.payload === "sucsess") {
                   //setShowError(true);
       
@@ -106,9 +115,11 @@ export default function FormArticlePriceComponent({
                   dispatch(setOpenSucessModal(true));
                   setTimeout(() => {
                       //setShowError(false);
-                      dispatch(setOpenSucessModal(false));
                       navigate('/articles/articlesList'
                       )
+                      dispatch(setOpenSucessModal(false));
+                      window.location.reload()
+      
                   }, 2000);
                   navigate('/articles/articlesList')
             }  else {

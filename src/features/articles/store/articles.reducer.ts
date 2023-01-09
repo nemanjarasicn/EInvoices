@@ -18,7 +18,7 @@ import {
     zip: any;
     subject:  any[];
     openCreateArticles:  boolean;
-    openCreateArticlesPrice:  {open: boolean, data?:  any };
+    openCreateArticlesPrice:  {open: boolean, data?:  any, flag?: string };
     openSucessModal:  boolean;
     loading: boolean;
   }
@@ -28,7 +28,7 @@ import {
     zip: "",
     subject:  [],
     openCreateArticles:  false,
-    openCreateArticlesPrice:  {open: false, data: ""},
+    openCreateArticlesPrice:  {open: false, data: "", flag: ""},
     openSucessModal:  false,
     loading: false,
   };

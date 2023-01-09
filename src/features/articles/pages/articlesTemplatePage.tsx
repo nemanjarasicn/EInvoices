@@ -29,6 +29,9 @@ import  { selectOpenCreateArtical,  selectOpenCreateArticalPrice, selectOpenSuce
 import  ModalSucessArticles  from   "../components/ModalSucessArticles"
 import ModalCreateArtical from "../components/ModalCreateArtical";
 import ModalCreateArticalPrice from "../components/ModalCreateArticalPrice";
+import { Navigate } from "react-router-dom";
+import { faWindowRestore } from "@fortawesome/pro-solid-svg-icons";
+import { useNavigate } from 'react-router-dom';
 
 
 const Item = styled(Paper)(({ theme }) => ({
@@ -54,6 +57,7 @@ export default function InvoiceTemplatePage({
   const { templatePageStyles } = usePageStyles();
   const openSucessModalArtical = useAppSelector(selectOpenSucessModal);
   const openModalCreateArtical = useAppSelector(selectOpenCreateArtical);
+  const navigate  = useNavigate();
   const openModalCreateArticalPrice = useAppSelector(selectOpenCreateArticalPrice);
   const company = useAppSelector(selectCompanyCurrent);
   const methods = useForm({
@@ -93,6 +97,9 @@ export default function InvoiceTemplatePage({
     }
   }, [selectValue]);
 
+
+  
+
  
   const handleChangeSelect = (value: any) =>  {
     setSelectValue(value.item.uuid);
@@ -103,7 +110,7 @@ export default function InvoiceTemplatePage({
     <>
     <ModalCreateArtical    open={openModalCreateArtical} ></ModalCreateArtical>
     <ModalSucessArticles  open={openSucessModalArtical} ></ModalSucessArticles>
-    <ModalCreateArticalPrice    open={openModalCreateArticalPrice.open}  data={openModalCreateArticalPrice.data}></ModalCreateArticalPrice>
+    <ModalCreateArticalPrice    open={openModalCreateArticalPrice.open}  data={openModalCreateArticalPrice.data} flag={openModalCreateArticalPrice.flag}></ModalCreateArticalPrice>
     <Box sx={{ flexGrow: 1, m: 2.5 }}>
       <Grid container spacing={2}  mt={8}>
         <Grid item xs={4} >

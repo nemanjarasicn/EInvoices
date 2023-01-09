@@ -1,11 +1,21 @@
 import { GridValueGetterParams } from "@mui/x-data-grid";
 import { HeaderSettingsTypes } from "../../models/articles.enums";
 import { TableComponentProps } from "./TableComponent";
+import IconButton from '@mui/material/IconButton';
 import { useAppDispatch, useAppSelector } from "../../../../app/hooks";
+import { styled } from '@mui/material/styles';
 import { selectCompanyCurrent } from "../../../../app/core/core.selectors";
-
+import Tooltip, { TooltipProps, tooltipClasses } from '@mui/material/Tooltip';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {  faPenToSquare}   from '@fortawesome/pro-solid-svg-icons';
 import { getArticles,  getSubject }   from "../../store/articles.actions"
+import {
+  Grid,
+} from "@mui/material";
 import  { selectArticles, selectSubject }  from "../../store/articles.selectors"
+
+import { setopenModalCreateArticalPrice  }  from  "../../store/articles.reducer"
+
 
 type TableSettings = {
   tableSettings: {
@@ -14,12 +24,27 @@ type TableSettings = {
     };
   };
 };
+
+
+const LightTooltip = styled(({ className, ...props }: TooltipProps) => (
+  <Tooltip {...props} classes={{ popper: className }} />
+))(({ theme }) => ({
+  [`& .${tooltipClasses.tooltip}`]: {
+    backgroundColor: theme.palette.common.white,
+    color: 'rgba(0, 0, 0, 0.87)',
+    boxShadow: theme.shadows[1],
+    fontSize: 11,
+  },
+}));
+
+
 /**
  * hook predefine table settings
  * @returns {TableSettings}
  */
 const useTableSettings = (): TableSettings => {
 
+   const dispatch = useAppDispatch();
   const company = useAppSelector(selectCompanyCurrent);
 
   return {
@@ -34,6 +59,15 @@ const useTableSettings = (): TableSettings => {
               headerAlign: "center",
               align: "center",
               hideable: false,
+            },
+            {
+              field: "prodctId",
+              headerName: "prodctId",
+              flex: 1,
+              headerAlign: "center",
+              align: "center",
+              hideable: true,
+              hide: true
             },
             {
               field: "productName",
@@ -114,6 +148,28 @@ const useTableSettings = (): TableSettings => {
                 align: "center",
                 hideable: true,
                 hide: false,
+                editable: true
+              },
+              {
+                field: 'action',
+                headerName: 'Action',
+                flex: 1,
+                headerAlign: "center",
+                align: "center",
+                hideable: true,
+                renderCell: (params) => (
+                  <Grid  container sx={{display:  'flex'}}>
+                        <Grid item xs={12} >
+                        <LightTooltip title="Izmena cene">
+                          <IconButton sx={{display:  'flex', justifyContent:  'center'}} color="primary" aria-label="pdf" component="label"  onClick={() => {console.log('asasasasasa', params.row);  dispatch(setopenModalCreateArticalPrice({open: true, data: params.row, flag: 'edit'}))}}>
+                          <FontAwesomeIcon icon={faPenToSquare}   color="#E9950C"   />
+                          </IconButton>
+                          </LightTooltip>
+                        </Grid>
+                    
+                  </Grid>
+  
+                )
               },
            
           ],
