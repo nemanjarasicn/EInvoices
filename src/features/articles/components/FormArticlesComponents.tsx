@@ -22,7 +22,7 @@ import  { getObjectsAll,  getUnitsAll, getVatAll, getMarketPlacesAll,  getTaxCod
 import { selectCompanyCurrent } from "../../../app/core/core.selectors";
 import  {  selectUnitsAll,  selectVatsAll,   selectMarketPlaces,  selectTaxCode, selectTaxBase }  from   "../../shared/components/form-fields/store/form.selectors"
 import { sendArticle } from "../store/articles.actions";
-import { setopenModalCreateArtical,  setopenModalCreateArticalPrice  } from "../store/articles.reducer";
+import { setopenModalCreateArtical,  setopenModalCreateArticalPrice, setOpenSucessModal  } from "../store/articles.reducer";
 //import ClientComponent from "./form-group/ClientComponent";
 
 
@@ -110,6 +110,7 @@ export default function FormArticleComponent({
     const [showError, setShowError] = React.useState(false);
     const [showErrorModal, setShowErrorModal] = React.useState(false);
     const [showTaxBase, setShowTaxBase] = React.useState('none');
+    const marginTopBox =  window.devicePixelRatio == 1.5 ? 3 : 5 
   
 
 
@@ -159,12 +160,13 @@ export default function FormArticleComponent({
          await dispatch(sendArticle({data})).then(async (res) => {
             if(res.payload.message === "sucsess") {
               dispatch(setopenModalCreateArtical(false));
-              dispatch(setopenModalCreateArticalPrice(true));
+              dispatch(setOpenSucessModal(true));
               //setShowError(true);
               setTimeout(() => {
-                  setShowError(false);
-                  navigate('/articles/createArtikalPrice', 
-                  {state: res.payload.data[0].createProduct})
+                  //setShowError(false);
+                  dispatch(setOpenSucessModal(false));
+                  dispatch(setopenModalCreateArticalPrice({open: true, data: res.payload.data[0].createProduct }));
+      
               }, 2000);
             }  else {
               setShowErrorModal(true);  
@@ -180,7 +182,7 @@ export default function FormArticleComponent({
       
   
     return (
-        <Grid item xs={12}  sx  = {{mt: 5}}>
+        <Grid item xs={12}  sx  = {{mt: marginTopBox}}>
             <SucessModal    open={showError} ></SucessModal>
             <ErrorModal    open={showErrorModal} ></ErrorModal>
             {/*<Box

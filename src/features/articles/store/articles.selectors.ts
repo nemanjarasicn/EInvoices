@@ -49,4 +49,10 @@ export const   selectOpenCreateArticalPrice = createSelector(
 );
 
 
+export const   selectOpenSucessModal = createSelector(
+  featureSelectors,
+  (state: FeatureState) => state.openSucessModal
+);
+
+
 

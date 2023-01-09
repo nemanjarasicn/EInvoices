@@ -18,7 +18,8 @@ import {
     zip: any;
     subject:  any[];
     openCreateArticles:  boolean;
-    openCreateArticlesPrice:  boolean;
+    openCreateArticlesPrice:  {open: boolean, data?:  any };
+    openSucessModal:  boolean;
     loading: boolean;
   }
 
@@ -27,7 +28,8 @@ import {
     zip: "",
     subject:  [],
     openCreateArticles:  false,
-    openCreateArticlesPrice:  false,
+    openCreateArticlesPrice:  {open: false, data: ""},
+    openSucessModal:  false,
     loading: false,
   };
   
@@ -43,6 +45,11 @@ import {
         ...state,
         openCreateArticlesPrice: payload,
       }),
+      setOpenSucessModal: (state,{payload}) => ({
+        ...state,
+        openSucessModal: payload,
+      }),
+    
       //custom
      },
      extraReducers: (builder) => {
@@ -55,7 +62,8 @@ import {
   export const {
     increment,
     setopenModalCreateArtical,
-    setopenModalCreateArticalPrice
+    setopenModalCreateArticalPrice,
+    setOpenSucessModal
   } = articlesSlice.actions;
   
   export default articlesSlice.reducer;

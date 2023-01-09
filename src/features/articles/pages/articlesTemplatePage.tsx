@@ -25,7 +25,8 @@ import Link from '@mui/material/Link';
 import Typography from '@mui/material/Typography';
 
 
-import  { selectOpenCreateArtical,  selectOpenCreateArticalPrice }  from  "../store/articles.selectors"
+import  { selectOpenCreateArtical,  selectOpenCreateArticalPrice, selectOpenSucessModal }  from  "../store/articles.selectors"
+import  ModalSucessArticles  from   "../components/ModalSucessArticles"
 import ModalCreateArtical from "../components/ModalCreateArtical";
 import ModalCreateArticalPrice from "../components/ModalCreateArticalPrice";
 
@@ -51,8 +52,9 @@ export default function InvoiceTemplatePage({
   const { templatePageSettings } = useFeatureSettings();
   const { tableSettings } = useTableSettings();
   const { templatePageStyles } = usePageStyles();
+  const openSucessModalArtical = useAppSelector(selectOpenSucessModal);
   const openModalCreateArtical = useAppSelector(selectOpenCreateArtical);
-  const openModalCreateArticalPrice = useAppSelector(selectOpenCreateArtical);
+  const openModalCreateArticalPrice = useAppSelector(selectOpenCreateArticalPrice);
   const company = useAppSelector(selectCompanyCurrent);
   const methods = useForm({
     defaultValues: {},
@@ -74,6 +76,7 @@ export default function InvoiceTemplatePage({
         return  settings.getDataAction;
     }
   };
+
 
 
   React.useEffect(() => {
@@ -99,7 +102,8 @@ export default function InvoiceTemplatePage({
   return (
     <>
     <ModalCreateArtical    open={openModalCreateArtical} ></ModalCreateArtical>
-    {/*<ModalCreateArticalPrice    open={openModalCreateArticalPrice} ></ModalCreateArticalPrice>*/}
+    <ModalSucessArticles  open={openSucessModalArtical} ></ModalSucessArticles>
+    <ModalCreateArticalPrice    open={openModalCreateArticalPrice.open}  data={openModalCreateArticalPrice.data}></ModalCreateArticalPrice>
     <Box sx={{ flexGrow: 1, m: 2.5 }}>
       <Grid container spacing={2}  mt={8}>
         <Grid item xs={4} >

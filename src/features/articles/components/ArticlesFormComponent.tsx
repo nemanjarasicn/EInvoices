@@ -31,6 +31,7 @@ export type ArticlesFormComponentProps = {
   formFieldsLabels: any;
   createTitle: any;
   typeForm: any;
+  data?: any;
 };
 
 /**
