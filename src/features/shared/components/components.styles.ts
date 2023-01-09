@@ -255,6 +255,13 @@
           background: "white",
           minHeight: "300px"
         },
+        groupPaperPrice: {
+          display: "grid",
+          gridRowGap: "20px",
+          padding: "20px",
+          background: "white",
+          minHeight: "150px"
+        },
         groupPaperLowScale: {
           display: "grid",
           padding: "20px",

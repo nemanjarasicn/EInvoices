@@ -21,8 +21,8 @@ const style = {
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    width: () => window.devicePixelRatio == 1.5 ? 300 : 800 , 
-    height: () => window.devicePixelRatio == 1.5 ? 250 : 500 ,
+    width: () => window.devicePixelRatio == 1.5 ? 600 : 800 , 
+    height: () => window.devicePixelRatio == 1.5 ? 300 : 500 ,
  
 
     bgcolor: 'background.paper',
@@ -57,7 +57,7 @@ const style = {
                                         fontWeight:   700, 
                                         textAlign: 'center',
                                         textTransform: 'uppercase',
-                                        fontSize:  window.devicePixelRatio == 1.5 ?  12 : 24,   color:  'black'}}>
+                                        fontSize:  window.devicePixelRatio == 1.5 ?  16 : 24,   color:  'black'}}>
                                         Nova cena
                                     </Typography>
                             

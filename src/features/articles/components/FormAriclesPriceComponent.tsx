@@ -22,7 +22,7 @@ import { selectCompanyCurrent } from "../../../app/core/core.selectors";
 import {useLocation} from 'react-router-dom';
 import {  sendArticlesPrice } from "../store/articles.actions";
 import FormCurrencyField from "../../shared/components/form-fields/FormCurrencyField";
-import { setopenModalCreateArticalPrice } from "../store/articles.reducer";
+import { setopenModalCreateArticalPrice,  setOpenSucessModal } from "../store/articles.reducer";
 //import ClientComponent from "./form-group/ClientComponent";
 
 
@@ -94,16 +94,23 @@ export default function FormArticlePriceComponent({
   
       }, []);
 
+
+
       const onSubmit = async  (dataPrice: PriceFormModel) => {
-          const dataArtikal = location.state;
+          const dataArtikal =  props?.data; //location.state;
           await dispatch(sendArticlesPrice({data:dataArtikal , price: dataPrice })).then((res) => {
             if(res.payload === "sucsess") {
-                  setShowError(true);
+                  //setShowError(true);
+      
+                  dispatch(setopenModalCreateArticalPrice({open: false}));
+                  dispatch(setOpenSucessModal(true));
                   setTimeout(() => {
-                      setShowError(false);
+                      //setShowError(false);
+                      dispatch(setOpenSucessModal(false));
                       navigate('/articles/articlesList'
                       )
                   }, 2000);
+                  navigate('/articles/articlesList')
             }  else {
               setShowErrorModal(true);  
               setTimeout(() => {
@@ -121,7 +128,7 @@ export default function FormArticlePriceComponent({
             <SucessModal    open={showError} ></SucessModal>
             <ErrorModal    open={showErrorModal} ></ErrorModal>
             
-                <Paper style={formComponent.groupPaper}>
+                <Paper style={formComponent.groupPaperPrice}>
                 <Grid container spacing={2}>
                     <Grid item xs={6}>
                     <FormCurrencyField
@@ -146,7 +153,7 @@ export default function FormArticlePriceComponent({
                           {
                             title: "ODUSTANI",
                             disabled: false,
-                            btnFn: () => dispatch(setopenModalCreateArticalPrice(false)),
+                            btnFn: () => { console.log('asassas'); dispatch(setopenModalCreateArticalPrice(false))},
                           },
                           {
                             title: "SACUVAJ",

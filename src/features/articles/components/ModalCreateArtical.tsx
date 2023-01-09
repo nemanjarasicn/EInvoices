@@ -14,22 +14,20 @@ import Box from '@mui/material/Box'
 import FormArticleComponent from './FormArticlesComponents';
 import    { setopenModalCreateArtical }  from  "../store/articles.reducer"
 
-
-
 const style = {
     position: 'absolute',
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    width: () => window.devicePixelRatio == 1.5 ? 300 : 800 , 
-    height: () => window.devicePixelRatio == 1.5 ? 250 : 500 ,
+    width: () => window.devicePixelRatio == 1.5 ? 600 : 800 , 
+    height: () => window.devicePixelRatio == 1.5 ? 450 : 500 ,
  
 
     bgcolor: 'background.paper',
     border: '2px solid #000',
     boxShadow: 24,
     borderRadius: 2,
-    p: 5,
+    p:  window.devicePixelRatio == 1.5 ? 2 : 5,
     backgroundColor:  'white',
     display:  'flex'
   };
@@ -57,7 +55,7 @@ const style = {
                                         fontWeight:   700, 
                                         textAlign: 'center',
                                         textTransform: 'uppercase',
-                                        fontSize:  window.devicePixelRatio == 1.5 ?  12 : 24,   color:  'black'}}>
+                                        fontSize:  window.devicePixelRatio == 1.5 ?  16 : 24,   color:  'black'}}>
                                         Novi artikal
                                     </Typography>
                             
