@@ -60,7 +60,6 @@ export default function FormUsersComponent({
       confirmpassword: "",
       companyList: [], 
       userRole: "",
-      payeeFinancialAccount:  ""
     };
     const { t } = useTranslation();
     const { formComponent } = useComponentsStyles();
@@ -171,21 +170,8 @@ export default function FormUsersComponent({
                         />
 
 
+
                         
-
-                    <FormTextField
-                        props={{
-                            control: control,
-                            name: "payeeFinancialAccount",
-                            label: "Ziro racun",
-                            disabled: false,
-                            additional: { readonly: false, labelShrink: true}
-
-                        }}
-                        />
-
-
-
                     <FormTextField
                         props={{
                             control: control,

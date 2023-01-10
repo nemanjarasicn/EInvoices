@@ -96,7 +96,8 @@
     "ReferenceNumber": "Reference number",
     "ServiceProvider": "Document channel",
     "ChannelAdress": "Document address",
-    "Supplier": "Supplier"
+    "Supplier": "Supplier",
+    "SupplierName": "Supplier name"
   },
   "Table": {
     "NoRows": "No data to display.",

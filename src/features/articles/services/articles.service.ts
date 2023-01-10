@@ -118,7 +118,7 @@ sendSubject(data: any) {
             "zip":    data.data.zip,
             "phone":    data.data.phone,
             "email":   data.data.email,
-            "jbkjs":   "",
+            "jbkjs":  data.data.jbkjs ,
             "subjectIdCategory":   data.data.subjectIdCategory.id,
             "subjectIdType":  data.data.subjectIdType.id,
             "payeeFinancialAccountDto": [{

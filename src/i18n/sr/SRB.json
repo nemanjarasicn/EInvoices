@@ -96,7 +96,8 @@
     "ReferenceNumber": "Poziv na broj",
     "ServiceProvider": "Kanal slanja dokumenta",
     "ChannelAdress": "Adresa slanja dokumenta",
-    "Supplier": "Dobavljač"
+    "Supplier": "Dobavljač",
+    "SupplierName": "Naziv dobavljača"
   },
   "Table": {
     "NoRows": "Nema podataka za prikaz.",

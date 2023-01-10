@@ -106,7 +106,7 @@ export default function FormSubjectComponent({
       }, []);
 
       const onSubmit = async  (data: SubjectFormModel) => {
-        console.log('saassass');
+
           //const dataArtikal = location.state;
           await dispatch(sendSubject({data})).then((res) => {
             if(res.payload === "sucsess") {
@@ -340,7 +340,7 @@ export default function FormSubjectComponent({
                    
 
             </Grid>
-  
+                        
         </Grid>
     )
 }
