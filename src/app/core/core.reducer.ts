@@ -13,6 +13,7 @@ export interface CoreState {
   companyCurrent: number  |  string;
   companyList:  UserCompany[];
   distributerInfo: any;
+  openModalSucessLoad:  boolean;
   companyAdmin: number  |  string;
 }
 
@@ -25,6 +26,7 @@ const initialState: CoreState = {
   companyCurrent:  "",
   companyList:  [],
   distributerInfo:  {},
+  openModalSucessLoad:  false,
   companyAdmin:  "",
 };
 
@@ -57,6 +59,11 @@ const authSlice: Slice<CoreState> = createSlice({
       ...state,
       companyAdmin: payload,
     }),
+
+    setOpenModalSucessLoad: (state,{payload}) => ({
+      ...state,
+      openModalSucessLoad: payload,
+    }),
   },
   extraReducers: (builder) => {
     loginAsync(builder);
@@ -66,7 +73,7 @@ const authSlice: Slice<CoreState> = createSlice({
   },
 });
 
-export const { removeUser, resetError, setColor,  setError, setCompanyCurrent,  setCompanyAdmin } = authSlice.actions;
+export const { removeUser, resetError, setColor,  setError, setCompanyCurrent,  setCompanyAdmin,  setOpenModalSucessLoad } = authSlice.actions;
 
 export default authSlice.reducer;
 

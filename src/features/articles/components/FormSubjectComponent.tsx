@@ -20,9 +20,11 @@ import SucessModal   from "../../shared/components/SucessModal"
 import  { getObjectsAll,  getUnitsAll, getVatAll, getMarketPlacesAll,  getSubjectCategory,  getSubjectType }  from  "../../shared/components/form-fields/store/form.actions"
 import { selectCompanyCurrent } from "../../../app/core/core.selectors";
 import FormAutocompleteField from "../../shared/components/form-fields/FormAutocompleteField";
+import {  setopenModalCreateSubject, setOpenSucessModal   }  from  "../store/articles.reducer"
 import {useLocation} from 'react-router-dom';
 import FormTextField  from  "../../shared/components/form-fields/FormTextField"
 import {  sendSubject } from "../store/articles.actions";
+import {   setOpenModalSucessLoad  }  from  "../../../app/core/core.reducer"
 import   { selectSubjectGategory,  selectSubjectType }  from  "../../shared/components/form-fields/store/form.selectors"
 import FormCurrencyField from "../../shared/components/form-fields/FormCurrencyField";
 //import ClientComponent from "./form-group/ClientComponent";
@@ -39,7 +41,7 @@ import FormCurrencyField from "../../shared/components/form-fields/FormCurrencyF
   zip: yup.string().required('ovo je obavezno polje'),
   mb: yup.string().trim().required('ovo je obavezno polje'),
   pib: yup.string().trim().required('ovo je obavezno polje'),
-  payeeFinancialAccount: yup.string().required('ovo je obavezno polje'),
+  payeeFinancialAccountDto: yup.string().required('ovo je obavezno polje'),
   email: yup.string().email('email mora biti ispravnog formata'),
  })
  .required();
@@ -75,6 +77,7 @@ export default function FormSubjectComponent({
     const dispatch = useAppDispatch();
     const [showError, setShowError] = React.useState(false);
     const [showErrorModal, setShowErrorModal] = React.useState(false);
+    const marginTopBox =  window.devicePixelRatio == 1.5 ? 2 : 5 
     
     const location = useLocation();
   
@@ -103,14 +106,19 @@ export default function FormSubjectComponent({
       }, []);
 
       const onSubmit = async  (data: SubjectFormModel) => {
+        console.log('saassass');
           //const dataArtikal = location.state;
           await dispatch(sendSubject({data})).then((res) => {
             if(res.payload === "sucsess") {
-                  setShowError(true);
+                  //setShowError(true);
+                  dispatch(setopenModalCreateSubject(false));
+                  dispatch(setOpenModalSucessLoad(true));
                   setTimeout(() => {
-                      setShowError(false);
+                      //setShowError(false);
+                      dispatch(setOpenModalSucessLoad(false));
                       navigate('/articles/subject'
                       )
+                      window.location.reload();
                   }, 2000);
             }  else {
               setShowErrorModal(true);  
@@ -139,16 +147,7 @@ export default function FormSubjectComponent({
         <Grid item xs={12}>
             <SucessModal    open={showError} ></SucessModal>
             <ErrorModal    open={showErrorModal} ></ErrorModal>
-            <Box
-              sx={{
-                ...formComponent.basicBox,
-                textAlign: "start",
-                mt: 18
-              }}
-            >
-                <Typography sx={formComponent.typography}>
-                    {('PODACI O KOMITENTU').toUpperCase()}
-                </Typography>
+        
                 <Paper style={formComponent.groupPaper}>
                 <Grid container spacing={2}>
                     <Grid item xs={4}>
@@ -321,32 +320,15 @@ export default function FormSubjectComponent({
                     </Grid>
                 </Grid>
                 </Paper>
-            </Box>
             
-            <Grid item xs={5}>
-                  <Box
-                    sx={{
-                      ...formComponent.basicBox,
-                      textAlign: "end",
-                    }}
-                  >
-                    <Paper sx={formComponent.paper}>
+            <Grid item xs={5} sx={{mt:  marginTopBox}}>
+      
                       <CustomButtonFc
                         groupButton={[
                           {
-                            title: "DELETE",
-                            disabled: true,
-                            btnFn: () => reset(),
-                          },
-                          {
-                            title: "DOWNLOAD",
-                            disabled: true,
-                            btnFn: () => reset(),
-                          },
-                          {
-                            title: "UPDATE",
-                            disabled: true,
-                            btnFn: () => reset(),
+                            title: "ODUSTANI",
+                            disabled: false,
+                            btnFn: () => dispatch(setopenModalCreateSubject(false)),
                           },
                           {
                             title: "SACUVAJ",
@@ -355,8 +337,8 @@ export default function FormSubjectComponent({
                           },
                         ]}
                       />
-                    </Paper>
-                  </Box>
+                   
+
             </Grid>
   
         </Grid>

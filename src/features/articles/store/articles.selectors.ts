@@ -43,6 +43,11 @@ export const   selectOpenCreateArtical = createSelector(
   (state: FeatureState) => state.openCreateArticles
 );
 
+export const   selectOpenCreateSubject = createSelector(
+  featureSelectors,
+  (state: FeatureState) => state.openCreateSubject
+);
+
 
 export const   selectOpenCreateArticalPrice = createSelector(
   featureSelectors,

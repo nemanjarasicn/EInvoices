@@ -104,6 +104,14 @@ export const selectOpenPdf = createSelector(
 );
 
 
+export const selectOpenDistributor = createSelector(
+  featureSelectors,
+  (state: FeatureState) => {
+    return state.openModalDistributor;
+  }
+);
+
+
 export const selectCompanyInfo = createSelector(
   featureSelectors,
   (state: FeatureState) => {

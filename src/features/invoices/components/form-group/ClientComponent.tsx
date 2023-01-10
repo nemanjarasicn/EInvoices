@@ -9,7 +9,14 @@ import {
 } from "../form-fields/models/form-fields.models";
 import { selectClientCompanies } from "../form-fields/store/form.selectors";
 import {FormAutocompleteField} from "../form-fields/FormAutocompleteField";
+import IconButton from '@mui/material/IconButton';
 import { UseFormSetValue } from "react-hook-form";
+import {  setopenModalCreateSubject   }  from  "../../../articles/store/articles.reducer"
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useAppDispatch, useAppSelector } from "../../../../app/hooks";
+import {  faPlus}   from '@fortawesome/pro-solid-svg-icons';
+import ModalCreateSubject from "../../../articles/components/ModalCreateSubject";
+import { selectOpenCreateSubject }  from "../../../articles/store/articles.selectors"
 
 type ClientComponentProps = GroupFieldProps & {
   additional: {
@@ -53,6 +60,8 @@ export default function ClientComponent({
   props,
 }: IProps<ClientComponentProps>): JSX.Element {
   const { formSetValue } = props.additional;
+  const  dispatch = useAppDispatch();
+  const openModalCreateSubject = useAppSelector(selectOpenCreateSubject);
 
   /**
    * Handle composition
@@ -74,8 +83,10 @@ export default function ClientComponent({
   };
 
   return (
+    <>
+    <ModalCreateSubject    open={openModalCreateSubject} ></ModalCreateSubject>
     <Grid container spacing={2}>
-      <Grid item xs={4}>
+      <Grid item xs={3}>
         <FormAutocompleteField
           props={{
             name: "foundClient",
@@ -88,6 +99,11 @@ export default function ClientComponent({
             },
           }}
         />
+      </Grid>
+      <Grid item xs={1}>
+        <IconButton sx={{display:  'flex', justifyContent:  'center'}} color="primary" aria-label="pdf" component="label"  onClick={() => {dispatch(setopenModalCreateSubject(true))}}>
+            <FontAwesomeIcon icon={faPlus}   />
+        </IconButton>
       </Grid>
       <Grid item xs={5}>
         <FormTextField
@@ -138,5 +154,6 @@ export default function ClientComponent({
         />
       </Grid>
     </Grid>
+    </>
   );
 }

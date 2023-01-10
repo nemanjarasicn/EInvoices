@@ -8,7 +8,7 @@ import { selectMarketPlaces } from "../shared/components/form-fields/store/form.
 import { ArticlesFormComponentProps }  from "../articles/components/ArticlesFormComponent"
 import { CreateType } from   "../articles/models/articles.enums"
 import { useAppDispatch } from "../../app/hooks";
-import  { setopenModalCreateArtical }  from  "./store/articles.reducer"
+import  { setopenModalCreateArtical,  setopenModalCreateSubject }  from  "./store/articles.reducer"
 
 
 type FeatureSettings = {
@@ -88,7 +88,7 @@ const useFeatureSettings = (): FeatureSettings => {
             {
               title: "Kreiraj novog komitenta",
               disabled: false,
-              btnFn: () => navigate("/articles/createSubject"),
+              btnFn: () =>   dispatch(setopenModalCreateSubject(true))//navigate("/articles/createSubject"),
             },
           ],
           buttonsSelect:  {

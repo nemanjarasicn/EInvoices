@@ -253,7 +253,8 @@
           gridRowGap: "20px",
           padding: "20px",
           background: "white",
-          minHeight: "300px"
+          minHeight: "300px",
+          marginTop: '10px'
         },
         groupPaperPrice: {
           display: "grid",

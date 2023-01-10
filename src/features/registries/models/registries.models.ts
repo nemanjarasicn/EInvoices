@@ -133,6 +133,7 @@
     confirmpassword: string = "";
     companyList: number[]  |  string[]  = [];
     userRole: string  = "";
+    payeeFinancialAccount:   string  =   "";
   }
   
  

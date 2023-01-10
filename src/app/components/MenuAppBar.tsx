@@ -44,6 +44,9 @@ import { faListRadio }    from '@fortawesome/pro-solid-svg-icons';
 import { faGridHorizontal }    from '@fortawesome/pro-solid-svg-icons';
 import { faGears }    from '@fortawesome/pro-solid-svg-icons';
 
+import {  selectOpenModalSucessLoad  }  from   "../core/core.selectors"
+import   ModalSucessLoad   from  "../components/ModelSucess"
+
 const drawerWidth =  200;
 
 
@@ -78,6 +81,7 @@ export default function ClippedDrawer() {
   const isDistributor  =  useAppSelector(selectUser)?.authorities?.slice(0,1)[0].authority === "ROLE_DISTRIBUTER" ? true  :   false;
   const isUser  =  useAppSelector(selectUser)?.authorities?.slice(0,1)[0].authority === "ROLE_USER" ? true  :   false;
   const showAdmin =  isDistributor;
+  const openModalSucessLoad = useAppSelector(selectOpenModalSucessLoad);
 
   const [calcNumber, setCalcNumber] =  React.useState<number>(1);
   const [showSubMenu,  setShowSubMenu] =  React.useState<boolean>(false);
@@ -237,6 +241,8 @@ export default function ClippedDrawer() {
   
 
   return (
+    <>
+    <ModalSucessLoad    open={openModalSucessLoad} ></ModalSucessLoad>
     <Box sx={{ display: "flex"  }}>
       <CssBaseline />
       <Slide appear={false} direction="down" in={!trigger}>
@@ -460,5 +466,6 @@ export default function ClippedDrawer() {
         <Outlet />
       </Box>
     </Box>
+  </>
   );
 }

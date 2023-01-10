@@ -25,6 +25,8 @@ import { selectUser, selectCompanyAdmin }  from  "../../../app/core/core.selecto
 import Breadcrumbs from '@mui/material/Breadcrumbs';
 import Link from '@mui/material/Link';
 import Typography from '@mui/material/Typography';
+import  { selectOpenDistributor  }   from  "../store/registries.selectors"
+import  ModalDistributor  from   "../components/ModalDistributor"
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -48,6 +50,7 @@ export default function InvoiceTemplatePage({
   const { tableSettings } = useTableSettings();
   const { templatePageStyles } = usePageStyles();
   const company = useAppSelector(selectCompany) ?? "";
+  const openModalCreateDistributor = useAppSelector(selectOpenDistributor);
   const methods = useForm({
     defaultValues: {},
   });
@@ -105,6 +108,8 @@ export default function InvoiceTemplatePage({
   const fontSizeBreadcrumbs  =   window.devicePixelRatio === 1.5 ?  '16px' :  '20px';
   
   return (
+    <>
+    <ModalDistributor    open={openModalCreateDistributor} ></ModalDistributor>
     <Box sx={{ flexGrow: 1,  mt:   marginTopBox}}>
       <Grid container >
         <Grid item xs={4} >
@@ -155,5 +160,6 @@ export default function InvoiceTemplatePage({
         <Grid item xs={12}></Grid>
       </Grid>
     </Box>
+    </>
   );
 }

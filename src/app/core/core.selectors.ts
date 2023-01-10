@@ -64,6 +64,15 @@ export const loginLoading = createSelector(
 
 
 /**
+ * Select all openModalSucess
+ */
+ export const selectOpenModalSucessLoad = createSelector(
+  coreSelectors,
+  (state: CoreState) => state.openModalSucessLoad
+);
+
+
+/**
  * Select color
  */
  export const selectColor = createSelector(

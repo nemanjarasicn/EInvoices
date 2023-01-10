@@ -20,6 +20,8 @@ import  ErrorModal   from   "../../shared/components/ErrorModals"
 import { selectUser }  from  "../../../app/core/core.selectors"
 import SucessModal   from "../../shared/components/SucessModal"
 import  {  sendsubscribe  }  from   "../store/registries.actions"
+import  {  setopenModalDistributor  }   from  "../store/registries.reducer"
+import {   setOpenModalSucessLoad  }  from  "../../../app/core/core.reducer"
 
 import { setCompanyAdmin } from "../../../app/core/core.reducer";
 
@@ -68,11 +70,13 @@ export default function FormDistributorComponent({
        
         dispatch(sendDistributor({data})).then(async (res) => { 
             if(res.payload.message === 'sucsses') {
-              setShowError(true);  
+              //setShowError(true); 
+              dispatch(setOpenModalSucessLoad(true)); 
+              dispatch(setopenModalDistributor(false));
               setTimeout(async () => {
-                    setShowError(false);
+                    //setShowError(false);
+                        dispatch(setOpenModalSucessLoad(false)); 
                         navigate('/registries/companies')
-                    
                      }, 2000);
             } else {
               setShowErrorModal(true);  
@@ -91,7 +95,7 @@ export default function FormDistributorComponent({
         <Grid item xs={12}>
             <SucessModal    open={showError} ></SucessModal>
             <ErrorModal    open={showErrorModal} ></ErrorModal>
-                <Grid container spacing={2}>
+                <Grid container spacing={2}  sx={{mt: 5}}>
                     <Grid item xs={6}>
                         <FormTextField
                         props={{
@@ -179,30 +183,14 @@ export default function FormDistributorComponent({
                     />*/}
                     </Grid>
                 </Grid>
-                <Grid item xs={5}>
-                      <Box
-                        sx={{
-                          ...formComponent.basicBox,
-                          textAlign: "end",
-                        }}
-                      >
-                        <Paper sx={formComponent.paper}>
+                <Grid item xs={5} sx ={{mt: 5}}>
+                     
                           <CustomButtonFc
                             groupButton={[
                               {
-                                title: "DELETE",
-                                disabled: true,
-                                btnFn: () => reset(),
-                              },
-                              {
-                                title: "DOWNLOAD",
-                                disabled: true,
-                                btnFn: () => reset(),
-                              },
-                              {
-                                title: "UPDATE",
-                                disabled: true,
-                                btnFn: () => reset(),
+                                title: "ODUSTANI",
+                                disabled: false,
+                                btnFn: () => dispatch(setopenModalDistributor(false)),
                               },
                               {
                                 title: "SACUVAJ",
@@ -211,8 +199,6 @@ export default function FormDistributorComponent({
                               },
                             ]}
                           />
-                        </Paper>
-                      </Box>
               </Grid>
         </Grid>
     )

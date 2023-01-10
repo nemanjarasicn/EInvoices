@@ -25,8 +25,9 @@ import Link from '@mui/material/Link';
 import Typography from '@mui/material/Typography';
 
 
-import  { selectOpenCreateArtical,  selectOpenCreateArticalPrice, selectOpenSucessModal }  from  "../store/articles.selectors"
+import  { selectOpenCreateArtical,  selectOpenCreateArticalPrice, selectOpenSucessModal,  selectOpenCreateSubject }  from  "../store/articles.selectors"
 import  ModalSucessArticles  from   "../components/ModalSucessArticles"
+import ModalCreateSubject from "../components/ModalCreateSubject";
 import ModalCreateArtical from "../components/ModalCreateArtical";
 import ModalCreateArticalPrice from "../components/ModalCreateArticalPrice";
 import { Navigate } from "react-router-dom";
@@ -56,6 +57,7 @@ export default function InvoiceTemplatePage({
   const { tableSettings } = useTableSettings();
   const { templatePageStyles } = usePageStyles();
   const openSucessModalArtical = useAppSelector(selectOpenSucessModal);
+  const openModalCreateSubject = useAppSelector(selectOpenCreateSubject);
   const openModalCreateArtical = useAppSelector(selectOpenCreateArtical);
   const navigate  = useNavigate();
   const openModalCreateArticalPrice = useAppSelector(selectOpenCreateArticalPrice);
@@ -110,6 +112,7 @@ export default function InvoiceTemplatePage({
     <>
     <ModalCreateArtical    open={openModalCreateArtical} ></ModalCreateArtical>
     <ModalSucessArticles  open={openSucessModalArtical} ></ModalSucessArticles>
+    <ModalCreateSubject    open={openModalCreateSubject} ></ModalCreateSubject>
     <ModalCreateArticalPrice    open={openModalCreateArticalPrice.open}  data={openModalCreateArticalPrice.data} flag={openModalCreateArticalPrice.flag}></ModalCreateArticalPrice>
     <Box sx={{ flexGrow: 1, m: 2.5 }}>
       <Grid container spacing={2}  mt={8}>
