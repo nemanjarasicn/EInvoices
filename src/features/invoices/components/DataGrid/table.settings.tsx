@@ -349,7 +349,7 @@ const useTableSettings = (): TableSettings => {
             },
             {
               field: "clientName",
-              headerName: "TableColumns.Supplier",
+              headerName: "TableColumns.SupplierName",
               flex: 1,
               headerAlign: "center",
               align: "center",

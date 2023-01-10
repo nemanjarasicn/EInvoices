@@ -100,7 +100,6 @@ export const selectCurrentDocNumber = createSelector(
 );
 
 function convertToProductModel(item: any): ProductModel {
-  console.log('asasass',item)
   return {
     idVat: item.productVatRequest?.idVat,
     vatName: item.taxName,  //vatName
@@ -169,6 +168,7 @@ function convertToCompanyModel(item: any): CustomerPartyModel {
     contact: {
       electronicMail: item.email,
     },
+    jbkjs: item.jbkjs
   };
 }
 

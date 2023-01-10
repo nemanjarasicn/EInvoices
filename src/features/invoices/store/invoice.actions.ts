@@ -68,13 +68,16 @@ const sendInvoce: AsyncThunk<any, { invoice: any, companyInfo?: any }, {}> = cre
   const { apiKey } = core.userCompany;
   const { autocompleteData } = form;
   const  payeeFinancialAccountDtoCompany =  invoiceDto?.companyInfo?.payeeFinancialAccountDto;
- 
   const foundCompany = autocompleteData.companies.find(
     (buyer: any) =>
       buyer.mb ===
       invoiceDto.invoice.accountingCustomerParty.partyLegalEntity.companyID
   );
 
+
+
+  console.log('compn', invoiceDto.invoice );
+  
 
   (invoiceDto.invoice as any)["paymentMeans"] = createPaymentMeans(
     //foundCompany,
@@ -83,7 +86,11 @@ const sendInvoce: AsyncThunk<any, { invoice: any, companyInfo?: any }, {}> = cre
     invoiceDto.invoice.modelNumber
   );
 
+  
   (invoiceDto.invoice as any)["idCompany"] = core.userCompany.idCompany;
+   if(invoiceDto.invoice.accountingCustomerParty.jbkjs)   {
+      (invoiceDto.invoice as any)["buyerReference"] =  invoiceDto.invoice.accountingCustomerParty.jbkjs;
+   }
 
   (invoiceDto.invoice as any)["accountingSupplierParty"] = createSupplayerData(
     core.userCompany

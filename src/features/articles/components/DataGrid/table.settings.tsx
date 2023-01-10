@@ -58,7 +58,8 @@ const useTableSettings = (): TableSettings => {
               flex: 1,
               headerAlign: "center",
               align: "center",
-              hideable: false,
+              hideable: true,
+              hide: true
             },
             {
               field: "prodctId",

@@ -171,6 +171,7 @@ export interface CustomerPartyModel {
     companyID: number;
   };
   contact: { electronicMail: string };
+  jbkjs?: string;
 }
 
 export interface InvoiceSearchParams {
