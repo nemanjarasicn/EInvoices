@@ -10,6 +10,8 @@ import { RegistriesFormComponentProps } from "./components/RegistriesFormCompone
 import {   useAppSelector } from "../../app/hooks";
 import { selectMarketPlaces, selectPointOfSale } from "../shared/components/form-fields/store/form.selectors";
 import { selectUser } from "../../app/core/core.selectors";
+import { useDispatch } from "react-redux"
+import  {  setopenModalDistributor  }   from  "./store/registries.reducer"
 
 
 type FeatureSettings = {
@@ -38,6 +40,7 @@ const useFeatureSettings = (): FeatureSettings => {
   let navigate = useNavigate();
   const user = useAppSelector(selectUser);
   const userAuthority = useAppSelector(selectUser)?.authorities?.slice(0,1)[0].authority === "ROLE_ADMIN" ? true  :   false;
+  const dispatch = useDispatch();
   //const showCard = user?.username  ===  "dejan" ?  false :  true;
   const showCard = false;
   return {
@@ -210,7 +213,7 @@ const useFeatureSettings = (): FeatureSettings => {
           {
             title: "Kreiraj distributera",
             disabled: !userAuthority,
-            btnFn: () => navigate("/registries/createDistributor"),
+            btnFn: () => {dispatch(setopenModalDistributor(true)); },
           },
           {
             title: "Companies.createNew",

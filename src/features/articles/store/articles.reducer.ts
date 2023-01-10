@@ -20,6 +20,7 @@ import {
     openCreateArticles:  boolean;
     openCreateArticlesPrice:  {open: boolean, data?:  any, flag?: string };
     openSucessModal:  boolean;
+    openCreateSubject:  boolean;
     loading: boolean;
   }
 
@@ -30,6 +31,7 @@ import {
     openCreateArticles:  false,
     openCreateArticlesPrice:  {open: false, data: "", flag: ""},
     openSucessModal:  false,
+    openCreateSubject:   false,
     loading: false,
   };
   
@@ -49,7 +51,12 @@ import {
         ...state,
         openSucessModal: payload,
       }),
-    
+      
+
+      setopenModalCreateSubject: (state,{payload}) => ({
+        ...state,
+        openCreateSubject: payload,
+      }),
       //custom
      },
      extraReducers: (builder) => {
@@ -63,7 +70,8 @@ import {
     increment,
     setopenModalCreateArtical,
     setopenModalCreateArticalPrice,
-    setOpenSucessModal
+    setOpenSucessModal,
+    setopenModalCreateSubject
   } = articlesSlice.actions;
   
   export default articlesSlice.reducer;

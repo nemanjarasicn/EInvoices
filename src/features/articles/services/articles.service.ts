@@ -118,10 +118,11 @@ sendSubject(data: any) {
             "zip":    data.data.zip,
             "phone":    data.data.phone,
             "email":   data.data.email,
-            "jbkjs":   data.data.email,
+            "jbkjs":   "",
             "subjectIdCategory":   data.data.subjectIdCategory.id,
             "subjectIdType":  data.data.subjectIdType.id,
-            "payeeFinancialAccountDto": [`${data.data.payeeFinancialAccountDto}`],
+            "payeeFinancialAccountDto": [{
+               "payeeFinancialAccountValue": `${data.data.payeeFinancialAccountDto}`}],
             "userId":   "",
             "discount": 0,
             "idVat": 1,

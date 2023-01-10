@@ -35,6 +35,7 @@ import {
     warehouses:  any[];
     users: any[];
     openModalPdf: boolean;
+    openModalDistributor:  boolean;
     companyInfo: any;
     companyDistributor:  any[];
     loading: boolean;
@@ -51,6 +52,7 @@ import {
     warehouses: [],
     users:  [],
     openModalPdf:  false,
+    openModalDistributor:   false,
     companyInfo: {},
     companyDistributor: [],
     loading: false,
@@ -63,6 +65,11 @@ import {
       setopenModalPdf: (state,{payload}) => ({
         ...state,
         openModalPdf: payload,
+      }),
+
+      setopenModalDistributor: (state,{payload}) => ({
+        ...state,
+        openModalDistributor: payload,
       }),
       //custom
      },
@@ -83,7 +90,8 @@ import {
   )
   
   export const {
-    setopenModalPdf
+    setopenModalPdf,
+    setopenModalDistributor
   } = registriesSlice.actions;
   
   export default registriesSlice.reducer;
