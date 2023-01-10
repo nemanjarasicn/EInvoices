@@ -101,6 +101,7 @@ export default function FormCompaniesComponent({
               if(data.apiKey) {
                 dispatch(sendsubscribe({data: res.payload.data}));
               }
+              
               /*if(data.distributor) {
                 console.log('distributer', res.payload.idCompany);
                 dispatch(sendDistributorCompany({companyId: res.payload.idCompany, }))
