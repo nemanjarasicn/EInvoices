@@ -18,17 +18,24 @@ type ConfirmWithCommentDialogProps = {
   keepMounted: boolean;
   open: boolean;
   onClose: (value?: any) => void;
+  action?:  string;
 };
 
-const schema = yup
-  .object({
-    //controlArea: yup.string().trim().required(" "),
-  })
-  .required();
 
 export default function ConfirmWithCommentDialog({
   props,
 }: IProps<ConfirmWithCommentDialogProps>) {
+
+  const schema = 
+  (props.action === 'reject' ||  props.action === 'cancel') ?
+      yup.object({
+        controlArea: yup.string().trim().required("Komentar je obavezan"),
+      })
+      .required() :
+      yup.object({
+        //controlArea: yup.string().trim().required(" "),
+      })
+      .required();
   const { t } = useTranslation();
   const methods = useForm({
     defaultValues: { controlArea: "" },
@@ -36,11 +43,12 @@ export default function ConfirmWithCommentDialog({
   });
   const { handleSubmit, reset, control } = methods;
   const { onClose, open, ...other } = props;
-
   const handleCancel = (): void => {
     onClose({flagButton: 'cancel'});
     reset();
   };
+
+
 
   const handleOk = handleSubmit((data: { controlArea: string }): void => {
     onClose({comment: data.controlArea, flagButton: 'send'});
