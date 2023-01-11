@@ -120,7 +120,7 @@ function convertToProductModel(item: any): ProductModel {
       name: item.productName,
       sellersItemIdentification: { id: 1 },
       classifiedTaxCategory: {
-        id: item.taxName,
+        id: item.taxCode,
         taxScheme: { id: "VAT" },
         percent: Number(((item.taxValue1 - 1) * 100).toFixed(2)),
       },
@@ -139,10 +139,12 @@ function convertToProductModel(item: any): ProductModel {
   };
 }
 function convertToCompanyModel(item: any): CustomerPartyModel {
+  console.log('asasassas', item);
   return {
     party: {
       schemeID: SchemeID.NOT_CIR,
       endpointID: item.pib,
+      ...(item.jbkjs) && {partyIdentification:`JBKJS:${item.jbkjs}`},
       partyName: [
         {
           name: item.companyName,
