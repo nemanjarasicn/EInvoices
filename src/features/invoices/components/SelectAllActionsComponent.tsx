@@ -250,6 +250,7 @@ function downloadXml(data: Blob, fileName: string) {
           keepMounted: true,
           open: openConfirm,
           onClose: handleClose,
+          action: actionValue?.actionType
         }}
       ></ConfirmWithCommentDialog>
     </div>
