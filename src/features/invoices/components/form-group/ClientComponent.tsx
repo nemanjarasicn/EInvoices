@@ -15,8 +15,24 @@ import {  setopenModalCreateSubject   }  from  "../../../articles/store/articles
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useAppDispatch, useAppSelector } from "../../../../app/hooks";
 import {  faPlus}   from '@fortawesome/pro-solid-svg-icons';
+import { styled } from '@mui/material/styles';
 import ModalCreateSubject from "../../../articles/components/ModalCreateSubject";
+import Tooltip, { TooltipProps, tooltipClasses } from '@mui/material/Tooltip';
 import { selectOpenCreateSubject }  from "../../../articles/store/articles.selectors"
+
+
+const LightTooltip = styled(({ className, ...props }: TooltipProps) => (
+  <Tooltip {...props} classes={{ popper: className }} />
+))(({ theme }) => ({
+  [`& .${tooltipClasses.tooltip}`]: {
+    backgroundColor: theme.palette.common.white,
+    color: 'rgba(0, 0, 0, 0.87)',
+    boxShadow: theme.shadows[1],
+    fontSize: 11,
+  },
+}));
+
+
 
 type ClientComponentProps = GroupFieldProps & {
   additional: {
@@ -61,7 +77,6 @@ export default function ClientComponent({
 }: IProps<ClientComponentProps>): JSX.Element {
   const { formSetValue } = props.additional;
   const  dispatch = useAppDispatch();
-  const openModalCreateSubject = useAppSelector(selectOpenCreateSubject);
 
   /**
    * Handle composition
@@ -84,7 +99,6 @@ export default function ClientComponent({
 
   return (
     <>
-    <ModalCreateSubject    open={openModalCreateSubject} ></ModalCreateSubject>
     <Grid container spacing={2}>
       <Grid item xs={3}>
         <FormAutocompleteField
@@ -101,9 +115,11 @@ export default function ClientComponent({
         />
       </Grid>
       <Grid item xs={1}>
+      <LightTooltip title="Kreiraj komitenta">
         <IconButton sx={{display:  'flex', justifyContent:  'center'}} color="primary" aria-label="pdf" component="label"  onClick={() => {dispatch(setopenModalCreateSubject(true))}}>
             <FontAwesomeIcon icon={faPlus}   />
         </IconButton>
+      </LightTooltip>
       </Grid>
       <Grid item xs={5}>
         <FormTextField

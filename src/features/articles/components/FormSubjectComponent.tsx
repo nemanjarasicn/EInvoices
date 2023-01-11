@@ -13,6 +13,7 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import CustomButtonFc from "../../shared/components/CustomButtonFc";
+import CustomButtonFcTra from "../../shared/components/CustomButtonFcTra";
 import { PriceFormModel,   IProps,  SubjectFormModel } from "../models/articles.models";
 import { useNavigate } from 'react-router-dom';
 import  ErrorModal   from   "../../shared/components/ErrorModals"
@@ -106,7 +107,7 @@ export default function FormSubjectComponent({
       }, []);
 
       const onSubmit = async  (data: SubjectFormModel) => {
-
+          console.log('sasassas');
           //const dataArtikal = location.state;
           await dispatch(sendSubject({data})).then((res) => {
             if(res.payload === "sucsess") {
@@ -148,8 +149,8 @@ export default function FormSubjectComponent({
             <SucessModal    open={showError} ></SucessModal>
             <ErrorModal    open={showErrorModal} ></ErrorModal>
         
-                <Paper style={formComponent.groupPaper}>
-                <Grid container spacing={2}>
+               
+                <Grid container spacing={2} sx = {{ minHeight: "300px", marginTop: '10px'}}>
                     <Grid item xs={4}>
                     {/*<FormTextField
                         props={{
@@ -319,11 +320,27 @@ export default function FormSubjectComponent({
                      /> 
                     </Grid>
                 </Grid>
-                </Paper>
+      
             
             <Grid item xs={5} sx={{mt:  marginTopBox}}>
-      
-                      <CustomButtonFc
+                  <Grid item xs={12} sx = {{display: 'flex', justifyContent: 'space-between'}} >
+                      <CustomButtonFcTra 
+                           soloButton={{
+                              title: "Otkaži",
+                              disabled: false,
+                              btnFn: () => dispatch(setopenModalCreateSubject(false)),
+                          }}
+                        />
+
+                        <CustomButtonFc 
+                           soloButton={{
+                              title: "SAČUVAJ",
+                              disabled: false,
+                              btnFn: handleSubmit(onSubmit),
+                          }}
+                        />
+                  </Grid>
+                      {/*<CustomButtonFc
                         groupButton={[
                           {
                             title: "ODUSTANI",
@@ -336,7 +353,7 @@ export default function FormSubjectComponent({
                             btnFn: handleSubmit(onSubmit),
                           },
                         ]}
-                      />
+                      />*/}
                    
 
             </Grid>

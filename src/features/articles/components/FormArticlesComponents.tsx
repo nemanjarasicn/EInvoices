@@ -13,6 +13,7 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import CustomButtonFc from "../../shared/components/CustomButtonFc";
+import CustomButtonFcTra from "../../shared/components/CustomButtonFcTra";
 import { ArticleFormModel,   IProps } from "../models/articles.models";
 import { useNavigate } from 'react-router-dom';
 import FormAutocompleteField from "../../shared/components/form-fields/FormAutocompleteField";
@@ -133,6 +134,7 @@ export default function FormArticleComponent({
         dispatch(getUnitsAll());
         dispatch(getTaxCode());
         dispatch(getMarketPlacesAll({companyId: companyId}));
+        dispatch(getVatAll());
   
       }, []);
 
@@ -157,6 +159,7 @@ export default function FormArticleComponent({
       }, [watch('taxBase')]);
 
       const onSubmit = async  (data: ArticleFormModel) => {
+        console.log('sasassas', data);
          await dispatch(sendArticle({data})).then(async (res) => {
             if(res.payload.message === "sucsess") {
               dispatch(setopenModalCreateArtical(false));
@@ -194,8 +197,8 @@ export default function FormArticleComponent({
                 <Typography sx={formComponent.typography}>
                     {('Osnovni podaci').toUpperCase()}
             </Typography>*/}
-                <Paper style={formComponent.groupPaper}>
-                <Grid container spacing={2}>
+                
+                <Grid container spacing={2}  sx={{ minHeight: "300px", marginTop: '10px'}}>
                     <Grid item xs={6}>
   
                       <FormTextField
@@ -367,7 +370,7 @@ export default function FormArticleComponent({
                         props={{
                             name: "productUnitRequest",
                             control: control,
-                            label:  "Jm",
+                            label:  "Jedinica mere",
                             disabled: false,
                             additional: {
                             selector:  selectUnitsAll,
@@ -380,12 +383,25 @@ export default function FormArticleComponent({
                         props={{
                             control: control,
                             name: "taxcodeValue",
-                            label:   "Poreska stopa",
+                            label:   "Vrednost PDV kategorije",
                             disabled: false,
                             additional: { readonly: true, labelShrink: true }
                         
                         }}
                     />
+                    
+                    <FormAutocompleteField
+                        props={{
+                            name: "productVatRequest",
+                            control: control,
+                            label:  "Vat",
+                            disabled: false,
+                            additional: {
+                            selector:  selectVatsAll,
+                            
+                            },
+                        }}
+                      />
 
                     {/*<div   style={{display:  showTaxBase  }}   >
                     <FormTextField
@@ -414,37 +430,30 @@ export default function FormArticleComponent({
                       />*/}
                     </Grid>
                 </Grid>
-                </Paper>
+
            {/* </Box> */}
            
             <Grid item xs={5}  sx ={{mt: 3}}>
 
-                    
-                      <CustomButtonFc
-                        groupButton={[
-                          /*{
-                            title: "DELETE",
-                            disabled: true,
-                            btnFn: () => reset(),
-                          },
-                          {
-                            title: "DOWNLOAD",
-                            disabled: true,
-                            btnFn: () => reset(),
-                          },*/
-                          {
-                            title: "ODUSTANI",
-                            disabled: false,
-                            btnFn: () => dispatch(setopenModalCreateArtical(false)),
-                          },
-                          {
-                            title: "SACUVAJ",
-                            disabled: false,
-                            btnFn: handleSubmit(onSubmit),
-                          },
-                        ]}
-                      />
-                
+              <Grid item xs={12} sx = {{display: 'flex', justifyContent: 'space-between'}} >
+                      <CustomButtonFcTra 
+                           soloButton={{
+                              title: "Otkaži",
+                              disabled: false,
+                              btnFn: () => dispatch(setopenModalCreateArtical(false)),
+                          }}
+                        />
+
+                        <CustomButtonFc 
+                           soloButton={{
+                              title: "SAČUVAJ",
+                              disabled: false,
+                              btnFn: handleSubmit(onSubmit),
+                          }}
+                        />
+                  </Grid>
+
+
 
             </Grid>
   

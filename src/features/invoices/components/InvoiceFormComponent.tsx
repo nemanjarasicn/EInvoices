@@ -33,6 +33,8 @@ import PrepaymentComponent from "./form-group/PrepaymentComponent";
 import InvoiceGroupComponent from "./form-group/InvoiceGroupComponent";
 import AttachFileIcon from "@mui/icons-material/AttachFile";
 import SucessModal   from "../../shared/components/SucessModal"
+import { selectOpenCreateSubject }  from "../../articles/store/articles.selectors"
+import ModalCreateSubject from "../../articles/components/ModalCreateSubject";
 import RestoreRoundedIcon from "@mui/icons-material/RestoreRounded";
 import  ErrorModal   from   "../../shared/components/ErrorModals"
 import TextsmsOutlinedIcon from "@mui/icons-material/TextsmsOutlined";
@@ -94,6 +96,7 @@ export default function InvoiceFormComponent({
   const dispatch = useAppDispatch();
   const companyId = useAppSelector(selectCompanyCurrent);
   const companyInfo = useAppSelector(selectCompanyInfo);
+  const openModalCreateSubject = useAppSelector(selectOpenCreateSubject);
 
   const marketPlaces = useAppSelector(selectMarketPlaces);
   const [errorMessage, setErrorMessage] = React.useState("");
@@ -248,6 +251,7 @@ export default function InvoiceFormComponent({
     <>
     <SucessModal    open={showError} ></SucessModal>
     <ErrorModal    open={showErrorModal}  message={errorMessage} ></ErrorModal>
+    <ModalCreateSubject    open={openModalCreateSubject} ></ModalCreateSubject>
     <Box
       sx={{ flexGrow: 1, rowGap: 1, display: "flex", flexDirection: "column", mt: '20px' }}
     >
