@@ -19,7 +19,7 @@ export const selectArticles = createSelector(
     return state.articles.map((item, index) => ({
         id: item.id,
         productName: item.productName,
-        decimalShow: item.decimalShow,
+        decimalShow: item.decimalShow === true ? "da" :  "ne",
         barCode:  item.barCode,
         code: item.code,
         unitCode: item.unitCode,

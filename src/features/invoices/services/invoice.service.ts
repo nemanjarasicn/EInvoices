@@ -167,7 +167,6 @@ class InvoicePublicService {
 export default new InvoicePublicService();
 
 function mapToRequestDTO(invoice: any): any {
-  console.log('sasaasaaasasssassas',invoice.lotNumber )
   invoice.issueDate = dayjs(invoice.issueDate).format("YYYY-MM-DD");
   invoice.dueDate = dayjs(invoice.dueDate).format("YYYY-MM-DD");
   invoice["discount"] = invoice.priceWithoutDiscount - invoice.sumWithDiscount;
@@ -180,12 +179,12 @@ function mapToRequestDTO(invoice: any): any {
   invoice["orderReference"] = {
     id: invoice.orderNumber,
   };
-  invoice["ContractDocumentReference"] = {
+  invoice["contractDocumentReference"] = [{
     id: invoice.contractNumber,
-  };
-  invoice["OriginatorDocumentReference"] = {
+  }];
+  invoice["originatorDocumentReference"] = [{
     id: invoice.lotNumber,
-  };
+  }];
   invoice["delivery"] = {
     actualDeliveryDate: invoice.issueDate,
   };

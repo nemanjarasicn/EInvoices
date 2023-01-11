@@ -193,7 +193,7 @@ export default function FormSubjectComponent({
                         props={{
                           name: "mb",
                           control: control,
-                          label: "mb",
+                          label: "Matični broj",
                           additional: { mask: {}, readonly: false },
                           disabled: false,
                         }}
@@ -226,7 +226,7 @@ export default function FormSubjectComponent({
                         props={{
                             name: "subjectIdCategory",
                             control: control,
-                            label: 'Category',
+                            label: 'Kategorija komitenta',
                             disabled: true,
                             additional: {
                             selector: selectSubjectGategory,
@@ -280,7 +280,7 @@ export default function FormSubjectComponent({
                         props={{
                           name: "zip",
                           control: control,
-                          label: "Postanski broj",
+                          label: "Poštanski broj",
                           additional: { mask: {}, readonly: false },
                           disabled: false,
                         }}
@@ -299,7 +299,7 @@ export default function FormSubjectComponent({
                         props={{
                             name: "subjectIdType",
                             control: control,
-                            label: 'Type',
+                            label: 'Tip komitenta',
                             disabled: true,
                             additional: {
                             selector: selectSubjectType,
@@ -312,7 +312,7 @@ export default function FormSubjectComponent({
                         props={{
                           name: "payeeFinancialAccountDto",
                           control: control,
-                          label: "Ziro racun",
+                          label: "Žiro račun",
                           additional: { mask: {}, readonly: false },
                           disabled: false,
                         }}
