@@ -13,6 +13,7 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import CustomButtonFc from "../../shared/components/CustomButtonFc";
+import CustomButtonFcTra from "../../shared/components/CustomButtonFcTra";
 import { PriceFormModel,   IProps } from "../models/articles.models";
 import { useNavigate } from 'react-router-dom';
 import  ErrorModal   from   "../../shared/components/ErrorModals"
@@ -139,8 +140,8 @@ export default function FormArticlePriceComponent({
             <SucessModal    open={showError} ></SucessModal>
             <ErrorModal    open={showErrorModal} ></ErrorModal>
             
-                <Paper style={formComponent.groupPaperPrice}>
-                <Grid container spacing={2}>
+
+                <Grid container spacing={2}  sx={{ minHeight: "150px", marginTop: '10px'}}>
                     <Grid item xs={6}>
                     <FormCurrencyField
                         props={{
@@ -153,26 +154,31 @@ export default function FormArticlePriceComponent({
                      />    
                     </Grid>
                 </Grid>
-                </Paper>
+        
 
             
-            <Grid item xs={5}  sx={{mt: 5}}>
+            <Grid item xs={5}  >
+
+                <Grid item xs={12} sx = {{display: 'flex', justifyContent: 'space-between'}} >
+                      <CustomButtonFcTra 
+                           soloButton={{
+                              title: "Otkaži",
+                              disabled: false,
+                              btnFn: () => dispatch(setopenModalCreateArticalPrice(false)),
+                          }}
+                        />
+
+                        <CustomButtonFc 
+                           soloButton={{
+                              title: "SAČUVAJ",
+                              disabled: false,
+                              btnFn: handleSubmit(onSubmit),
+                          }}
+                        />
+                  </Grid>
             
-                      <CustomButtonFc
-                        groupButton={[
-                          
-                          {
-                            title: "ODUSTANI",
-                            disabled: false,
-                            btnFn: () => { console.log('asassas'); dispatch(setopenModalCreateArticalPrice(false))},
-                          },
-                          {
-                            title: "SACUVAJ",
-                            disabled: false,
-                            btnFn: handleSubmit(onSubmit),
-                          },
-                        ]}
-                      />
+                
+                
 
             </Grid>
   

@@ -22,7 +22,7 @@ const style = {
     left: '50%',
     transform: 'translate(-50%, -50%)',
     width: () => window.devicePixelRatio == 1.5 ? 600 : 800 , 
-    height: () => window.devicePixelRatio == 1.5 ? 300 : 500 ,
+    height: () => window.devicePixelRatio == 1.5 ? 300 : 300 ,
  
 
     bgcolor: 'background.paper',

@@ -16,7 +16,7 @@ const style = {
     left: '50%',
     transform: 'translate(-50%, -50%)',
     width: () => window.devicePixelRatio == 1.5 ? 700 : 900 , 
-    height: () => window.devicePixelRatio == 1.5 ? 600 : 700 ,
+    height: () => window.devicePixelRatio == 1.5 ? 550 : 700 ,
  
 
     bgcolor: 'background.paper',

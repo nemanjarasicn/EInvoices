@@ -19,6 +19,9 @@ type FormTextFieldProps = FormFieldProps & {
 export default function CustomTextField({
   props,
 }: IProps<FormTextFieldProps>): JSX.Element {
+
+  const fontSize  =    window.devicePixelRatio === 1.5 ?    '12px' :  '16px';
+
   return (
     <Controller
       name={props.name}
@@ -33,9 +36,10 @@ export default function CustomTextField({
           value={value ?? ""}
           fullWidth
           label={props.label}
-          InputLabelProps={{ shrink: props.additional?.labelShrink }}
+          InputLabelProps={{  style: {fontSize:   fontSize}, shrink: props.additional?.labelShrink }}
           variant="outlined"
           InputProps={{
+            style: {fontSize:   fontSize},
             readOnly: props.additional?.readonly ?? false,
             endAdornment: props.additional?.suffix ? (
               <InputAdornment position="end">
