@@ -62,6 +62,7 @@ export default function InvoiceTemplatePage({
   const navigate  = useNavigate();
   const openModalCreateArticalPrice = useAppSelector(selectOpenCreateArticalPrice);
   const company = useAppSelector(selectCompanyCurrent);
+  const marketPlace = useAppSelector(templatePageSettings[props.templateType].buttonsSelect.selector);
   const methods = useForm({
     defaultValues: {},
   });
