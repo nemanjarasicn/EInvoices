@@ -88,9 +88,9 @@ const sendInvoce: AsyncThunk<any, { invoice: any, companyInfo?: any }, {}> = cre
 
   
   (invoiceDto.invoice as any)["idCompany"] = core.userCompany.idCompany;
-   if(invoiceDto.invoice.accountingCustomerParty.jbkjs)   {
+   /*if(invoiceDto.invoice.accountingCustomerParty.jbkjs)   {
       (invoiceDto.invoice as any)["buyerReference"] =  invoiceDto.invoice.accountingCustomerParty.jbkjs;
-   }
+   }*/
 
    if(invoiceDto.invoice.accountingCustomerParty.jbkjs)   {
     (invoiceDto.invoice as any)["sendToCir"] =  "Yes";

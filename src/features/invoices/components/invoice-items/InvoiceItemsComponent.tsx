@@ -130,6 +130,7 @@ export default function InvoiceItemsComponent({
    * Handle Add New Line
    */
   const handleAddLine = (item: AutocompleteItem) => {
+    console.log('safffdsdfsfd', item)
     if (item && item.item) {
       const id = Math.random();
       setItems(() => [

@@ -80,7 +80,7 @@ const useTableSettings = (): TableSettings => {
             },
             {
               field: "decimalShow",
-              headerName: "Prikaz decimala",
+              headerName: "Merljiv",
               flex: 1,
               headerAlign: "center",
               align: "center",
@@ -89,7 +89,7 @@ const useTableSettings = (): TableSettings => {
     
             {
               field: "code",
-              headerName: "Code artikla",
+              headerName: "Šifra",
               flex: 1,
               headerAlign: "center",
               align: "center",
@@ -98,7 +98,7 @@ const useTableSettings = (): TableSettings => {
             },
             {
                 field: "barCode",
-                headerName: "Barcode",
+                headerName: "Barkod(gtin)",
                 flex: 1,
                 headerAlign: "center",
                 align: "center",
@@ -107,7 +107,7 @@ const useTableSettings = (): TableSettings => {
               },
               {
                 field: "unitCode",
-                headerName: "unitCode",
+                headerName: "Jedinica mere",
                 flex: 1,
                 headerAlign: "center",
                 align: "center",
@@ -116,7 +116,7 @@ const useTableSettings = (): TableSettings => {
               },
               {
                 field: "vat",
-                headerName: "Vat",
+                headerName: "Poreska stopa",
                 flex: 1,
                 headerAlign: "center",
                 align: "center",
@@ -153,7 +153,7 @@ const useTableSettings = (): TableSettings => {
               },
               {
                 field: 'action',
-                headerName: 'Action',
+                headerName: '',
                 flex: 1,
                 headerAlign: "center",
                 align: "center",
@@ -196,7 +196,8 @@ const useTableSettings = (): TableSettings => {
               flex: 1,
               headerAlign: "center",
               align: "center",
-              hideable: false,
+              hideable: true,
+              hide: true
             },
             {
               field: "firstName",
@@ -235,7 +236,7 @@ const useTableSettings = (): TableSettings => {
               },
               {
                 field: "mb",
-                headerName: "mb",
+                headerName: "Matični broj",
                 flex: 1,
                 headerAlign: "center",
                 align: "center",

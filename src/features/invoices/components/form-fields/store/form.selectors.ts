@@ -186,9 +186,10 @@ function resolvePrice(priceLists: any[]): number {
         return val;
       }
     });
-  const highPrio = activePrices.find(
+  /*const highPrio = activePrices.find(
     (item) =>
       item.priority === Math.min(...activePrices.map((item) => item.priority))
-  );
+  );*/ //ovo je zakomentarisano dok ne napravimo liste cena
+  const highPrio = activePrices.slice(-1)[0];
   return highPrio ? highPrio.price : 0;
 }
