@@ -20,7 +20,7 @@ export type AutocompleteData = {
   unitMesures: any[];
   companies: any[];
   products: any[];
-  userRole:  any[];
+  //userRole:  any[];
   subjectCategory:  any[];
   subjectType:  any[];
   taxCode:   any[];
@@ -33,6 +33,7 @@ export type DropdownData = {
   objects:  any[];
   units:  any[];
   vats:  any[];
+  userRole:  any[];
 
 };
 
@@ -48,7 +49,7 @@ const initialState: FormSharedState = {
     unitMesures: [],
     companies: [],
     products: [],
-    userRole:  [],
+    //userRole:  [],
     subjectCategory:  [],
     subjectType:  [],
     taxCode:  [],
@@ -60,7 +61,8 @@ const initialState: FormSharedState = {
     groups: [],
     objects: [],
     units:  [],
-    vats:  []
+    vats:  [],
+    userRole: []
   },
 };
 
@@ -237,7 +239,7 @@ function getAsyncClientCompanies(builder: ActionReducerMapBuilder<FormSharedStat
  function getAsyncUserRole(builder: ActionReducerMapBuilder<FormSharedState>) {
   builder.addCase(getUserRole.fulfilled, (state, { payload }) => ({
     ...state,
-    autocompleteData: { ...state.autocompleteData, userRole: payload },
+    dropdownData: { ...state.dropdownData, userRole: payload },
     loading: false,
   }));
   builder.addCase(getUserRole.pending, (state) => ({
@@ -246,7 +248,7 @@ function getAsyncClientCompanies(builder: ActionReducerMapBuilder<FormSharedStat
   }));
   builder.addCase(getUserRole.rejected, (state) => ({
     ...state,
-    autocompleteData: { ...state.autocompleteData, userRole: [] },
+    dropdownData: { ...state.dropdownData, userRole: [] },
     loading: false,
   }));
 }

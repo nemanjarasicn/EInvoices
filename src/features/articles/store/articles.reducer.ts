@@ -20,7 +20,7 @@ import {
     openCreateArticles:  boolean;
     openCreateArticlesPrice:  {open: boolean, data?:  any, flag?: string };
     openSucessModal:  boolean;
-    openCreateSubject:  boolean;
+    openCreateSubject:  {open: boolean, data?:  any, flag?: string };
     loading: boolean;
   }
 
@@ -31,7 +31,7 @@ import {
     openCreateArticles:  false,
     openCreateArticlesPrice:  {open: false, data: "", flag: ""},
     openSucessModal:  false,
-    openCreateSubject:   false,
+    openCreateSubject:  {open: false, data: "", flag: ""},
     loading: false,
   };
   

@@ -88,7 +88,7 @@ const useFeatureSettings = (): FeatureSettings => {
             {
               title: "Kreiraj novog komitenta",
               disabled: false,
-              btnFn: () =>   dispatch(setopenModalCreateSubject(true))//navigate("/articles/createSubject"),
+              btnFn: () =>   dispatch(setopenModalCreateSubject({open:  true}))//navigate("/articles/createSubject"),
             },
           ],
           buttonsSelect:  {

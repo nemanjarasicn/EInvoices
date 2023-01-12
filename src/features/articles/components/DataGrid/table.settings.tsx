@@ -14,7 +14,7 @@ import {
 } from "@mui/material";
 import  { selectArticles, selectSubject }  from "../../store/articles.selectors"
 
-import { setopenModalCreateArticalPrice  }  from  "../../store/articles.reducer"
+import { setopenModalCreateArticalPrice,   setopenModalCreateSubject  }  from  "../../store/articles.reducer"
 
 
 type TableSettings = {
@@ -261,6 +261,27 @@ const useTableSettings = (): TableSettings => {
                 align: "center",
                 hideable: true,
                 hide: false,
+              },
+              {
+                field: 'action',
+                headerName: '',
+                flex: 1,
+                headerAlign: "center",
+                align: "center",
+                hideable: true,
+                renderCell: (params) => (
+                  <Grid  container sx={{display:  'flex'}}>
+                        <Grid item xs={12} >
+                        <LightTooltip title="Izmena komitenta">
+                          <IconButton sx={{display:  'flex', justifyContent:  'center'}} color="primary" aria-label="pdf" component="label"  onClick={() => {console.log('asasasasasa', params.row);  dispatch(setopenModalCreateSubject({open: true, data: params.row, flag: 'edit'}))}}>
+                          <FontAwesomeIcon icon={faPenToSquare}   color="#E9950C"   />
+                          </IconButton>
+                          </LightTooltip>
+                        </Grid>
+                    
+                  </Grid>
+  
+                )
               },
       
   

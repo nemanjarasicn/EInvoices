@@ -32,6 +32,7 @@ const style = {
 
     const dispatch = useAppDispatch();
 
+    console.log('fdfdfs',  props)
       return (
         <Modal
             open={props.open}

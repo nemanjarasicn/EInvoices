@@ -13,6 +13,7 @@ type FormAutocompleteFieldProps = FormFieldProps & {
     placeholder?: string;
     noResultText?: string;
     data?: any;
+    disable?: boolean;
   };
 };
 /**
@@ -68,6 +69,7 @@ export default function FormAutocompleteFieldSelect({
               label={props.label}
               InputLabelProps={{ shrink: props.additional?.labelShrink }}
               variant="outlined"
+              disabled={props?.additional?.disable}
             />
           )}
         />
