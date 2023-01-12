@@ -32,22 +32,12 @@ import { setopenModalCreateArtical,  setopenModalCreateArticalPrice, setOpenSuce
  */
  const schema = yup
  .object({
-   // client: yup
-   //   .object({
-   //     vatRegistrationCode: yup.string().required(),
-   //   })
-   //   .required(),
-   // dropdownValue: yup.string().required(),
-   // textAreaValue: yup.string().required(),
-   // dateValue: yup.string().required(), //validate date format
-   // autocompleteValue: yup.object().required(),
-   // checkbox: yup.bool().required(),
-   // numberValue: yup.number().required(),
-   // invoiceLine: yup.array().of(
-   //   yup.object({
-   //     invoicedQuantity: yup.number().moreThan(0, ""),
-   //   })
-   // ),
+      productName: yup.string().required('ovo je obavezno polje'),
+      code: yup.string().required('ovo je obavezno polje'),
+      productTaxCategory: yup.object().required('ovo je obavezno polje'),
+      barCode: yup.string().matches(/^(|.{5,})$/, "Mora imati najmanje 5 cifara"),
+      productUnitRequest: yup.object().required('ovo je obavezno polje'),
+
  })
  .required();
 
@@ -159,7 +149,6 @@ export default function FormArticleComponent({
       }, [watch('taxBase')]);
 
       const onSubmit = async  (data: ArticleFormModel) => {
-        console.log('sasassas', data);
          await dispatch(sendArticle({data})).then(async (res) => {
             if(res.payload.message === "sucsess") {
               dispatch(setopenModalCreateArtical(false));
@@ -378,17 +367,8 @@ export default function FormArticleComponent({
                             },
                         }}
                         />
+      
 
-                    <FormTextField
-                        props={{
-                            control: control,
-                            name: "taxcodeValue",
-                            label:   "Vrednost PDV kategorije",
-                            disabled: false,
-                            additional: { readonly: true, labelShrink: true }
-                        
-                        }}
-                    />
                     
                     <FormAutocompleteField
                         props={{
@@ -402,6 +382,19 @@ export default function FormArticleComponent({
                             },
                         }}
                       />
+
+                      <div style = {{visibility: "hidden"}} >
+                        <FormTextField
+                            props={{
+                                control: control,
+                                name: "taxcodeValue",
+                                label:   "Vrednost PDV kategorije",
+                                disabled: false,
+                                additional: { readonly: true, labelShrink: true }
+                            
+                            }}
+                        />
+                        </div>
 
                     {/*<div   style={{display:  showTaxBase  }}   >
                     <FormTextField

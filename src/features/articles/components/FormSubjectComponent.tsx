@@ -181,15 +181,16 @@ export default function FormSubjectComponent({
                           disabled: false,
                         }}
                     /> */}
-                     <FormTextField
+                      <FormTextField
                         props={{
-                          name: "identificationNumber",
+                          name: "companyId",
                           control: control,
-                          label: "Indetifikacioni broj",
-                          additional: { mask: {}, readonly: false },
-                          disabled: false,
+                          label: "Id kompanije",
+                          additional: { mask: {}, readonly: true },
+                          disabled: true,
                         }}
-                     />  
+                     /> 
+
                      <FormTextField
                         props={{
                           name: "mb",
@@ -237,7 +238,7 @@ export default function FormSubjectComponent({
                         }}
                         /> 
 
-                      
+                      <div  style  =   {{visibility: disableJbkjs ? 'hidden'  :  'visible'}}  >
                       <FormTextField
                         props={{
                           name: "jbkjs",
@@ -246,18 +247,13 @@ export default function FormSubjectComponent({
                           additional: { mask: {}, readonly: disableJbkjs },
                           disabled: disableJbkjs,
                         }}
-                     />  
+                     /> 
+                     </div> 
                     </Grid>
                     <Grid item xs={4}>
-                    <FormTextField
-                        props={{
-                          name: "companyId",
-                          control: control,
-                          label: "Id kompanije",
-                          additional: { mask: {}, readonly: true },
-                          disabled: true,
-                        }}
-                     /> 
+            
+
+
                     <FormTextField
                         props={{
                           name: "pib",
@@ -318,6 +314,17 @@ export default function FormSubjectComponent({
                           disabled: false,
                         }}
                      /> 
+                     <div   style = {{visibility:  'hidden'}}  >
+                     <FormTextField
+                        props={{
+                          name: "identificationNumber",
+                          control: control,
+                          label: "Indetifikacioni broj",
+                          additional: { mask: {}, readonly: false },
+                          disabled: false,
+                        }}
+                     />  
+                    </div>
                     </Grid>
                 </Grid>
       
