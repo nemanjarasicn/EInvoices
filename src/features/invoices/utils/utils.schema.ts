@@ -26,7 +26,7 @@ function useSchemaValidator() {
           })
         ),
       referenceNumber: yup.string().required(""),
-      modelNumber: yup.string().required(""),
+      modelNumber: yup.string().min(2,'Mora imati dve cifre'). max(2, 'Mora imati dve cifre').required(""),
     })
     .required();
 
