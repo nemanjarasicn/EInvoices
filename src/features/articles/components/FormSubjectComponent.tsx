@@ -104,14 +104,7 @@ export default function FormSubjectComponent({
 
 
       React.useEffect(() => {
-            const subjectIdCategoryObject = {
-              id: props.data.subjectIdCategory,
-              name: props.data.subjectIdCategory === 1 ? 'Pravno lice' : 'Javna preduzeća',
-              item: {
-                id: props.data.subjectIdCategory,
-                categoryName:  props.data.subjectIdCategory === 1 ? 'Pravno lice' : 'Javna preduzeća'
-              }
-            }
+
            
             dispatch(getSubjectCategory());
             dispatch(getSubjectType());
