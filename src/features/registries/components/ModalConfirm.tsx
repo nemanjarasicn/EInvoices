@@ -28,8 +28,8 @@ const style = {
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    width: () => window.devicePixelRatio == 1.5 ? 600 : 700 , 
-    height: () => window.devicePixelRatio == 1.5 ? 450 : 300 ,
+    width: () => window.devicePixelRatio == 1.5 ? 450 : 700 , 
+    height: () => window.devicePixelRatio == 1.5 ? 200 : 300 ,
  
 
     bgcolor: 'background.paper',

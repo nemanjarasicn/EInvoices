@@ -14,6 +14,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import FormTextField  from  "../../shared/components/form-fields/FormTextField"
 import CustomButtonFc from "../../shared/components/CustomButtonFc";
+import CustomButtonFcTra from "../../shared/components/CustomButtonFcTra";
 import { DistributorFormModel, IProps } from "../models/registries.models"
 import { sendDistributor } from "../store/registries.actions";
 import  ErrorModal   from   "../../shared/components/ErrorModals"
@@ -30,6 +31,8 @@ import { setCompanyAdmin } from "../../../app/core/core.reducer";
  */
  const schema = yup
  .object({
+    companyName: yup.string().required('ovo je obavezno polje'),
+    pib: yup.string().required('ovo je obavezno polje'),
  })
  .required();
 
@@ -184,21 +187,24 @@ export default function FormDistributorComponent({
                     </Grid>
                 </Grid>
                 <Grid item xs={5} sx ={{mt: 5}}>
-                     
-                          <CustomButtonFc
-                            groupButton={[
-                              {
-                                title: "ODUSTANI",
-                                disabled: false,
-                                btnFn: () => dispatch(setopenModalDistributor(false)),
-                              },
-                              {
-                                title: "SACUVAJ",
-                                disabled: false,
-                                btnFn: handleSubmit(onSubmit),
-                              },
-                            ]}
-                          />
+                      <Grid item xs={12} sx = {{display: 'flex', justifyContent: 'space-between'}} >
+                        <CustomButtonFcTra 
+                           soloButton={{
+                              title: "Otkaži",
+                              disabled: false,
+                              btnFn: () => dispatch(setopenModalDistributor(false)),
+                          }}
+                        />
+
+                        <CustomButtonFc 
+                           soloButton={{
+                              title: "SAČUVAJ",
+                              disabled: false,
+                              btnFn: handleSubmit(onSubmit),
+                          }}
+                        />
+                       </Grid>
+                    
               </Grid>
         </Grid>
     )
