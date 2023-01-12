@@ -159,11 +159,12 @@ export default function FormUsersComponent({
                         props={{
                             name: "userRole",
                             control: control,
-                            label: 'user Rola',
+                            label: 'Korisnicka rola',
                             disabled: true,
                             additional: {
                             selector: selectUserRole,
                             //data: dataObject
+                            disable: true
                             
                             },
                         }}

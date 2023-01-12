@@ -36,6 +36,7 @@ import {
     users: any[];
     openModalPdf: boolean;
     openModalDistributor:  boolean;
+    openModalConfirm: boolean;
     companyInfo: any;
     companyDistributor:  any[];
     loading: boolean;
@@ -53,6 +54,7 @@ import {
     users:  [],
     openModalPdf:  false,
     openModalDistributor:   false,
+    openModalConfirm:   false,
     companyInfo: {},
     companyDistributor: [],
     loading: false,
@@ -72,6 +74,11 @@ import {
         openModalDistributor: payload,
       }),
       //custom
+
+       setopenModalConfirm: (state,{payload}) => ({
+        ...state,
+        openModalConfirm: payload,
+      }),
      },
      extraReducers: (builder) => {
       getAsyncObjects(builder);
@@ -91,7 +98,8 @@ import {
   
   export const {
     setopenModalPdf,
-    setopenModalDistributor
+    setopenModalDistributor,
+    setopenModalConfirm
   } = registriesSlice.actions;
   
   export default registriesSlice.reducer;

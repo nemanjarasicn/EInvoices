@@ -112,6 +112,15 @@ export const selectOpenDistributor = createSelector(
 );
 
 
+
+export const selectOpenConfirm = createSelector(
+  featureSelectors,
+  (state: FeatureState) => {
+    return state.openModalConfirm;
+  }
+);
+
+
 export const selectCompanyInfo = createSelector(
   featureSelectors,
   (state: FeatureState) => {

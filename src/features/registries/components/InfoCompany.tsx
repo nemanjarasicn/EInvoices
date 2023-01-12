@@ -33,6 +33,9 @@ import  {  getCompanyInfo }  from  "../store/registries.actions"
 import  { getUsers }   from  "../store/registries.actions"
 import { getObjectsAll,  getMarketPlacesAll } from "../../shared/components/form-fields/store/form.actions";
 import SucessModal   from "../../shared/components/SucessModal"
+import  {  selectOpenConfirm  }   from  "../store/registries.selectors"
+import   {  setopenModalConfirm   }  from  "../store/registries.reducer"
+import ModalConfirm from "./ModalConfirm";
 import { selectObjectsAll, selectMarketPlaces } from "../../shared/components/form-fields/store/form.selectors";
 import List from '@mui/material/List';
 import Breadcrumbs from '@mui/material/Breadcrumbs';
@@ -48,6 +51,7 @@ export default function InfoCompany(): JSX.Element {
     const dispatch = useAppDispatch(); 
     const location = useLocation();
     const id = location.state.company;
+    const openModalConfirm  =  useAppSelector(selectOpenConfirm);
 
     
     const users  =  useAppSelector(selectUsers);
@@ -69,6 +73,8 @@ export default function InfoCompany(): JSX.Element {
   
   
     return (
+        <>
+        <ModalConfirm open={openModalConfirm} ></ModalConfirm>
         <Grid item xs={12}>
             <Breadcrumbs aria-label="breadcrumb"   sx={{'& .MuiBreadcrumbs-separator': {color: ' #60737C'}, mt:   marginTopBredcumbs}}>
                 <Typography  sx={{color: 'white', fontSize:  fontSize, fontFamily:  "Roboto",  lineHeight:  "32px",  fontWeight:  700,}}>Informacije o Kompaniji</Typography>
@@ -172,14 +178,15 @@ export default function InfoCompany(): JSX.Element {
                                     }}
                                     size="large"
                                     variant="outlined"
-                                    onClick={() => navigate("/registries/companies")}
+                                    onClick={() => dispatch(setopenModalConfirm(true))}
                                 >
-                                   Lista kompanija
+                                   Završi 
                             </Button>
                         </Grid>
                     </Grid>
                 </Grid>
             </Paper>
         </Grid>
+        </>
     )
 }
