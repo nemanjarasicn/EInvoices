@@ -116,7 +116,7 @@ export default function ClientComponent({
       </Grid>
       <Grid item xs={1}>
       <LightTooltip title="Kreiraj komitenta">
-        <IconButton sx={{display:  'flex', justifyContent:  'center'}} color="primary" aria-label="pdf" component="label"  onClick={() => {dispatch(setopenModalCreateSubject(true))}}>
+        <IconButton sx={{display:  'flex', justifyContent:  'center'}} color="primary" aria-label="pdf" component="label"  onClick={() => {dispatch(setopenModalCreateSubject({open: true}))}}>
             <FontAwesomeIcon icon={faPlus}   />
         </IconButton>
       </LightTooltip>

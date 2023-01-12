@@ -251,7 +251,7 @@ export default function InvoiceFormComponent({
     <>
     <SucessModal    open={showError} ></SucessModal>
     <ErrorModal    open={showErrorModal}  message={errorMessage} ></ErrorModal>
-    <ModalCreateSubject    open={openModalCreateSubject} ></ModalCreateSubject>
+    <ModalCreateSubject    open={openModalCreateSubject.open} ></ModalCreateSubject>
     <Box
       sx={{ flexGrow: 1, rowGap: 1, display: "flex", flexDirection: "column", mt: '20px' }}
     >

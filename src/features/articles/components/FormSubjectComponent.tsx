@@ -24,7 +24,7 @@ import FormAutocompleteField from "../../shared/components/form-fields/FormAutoc
 import {  setopenModalCreateSubject, setOpenSucessModal   }  from  "../store/articles.reducer"
 import {useLocation} from 'react-router-dom';
 import FormTextField  from  "../../shared/components/form-fields/FormTextField"
-import {  sendSubject } from "../store/articles.actions";
+import {  sendSubject, updateSubject } from "../store/articles.actions";
 import {   setOpenModalSucessLoad  }  from  "../../../app/core/core.reducer"
 import   { selectSubjectGategory,  selectSubjectType }  from  "../../shared/components/form-fields/store/form.selectors"
 import FormCurrencyField from "../../shared/components/form-fields/FormCurrencyField";
@@ -44,6 +44,8 @@ import FormCurrencyField from "../../shared/components/form-fields/FormCurrencyF
   pib: yup.string().trim().required('ovo je obavezno polje'),
   payeeFinancialAccountDto: yup.string().required('ovo je obavezno polje'),
   email: yup.string().email('email mora biti ispravnog formata'),
+  subjectIdCategory: yup.object().required('ovo je obavezno polje'),
+  subjectIdType: yup.object().required('ovo je obavezno polje'),
  })
  .required();
 
@@ -52,7 +54,7 @@ export default function FormSubjectComponent({
   }: IProps<ArticlesFormComponentProps>): JSX.Element {
     const companyId = useAppSelector(selectCompanyCurrent);
     const [disableJbkjs,  setDisableJbkjs]  =   React.useState(true);
-
+    console.log('test',  props);
     const  defaultValues:  SubjectFormModel = {
         firstName:  "",
         lastName:   "",
@@ -102,34 +104,82 @@ export default function FormSubjectComponent({
 
 
       React.useEffect(() => {
+            const subjectIdCategoryObject = {
+              id: props.data.subjectIdCategory,
+              name: props.data.subjectIdCategory === 1 ? 'Pravno lice' : 'Javna preduzeća',
+              item: {
+                id: props.data.subjectIdCategory,
+                categoryName:  props.data.subjectIdCategory === 1 ? 'Pravno lice' : 'Javna preduzeća'
+              }
+            }
+           
             dispatch(getSubjectCategory());
             dispatch(getSubjectType());
+            if(props.flag === 'edit') {
+              console.log('asasasassas');
+              setValue('companyName', props.data.companyName);
+              setValue('mb', props.data.mb)
+              
+              setValue('city', props.data.city)
+              setValue('phone', props.data.phone)
+              setValue('pib', props.data.pib);
+              setValue('address', props.data.address);
+              setValue('zip', props.data.zip);
+              setValue('email', props.data.email);
+              setValue('payeeFinancialAccountDto', props.data.payeeFinancialAccountDto[0]?.payeeFinancialAccountValue);
+              //setValue('subjectIdCategory',  subjectIdCategoryObject )
+              
+
+            }
       }, []);
 
       const onSubmit = async  (data: SubjectFormModel) => {
-          console.log('sasassas');
-          //const dataArtikal = location.state;
-          await dispatch(sendSubject({data})).then((res) => {
-            if(res.payload === "sucsess") {
-                  //setShowError(true);
-                  dispatch(setopenModalCreateSubject(false));
-                  dispatch(setOpenModalSucessLoad(true));
+    
+          if(props.flag  !==  'edit')  {
+              await dispatch(sendSubject({data})).then((res) => {
+                if(res.payload === "sucsess") {
+                      //setShowError(true);
+                      dispatch(setopenModalCreateSubject({open:  false}));
+                      dispatch(setOpenModalSucessLoad(true));
+                      setTimeout(() => {
+                          //setShowError(false);
+                          dispatch(setOpenModalSucessLoad(false));
+                          navigate('/articles/subject'
+                          )
+                          window.location.reload();
+                      }, 2000);
+                }  else {
+                  setShowErrorModal(true);  
                   setTimeout(() => {
-                      //setShowError(false);
-                      dispatch(setOpenModalSucessLoad(false));
-                      navigate('/articles/subject'
-                      )
-                      window.location.reload();
+                        setShowErrorModal(false);
+                        /*navigate('/registries/companies'
+                        )*/
                   }, 2000);
-            }  else {
-              setShowErrorModal(true);  
-              setTimeout(() => {
-                    setShowErrorModal(false);
-                    /*navigate('/registries/companies'
-                    )*/
-              }, 2000);
+                }
+              });
+            } else {
+              await dispatch(updateSubject({idSubject: props.data.id, data: data,  idpayeeFinancialAccountDto:  props.data.payeeFinancialAccountDto[0]?.id })).then((res) => {
+                if(res.payload === "sucsess") {
+                      //setShowError(true);
+                      dispatch(setopenModalCreateSubject({open:  false}));
+                      dispatch(setOpenModalSucessLoad(true));
+                      setTimeout(() => {
+                          //setShowError(false);
+                          dispatch(setOpenModalSucessLoad(false));
+                          navigate('/articles/subject'
+                          )
+                          window.location.reload();
+                      }, 2000);
+                }  else {
+                  setShowErrorModal(true);  
+                  setTimeout(() => {
+                        setShowErrorModal(false);
+                        /*navigate('/registries/companies'
+                        )*/
+                  }, 2000);
+                }
+              });
             }
-          });
       }
 
       React.useEffect(() => {
@@ -291,7 +341,7 @@ export default function FormSubjectComponent({
                           disabled: false,
                         }}
                      /> 
-
+                      
                       <FormAutocompleteField
                         props={{
                             name: "subjectIdType",
@@ -335,7 +385,7 @@ export default function FormSubjectComponent({
                            soloButton={{
                               title: "Otkaži",
                               disabled: false,
-                              btnFn: () => dispatch(setopenModalCreateSubject(false)),
+                              btnFn: () => dispatch(setopenModalCreateSubject({open:  false})),
                           }}
                         />
 

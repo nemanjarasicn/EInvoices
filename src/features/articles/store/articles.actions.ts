@@ -70,11 +70,23 @@ const getSubject: AsyncThunk<any, { companyId: number | string }, {}> = createAs
 
 
 
+const updateSubject: AsyncThunk<any, { idSubject: number | string, data: any,  idpayeeFinancialAccountDto:  string  | number }, {}> = createAsyncThunk<any, { idSubject: number | string; data:  any; idpayeeFinancialAccountDto:  string  | number }>(
+  "GET/subjectupdate",
+  async (params) => {
+    return     await RegistriesPublicService.updateSubject(params.idSubject, params.data, params.idpayeeFinancialAccountDto)
+    .then((res: any) =>  'sucsess')
+    .catch((err: any) => 'error');
+}
+);
+
+
+
 
 export {
   sendArticle,
   getArticles,
   sendArticlesPrice,
   getSubject,
-  sendSubject
+  sendSubject,
+  updateSubject
 };

@@ -147,6 +147,40 @@ sendSubject(data: any) {
  }
 
 
+
+ updateSubject(idSubcect:  string  |  number, data: any, ididpayeeFinancialAccountDto:  string  | number) {
+   console.log('testasassas', data);
+   return publicClient.put<any>
+   (`subject/${idSubcect}`,
+   {
+           
+      "firstName":  data.firstName,
+      "lastName":  data.lastName,
+      "companyName":  data.companyName,
+      "identificationNumber":     data.identificationNumber,
+      "pib":     data.pib,
+      "mb":  data.mb,
+      "companyId":    data.companyId,
+      "address":   data.address,
+      "city":  data.city, 
+      "zip":    data.zip,
+      "phone":    data.phone,
+      "email":   data.email,
+      "jbkjs":  data.jbkjs ,
+      "subjectIdCategory":   data.subjectIdCategory.id,
+      "subjectIdType":  data.subjectIdType.id,
+      "payeeFinancialAccountDto": [{
+         "id": ididpayeeFinancialAccountDto,
+         "payeeFinancialAccountValue": `${data.payeeFinancialAccountDto}`}],
+      "userId":   "",
+      "discount": 0,
+      "idVat": 1,
+      "vatName":  "",
+   }
+   );
+}
+
+
   
   
 }

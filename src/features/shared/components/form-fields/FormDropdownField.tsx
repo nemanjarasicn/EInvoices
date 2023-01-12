@@ -53,25 +53,49 @@ export default function FormDropdownField({
     );
   };
 
+  const fontSize  =    window.devicePixelRatio === 1.5 ?    '12px' :  '16px';
+  
+  const heightSize  =     window.devicePixelRatio === 1.5 ?    '15px' :  '';
+
   return (
     <Controller
       control={props.control}
       name={props.name}
-      render={({ field, fieldState: { error } }) => (
+      render={({ field: { onChange, value }, fieldState: { error } }) => (
         <FormControl size={"small"} error={!!error} fullWidth>
-          <InputLabel id={`select-label_${props.label}.id`}>
+          <InputLabel id={`select-label_${props.label}.id`}  sx={{
+            fontSize:  fontSize, 
+            
+            lineHeight: "16px",
+            fontWeight:  400
+            }}>
             {t(props.label)}
           </InputLabel>
           <Select
-                {...field}
-                labelId="age"
-                label="age"
-                multiple
+                 sx={{
+                  '& .MuiSelect-select': {
+                      fontSize: `${fontSize}`,
+                      height:  heightSize,
+                      alignItems: 'center',
+                      display:  'flex'
+                   }
+                 }}
+                 labelId={`select-label_${props.label}.id`}
+                 id={`select-component_${props.name}.id`}
+                 onChange={(_e, _value) => {
+                  console.log('asasaas');
+                   props.parentFn?.(_e.target.value);
+                   return onChange(_e);
+                 }}
+                 value={value ?? ""}
+                 label={t(props.label)}
+               
+                //multiple
                 MenuProps={MenuProps}
               >
             {optionsList.map((option: OptionItem, index: any) => {
               return (
-                <MenuItem key={`${index}_${option.name}`} value={option.value}>
+                <MenuItem    sx={{fontSize: fontSize}}  key={`${index}_${option.name}`} value={option.value}>
                   {`${t(option.name)}`}
                 </MenuItem>
               );

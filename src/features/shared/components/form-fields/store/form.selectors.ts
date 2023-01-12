@@ -133,8 +133,8 @@ export const selectClientCompanies = createSelector(
  * Select   userRole for dropdown component
  */
  export const selectUserRole = createSelector(
-  autocompleteSelectors,
-  (state: AutocompleteData) =>
+  dropdownSelectors,
+  (state: DropdownData) =>
     state.userRole.map((item, index) => ({
       name: item.roleName,
       id: item.id_role,

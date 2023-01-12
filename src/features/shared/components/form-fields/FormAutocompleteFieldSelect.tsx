@@ -27,16 +27,16 @@ export default function FormAutocompleteField({
   const dataTmpFirst = dataTmp[0];
   const [loading, setLoading]  =  React.useState(true);
 
-  if (!dataTmpFirst) {
+  /*if (!dataTmpFirst) {
     return <div>loading</div>
-  }
+  }*/
   return (
     <Controller
       name={props.name}
       control={props.control}
       render={({ field: { onChange, value }, fieldState: { error } }) => (
         <Autocomplete
-          defaultValue={dataTmpFirst}
+          //defaultValue={dataTmpFirst}
           disablePortal
           sx={{
             '& .MuiInput-underline:after': {

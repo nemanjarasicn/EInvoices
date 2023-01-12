@@ -35,7 +35,30 @@ export const selectArticles = createSelector(
 
 export const   selectSubject = createSelector(
   featureSelectors,
-  (state: FeatureState) => state.subject
+  (state: FeatureState) => state.subject.map((item, index) => ({
+          id: item.id,
+          firstName: item.firstName,
+          lastName: item.lastName,
+          companyName:  item.companyName,
+          pib: item.pib,
+          identificationNumber: item.identificationNumber,
+          mb: item.mb,
+          userId: item.userId,
+          companyId: item.companyId,
+          address: item.address ,
+          city: item.city,
+          zip:  item.zip,
+          discount: item.discount,
+          phone: item.phone,
+          email: item.email,
+          jbkjs: item.jbkjs,
+          idVat: item.idVat,
+          vatName: item.vatName ,
+          payeeFinancialAccountDto: item.payeeFinancialAccountDto,
+          subjectIdCategory: item.subjectIdCategory,
+          subjectIdType:   item.subjectIdType
+
+  }))  
 );
 
 export const   selectOpenCreateArtical = createSelector(
