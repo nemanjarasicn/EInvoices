@@ -27,6 +27,7 @@ import Typography from '@mui/material/Typography';
 
 import  { selectOpenCreateArtical,  selectOpenCreateArticalPrice, selectOpenSucessModal,  selectOpenCreateSubject }  from  "../store/articles.selectors"
 import  ModalSucessArticles  from   "../components/ModalSucessArticles"
+import   {  selectMarketPlaceLogin  }   from   "../../../app/core/core.selectors"
 import ModalCreateSubject from "../components/ModalCreateSubject";
 import ModalCreateArtical from "../components/ModalCreateArtical";
 import ModalCreateArticalPrice from "../components/ModalCreateArticalPrice";
@@ -46,6 +47,7 @@ const Item = styled(Paper)(({ theme }) => ({
 
 type ArticlesTemplatePageProps = {
   templateType: TemplatePageArticlesTypes;
+  uuidMArketPlace?: string;
 };
 
 export default function InvoiceTemplatePage({
@@ -62,7 +64,7 @@ export default function InvoiceTemplatePage({
   const navigate  = useNavigate();
   const openModalCreateArticalPrice = useAppSelector(selectOpenCreateArticalPrice);
   const company = useAppSelector(selectCompanyCurrent);
-  const marketPlace = useAppSelector(templatePageSettings[props.templateType].buttonsSelect.selector);
+  const marketPlace  = useAppSelector(selectMarketPlaceLogin);
   const methods = useForm({
     defaultValues: {},
   });
@@ -72,7 +74,7 @@ export default function InvoiceTemplatePage({
   } = methods;
 
   const settings = tableSettings[props.templateType].dataGrid;
-
+  console.log('saasasassa', marketPlace);
   const [selectValue, setSelectValue]  =  React.useState('');
 
   const getDataActionSelect = (selectType: string): any => {
@@ -97,6 +99,10 @@ export default function InvoiceTemplatePage({
   React.useEffect(() => {
     if(selectValue !==   "") {
       dispatch(getDataActionSelect(settings.selectType));
+    } else {
+
+      marketPlace &&  dispatch(getArticles({uuid: marketPlace}));
+      
     }
   }, [selectValue]);
 
