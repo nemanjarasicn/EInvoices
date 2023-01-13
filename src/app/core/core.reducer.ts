@@ -1,5 +1,5 @@
 import { ActionReducerMapBuilder, createSlice, Slice } from "@reduxjs/toolkit";
-import { getLoggedSubject, login ,   getCompaniesAllLogin,  getCompaniesDistributor } from "./core.actions";
+import { getLoggedSubject, login ,   getCompaniesAllLogin,  getCompaniesDistributor,   getMarketPlacesLogin } from "./core.actions";
 import { User, UserCompany } from "./core.models";
 
 const CORE_KEY: string = "core";
@@ -14,6 +14,7 @@ export interface CoreState {
   companyList:  UserCompany[];
   distributerInfo: any;
   openModalSucessLoad:  boolean;
+  marketPlacesAll: any[];
   companyAdmin: number  |  string;
 }
 
@@ -27,6 +28,7 @@ const initialState: CoreState = {
   companyList:  [],
   distributerInfo:  {},
   openModalSucessLoad:  false,
+  marketPlacesAll: [],
   companyAdmin:  "",
 };
 
@@ -70,6 +72,7 @@ const authSlice: Slice<CoreState> = createSlice({
     getAsyncUserCompany(builder);
     getAsyncCompanyAll(builder);
     getAsyncDistributerInfo(builder);
+    getAsyncMarketPlacesAll(builder);
   },
 });
 
@@ -147,5 +150,23 @@ function getAsyncDistributerInfo(builder: ActionReducerMapBuilder<CoreState>) {
     ...state,
     loading: false,
     error: (payload as any).error,
+  }));
+}
+
+
+function getAsyncMarketPlacesAll(builder: ActionReducerMapBuilder<CoreState>) {
+  builder.addCase(getMarketPlacesLogin.fulfilled, (state, { payload }) => ({
+    ...state,
+    loading: false,
+    marketPlacesAll: payload,
+  }));
+  builder.addCase(getMarketPlacesLogin.pending, (state) => ({
+    ...state,
+    loading: true,
+  }));
+  builder.addCase(getMarketPlacesLogin.rejected, (state) => ({
+    ...state,
+    loading: false,
+    marketPlacesAll: [],
   }));
 }

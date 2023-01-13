@@ -14,6 +14,7 @@ const login: AsyncThunk<any, { credentials: Credentials }, {}> =
         .then((res) => {
           sessionStorage.setItem("token", JSON.stringify(res.data.token));
           _.dispatch(getLoggedSubject({ id: res.data.companyId[0] }));
+          _.dispatch(getMarketPlacesLogin({ companyId: res.data.companyId[0] }));
           if(res.data.authorities[0]?.authority === "ROLE_DISTRIBUTER")  {
               _.dispatch(getCompaniesDistributor({ id: res.data.companyId[0] }));
           }
@@ -55,6 +56,16 @@ const getCompaniesDistributor: AsyncThunk<any, { id: number } , {}> = createAsyn
 }
 );
 
+const getMarketPlacesLogin: AsyncThunk<any, { companyId: number | string }, {}> =
+  createAsyncThunk<any, { companyId: number | string }>(
+    "GET/MarketPlacesAll",
+    async (params) => {
+      return await AppService.getMarketPlacesLogin(params.companyId)
+        .then((res) => res.data)
+        .catch((err) => []);
+    }
+  );
+
 /**
  * Get Async Companies
  */
@@ -68,4 +79,4 @@ const getCompaniesDistributor: AsyncThunk<any, { id: number } , {}> = createAsyn
    } 
  );
 
-export { login, getLoggedSubject,  getCompaniesAllLogin,  getCompaniesDistributor };
+export { login, getLoggedSubject,  getCompaniesAllLogin,  getCompaniesDistributor,  getMarketPlacesLogin };

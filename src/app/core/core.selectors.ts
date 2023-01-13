@@ -116,3 +116,9 @@ export const loginLoading = createSelector(
   coreSelectors,
   (state: CoreState) => state.distributerInfo
 );
+
+
+export const selectMarketPlaceLogin = createSelector(
+  coreSelectors,
+  (state: CoreState) => state.marketPlacesAll[0]?.uuid
+);
