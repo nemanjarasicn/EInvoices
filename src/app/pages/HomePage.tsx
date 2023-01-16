@@ -19,6 +19,7 @@ type HomePageProps = {
 
 export default function HomePage({props}: IProps<HomePageProps>): JSX.Element {
   const { t } = useTranslation();
+  
   const { cardsSettings } = useFeatureSettings();
   const { dashBoardStyles } = usePageStyles();
 
