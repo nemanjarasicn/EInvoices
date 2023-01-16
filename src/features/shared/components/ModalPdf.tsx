@@ -10,6 +10,7 @@ import  { setopenModalPdf }  from   '../../invoices/store/invoice.reducer'
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import DocumentPdf from './DocumentPdf';
 import { sampleBase64pdf } from "./sampleBase64pdf";
+import { PDFDownloadLink, PDFViewer } from '@react-pdf/renderer';
 
 import Box from '@mui/material/Box'
 
@@ -76,9 +77,15 @@ const style = {
                     </Grid>
                     <Divider sx={{backgroundColor:  '#6cb238'}} />
 
-                    <Grid sx={{display:  'flex', height:  '90%', overflow: "auto", scrollBehavior: "smooth", justifyContent: 'center', mt: 2.5}} >
+                    {/*<Grid sx={{display:  'flex', height:  '90%', overflow: "auto", scrollBehavior: "smooth", justifyContent: 'center', mt: 2.5}} >
                                 <DocumentPdf  pdf={sampleBase64pdf}  />
-                    </Grid>
+                                  </Grid>*/}
+                    
+
+                    <PDFViewer width={750} height={700} showToolbar={false}>
+                      <DocumentPdf  />
+                    </PDFViewer>
+
                     
                     <Grid sx={{display:  'flex', height:  '10%', mt: 2.5, justifyContent:  'center'}} >
                                     <Grid  item xs={6} sx={{mr: 2.5}}>
@@ -86,7 +93,13 @@ const style = {
                                     </Grid>
                                     <Divider />
                                     <Grid  item xs={6} >
-                                                <Button fullWidth variant="contained"   sx={{mt: 2  ,fontSize: 14, height:    '56px',  backgroundColor:  '#6cb238',  borderRadius:  '8px',   display:  'flex',  justifyContent:  'center' }}>Stampa</Button>
+                                    <PDFDownloadLink
+                                              document={<DocumentPdf  />}
+                                              fileName={'test.pdf'}
+                                              style={{textDecoration: 'none'}} 
+                                            >
+                                                <Button fullWidth variant="contained"    sx={{mt: 2  ,fontSize: 14, height:    '56px',  backgroundColor:  '#6cb238',  borderRadius:  '8px',   display:  'flex',  justifyContent:  'center' }}>Stampa</Button>
+                                    </PDFDownloadLink>
                                   </Grid>      
                             </Grid>
             </Grid>

@@ -65,9 +65,12 @@ const invoicesSlice: Slice<FeatureState> = createSlice({
       newState.invoicesR.map((inv) => {
         if (
           inv.salesInvoiceId === payload.id &&
-          (payload.status === "Cancelled" || payload.status === "Storno")
+          (payload.status === "Cancelled" || payload.status === "Storno" )
         ) {
           inv.invoiceStatus = payload.status;
+        } else if( inv.purchaseInvoiceId === payload.id &&
+          (  payload.status === "Approved"  ||   payload.status  ===  "Rejected")) {
+            inv.invoiceStatus = payload.status;
         }
         return inv;
       });

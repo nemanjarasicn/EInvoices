@@ -194,7 +194,7 @@ const useFeatureSettings = (): FeatureSettings => {
           },
           {
             actionIcon: HistoryIcon,
-            actionName: "Common.storno",
+            actionName: "storno",
             hidden: false,
             title: "Storniraj",
             disabled: false,

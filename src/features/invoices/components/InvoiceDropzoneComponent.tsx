@@ -338,6 +338,7 @@ export default function InvoiceDropzoneComponent({
           <DataGrid
             autoHeight
             disableColumnMenu
+            
             disableColumnFilter
             showCellRightBorder={true}
             density="compact"

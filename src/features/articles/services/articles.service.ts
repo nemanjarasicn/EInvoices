@@ -149,7 +149,7 @@ sendSubject(data: any) {
 
 
  updateSubject(idSubcect:  string  |  number, data: any, ididpayeeFinancialAccountDto:  string  | number) {
-   console.log('testasassas', data);
+  
    return publicClient.put<any>
    (`subject/${idSubcect}`,
    {

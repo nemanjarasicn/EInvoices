@@ -31,8 +31,7 @@ const style = {
   export default function  ModalCreateArtical (props: any)  {   
 
     const dispatch = useAppDispatch();
-
-    console.log('fdfdfs',  props)
+    
       return (
         <Modal
             open={props.open}

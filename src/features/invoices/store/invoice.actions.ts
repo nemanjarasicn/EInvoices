@@ -133,6 +133,7 @@ const updateStatusInvoice: AsyncThunk<
   const found = invoices.invoicesR.find(
     (item: any) => item.id === asyncDto.invoiceId
   );
+  console.log('sasasasaas', found );
   switch (asyncDto.actionType) {
     case "storno":
       return await InvoicePublicService.stornoSales(
@@ -167,7 +168,12 @@ const updateStatusInvoice: AsyncThunk<
         { ...asyncDto, invoiceId: found.purchaseInvoiceId },
         apiKey
       ).then(
-        (data) => console.log("ACTION DATA", data),
+        (response) =>   _.dispatch(
+            updateInvoiceStatus({
+              id: found?.purchaseInvoiceId,
+              status: response.data?.Invoice?.Status,
+            })
+          ), //console.log("ACTION DATA", data),
         (err) => console.log("Error", err)
       );
     case "reject":
@@ -175,7 +181,12 @@ const updateStatusInvoice: AsyncThunk<
         { ...asyncDto, invoiceId: found.purchaseInvoiceId },
         apiKey
       ).then(
-        (data) => console.log("ACTION DATA", data),
+        (response) =>   _.dispatch(
+          updateInvoiceStatus({
+            id: found?.purchaseInvoiceId,
+            status: response.data?.Invoice?.Status,
+          })
+        ),  // console.log("ACTION DATA", data),
         (err) => console.log("ACTION ERR", err)
       );
     default:

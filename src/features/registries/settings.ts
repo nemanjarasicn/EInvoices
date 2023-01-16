@@ -1167,7 +1167,8 @@ const useFeatureSettings = (): FeatureSettings => {
             username: "Korisnicko ime",
             password: "Lozinka",
             confirmPassword:   "Potvrdi lozinku",
-            company: "Objects.company"
+            company: "Objects.company",
+            email: "Mail"
           }
         },
       },
