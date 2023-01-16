@@ -130,7 +130,6 @@ export default function InvoiceItemsComponent({
    * Handle Add New Line
    */
   const handleAddLine = (item: AutocompleteItem) => {
-    console.log('safffdsdfsfd', item)
     if (item && item.item) {
       const id = Math.random();
       setItems(() => [
@@ -269,7 +268,7 @@ export default function InvoiceItemsComponent({
         </Grid>
     </Grid>
     <DataGrid
-      style={{ minHeight:  400,   backgroundColor: 'white',  overflow: "auto", scrollBehavior: "smooth", borderRadius:  '15px',  fontSize:   fontSize }}
+      style={{ minHeight:  400,   backgroundColor: 'white',  overflow: "auto", scrollBehavior: "smooth",  fontSize:   fontSize }}
       disableColumnMenu
       pagination
       disableColumnFilter

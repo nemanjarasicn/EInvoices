@@ -34,6 +34,7 @@ import ModalCreateArticalPrice from "../components/ModalCreateArticalPrice";
 import { Navigate } from "react-router-dom";
 import { faWindowRestore } from "@fortawesome/pro-solid-svg-icons";
 import { useNavigate } from 'react-router-dom';
+import  {  getSubjectCategory,  getSubjectType }  from  "../../shared/components/form-fields/store/form.actions"
 
 
 const Item = styled(Paper)(({ theme }) => ({
@@ -74,7 +75,7 @@ export default function InvoiceTemplatePage({
   } = methods;
 
   const settings = tableSettings[props.templateType].dataGrid;
-  console.log('saasasassa', marketPlace);
+  
   const [selectValue, setSelectValue]  =  React.useState('');
 
   const getDataActionSelect = (selectType: string): any => {
@@ -93,6 +94,8 @@ export default function InvoiceTemplatePage({
         dispatch(getMarketPlacesAll({companyId: company}));
     } else  {
         dispatch(getDataActionSelect(settings.selectType));
+        dispatch(getSubjectCategory());
+        dispatch(getSubjectType());
     }
   }, []);
 

@@ -139,7 +139,7 @@ function convertToProductModel(item: any): ProductModel {
   };
 }
 function convertToCompanyModel(item: any): CustomerPartyModel {
-  console.log('asasassas', item);
+
   return {
     party: {
       schemeID: SchemeID.NOT_CIR,

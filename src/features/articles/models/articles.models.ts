@@ -85,7 +85,7 @@
     email:  string = "";
     jbkjs:  string = "";
     subjectIdCategory: any = "";
-    subjectIdType: number  |  string = "";
+    subjectIdType: any = "";
     payeeFinancialAccountDto:  string  =  "";
 
    }

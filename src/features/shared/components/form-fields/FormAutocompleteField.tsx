@@ -33,6 +33,7 @@ export default function FormAutocompleteFieldSelect({
       control={props.control}
       render={({ field: { onChange, value }, fieldState: { error } }) => (
         <Autocomplete
+          value={value || ""}
           disablePortal
           id={`combo-box-demo_${props.name}`}
           options={[...dataTmp]}
@@ -42,7 +43,7 @@ export default function FormAutocompleteFieldSelect({
               fontSize: fontSize,
             },
           }}
-          getOptionLabel={(item: AutocompleteItem) => item.name}
+          getOptionLabel={(item: AutocompleteItem) => item.name  || "" }
           isOptionEqualToValue={(option, value) =>
             Boolean(option.id === value.id)
           }
@@ -55,7 +56,7 @@ export default function FormAutocompleteFieldSelect({
           }}
           onChange={(_e, _value) => {
             props.additional.parentFn?.(_value);
-            return onChange({ ..._value?.item });
+            return onChange({ ..._value });
           }}
           renderInput={(params) => (
             <TextField

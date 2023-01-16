@@ -28,6 +28,8 @@ import {  sendSubject, updateSubject } from "../store/articles.actions";
 import {   setOpenModalSucessLoad  }  from  "../../../app/core/core.reducer"
 import   { selectSubjectGategory,  selectSubjectType }  from  "../../shared/components/form-fields/store/form.selectors"
 import FormCurrencyField from "../../shared/components/form-fields/FormCurrencyField";
+
+
 //import ClientComponent from "./form-group/ClientComponent";
 
 
@@ -54,7 +56,8 @@ export default function FormSubjectComponent({
   }: IProps<ArticlesFormComponentProps>): JSX.Element {
     const companyId = useAppSelector(selectCompanyCurrent);
     const [disableJbkjs,  setDisableJbkjs]  =   React.useState(true);
-    console.log('test',  props);
+    const  subjectCategoryTmp  =  useAppSelector(selectSubjectGategory);
+    const  subjectType  =  useAppSelector(selectSubjectType)
     const  defaultValues:  SubjectFormModel = {
         firstName:  "",
         lastName:   "",
@@ -104,12 +107,11 @@ export default function FormSubjectComponent({
 
 
       React.useEffect(() => {
-
-           
-            dispatch(getSubjectCategory());
-            dispatch(getSubjectType());
+            //dispatch(getSubjectCategory());
+            //dispatch(getSubjectType());
             if(props.flag === 'edit') {
-              console.log('asasasassas');
+              const subjectIdCategoryObject = subjectCategoryTmp.find((item)  => item.id  ===  props.data.subjectIdCategory);
+              const subjectIdTypeObject = subjectType.find((item)  => item.id  ===  props.data.subjectIdType)
               setValue('companyName', props.data.companyName);
               setValue('mb', props.data.mb)
               
@@ -119,10 +121,9 @@ export default function FormSubjectComponent({
               setValue('address', props.data.address);
               setValue('zip', props.data.zip);
               setValue('email', props.data.email);
-              setValue('payeeFinancialAccountDto', props.data.payeeFinancialAccountDto[0]?.payeeFinancialAccountValue);
-              //setValue('subjectIdCategory',  subjectIdCategoryObject )
-              
-
+              setValue('payeeFinancialAccountDto',  props.data?.payeeFinancialAccountDto ?  props.data.payeeFinancialAccountDto[0]?.payeeFinancialAccountValue : "");
+              setValue('subjectIdCategory',  subjectIdCategoryObject )
+              setValue('subjectIdType',  subjectIdTypeObject )
             }
       }, []);
 
@@ -176,13 +177,15 @@ export default function FormSubjectComponent({
       }
 
       React.useEffect(() => {
-        const subjectCategory = getValues('subjectIdCategory');
-
-        if(subjectCategory.categoryName === "Javna preduzeća") {
-          setDisableJbkjs(false);
-        } else {
-          setDisableJbkjs(true)
-        }
+        if(getValues('subjectIdCategory'))  {
+            const subjectCategory = getValues('subjectIdCategory');
+      
+            if(subjectCategory.name === "Javna preduzeća") {
+              setDisableJbkjs(false);
+            } else {
+              setDisableJbkjs(true)
+            }
+          }
         
       }, [watch('subjectIdCategory')]);
       

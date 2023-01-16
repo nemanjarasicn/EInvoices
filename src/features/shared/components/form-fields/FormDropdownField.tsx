@@ -83,7 +83,7 @@ export default function FormDropdownField({
                  labelId={`select-label_${props.label}.id`}
                  id={`select-component_${props.name}.id`}
                  onChange={(_e, _value) => {
-                  console.log('asasaas');
+                
                    props.parentFn?.(_e.target.value);
                    return onChange(_e);
                  }}
