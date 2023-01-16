@@ -28,6 +28,7 @@ type FeatureSettings = {
       filters: FilterComponentProps[];
       actions: SelectAllAction[];
       showTable: boolean;
+      showFilterBox?:  boolean
     };
   };
   salesTemplatePageSettings: {
@@ -65,16 +66,17 @@ const useFeatureSettings = (): FeatureSettings => {
         typeOfCard:  "invoices",
         description:  "MenuDescription.invoicePurshaes",
       },
-      /*{
-        title: "InvoiceCard.summaryVAT",
+      {
+        title: "Greske 24h",
         icon: CloudSyncIcon,
         cardBtn: {
           title: "InvoiceCard.preview",
-          disabled: true,
-          btnFn: () => console.log(""),
+          disabled: false,
+          btnFn: () => navigate("/invoices/errorLogs"),
         },
         typeOfCard:  "invoicesSummary",
-      },*/
+        description:  "Pregled svih gresaka u poslednja 24 sata",
+      },
     ],
     templatePageSettings: {
       [TemplatePageTypes.SALES]: {
@@ -201,6 +203,7 @@ const useFeatureSettings = (): FeatureSettings => {
           },
         ],
         showTable: true,
+        showFilterBox:  true
       },
       [TemplatePageTypes.PURCHASES]: {
         title: "InvoiceCard.cardTitlePurchases",
@@ -313,6 +316,20 @@ const useFeatureSettings = (): FeatureSettings => {
           },
         ],
         showTable: true,
+        showFilterBox:   true
+      },
+      [TemplatePageTypes.ERRORLOGS]: {
+        title: "Logovi greske u zadnja 24h",
+        showBtns: false,
+        buttons: [],
+        filters: [
+          
+        ],
+        actions: [
+         
+        ],
+        showTable: true,
+        showFilterBox:  false
       },
     },
     salesTemplatePageSettings: {

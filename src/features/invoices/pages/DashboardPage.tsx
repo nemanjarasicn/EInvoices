@@ -32,7 +32,7 @@ export default function DashboardPage({}: IProps<DashboardPageProps>): JSX.Eleme
       </Grid>
         <div style={dashBoardStyles.cardsWrapper}>
         
-              {cardsSettings.map((card: CardProps, index: number) => {
+              {cardsSettings.filter((item) => item.typeOfCard  !==  "invoicesSummary").map((card: CardProps, index: number) => {
                 return <CardComponent key={index} props={card} />;
               })}
             

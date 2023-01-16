@@ -466,6 +466,39 @@ const useTableSettings = (): TableSettings => {
           },
         },
       },
+      [HeaderSettingsTypes.ERRORLOGS]: {
+        dataGrid: {
+          columnsDef: [
+            {
+              field: "Opis",
+              headerName: "Opis",
+              flex: 1,
+              headerAlign: "center",
+              align: "center",
+              hideable: false,
+            },
+            {
+              field: "Datum",
+              headerName: "Datum",
+              flex: 1,
+              headerAlign: "center",
+              align: "center",
+              hideable: false,
+            },
+          
+          ],
+          toolbarProps: {
+            showFilters: false,
+            showDensity: false,
+            showHideColumns: true,
+            showExport: false,
+          },
+          footerProps: {
+            countTxt: "Table.FooterCountTxt",
+            totalAmountTxt: "Table.FooterTotalAmountTxt",
+          },
+        },
+      },
     },
   };
 };
