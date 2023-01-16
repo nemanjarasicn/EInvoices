@@ -18,11 +18,13 @@ export enum InvoiceStatus {
 export enum TemplatePageTypes {
   SALES = "sales",
   PURCHASES = "purchases",
+  ERRORLOGS = "errorLogs",
 }
 
 export enum HeaderSettingsTypes {
   SALES = "sales",
   PURCHASES = "purchases",
+  ERRORLOGS = "errorLogs",
 }
 
 export enum CreateType {

@@ -179,7 +179,7 @@ export default function InvoiceTemplatePage({
         </Grid>
     
         <Grid container  sx={{backgroundColor: 'white', mt: 2, borderRadius:  '15px', ml: 2}}   spacing={2}>
-              
+        {templatePageSettings[props.templateType].showFilterBox && (
               <Grid item xs={12} style={templatePageStyles.buttonsGrid}  >
                   <CustomFilterBox  props={{
                         filters: templatePageSettings[props.templateType].filters,
@@ -187,6 +187,7 @@ export default function InvoiceTemplatePage({
                         type: props.templateType,
                       }} />
               </Grid>
+        )}
               {/*<Grid item xs={1.5}  sx={{ml: 3}}>    
                       <CheckboxField 
                               props={{

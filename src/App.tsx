@@ -62,6 +62,10 @@ const ArticlesCreateTemplatePage = React.lazy(
   () => import("./features/articles/pages/ArticlesCreateTemplatePage")
 );
 
+const HomePage = React.lazy(
+  () => import("./app/pages/HomePage")
+);
+
 function App() {
   const apiKeyPresent = useAppSelector(apiKeyExist);
   const color = useAppSelector(selectColor);
@@ -87,6 +91,10 @@ function App() {
           {apiKeyPresent ? invoicesRoutes() : modalRoute()}
           {registriesRoutes()}
           {articlesRoutes()}
+          <Route path="home" element={
+            <React.Suspense fallback={<>...</>}>
+              <HomePage props={{IsFromHome: true}} />
+            </React.Suspense>} />
           <Route path="*" element={<Navigate to="/" />} />
         </Route>
       </Routes>
@@ -130,6 +138,17 @@ function invoicesRoutes(): React.ReactNode {
               <InvoiceTemplatePage
                 key={`key_${TemplatePageTypes.PURCHASES}.id`}
                 props={{ templateType: TemplatePageTypes.PURCHASES }}
+              />
+            </React.Suspense>
+          }
+        />
+         <Route
+          path="errorLogs"
+          element={
+            <React.Suspense fallback={<>...</>}>
+              <InvoiceTemplatePage
+                key={`key_${TemplatePageTypes.ERRORLOGS}.id`}
+                props={{ templateType: TemplatePageTypes.ERRORLOGS }}
               />
             </React.Suspense>
           }
