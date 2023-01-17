@@ -13,7 +13,7 @@ import FormDropdownField from "../form-fields/FormDropdownField";
 type InvoiceGroupComponentProps = GroupFieldProps & {
   invoiceFileds: {
     issueDate: Omit<FormFieldProps, "control"> & {
-      additional?: { disablePast: boolean };
+      additional?: { disablePast: boolean,  };
     };
     dueDate: Omit<FormFieldProps, "control"> & {
       additional?: { disablePast: boolean };

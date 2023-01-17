@@ -75,7 +75,8 @@ export default function FormSubjectComponent({
         jbkjs:   "",
         subjectIdCategory:   "",
         subjectIdType:  "",
-        payeeFinancialAccountDto: ""
+        payeeFinancialAccountDto: "",
+        
     
     };
 
@@ -159,6 +160,7 @@ export default function FormSubjectComponent({
               setValue('payeeFinancialAccountDto',  props.data?.payeeFinancialAccountDto ?  props.data.payeeFinancialAccountDto[0]?.payeeFinancialAccountValue : "");
               setValue('subjectIdCategory',  subjectIdCategoryObject )
               setValue('subjectIdType',  subjectIdTypeObject )
+              setValue('jbkjs',  props.data.jbkjs)
             }
       }, []);
 

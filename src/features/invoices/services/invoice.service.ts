@@ -166,8 +166,9 @@ class InvoicePublicService {
 
 export default new InvoicePublicService();
 
+
 function mapToRequestDTO(invoice: any): any {
-  invoice.issueDate = dayjs(invoice.issueDate).format("YYYY-MM-DD");
+  invoice.issueDate =  dayjs(new Date).format("YYYY-MM-DD"); //dayjs(invoice.issueDate).format("YYYY-MM-DD");
   invoice.dueDate = dayjs(invoice.dueDate).format("YYYY-MM-DD");
   invoice["discount"] = invoice.priceWithoutDiscount - invoice.sumWithDiscount;
   invoice["sumWithDiscount"] = invoice.priceWithoutDiscount;

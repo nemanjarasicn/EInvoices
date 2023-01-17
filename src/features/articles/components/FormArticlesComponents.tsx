@@ -125,20 +125,22 @@ export default function FormArticleComponent({
         dispatch(getTaxCode());
         dispatch(getMarketPlacesAll({companyId: companyId}));
         dispatch(getVatAll());
-  
+
       }, []);
 
 
       React.useEffect(() => {
         const taxCode1 = getValues('productTaxCategory');
-        if(taxCode1.value1 === 1) {
-          dispatch(getTaxBase({id: Number(getValues('productTaxCategory').idTaxCategory)}));  
-          setShowTaxBase('block');
-        } else {
-          setShowTaxBase('none')
-          setValue('taxcodeValue', "" )
-          
-        }
+        if(taxCode1)  {
+            if(taxCode1?.item?.value1 === 1) {
+              dispatch(getTaxBase({id: Number(getValues('productTaxCategory').item.idTaxCategory)}));  
+              setShowTaxBase('block');
+            } else {
+              setShowTaxBase('none')
+              setValue('taxcodeValue', "" )
+              
+            }
+          }
         setValue("taxcodeValue",  String(taxCode1.value1));
       }, [watch('productTaxCategory')]);
 
