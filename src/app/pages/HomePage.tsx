@@ -90,7 +90,7 @@ export default function HomePage({props}: IProps<HomePageProps>): JSX.Element {
         <Grid item xs={12}  >
         
         <DataGrid
-              style={{ minHeight:  400,   backgroundColor: 'white',  overflow: "auto", scrollBehavior: "smooth",  fontSize:   fontSize,  marginTop: 20 }}
+              style={{ minHeight:  400,   backgroundColor: 'white',  fontSize:   fontSize,  marginTop: 20 }}
               disableColumnMenu
               pagination
               disableColumnFilter
@@ -104,7 +104,7 @@ export default function HomePage({props}: IProps<HomePageProps>): JSX.Element {
               getRowId={(row: any) =>  Math.random()}
               rowsPerPageOptions={[5, 10, 15, 30]}
               columns={columns}
-             // autoHeight={true}
+             autoHeight={true}
               density="compact"
               componentsProps={{
                 
@@ -115,7 +115,7 @@ export default function HomePage({props}: IProps<HomePageProps>): JSX.Element {
                   labelRowsPerPage: t('redova po strani')
                 }
               }}
-              pageSize={10}
+              pageSize={30}
               sx={{ "& .MuiDataGrid-columnHeaderCheckbox .MuiDataGrid-columnHeaderTitleContainer":
               {
                 display: "none",

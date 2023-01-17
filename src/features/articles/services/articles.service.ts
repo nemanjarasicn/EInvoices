@@ -6,6 +6,7 @@ class RegistriesPublicService {
   // MOCK CLIENT
 
   sendArticle(data: any) {
+   console.log('asass', data);
     return publicClient.post<any>
     ("catalog",
     [
@@ -24,9 +25,9 @@ class RegistriesPublicService {
               "code":  data.code,
               "idCompany":   data.idCompany,
               "idObject": 1,
-              "taxCode": data.productTaxCategory.taxCategoryCode,
-              "taxName": data.productTaxCategory.taxCategoryName,
-              "taxValue1":  data.productTaxCategory.value1,
+              "taxCode": data.productTaxCategory.item.taxCategoryCode,
+              "taxName": data.productTaxCategory.item.taxCategoryName,
+              "taxValue1":  data.productTaxCategory.item.value1,
                "baseCode":  data.taxBase.name,
               "productGroupRequest":[
                  {
@@ -48,11 +49,11 @@ class RegistriesPublicService {
 
               },
               "productTaxCategory":{
-                     "idTaxCategory": data.productTaxCategory.idTaxCategory,
-                     "taxCategoryCode": data.productTaxCategory.taxCategoryCode,
-                     "taxCategoryName": data.productTaxCategory.taxCategoryName,
-                     "value1":  data.productTaxCategory.value1,
-                     "idCountry":  data.productTaxCategory.idCountry,
+                     "idTaxCategory": data.productTaxCategory.item.idTaxCategory,
+                     "taxCategoryCode": data.productTaxCategory.item.taxCategoryCode,
+                     "taxCategoryName": data.productTaxCategory.item.taxCategoryName,
+                     "value1":  data.productTaxCategory.item.value1,
+                     "idCountry":  data.productTaxCategory.item.idCountry,
               }, 
               "marketPlaceDtos": data.marketPlaceDtos
               /*[{
