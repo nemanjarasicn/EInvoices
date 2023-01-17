@@ -13,6 +13,10 @@ class AppService {
     return httpClient.get<any>(`marketplace/company/${companyId}`);
   }
 
+  getErrorLogs() {
+    return httpClient.get<any>(`error`);
+  }
+
   getCompaniesDistributor(id: number) {
     return httpClient.get<any>(`distributor/company/${id}`);
   }
