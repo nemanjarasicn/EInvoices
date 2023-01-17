@@ -298,6 +298,7 @@ const useTableSettings = (): TableSettings => {
             countTxt: "Table.FooterCountTxt",
             totalAmountTxt: "Table.FooterTotalAmountTxt",
           },
+          type: 'sales'
         },
       },
       [HeaderSettingsTypes.PURCHASES]: {
@@ -464,6 +465,7 @@ const useTableSettings = (): TableSettings => {
             countTxt: "Table.FooterCountTxt",
             totalAmountTxt: "Table.FooterTotalAmountTxt",
           },
+          type: 'purchases'
         },
       },
       [HeaderSettingsTypes.ERRORLOGS]: {
@@ -497,6 +499,7 @@ const useTableSettings = (): TableSettings => {
             countTxt: "Table.FooterCountTxt",
             totalAmountTxt: "Table.FooterTotalAmountTxt",
           },
+          type: 'errorLogs'
         },
       },
     },

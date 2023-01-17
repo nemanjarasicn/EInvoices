@@ -25,7 +25,7 @@ class RegistriesPublicService {
     return publicClient.post<any>
     ("marketplace",
     [{
-      "objectUuid": data.data.objectUuid.uuid,
+      "objectUuid": data.data.objectUuid.item.uuid,
       "marketPlaceName": data.data.marketPlaceName,
       "idCompany":  data.data.companyId
     }]

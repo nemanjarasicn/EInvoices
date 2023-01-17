@@ -25,6 +25,7 @@ export type TableComponentProps = {
   columnsDef: GridColDef[];
   toolbarProps: TableToolbarProps;
   footerProps: any;
+  type?: string;
 };
 
 export default function TableComponent({
@@ -37,13 +38,13 @@ export default function TableComponent({
   const [openConfirm, setOpenConfirm] = React.useState(false);
   const [actionValue, setActionValue] = React.useState<any>(null);
   const openPdf = useAppSelector(selectOpenPdf);
-
-
-  const tableData: TableData<any>[] = useAppSelector(selectInvoices);
+  const selector  = props.type !==  'errorLogs' ?   selectInvoices  :  selectInvoices   ;
+  
+  const tableData: TableData<any>[] = useAppSelector(selector);
 
   const selection: GridSelectionModel = useAppSelector(selectSelection);
 
-
+  console.log('aasasas',  props);
   const fontSize  =    window.devicePixelRatio === 1.5 ?    '12px' :  '14px';
 
 
