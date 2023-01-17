@@ -10,6 +10,8 @@ import { usePageStyles } from "../../features/invoices/pages/pages.styles";
 import Breadcrumbs from '@mui/material/Breadcrumbs';
 import Link from '@mui/material/Link';
 import Typography from '@mui/material/Typography';
+import { useNavigate } from "react-router-dom";
+import CustomButtonFc from "../../features/invoices/components/CustomButtonFc";
 import finalPropsSelectorFactory from "react-redux/es/connect/selectorFactory";
 
 
@@ -21,7 +23,7 @@ export default function HomePage({props}: IProps<HomePageProps>): JSX.Element {
   const { t } = useTranslation();
   const { cardsSettings } = useFeatureSettings();
   const { dashBoardStyles } = usePageStyles();
-
+  const navigate = useNavigate();
   const boxMarginTop   =    window.devicePixelRatio === 1.5 ?  6 :  10;
   const fontSizeBreadcrumbs  =   window.devicePixelRatio === 1.5 ?  '16px' :  '20px';
   console.log('asssaasas', props);
@@ -35,8 +37,15 @@ export default function HomePage({props}: IProps<HomePageProps>): JSX.Element {
           </Breadcrumbs>
       </Grid>
       <Grid item  xs={8}   sx={{display:  'flex', alignItems:  'center', justifyContent:  'flex-end', mt: boxMarginTop}}   >
-           
-  </Grid>
+          <CustomButtonFc
+                        groupButton={ [{
+                          title: "ButtonsText.TemplatePage.createDocument",
+                          disabled: false,
+                          btnFn: () => navigate("/invoices/create"),
+                          buttonId: 1,
+                        }]}
+                      />
+          </Grid>
         <div style={dashBoardStyles.cardsWrapper}>
         
               {cardsSettings.map((card: CardProps, index: number) => {
