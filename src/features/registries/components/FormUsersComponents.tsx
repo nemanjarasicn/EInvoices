@@ -40,9 +40,8 @@ import SucessModal   from "../../shared/components/SucessModal"
     confirmpassword: yup.string()
        .oneOf([yup.ref('password'), null], 'Lozinke se ne poklapaju'),
     username: yup.string().required('Ovo je obavezno polje'),
-    userRole: yup.object().shape({
-      roleName: yup.string().required('')
-    }),
+    userRole: yup.object().required('ovo je obavezno polje')
+   
  })
  .required();
 
@@ -83,6 +82,7 @@ export default function FormUsersComponent({
       } = methods;
 
       const onSubmit = (data: UsersFormModel) => {
+        console.log('asasas', data)
        dispatch(sendUsers({data})).then((res) => {
         if(res.payload === 'sucsses') {
           setShowError(true);

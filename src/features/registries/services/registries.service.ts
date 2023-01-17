@@ -237,7 +237,7 @@ class RegistriesPublicService {
     {
       "username":  data.data.username,
       "password":  data.data.password,
-      "roleName":[data.data.userRole.roleName],
+      "roleName":[data.data.userRole.name],
       "companies": [data.data.companyId]
   
   }
