@@ -25,9 +25,8 @@ type ConfirmWithCommentDialogProps = {
 export default function ConfirmWithCommentDialog({
   props,
 }: IProps<ConfirmWithCommentDialogProps>) {
-  console.log('saasassa1111', props.action )
   const schema = 
-  (props.action === 'reject' ||  props.action === 'cancel') ?
+  (props.action === 'reject' ||  props.action === 'cancel'  || props.action  === "storno") ?
       yup.object({
         controlArea: yup.string().trim().required("Komentar je obavezan"),
       })
