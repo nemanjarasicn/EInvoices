@@ -450,6 +450,9 @@ export default function InvoiceFormComponent({
                                   name: "dueDate",
                                   label: t("Form.formGrpLabels.invoiceGrp.dueDate"),
                                   disabled: false,
+                                  additional: {
+                                    disablePast: true,
+                                  },
                                 },
                                 vatPointDate: {
                                   name: "vatPointDate",

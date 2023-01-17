@@ -56,6 +56,19 @@ const getCompaniesDistributor: AsyncThunk<any, { id: number } , {}> = createAsyn
 }
 );
 
+/**
+ * Get error logs
+ */
+
+ const getErrorLogs: AsyncThunk<any, void , {}> = createAsyncThunk(
+  "GET/errorLogget",
+  async () => {
+    return     await AppService.getErrorLogs()
+    .then((res: any) => res.data)
+    .catch((err: any) => []);
+}
+);
+
 const getMarketPlacesLogin: AsyncThunk<any, { companyId: number | string }, {}> =
   createAsyncThunk<any, { companyId: number | string }>(
     "GET/MarketPlacesAll",
@@ -79,4 +92,4 @@ const getMarketPlacesLogin: AsyncThunk<any, { companyId: number | string }, {}> 
    } 
  );
 
-export { login, getLoggedSubject,  getCompaniesAllLogin,  getCompaniesDistributor,  getMarketPlacesLogin };
+export { login, getLoggedSubject,  getCompaniesAllLogin,  getCompaniesDistributor,  getMarketPlacesLogin,  getErrorLogs };

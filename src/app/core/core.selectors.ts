@@ -122,3 +122,12 @@ export const selectMarketPlaceLogin = createSelector(
   coreSelectors,
   (state: CoreState) => state.marketPlacesAll[0]?.uuid
 );
+
+
+/**
+ * Select errorLogs admin
+ */
+ export const selecterrorLogs = createSelector(
+  coreSelectors,
+  (state: CoreState) => state.errorLogs
+);
