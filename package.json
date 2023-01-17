@@ -77,6 +77,11 @@
       "last 1 safari version"
     ]
   },
+  "overrides": {
+    "@react-pdf/renderer": {
+      "react": "^18.0.0"
+    }
+  },
   "devDependencies": {
     "@types/file-saver": "^2.0.5",
     "@types/react-pdf": "^6.2.0"

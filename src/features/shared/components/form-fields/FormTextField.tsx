@@ -10,6 +10,7 @@ type FormTextFieldProps = FormFieldProps & {
     readonly?: boolean;
     labelShrink?: boolean;
     valueForm?: string;
+    mask?: any
   };
 };
 
