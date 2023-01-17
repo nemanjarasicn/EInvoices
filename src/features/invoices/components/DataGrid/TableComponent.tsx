@@ -38,6 +38,7 @@ export default function TableComponent({
   const [actionValue, setActionValue] = React.useState<any>(null);
   const openPdf = useAppSelector(selectOpenPdf);
 
+
   const tableData: TableData<any>[] = useAppSelector(selectInvoices);
 
   const selection: GridSelectionModel = useAppSelector(selectSelection);

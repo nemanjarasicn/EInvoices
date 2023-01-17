@@ -36,7 +36,7 @@ import FormCurrencyField from "../../shared/components/form-fields/FormCurrencyF
 /**
  * Register Form validation schema for every field
  */
- const schema = yup
+ /*const schema = yup
  .object({
   companyName: yup.string().required('ovo je obavezno polje'),
   address:   yup.string().required('ovo je obavezno polje'),
@@ -49,11 +49,12 @@ import FormCurrencyField from "../../shared/components/form-fields/FormCurrencyF
   subjectIdCategory: yup.object().required('ovo je obavezno polje'),
   subjectIdType: yup.object().required('ovo je obavezno polje'),
  })
- .required();
+ .required();*/
 
 export default function FormSubjectComponent({
     props,
   }: IProps<ArticlesFormComponentProps>): JSX.Element {
+
     const companyId = useAppSelector(selectCompanyCurrent);
     const [disableJbkjs,  setDisableJbkjs]  =   React.useState(true);
     const  subjectCategoryTmp  =  useAppSelector(selectSubjectGategory);
@@ -77,6 +78,40 @@ export default function FormSubjectComponent({
         payeeFinancialAccountDto: ""
     
     };
+
+        /**
+ * Register Form validation schema for every field
+ */
+ const schema = 
+ (disableJbkjs) ?
+    yup.object({
+      companyName: yup.string().required('ovo je obavezno polje'),
+      address:   yup.string().required('ovo je obavezno polje'),
+      city:  yup.string().required('ovo je obavezno polje'),
+      zip: yup.string().required('ovo je obavezno polje'),
+      mb: yup.string().trim().required('ovo je obavezno polje'),
+      pib: yup.string().trim().required('ovo je obavezno polje'),
+      payeeFinancialAccountDto: yup.string().required('ovo je obavezno polje'),
+      email: yup.string().email('email mora biti ispravnog formata'),
+      subjectIdCategory: yup.object().required('ovo je obavezno polje'),
+      subjectIdType: yup.object().required('ovo je obavezno polje'),
+      //jbkjs: yup.string().required('ovo je obavezno polje')
+    })  :
+  
+    yup.object({
+      companyName: yup.string().required('ovo je obavezno polje'),
+      address:   yup.string().required('ovo je obavezno polje'),
+      city:  yup.string().required('ovo je obavezno polje'),
+      zip: yup.string().required('ovo je obavezno polje'),
+      mb: yup.string().trim().required('ovo je obavezno polje'),
+      pib: yup.string().trim().required('ovo je obavezno polje'),
+      payeeFinancialAccountDto: yup.string().required('ovo je obavezno polje'),
+      email: yup.string().email('email mora biti ispravnog formata'),
+      subjectIdCategory: yup.object().required('ovo je obavezno polje'),
+      subjectIdType: yup.object().required('ovo je obavezno polje'),
+      jbkjs: yup.string().required('ovo je obavezno polje')
+    })
+ .required();
     const { t } = useTranslation();
     const { formComponent } = useComponentsStyles();
     const navigate  = useNavigate();
