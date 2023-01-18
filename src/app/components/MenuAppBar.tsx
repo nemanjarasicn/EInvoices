@@ -238,6 +238,10 @@ export default function ClippedDrawer() {
     navigate("/login");
   };
 
+  React.useEffect(() => {
+    window.location.reload();
+  }, []);
+
   
 
   return (
