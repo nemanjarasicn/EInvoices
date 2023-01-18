@@ -30,7 +30,6 @@
     "@types/react": "^18.0.20",
     "@types/react-dom": "^18.0.6",
     "axios": "^0.27.2",
-    "babel-preset-es2015": "^6.24.1",
     "date-fns": "^2.29.3",
     "dayjs": "^1.11.5",
     "file-saver": "^2.0.5",
@@ -53,12 +52,13 @@
     "react-scripts": "5.0.1",
     "react-service-worker": "^0.1.1",
     "redux-persist": "^6.0.0",
+    "typescript": "^4.8.3",
     "web-vitals": "^2.1.4",
     "yup": "^0.32.11"
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "webpack",
+    "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -87,9 +87,6 @@
   },
   "devDependencies": {
     "@types/file-saver": "^2.0.5",
-    "@types/react-pdf": "^6.2.0",
-    "ts-loader": "^9.4.2",
-    "typescript": "^4.9.4",
-    "webpack-cli": "^5.0.1"
+    "@types/react-pdf": "^6.2.0"
   }
 }
