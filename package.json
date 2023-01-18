@@ -39,6 +39,7 @@
     "material-ui-nested-menu-item-v5": "^2.0.1",
     "material-ui-popup-state": "^4.1.0",
     "react": "^18.2.0",
+    "react-cache-buster": "^0.1.7",
     "react-dom": "^18.2.0",
     "react-dropzone": "^14.2.2",
     "react-helmet": "^6.1.0",
@@ -57,9 +58,10 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "npm run generate-meta-tag && react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "generate-meta-tag": "node ./node_modules/react-cache-buster/dist/generate-meta-tag.js"
   },
   "eslintConfig": {
     "extends": [
