@@ -103,7 +103,7 @@ function convertToProductModel(item: any): ProductModel {
   return {
     idVat: item.productVatRequest?.idVat,
     vatName: item.taxName,  //vatName
-    unitCode: item.productUnitRequest?.unitName,
+    unitCode: item.unitCode, //item.productUnitRequest?.unitName,
     idUnit: item.productUnitRequest?.idUnit,
     currencyID: "RSD",
     id: item.prodctId,
