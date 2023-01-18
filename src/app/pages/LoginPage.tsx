@@ -40,9 +40,6 @@ export default function LoginPage(): JSX.Element {
   const error = useAppSelector(hasError);
   const loading = useAppSelector(loginLoading);
   
-  React.useEffect(() => {
-    window.location.reload();
-  }, []);
 
   React.useEffect(() => {
     if (Boolean(sessionStorage.getItem("token"))) navigate("/");
