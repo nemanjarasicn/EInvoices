@@ -41,7 +41,7 @@ class RegistriesPublicService {
               },
               "productUnitRequest":{
                  "idUnit":   data.productUnitRequest.id,
-                 "unitName": data.productUnitRequest.productUnitName
+                 "unitName": data.productUnitRequest.name
               },
               "productVatRequest":{
                  "idVat":  data.productVatRequest.id,
