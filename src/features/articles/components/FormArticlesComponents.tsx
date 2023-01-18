@@ -27,24 +27,27 @@ import { setopenModalCreateArtical,  setopenModalCreateArticalPrice, setOpenSuce
 //import ClientComponent from "./form-group/ClientComponent";
 
 
-/**
+export default function FormArticleComponent({
+    props,
+  }: IProps<ArticlesFormComponentProps>): JSX.Element {
+    const companyId = useAppSelector(selectCompanyCurrent) as any;
+    const [showTaxBase, setShowTaxBase] = React.useState('none');
+
+    /**
  * Register Form validation schema for every field
  */
- const schema = yup
- .object({
+ const schema = 
+  yup.object({
       productName: yup.string().required('ovo je obavezno polje'),
       code: yup.string().required('ovo je obavezno polje'),
       productTaxCategory: yup.object().required('ovo je obavezno polje'),
       barCode: yup.string().matches(/^(|.{5,})$/, "Mora imati najmanje 5 cifara"),
       productUnitRequest: yup.object().required('ovo je obavezno polje'),
+      productVatRequest:    yup.object().required('ovo je obavezno polje'),
+      
+})
 
- })
  .required();
-
-export default function FormArticleComponent({
-    props,
-  }: IProps<ArticlesFormComponentProps>): JSX.Element {
-    const companyId = useAppSelector(selectCompanyCurrent) as any;
 
 
 
@@ -100,7 +103,6 @@ export default function FormArticleComponent({
     const dispatch = useAppDispatch();
     const [showError, setShowError] = React.useState(false);
     const [showErrorModal, setShowErrorModal] = React.useState(false);
-    const [showTaxBase, setShowTaxBase] = React.useState('none');
     const marginTopBox =  window.devicePixelRatio == 1.5 ? 3 : 5 
   
 
