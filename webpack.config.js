@@ -9,7 +9,7 @@ const path = require('path');
       }),
     ],
     output: {
-     filename: '[name].[contenthash].js',
+     filename: `[chunkhash]-${Date.now()}.js`,
       path: path.resolve(__dirname, 'dist'),
       clean: true,
     },
