@@ -3,7 +3,7 @@ const path = require('path');
 
   module.exports = {
     entry:  {
-      index: ["./src/index.js", "./src/index.css"],
+      index: ["./src/index.tsx", "./src/index.css"],
     },
     
     plugins: [
