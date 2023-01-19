@@ -75,7 +75,6 @@ function App() {
 
   
   const isUserAuthorityList  =   useAppSelector(selectUser)?.authorities?.length  ?  true :  false;
-  window.location.reload();
 
   return (
     <ThemeProvider theme={theme(color)}>
