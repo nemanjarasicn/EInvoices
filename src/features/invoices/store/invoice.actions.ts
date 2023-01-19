@@ -74,11 +74,6 @@ const sendInvoce: AsyncThunk<any, { invoice: any, companyInfo?: any }, {}> = cre
       invoiceDto.invoice.accountingCustomerParty.partyLegalEntity.companyID
   );
 
-
-
-  console.log('compn', invoiceDto.invoice );
-  
-
   (invoiceDto.invoice as any)["paymentMeans"] = createPaymentMeans(
     //foundCompany,
     payeeFinancialAccountDtoCompany,
@@ -105,6 +100,8 @@ const sendInvoce: AsyncThunk<any, { invoice: any, companyInfo?: any }, {}> = cre
   (invoiceDto.invoice as any)["taxTotal"] = mapInvoiceLinesCreateTaxTotal(
     invoiceDto.invoice.invoiceLine
   );
+
+  
 
   invoiceDto.invoice["invoiceLine"].map((item: any) => ({
     ...item,
@@ -133,7 +130,7 @@ const updateStatusInvoice: AsyncThunk<
   const found = invoices.invoicesR.find(
     (item: any) => item.id === asyncDto.invoiceId
   );
-  console.log('sasasasaas', found );
+
   switch (asyncDto.actionType) {
     case "storno":
       return await InvoicePublicService.stornoSales(
