@@ -66,7 +66,7 @@ export default function HomePage({props}: IProps<HomePageProps>): JSX.Element {
 
       <Grid item xs={4}  sx={{mt: boxMarginTop, }}>
           <Breadcrumbs aria-label="breadcrumb"  sx={{'& .MuiBreadcrumbs-separator': {color: 'red'}}}>
-                <Typography  sx={{color: 'red', fontSize:   fontSizeBreadcrumbs, fontFamily:  "Roboto",  lineHeight:  "32px",  fontWeight:  700}}>{t("Pocetna")}</Typography>
+                <Typography  sx={{color: 'green', fontSize:   fontSizeBreadcrumbs, fontFamily:  "Roboto",  lineHeight:  "32px",  fontWeight:  700}}>{t("Pocetna")}</Typography>
           </Breadcrumbs>
           <p>test11111</p>
       </Grid>
