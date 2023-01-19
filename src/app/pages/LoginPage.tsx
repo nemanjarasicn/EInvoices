@@ -58,7 +58,7 @@ export default function LoginPage(): JSX.Element {
     ).then((res)  => {
       console.log('assass', res);
       dispatch(setCompanyCurrent(res.payload.companyId[0]));
-      if(!res.payload.error) {   navigate('/');   setTimeout(() => {window.location.reload() }, 2000);} //namesteno da bi automatski povlacio promene}
+      if(!res.payload.error) {   navigate('/');   setTimeout(() => {window.location.reload()}, 2000);}
     }) 
   };
 

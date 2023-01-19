@@ -161,8 +161,8 @@ const getCompaniesDistributor: AsyncThunk<any, { companyId: number | string } , 
 const sendCompanies: AsyncThunk<any, {data: CompanyFormModel}, {}> = createAsyncThunk<any, {data: CompanyFormModel}>(
   "POST/companySend",
   async (data,_) => {
-    console.log('test',data.data );
-    const idDistributor = data.data.distributor.item.idDistributor ? data.data.distributor.item.idDistributor :  data.data.distributor;
+
+    const idDistributor = data.data?.distributor?.item?.idDistributor ? data.data?.distributor?.item?.idDistributor :  data.data.distributor;
     return await RegistriesPublicService.sendCompanies(data)
       .then((res: any) => { 
         if(data.data.distributor !== ""  &&  data.data.distributor  !==  undefined) {
