@@ -1,9 +1,6 @@
 import React from "react";
 import {
-    Paper,
-    Typography,
     Grid,
-    Box,
   } from "@mui/material";
 import { ArticlesFormComponentProps }  from "./ArticlesFormComponent"
 import { useTranslation } from "react-i18next";
@@ -24,30 +21,13 @@ import {useLocation} from 'react-router-dom';
 import {  sendArticlesPrice } from "../store/articles.actions";
 import FormCurrencyField from "../../shared/components/form-fields/FormCurrencyField";
 import { setopenModalCreateArticalPrice,  setOpenSucessModal } from "../store/articles.reducer";
-//import ClientComponent from "./form-group/ClientComponent";
-
 
 /**
  * Register Form validation schema for every field
  */
  const schema = yup
  .object({
-   // client: yup
-   //   .object({
-   //     vatRegistrationCode: yup.string().required(),
-   //   })
-   //   .required(),
-   // dropdownValue: yup.string().required(),
-   // textAreaValue: yup.string().required(),
-   // dateValue: yup.string().required(), //validate date format
-   // autocompleteValue: yup.object().required(),
-   // checkbox: yup.bool().required(),
-   // numberValue: yup.number().required(),
-   // invoiceLine: yup.array().of(
-   //   yup.object({
-   //     invoicedQuantity: yup.number().moreThan(0, ""),
-   //   })
-   // ),
+
  })
  .required();
 
@@ -60,14 +40,10 @@ export default function FormArticlePriceComponent({
       price: ""
     };
     const { t } = useTranslation();
-    const { formComponent } = useComponentsStyles();
     const navigate  = useNavigate();
     const dispatch = useAppDispatch();
     const [showError, setShowError] = React.useState(false);
     const [showErrorModal, setShowErrorModal] = React.useState(false);
-    
-    const location = useLocation();
-  
 
 
     const methods = useForm({
@@ -79,13 +55,7 @@ export default function FormArticlePriceComponent({
         reset,
         control,
         setValue,
-        formState,
-        getValues,
-        trigger,
-        getFieldState,
-        watch,
       } = methods;
-
 
       React.useEffect(() => {
         dispatch(getObjectsAll({companyId: companyId}));
@@ -94,8 +64,6 @@ export default function FormArticlePriceComponent({
         dispatch(getMarketPlacesAll({companyId: companyId}));
   
       }, []);
-
-
 
       const onSubmit = async  (dataPrice: PriceFormModel) => {
           const dataArtikal =  props?.data; //location.state;
@@ -120,7 +88,7 @@ export default function FormArticlePriceComponent({
                       )
                       dispatch(setOpenSucessModal(false));
                       window.location.reload()
-      
+  
                   }, 2000);
                   navigate('/articles/articlesList')
             }  else {
@@ -134,13 +102,10 @@ export default function FormArticlePriceComponent({
           });
       }
       
-  
     return (
         <Grid item xs={12}  sx={{mt: 2}}>
             <SucessModal    open={showError} ></SucessModal>
             <ErrorModal    open={showErrorModal} ></ErrorModal>
-            
-
                 <Grid container spacing={2}  sx={{ minHeight: "150px", marginTop: '10px'}}>
                     <Grid item xs={6}>
                     <FormCurrencyField
@@ -154,11 +119,7 @@ export default function FormArticlePriceComponent({
                      />    
                     </Grid>
                 </Grid>
-        
-
-            
             <Grid item xs={5}  >
-
                 <Grid item xs={12} sx = {{display: 'flex', justifyContent: 'space-between'}} >
                       <CustomButtonFcTra 
                            soloButton={{
@@ -167,7 +128,7 @@ export default function FormArticlePriceComponent({
                               btnFn: () => dispatch(setopenModalCreateArticalPrice(false)),
                           }}
                         />
-
+                        
                         <CustomButtonFc 
                            soloButton={{
                               title: "SAČUVAJ",
@@ -176,12 +137,7 @@ export default function FormArticlePriceComponent({
                           }}
                         />
                   </Grid>
-            
-                
-                
-
             </Grid>
-  
         </Grid>
     )
 }

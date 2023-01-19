@@ -4,8 +4,6 @@ import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
 import Modal from '@mui/material/Modal';
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
-
-
 import Box from '@mui/material/Box'
 import FormSubjectComponent from './FormSubjectComponent';
 import    { setopenModalCreateArtical }  from  "../store/articles.reducer"
@@ -54,11 +52,9 @@ const style = {
                                         fontSize:  window.devicePixelRatio == 1.5 ?  16 : 24,   color:  'black'}}>
                                         Novi Komitent
                                     </Typography>
-                            
-                            </Grid>
-                            
+              
+                            </Grid> 
                     </Grid>
-                   
                     <FormSubjectComponent   props={props} />
                 
             </Grid>

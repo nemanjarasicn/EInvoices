@@ -5,22 +5,11 @@ import {
   Typography,
   Grid,
   Box,
-  Switch,
-  FormControlLabel,
-  FormControl,
-  FormHelperText,
-  InputLabel,
-  MenuItem,
-  Select,
-  IconButton,
 } from "@mui/material";
 import { IProps } from "../models/articles.models";
 import * as yup from "yup";
 import { useTranslation } from "react-i18next";
 import { useComponentsStyles } from "../../shared/components/components.styles";
-import AttachFileIcon from "@mui/icons-material/AttachFile";
-import RestoreRoundedIcon from "@mui/icons-material/RestoreRounded";
-import TextsmsOutlinedIcon from "@mui/icons-material/TextsmsOutlined";
 import  FormArticleComponent   from  "../components/FormArticlesComponents"
 
 
@@ -34,30 +23,6 @@ export type ArticlesFormComponentProps = {
   data?: any;
   flag?: string;
 };
-
-/**
- * Register Form validation schema for every field
- */
-const schema = yup
-  .object({
-    // client: yup
-    //   .object({
-    //     vatRegistrationCode: yup.string().required(),
-    //   })
-    //   .required(),
-    // dropdownValue: yup.string().required(),
-    // textAreaValue: yup.string().required(),
-    // dateValue: yup.string().required(), //validate date format
-    // autocompleteValue: yup.object().required(),
-    // checkbox: yup.bool().required(),
-    // numberValue: yup.number().required(),
-    // invoiceLine: yup.array().of(
-    //   yup.object({
-    //     invoicedQuantity: yup.number().moreThan(0, ""),
-    //   })
-    // ),
-  })
-  .required();
 
 export default function ArticlesFormComponent({
   props,
@@ -73,14 +38,11 @@ export default function ArticlesFormComponent({
     }
     return <div>test</div>
   }
- 
 
   return (
     <Box
       sx={{ flexGrow: 1, rowGap: 1, display: "flex", flexDirection: "column", mt: 18 }}
     >
-
-
       <Grid container spacing={2}>
         <Grid item xs={12}>
           <Box

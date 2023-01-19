@@ -92,4 +92,9 @@ const getMarketPlacesLogin: AsyncThunk<any, { companyId: number | string }, {}> 
    } 
  );
 
-export { login, getLoggedSubject,  getCompaniesAllLogin,  getCompaniesDistributor,  getMarketPlacesLogin,  getErrorLogs };
+export { login, 
+         getLoggedSubject,  
+         getCompaniesAllLogin,  
+         getCompaniesDistributor,  
+         getMarketPlacesLogin,  
+         getErrorLogs };

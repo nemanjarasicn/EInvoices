@@ -7,7 +7,6 @@ import { useFeatureSettings } from "../settings";
 import { TemplatePageArticlesTypes } from "../models/articles.enums";
 import { useTranslation } from "react-i18next";
 import CustomButtonFc from "../../shared/components/CustomButtonFc";
-import FormAutocompleteField from "../../shared/components/form-fields/FormAutocompleteField";
 import FormAutocompleteFieldSelect from "../../shared/components/form-fields/FormAutocompleteFieldSelect";
 import { usePageStyles } from "./pages.styles";
 import TableComponent from "../components/DataGrid/TableComponent"; 
@@ -23,16 +22,16 @@ import { getArticles } from "../store/articles.actions";
 import Breadcrumbs from '@mui/material/Breadcrumbs';
 import Link from '@mui/material/Link';
 import Typography from '@mui/material/Typography';
-
-
-import  { selectOpenCreateArtical,  selectOpenCreateArticalPrice, selectOpenSucessModal,  selectOpenCreateSubject }  from  "../store/articles.selectors"
+import  { selectOpenCreateArtical,  
+          selectOpenCreateArticalPrice, 
+          selectOpenSucessModal,  
+          selectOpenCreateSubject 
+        }  from  "../store/articles.selectors"
 import  ModalSucessArticles  from   "../components/ModalSucessArticles"
 import   {  selectMarketPlaceLogin  }   from   "../../../app/core/core.selectors"
 import ModalCreateSubject from "../components/ModalCreateSubject";
 import ModalCreateArtical from "../components/ModalCreateArtical";
 import ModalCreateArticalPrice from "../components/ModalCreateArticalPrice";
-import { Navigate } from "react-router-dom";
-import { faWindowRestore } from "@fortawesome/pro-solid-svg-icons";
 import { useNavigate } from 'react-router-dom';
 import  {  getSubjectCategory,  getSubjectType }  from  "../../shared/components/form-fields/store/form.actions"
 
@@ -103,21 +102,14 @@ export default function InvoiceTemplatePage({
     if(selectValue !==   "") {
       dispatch(getDataActionSelect(settings.selectType));
     } else {
-
       marketPlace &&  dispatch(getArticles({uuid: marketPlace}));
-      
     }
   }, [selectValue]);
 
-
-  
-
- 
   const handleChangeSelect = (value: any) =>  {
     setSelectValue(value.item.uuid);
   }
 
-  
   return (
     <>
     <ModalCreateArtical    open={openModalCreateArtical} ></ModalCreateArtical>
@@ -127,8 +119,6 @@ export default function InvoiceTemplatePage({
     <Box sx={{ flexGrow: 1, m: 2.5 }}>
       <Grid container spacing={2}  mt={8}>
         <Grid item xs={4} >
-        
-        
               <Breadcrumbs aria-label="breadcrumb"     sx={{'& .MuiBreadcrumbs-separator': {color: ' #60737C'}}}>
                 <Link  sx={{color: '#60737C', fontSize:  "20px", fontFamily:  "Roboto",  lineHeight:  "32px",  fontWeight:  700}}  href="/articles">
                         ARTIKLI
@@ -138,19 +128,18 @@ export default function InvoiceTemplatePage({
         </Grid>
         <Grid item xs={8} style={templatePageStyles.buttonsGrid}>
             <Grid item xs={4} sx={{alignItems: 'center', mt: 2}} >
-              
               {templatePageSettings[props.templateType].showBtnsSelect && (
                 <FormAutocompleteFieldSelect
-                      props={{
-                          name: templatePageSettings[props.templateType].buttonsSelect.name,
-                          control: control,
-                          label:  templatePageSettings[props.templateType].buttonsSelect.label,
-                          disabled: true,
-                          additional: {
-                            parentFn: handleChangeSelect,
-                            selector: templatePageSettings[props.templateType].buttonsSelect.selector,
-                          },
-                      }}
+                    props={{
+                        name: templatePageSettings[props.templateType].buttonsSelect.name,
+                        control: control,
+                        label:  templatePageSettings[props.templateType].buttonsSelect.label,
+                        disabled: true,
+                        additional: {
+                          parentFn: handleChangeSelect,
+                          selector: templatePageSettings[props.templateType].buttonsSelect.selector,
+                        },
+                    }}
                 />
               )}
             </Grid>
@@ -164,11 +153,9 @@ export default function InvoiceTemplatePage({
         </Grid>
         <Grid item xs={12}>
           {templatePageSettings[props.templateType].showTable && (
-  
               <TableComponent
                 props={tableSettings[props.templateType].dataGrid}
               />
-              
           )}
         </Grid>
         <Grid item xs={12}></Grid>
