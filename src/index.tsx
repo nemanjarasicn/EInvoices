@@ -28,5 +28,4 @@ root.render(
     </Provider>
   </React.StrictMode> 
 );
-serviceWorker.register();
 reportWebVitals();
