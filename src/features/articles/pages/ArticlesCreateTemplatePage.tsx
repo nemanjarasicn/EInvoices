@@ -42,7 +42,6 @@ export default function RegistriesCreateTemplatePage({
               />
             );
 
-
             case CreateType.FORMSUBJECT:
             return (
               <FormSubjectComponent

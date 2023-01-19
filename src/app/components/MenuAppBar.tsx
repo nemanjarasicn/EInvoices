@@ -12,21 +12,14 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import InboxIcon from "@mui/icons-material/MoveToInbox";
-import MailIcon from "@mui/icons-material/Mail";
 import Drawer from "@mui/material/Drawer";
 import { Link, Outlet } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import Divider from '@mui/material/Divider';
 import CompaniesSelector from "./CompaniesSelector";
 import LanguageSelector from "./LanguageSelector";
-import UserAccount from "./UserAccount";
-import Home from "@mui/icons-material/Home";
-import ArticleIcon from '@mui/icons-material/Article';
-import ApartmentIcon from '@mui/icons-material/Apartment';
-import Payments from "@mui/icons-material/Payments";
 import { useAppComponentsStyles } from "./components.styles";
 import LogoutIcon from "@mui/icons-material/Logout";
-import ErrorModal from "../../features/shared/components/ErrorModals";
 import { useTheme } from '@mui/material/styles';
 import AppLoader from "./AppLoader";
 import { NavItem } from "../models/navItem.models";
@@ -73,19 +66,17 @@ export default function ClippedDrawer() {
   const dispach = useAppDispatch();
   const navigate = useNavigate();
   const { t } = useTranslation();
-  const theme  =  useTheme();
   const { menuAppBarStyles } = useAppComponentsStyles();
   const companyUser = useAppSelector(selectCompany) as any;
-  const user  =  useAppSelector(selectUser) as any;
   const userAuthority = useAppSelector(selectUser)?.authorities?.slice(0,1)[0].authority === "ROLE_ADMIN" ? true  :   false;
   const isDistributor  =  useAppSelector(selectUser)?.authorities?.slice(0,1)[0].authority === "ROLE_DISTRIBUTER" ? true  :   false;
-  const isUser  =  useAppSelector(selectUser)?.authorities?.slice(0,1)[0].authority === "ROLE_USER" ? true  :   false;
-  const showAdmin =  isDistributor;
   const openModalSucessLoad = useAppSelector(selectOpenModalSucessLoad);
 
   const [calcNumber, setCalcNumber] =  React.useState<number>(1);
   const [showSubMenu,  setShowSubMenu] =  React.useState<boolean>(false);
   const [parentItem, setParentItem] =  React.useState<any>();
+
+  //for  150  zoom
   const stepPosition = window.devicePixelRatio === 1.5 ?  50  : 80;
   const sizeIcons = window.devicePixelRatio === 1.5 ? '30px' : '40px'; 
   const logoSize = window.devicePixelRatio === 1.5 ?  100 : 150; 
@@ -96,8 +87,6 @@ export default function ClippedDrawer() {
   const subMenuHeight = window.devicePixelRatio === 1.5 ? 210 : 350 ; 
   const subMenuPadding = window.devicePixelRatio === 1.5 ?  0 :   2; 
   const fontSizeText = window.devicePixelRatio === 1.5 ? '12px' : '18px';
-  const appBarHeight = window.devicePixelRatio === 1.5 ? '40px' : '65px'; 
-  const logoutIconMarginTop    =     window.devicePixelRatio === 1.5 ? '190px' : '370px'; 
   const gradiantSize = window.devicePixelRatio === 1.5 ?   '20%' : '15%';
   const minWidthIcon    =    window.devicePixelRatio === 1.5 ?  20 :  80; 
 
@@ -227,8 +216,6 @@ export default function ClippedDrawer() {
     setOpen(false);
   };
 
-
-
   /**
    * Handle Log out
    */
@@ -237,10 +224,6 @@ export default function ClippedDrawer() {
     sessionStorage.removeItem("token");
     navigate("/login");
   };
-
- 
-
-  
 
   return (
     <>
@@ -412,8 +395,7 @@ export default function ClippedDrawer() {
                 }
             }
           })}
-
-
+          
           <div key={'logout'}  style={{bottom: '40px', position:  'fixed'}}>
                 <ListItem
                   key={`logaout`}

@@ -30,9 +30,7 @@ export default function DashboardArticlesPage({}: IProps<DashboardPageProps>): J
   const { dashBoardStyles } = usePageStyles();
   const { t } = useTranslation();
 
-
-
-  
+  // for 150  zoom
   const boxMarginTop   =    window.devicePixelRatio === 1.5 ?  -8 :  -4;
   const fontSizeBreadcrumbs  =   window.devicePixelRatio === 1.5 ?  '16px' :  '20px';
 
@@ -42,7 +40,7 @@ export default function DashboardArticlesPage({}: IProps<DashboardPageProps>): J
         <Grid item xs={4}  mt={12} >
               <Breadcrumbs aria-label="breadcrumb"    sx={{'& .MuiBreadcrumbs-separator': {color: ' #60737C'}}}>
                       <Typography  sx={{color: 'white', fontSize:  fontSizeBreadcrumbs, fontFamily:  "Roboto",  lineHeight:  "32px",  fontWeight:  700}}>{t("Menu.registries")}</Typography>
-                </Breadcrumbs>
+              </Breadcrumbs>
         </Grid>
         <div style={dashBoardStyles.cardsWrapper}>
           {cardsSettings.map((card: CardProps, index: number) => {

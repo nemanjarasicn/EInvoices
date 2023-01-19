@@ -1,9 +1,6 @@
 import React from "react";
 import {
-    Paper,
-    Typography,
     Grid,
-    Box,
   } from "@mui/material";
 import { ArticlesFormComponentProps }  from "./ArticlesFormComponent"
 import FormTextField  from  "../../shared/components/form-fields/FormTextField"
@@ -19,9 +16,22 @@ import { useNavigate } from 'react-router-dom';
 import FormAutocompleteField from "../../shared/components/form-fields/FormAutocompleteField";
 import  ErrorModal   from   "../../shared/components/ErrorModals"
 import SucessModal   from "../../shared/components/SucessModal"
-import  { getObjectsAll,  getUnitsAll, getVatAll, getMarketPlacesAll,  getTaxCode,    getTaxBase }  from  "../../shared/components/form-fields/store/form.actions"
+import  { 
+    getObjectsAll,  
+    getUnitsAll, 
+    getVatAll, 
+    getMarketPlacesAll,  
+    getTaxCode,    
+    getTaxBase 
+  }  from  "../../shared/components/form-fields/store/form.actions"
 import { selectCompanyCurrent } from "../../../app/core/core.selectors";
-import  {  selectUnitsAll,  selectVatsAll,   selectMarketPlaces,  selectTaxCode, selectTaxBase }  from   "../../shared/components/form-fields/store/form.selectors"
+import  {  
+    selectUnitsAll,  
+    selectVatsAll,   
+    selectMarketPlaces,  
+    selectTaxCode, 
+    selectTaxBase 
+  }  from   "../../shared/components/form-fields/store/form.selectors"
 import { sendArticle } from "../store/articles.actions";
 import { setopenModalCreateArtical,  setopenModalCreateArticalPrice, setOpenSucessModal  } from "../store/articles.reducer";
 //import ClientComponent from "./form-group/ClientComponent";
@@ -46,18 +56,12 @@ export default function FormArticleComponent({
       productVatRequest:    yup.object().required('ovo je obavezno polje'),
       
 })
-
  .required();
-
-
-
     /*const marketPlacesAll = useAppSelector(selectMarketPlaces).map((item) => ({
       uuid:  item.item.uuid,
       id:  item.item.id,
       marketPlaceName:   item.item.marketPlaceName
     }));*/
-
-
 
     const  defaultValues:  ArticleFormModel = {
       productName:  "",
@@ -106,7 +110,6 @@ export default function FormArticleComponent({
     const marginTopBox =  window.devicePixelRatio == 1.5 ? 3 : 5 
   
 
-
     const methods = useForm({
         defaultValues: defaultValues,
         resolver: yupResolver(schema),
@@ -146,10 +149,8 @@ export default function FormArticleComponent({
         setValue("taxcodeValue",  String(taxCode1.value1));
       }, [watch('productTaxCategory')]);
 
-
-
       React.useEffect(() => {
-      
+
       }, [watch('taxBase')]);
 
       const onSubmit = async  (data: ArticleFormModel) => {
@@ -175,8 +176,7 @@ export default function FormArticleComponent({
         } 
         )
       }
-      
-  
+
     return (
         <Grid item xs={12}  sx  = {{mt: marginTopBox}}>
             <SucessModal    open={showError} ></SucessModal>
@@ -358,7 +358,6 @@ export default function FormArticleComponent({
                             },
                         }}
                       />*/}
-
                     <FormAutocompleteField
                         props={{
                             name: "productUnitRequest",
@@ -371,9 +370,6 @@ export default function FormArticleComponent({
                             },
                         }}
                         />
-      
-
-                    
                     <FormAutocompleteField
                         props={{
                             name: "productVatRequest",
@@ -449,11 +445,7 @@ export default function FormArticleComponent({
                           }}
                         />
                   </Grid>
-
-
-
             </Grid>
-  
         </Grid>
     )
 }

@@ -79,7 +79,13 @@ const authSlice: Slice<CoreState> = createSlice({
   },
 });
 
-export const { removeUser, resetError, setColor,  setError, setCompanyCurrent,  setCompanyAdmin,  setOpenModalSucessLoad } = authSlice.actions;
+export const { removeUser, 
+               resetError, 
+               setColor,  
+               setError, 
+               setCompanyCurrent,  
+               setCompanyAdmin,  
+               setOpenModalSucessLoad } = authSlice.actions;
 
 export default authSlice.reducer;
 

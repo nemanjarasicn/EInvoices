@@ -1,9 +1,6 @@
 import React from "react";
 import {
-    Paper,
-    Typography,
     Grid,
-    Box,
   } from "@mui/material";
 import { ArticlesFormComponentProps }  from "./ArticlesFormComponent"
 import { useTranslation } from "react-i18next";
@@ -14,11 +11,10 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import CustomButtonFc from "../../shared/components/CustomButtonFc";
 import CustomButtonFcTra from "../../shared/components/CustomButtonFcTra";
-import { PriceFormModel,   IProps,  SubjectFormModel } from "../models/articles.models";
+import { IProps,  SubjectFormModel } from "../models/articles.models";
 import { useNavigate } from 'react-router-dom';
 import  ErrorModal   from   "../../shared/components/ErrorModals"
 import SucessModal   from "../../shared/components/SucessModal"
-import  { getObjectsAll,  getUnitsAll, getVatAll, getMarketPlacesAll,  getSubjectCategory,  getSubjectType }  from  "../../shared/components/form-fields/store/form.actions"
 import { selectCompanyCurrent } from "../../../app/core/core.selectors";
 import FormAutocompleteField from "../../shared/components/form-fields/FormAutocompleteField";
 import {  setopenModalCreateSubject, setOpenSucessModal   }  from  "../store/articles.reducer"
@@ -27,29 +23,7 @@ import FormTextField  from  "../../shared/components/form-fields/FormTextField"
 import {  sendSubject, updateSubject } from "../store/articles.actions";
 import {   setOpenModalSucessLoad  }  from  "../../../app/core/core.reducer"
 import   { selectSubjectGategory,  selectSubjectType }  from  "../../shared/components/form-fields/store/form.selectors"
-import FormCurrencyField from "../../shared/components/form-fields/FormCurrencyField";
 
-
-//import ClientComponent from "./form-group/ClientComponent";
-
-
-/**
- * Register Form validation schema for every field
- */
- /*const schema = yup
- .object({
-  companyName: yup.string().required('ovo je obavezno polje'),
-  address:   yup.string().required('ovo je obavezno polje'),
-  city:  yup.string().required('ovo je obavezno polje'),
-  zip: yup.string().required('ovo je obavezno polje'),
-  mb: yup.string().trim().required('ovo je obavezno polje'),
-  pib: yup.string().trim().required('ovo je obavezno polje'),
-  payeeFinancialAccountDto: yup.string().required('ovo je obavezno polje'),
-  email: yup.string().email('email mora biti ispravnog formata'),
-  subjectIdCategory: yup.object().required('ovo je obavezno polje'),
-  subjectIdType: yup.object().required('ovo je obavezno polje'),
- })
- .required();*/
 
 export default function FormSubjectComponent({
     props,
@@ -76,8 +50,7 @@ export default function FormSubjectComponent({
         subjectIdCategory:   "",
         subjectIdType:  "",
         payeeFinancialAccountDto: "",
-        
-    
+
     };
 
         /**
@@ -119,11 +92,9 @@ export default function FormSubjectComponent({
     const dispatch = useAppDispatch();
     const [showError, setShowError] = React.useState(false);
     const [showErrorModal, setShowErrorModal] = React.useState(false);
-    const marginTopBox =  window.devicePixelRatio == 1.5 ? 2 : 5 
-    
-    const location = useLocation();
-  
 
+    //for 150 zoom
+    const marginTopBox =  window.devicePixelRatio == 1.5 ? 2 : 5 
 
     const methods = useForm({
         defaultValues: defaultValues,
@@ -231,8 +202,6 @@ export default function FormSubjectComponent({
         <Grid item xs={12}>
             <SucessModal    open={showError} ></SucessModal>
             <ErrorModal    open={showErrorModal} ></ErrorModal>
-        
-               
                 <Grid container spacing={2} sx = {{ minHeight: "300px", marginTop: '10px'}}>
                     <Grid item xs={4}>
                     {/*<FormTextField
@@ -292,9 +261,6 @@ export default function FormSubjectComponent({
                           disabled: false,
                         }}
                      />  
-                     
-
-
                      <FormTextField
                         props={{
                           name: "phone",
@@ -304,9 +270,6 @@ export default function FormSubjectComponent({
                           disabled: false,
                         }}
                      />
-
-
-                     
                      <FormAutocompleteField
                         props={{
                             name: "subjectIdCategory",
@@ -334,80 +297,77 @@ export default function FormSubjectComponent({
                      </div> 
                     </Grid>
                     <Grid item xs={4}>
-            
-
-
-                    <FormTextField
-                        props={{
-                          name: "pib",
-                          control: control,
-                          label: "PIB",
-                          additional: { mask: {}, readonly: false },
-                          disabled: false,
-                        }}
-                     /> 
-                     <FormTextField
-                        props={{
-                          name: "address",
-                          control: control,
-                          label: "Adresa",
-                          additional: { mask: {}, readonly: false },
-                          disabled: false,
-                        }}
-                     />  
-
-                     <FormTextField
-                        props={{
-                          name: "zip",
-                          control: control,
-                          label: "Poštanski broj",
-                          additional: { mask: {}, readonly: false },
-                          disabled: false,
-                        }}
-                     /> 
-                     <FormTextField
-                        props={{
-                          name: "email",
-                          control: control,
-                          label: "Email",
-                          additional: { mask: {}, readonly: false },
-                          disabled: false,
-                        }}
-                     /> 
-                      
-                      <FormAutocompleteField
-                        props={{
-                            name: "subjectIdType",
-                            control: control,
-                            label: 'Tip komitenta',
-                            disabled: true,
-                            additional: {
-                            selector: selectSubjectType,
-                            //data: dataObject
-                            
-                            },
-                        }}
+                        <FormTextField
+                            props={{
+                              name: "pib",
+                              control: control,
+                              label: "PIB",
+                              additional: { mask: {}, readonly: false },
+                              disabled: false,
+                            }}
                         /> 
                         <FormTextField
-                        props={{
-                          name: "payeeFinancialAccountDto",
-                          control: control,
-                          label: "Žiro račun",
-                          additional: { mask: {}, readonly: false },
-                          disabled: false,
-                        }}
-                     /> 
-                     <div   style = {{visibility:  'hidden'}}  >
-                     <FormTextField
-                        props={{
-                          name: "identificationNumber",
-                          control: control,
-                          label: "Indetifikacioni broj",
-                          additional: { mask: {}, readonly: false },
-                          disabled: false,
-                        }}
-                     />  
-                    </div>
+                            props={{
+                              name: "address",
+                              control: control,
+                              label: "Adresa",
+                              additional: { mask: {}, readonly: false },
+                              disabled: false,
+                            }}
+                        />  
+
+                        <FormTextField
+                            props={{
+                              name: "zip",
+                              control: control,
+                              label: "Poštanski broj",
+                              additional: { mask: {}, readonly: false },
+                              disabled: false,
+                            }}
+                        /> 
+                        <FormTextField
+                            props={{
+                              name: "email",
+                              control: control,
+                              label: "Email",
+                              additional: { mask: {}, readonly: false },
+                              disabled: false,
+                            }}
+                        /> 
+                      
+                        <FormAutocompleteField
+                          props={{
+                              name: "subjectIdType",
+                              control: control,
+                              label: 'Tip komitenta',
+                              disabled: true,
+                              additional: {
+                              selector: selectSubjectType,
+                              //data: dataObject
+                              
+                              },
+                          }}
+                          /> 
+                        <FormTextField
+                          props={{
+                            name: "payeeFinancialAccountDto",
+                            control: control,
+                            label: "Žiro račun",
+                            additional: { mask: {}, readonly: false },
+                            disabled: false,
+                          }}
+                        /> 
+                      <div   style = {{visibility:  'hidden'}}  >
+                      <FormTextField
+                          props={{
+                            name: "identificationNumber",
+                            control: control,
+                            label: "Indetifikacioni broj",
+                            additional: { mask: {}, readonly: false },
+                            disabled: false,
+                          }}
+                      />  
+                      </div>
                     </Grid>
                 </Grid>
       
@@ -444,10 +404,8 @@ export default function FormSubjectComponent({
                           },
                         ]}
                       />*/}
-                   
-
-            </Grid>
-                        
+                  
+            </Grid>         
         </Grid>
     )
 }

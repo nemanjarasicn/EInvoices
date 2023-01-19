@@ -34,6 +34,7 @@ export default function UserAccount(): JSX.Element {
     setAnchorEl(null);
   };
 
+  //for  150 zoom
   const fontSizeText = window.devicePixelRatio == 1.5 ? '12px' : '18px';
   const marginLogout = window.devicePixelRatio == 1.5 ? '2px' : '10px';
   const marginAvatar = window.devicePixelRatio == 1.5 ? '2px' : '10px'; 
@@ -46,7 +47,6 @@ export default function UserAccount(): JSX.Element {
     sessionStorage.removeItem("token");
     navigate("/login");
   };
-
 
   const setColor1 = (color: string) =>  {
     dispach(setColor(color));
