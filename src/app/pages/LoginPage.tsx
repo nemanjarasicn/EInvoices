@@ -57,7 +57,7 @@ export default function LoginPage(): JSX.Element {
       })
     ).then((res)  => {
       dispatch(setCompanyCurrent(res.payload.companyId[0]));
-      if(!res.payload.error)   navigate('/')
+      if(!res.payload.error) {   navigate('/');  window.location.reload()}
     }) 
   };
 
