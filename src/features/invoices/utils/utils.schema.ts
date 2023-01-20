@@ -3,7 +3,6 @@ import { useTranslation } from "react-i18next";
 import * as yup from "yup";
 
 function useSchemaValidator(jbkjs: string) {
-  console.log('sdasasdfsaasdasdasdasd', jbkjs)
   const { t } = useTranslation();
   /**
    * Register Form validation schema for every field
@@ -33,16 +32,20 @@ function useSchemaValidator(jbkjs: string) {
         "",
         "Jedan od tri polja moraju biti popunjeni",
         function (item) {
+          if(jbkjs !== "") {
           return (
             this.parent.contractNumber ||  this.parent.lotNumber   ||    this.parent.orderNumber
           );
+        } else {
+          return true;
+        }
         }
       ),
       lotNumber: yup.string().test(
         "",
         "Jedan od tri polja moraju biti popunjeni",
         function (item) {
-          if(false) {
+          if(jbkjs !== "") {
           return (
             this.parent.contractNumber ||  this.parent.lotNumber   ||    this.parent.orderNumber
           );
@@ -55,9 +58,13 @@ function useSchemaValidator(jbkjs: string) {
         "",
         "Jedan od tri polja moraju biti popunjeni",
         function (item) {
+          if(jbkjs !== "") {
           return (
             this.parent.contractNumber ||  this.parent.lotNumber   ||    this.parent.orderNumber
           );
+        } else {
+          return true;
+        }
         }
       ),
     })
