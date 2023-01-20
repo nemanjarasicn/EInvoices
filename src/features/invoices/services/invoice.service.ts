@@ -168,6 +168,8 @@ export default new InvoicePublicService();
 
 
 function mapToRequestDTO(invoice: any): any {
+
+  console.log('aassasaasa', invoice )
   invoice.issueDate =  dayjs(new Date).format("YYYY-MM-DD"); //dayjs(invoice.issueDate).format("YYYY-MM-DD");
   invoice.dueDate = dayjs(invoice.dueDate).format("YYYY-MM-DD");
   invoice["discount"] = invoice.priceWithoutDiscount - invoice.sumWithDiscount;
@@ -186,8 +188,12 @@ function mapToRequestDTO(invoice: any): any {
   invoice["originatorDocumentReference"] = [{
     id: invoice.lotNumber,
   }];
-  invoice["delivery"] = {
-    actualDeliveryDate: invoice.issueDate,
-  };
+
+  // ovo se ne salje za avansne 
+  if(invoice.vatPointDate !==  432) {
+      invoice["delivery"] = {
+        actualDeliveryDate: invoice.issueDate,
+      };
+    }
   return invoice;
 }

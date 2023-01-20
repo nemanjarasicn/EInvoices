@@ -64,12 +64,12 @@ export default function HomePage({props}: IProps<HomePageProps>): JSX.Element {
     
     <Grid container >
 
-      <Grid item xs={4}  sx={{mt: boxMarginTop, }}>
+      <Grid item xs={12}  sx={{mt: boxMarginTop, }}>
           <Breadcrumbs aria-label="breadcrumb"  sx={{'& .MuiBreadcrumbs-separator': {color: 'red'}}}>
                 <Typography  sx={{color: 'red', fontSize:   fontSizeBreadcrumbs, fontFamily:  "Roboto",  lineHeight:  "32px",  fontWeight:  700}}>{t("Pocetna")}</Typography>
           </Breadcrumbs>
       </Grid>
-      <Grid item  xs={8}   sx={{display:  'flex', alignItems:  'center', justifyContent:  'flex-end', mt: boxMarginTop}}   >
+      {/*<Grid item  xs={8}   sx={{display:  'flex', alignItems:  'center', justifyContent:  'flex-end', mt: boxMarginTop}}   >
           <CustomButtonFc
                         groupButton={ [{
                           title: "ButtonsText.TemplatePage.createDocument",
@@ -78,7 +78,7 @@ export default function HomePage({props}: IProps<HomePageProps>): JSX.Element {
                           buttonId: 1,
                         }]}
                       />
-      </Grid>
+                      </Grid>*/}
         <div style={dashBoardStyles.cardsWrapper}>
         
               {cardsSettings.map((card: CardProps, index: number) => {

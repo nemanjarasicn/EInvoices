@@ -74,15 +74,18 @@ const sendInvoce: AsyncThunk<any, { invoice: any, companyInfo?: any }, {}> = cre
       invoiceDto.invoice.accountingCustomerParty.partyLegalEntity.companyID
   );
 
+
   (invoiceDto.invoice as any)["paymentMeans"] = createPaymentMeans(
     //foundCompany,
     payeeFinancialAccountDtoCompany,
     invoiceDto.invoice.referenceNumber,
     invoiceDto.invoice.modelNumber
   );
+  
 
   
   (invoiceDto.invoice as any)["idCompany"] = core.userCompany.idCompany;
+  (invoiceDto.invoice as any)["note"] = [invoiceDto.invoice.note];
    /*if(invoiceDto.invoice.accountingCustomerParty.jbkjs)   {
       (invoiceDto.invoice as any)["buyerReference"] =  invoiceDto.invoice.accountingCustomerParty.jbkjs;
    }*/

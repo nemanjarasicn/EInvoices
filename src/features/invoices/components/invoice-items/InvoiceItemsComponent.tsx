@@ -268,7 +268,7 @@ export default function InvoiceItemsComponent({
         </Grid>
     </Grid>
     <DataGrid
-      style={{ minHeight:  400,   backgroundColor: 'white',  overflow: "auto", scrollBehavior: "smooth",  fontSize:   fontSize }}
+      style={{ minHeight:  500,   backgroundColor: 'white',  overflow: "auto", scrollBehavior: "smooth",  fontSize:   fontSize }}
       disableColumnMenu
       pagination
       disableColumnFilter
@@ -282,7 +282,7 @@ export default function InvoiceItemsComponent({
       getRowId={(row: any) =>  Math.random()}
       rowsPerPageOptions={[5, 10, 15, 30]}
       columns={columns}
-      autoHeight={true}
+      //autoHeight={true}
       density="compact"
       componentsProps={{
         
@@ -293,7 +293,7 @@ export default function InvoiceItemsComponent({
           labelRowsPerPage: t('redova po strani')
         }
       }}
-      pageSize={10}
+      //pageSize={10}
       sx={{ "& .MuiDataGrid-columnHeaderCheckbox .MuiDataGrid-columnHeaderTitleContainer":
       {
         display: "none",

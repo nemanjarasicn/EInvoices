@@ -66,17 +66,17 @@ const useFeatureSettings = (): FeatureSettings => {
         typeOfCard:  "invoices",
         description:  "MenuDescription.invoicePurshaes",
       },
-      /*{
-        title: "Greske 24h",
+      {
+        title: "Kreiraj novu fakturu",
         icon: CloudSyncIcon,
         cardBtn: {
           title: "InvoiceCard.preview",
           disabled: false,
-          btnFn: () => navigate("/invoices/errorLogs"),
+          btnFn: () => navigate("/invoices/create"),
         },
         typeOfCard:  "invoicesSummary",
-        description:  "Pregled svih gresaka u poslednja 24 sata",
-      },*/
+        description:  "Kreiranje novih izlaznih faktura",
+      },
     ],
     templatePageSettings: {
       [TemplatePageTypes.SALES]: {
