@@ -77,6 +77,7 @@ import {
 import { sendInvoce } from "../store/invoice.actions";
 import { useSchemaValidator } from "../utils/utils.schema";
 import { useNavigate } from "react-router-dom";
+import  FormTextBox   from "../components/form-fields/FormTextBox"
 
 export type InvoiceFormComponentProps = {
   invoiceTypeOptions: any;
@@ -85,13 +86,15 @@ export type InvoiceFormComponentProps = {
   formFieldsLabels: any;
 };
 
+
 export default function InvoiceFormComponent({
   props,
 }: IProps<InvoiceFormComponentProps>): JSX.Element {
   const defaultValues = new InvoiceFormModel();
   const { t } = useTranslation();
   const { formComponent } = useComponentsStyles();
-  const schema = useSchemaValidator();
+  const [jbkjsTmp, setJbkjsTmp] = React.useState("");
+  const schema = useSchemaValidator(jbkjsTmp);
   let navigate = useNavigate();
   const dispatch = useAppDispatch();
   const companyId = useAppSelector(selectCompanyCurrent);
@@ -130,6 +133,7 @@ export default function InvoiceFormComponent({
   const onSubmit = handleSubmit(
     (data: InvoiceFormModel) => {
       dispatch(sendInvoce({ invoice: data, companyInfo: companyInfo })).then((res) => {
+        console.log('sdsdssdddsd',  data);
         if (res.payload.message === "REDIRECT") {
            setShowError(true);  
               setTimeout(async () => {
@@ -138,8 +142,11 @@ export default function InvoiceFormComponent({
                     
               }, 2000);
         } else {
+          const error  =  res.payload?.error?.response?.data?.description;
+          console.log('sasaasaasas',   error)
+          const errorTranslate: any =  error.includes('401 Unauthorized: [no body]') ?  'Proverite na sefu-u api key i da li je api status aktivan'  :  error;
           setShowErrorModal(true); 
-          setErrorMessage(res.payload?.error?.response?.data?.description) 
+          setErrorMessage(errorTranslate) 
               setTimeout(() => {
                     setShowErrorModal(false);
                     setErrorMessage("")
@@ -246,6 +253,12 @@ export default function InvoiceFormComponent({
     },
     []
   );
+
+  React.useEffect(() => {
+      const jbkjsUse =   getValues("accountingCustomerParty.jbkjs") ?   String(getValues("accountingCustomerParty.jbkjs")) :  "";
+      console.log('asasasssas', getValues("accountingCustomerParty.jbkjs"));
+      setJbkjsTmp(jbkjsUse);
+  }, [watch('accountingCustomerParty')]);
 
   return (
     <>
@@ -362,14 +375,24 @@ export default function InvoiceFormComponent({
                           }}
                         />
                     </Grid>
-                    <Grid item xs={12}  sx={{display:  'flex', justifyContent:  'center', alignItems:   'center', mt: -10}} >
-                    <TextField
+                    <Grid item xs={12}  sx={{display:  'flex', justifyContent:  'center', alignItems:   'center', mt: -2}} >
+                    {/*<TextField
+                    
                           sx={{width:  '100%'}}
                           placeholder =  {t("Form.formFieldsLabels.note")}
                           multiline
                           rows={3}
                           
+                        />*/}
+                         <FormTextBox
+                          props={{
+                            name: "note",
+                            control: control,
+                            label: t("Form.formFieldsLabels.note"),
+                            disabled: false,
+                          }}
                         />
+                    
                     </Grid>
                 </Grid>
                 </Grid>

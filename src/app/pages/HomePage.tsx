@@ -57,21 +57,21 @@ export default function HomePage({props}: IProps<HomePageProps>): JSX.Element {
 ]
   return (  
     <Grid container >
-      <Grid item xs={4}  sx={{mt: boxMarginTop, }}>
+      <Grid item xs={12}  sx={{mt: boxMarginTop, }}>
           <Breadcrumbs aria-label="breadcrumb"  sx={{'& .MuiBreadcrumbs-separator': {color: 'red'}}}>
                 <Typography  sx={{color: 'green', fontSize:   fontSizeBreadcrumbs, fontFamily:  "Roboto",  lineHeight:  "32px",  fontWeight:  700}}>{t("Pocetna")}</Typography>
           </Breadcrumbs>
       </Grid>
-      <Grid item  xs={8}   sx={{display:  'flex', alignItems:  'center', justifyContent:  'flex-end', mt: boxMarginTop}}   >
+      {/*<Grid item  xs={8}   sx={{display:  'flex', alignItems:  'center', justifyContent:  'flex-end', mt: boxMarginTop}}   >
           <CustomButtonFc
-              groupButton={ [{
-                title: "ButtonsText.TemplatePage.createDocument",
-                disabled: false,
-                btnFn: () => navigate("/invoices/create"),
-                buttonId: 1,
-              }]}
-            />
-      </Grid>
+                        groupButton={ [{
+                          title: "ButtonsText.TemplatePage.createDocument",
+                          disabled: false,
+                          btnFn: () => navigate("/invoices/create"),
+                          buttonId: 1,
+                        }]}
+                      />
+                      </Grid>*/}
         <div style={dashBoardStyles.cardsWrapper}>
               {cardsSettings.map((card: CardProps, index: number) => {
                 return <CardComponent key={index} props={card} />;
