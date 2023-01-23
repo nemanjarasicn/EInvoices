@@ -352,8 +352,8 @@ const useTableSettings = (): TableSettings => {
               align: "center",
               hideable: true,
               renderCell: (params) => (
-              <Grid container>
-                <Grid item  sx={{display: 'flex', justifyContent:  'center'}} >
+              <Grid container sx={{display: 'flex'}}>
+                <Grid item xs={6}  sx={{display: 'flex', justifyContent:  'center'}} >
                 <LightTooltip title="Informacije o kompaniji">
                   <IconButton sx={{mr: 2}} color="primary" aria-label="pdf" component="label"  onClick={() => {  
                   navigate('/registries/infoCompany', {

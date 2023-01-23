@@ -38,6 +38,11 @@ const style = {
 
     const dispatch = useAppDispatch();
 
+
+    React.useEffect(() => {
+      
+    }, []);
+
       return (
         <Modal
             open={props.open}
