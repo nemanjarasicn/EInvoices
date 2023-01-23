@@ -310,7 +310,7 @@ function registriesRoutes(): React.ReactNode {
           }
         />
         <Route
-          path="createCompany"
+          path="createCompany/:id"
           element={
             <React.Suspense fallback={<>...</>}>
               <RegistriesCreateTemplatePage props={{ type: CreateTyperegistries.FORMCOMPANY, typeFrom: "" }} />

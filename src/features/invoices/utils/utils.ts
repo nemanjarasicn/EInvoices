@@ -284,6 +284,24 @@ const createMonetaryTotal = (invoice: any): any => {
   };
 };
 
+/**
+ * return error message
+ * @param error
+ * @returns
+ */
+ const returnInvoiceMessage = (error: string): any => {
+
+  const errorsMessage = [
+    {error: "401 Unauthorized: [no body]", message: "Proverite na sefu-u api key i da li je api status aktivan"},
+    {error: "contains duplicates", message: "Faktura koju pokušavate da pošaljete sa istim brojem već postoji na SEF.  Proverite da li si ste već poslali tu fakturu"},
+    {error: "Quanitity on invoice lines of prepayment must be 1", message: "Kada saljete avans, kolicina ne sme biti veca od 1"},
+  ]
+
+  const errorTranslate: any = errorsMessage.filter((item)  =>  error.includes(item.error));
+
+  return  errorTranslate.length ? errorTranslate[0]?.message :  error
+};
+
 export {
   handleInvoiceStatus,
   generateKey,
@@ -298,5 +316,6 @@ export {
   mapInvoiceLinesCreateTaxTotal,
   createSupplayerData,
   createMonetaryTotal,
-  calculateNewDiscount
+  calculateNewDiscount,
+  returnInvoiceMessage
 };

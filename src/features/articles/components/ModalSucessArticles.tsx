@@ -3,10 +3,7 @@ import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
 import Modal from '@mui/material/Modal';
-import { Viewer } from '@react-pdf-viewer/core';
 
-import Divider from '@mui/material/Divider';
-import  { setopenModalPdf }  from   '../../invoices/store/invoice.reducer'
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import AddTaskIcon from '@mui/icons-material/AddTask';
 

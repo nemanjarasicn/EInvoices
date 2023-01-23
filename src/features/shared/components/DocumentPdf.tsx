@@ -13,6 +13,11 @@ import BillTo from "./pdf/BillTo";
 
 import InvoiceItemsTable from "./pdf/InvoiceItemsTable";
 
+import InvoiceNote from "./pdf/InvoiceNote";
+
+
+import Footer from "./pdf/Footer";
+
 const styles = StyleSheet.create({
   page: {
       backgroundColor: '#fff',
@@ -56,6 +61,8 @@ export default function DocumentPdf(props: any) {
             <InvoiceNo  />
             <BillTo  />
             <InvoiceItemsTable  />
+            <InvoiceNote />
+            <Footer />
         </Page>
         
       </Document>

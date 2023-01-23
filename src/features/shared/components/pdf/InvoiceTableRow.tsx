@@ -55,18 +55,26 @@ const styles = StyleSheet.create({
     },
 });
 
+const list: any[] = [
+    {naziv:  'test'},
+    {naziv: 'test'}
+];
+
 const InvoiceTableRow = () => {
+
     //const rows = items.map(item =>
       const rows = 
-        <View style={styles.row} key={"1"}>
+        list.map((item, index)=> 
+        <View style={styles.row} key={index}>
             <Text style={styles.description}>FinePix Pro2 3D Camera</Text>
             <Text style={styles.qty}>2</Text>
             <Text style={styles.rate}>1600</Text>
-            <Text style={styles.unit}>kom</Text>
+            <Text style={styles.unit}>{item.naziv}</Text>
             <Text style={styles.discount}>0</Text>
             <Text style={styles.vat}>1440</Text>
             <Text style={styles.tax}>10</Text>
         </View>
+        )
     //);
     return (<Fragment>{rows}</Fragment>)
 };

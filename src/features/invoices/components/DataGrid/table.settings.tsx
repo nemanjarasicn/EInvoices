@@ -4,14 +4,12 @@ import { HeaderSettingsTypes } from "../../models/invoice.enums";
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import {   useAppSelector, useAppDispatch } from "../../../../app/hooks";
-import CloudDownloadIcon from '@mui/icons-material/CloudDownload';
-import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
-import  { setopenModalPdf }  from   '../../store/invoice.reducer'
+
 import Box from "@mui/material/Box";
 import { handleInvoiceStatus } from "../../utils/utils";
 import { TableComponentProps } from "./TableComponent";
 import { styled } from '@mui/material/styles';
-import  { setopenModalConfirm }  from   "../../store/invoice.reducer"
+import  { setopenModalConfirm, setopenModalPdf }  from   "../../store/invoice.reducer"
 import { useTranslation } from "react-i18next";
 import Tooltip, { TooltipProps, tooltipClasses } from '@mui/material/Tooltip';
 import { unzipFile,  unzipFileData }  from  "../../pages/InvoiceTemplatePage"
@@ -261,7 +259,7 @@ const useTableSettings = (): TableSettings => {
                       </Grid>
                       <Grid item xs={3} >
                       <LightTooltip title="XML download">
-                        <IconButton color="primary" aria-label="xml" component="label"   onClick={() => {getZipData('XML', 1, params.row.salesInvoiceId)}} >
+                        <IconButton color="primary" aria-label="xml" component="label"   onClick={() => {console.log('dasasa',params); ;getZipData('XML', 1, params.row.salesInvoiceId)}} >
                         <FontAwesomeIcon icon={faFile}   color="#0D78DE"   />
                         </IconButton>
                         </LightTooltip>

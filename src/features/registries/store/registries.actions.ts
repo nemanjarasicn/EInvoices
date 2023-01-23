@@ -241,6 +241,20 @@ const getUsers: AsyncThunk<any, { companyId: number | string }, {}> = createAsyn
 }
 );
 
+/**
+ * update company
+ */
+
+const updateCompanies: AsyncThunk<any, { idCompany: number | string, data: any,  idpayeeFinancialAccountDto:  string  | number }, {}> = createAsyncThunk<any, { idCompany: number | string; data:  any; idpayeeFinancialAccountDto:  string  | number }>(
+  "GET/subjectupdate",
+  async (params) => {
+    console.log('sdasddsddsa',  params);
+    return     await RegistriesPublicService.updateCompanies(params.idCompany, params.data, params.idpayeeFinancialAccountDto)
+    .then((res: any) =>  ({message: 'sucsses', data: res.data}))
+    .catch((err: any) => 'error');
+}
+);
+
 
 const getGroups: AsyncThunk<any, { uuid: number | string }, {}> = createAsyncThunk<any, { uuid: number | string }>(
   "GET/groups",
@@ -288,5 +302,6 @@ export {
   getCompanyInfo,
   sendDistributor,
   sendDistributorCompany,
-  getCompaniesDistributor
+  getCompaniesDistributor,
+  updateCompanies
 };
