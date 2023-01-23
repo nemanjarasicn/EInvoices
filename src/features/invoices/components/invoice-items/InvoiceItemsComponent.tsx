@@ -13,6 +13,7 @@ import TableNoRowsOverlay from "../DataGrid/NoRowsOverlay";
 import { useTranslation } from "react-i18next";
 import TablePagination from "../DataGrid/TablePagination";
 import DeleteIcon from "@mui/icons-material/Delete";
+import { GridValueGetterParams } from "@mui/x-data-grid";
 import FormTextField from "../form-fields/FormTextField";
 
 
@@ -92,6 +93,8 @@ export default function InvoiceItemsComponent({
     field: "priceAmount",
     headerName: t("Form.formFieldsLabels.priceAmount"),
     flex: 1,
+    valueGetter: (params: GridValueGetterParams) =>
+      (params.row.priceAmount).toFixed(2),
     headerAlign: "center",
     align: "center",
     hideable: false,

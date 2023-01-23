@@ -9,7 +9,7 @@ import Divider from '@mui/material/Divider';
 import RegistriesFormComponent, {
     RegistriesFormComponentProps,
   } from "../components/RegistriesFormComponent";
-import  { setopenModalPdf }  from   '../../invoices/store/invoice.reducer'
+
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import { useFeatureSettings } from "../settings";
 import { CreateType, CreateType as CreateTyperegistries}  from "../models/registries.enums"

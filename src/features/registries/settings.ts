@@ -218,7 +218,12 @@ const useFeatureSettings = (): FeatureSettings => {
           {
             title: "Companies.createNew",
             disabled: false,
-            btnFn: () => navigate("/registries/createCompany"),
+            btnFn: () => navigate("/registries/createCompany/0", 
+            {state: 
+              {
+                id: 0,
+              }
+            }),
           },
         ],
         buttonsSelect:  {

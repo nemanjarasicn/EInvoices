@@ -65,6 +65,7 @@ import {
   sumTax,
   totalWithDiscount,
   totalWithoutDiscount,
+  returnInvoiceMessage
 } from "../utils/utils";
 import { Subscription } from "react-hook-form/dist/utils/createSubject";
 import { selectCompanyCurrent, selectCompanyInfo } from "../../../app/core/core.selectors";
@@ -143,12 +144,11 @@ export default function InvoiceFormComponent({
               }, 2000);
         } else {
           const error  =  res.payload?.error?.response?.data?.description;
-          console.log('sasaasaasas',   error)
-          const errorTranslate: any =  error.includes('401 Unauthorized: [no body]') ?  'Proverite na sefu-u api key i da li je api status aktivan'  :  error;
+
           setShowErrorModal(true); 
-          setErrorMessage(errorTranslate) 
+          setErrorMessage(returnInvoiceMessage(error)) ;
               setTimeout(() => {
-                    setShowErrorModal(false);
+                    setShowErrorModal(false); 
                     setErrorMessage("")
                     /*navigate('/registries/companies'
                     )*/

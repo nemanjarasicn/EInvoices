@@ -15,7 +15,7 @@ import { useForm } from "react-hook-form";
 import FormTextField  from  "../../shared/components/form-fields/FormTextField"
 import CustomButtonFc from "../../shared/components/CustomButtonFc";
 import { CompanyFormModel, IProps } from "../models/registries.models"
-import { sendCompanies } from "../store/registries.actions";
+import { sendCompanies,   updateCompanies } from "../store/registries.actions";
 import  ErrorModal   from   "../../shared/components/ErrorModals"
 import { selectUser }  from  "../../../app/core/core.selectors"
 import SucessModal   from "../../shared/components/SucessModal"
@@ -29,6 +29,7 @@ import { getCompaniesDistributor }  from  "../store/registries.actions"
 import { selectCompanyCurrent } from "../../../app/core/core.selectors";
 import  { selectDistributorInfo  }   from  "../../../app/core/core.selectors"
 import  {  selectDistributorCompanies }  from  "../store/registries.selectors"
+import {useLocation} from 'react-router-dom';
 
 /**
  * Register Form validation schema for every field
@@ -54,7 +55,11 @@ export default function FormCompaniesComponent({
     const isDistributor  =  useAppSelector(selectUser)?.authorities?.slice(0,1)[0].authority === "ROLE_DISTRIBUTER" ? true  :   false;
     const company = useAppSelector(selectCompanyCurrent) ?? "";
     const idDistributor  = useAppSelector(selectDistributorInfo)[0]?.idDistributor;
+    const location = useLocation();
+    const companyIdLocation = location.state.id;
+    const companyData: any  =  location.state.data
   
+    
 
     const defaultValues:  CompanyFormModel = {
       id: "",
@@ -80,9 +85,12 @@ export default function FormCompaniesComponent({
     
     const isAdmin  =  useAppSelector(selectUser)?.authorities?.slice(0,1)[0].authority === "ROLE_ADMIN" ? true  :   false;
     const userAuthority =  isAdmin || isDistributor ? true  :   false;
+    const  distributorTmp  =  useAppSelector(selectDistributor);
     const [showErrorModal, setShowErrorModal] = React.useState(false);
+    const [apiKeyDefault,   setApiKeyDefault] =  React.useState("");
+    
 
-  
+    console.log('asdadasasdsad',  companyData)
 
     const methods = useForm({
         defaultValues: defaultValues,
@@ -92,46 +100,9 @@ export default function FormCompaniesComponent({
         handleSubmit,
         reset,
         control,
+        setValue
       } = methods;
 
-      const onSubmit = async (data: CompanyFormModel) => {
-      
-        dispatch(sendCompanies({data})).then(async (res) => { 
-            if(res.payload.message === 'sucsses') {
-              if(data.apiKey) {
-                dispatch(sendsubscribe({data: res.payload.data}));
-              }
-              
-              
-              /*if(data.distributor) {
-                console.log('distributer', res.payload.idCompany);
-                dispatch(sendDistributorCompany({companyId: res.payload.idCompany, }))
-              }*/
-              setShowError(true);  
-              setTimeout(async () => {
-                    setShowError(false);
-                    if(!userAuthority) {
-                        navigate('/registries/companies')
-                    } else{
-                       await navigate('/registries/createObject',{
-                        state: {
-                          company: res.payload.data
-                        }
-                       })
-                    }
-                    
-              }, 2000);
-            } else {
-              setShowErrorModal(true);  
-              setTimeout(() => {
-                    setShowErrorModal(false);
-                    /*navigate('/registries/companies'
-                    )*/
-              }, 2000);
-            }
-        } 
-        )
-      }
 
 
       React.useEffect(() => {
@@ -139,7 +110,87 @@ export default function FormCompaniesComponent({
         /*if(idDistributor) {
             dispatch(getCompaniesDistributor({companyId:   company as any}));
         }*/
+
+        if(companyIdLocation !== 0  )  {
+              const distributorEdit = distributorTmp.find((item)  => item.id  ===  companyData?.idDistributor);
+              setValue('companyName', companyData?.companyName);
+              setValue('address', companyData?.address);
+              setValue('apiKey', companyData?.apiKey);
+              setValue('country', companyData?.country);
+              setValue('city', companyData?.city);
+        
+              setValue('mb', companyData?.mb);
+              setValue('zip', companyData?.zip);
+              setValue('pib', companyData?.pib);
+              setValue('email', companyData?.email);
+              setValue('payeeFinancialAccount', companyData?.payeeFinancialAccountDto[0]?.payeeFinancialAccountValue) 
+              setValue('distributor', distributorEdit);
+
+
+              // we set apiKeyDefault when edit company
+              setApiKeyDefault(companyData?.apiKey);
+        }
       }, []);
+
+      
+
+      const onSubmit = async (data: CompanyFormModel) => {
+        if(companyIdLocation === 0  )  {
+            dispatch(sendCompanies({data})).then(async (res) => { 
+                if(res.payload.message === 'sucsses') {
+                  if(data.apiKey) {
+                    dispatch(sendsubscribe({data: res.payload.data}));
+                  }
+          
+                  /*if(data.distributor) {
+                    console.log('distributer', res.payload.idCompany);
+                    dispatch(sendDistributorCompany({companyId: res.payload.idCompany, }))
+                  }*/
+                  setShowError(true);  
+                  setTimeout(async () => {
+                        setShowError(false);
+                        if(!userAuthority) {
+                            navigate('/registries/companies')
+                        } else{
+                          await navigate('/registries/createObject',{
+                            state: {
+                              company: res.payload.data
+                            }
+                          })
+                        }
+                        
+                  }, 2000);
+                } else {
+                  setShowErrorModal(true);  
+                  setTimeout(() => {
+                        setShowErrorModal(false);
+                        /*navigate('/registries/companies'
+                        )*/
+                  }, 2000);
+                }
+            } 
+            )
+        } else {
+          dispatch(updateCompanies({idCompany: companyIdLocation, data: data,  idpayeeFinancialAccountDto: 1})).then(async (res) => { 
+            if(res.payload.message === 'sucsses') {
+              if(data.apiKey !==  apiKeyDefault) {
+                dispatch(sendsubscribe({data: res.payload.data}));
+              }
+              setShowError(true);  
+              setTimeout(async () => {
+                    setShowError(false);
+                        navigate('/registries/companies')  
+              }, 2000);
+            } else {
+              setShowErrorModal(true);  
+              setTimeout(() => {
+                    setShowErrorModal(false);
+                    
+              }, 2000);
+            }
+          })
+        }
+      }
 
       
     return (
@@ -263,6 +314,7 @@ export default function FormCompaniesComponent({
                                 disabled: true,
                                 additional: {
                                 selector: selectDistributor,
+                                disableOption:  companyIdLocation === 0 ?  false :  true
                                 //data:  []
                                 
                                 },

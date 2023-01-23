@@ -5,11 +5,6 @@ import Button from '@mui/material/Button';
 import Modal from '@mui/material/Modal';
 import { Viewer } from '@react-pdf-viewer/core';
 
-import Divider from '@mui/material/Divider';
-import RegistriesFormComponent, {
-    RegistriesFormComponentProps,
-  } from "./RegistriesFormComponent";
-import  { setopenModalPdf }  from   '../../invoices/store/invoice.reducer'
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import CustomButtonFc from "../../shared/components/CustomButtonFc";
 import { useNavigate } from 'react-router-dom';

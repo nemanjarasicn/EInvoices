@@ -23,6 +23,7 @@ import { faFilePdf }   from '@fortawesome/pro-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
 import {   useAppSelector    } from "../../../../app/hooks";
 import { selectUser } from "../../../../app/core/core.selectors";
+import {  faPenToSquare}   from '@fortawesome/pro-solid-svg-icons';
 import { styled } from '@mui/material/styles';
 import { selectCompanyCurrent } from "../../../../app/core/core.selectors";
 import { selectObjects, selectMarketPlaces, selectPointOfSales, selectCompanies, selectWarehouses, selectUnits, selectVat, selectGroups, selectUsers, selectDistributorCompanies} from "../../store/registries.selectors";
@@ -351,8 +352,8 @@ const useTableSettings = (): TableSettings => {
               align: "center",
               hideable: true,
               renderCell: (params) => (
-       
-                <Grid item xs={3} >
+              <Grid container>
+                <Grid item  sx={{display: 'flex', justifyContent:  'center'}} >
                 <LightTooltip title="Informacije o kompaniji">
                   <IconButton sx={{mr: 2}} color="primary" aria-label="pdf" component="label"  onClick={() => {  
                   navigate('/registries/infoCompany', {
@@ -364,6 +365,21 @@ const useTableSettings = (): TableSettings => {
                   </IconButton>
                   </LightTooltip>
                 </Grid>
+                <Grid item   sx={{display: 'flex', justifyContent:  'center'}} >
+                  <LightTooltip title="Izmena kompanije">
+                      <IconButton sx={{display:  'flex', justifyContent:  'center'}} color="primary" aria-label="pdf" component="label"  onClick={() => {console.log('asasasasasa', params.row);  
+                          navigate(`/registries/createCompany/${params.row.idCompany}`, 
+                            {state: 
+                                {
+                                   id: params.row.idCompany,
+                                   data: params.row
+                                }})
+                          }}>
+                          <FontAwesomeIcon icon={faPenToSquare}   color="#E9950C"   />
+                      </IconButton>
+                  </LightTooltip>
+                </Grid>
+              </Grid>
               )
             },
            

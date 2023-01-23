@@ -14,6 +14,7 @@ type FormAutocompleteFieldProps = FormFieldProps & {
     noResultText?: string;
     data?: any;
     disable?: boolean;
+    disableOption?:  boolean;
   };
 };
 /**
@@ -35,6 +36,7 @@ export default function FormAutocompleteFieldSelect({
         <Autocomplete
           value={value || ""}
           disablePortal
+          disabled={props?.additional?.disableOption}
           id={`combo-box-demo_${props.name}`}
           options={[...dataTmp]}
           noOptionsText={props.additional.noResultText ?? "No options"}

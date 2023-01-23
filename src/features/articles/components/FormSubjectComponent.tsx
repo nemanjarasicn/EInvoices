@@ -66,7 +66,7 @@ export default function FormSubjectComponent({
       mb: yup.string().trim().required('ovo je obavezno polje'),
       pib: yup.string().trim().required('ovo je obavezno polje'),
       payeeFinancialAccountDto: yup.string().required('ovo je obavezno polje'),
-      email: yup.string().email('email mora biti ispravnog formata'),
+      email: yup.string().email('email mora biti ispravnog formata').required("ovo je obavezno polje"),
       subjectIdCategory: yup.object().required('ovo je obavezno polje'),
       subjectIdType: yup.object().required('ovo je obavezno polje'),
       //jbkjs: yup.string().required('ovo je obavezno polje')
@@ -80,7 +80,7 @@ export default function FormSubjectComponent({
       mb: yup.string().trim().required('ovo je obavezno polje'),
       pib: yup.string().trim().required('ovo je obavezno polje'),
       payeeFinancialAccountDto: yup.string().required('ovo je obavezno polje'),
-      email: yup.string().email('email mora biti ispravnog formata'),
+      email: yup.string().email('email mora biti ispravnog formata').required("ovo je obavezno polje"),
       subjectIdCategory: yup.object().required('ovo je obavezno polje'),
       subjectIdType: yup.object().required('ovo je obavezno polje'),
       jbkjs: yup.string().required('ovo je obavezno polje')

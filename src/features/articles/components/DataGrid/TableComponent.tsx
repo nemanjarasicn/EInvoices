@@ -30,7 +30,7 @@ export default function TableComponent({
   const dispatch = useAppDispatch();
   const { tableComponentStyles } = useDataGridStyles();
   // TODO
-  const [pageSize, setPageSize] = React.useState<number>(5);
+  const [pageSize, setPageSize] = React.useState<number>(30);
 
   const selectType = props.selector;
 

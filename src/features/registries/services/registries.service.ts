@@ -314,6 +314,30 @@ class RegistriesPublicService {
     (`company/company/${id}`,
     );
   }
+
+
+  updateCompanies(idCompany:  string  |  number, data: any, ididpayeeFinancialAccountDto:  string  | number) {
+    let today = new Date()
+
+    console.log('sasafdsfadsdasaddasd',   data);
+    return publicClient.put<any>
+    (`company/${idCompany}`,
+    {
+      "companyName": data.companyName,
+      "primaryVat":"true",
+      "pib": data.pib,
+      "date": today,
+      "apiKey":data.apiKey,
+      "mb": data.mb,
+      "address":  data.address,
+      "zip": data.zip,
+      "city":  data.city,
+      "country":  data.country,
+      "email": data.email,
+      "idDistributor":  null
+  }
+    );
+  }
   
 }
 export default new RegistriesPublicService();

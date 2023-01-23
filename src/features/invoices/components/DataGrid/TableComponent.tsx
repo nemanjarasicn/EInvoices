@@ -44,7 +44,6 @@ export default function TableComponent({
 
   const selection: GridSelectionModel = useAppSelector(selectSelection);
 
-  console.log('aasasas',  props);
   const fontSize  =    window.devicePixelRatio === 1.5 ?    '12px' :  '14px';
 
 
