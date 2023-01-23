@@ -4,13 +4,14 @@ import { Text, View, StyleSheet } from '@react-pdf/renderer';
 const styles = StyleSheet.create({
     titleContainer: {
         position: 'absolute',
-        paddingTop: 40,
         bottom: 10,
+        paddingLeft: 20,
+        paddingRight: 20,
     },
     reportTitle: {
         color: 'gray',
-        paddingLeft: 90,
-        paddingRight:  90,
+        paddingLeft: 80,
+        paddingRight:  80,
         fontSize: 8,
         textAlign: 'center',
         // textTransform: 'uppercase',
