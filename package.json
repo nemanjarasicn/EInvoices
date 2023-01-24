@@ -29,7 +29,9 @@
     "@types/node": "^17.0.45",
     "@types/react": "^18.0.20",
     "@types/react-dom": "^18.0.6",
+    "@types/xml-parser": "^1.2.30",
     "axios": "^0.27.2",
+    "buffer": "^6.0.3",
     "date-fns": "^2.29.3",
     "dayjs": "^1.11.5",
     "file-saver": "^2.0.5",
@@ -51,9 +53,14 @@
     "react-router-dom": "^6.4.0",
     "react-scripts": "5.0.1",
     "react-service-worker": "^0.1.1",
+    "react-xml-parser": "^1.1.8",
     "redux-persist": "^6.0.0",
+    "stream": "^0.0.2",
+    "timers": "^0.1.1",
     "typescript": "^4.8.3",
     "web-vitals": "^2.1.4",
+    "x2js": "^3.4.4",
+    "xml2js": "^0.4.23",
     "yup": "^0.32.11"
   },
   "scripts": {
@@ -87,6 +94,11 @@
   },
   "devDependencies": {
     "@types/file-saver": "^2.0.5",
-    "@types/react-pdf": "^6.2.0"
+    "@types/react-pdf": "^6.2.0",
+    "@types/xml2js": "^0.4.11"
+  },
+  "browser": {
+    "buffer": false,
+    "timers": false
   }
 }

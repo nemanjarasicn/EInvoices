@@ -89,9 +89,7 @@ export default function FormCompaniesComponent({
     const [showErrorModal, setShowErrorModal] = React.useState(false);
     const [apiKeyDefault,   setApiKeyDefault] =  React.useState("");
     
-
-    console.log('asdadasasdsad',  companyData)
-
+    
     const methods = useForm({
         defaultValues: defaultValues,
         resolver: yupResolver(schema),

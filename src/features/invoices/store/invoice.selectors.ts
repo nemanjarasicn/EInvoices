@@ -73,6 +73,14 @@ export const selectOpenFilter = createSelector(
 );
 
 
+export const selectInvoiceDetails = createSelector(
+  featureSelectors,
+  (state: FeatureState) => {
+    return state.invoiceDetails;
+  }
+);
+
+
 export const selectFilters = createSelector(
   featureSelectors,
   (state: FeatureState) => {

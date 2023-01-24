@@ -6,7 +6,6 @@ class RegistriesPublicService {
   // MOCK CLIENT
 
   sendArticle(data: any) {
-   console.log('asass', data);
     return publicClient.post<any>
     ("catalog",
     [

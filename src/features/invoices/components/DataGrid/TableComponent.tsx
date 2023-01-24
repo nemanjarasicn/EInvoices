@@ -78,7 +78,7 @@ export default function TableComponent({
 
   return (
     <>
-      <ModalPdf    open={openPdf} ></ModalPdf>
+      <ModalPdf    open={openPdf.open} data={openPdf.data} ></ModalPdf>
       <ConfirmWithCommentDialog
         props={{
           id: "ringtone-menu",

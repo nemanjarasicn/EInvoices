@@ -8,7 +8,8 @@ import {
   sendInvoce,
   sendInvoceXml,
   getZip,
-  getTaxBase
+  getTaxBase,
+  getInvoiceDetails
 } from "./invoice.actions";
 
 const FEATURE_INVOICES_KEY: string = "invoices";
@@ -21,8 +22,9 @@ export interface FeatureState {
   invoicesR: any[];
   zip: any;
   openModalConfirm:  {open: boolean, dataAction?: any };
-  openModalPdf:  boolean;
+  openModalPdf:  {open: boolean, data?: any };
   openModalFilter:  {open: boolean, filterName:  string }  ;
+  invoiceDetails: any;
   filters: InvoiceSearchParams;
   taxBase: any[];
   
@@ -35,8 +37,9 @@ const initialState: FeatureState = {
   invoicesR: [],
   zip:   [],
   openModalConfirm:  {open: false, dataAction: "" },
-  openModalPdf:  false,
+  openModalPdf:  {open: false, data: "" },
   openModalFilter:  {open: false, filterName: ""},
+  invoiceDetails:  "",
   filters: {
     companyId: "7",
     inputAndOutputDocuments:  "Output",
@@ -105,6 +108,7 @@ const invoicesSlice: Slice<FeatureState> = createSlice({
     sendAsyncInvoice(builder);
     getAsyncZipFile(builder);
     getAsyncTaxBase(builder);
+    getAsyncInvoiceDetails(builder);
   },
 });
 
@@ -228,3 +232,24 @@ function getAsyncTaxBase(builder: ActionReducerMapBuilder<FeatureState>) {
     companies: [],
   }));
 }
+
+
+function getAsyncInvoiceDetails(builder: ActionReducerMapBuilder<FeatureState>) {
+  builder.addCase(getInvoiceDetails.fulfilled, (state, { payload }) => ({
+    ...state,
+    loading: false,
+    error: "",
+    invoiceDetails: payload,
+  }));
+  builder.addCase(getInvoiceDetails.pending, (state) => ({
+    ...state,
+    loading: true,
+  }));
+  builder.addCase(getInvoiceDetails.rejected, (state, { payload }) => ({
+    ...state,
+    loading: false,
+    invoiceDetails: [],
+    error: (payload as any).error,
+  }));
+}
+

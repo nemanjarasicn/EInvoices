@@ -13,7 +13,7 @@ import  { setopenModalConfirm, setopenModalPdf }  from   "../../store/invoice.re
 import { useTranslation } from "react-i18next";
 import Tooltip, { TooltipProps, tooltipClasses } from '@mui/material/Tooltip';
 import { unzipFile,  unzipFileData }  from  "../../pages/InvoiceTemplatePage"
-import {getZip }  from  "../../store/invoice.actions"
+import {getInvoiceDetails, getZip }  from  "../../store/invoice.actions"
 import AssignmentTurnedInIcon from "@mui/icons-material/AssignmentTurnedIn";
 import AssignmentLateIcon from "@mui/icons-material/AssignmentLate";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -24,6 +24,7 @@ import { faFileCircleXmark }   from '@fortawesome/pro-solid-svg-icons';
 import {
   Grid,
 } from "@mui/material";
+import { selectInvoiceDetails } from "../../store/invoice.selectors";
 
 
 
@@ -59,16 +60,24 @@ const useTableSettings = (): TableSettings => {
 
   const dispach = useAppDispatch();
   const { t } = useTranslation();
+  const dataTmp = useAppSelector(selectInvoiceDetails);
+  
 
-  const getZipData = async  (flag: string, typeInvoicesZip:  number,  id: any) =>  {
+  const getZipData = async  (flag: string, typeInvoicesZip:  number,  id: any,  dataRows?: any) =>  {
     const  typeInvoices =  flag ===  'XML'  ?   'downloadXml'  :  'printPdf';
+    //const dataInvoicePdf = setDataPdf(dataRows.xml);
     const zipData = await dispach(getZip({id: id,typeDocument: typeInvoicesZip, typeInvoices:  typeInvoices}));
     //const unzipData = await  unzipFileData(zipData);
     if(flag ===  'PDF') {
-      //dispach(setopenModalPdf(true))
+      dispach(getInvoiceDetails({id: dataRows?.id})).then((res) => {
+        dispach(setopenModalPdf({open:true, data: {dataXml: dataRows.xml, dataRows: res.payload}}))
+
+    });
+      
+     
     }
-    unzipFile(flag, zipData)
-    .catch((err)   =>  console.log('greska prilikom download ' + flag));
+    /*unzipFile(flag, zipData)
+    .catch((err)   =>  console.log('greska prilikom download ' + flag));*/
   }
 
 
@@ -252,7 +261,7 @@ const useTableSettings = (): TableSettings => {
                 <Grid  container sx={{display:  'flex'}}>
                       <Grid item xs={3} >
                       <LightTooltip title="PDF preview">
-                        <IconButton sx={{mr: 2}} color="primary" aria-label="pdf" component="label"  onClick={() => {getZipData('PDF', 1, params.row.salesInvoiceId)}}>
+                        <IconButton sx={{mr: 2}} color="primary" aria-label="pdf" component="label"  onClick={() => {console.log('dasasa',params);getZipData('PDF', 1, params.row.salesInvoiceId, params.row)}}>
                         <FontAwesomeIcon icon={faFilePdf}   color="#E9950C"   />
                         </IconButton>
                         </LightTooltip>

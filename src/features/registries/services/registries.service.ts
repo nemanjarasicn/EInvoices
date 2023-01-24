@@ -318,8 +318,6 @@ class RegistriesPublicService {
 
   updateCompanies(idCompany:  string  |  number, data: any, ididpayeeFinancialAccountDto:  string  | number) {
     let today = new Date()
-
-    console.log('sasafdsfadsdasaddasd',   data);
     return publicClient.put<any>
     (`company/${idCompany}`,
     {

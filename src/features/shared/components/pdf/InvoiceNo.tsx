@@ -149,7 +149,7 @@ const styles = StyleSheet.create({
     }
 });
 
-const InvoiceNo = () => (
+const InvoiceNo = ({ data } : any ) => (
     <Fragment>
         <View style={styles.container}>
             <View  style={styles.section1} >
@@ -158,36 +158,36 @@ const InvoiceNo = () => (
                     <Text style={styles.labelClient}>14.01.2023</Text>
                 </View>
                 <View  style={styles.clientContainer}>
-                    <View  style={styles.textConteiner}><Text  style={styles.name}>5.COM</Text></View>
-                    <View  style={styles.textConteiner}><Text  style={styles.adress}>MARIČKA 22</Text></View>
-                    <View style={styles.textConteiner}><Text style={styles.city}>Beograd (Rakovica) Srbija</Text></View>
+                    <View  style={styles.textConteiner}><Text  style={styles.name}>{data?.AccountingCustomerParty?.name}</Text></View>
+                    <View  style={styles.textConteiner}><Text  style={styles.adress}>{data?.AccountingCustomerParty?.adress}</Text></View>
+                    <View style={styles.textConteiner}><Text style={styles.city}>{data?.AccountingCustomerParty?.city}</Text></View>
                 </View>
             </View>
             <View style={styles.section2}>
                 <View  style={styles.invoiceNoContainer}>
                     <Text style={styles.labelNo}>Broj fakture</Text>
                 </View>
-                <View  style={styles.invoiceLabelNo}><Text  style={styles.invoiceNo}>2023/2</Text></View>
+                <View  style={styles.invoiceLabelNo}><Text  style={styles.invoiceNo}>{data?.numberDocument}</Text></View>
                 <View  style={styles.invoiceDataConteiner}>
                     <View  style={styles.textConteiner}> 
                             <Text style={styles.dataTextLeft}>Uplatu izvrsiti sa uplatom na broj</Text>
-                            <Text style={styles.dataTextRight}>(97) 11</Text>
+                            <Text style={styles.dataTextRight}>{data?.paymentMode}</Text>
                     </View>
                     <View  style={styles.textConteiner}> 
                             <Text style={styles.dataTextLeft}>Datum prometa</Text>
-                            <Text style={styles.dataTextRight}>14.01.2023</Text>
+                            <Text style={styles.dataTextRight}>{data?.delivery}</Text>
                     </View>
                     <View  style={styles.textConteiner}> 
                             <Text style={styles.dataTextLeft}>Datum dospeca</Text>
-                            <Text style={styles.dataTextRight}>14.01.2023</Text>
+                            <Text style={styles.dataTextRight}>{data?.dueDate}</Text>
                     </View>
                     <View  style={styles.textConteiner}> 
                             <Text style={styles.dataTextLeft}>Maticni broj kupca</Text>
-                            <Text style={styles.dataTextRight}>1212122</Text>
+                            <Text style={styles.dataTextRight}>{data?.AccountingCustomerParty?.mb}</Text>
                     </View>
                     <View  style={styles.textConteiner}> 
                             <Text style={styles.dataTextLeft}>PIB kupca</Text>
-                            <Text style={styles.dataTextRight}>121221121112</Text>
+                            <Text style={styles.dataTextRight}>{data?.AccountingCustomerParty?.pib}</Text>
                     </View>
                     <View  style={styles.textConteiner}> 
                             <Text style={styles.dataTextLeft}>Valuta fakture</Text>

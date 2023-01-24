@@ -34,7 +34,6 @@ export default function HomePage({props}: IProps<HomePageProps>): JSX.Element {
   const boxMarginTop   =    window.devicePixelRatio === 1.5 ?  6 :  10;
   const fontSizeBreadcrumbs  =   window.devicePixelRatio === 1.5 ?  '16px' :  '20px';
   const fontSize  =    window.devicePixelRatio === 1.5 ?    '12px' :  '16px';
-  console.log('asssaasas', props);
 
 
   React.useEffect(() => {

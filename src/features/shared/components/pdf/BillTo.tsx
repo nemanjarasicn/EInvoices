@@ -35,22 +35,22 @@ const styles = StyleSheet.create({
     }
 });
 
-const BillTo = () => (
+const BillTo = ({data}:any) => (
     <View style={styles.headerContainer}>
         <Text style={styles.billTo}>Prodavac</Text>
         <View style={styles.divider}></View>
-        <Text style={styles.textSupplier}>MASTER SOFTWARE</Text>
+        <Text style={styles.textSupplier}>{data?.AccountingSupplierParty?.name}</Text>
         <View  style={styles.textConteiner}> 
                 <Text style={styles.textStyle}>Adresa:</Text>
-                <Text style={styles.textStyleLeft}> Beograd (Novi Beograd) MILUTINA MILANKOVIĆA 9</Text>
+                <Text style={styles.textStyleLeft}> {data?.AccountingSupplierParty?.city} {data?.AccountingSupplierParty?.adress} </Text>
         </View>
         <View  style={styles.textConteiner}> 
                 <Text style={styles.textStyle}>Maticni broj:</Text>
-                <Text style={styles.textStyleLeft}>  21502243</Text>
+                <Text style={styles.textStyleLeft}>  {data?.AccountingSupplierParty?.mb}</Text>
         </View>
         <View  style={styles.textConteiner}> 
                 <Text style={styles.textStyle}>PIB:</Text>
-                <Text style={styles.textStyleLeft}> 111560838</Text>
+                <Text style={styles.textStyleLeft}> {data?.AccountingSupplierParty?.pib}</Text>
         </View>
 
         

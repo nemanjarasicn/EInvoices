@@ -1,5 +1,7 @@
 import React, { Fragment } from 'react';
 import { Text, View, StyleSheet } from '@react-pdf/renderer';
+import { useAppSelector } from '../../../../app/hooks';
+import { selectInvoiceDetails } from '../../../invoices/store/invoice.selectors';
 
 const borderColor = '#3778C2'
 const styles = StyleSheet.create({
@@ -60,13 +62,14 @@ const list: any[] = [
     {naziv: 'test'}
 ];
 
-const InvoiceTableRow = () => {
-
+const InvoiceTableRow = ({data} : any) => {
     //const rows = items.map(item =>
+    console.log('invoiceRowda', data?.invoiceLine)
+    const listRows = data?.invoiceLine;
       const rows = 
-        list.map((item, index)=> 
+      list.map((item: any, index: any)=> 
         <View style={styles.row} key={index}>
-            <Text style={styles.description}>FinePix Pro2 3D Camera</Text>
+            <Text style={styles.description}>Kifla</Text>
             <Text style={styles.qty}>2</Text>
             <Text style={styles.rate}>1600</Text>
             <Text style={styles.unit}>{item.naziv}</Text>

@@ -12,12 +12,14 @@ const styles = StyleSheet.create({
     },
 });
 
-const InvoiceItemsTable = () => (
+const InvoiceItemsTable = ({data}: any) => {
+    //console.log('invoiceTableda', data) 
+    return (
     <View style={styles.tableContainer}>
         <InvoiceTableHeader />
-        <InvoiceTableRow  />
+        <InvoiceTableRow  data={data} />
         <InvoiceTableFooter  />
     </View>
-);
+)};
 
 export default InvoiceItemsTable;

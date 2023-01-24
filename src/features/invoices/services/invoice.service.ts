@@ -136,6 +136,12 @@ class InvoicePublicService {
     );
   }
 
+
+  getInvoiceDetails(id: number  |   string ) {
+    return commonHttpClient.get<any>
+    (`invoices/search/invoiceDetails/${id}`);
+  }
+
   public getTaxBase() {
     return publicClient.get<any[]>("/tax/base/1");
   }
@@ -168,8 +174,6 @@ export default new InvoicePublicService();
 
 
 function mapToRequestDTO(invoice: any): any {
-
-  console.log('aassasaasa', invoice )
   invoice.issueDate =  dayjs(new Date).format("YYYY-MM-DD"); //dayjs(invoice.issueDate).format("YYYY-MM-DD");
   invoice.dueDate = dayjs(invoice.dueDate).format("YYYY-MM-DD");
   invoice["discount"] = invoice.priceWithoutDiscount - invoice.sumWithDiscount;
