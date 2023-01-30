@@ -70,7 +70,6 @@ const useTableSettings = (): TableSettings => {
   const company = useAppSelector(selectCompanyCurrent) ?? "";
   const isDistributor  =  useAppSelector(selectUser)?.authorities?.slice(0,1)[0].authority === "ROLE_DISTRIBUTER" ? true  :   false;
   const userCompanyId =    useAppSelector(selectUserCompanyId);
-  console.log('sasasasasasa',  useAppSelector(selectUserCompanyId) )
 
 
 

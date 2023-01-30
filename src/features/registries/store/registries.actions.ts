@@ -234,7 +234,6 @@ const getVat: AsyncThunk<any, void, {}> = createAsyncThunk(
 const getUsers: AsyncThunk<any, { companyId: number | string }, {}> = createAsyncThunk<any, { companyId: number | string }>(
   "GET/Users",
   async (params) => {
-    console.log('sdasdssdad', params);
     return     await RegistriesPublicService.getUsers(params.companyId)
     .then((res: any) => res.data)
     .catch((err: any) => []);
@@ -281,7 +280,6 @@ const updateCompanies: AsyncThunk<any, { idCompany: number | string, data: any, 
  const updateUser: AsyncThunk<any, {id:  number  |  string, data: any}, {}> = createAsyncThunk<any, { id:  number  |  string,  data: any }>(
   "GET/userUpdate",
   async (params) => {
-    console.log('sasasasasa',  params);
     return     await RegistriesPublicService.updateUser(params.id, params.data)
     .then((res: any) =>  ({message: 'sucsses', data: res.data}))
     .catch((err: any) => 'error');

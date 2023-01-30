@@ -260,7 +260,6 @@ export default function InvoiceFormComponent({
   }, [watch('accountingCustomerParty')]);
 
   React.useEffect(() => {
-    console.log('sasassasasssasas', getValues("sourceInvoiceSelectionMode"));
     const selectionMode =  getValues("sourceInvoiceSelectionMode")  ?   getValues("sourceInvoiceSelectionMode")  :  0 ;
     setSelectionModeTmp(selectionMode)
 }, [watch('sourceInvoiceSelectionMode')]);
