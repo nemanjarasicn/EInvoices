@@ -313,7 +313,7 @@ class RegistriesPublicService {
   }
 
 
-  updateCompanies(idCompany:  string  |  number, data: any, ididpayeeFinancialAccountDto:  string  | number) {
+  updateCompanies(idCompany:  string  |  number, data: any) {
     let today = new Date()
     return publicClient.put<any>
     (`company/${idCompany}`,
@@ -331,6 +331,25 @@ class RegistriesPublicService {
       "email": data.email,
       "idDistributor":  null
   }
+    );
+  }
+
+
+  updatePayee(idCompany:  string  |  number,  ididpayeeFinancialAccountDto:  any[]) {
+    return publicClient.put<any>
+    (`company/payee/${idCompany}`,
+      ididpayeeFinancialAccountDto
+    );
+  }
+
+  updateUser(id:  number |  string, data: any) {
+    console.log('dasdsadsdsa', data)
+    return publicClient.put<any>
+    (`user/edit/${id}`,
+    {
+      username:  data?.username,
+      password:   data?.password
+     }
     );
   }
   

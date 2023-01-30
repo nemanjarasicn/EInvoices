@@ -177,7 +177,7 @@ function mapToRequestDTO(invoice: any): any {
   invoice.issueDate =  dayjs(new Date).format("YYYY-MM-DD"); //dayjs(invoice.issueDate).format("YYYY-MM-DD");
   // ovo se ne salje za knjizna odobrenja
   if(invoice?.invoiceTypeCode !== 381) {
-      invoice.dueDate = invoice.dueDate !== "" ?  dayjs(invoice.dueDate).format("YYYY-MM-DD") :  "";
+      invoice.dueDate = ((invoice.dueDate).toString() !== "Invalid Date") ?  dayjs(invoice.dueDate).format("YYYY-MM-DD") :  "";
   } else {
     invoice.dueDate = ""
   }

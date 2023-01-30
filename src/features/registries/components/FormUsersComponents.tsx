@@ -22,7 +22,7 @@ import  MultipleSelect  from  "../../shared/components/form-fields/FormDropdownF
 import { selectCompanyCurrent } from "../../../app/core/core.selectors";
 import { getCompaniesAll }  from  "../../shared/components/form-fields/store/form.actions"
 import { selectUser, selectCompanyAdmin }  from  "../../../app/core/core.selectors"
-import { sendUsers } from "../store/registries.actions";
+import { sendUsers,   updateUser } from "../store/registries.actions";
 import  ErrorModal   from   "../../shared/components/ErrorModals"
 import  {   getUserRole   }   from  "../../shared/components/form-fields/store/form.actions"
 import   { selectUserRole }  from  '../../shared/components/form-fields/store/form.selectors'
@@ -51,6 +51,9 @@ export default function FormUsersComponent({
     const companyId = useAppSelector(selectCompanyCurrent) as any;
     const location = useLocation();
     const id = location.state.company;
+    const idLocation = location.state.id;
+    const userData: any  =  location.state.data;
+    const  userRoleTmp  =  useAppSelector(selectUserRole);
     const defaultValues:  UsersFormModel = {
       id: "",
       companyId:  id, //companyId ,
@@ -79,36 +82,56 @@ export default function FormUsersComponent({
         handleSubmit,
         reset,
         control,
+        setValue
       } = methods;
 
       const onSubmit = (data: UsersFormModel) => {
-       dispatch(sendUsers({data})).then((res) => {
-        if(res.payload === 'sucsses') {
-          setShowError(true);
-          setTimeout(() => {
-              setShowError(false);
-             
-              if(!userAuthority) {
-                navigate('/registries/users'
-              )
-              } else{
-                  navigate('/registries/infoCompany', {
-                    state: {
-                      company: id
-                    }
-                  })
-              }
-          }, 2000);
-        }   else {
-            setShowErrorModal(true);  
-            setTimeout(() => {
-                  setShowErrorModal(false);
-                  /*navigate('/registries/companies'
-                  )*/
-            }, 2000);
-          }
-      })
-    
+        if(idLocation === 0  )  {
+              dispatch(sendUsers({data})).then((res) => {
+                if(res.payload === 'sucsses') {
+                  setShowError(true);
+                  setTimeout(() => {
+                      setShowError(false);
+                    
+                      if(!userAuthority) {
+                        navigate('/registries/users'
+                      )
+                      } else{
+                          navigate('/registries/infoCompany', {
+                            state: {
+                              company: id
+                            }
+                          })
+                      }
+                  }, 2000);
+                }   else {
+                    setShowErrorModal(true);  
+                    setTimeout(() => {
+                          setShowErrorModal(false);
+                          /*navigate('/registries/companies'
+                          )*/
+                    }, 2000);
+                  }
+              })
+        } else {
+          dispatch(updateUser({id: idLocation, data: data})).then(async (res) => { 
+            if(res.payload.message === 'sucsses') {
+              setShowError(true);  
+              setTimeout(async () => {
+                    setShowError(false);
+                        navigate('/registries/companies')  
+              }, 2000);
+            } else {
+              setShowErrorModal(true);  
+              setTimeout(() => {
+                    setShowErrorModal(false);
+                    
+              }, 2000);
+            }
+          })
+        }
+
+
     }
   
       
@@ -116,7 +139,19 @@ export default function FormUsersComponent({
       React.useEffect(() => {
         dispatch(getCompaniesAll());
         dispatch(getUserRole());
+
       }, []);
+
+      React.useEffect(() => {
+        if(idLocation !== 0  )  {
+          const userRoleEdit = userRoleTmp.find((item)  => item.name  ===  userData?.roleName[0]);
+          console.log('asdadsdadsad', userRoleTmp.find((item)  => item.name  ===  userData?.roleName[0]) )
+            setValue('companyId', userData?.companyId);
+            setValue('username', userData?.username);
+            setValue('userRole', userRoleTmp.find((item)  => item.name  ===  userData?.roleName[0]) as any);
+            
+    }
+      }, [ userRoleTmp]);
   
     return (
         <Grid item xs={12}>
@@ -153,7 +188,7 @@ export default function FormUsersComponent({
                         
                         }}
                     />
-
+                  
                     <FormAutocompleteField
                         props={{
                             name: "userRole",
@@ -169,7 +204,7 @@ export default function FormUsersComponent({
                         }}
                         />
 
-
+                 
 
                         
                     <FormTextField

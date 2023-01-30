@@ -367,7 +367,7 @@ function registriesRoutes(): React.ReactNode {
           }
         />
         <Route
-          path="createUser"
+          path="createUser/:id"
           element={
             <React.Suspense fallback={<>...</>}>
               <RegistriesCreateTemplatePage props={{ type: CreateTyperegistries.FORMUSERS }} />
