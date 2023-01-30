@@ -39,6 +39,7 @@ import {
     openModalConfirm: boolean;
     companyInfo: any;
     companyDistributor:  any[];
+    userCompanyId: number | string;
     loading: boolean;
   }
 
@@ -57,6 +58,7 @@ import {
     openModalConfirm:   false,
     companyInfo: {},
     companyDistributor: [],
+    userCompanyId: "",
     loading: false,
   };
   
@@ -72,6 +74,11 @@ import {
       setopenModalDistributor: (state,{payload}) => ({
         ...state,
         openModalDistributor: payload,
+      }),
+
+      setUserCompanyId: (state,{payload}) => ({
+        ...state,
+        userCompanyId: payload,
       }),
       //custom
 
@@ -99,7 +106,8 @@ import {
   export const {
     setopenModalPdf,
     setopenModalDistributor,
-    setopenModalConfirm
+    setopenModalConfirm,
+    setUserCompanyId
   } = registriesSlice.actions;
   
   export default registriesSlice.reducer;

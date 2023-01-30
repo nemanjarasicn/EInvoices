@@ -21,12 +21,24 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFile }   from '@fortawesome/pro-solid-svg-icons';
 import { faFilePdf }   from '@fortawesome/pro-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
-import {   useAppSelector    } from "../../../../app/hooks";
+import {   useAppSelector ,  useAppDispatch   } from "../../../../app/hooks";
 import { selectUser } from "../../../../app/core/core.selectors";
 import {  faPenToSquare}   from '@fortawesome/pro-solid-svg-icons';
+import { faUserPen }   from '@fortawesome/pro-solid-svg-icons';
+import { setUserCompanyId  }   from  "../../store/registries.reducer"
 import { styled } from '@mui/material/styles';
 import { selectCompanyCurrent } from "../../../../app/core/core.selectors";
-import { selectObjects, selectMarketPlaces, selectPointOfSales, selectCompanies, selectWarehouses, selectUnits, selectVat, selectGroups, selectUsers, selectDistributorCompanies} from "../../store/registries.selectors";
+import { selectObjects, 
+         selectMarketPlaces, 
+         selectPointOfSales, 
+         selectCompanies, 
+         selectWarehouses, 
+         selectUnits, 
+         selectVat, 
+         selectGroups, 
+         selectUsers, 
+         selectDistributorCompanies,
+         selectUserCompanyId} from "../../store/registries.selectors";
 
 
 const LightTooltip = styled(({ className, ...props }: TooltipProps) => (
@@ -54,9 +66,13 @@ type TableSettings = {
 const useTableSettings = (): TableSettings => {
 
   const navigate  = useNavigate();
-
+  const dispach = useAppDispatch();
   const company = useAppSelector(selectCompanyCurrent) ?? "";
   const isDistributor  =  useAppSelector(selectUser)?.authorities?.slice(0,1)[0].authority === "ROLE_DISTRIBUTER" ? true  :   false;
+  const userCompanyId =    useAppSelector(selectUserCompanyId);
+  console.log('sasasasasasa',  useAppSelector(selectUserCompanyId) )
+
+
 
   return {
     tableSettings: {
@@ -353,9 +369,9 @@ const useTableSettings = (): TableSettings => {
               hideable: true,
               renderCell: (params) => (
               <Grid container sx={{display: 'flex'}}>
-                <Grid item xs={6}  sx={{display: 'flex', justifyContent:  'center'}} >
+                <Grid item xs={4}  sx={{display: 'flex', justifyContent:  'center'}} >
                 <LightTooltip title="Informacije o kompaniji">
-                  <IconButton sx={{mr: 2}} color="primary" aria-label="pdf" component="label"  onClick={() => {  
+                  <IconButton  color="primary" aria-label="pdf" component="label"  onClick={() => {  
                   navigate('/registries/infoCompany', {
                     state: {
                       company: params.row.idCompany
@@ -365,7 +381,7 @@ const useTableSettings = (): TableSettings => {
                   </IconButton>
                   </LightTooltip>
                 </Grid>
-                <Grid item   sx={{display: 'flex', justifyContent:  'center'}} >
+                <Grid item  xs={4}  sx={{display: 'flex', justifyContent:  'center'}} >
                   <LightTooltip title="Izmena kompanije">
                       <IconButton sx={{display:  'flex', justifyContent:  'center'}} color="primary" aria-label="pdf" component="label"  onClick={() => {console.log('asasasasasa', params.row);  
                           navigate(`/registries/createCompany/${params.row.idCompany}`, 
@@ -377,6 +393,20 @@ const useTableSettings = (): TableSettings => {
                           }}>
                           <FontAwesomeIcon icon={faPenToSquare}   color="#E9950C"   />
                       </IconButton>
+                  </LightTooltip>
+                </Grid>
+
+                <Grid item xs={4}  sx={{display: 'flex', justifyContent:  'center'}} >
+                <LightTooltip title="Izmena korisnika">
+                  <IconButton  color="primary" aria-label="pdf" component="label"  onClick={() => {
+                  dispach(setUserCompanyId(params.row.idCompany))  
+                  navigate('/registries/users', {
+                    state: {
+                      company: params.row.idCompany
+                    }
+                  })}}>
+                  <FontAwesomeIcon icon={faUserPen}   color="#E9950C"   />
+                  </IconButton>
                   </LightTooltip>
                 </Grid>
               </Grid>
@@ -629,6 +659,32 @@ const useTableSettings = (): TableSettings => {
               align: "center",
               hideable: false,
             },
+
+            {
+              field: 'action',
+              headerName: 'Action',
+              flex: 1,
+              headerAlign: "center",
+              align: "center",
+              hideable: true,
+              renderCell: (params) => (
+              <Grid container sx={{display: 'flex'}}>
+                <Grid item xs={12}  sx={{display: 'flex', justifyContent:  'center'}} >
+                <LightTooltip title="Izmena korisnika">
+                  <IconButton  color="primary" aria-label="pdf" component="label"  onClick={() => {    console.log('asasassas', params.row);  
+                  navigate(`/registries/createUser/${params.row.id}`, {
+                    state: {
+                      id: params.row.id,
+                      data:   params.row
+                    }
+                  })}}>
+                  <FontAwesomeIcon icon={faPenToSquare}   color="#E9950C"   />
+                  </IconButton>
+                  </LightTooltip>
+                </Grid>
+              </Grid>
+              )
+            },
            
           ],
           toolbarProps: {
@@ -637,7 +693,7 @@ const useTableSettings = (): TableSettings => {
             showHideColumns: true,
             showExport: false,
           },
-          getDataAction: getUsers({companyId: company}),
+          getDataAction:getUsers({companyId: userCompanyId}),
           selectType:  "USERS",
           selector:  selectUsers,
           parentColumn: "username",

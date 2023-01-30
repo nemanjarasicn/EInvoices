@@ -87,9 +87,10 @@ export default function FormMarketPlaceComponent({
                   navigate('/registries/marketPlace'
                   )
                 } else{
-                    navigate('/registries/createUser', {
+                    navigate('/registries/createUser/0', {
                       state: {
-                        company: id
+                        company: id,
+                        id: 0
                       }
                     })
                 }

@@ -234,6 +234,7 @@ const getVat: AsyncThunk<any, void, {}> = createAsyncThunk(
 const getUsers: AsyncThunk<any, { companyId: number | string }, {}> = createAsyncThunk<any, { companyId: number | string }>(
   "GET/Users",
   async (params) => {
+    console.log('sdasdssdad', params);
     return     await RegistriesPublicService.getUsers(params.companyId)
     .then((res: any) => res.data)
     .catch((err: any) => []);
@@ -244,10 +245,44 @@ const getUsers: AsyncThunk<any, { companyId: number | string }, {}> = createAsyn
  * update company
  */
 
-const updateCompanies: AsyncThunk<any, { idCompany: number | string, data: any,  idpayeeFinancialAccountDto:  string  | number }, {}> = createAsyncThunk<any, { idCompany: number | string; data:  any; idpayeeFinancialAccountDto:  string  | number }>(
+const updateCompanies: AsyncThunk<any, { idCompany: number | string, data: any,  idpayeeFinancialAccountDto:  any[] }, {}> = createAsyncThunk<any, { idCompany: number | string; data:  any; idpayeeFinancialAccountDto:   any[] }>(
   "GET/subjectupdate",
+  async (params,_) => {
+    return     await RegistriesPublicService.updateCompanies(params.idCompany, params.data)
+    .then((res: any) =>  {
+      if(true) {
+        _.dispatch(updatePayee({idCompany: params?.idCompany, idpayeeFinancialAccountDto:  params?.idpayeeFinancialAccountDto }));
+      }
+      return ({message: 'sucsses', data: res.data})
+      })
+    .catch((err: any) => 'error');
+}
+);
+
+
+/**
+ * update payee
+ */
+
+ const updatePayee: AsyncThunk<any, { idCompany: number | string,  idpayeeFinancialAccountDto:  any[] }, {}> = createAsyncThunk<any, { idCompany: number | string;  idpayeeFinancialAccountDto:  any[] }>(
+  "GET/updatePayee",
   async (params) => {
-    return     await RegistriesPublicService.updateCompanies(params.idCompany, params.data, params.idpayeeFinancialAccountDto)
+    return     await RegistriesPublicService.updatePayee(params.idCompany, params.idpayeeFinancialAccountDto)
+    .then((res: any) =>  ({message: 'sucsses', data: res.data}))
+    .catch((err: any) => 'error');
+}
+);
+
+
+/**
+ * update user
+ */
+
+ const updateUser: AsyncThunk<any, {id:  number  |  string, data: any}, {}> = createAsyncThunk<any, { id:  number  |  string,  data: any }>(
+  "GET/userUpdate",
+  async (params) => {
+    console.log('sasasasasa',  params);
+    return     await RegistriesPublicService.updateUser(params.id, params.data)
     .then((res: any) =>  ({message: 'sucsses', data: res.data}))
     .catch((err: any) => 'error');
 }
@@ -257,6 +292,7 @@ const updateCompanies: AsyncThunk<any, { idCompany: number | string, data: any, 
 const getGroups: AsyncThunk<any, { uuid: number | string }, {}> = createAsyncThunk<any, { uuid: number | string }>(
   "GET/groups",
   async (params) => {
+
     return     await RegistriesPublicService.getGroups(params.uuid)
     .then((res: any) => res.data)
     .catch((err: any) => []);
@@ -301,5 +337,6 @@ export {
   sendDistributor,
   sendDistributorCompany,
   getCompaniesDistributor,
-  updateCompanies
+  updateCompanies,
+  updateUser
 };

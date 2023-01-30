@@ -111,6 +111,13 @@ export const selectOpenDistributor = createSelector(
   }
 );
 
+export const selectUserCompanyId = createSelector(
+  featureSelectors,
+  (state: FeatureState) => {
+    return state.userCompanyId;
+  }
+);
+
 
 
 export const selectOpenConfirm = createSelector(

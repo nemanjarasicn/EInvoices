@@ -190,7 +190,8 @@ export default function FormCompaniesComponent({
             } 
             )
         } else {
-          dispatch(updateCompanies({idCompany: companyIdLocation, data: data,  idpayeeFinancialAccountDto: 1})).then(async (res) => { 
+          console.log('sasaassasass',  listPayeeFinancialAccount)
+          dispatch(updateCompanies({idCompany: companyIdLocation, data: data,  idpayeeFinancialAccountDto: listPayeeFinancialAccount})).then(async (res) => { 
             if(res.payload.message === 'sucsses') {
               if(data.apiKey !==  apiKeyDefault) {
                 dispatch(sendsubscribe({data: res.payload.data}));
