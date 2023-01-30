@@ -1,5 +1,6 @@
 import { UserCompany } from "../../../app/core/core.models";
 import { ProductModel } from "../models";
+import xml2js from "xml2js";
 
 /**
  * DO NOT USE it with LANG CHANGE it trigger re-render
@@ -291,15 +292,64 @@ const createMonetaryTotal = (invoice: any): any => {
  */
  const returnInvoiceMessage = (error: string): any => {
 
-  const errorsMessage = [
+  const errorsMessage = [ 
     {error: "401 Unauthorized: [no body]", message: "Proverite na sefu-u api key i da li je api status aktivan"},
     {error: "contains duplicates", message: "Faktura koju pokušavate da pošaljete sa istim brojem već postoji na SEF.  Proverite da li si ste već poslali tu fakturu"},
     {error: "Quanitity on invoice lines of prepayment must be 1", message: "Kada saljete avans, kolicina ne sme biti veca od 1"},
+    {error: "Source invoice not exists", message: "Morate uneti izvornu fakturu"},
   ]
 
   const errorTranslate: any = errorsMessage.filter((item)  =>  error.includes(item.error));
 
   return  errorTranslate.length ? errorTranslate[0]?.message :  error
+};
+
+/**
+ * create pdfObject
+ * @param error
+ * @returns
+ */
+ const createPdfObject = (xmlTmp: any): any => {
+  let objectTmp;
+  xml2js.parseString(xmlTmp, (err, result) => {
+    if (err) {
+      throw err;
+    }
+    const json = JSON.stringify(result, null, 4);
+    objectTmp = {
+      AccountingCustomerParty: {
+        name: result?.Invoice['cac:AccountingCustomerParty'][0]['cac:Party'][0]['cac:PartyLegalEntity'][0]['cbc:RegistrationName'][0],
+        adress:  result?.Invoice['cac:AccountingCustomerParty'][0]['cac:Party'][0]['cac:PostalAddress'][0]['cbc:StreetName'][0],
+        city:  result?.Invoice['cac:AccountingCustomerParty'][0]['cac:Party'][0]['cac:PostalAddress'][0]['cbc:CityName'][0],
+        pib:  result?.Invoice['cac:AccountingCustomerParty'][0]['cac:Party'][0]['cbc:EndpointID'][0]['_'],
+        mb:  result?.Invoice['cac:AccountingCustomerParty'][0]['cac:Party'][0]['cac:PartyLegalEntity'][0]['cbc:CompanyID'][0]
+      },
+      AccountingSupplierParty: {
+        name: result?.Invoice['cac:AccountingSupplierParty'][0]['cac:Party'][0]['cac:PartyLegalEntity'][0]['cbc:RegistrationName'][0],
+        adress:  result?.Invoice['cac:AccountingSupplierParty'][0]['cac:Party'][0]['cac:PostalAddress'][0]['cbc:StreetName'][0],
+        city:  result?.Invoice['cac:AccountingSupplierParty'][0]['cac:Party'][0]['cac:PostalAddress'][0]['cbc:CityName'][0],
+        pib:  result?.Invoice['cac:AccountingSupplierParty'][0]['cac:Party'][0]['cbc:EndpointID'][0]['_'],
+        mb:  result?.Invoice['cac:AccountingSupplierParty'][0]['cac:Party'][0]['cac:PartyLegalEntity'][0]['cbc:CompanyID'][0]
+      },
+      paymentMeans:  result?.Invoice['cac:PaymentMeans'][0]['cac:PayeeFinancialAccount'][0]['cbc:ID'][0],
+      paymentMode:   result?.Invoice['cac:PaymentMeans'][0]['cbc:PaymentID'][0],
+      dueDate:    result?.Invoice['cbc:DueDate'][0],
+      delivery:   result?.Invoice['cac:Delivery'] ?    result?.Invoice['cac:Delivery'][0]['cbc:ActualDeliveryDate'][0]  :  "",
+      issueDate:   result?.Invoice['cbc:IssueDate'][0],
+      note:  result?.Invoice['cbc:Note'] ?  result?.Invoice['cbc:Note'][0] :  "",
+      numberDocument:    result?.Invoice['cbc:ID'][0],
+      legalMonetaryTotal:  {
+        payableAmount:   result?.Invoice['cac:LegalMonetaryTotal'][0]['cbc:PayableAmount'][0]['_'],
+        lineExtensionAmount:   result?.Invoice['cac:LegalMonetaryTotal'][0]['cbc:LineExtensionAmount'][0]['_'],
+      },
+      taxTotal: {
+        taxAmount:  result?.Invoice['cac:TaxTotal'][0]['cac:TaxSubtotal'][0]['cbc:TaxAmount'][0]['_'],
+      }
+
+    }
+  })
+
+  return   objectTmp;
 };
 
 export {
@@ -317,5 +367,6 @@ export {
   createSupplayerData,
   createMonetaryTotal,
   calculateNewDiscount,
-  returnInvoiceMessage
+  returnInvoiceMessage,
+  createPdfObject
 };

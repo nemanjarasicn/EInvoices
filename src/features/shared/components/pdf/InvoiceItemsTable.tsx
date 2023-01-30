@@ -3,6 +3,7 @@ import { View, StyleSheet } from '@react-pdf/renderer';
 import InvoiceTableHeader from './InvoiceTableHeader';
 import InvoiceTableRow from './InvoiceTableRow';
 import InvoiceTableFooter from './InvoiceTableFooter';
+import { AnyAaaaRecord } from 'dns';
 
 const styles = StyleSheet.create({
     tableContainer: {
@@ -12,12 +13,14 @@ const styles = StyleSheet.create({
     },
 });
 
-const InvoiceItemsTable = () => (
+const InvoiceItemsTable = (props: any) => {
+    //console.log('invoiceTableda', props.data) 
+    return (
     <View style={styles.tableContainer}>
         <InvoiceTableHeader />
-        <InvoiceTableRow  />
-        <InvoiceTableFooter  />
+        <InvoiceTableRow  data={props.dataRow} />
+        <InvoiceTableFooter  data={props.data}  />
     </View>
-);
+)};
 
 export default InvoiceItemsTable;

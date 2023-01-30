@@ -105,10 +105,7 @@ class RegistriesPublicService {
       "city":  data.data.city,
       "country":  data.data.country,
       "email": data.data.email,
-      "payeeFinancialAccountDto":[{
-
-        "payeeFinancialAccountValue":   data.data.payeeFinancialAccount
-    }]
+      "payeeFinancialAccountDto":  data.listPayeeFinancialAccount     //[{"payeeFinancialAccountValue":   data.data.payeeFinancialAccount}]
   }
     );
   }
@@ -318,8 +315,6 @@ class RegistriesPublicService {
 
   updateCompanies(idCompany:  string  |  number, data: any, ididpayeeFinancialAccountDto:  string  | number) {
     let today = new Date()
-
-    console.log('sasafdsfadsdasaddasd',   data);
     return publicClient.put<any>
     (`company/${idCompany}`,
     {

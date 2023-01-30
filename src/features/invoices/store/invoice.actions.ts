@@ -207,6 +207,16 @@ const getZip: AsyncThunk<any, {id: number | string; typeDocument: number | strin
 );
 
 
+const getInvoiceDetails: AsyncThunk<any, {id: number | string}, {}> = createAsyncThunk<any, {id: number | string}>(
+  "GET/getinvoiceDetail",
+  async (data,_) => {
+    return     await InvoicePublicService.getInvoiceDetails(data.id)
+    .then((res: any) => {return res.data})
+    .catch((err: any) => []);
+}
+);
+
+
 const getTaxBase: AsyncThunk<any, void, {}> = createAsyncThunk(
   "GET/taxBase",
   async () => {
@@ -223,5 +233,6 @@ export {
   sendInvoce,
   updateStatusInvoice,
   getZip,
-  getTaxBase
+  getTaxBase,
+  getInvoiceDetails
 };

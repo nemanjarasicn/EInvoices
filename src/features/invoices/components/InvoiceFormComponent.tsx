@@ -95,7 +95,8 @@ export default function InvoiceFormComponent({
   const { t } = useTranslation();
   const { formComponent } = useComponentsStyles();
   const [jbkjsTmp, setJbkjsTmp] = React.useState("");
-  const schema = useSchemaValidator(jbkjsTmp);
+  const [selectionModeTmp, setSelectionModeTmp] = React.useState(0);
+  const schema = useSchemaValidator(jbkjsTmp, selectionModeTmp);
   let navigate = useNavigate();
   const dispatch = useAppDispatch();
   const companyId = useAppSelector(selectCompanyCurrent);
@@ -134,7 +135,6 @@ export default function InvoiceFormComponent({
   const onSubmit = handleSubmit(
     (data: InvoiceFormModel) => {
       dispatch(sendInvoce({ invoice: data, companyInfo: companyInfo })).then((res) => {
-        console.log('sdsdssdddsd',  data);
         if (res.payload.message === "REDIRECT") {
            setShowError(true);  
               setTimeout(async () => {
@@ -256,9 +256,14 @@ export default function InvoiceFormComponent({
 
   React.useEffect(() => {
       const jbkjsUse =   getValues("accountingCustomerParty.jbkjs") ?   String(getValues("accountingCustomerParty.jbkjs")) :  "";
-      console.log('asasasssas', getValues("accountingCustomerParty.jbkjs"));
       setJbkjsTmp(jbkjsUse);
   }, [watch('accountingCustomerParty')]);
+
+  React.useEffect(() => {
+    console.log('sasassasasssasas', getValues("sourceInvoiceSelectionMode"));
+    const selectionMode =  getValues("sourceInvoiceSelectionMode")  ?   getValues("sourceInvoiceSelectionMode")  :  0 ;
+    setSelectionModeTmp(selectionMode)
+}, [watch('sourceInvoiceSelectionMode')]);
 
   return (
     <>

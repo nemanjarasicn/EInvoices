@@ -158,10 +158,9 @@ const getCompaniesDistributor: AsyncThunk<any, { companyId: number | string } , 
 }
 );
 
-const sendCompanies: AsyncThunk<any, {data: CompanyFormModel}, {}> = createAsyncThunk<any, {data: CompanyFormModel}>(
+const sendCompanies: AsyncThunk<any, {data: CompanyFormModel,  listPayeeFinancialAccount: any[]}, {}> = createAsyncThunk<any, {data: CompanyFormModel,  listPayeeFinancialAccount: any[]}>(
   "POST/companySend",
   async (data,_) => {
-
     const idDistributor = data.data?.distributor?.item?.idDistributor ? data.data?.distributor?.item?.idDistributor :  data.data.distributor;
     return await RegistriesPublicService.sendCompanies(data)
       .then((res: any) => { 
@@ -248,7 +247,6 @@ const getUsers: AsyncThunk<any, { companyId: number | string }, {}> = createAsyn
 const updateCompanies: AsyncThunk<any, { idCompany: number | string, data: any,  idpayeeFinancialAccountDto:  string  | number }, {}> = createAsyncThunk<any, { idCompany: number | string; data:  any; idpayeeFinancialAccountDto:  string  | number }>(
   "GET/subjectupdate",
   async (params) => {
-    console.log('sdasddsddsa',  params);
     return     await RegistriesPublicService.updateCompanies(params.idCompany, params.data, params.idpayeeFinancialAccountDto)
     .then((res: any) =>  ({message: 'sucsses', data: res.data}))
     .catch((err: any) => 'error');

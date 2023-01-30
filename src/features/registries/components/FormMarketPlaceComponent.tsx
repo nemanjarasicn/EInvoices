@@ -78,7 +78,6 @@ export default function FormMarketPlaceComponent({
 
 
       const onSubmit = (data: MarketPlaceFormModel) => {
-        console.log('sasss', data);
         dispatch(sendMarketPlace({data})).then((res) => {
           if(res.payload === 'sucsess') {
             setShowError(true);

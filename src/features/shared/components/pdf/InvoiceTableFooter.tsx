@@ -9,7 +9,8 @@ const styles = StyleSheet.create({
         justifyContent:  'flex-end',
         alignContent:  'flex-end',
         textAlign:  'right',
-        width:  '100%'
+        marginTop: 10,
+        width:  '100%',
     },
     description: {
         justifyContent:  'flex-end',
@@ -17,8 +18,29 @@ const styles = StyleSheet.create({
         textAlign: 'right',
         backgroundColor:  'red'
     },
+
+    textConteiner: {
+        flexDirection:  'row',
+        justifyContent:  'flex-end',
+    },
+
+
     text: {
         fontSize:  10,
+        textAlign:  'right',
+        borderBottom:  'solid 1px',
+        color:  'gray'
+    },
+    textBold: {
+        fontSize:  10,
+        textAlign:  'right',
+        color:  'black'
+    },
+
+    textPrice: {
+        marginLeft: 40,
+        fontSize:  10,
+        textAlign:  'right',
         borderBottom:  'solid 1px'
     },
 
@@ -53,11 +75,18 @@ const styles = StyleSheet.create({
     }
 });
 
-const InvoiceTableFooter = () => {
+const InvoiceTableFooter = ({data}: any) => {
     /*const total = items.map(item => item.qty * item.rate)
         .reduce((accumulator, currentValue) => accumulator + currentValue, 0)*/
+        
 
     const  total: string  = '1600';
+    
+    const currencyFormat = (num: any) => {
+        return  num.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+      }
+
+
     return (
         <View style={styles.conteiner}>
             <View style={styles.section1} >
@@ -70,15 +99,43 @@ const InvoiceTableFooter = () => {
         <View style={styles.section2} >
 
                 <View   style={styles.columnConteiner}>
-                    <Text style={styles.text}>Zbir stavki sa stopom 20%:</Text>  
+                    <View  style={styles.textConteiner}>
+                        <Text style={styles.text}>Zbir stavki sa stopom 20%:</Text>
+                        <Text style={styles.textPrice}>{currencyFormat(Number(data?.legalMonetaryTotal?.lineExtensionAmount))}</Text>
+                    </View>
                     <View style={styles.divider}></View>
-                    <Text style={styles.text}>Ukupno osnovica - stopa 20%:</Text> 
-                    <Text style={styles.text}>Ukupno PDV - stopa 20%:</Text> 
-                    <Text style={styles.text}>Ukupan iznos:</Text>  
+                    <View  style={styles.textConteiner}>
+                        <Text style={styles.text}>Ukupno osnovica - stopa 20%:</Text> 
+                        <Text style={styles.textPrice}>{currencyFormat(Number(data?.legalMonetaryTotal?.lineExtensionAmount))}</Text>
+                    </View>
+                    <View  style={styles.textConteiner}>
+                        <Text style={styles.text}>Ukupno PDV - stopa 20%:</Text> 
+                        <Text style={styles.textPrice}>{currencyFormat(Number(data?.taxTotal?.taxAmount))}</Text>
+                    </View>
+                    <View  style={styles.textConteiner}>
+                        <Text style={styles.textBold}>Ukupan iznos:</Text>  
+                        <Text style={styles.textPrice}>{currencyFormat(Number(data?.legalMonetaryTotal?.payableAmount))}</Text>
+                    </View>
+                    {data?.invoiceTypeCode !=='386' ?
+                    <>
                     <View style={styles.divider}></View>
-                    <Text style={styles.text}>Ukupno osnovica umanjena za avanse - stopa 20%:</Text>
-                    <Text style={styles.text}>Ukupno PDV umanjen za avanse - stopa 20%: </Text> 
-                    <Text style={styles.text}>Ukupno za uplatu:</Text>
+                    <View  style={styles.textConteiner}>
+                        <Text style={styles.text}>Ukupno osnovica umanjena za avanse - stopa 20%:</Text>
+                        <Text style={styles.textPrice}>{currencyFormat(Number(data?.legalMonetaryTotal?.lineExtensionAmount))}</Text>
+                    </View>
+                    <View  style={styles.textConteiner}>
+                        <Text style={styles.text}>Ukupno PDV umanjen za avanse - stopa 20%: </Text>         
+                        <Text style={styles.textPrice}>{currencyFormat(Number(data?.taxTotal?.taxAmount))}</Text>
+                    </View>
+                    <View  style={styles.textConteiner}>
+                        <Text style={styles.textBold}>Ukupno za uplatu:</Text>
+                        <Text style={styles.textPrice}>{currencyFormat(Number(data?.legalMonetaryTotal?.payableAmount))}</Text>
+                    </View>
+                    </>
+                     :
+                    ""
+                    }
+        
                     <View style={styles.dividerEnd}></View>
                 </View>  
              {/*<View >

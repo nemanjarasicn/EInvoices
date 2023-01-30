@@ -2,7 +2,7 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import * as yup from "yup";
 
-function useSchemaValidator(jbkjs: string) {
+function useSchemaValidator(jbkjs: string, selectionModeTmp:  number) {
   const { t } = useTranslation();
   /**
    * Register Form validation schema for every field
@@ -61,6 +61,34 @@ function useSchemaValidator(jbkjs: string) {
           if(jbkjs !== "") {
           return (
             this.parent.contractNumber ||  this.parent.lotNumber   ||    this.parent.orderNumber
+          );
+        } else {
+          return true;
+        }
+        }
+      ),
+
+      modePeriodFrom: yup.string().test(
+        "",
+        "Ovo polje je obavezno kada je izabrano Fakture u periodu",
+        function (item) {
+          if(selectionModeTmp === 2) {
+          return (
+              this.parent.modePeriodFrom ===   'Invalid Date' ? false : true
+          );
+        } else {
+          return true;
+        }
+        }
+      ),
+
+      modePeriodTo: yup.string().test(
+        "",
+        "Ovo polje je obavezno kada je izabrano Fakture u periodu",
+        function (item) {
+          if(selectionModeTmp === 2) {
+          return (
+              this.parent.modePeriodTo ===   'Invalid Date' ? false : true
           );
         } else {
           return true;
