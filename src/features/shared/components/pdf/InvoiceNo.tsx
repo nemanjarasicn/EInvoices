@@ -1,5 +1,17 @@
 import React, { Fragment } from 'react';
-import { Text, View, StyleSheet } from '@react-pdf/renderer';
+import { Text, View, StyleSheet, Font } from '@react-pdf/renderer';
+import dayjs from "dayjs";
+
+
+Font.register({
+    family: "Roboto",
+    fonts: [
+        { src:
+            "https://cdnjs.cloudflare.com/ajax/libs/ink/3.1.10/fonts/Roboto/roboto-light-webfont.ttf" },
+        { src:
+            "https://cdnjs.cloudflare.com/ajax/libs/ink/3.1.10/fonts/Roboto/roboto-bold-webfont.ttf", fontStyle: 'bold' },
+      ]
+  });
 
 const styles = StyleSheet.create({
     container: {
@@ -68,16 +80,20 @@ const styles = StyleSheet.create({
         fontStyle: 'bold',
     },
     name: {
+        fontFamily: "Roboto",
         fontSize: 10,
         fontStyle: 'bold',
-        fontWeight: 700
     },
     adress: {
+        fontFamily: "Roboto",
         fontSize: 10,
+        fontStyle: 'bold',
        
     },
     city: {
+        fontFamily: "Roboto",
         fontSize: 10,
+        fontStyle: 'bold',
        
     },
 
@@ -109,12 +125,13 @@ const styles = StyleSheet.create({
 
 
     dataTextLeft: {
+        fontFamily: "Roboto",
         flexDirection: 'row',
         justifyContent:   'flex-end',
         textAlign: 'right',
         width:  '50%',  
         fontSize: 10,
-        color:   'black',
+        color:   'gray',
 
        
 
@@ -149,13 +166,18 @@ const styles = StyleSheet.create({
     }
 });
 
+const currencyFormat = (num: any) => {
+    return  num.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+  }
+
 const InvoiceNo = ({ data } : any ) => (
+
     <Fragment>
         <View style={styles.container}>
             <View  style={styles.section1} >
                 <View  style={styles.dateConteiner}>
                     <Text style={styles.labelClient}>Datum izdavanja</Text>
-                    <Text style={styles.labelClient}>14.01.2023</Text>
+                    <Text style={styles.labelClient}> {dayjs(data?.issueDate).format("DD.MM.YYYY")}</Text>
                 </View>
                 <View  style={styles.clientContainer}>
                     <View  style={styles.textConteiner}><Text  style={styles.name}>{data?.AccountingCustomerParty?.name}</Text></View>
@@ -173,14 +195,28 @@ const InvoiceNo = ({ data } : any ) => (
                             <Text style={styles.dataTextLeft}>Uplatu izvrsiti sa uplatom na broj</Text>
                             <Text style={styles.dataTextRight}>{data?.paymentMode}</Text>
                     </View>
+                    {data?.invoiceTypeCode !=='381' ?
                     <View  style={styles.textConteiner}> 
-                            <Text style={styles.dataTextLeft}>Datum prometa</Text>
-                            <Text style={styles.dataTextRight}>{data?.delivery}</Text>
+                            {data?.invoiceTypeCode !=='386' ?
+                                <Text style={styles.dataTextLeft}>Datum prometa</Text>
+                                : 
+                                <Text style={styles.dataTextLeft}>Datum avansne uplate</Text>
+                            }
+                            <Text style={styles.dataTextRight}>{dayjs(data?.dueDate).format("DD.MM.YYYY")}</Text>
                     </View>
+                    : 
+                    ""
+                    }
+            
+                    {(data?.invoiceTypeCode !=='386' &&  data?.invoiceTypeCode !=='383' &&  data?.invoiceTypeCode !== '381') ? 
                     <View  style={styles.textConteiner}> 
                             <Text style={styles.dataTextLeft}>Datum dospeca</Text>
-                            <Text style={styles.dataTextRight}>{data?.dueDate}</Text>
+                            <Text style={styles.dataTextRight}>{dayjs(data?.delivery).format("DD.MM.YYYY")}</Text>
                     </View>
+                    :
+                    ""
+                    }
+
                     <View  style={styles.textConteiner}> 
                             <Text style={styles.dataTextLeft}>Maticni broj kupca</Text>
                             <Text style={styles.dataTextRight}>{data?.AccountingCustomerParty?.mb}</Text>
@@ -195,7 +231,7 @@ const InvoiceNo = ({ data } : any ) => (
                     </View>
                     <View  style={styles.textConteiner}> 
                             <Text style={styles.dataTextLeft}>Ukupno za placanje</Text>
-                            <Text style={styles.dataTextRightBold}>120</Text>
+                            <Text style={styles.dataTextRightBold}>{currencyFormat(Number(data?.legalMonetaryTotal?.payableAmount))}</Text>
                     </View>
             
             

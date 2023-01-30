@@ -3,6 +3,7 @@ import { AnyAsyncThunk } from "@reduxjs/toolkit/dist/matchers";
 import { AnyCnameRecord } from "dns";
 import React, { useState } from "react";
 //import { Document, Page, pdfjs } from "react-pdf/dist/esm/entry.webpack";
+
 import { Page, Document, StyleSheet, Image } from "@react-pdf/renderer";
 
 import InvoiceTitle from "../components/pdf/InvoiceTitle";
@@ -24,14 +25,14 @@ const styles = StyleSheet.create({
       flexDirection: 'column',
   },
   logo: {
-      width: 84,
+      width: 200,
       height: 70,
       marginLeft: 'auto',
       marginRight: 'auto'
   }
 });
 
-export default function DocumentPdf(props: any) {
+export  const DocumentPdf = React.forwardRef<any, any>((props, ref) => {
   const [numPages, setNumPages] = useState(1);
   const [pageNumber, setPageNumber] = useState(1); //setting 1 to show fisrt page
 
@@ -53,20 +54,21 @@ export default function DocumentPdf(props: any) {
 
   const {pdf}  =  props ;
   //pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/legacy/build/pdf.worker.min.js`;
-  //console.log('dataasas', dataInvoiceTmp )
+  //console.log('dataasas', props.data )
   return (
     <>
       <Document>
         <Page size="A4" style={styles.page} >
-            <InvoiceTitle   />
+            <Image style={styles.logo} src="/logoMaster.png"/>
+            <InvoiceTitle     />
             <InvoiceNo  data={dataInvoiceTmp} />
             <BillTo   data={dataInvoiceTmp} />
-            <InvoiceItemsTable  data={props.listRow } />
-            <InvoiceNote />
-            <Footer />
+            <InvoiceItemsTable  dataRow={props.listRow } data={dataInvoiceTmp} />
+            <InvoiceNote  data={dataInvoiceTmp} />
+            <Footer    data={dataInvoiceTmp} />
         </Page>
         
       </Document>
     </>
   );
-}
+})

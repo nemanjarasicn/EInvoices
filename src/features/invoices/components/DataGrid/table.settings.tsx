@@ -66,17 +66,17 @@ const useTableSettings = (): TableSettings => {
   const getZipData = async  (flag: string, typeInvoicesZip:  number,  id: any,  dataRows?: any) =>  {
     const  typeInvoices =  flag ===  'XML'  ?   'downloadXml'  :  'printPdf';
     //const dataInvoicePdf = setDataPdf(dataRows.xml);
-    const zipData = await dispach(getZip({id: id,typeDocument: typeInvoicesZip, typeInvoices:  typeInvoices}));
+    //const zipData = await dispach(getZip({id: id,typeDocument: typeInvoicesZip, typeInvoices:  typeInvoices}));
     //const unzipData = await  unzipFileData(zipData);
     if(flag ===  'PDF') {
       dispach(getInvoiceDetails({id: dataRows?.id})).then((res) => {
-        dispach(setopenModalPdf({open:true, data: {dataXml: dataRows.xml, dataRows: res.payload}}))
+        dispach(setopenModalPdf({open:true, data: {dataXml: dataRows.xml, dataRows: res.payload, dataInfo: id, typeInvoicesZip: typeInvoicesZip, paramData: dataRows }}))
 
     });
       
      
     }
-    /*unzipFile(flag, zipData)
+   /*unzipFile(flag, zipData)
     .catch((err)   =>  console.log('greska prilikom download ' + flag));*/
   }
 
@@ -426,7 +426,7 @@ const useTableSettings = (): TableSettings => {
                   <Grid  container sx={{display:  'flex'}}>
                     <Grid item xs={3} >
                       <LightTooltip title="PDF preview">
-                          <IconButton sx={{mr: 1}} color="primary" aria-label="pdf" component="label"  onClick={() => {getZipData('PDF', 0,  params.row.purchaseInvoiceId)}}>
+                          <IconButton sx={{mr: 1}} color="primary" aria-label="pdf" component="label"  onClick={() => {getZipData('PDF', 0,  params.row.purchaseInvoiceId, params.row )}}>
                                 <FontAwesomeIcon icon={faFilePdf}   color="#E9950C"   />
                           </IconButton>
                       </LightTooltip>

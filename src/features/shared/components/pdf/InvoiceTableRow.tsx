@@ -5,6 +5,10 @@ import { selectInvoiceDetails } from '../../../invoices/store/invoice.selectors'
 
 const borderColor = '#3778C2'
 const styles = StyleSheet.create({
+    conteiner: {
+        flexDirection: 'column',
+        width:  '100%'
+    },
     row: {
         flexDirection: 'row',
         alignItems: 'center',
@@ -45,6 +49,10 @@ const styles = StyleSheet.create({
         textAlign:  'right',
         paddingRight: 2
     },
+    divider: {
+        borderBottomColor: 'gray',
+        borderBottomWidth: 1,
+    },
     discount: {
         width: '10%',
         fontSize:  8,
@@ -64,22 +72,32 @@ const list: any[] = [
 
 const InvoiceTableRow = ({data} : any) => {
     //const rows = items.map(item =>
-    console.log('invoiceRowda', data?.invoiceLine)
-    const listRows = data?.invoiceLine;
+
+    const currencyFormat = (num: any) => {
+        return  num.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+      }
+
+    const listRows = data?.invoiceLine ?   data?.invoiceLine  :  [];
       const rows = 
-      list.map((item: any, index: any)=> 
+      listRows.map((item: any, index: any)=>        
         <View style={styles.row} key={index}>
-            <Text style={styles.description}>Kifla</Text>
-            <Text style={styles.qty}>2</Text>
-            <Text style={styles.rate}>1600</Text>
-            <Text style={styles.unit}>{item.naziv}</Text>
-            <Text style={styles.discount}>0</Text>
-            <Text style={styles.vat}>1440</Text>
-            <Text style={styles.tax}>10</Text>
-        </View>
+            <Text style={styles.description}>{item?.productName}</Text>
+            <Text style={styles.qty}>{item?.quantity}</Text>
+            <Text style={styles.rate}>{currencyFormat(item?.oldPrice - (item?.tax / item?.quantity))}</Text>
+            <Text style={styles.unit}>kom</Text>
+            <Text style={styles.discount}>{currencyFormat(0)}</Text>
+            <Text style={styles.vat}>{currencyFormat((item?.oldPrice -(item?.tax / item?.quantity)) * item?.quantity)}</Text>
+            <Text style={styles.tax}>{(item?.percent).toFixed(2)}</Text>
+        </View>       
         )
     //);
-    return (<Fragment>{rows}</Fragment>)
+    return (
+                <View style={styles.conteiner}>
+                    {rows}
+                    <View style={styles.divider}></View>
+                </View>
+            
+            )
 };
 
 export default InvoiceTableRow;

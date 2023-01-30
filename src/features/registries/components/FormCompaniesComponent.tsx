@@ -30,8 +30,25 @@ import { selectCompanyCurrent } from "../../../app/core/core.selectors";
 import  { selectDistributorInfo  }   from  "../../../app/core/core.selectors"
 import  {  selectDistributorCompanies }  from  "../store/registries.selectors"
 import {useLocation} from 'react-router-dom';
+import IconButton from '@mui/material/IconButton';
+import {  faTrash}   from '@fortawesome/pro-solid-svg-icons';
+import {  faPlus}   from '@fortawesome/pro-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { getValue } from "@mui/system";
 
-/**
+export default function FormCompaniesComponent({
+    props,
+  }: IProps<RegistriesFormComponentProps>): JSX.Element {
+    const isDistributor  =  useAppSelector(selectUser)?.authorities?.slice(0,1)[0].authority === "ROLE_DISTRIBUTER" ? true  :   false;
+    const company = useAppSelector(selectCompanyCurrent) ?? "";
+    const idDistributor  = useAppSelector(selectDistributorInfo)[0]?.idDistributor;
+    const location = useLocation();
+    const companyIdLocation = location.state.id;
+    const companyData: any  =  location.state.data
+    const [listPayeeFinancialAccount,  setListPayeeFinancialAccount]  =  React.useState<any[]>([]);
+
+
+    /**
  * Register Form validation schema for every field
  */
  const schema = yup
@@ -44,20 +61,22 @@ import {useLocation} from 'react-router-dom';
   apiKey: yup.string().required('ovo je obavezno polje'),
   country: yup.string().required('ovo je obavezno polje'),
   pib: yup.string().trim().required('ovo je obavezno polje'),
-  payeeFinancialAccount: yup.string().required('ovo je obavezno polje'),
+  payeeFinancialAccount: yup.string().test(
+    "",
+    "Ovo polje je obavezno",
+    function (item) {
+      if(listPayeeFinancialAccount.length) {
+      return (
+          true
+      );
+    } else {
+      return false;
+    }
+    }
+  ),
   email: yup.string().email('email mora biti ispravnog formata'),
  })
  .required();
-
-export default function FormCompaniesComponent({
-    props,
-  }: IProps<RegistriesFormComponentProps>): JSX.Element {
-    const isDistributor  =  useAppSelector(selectUser)?.authorities?.slice(0,1)[0].authority === "ROLE_DISTRIBUTER" ? true  :   false;
-    const company = useAppSelector(selectCompanyCurrent) ?? "";
-    const idDistributor  = useAppSelector(selectDistributorInfo)[0]?.idDistributor;
-    const location = useLocation();
-    const companyIdLocation = location.state.id;
-    const companyData: any  =  location.state.data
   
     
 
@@ -98,7 +117,8 @@ export default function FormCompaniesComponent({
         handleSubmit,
         reset,
         control,
-        setValue
+        setValue,
+        getValues
       } = methods;
 
 
@@ -121,8 +141,9 @@ export default function FormCompaniesComponent({
               setValue('zip', companyData?.zip);
               setValue('pib', companyData?.pib);
               setValue('email', companyData?.email);
-              setValue('payeeFinancialAccount', companyData?.payeeFinancialAccountDto[0]?.payeeFinancialAccountValue) 
+              //setValue('payeeFinancialAccount', companyData?.payeeFinancialAccountDto[0]?.payeeFinancialAccountValue) 
               setValue('distributor', distributorEdit);
+              setListPayeeFinancialAccount(companyData?.payeeFinancialAccountDto) 
 
 
               // we set apiKeyDefault when edit company
@@ -134,7 +155,7 @@ export default function FormCompaniesComponent({
 
       const onSubmit = async (data: CompanyFormModel) => {
         if(companyIdLocation === 0  )  {
-            dispatch(sendCompanies({data})).then(async (res) => { 
+            dispatch(sendCompanies({data: data, listPayeeFinancialAccount:  listPayeeFinancialAccount})).then(async (res) => { 
                 if(res.payload.message === 'sucsses') {
                   if(data.apiKey) {
                     dispatch(sendsubscribe({data: res.payload.data}));
@@ -188,6 +209,18 @@ export default function FormCompaniesComponent({
             }
           })
         }
+      }
+
+      const addPayeeFinancialAccount  =  ()  =>  {
+          setListPayeeFinancialAccount((prevState)   =>  [...prevState, {id:  Math.random(),  payeeFinancialAccountValue: getValues('payeeFinancialAccount')}]);
+          setValue('payeeFinancialAccount', "");
+      }
+
+
+      const  handleDeletePayeeFinancialAccount  = (id: string |  number)  =>  {
+        const newState =  listPayeeFinancialAccount.filter((item)  => item.id  !==  id);
+
+        setListPayeeFinancialAccount(newState);
       }
 
       
@@ -248,16 +281,38 @@ export default function FormCompaniesComponent({
 
                         }}
                     />
-                    <FormTextField
-                        props={{
-                            control: control,
-                            name: "payeeFinancialAccount",
-                            label: t(props.formFieldsLabels.companies.payeeFinancialAccount),
-                            disabled: false,
-                            additional: { readonly: false, labelShrink: true}
+                    <Grid item xs={12} sx={{display: "flex"}}>
+                          <Grid item xs={11} >
+                                <FormTextField
+                                    props={{
+                                        control: control,
+                                        name: "payeeFinancialAccount",
+                                        label: t(props.formFieldsLabels.companies.payeeFinancialAccount),
+                                        disabled: false,
+                                        additional: { readonly: false, labelShrink: true}
 
-                        }}
-                    />
+                                    }}
+                                />
+                          </Grid>
+                          <Grid item xs={1} >
+                            <IconButton sx={{display:  'flex', justifyContent:  'center'}} color="primary" aria-label="pdf" component="label"  >
+                                  <FontAwesomeIcon icon={faPlus}   onClick={() => addPayeeFinancialAccount()}    color="#E9950C"   />
+                              </IconButton>
+                          </Grid>
+                    </Grid>
+                    <Grid item xs={12} sx={{display:  'flex' , flexDirection:  'column'}}>
+                      {listPayeeFinancialAccount.map((item)  => (
+                          <Grid  item  xs={4}  sx ={{display:   'flex'}}>
+                            <Grid  item xs={1}>1.</Grid>
+                            <Grid    item  xs={9}>{item?.payeeFinancialAccountValue}</Grid>
+                            <Grid  item xs={2} sx={{mt: -1}}>
+                            <IconButton color="primary" aria-label="add" component="label"  >
+                                  <FontAwesomeIcon icon={faTrash}     onClick={()   =>  handleDeletePayeeFinancialAccount(item?.id)}     color="#E9950C"   />
+                              </IconButton>
+                            </Grid>
+                          </Grid>
+                      ))}
+                    </Grid>
                     </Grid>
                     <Grid item xs={6}>
                     <FormTextField

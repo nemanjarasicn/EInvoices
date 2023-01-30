@@ -158,10 +158,9 @@ const getCompaniesDistributor: AsyncThunk<any, { companyId: number | string } , 
 }
 );
 
-const sendCompanies: AsyncThunk<any, {data: CompanyFormModel}, {}> = createAsyncThunk<any, {data: CompanyFormModel}>(
+const sendCompanies: AsyncThunk<any, {data: CompanyFormModel,  listPayeeFinancialAccount: any[]}, {}> = createAsyncThunk<any, {data: CompanyFormModel,  listPayeeFinancialAccount: any[]}>(
   "POST/companySend",
   async (data,_) => {
-
     const idDistributor = data.data?.distributor?.item?.idDistributor ? data.data?.distributor?.item?.idDistributor :  data.data.distributor;
     return await RegistriesPublicService.sendCompanies(data)
       .then((res: any) => { 

@@ -175,14 +175,39 @@ export default new InvoicePublicService();
 
 function mapToRequestDTO(invoice: any): any {
   invoice.issueDate =  dayjs(new Date).format("YYYY-MM-DD"); //dayjs(invoice.issueDate).format("YYYY-MM-DD");
-  invoice.dueDate = dayjs(invoice.dueDate).format("YYYY-MM-DD");
+  // ovo se ne salje za knjizna odobrenja
+  if(invoice?.invoiceTypeCode !== 381) {
+      invoice.dueDate = invoice.dueDate !== "" ?  dayjs(invoice.dueDate).format("YYYY-MM-DD") :  "";
+  } else {
+    invoice.dueDate = ""
+  }
   invoice["discount"] = invoice.priceWithoutDiscount - invoice.sumWithDiscount;
   invoice["sumWithDiscount"] = invoice.priceWithoutDiscount;
   invoice["documentTypeId"] = 1; //uvek je 1 jer si posiljalac
   invoice["invoiceTransactionType"] = "Sale";
   invoice["invoiceType"] = "Normal";
   invoice["inputAndOutputDocuments"] = "Output"; //TODO proveriti kod tipova faktura drugih
-  invoice["invoicePeriod"] = [{ descriptionCode: invoice.vatPointDate }];
+  if(invoice?.invoiceTypeCode !== 381 &&  invoice?.invoiceTypeCode  !== 383 ) {
+      invoice["invoicePeriod"] = [{ descriptionCode: invoice.vatPointDate }];
+  } else {
+    const descriptionCodeTmp =  invoice?.invoiceTypeCode === 381  ? 0  :  3;
+    if(invoice?.sourceInvoiceSelectionMode === 2) { 
+        invoice["invoicePeriod"] = [
+          { 
+            descriptionCode: descriptionCodeTmp, //uvek je 0 kada je knjizno odobrenje,
+            startDate: dayjs(invoice?.modePeriodFrom).format("YYYY-MM-DD"), //'2023-01-26',
+            endDate:  dayjs(invoice?.modePeriodTo).format("YYYY-MM-DD") //"2023-01-27"
+
+          }
+        ];
+      } else {
+        invoice["invoicePeriod"] = [
+          { 
+            descriptionCode: descriptionCodeTmp, //uvek je 0 kada je knjizno odobrenje,
+          }
+        ];
+      }
+  }
   invoice["orderReference"] = {
     id: invoice.orderNumber,
   };
@@ -194,10 +219,19 @@ function mapToRequestDTO(invoice: any): any {
   }];
 
   // ovo se ne salje za avansne 
-  if(invoice.vatPointDate !==  432) {
+  if(invoice.vatPointDate !==  432 &&  invoice?.invoiceTypeCode !== 381) {
       invoice["delivery"] = {
         actualDeliveryDate: invoice.issueDate,
       };
     }
+  
+  if((invoice?.invoiceTypeCode === 381 ||  invoice?.invoiceTypeCode === 383 ) && invoice?.sourceInvoiceSelectionMode === 1) {
+    invoice["billingReferences"] = [{
+      invoiceDocumentReference: {
+        id: invoice?.sourceInvoice ,
+        issueDate:  dayjs(new Date).format("YYYY-MM-DD") ,
+      }
+    }];
+  }
   return invoice;
 }

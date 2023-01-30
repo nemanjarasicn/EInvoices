@@ -105,10 +105,7 @@ class RegistriesPublicService {
       "city":  data.data.city,
       "country":  data.data.country,
       "email": data.data.email,
-      "payeeFinancialAccountDto":[{
-
-        "payeeFinancialAccountValue":   data.data.payeeFinancialAccount
-    }]
+      "payeeFinancialAccountDto":  data.listPayeeFinancialAccount     //[{"payeeFinancialAccountValue":   data.data.payeeFinancialAccount}]
   }
     );
   }
