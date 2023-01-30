@@ -245,7 +245,6 @@ const getUsers: AsyncThunk<any, { companyId: number | string }, {}> = createAsyn
  * update company
  */
 
-
 const updateCompanies: AsyncThunk<any, { idCompany: number | string, data: any,  idpayeeFinancialAccountDto:  any[] }, {}> = createAsyncThunk<any, { idCompany: number | string; data:  any; idpayeeFinancialAccountDto:   any[] }>(
   "GET/subjectupdate",
   async (params,_) => {
