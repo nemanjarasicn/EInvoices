@@ -145,7 +145,6 @@ export default function FormUsersComponent({
       React.useEffect(() => {
         if(idLocation !== 0  )  {
           const userRoleEdit = userRoleTmp.find((item)  => item.name  ===  userData?.roleName[0]);
-          console.log('asdadsdadsad', userRoleTmp.find((item)  => item.name  ===  userData?.roleName[0]) )
             setValue('companyId', userData?.companyId);
             setValue('username', userData?.username);
             setValue('userRole', userRoleTmp.find((item)  => item.name  ===  userData?.roleName[0]) as any);

@@ -343,7 +343,6 @@ class RegistriesPublicService {
   }
 
   updateUser(id:  number |  string, data: any) {
-    console.log('dasdsadsdsa', data)
     return publicClient.put<any>
     (`user/edit/${id}`,
     {

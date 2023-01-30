@@ -5,7 +5,7 @@ import { ThemeProvider } from "@mui/material/styles";
 import { theme } from "./app/styles/Theme";
 import BasicModal from "./app/components/ApiKeyModal";
 import InvoiceLayout from "./features/invoices/components/InvoiceLayout";
-import { useAppSelector } from "./app/hooks";
+import { useAppSelector, useToken } from "./app/hooks";
 
 import {
   CreateType,
@@ -90,7 +90,7 @@ function App() {
             }
           />
           {apiKeyPresent ? invoicesRoutes() : modalRoute()}
-          {registriesRoutes()}
+          {registriesRoutes() }
           {articlesRoutes()}
           <Route path="home" element={
             <React.Suspense fallback={<>...</>}>
@@ -107,6 +107,9 @@ export default App;
 
 function modalRoute(): React.ReactNode {
   return <Route path="*" element={<BasicModal />}></Route>;
+}
+function tokenRoute(): React.ReactNode {
+  return <Route path="*" element={<Navigate to="/" />}></Route>;
 }
 
 function invoicesRoutes(): React.ReactNode {

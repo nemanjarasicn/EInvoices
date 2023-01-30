@@ -190,7 +190,6 @@ export default function FormCompaniesComponent({
             } 
             )
         } else {
-          console.log('sasaassasass',  listPayeeFinancialAccount)
           dispatch(updateCompanies({idCompany: companyIdLocation, data: data,  idpayeeFinancialAccountDto: listPayeeFinancialAccount})).then(async (res) => { 
             if(res.payload.message === 'sucsses') {
               if(data.apiKey !==  apiKeyDefault) {
@@ -213,7 +212,7 @@ export default function FormCompaniesComponent({
       }
 
       const addPayeeFinancialAccount  =  ()  =>  {
-          setListPayeeFinancialAccount((prevState)   =>  [...prevState, {id:  Math.random(),  payeeFinancialAccountValue: getValues('payeeFinancialAccount')}]);
+          setListPayeeFinancialAccount((prevState)   =>  [...prevState, {id:  Math.random(),  payeeFinancialAccountValue: getValues('payeeFinancialAccount'), status: 'INSERT'}]);
           setValue('payeeFinancialAccount', "");
       }
 
@@ -302,15 +301,15 @@ export default function FormCompaniesComponent({
                           </Grid>
                     </Grid>
                     <Grid item xs={12} sx={{display:  'flex' , flexDirection:  'column'}}>
-                      {listPayeeFinancialAccount.map((item)  => (
+                      {listPayeeFinancialAccount.map((item, index)  => (
                           <Grid  item  xs={4}  sx ={{display:   'flex'}}>
-                            <Grid  item xs={1}>1.</Grid>
+                            <Grid  item xs={1}>{index + 1}.</Grid>
                             <Grid    item  xs={9}>{item?.payeeFinancialAccountValue}</Grid>
-                            <Grid  item xs={2} sx={{mt: -1}}>
+                            {/*<Grid  item xs={2} sx={{mt: -1, visibility: }}>
                             <IconButton color="primary" aria-label="add" component="label"  >
                                   <FontAwesomeIcon icon={faTrash}     onClick={()   =>  handleDeletePayeeFinancialAccount(item?.id)}     color="#E9950C"   />
                               </IconButton>
-                            </Grid>
+                              </Grid>*/}
                           </Grid>
                       ))}
                     </Grid>
