@@ -63,7 +63,7 @@ export default function LoginPage(): JSX.Element {
 
   const handleFocus = (): void => {
     if (error) dispatch(resetError({}));
-  };
+  };  
 
   return (
     <Container component="main" maxWidth="xs">
@@ -88,7 +88,7 @@ export default function LoginPage(): JSX.Element {
             label="Email"
             name="username"
             autoComplete="username"
-            autoFocus
+            //autoFocus
             onFocus={handleFocus}
           />
           <TextField

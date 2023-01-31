@@ -238,11 +238,6 @@ export default function ClippedDrawer() {
     navigate("/login");
   };
 
-  
-  React.useEffect(() => {
-    console.log('sassasasa')
-
-  }, []);
 
   return (
     <>

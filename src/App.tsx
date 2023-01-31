@@ -5,8 +5,7 @@ import { ThemeProvider } from "@mui/material/styles";
 import { theme } from "./app/styles/Theme";
 import BasicModal from "./app/components/ApiKeyModal";
 import InvoiceLayout from "./features/invoices/components/InvoiceLayout";
-import { useAppSelector, useToken } from "./app/hooks";
-
+import { useAppSelector } from "./app/hooks";
 import {
   CreateType,
   TemplatePageTypes,
@@ -23,6 +22,7 @@ import { CreateType as CreateTypeArticles}  from "../src/features/articles/model
 import { selectColor } from "./app/core/core.selectors";
 
 import InfoCompany from "./features/registries/components/InfoCompany";
+
 
 
 
@@ -76,6 +76,10 @@ function App() {
   
   const isUserAuthorityList  =   useAppSelector(selectUser)?.authorities?.length  ?  true :  false;
 
+  const logOut = () => {
+    window.location.reload();
+  }
+
   return (
     <ThemeProvider theme={theme(color)}>
       <Routes>
@@ -84,13 +88,13 @@ function App() {
           <Route
             index
             element={
-              !userAuthority ? <div style={{ maxWidth: "500px" }}>
-                {/*<img alt="x" src="/logopetcom.svg"></img>*/}
-              </div>  :  <Navigate to="/registries/companies" />
+              !userAuthority ?  <Navigate to="/home" />
+                 :  
+              <Navigate to="/registries/companies" />
             }
           />
           {apiKeyPresent ? invoicesRoutes() : modalRoute()}
-          {registriesRoutes() }
+          {registriesRoutes()}
           {articlesRoutes()}
           <Route path="home" element={
             <React.Suspense fallback={<>...</>}>

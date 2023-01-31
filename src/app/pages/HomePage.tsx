@@ -5,6 +5,7 @@ import CardComponent, {
 import { IProps } from "../../features/invoices/models/invoice.models";
 import { useTranslation } from "react-i18next";
 import { useFeatureSettings } from "../../features/invoices/settings";
+import { GridValueGetterParams } from "@mui/x-data-grid";
 import Grid from "@mui/material/Grid";
 import { usePageStyles } from "../../features/invoices/pages/pages.styles";
 import Breadcrumbs from '@mui/material/Breadcrumbs';
@@ -18,6 +19,8 @@ import { DataGrid, GridColDef, GridSelectionModel } from "@mui/x-data-grid";
 import  { selecterrorLogs  }  from  "../core/core.selectors"
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import TableNoRowsOverlay from "../../features/invoices/components/DataGrid/NoRowsOverlay";
+import dayjs from "dayjs";
+import { returnInvoiceMessage } from "../../features/invoices/utils/utils"
 
 
 type HomePageProps = {
@@ -46,6 +49,8 @@ export default function HomePage({props}: IProps<HomePageProps>): JSX.Element {
       field: "message",
       headerName: t("Opis"),
       flex: 1,
+      valueGetter: (params: GridValueGetterParams) =>
+          returnInvoiceMessage(params.row.message),
       headerAlign: "center",
       align: "center",
       hideable: false,
@@ -54,6 +59,8 @@ export default function HomePage({props}: IProps<HomePageProps>): JSX.Element {
     field: "createDate",
     headerName: t("Datum"),
     flex: 1,
+    valueGetter: (params: GridValueGetterParams) =>
+      dayjs(params.row.createDate).format("DD-MM-YYYY HH:mm:ss "),
     headerAlign: "center",
     align: "center",
     hideable: false,
