@@ -33,6 +33,7 @@ import {useLocation} from 'react-router-dom';
 import IconButton from '@mui/material/IconButton';
 import {  faTrash}   from '@fortawesome/pro-solid-svg-icons';
 import {  faPlus}   from '@fortawesome/pro-solid-svg-icons';
+import {  faPenToSquare}   from '@fortawesome/pro-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { getValue } from "@mui/system";
 
@@ -212,16 +213,40 @@ export default function FormCompaniesComponent({
       }
 
       const addPayeeFinancialAccount  =  ()  =>  {
-          setListPayeeFinancialAccount((prevState)   =>  [...prevState, {id:  Math.random(),  payeeFinancialAccountValue: getValues('payeeFinancialAccount'), status: 'INSERT'}]);
-          setValue('payeeFinancialAccount', "");
+          if(getValues('payeeFinancialAccount')) {
+              setListPayeeFinancialAccount((prevState)   =>  [...prevState, {id:  Math.random(),  payeeFinancialAccountValue: getValues('payeeFinancialAccount'), status: 'INSERT'}]);
+              setValue('payeeFinancialAccount', "");
+          }
       }
 
 
       const  handleDeletePayeeFinancialAccount  = (id: string |  number)  =>  {
         const newState =  listPayeeFinancialAccount.filter((item)  => item.id  !==  id);
-
         setListPayeeFinancialAccount(newState);
       }
+
+
+      const  handleEditPayeeFinancialAccount  = (id: string |  number)  =>  {
+        if(getValues('payeeFinancialAccount')) {
+              const newState = listPayeeFinancialAccount.map((item) => {
+                if (item?.id  ===   id) {
+                // Replacing with a new item, so the other component can understand it's a new item and re-render it.
+                  return {
+                    ...item,
+                    payeeFinancialAccountValue:  getValues('payeeFinancialAccount'),
+                    status: "UPDATE"
+                  };
+                }
+            
+                // Return the same item, so the other component do not render since it's the same item.
+                return item;
+              });
+              setListPayeeFinancialAccount(newState);
+              setValue('payeeFinancialAccount', "");
+        }
+      }
+
+
 
       
     return (
@@ -295,8 +320,8 @@ export default function FormCompaniesComponent({
                                 />
                           </Grid>
                           <Grid item xs={1} >
-                            <IconButton sx={{display:  'flex', justifyContent:  'center'}} color="primary" aria-label="pdf" component="label"  >
-                                  <FontAwesomeIcon icon={faPlus}   onClick={() => addPayeeFinancialAccount()}    color="#E9950C"   />
+                            <IconButton sx={{display:  'flex', justifyContent:  'center'}} color="primary" aria-label="pdf" component="label"   onClick={() => addPayeeFinancialAccount()} >
+                                  <FontAwesomeIcon icon={faPlus}      color="#E9950C"   />
                               </IconButton>
                           </Grid>
                     </Grid>
@@ -305,11 +330,17 @@ export default function FormCompaniesComponent({
                           <Grid  item  xs={4}  sx ={{display:   'flex'}}>
                             <Grid  item xs={1}>{index + 1}.</Grid>
                             <Grid    item  xs={9}>{item?.payeeFinancialAccountValue}</Grid>
-                            {/*<Grid  item xs={2} sx={{mt: -1, visibility: }}>
-                            <IconButton color="primary" aria-label="add" component="label"  >
-                                  <FontAwesomeIcon icon={faTrash}     onClick={()   =>  handleDeletePayeeFinancialAccount(item?.id)}     color="#E9950C"   />
-                              </IconButton>
-                              </Grid>*/}
+                                <Grid  item xs={2} sx={{mt: -1 }}>
+                                  {item?.status &&  item?.status  ===  "INSERT" ?
+                                    <IconButton color="primary" aria-label="add" component="label"   onClick={()   =>  handleDeletePayeeFinancialAccount(item?.id)}  >
+                                          <FontAwesomeIcon icon={faTrash}     color="#E9950C"   />
+                                      </IconButton>
+                                   :
+                                   <IconButton color="primary" aria-label="add" component="label"   onClick={()   =>  handleEditPayeeFinancialAccount(item?.id)}  >
+                                          <FontAwesomeIcon icon={faPenToSquare}     color="#E9950C"   />
+                                    </IconButton>
+                                 }
+                                </Grid>
                           </Grid>
                       ))}
                     </Grid>
