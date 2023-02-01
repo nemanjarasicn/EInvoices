@@ -19,6 +19,7 @@ import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import TableNoRowsOverlay from "../../features/invoices/components/DataGrid/NoRowsOverlay";
 import dayjs from "dayjs";
 import { returnInvoiceMessage } from "../../features/invoices/utils/utils"
+import { apiKeyExist, selectUser,  selectCompanyInfo } from "../core/core.selectors";
 
 
 type HomePageProps = {
@@ -35,10 +36,16 @@ export default function HomePage({props}: IProps<HomePageProps>): JSX.Element {
   const boxMarginTop   =    window.devicePixelRatio === 1.5 ?  6 :  10;
   const fontSizeBreadcrumbs  =   window.devicePixelRatio === 1.5 ?  '16px' :  '20px';
   const fontSize  =    window.devicePixelRatio === 1.5 ?    '12px' :  '16px';
+  const apiKey = useAppSelector(selectCompanyInfo)?.apiKey;
+  
 
   React.useEffect(() => {
-    dispatch(getErrorLogs())  ;
+    dispatch(getErrorLogs());
+    const newState = itemsList.filter((item) => item?.apiKey ===  apiKey );
+    setItemsList(newState);
   }, []);
+
+
 
   const columns: GridColDef[] =  [
     {
@@ -62,6 +69,8 @@ export default function HomePage({props}: IProps<HomePageProps>): JSX.Element {
     hideable: false,
   }
 ]
+
+
   return (  
     <Grid container >
       <Grid item xs={12}  sx={{mt: boxMarginTop, }}>

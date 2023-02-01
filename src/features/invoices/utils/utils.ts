@@ -292,11 +292,18 @@ const createMonetaryTotal = (invoice: any): any => {
  */
  const returnInvoiceMessage = (error: string): any => {
 
-  const errorsMessage = [ 
+  const errorsMessage = [
     {error: "401 Unauthorized: [no body]", message: "Proverite na sefu-u api key i da li je api status aktivan"},
     {error: "contains duplicates", message: "Faktura koju pokušavate da pošaljete sa istim brojem već postoji na SEF.  Proverite da li si ste već poslali tu fakturu"},
     {error: "Quanitity on invoice lines of prepayment must be 1", message: "Kada saljete avans, kolicina ne sme biti veca od 1"},
     {error: "Source invoice not exists", message: "Morate uneti izvornu fakturu"},
+    {error: "IssueDate is not correct because it cannot be different from todays", message: "SEF prihvata isključivo e-Fakture sa današnjim datumom"},
+    {error: "When receiver is budget user order number", message: "Za budžetske korisnike je obavezno jedno od polja “broj narudžbine” ili “broj ugovora” ili “broj sporazuma”"},
+    {error: "Selected prepayment invoice", message: "Firma kojoj fakturišete još nije prihvatila prethodno poslatu avansnu e-Fakturu"},
+    {error: "Invalid user type for debtor", message: "Fakture ne treba da se šalju i na CRF za datog budžetskog korisnika"},
+    {error: "must be approved", message: " Knjižno odobrenje, ne može biti poslato jer faktura po kojoj ga izdajete nije prihvaćena, niti odbijena"},
+    {error: "mandatory for CreditNote document", message: "Knjižno odobrenje koje šaljete na SEF nema referencu na fakturu za koju je urađen povrat"},
+    {error: "Company with identifier", message: "Proverite na sefu-u api key i da li je api status aktivan"},
   ]
 
   const errorTranslate: any = errorsMessage.filter((item)  =>  error.includes(item.error));
@@ -352,6 +359,18 @@ const createMonetaryTotal = (invoice: any): any => {
   return   objectTmp;
 };
 
+/**
+ * convert object to json 
+ * @param obj
+ * @returns
+ */
+
+const  jsonBlob = (obj: any)  => {
+  return new Blob([JSON.stringify(obj)], {
+    type: "application/json",
+  });
+}
+
 export {
   handleInvoiceStatus,
   generateKey,
@@ -368,5 +387,6 @@ export {
   createMonetaryTotal,
   calculateNewDiscount,
   returnInvoiceMessage,
-  createPdfObject
+  createPdfObject,
+  jsonBlob
 };

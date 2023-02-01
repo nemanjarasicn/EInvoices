@@ -59,7 +59,7 @@ export  const DocumentPdf = React.forwardRef<any, any>((props, ref) => {
     <>
       <Document>
         <Page size="A4" style={styles.page} >
-            <Image style={styles.logo} src="/logoMaster.png"/>
+            {/*<Image style={styles.logo} src="/logoMaster.png"/>*/}
             <InvoiceTitle     />
             <InvoiceNo  data={dataInvoiceTmp} />
             <BillTo   data={dataInvoiceTmp} />

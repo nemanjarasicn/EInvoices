@@ -394,7 +394,7 @@ export default function FormCompaniesComponent({
                             props={{
                                 name: "distributor",
                                 control: control,
-                                label: 'Distributer',
+                                label: t(props.formFieldsLabels.companies.distributor),
                                 disabled: true,
                                 additional: {
                                 selector: selectDistributor,

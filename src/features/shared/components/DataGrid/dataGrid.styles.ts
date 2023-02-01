@@ -34,6 +34,11 @@
           "&.MuiDataGrid-root": {
             border: "none",
           },
+          "& .MuiDataGrid-columnHeaderTitle": {
+            overflow: "visible",
+            lineHeight: "1.43rem",
+            whiteSpace: "normal",
+          }
         },
       },
     };

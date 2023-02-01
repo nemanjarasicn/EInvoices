@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
         textAlign:  'right',
     },
     vat: {
-        width: '10%',
+        width: '12%',
         fontSize:  8,
         textAlign:  'right',
     },
@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
         textAlign:  'right',
     },
     tax: {
-        width: '10%',
+        width: '7%',
         fontSize:  8,
         textAlign:  'right',
         paddingRight: 2

@@ -33,15 +33,15 @@ const style = {
     left: '50%',
     transform: 'translate(-50%, -50%)',
     width: () => window.devicePixelRatio == 1.5 ? 600 : 828 , 
-    height: () => window.devicePixelRatio == 1.5 ? 700 : 978 ,
+    height: () => window.devicePixelRatio == 1.5 ? 550 : 800 ,
  
 
     bgcolor: 'background.paper',
     border: '2px solid #000',
     boxShadow: 24,
     borderRadius: 2,
-    p: 5,
-    backgroundColor:  '#323b40',
+    p: 1,
+    backgroundColor:  'white',
     display:  'flex'
   };
 
@@ -56,12 +56,14 @@ const style = {
 	const [loading, setLoading] = React.useState(true);
 	const [idXml, setIdXml]  =   React.useState("");
 	const [typeInvoicesZip, settypeInvoicesZip]  = React.useState(0);
+	const  fontSizeButton   =    window.devicePixelRatio === 1.5 ?  '10px' :     '14px';
+	const heightButton  =   window.devicePixelRatio === 1.5 ?  '40px' :     '50px';
 
 	const componentRef = useRef(null);
 
 	const printPluginInstance = printPlugin();
 	const { print } = printPluginInstance;
-	const widthPdf =  window.devicePixelRatio == 1.5 ? 520 : 750
+	const widthPdf =  window.devicePixelRatio == 1.5 ? 580 : 810
 
 	//console.log('modalda',  openPdfData);
 
@@ -157,74 +159,39 @@ const style = {
 			>
 				<Box sx={style} >
 				<Grid sx={{display:  'flex', width: '100%',  flexDirection:  'column',  height:  '100%'}} >
-						<Grid sx={{display:  'flex', height:  '5%'}} >
-								<Grid item  xs={10}  sx={{display:  'flex', justifyContent:  'flex-start'}}>
-										<Typography id="modal-modal-title"    sx={{display:  'flex', justifyContent:  'center', fontFamily: 'Roboto', 
-											fontStyle: 'normal',
 
-											/* or 158% */
-											lineHeight:  '32px', 
-											fontWeight:   700, 
-											textAlign: 'center',
-											textTransform: 'uppercase',
-											fontSize:  window.devicePixelRatio == 1.5 ?  12 : 24,   color:  'white'}}>
-											Pdf 1
-										</Typography>
-								
-								</Grid>
-								<Grid item  xs={2}  sx={{display:   'flex',   color:  'white',   justifyContent:  'flex-end'}} >
-										<Typography onClick={() => {handleClose();dispatch(setopenModalPdf({open: false,  data:  ""}))}} sx={{fontFamily: 'Roboto', 
-											fontStyle: 'normal',
-
-											/* or 158% */
-											lineHeight:  '32px', 
-											textAlign: 'center',
-											textTransform: 'uppercase',
-											fontSize:  window.devicePixelRatio == 1.5 ?  12 : 24,
-											'&:hover':{cursor: 'pointer'
-										}}}>X</Typography>
-								</Grid>
-						</Grid>
-						<Divider sx={{backgroundColor:  '#6cb238'}} />
-
-						{/*<Grid sx={{display:  'flex', height:  '90%', overflow: "auto", scrollBehavior: "smooth", justifyContent: 'center', mt: 2.5}} >
-									<DocumentPdf  pdf={sampleBase64pdf}  />
-									</Grid>*/}
-						
-
-						<PDFViewer width={widthPdf} height={700} showToolbar={false}  className="test" >
+						<PDFViewer width={widthPdf} height={700} showToolbar={true}  className="test" >
 							<DocumentPdf  data={datainvoice}  listRow={openPdfData?.data?.dataRows}   />
 						</PDFViewer>
 						
 
 						
 						<Grid sx={{display:  'flex', height:  '10%', mt: 2.5, justifyContent:  'center'}}  >
-										<Grid  item xs={6} sx={{mr: 2.5}}>
-													<Button fullWidth variant="contained"     onClick={() => {handleClose();dispatch(setopenModalPdf({open: false, data: ""}))}}    sx={{mt: 2  ,fontSize: 14, backgroundColor:  'transparent',  border:  'solid 1px white',  height:  '56px',  borderRadius:  '8px',   display:  'flex',  justifyContent:  'center' }}>Odustani</Button>
-										</Grid>
-										<Divider />
-										<Grid  item xs={6} >
-										<PDFDownloadLink
-												document={<DocumentPdf   data={datainvoice}  listRow={openPdfData?.data?.dataRows} />}
-												fileName={`${idXml}.pdf`}
-												style={{textDecoration: 'none'}} 
-												>
-													<Button fullWidth variant="contained"    sx={{mt: 2  ,fontSize: 14, height:    '56px',  backgroundColor:  '#6cb238',  borderRadius:  '8px',   display:  'flex',  justifyContent:  'center' }}>Download</Button>
-										</PDFDownloadLink>
-									</Grid>      
+								<Grid  item xs={6} sx={{display:  'flex', justifyContent:  'flex-start'}}>
+											<Button fullWidth variant="contained"     onClick={() => {handleClose();dispatch(setopenModalPdf({open: false, data: ""}))}}    sx={{mt: 2  , width: '60%', fontSize: fontSizeButton, backgroundColor:  'white',  color: 'black',  border:  'solid 1px white',  height: heightButton,  borderRadius:  '10px',   display:  'flex',  justifyContent:  'center' }}>Otkaži</Button>
+								</Grid>
+								<Divider />
+								<Grid  item xs={6} sx={{display:  'flex', justifyContent:  'flex-end'}} >
+									<PDFDownloadLink
+											document={<DocumentPdf   data={datainvoice}  listRow={openPdfData?.data?.dataRows} />}
+											fileName={`${idXml}.pdf`}
+											style={{textDecoration: 'none', width: '60%'}} 
+											>
+												<Button fullWidth variant="contained"    sx={{mt: 2  ,fontSize: fontSizeButton, height:  heightButton,  backgroundColor:  '#ef3e56',  borderRadius:  '10px',   display:  'flex',  justifyContent:  'center' }}>Preuzmi</Button>
+									</PDFDownloadLink>
+								</Grid>      
 								</Grid>
 
 								<Grid sx={{display:  'flex', height:  '10%', mt: 1, justifyContent:  'center'}} >
-										<Grid  item xs={6} sx={{mr: 2.5}}>
-
-													<Button fullWidth variant="contained"     onClick={()  =>  handlePrint()}   sx={{mt: 2  ,fontSize: 14, backgroundColor:  '#E9950C',  border:  'solid 1px white',  height:  '56px',  borderRadius:  '8px',   display:  'flex',  justifyContent:  'center' }}>Stampa</Button>
+										<Grid  item xs={6} sx={{display:  'flex', justifyContent:  'flex-start'}}>
+											<Button fullWidth variant="contained"     onClick={()  =>  handlePrint()}   sx={{mt: 2  ,fontSize: fontSizeButton,  width:  '60%',  backgroundColor:  '#E9950C',  border:  'solid 1px white',  height: heightButton,  borderRadius:  '10px',   display:  'flex',  justifyContent:  'center' }}>Stampa</Button>
 										</Grid>
 										<Divider />
-										<Grid  item xs={6} >
-													<Button fullWidth variant="contained"   onClick = {() =>  {getZipData('XML', typeInvoicesZip, idXml,)}}    sx={{mt: 2  ,fontSize: 14, height:    '56px',  backgroundColor:  'blue',  borderRadius:  '8px',   display:  'flex',  justifyContent:  'center' }}>DownloadXml</Button>
-									</Grid>      
+										<Grid  item xs={6}   sx={{display:  'flex', justifyContent:  'flex-end'}} >
+											<Button fullWidth variant="contained"   onClick = {() =>  {getZipData('XML', typeInvoicesZip, idXml,)}}    sx={{mt: 2  ,fontSize: fontSizeButton, height:    heightButton,  width:  '60%',  backgroundColor:  'blue',  borderRadius:  '10px',   display:  'flex',  justifyContent:  'center' }}>PreuzmiXml</Button>
+										</Grid>      
 								</Grid>
-				</Grid>
+						</Grid>
 				</Box>
 			</Modal>
 

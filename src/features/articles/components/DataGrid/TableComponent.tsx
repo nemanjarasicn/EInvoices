@@ -51,7 +51,7 @@ export default function TableComponent({
   return (
     <div style={tableComponentStyles.wrapper}>
       <DataGrid
-        style={{ minHeight: tableData.length ? undefined : 400 ,  backgroundColor: 'white', borderRadius: '15px', }}
+        style={{ minHeight: tableData.length ? undefined : 400 ,  backgroundColor: 'white', borderRadius: '15px' }}
         disableColumnMenu
         pagination
         disableColumnFilter

@@ -1,8 +1,20 @@
 import React from 'react';
-import { Text, View, StyleSheet } from '@react-pdf/renderer';
+import { Text, View, StyleSheet, Font } from '@react-pdf/renderer';
 import { green } from '@mui/material/colors';
 
 const borderColor = '#3778C2'
+
+Font.register({
+    family: "Roboto",
+    fonts: [
+        { src:
+            "https://cdnjs.cloudflare.com/ajax/libs/ink/3.1.10/fonts/Roboto/roboto-light-webfont.ttf", color: 'black' },
+        { src:
+            "https://cdnjs.cloudflare.com/ajax/libs/ink/3.1.10/fonts/Roboto/roboto-bold-webfont.ttf", fontStyle: 'bold' },
+      ]
+  });
+
+
 const styles = StyleSheet.create({
     conteiner: {
         flexDirection: 'row',
@@ -26,20 +38,24 @@ const styles = StyleSheet.create({
 
 
     text: {
+        fontFamily: "Roboto",
         fontSize:  10,
         textAlign:  'right',
         borderBottom:  'solid 1px',
-        color:  'gray'
+        color:  'black'
     },
     textBold: {
+        fontFamily: "Roboto",
         fontSize:  10,
         textAlign:  'right',
-        color:  'black'
+        fontStyle: 'bold',
     },
 
     textPrice: {
+        fontFamily: "Roboto",
         marginLeft: 40,
         fontSize:  10,
+        fontStyle: 'bold',
         textAlign:  'right',
         borderBottom:  'solid 1px'
     },
