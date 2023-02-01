@@ -73,6 +73,14 @@ export const selectOpenFilter = createSelector(
 );
 
 
+export const selectOpenError = createSelector(
+  featureSelectors,
+  (state: FeatureState) => {
+    return state.openModalError;
+  }
+);
+
+
 export const selectInvoiceDetails = createSelector(
   featureSelectors,
   (state: FeatureState) => {
