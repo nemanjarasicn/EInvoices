@@ -135,8 +135,7 @@ export default function InvoiceFormComponent({
 
   const onSubmit = handleSubmit(
     (data: InvoiceFormModel) => {
-      //dispatch(sendInvoiceFileTest({filesList: filesList}));
-      dispatch(sendInvoce({ invoice: data, companyInfo: companyInfo })).then((res) => {
+      dispatch(sendInvoce({ invoice: data, companyInfo: companyInfo, filesList: filesList })).then((res) => {
         if (res.payload.message === "REDIRECT") {
            setShowError(true);  
               setTimeout(async () => {
@@ -266,8 +265,8 @@ export default function InvoiceFormComponent({
     setSelectionModeTmp(selectionMode)
 }, [watch('sourceInvoiceSelectionMode')]);
 
-//ovo je za atach
-/*const UploudComponent = () => {
+
+const UploudComponent = () => {
   //const fileInput: MutableRefObject<HTMLDivElement> = React.useRef(null);
   const onChange = (e: any) => {
     let files = e.target.files;
@@ -305,7 +304,7 @@ export default function InvoiceFormComponent({
         </Grid>
     </Grid>
   )
-}*/
+}
 
   return (
     <>
@@ -709,9 +708,9 @@ export default function InvoiceFormComponent({
                     }
                   })()}
                 </Grid>
-                {/*<Grid item xs={4} >
+                <Grid item xs={4} >
                       <UploudComponent />
-                </Grid>*/}
+                </Grid>
               </Grid>
             </Paper>
           </Box>

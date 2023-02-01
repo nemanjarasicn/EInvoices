@@ -261,14 +261,14 @@ const useTableSettings = (): TableSettings => {
                 <Grid  container sx={{display:  'flex'}}>
                       <Grid item xs={3} >
                       <LightTooltip title="PDF preview">
-                        <IconButton sx={{mr: 2}} color="primary" aria-label="pdf" component="label"  onClick={() => {console.log('dasasa',params);getZipData('PDF', 1, params.row.salesInvoiceId, params.row)}}>
+                        <IconButton sx={{mr: 2}} color="primary" aria-label="pdf" component="label"  onClick={() => {getZipData('PDF', 1, params.row.salesInvoiceId, params.row)}}>
                         <FontAwesomeIcon icon={faFilePdf}   color="#E9950C"   />
                         </IconButton>
                         </LightTooltip>
                       </Grid>
                       <Grid item xs={3} >
                       <LightTooltip title="XML download">
-                        <IconButton color="primary" aria-label="xml" component="label"   onClick={() => {console.log('dasasa',params); ;getZipData('XML', 1, params.row.salesInvoiceId)}} >
+                        <IconButton color="primary" aria-label="xml" component="label"   onClick={() => { getZipData('XML', 1, params.row.salesInvoiceId)}} >
                         <FontAwesomeIcon icon={faFile}   color="#0D78DE"   />
                         </IconButton>
                         </LightTooltip>
@@ -276,7 +276,7 @@ const useTableSettings = (): TableSettings => {
                       <Grid item xs={3}>
                         {(params.row.invoiceStatus  ===  'Sent' ||  params.row.invoiceStatus  ===  'Sending') && 
                             <LightTooltip title="Otkazi">
-                                <IconButton color="primary" aria-label="pdf" component="label"  onClick={() => {console.log(params); dispach(setopenModalConfirm({open:  true, 
+                                <IconButton color="primary" aria-label="pdf" component="label"  onClick={() => { dispach(setopenModalConfirm({open:  true, 
                                     dataAction: {
                                       actionType:  "cancel",
                                       invoiceId:  params.row.invoiceId,

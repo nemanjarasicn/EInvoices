@@ -78,9 +78,9 @@ const searchInvoices: AsyncThunk<any, { params: any }, {}> = createAsyncThunk<
 /**
  * Create Async Action send E-Invoic via DTO
  */
-const sendInvoce: AsyncThunk<any, { invoice: any, companyInfo?: any}, {}> = createAsyncThunk<
+const sendInvoce: AsyncThunk<any, { invoice: any, companyInfo?: any, filesList: any[] }, {}> = createAsyncThunk<
   any,
-  { invoice: any,  companyInfo?: any }
+  { invoice: any,  companyInfo?: any, filesList:  any[] }
 >("POST/Invoice", async (invoiceDto, _) => {
   const { core, form } = (_ as any).getState();
   const { apiKey } = core.userCompany;

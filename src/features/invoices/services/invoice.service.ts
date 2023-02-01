@@ -3,6 +3,7 @@ import publicClientZip from "../services/htpp-public-gov_zip"
 import commonHttpClient from "../../../app/http-common";
 import dayjs from "dayjs";
 import { jsonBlob }  from "../utils/utils"
+import { faGameConsoleHandheld } from "@fortawesome/pro-solid-svg-icons";
 
 class InvoicePublicService {
   public getProducts(marketPlace: string) {
@@ -100,30 +101,29 @@ class InvoicePublicService {
   }
 
   public sendInvoice(data: any, apiKey: string) {
-    const config = {
-      headers: { apiKey: apiKey },
-    };
-    //ovo je za atach
     /*const config = {
+      headers: { apiKey: apiKey },
+    };*/
+    
+    const config = {
       headers: {
         "content-type": "multipart/form-data",
         apiKey: apiKey,
       },
-    };*/
-    // ovo je za atach
-    /*const formData = new FormData();
+    };
+    const formData = new FormData();
     for (let i = 0; i < data?.filesList.length; i++) {
       formData.append("file", data?.filesList[i])
-    }*/
+    }
 
-    const dataToSend = mapToRequestDTO(data.invoice);
-    //formData.append("invoiceDto", jsonBlob(dataToSend) ); ovo je za atach
-    return commonHttpClient.post<any>("invoice", { ...dataToSend }, config);
-    /*return commonHttpClient.post<any>(
+    const dataToSend = mapToRequestDTO(data.invoice, data?.filesList);
+    formData.append("invoiceDto", jsonBlob(dataToSend));
+    //return commonHttpClient.post<any>("invoice", { ...dataToSend }, config);
+    return commonHttpClient.post<any>(
       `/invoice/create`,
       formData,
       config
-    );*/  
+    );  
   }
 
   // Public E-Fakture
@@ -214,7 +214,7 @@ class InvoicePublicService {
 export default new InvoicePublicService();
 
 
-function mapToRequestDTO(invoice: any): any {
+function mapToRequestDTO(invoice: any, filesList: any): any {
   invoice.issueDate =  dayjs(new Date).format("YYYY-MM-DD"); //dayjs(invoice.issueDate).format("YYYY-MM-DD");
   // ovo se ne salje za knjizna odobrenja
   if(invoice?.invoiceTypeCode !== 381) {
@@ -273,6 +273,16 @@ function mapToRequestDTO(invoice: any): any {
         issueDate:  dayjs(new Date).format("YYYY-MM-DD") ,
       }
     }];
+  }
+
+  if(filesList.length) {
+    invoice["additionalDocumentReference"] = 
+      filesList.map((item: any) =>  (
+        {
+          id: item?.name ,
+        }
+      ))
+      ;
   }
   return invoice;
 }
