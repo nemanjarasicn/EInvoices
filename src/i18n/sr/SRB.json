@@ -261,7 +261,10 @@
     "country":  "Drzava",
     "city":  "Grad",
     "email":  "Email",
-    "payeeFinancialAccount":   "Ziro racun"
+    "payeeFinancialAccount":   "Ziro racun",
+    "distributor":  "Distributer",
+    "newCompany":  "Nova kompanija",
+    "companyDate":  "PODACI O KOMPANIJI"
   },
 
   "Warehouses":  {
@@ -323,14 +326,40 @@
 
   "Articles":  {
     "title":  "Artikli",
-    "createNew":  "Kreiraj novi artikal"
+    "createNew":  "Kreiraj novi artikal",
+    "id": "Id artikla",
+    "nameOfArticles":  "Naziv artikla",
+    "prodctId":  "prodctId",
+    "decimalShow": "Merljiv",
+    "code":  "Šifra",
+    "barCode":  "Barkod(gtin)",
+    "unitCode":  "Jedinica mere",
+    "vat":  "Poreska stopa",
+    "group":  "Grupa",
+    "type":  "Tip artikla",
+    "price":  "Cena"
+
 
   },
 
 
   "Subject":  {
     "title":  "Komitenti",
-    "createNew":  "Kreiraj novi komitent"
+    "createNew":  "Kreiraj novi komitent",
+    "id": "Id komitenta",
+    "firstName": "Ime komitenta",
+    "lastName":   "Prezime komitenta",
+    "companyName":  "Naziv kompanije",
+    "pib":  "PIB",
+    "mb":  "Matični broj",
+    "subjectIdCategory":   "Kategorija komitenta",
+    "subjectIdType":   "Tip komitenta"
+
+  },
+
+  "Distributor":  {
+    "title":  "Distributeri",
+    "createNew":  "Kreiraj distributera"
 
   }
 

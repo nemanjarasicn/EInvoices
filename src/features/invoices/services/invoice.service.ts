@@ -2,6 +2,7 @@ import publicClient from "./htpp-public-gov";
 import publicClientZip from "../services/htpp-public-gov_zip"
 import commonHttpClient from "../../../app/http-common";
 import dayjs from "dayjs";
+import { jsonBlob }  from "../utils/utils"
 
 class InvoicePublicService {
   public getProducts(marketPlace: string) {
@@ -102,8 +103,27 @@ class InvoicePublicService {
     const config = {
       headers: { apiKey: apiKey },
     };
+    //ovo je za atach
+    /*const config = {
+      headers: {
+        "content-type": "multipart/form-data",
+        apiKey: apiKey,
+      },
+    };*/
+    // ovo je za atach
+    /*const formData = new FormData();
+    for (let i = 0; i < data?.filesList.length; i++) {
+      formData.append("file", data?.filesList[i])
+    }*/
+
     const dataToSend = mapToRequestDTO(data.invoice);
+    //formData.append("invoiceDto", jsonBlob(dataToSend) ); ovo je za atach
     return commonHttpClient.post<any>("invoice", { ...dataToSend }, config);
+    /*return commonHttpClient.post<any>(
+      `/invoice/create`,
+      formData,
+      config
+    );*/  
   }
 
   // Public E-Fakture
@@ -167,7 +187,28 @@ class InvoicePublicService {
       config
     );
   }
+
+  /*public sendInvoiceFileTest(filesList: File[], apiKey:  string) {
+    console.log('sasasasaasaasas',  filesList)
+    const formData = new FormData();
+    for (let i = 0; i < filesList.length; i++) {
+      formData.append(i==0 ? "invoiceDto" : "file", filesList[i])
+    }
+    //formData.append("file", file);
+    const config = {
+      headers: {
+        "content-type": "multipart/form-data",
+        apiKey: apiKey,
+      },
+    };
+    return commonHttpClient.post<any>(
+      `/invoice/create`,
+      formData,
+      config
+    );
+  }*/
 }
+
 
 
 export default new InvoicePublicService();

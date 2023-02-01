@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React from "react";
+import React,  { useRef,   MutableRefObject  } from "react";
 import {
   Paper,
   Typography,
@@ -104,6 +104,7 @@ export default function InvoiceFormComponent({
   const openModalCreateSubject = useAppSelector(selectOpenCreateSubject);
 
   const marketPlaces = useAppSelector(selectMarketPlaces);
+  const  [filesList, setFilesList]  =   React.useState<any[]>([]);
   const [errorMessage, setErrorMessage] = React.useState("");
   const [showErrorModal, setShowErrorModal] = React.useState(false);
   const id = useAppSelector(selectCurrentDocNumber);
@@ -134,6 +135,7 @@ export default function InvoiceFormComponent({
 
   const onSubmit = handleSubmit(
     (data: InvoiceFormModel) => {
+      //dispatch(sendInvoiceFileTest({filesList: filesList}));
       dispatch(sendInvoce({ invoice: data, companyInfo: companyInfo })).then((res) => {
         if (res.payload.message === "REDIRECT") {
            setShowError(true);  
@@ -263,6 +265,47 @@ export default function InvoiceFormComponent({
     const selectionMode =  getValues("sourceInvoiceSelectionMode")  ?   getValues("sourceInvoiceSelectionMode")  :  0 ;
     setSelectionModeTmp(selectionMode)
 }, [watch('sourceInvoiceSelectionMode')]);
+
+//ovo je za atach
+/*const UploudComponent = () => {
+  //const fileInput: MutableRefObject<HTMLDivElement> = React.useRef(null);
+  const onChange = (e: any) => {
+    let files = e.target.files;
+    let filesArr = Array.prototype.slice.call(files);
+    setFilesList([...filesList,...filesArr])
+  }
+  
+  return (
+    <Grid item xs ={12}  sx={{display:  'flex'}}>
+        <Grid item xs={4}  >
+            <Button
+                variant="contained"
+                component="label"
+              >
+                Upload File
+                <input
+                  onChange={onChange}
+                  multiple
+                  type="file"
+                  hidden
+                />
+              </Button>
+        </Grid>
+        <Grid item xs={6}  >
+          {filesList.map((item, index) => (
+            <Grid container >
+              <Grid item xs={1} >
+                  {index}.
+              </Grid>
+              <Grid item xs={11} >
+                  {item?.name}
+              </Grid>
+            </Grid>
+          ))}
+        </Grid>
+    </Grid>
+  )
+}*/
 
   return (
     <>
@@ -666,6 +709,9 @@ export default function InvoiceFormComponent({
                     }
                   })()}
                 </Grid>
+                {/*<Grid item xs={4} >
+                      <UploudComponent />
+                </Grid>*/}
               </Grid>
             </Paper>
           </Box>

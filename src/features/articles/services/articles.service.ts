@@ -31,7 +31,7 @@ class RegistriesPublicService {
               "productGroupRequest":[
                  {
                     "idGroup":1,
-                    "groupName":"Dj"
+                    "groupName":"OPSTA"
                  }
               ],
               "productTypeRequest":{

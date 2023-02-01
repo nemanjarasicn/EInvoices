@@ -54,7 +54,7 @@ const useTableSettings = (): TableSettings => {
           columnsDef: [
             {
               field: "id",
-              headerName: "Id artikla",
+              headerName: "Articles.id",
               flex: 1,
               headerAlign: "center",
               align: "center",
@@ -63,7 +63,7 @@ const useTableSettings = (): TableSettings => {
             },
             {
               field: "prodctId",
-              headerName: "prodctId",
+              headerName: "Articles.prodctId",
               flex: 1,
               headerAlign: "center",
               align: "center",
@@ -72,7 +72,7 @@ const useTableSettings = (): TableSettings => {
             },
             {
               field: "productName",
-              headerName: "Naziv artikla",
+              headerName: "Articles.nameOfArticles",
               flex: 1,
               headerAlign: "center",
               align: "center",
@@ -80,7 +80,7 @@ const useTableSettings = (): TableSettings => {
             },
             {
               field: "decimalShow",
-              headerName: "Merljiv",
+              headerName: "Articles.decimalShow",
               flex: 1,
               headerAlign: "center",
               align: "center",
@@ -89,7 +89,7 @@ const useTableSettings = (): TableSettings => {
     
             {
               field: "code",
-              headerName: "Šifra",
+              headerName: "Articles.code",
               flex: 1,
               headerAlign: "center",
               align: "center",
@@ -98,7 +98,7 @@ const useTableSettings = (): TableSettings => {
             },
             {
                 field: "barCode",
-                headerName: "Barkod(gtin)",
+                headerName: "Articles.barCode",
                 flex: 1,
                 headerAlign: "center",
                 align: "center",
@@ -107,7 +107,7 @@ const useTableSettings = (): TableSettings => {
               },
               {
                 field: "unitCode",
-                headerName: "Jedinica mere",
+                headerName: "Articles.unitCode",
                 flex: 1,
                 headerAlign: "center",
                 align: "center",
@@ -116,7 +116,7 @@ const useTableSettings = (): TableSettings => {
               },
               {
                 field: "vat",
-                headerName: "Poreska stopa",
+                headerName: "Articles.vat",
                 flex: 1,
                 headerAlign: "center",
                 align: "center",
@@ -125,7 +125,7 @@ const useTableSettings = (): TableSettings => {
               },
               {
                 field: "groupName",
-                headerName: "Grupa",
+                headerName: "Articles.group",
                 flex: 1,
                 headerAlign: "center",
                 align: "center",
@@ -134,7 +134,7 @@ const useTableSettings = (): TableSettings => {
               },
               {
                 field: "typeName",
-                headerName: "Tip artikla",
+                headerName: "Articles.type",
                 flex: 1,
                 headerAlign: "center",
                 align: "center",
@@ -143,7 +143,7 @@ const useTableSettings = (): TableSettings => {
               },
               {
                 field: "price",
-                headerName: "Cena",
+                headerName: "Articles.price",
                 flex: 1,
                 headerAlign: "center",
                 align: "center",
@@ -192,7 +192,7 @@ const useTableSettings = (): TableSettings => {
           columnsDef: [
             {
               field: "id",
-              headerName: "Id komitenta",
+              headerName: "Subject.id",
               flex: 1,
               headerAlign: "center",
               align: "center",
@@ -201,24 +201,26 @@ const useTableSettings = (): TableSettings => {
             },
             {
               field: "firstName",
-              headerName: "Ime komitenta",
+              headerName: "Subject.firstName",
               flex: 1,
               headerAlign: "center",
               align: "center",
-              hideable: false,
+              hideable: true,
+              hide: true,
             },
             {
               field: "lastName",
-              headerName: "Prezime komitenta",
+              headerName: "Subject.lastName",
               flex: 1,
               headerAlign: "center",
               align: "center",
-              hideable: false,
+              hideable: true,
+              hide: true,
             },
     
             {
               field: "companyName",
-              headerName: "Naziv kompanije",
+              headerName: "Subject.companyName",
               flex: 1,
               headerAlign: "center",
               align: "center",
@@ -227,7 +229,7 @@ const useTableSettings = (): TableSettings => {
             },
             {
                 field: "pib",
-                headerName: "PIB",
+                headerName: "Subject.pib",
                 flex: 1,
                 headerAlign: "center",
                 align: "center",
@@ -236,7 +238,7 @@ const useTableSettings = (): TableSettings => {
               },
               {
                 field: "mb",
-                headerName: "Matični broj",
+                headerName: "Subject.mb",
                 flex: 1,
                 headerAlign: "center",
                 align: "center",
@@ -246,8 +248,10 @@ const useTableSettings = (): TableSettings => {
         
               {
                 field: "subjectIdCategory",
-                headerName: "Kategorija komitenta",
+                headerName: "Subject.subjectIdCategory",
                 flex: 1,
+                valueGetter: (params: GridValueGetterParams) =>
+                    params.row.subjectIdCategory === 1 ? "Pravno lice"  :  "Javna preduzeća",
                 headerAlign: "center",
                 align: "center",
                 hideable: true,
@@ -255,8 +259,10 @@ const useTableSettings = (): TableSettings => {
               },
               {
                 field: "subjectIdType",
-                headerName: "Tip komitenta",
+                headerName: "Subject.subjectIdType",
                 flex: 1,
+                valueGetter: (params: GridValueGetterParams) =>
+                    params.row.subjectIdType === 1 ? "Pravno"  :  "Fizicko",
                 headerAlign: "center",
                 align: "center",
                 hideable: true,

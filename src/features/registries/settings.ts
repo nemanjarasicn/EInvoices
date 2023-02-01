@@ -211,7 +211,7 @@ const useFeatureSettings = (): FeatureSettings => {
         showBtnsSelect: false,
         buttons: [
           {
-            title: "Kreiraj distributera",
+            title: "Distributor.createNew",
             disabled: !userAuthority,
             btnFn: () => {dispatch(setopenModalDistributor(true)); },
           },
@@ -589,13 +589,13 @@ const useFeatureSettings = (): FeatureSettings => {
           ],
         },
         createTitle: {
-          title: "NOVA KOMPANIJA"
+          title: "Companies.newCompany"
         },
 
         typeForm : "companies",
 
         sectionTitles: {
-          title_1: "PODACI O KOMPANIJI",
+          title_1: "Companies.companyDate",
         },
         formGrpsSettings: {
           invoiceGrp: {
@@ -666,7 +666,8 @@ const useFeatureSettings = (): FeatureSettings => {
             city:  "Companies.city",
             country:  "Companies.country",
             email:  "Companies.email",
-            payeeFinancialAccount:  "Companies.payeeFinancialAccount"
+            payeeFinancialAccount:  "Companies.payeeFinancialAccount",
+            distributor:  "Companies.distributor"
           }
         },
       },

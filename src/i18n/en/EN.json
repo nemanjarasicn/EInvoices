@@ -261,7 +261,10 @@
     "country":  "Country",
     "city":  "City",
     "email":  "Email",
-    "payeeFinancialAccount":   "payeeFinancialAccount"
+    "payeeFinancialAccount":   "payeeFinancialAccount",
+    "distributor":  "Distributor",
+    "newCompany":  "New company",
+    "companyDate":  "DATA OF COMPANY"
   },
   "Warehouses":  {
     "title":   "Warehouses",
@@ -322,15 +325,41 @@
 
   "Articles":  {
     "title":  "Articles",
-    "createNew":  "Create new Artical"
-
+    "createNew":  "Create new Artical",
+    "id": "Id of articles",
+    "nameOfArticles":  "Name of aricles",
+    "prodctId":  "prodctId",
+    "decimalShow": "decimalShow",
+    "code":  "Password",
+    "barCode":  "Barcode(gtin)",
+    "unitCode":  "UnitCode",
+    "vat":  "Vat",
+    "group":  "groupName",
+    "type":  "Type of articles",
+    "price":  "Price"
   },
 
 
   
   "Subject":  {
     "title":  "Subject",
-    "createNew":  "Create new Subject"
+    "createNew":  "Create new Subject",
+    "id": "Id of subject",
+    "firstName": "First name",
+    "lastName":   "Last name",
+    "companyName":  "Name of company",
+    "pib":  "PIB",
+    "mb":  "mb",
+    "subjectIdCategory":   "subject Category",
+    "subjectIdType":   "subject Type"
+
+  },
+
+  "Distributor":  {
+    "title":  "Distributor",
+    "createNew":  "Create new Distributor"
 
   }
+
+
 }

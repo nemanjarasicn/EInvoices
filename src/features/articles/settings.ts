@@ -49,7 +49,7 @@ const useFeatureSettings = (): FeatureSettings => {
             description:  "MenuDescription.articles"
     },
     {
-      title: "Komitenti",
+      title: "Subject.title",
       icon: ArticleIcon,
       cardBtn: {
         title: "InvoiceCard.preview",
@@ -81,12 +81,12 @@ const useFeatureSettings = (): FeatureSettings => {
         },
 
         [TemplatePageArticlesTypes.SUBJECT]: {
-          title: "Komitenti",
+          title: "Subject.title",
           showBtns: true,
           showBtnsSelect: false,
           buttons: [
             {
-              title: "Kreiraj novog komitenta",
+              title: "Subject.createNew",
               disabled: false,
               btnFn: () =>   dispatch(setopenModalCreateSubject({open:  true}))//navigate("/articles/createSubject"),
             },

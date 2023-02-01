@@ -57,10 +57,28 @@ const searchInvoices: AsyncThunk<any, { params: any }, {}> = createAsyncThunk<
     .catch((err) => []);
 });
 
+
+/**
+ * send invoice file test
+ */
+ /*const sendInvoiceFileTest: AsyncThunk<any, { filesList: any[]}, {}> = createAsyncThunk<
+ any,
+ { filesList: any[] }
+>("POST/sendInvoiceFileTest", async (params, _) => {
+  const { core, form } = (_ as any).getState();
+  const { apiKey } = core.userCompany;
+ return await InvoicePublicService.sendInvoiceFileTest(params.filesList, apiKey)
+ .then(
+  (data) =>  _.fulfillWithValue({message: "REDIRECT" , data: data}),
+  (err) => _.rejectWithValue({message: "ERR", error: err})
+);
+});*/
+
+
 /**
  * Create Async Action send E-Invoic via DTO
  */
-const sendInvoce: AsyncThunk<any, { invoice: any, companyInfo?: any }, {}> = createAsyncThunk<
+const sendInvoce: AsyncThunk<any, { invoice: any, companyInfo?: any}, {}> = createAsyncThunk<
   any,
   { invoice: any,  companyInfo?: any }
 >("POST/Invoice", async (invoiceDto, _) => {
