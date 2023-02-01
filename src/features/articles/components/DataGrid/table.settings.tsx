@@ -162,7 +162,7 @@ const useTableSettings = (): TableSettings => {
                   <Grid  container sx={{display:  'flex'}}>
                         <Grid item xs={12} >
                         <LightTooltip title="Izmena cene">
-                          <IconButton sx={{display:  'flex', justifyContent:  'center'}} color="primary" aria-label="pdf" component="label"  onClick={() => {console.log('asasasasasa', params.row);  dispatch(setopenModalCreateArticalPrice({open: true, data: params.row, flag: 'edit'}))}}>
+                          <IconButton sx={{display:  'flex', justifyContent:  'center'}} color="primary" aria-label="pdf" component="label"  onClick={() => {  dispatch(setopenModalCreateArticalPrice({open: true, data: params.row, flag: 'edit'}))}}>
                           <FontAwesomeIcon icon={faPenToSquare}   color="#E9950C"   />
                           </IconButton>
                           </LightTooltip>
@@ -279,7 +279,7 @@ const useTableSettings = (): TableSettings => {
                   <Grid  container sx={{display:  'flex'}}>
                         <Grid item xs={12} >
                         <LightTooltip title="Izmena komitenta">
-                          <IconButton sx={{display:  'flex', justifyContent:  'center'}} color="primary" aria-label="pdf" component="label"  onClick={() => {console.log('asasasasasa', params.row);  dispatch(setopenModalCreateSubject({open: true, data: params.row, flag: 'edit'}))}}>
+                          <IconButton sx={{display:  'flex', justifyContent:  'center'}} color="primary" aria-label="pdf" component="label"  onClick={() => { dispatch(setopenModalCreateSubject({open: true, data: params.row, flag: 'edit'}))}}>
                           <FontAwesomeIcon icon={faPenToSquare}   color="#E9950C"   />
                           </IconButton>
                           </LightTooltip>

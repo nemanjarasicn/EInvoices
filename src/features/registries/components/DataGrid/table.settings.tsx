@@ -382,7 +382,7 @@ const useTableSettings = (): TableSettings => {
                 </Grid>
                 <Grid item  xs={4}  sx={{display: 'flex', justifyContent:  'center'}} >
                   <LightTooltip title="Izmena kompanije">
-                      <IconButton sx={{display:  'flex', justifyContent:  'center'}} color="primary" aria-label="pdf" component="label"  onClick={() => {console.log('asasasasasa', params.row);  
+                      <IconButton sx={{display:  'flex', justifyContent:  'center'}} color="primary" aria-label="pdf" component="label"  onClick={() => {  
                           navigate(`/registries/createCompany/${params.row.idCompany}`, 
                             {state: 
                                 {
@@ -670,7 +670,7 @@ const useTableSettings = (): TableSettings => {
               <Grid container sx={{display: 'flex'}}>
                 <Grid item xs={12}  sx={{display: 'flex', justifyContent:  'center'}} >
                 <LightTooltip title="Izmena korisnika">
-                  <IconButton  color="primary" aria-label="pdf" component="label"  onClick={() => {    console.log('asasassas', params.row);  
+                  <IconButton  color="primary" aria-label="pdf" component="label"  onClick={() => {    
                   navigate(`/registries/createUser/${params.row.id}`, {
                     state: {
                       id: params.row.id,
