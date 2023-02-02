@@ -79,6 +79,10 @@ import { sendInvoce } from "../store/invoice.actions";
 import { useSchemaValidator } from "../utils/utils.schema";
 import { useNavigate } from "react-router-dom";
 import  FormTextBox   from "../components/form-fields/FormTextBox"
+import  { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {  faPaperclipVertical }   from '@fortawesome/pro-solid-svg-icons';
+import { selectOpenError  }  from "../store/invoice.selectors"
+import {  setopenModalError }  from  "../store/invoice.reducer"
 
 export type InvoiceFormComponentProps = {
   invoiceTypeOptions: any;
@@ -115,6 +119,7 @@ export default function InvoiceFormComponent({
 
   const [lineError, setLineError] = React.useState<string | null>(null);
   const [showError, setShowError] = React.useState(false);
+  const errorModalShow =  useAppSelector(selectOpenError)
 
   const methods = useForm({
     defaultValues: defaultValues,
@@ -146,14 +151,11 @@ export default function InvoiceFormComponent({
         } else {
           const error  =  res.payload?.error?.response?.data?.description;
 
-          setShowErrorModal(true); 
+          //setShowErrorModal(true); 
+          dispatch(setopenModalError(true));
           setErrorMessage(returnInvoiceMessage(error)) ;
-              setTimeout(() => {
-                    setShowErrorModal(false); 
-                    setErrorMessage("")
-                    /*navigate('/registries/companies'
-                    )*/
-              }, 2000);
+
+          
         }
       });
     },
@@ -280,8 +282,13 @@ const UploudComponent = () => {
             <Button
                 variant="contained"
                 component="label"
-              >
-                Upload File
+              > 
+              <div>
+                <FontAwesomeIcon icon={faPaperclipVertical}   color="#E9950C"   />
+              </div>
+              <div style={{paddingLeft: '5px'}}>
+                DODAJ PRILOG
+              </div>
                 <input
                   onChange={onChange}
                   multiple
@@ -309,7 +316,7 @@ const UploudComponent = () => {
   return (
     <>
     <SucessModal    open={showError} ></SucessModal>
-    <ErrorModal    open={showErrorModal}  message={errorMessage} ></ErrorModal>
+    <ErrorModal    open={errorModalShow}  message={errorMessage} ></ErrorModal>
     <ModalCreateSubject    open={openModalCreateSubject.open} ></ModalCreateSubject>
     <Box
       sx={{ flexGrow: 1, rowGap: 1, display: "flex", flexDirection: "column", mt: '20px' }}

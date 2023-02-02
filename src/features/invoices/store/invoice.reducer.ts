@@ -17,13 +17,14 @@ const FEATURE_INVOICES_KEY: string = "invoices";
 export interface FeatureState {
   unitMesures: any[];
   companies: any[];
-  loading: boolean;
+  loading: boolean; 
   files: IFile[];
   invoicesR: any[];
   zip: any;
   openModalConfirm:  {open: boolean, dataAction?: any };
   openModalPdf:  {open: boolean, data?: any };
   openModalFilter:  {open: boolean, filterName:  string }  ;
+  openModalError:   boolean;
   invoiceDetails: any;
   filters: InvoiceSearchParams;
   taxBase: any[];
@@ -39,6 +40,7 @@ const initialState: FeatureState = {
   openModalConfirm:  {open: false, dataAction: "" },
   openModalPdf:  {open: false, data: "" },
   openModalFilter:  {open: false, filterName: ""},
+  openModalError: false,
   invoiceDetails:  "",
   filters: {
     companyId: "7",
@@ -96,6 +98,12 @@ const invoicesSlice: Slice<FeatureState> = createSlice({
       openModalFilter: payload,
     }),
 
+    setopenModalError: (state,{payload}) => ({
+      ...state,
+      openModalError: payload,
+    }),
+
+
     setFilters: (state,{payload}) => ({
       ...state,
       filters: payload,
@@ -112,7 +120,7 @@ const invoicesSlice: Slice<FeatureState> = createSlice({
   },
 });
 
-export const { setManyFiles, removeFile, updateInvoiceStatus, setopenModalPdf, setopenModalFilter, setFilters,  setopenModalConfirm } =
+export const { setManyFiles, removeFile, updateInvoiceStatus, setopenModalPdf, setopenModalFilter, setFilters,  setopenModalConfirm, setopenModalError } =
   invoicesSlice.actions;
 
 export default invoicesSlice.reducer;

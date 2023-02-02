@@ -80,6 +80,16 @@ const updateSubject: AsyncThunk<any, { idSubject: number | string, data: any,  i
 );
 
 
+const getSubjectDetails: AsyncThunk<any, { pib:  string |  number}, {}> = createAsyncThunk<any, { pib:  string |  number }>(
+  "GET/subjectdetailsget",
+  async (params) => {
+    return     await RegistriesPublicService.getSubjectDetails(params.pib)
+    .then((res: any) => res.data)
+    .catch((err: any) => []);
+}
+);
+
+
 
 
 export {
@@ -88,5 +98,6 @@ export {
   sendArticlesPrice,
   getSubject,
   sendSubject,
-  updateSubject
+  updateSubject,
+  getSubjectDetails
 };

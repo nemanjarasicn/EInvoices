@@ -10,7 +10,8 @@ type FormTextFieldProps = FormFieldProps & {
     readonly?: boolean;
     labelShrink?: boolean;
     valueForm?: string;
-    mask?: any
+    mask?: any;
+    parentFn?:   Function; 
   };
 };
 
@@ -23,12 +24,19 @@ export default function CustomTextField({
 
   const fontSize  =    window.devicePixelRatio === 1.5 ?    '12px' :  '16px';
 
+  const handleOnKeyDown  =  (event: any) =>  {
+    if(event.key === 'Enter'  &&  props.additional?.parentFn){
+      props.additional?.parentFn();
+    }
+  }
+
   return (
     <Controller
       name={props.name}
       control={props.control}
       render={({ field: { onChange, value },fieldState: { error } }) => (
         <TextField
+        onKeyDown={(event)  =>  handleOnKeyDown(event)}
           disabled={false}
           helperText={error ? error.message : " "}
           size="small"
