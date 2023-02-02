@@ -24,8 +24,8 @@ import FormAutocompleteField from "../../shared/components/form-fields/FormAutoc
 import {  setopenModalCreateSubject, setOpenSucessModal   }  from  "../store/articles.reducer"
 import {useLocation} from 'react-router-dom';
 import FormTextField  from  "../../shared/components/form-fields/FormTextField"
-import {  sendSubject, updateSubject } from "../store/articles.actions";
-import {   setOpenModalSucessLoad  }  from  "../../../app/core/core.reducer"
+import {  sendSubject, updateSubject, getSubjectDetails } from "../store/articles.actions";
+import {   setError, setOpenModalSucessLoad  }  from  "../../../app/core/core.reducer"
 import   { selectSubjectGategory,  selectSubjectType }  from  "../../shared/components/form-fields/store/form.selectors"
 import FormCurrencyField from "../../shared/components/form-fields/FormCurrencyField";
 
@@ -76,6 +76,7 @@ export default function FormSubjectComponent({
         subjectIdCategory:   "",
         subjectIdType:  "",
         payeeFinancialAccountDto: "",
+        searchSubject:  ""
         
     
     };
@@ -119,6 +120,7 @@ export default function FormSubjectComponent({
     const dispatch = useAppDispatch();
     const [showError, setShowError] = React.useState(false);
     const [showErrorModal, setShowErrorModal] = React.useState(false);
+    const [errorMessageSearch,  setErrorMessageSearch]  =  React.useState("");
     const marginTopBox =  window.devicePixelRatio == 1.5 ? 2 : 5 
     
     const location = useLocation();
@@ -225,6 +227,25 @@ export default function FormSubjectComponent({
           }
         
       }, [watch('subjectIdCategory')]);
+
+
+      const  handleFindSubject = () => {
+        dispatch(getSubjectDetails({pib:  getValues('searchSubject')})).then((res) => {
+          console.log('asasasasasassasasasaas', res);
+          if(res?.payload?.CompanyDataSet !==  "")   {
+            setValue('pib', (getValues('searchSubject')).toString()); 
+            setValue('companyName', res?.payload?.CompanyDataSet?.Company?.Name); 
+            setValue('city',  res?.payload?.CompanyDataSet?.Company?.City); 
+            setValue('address', res?.payload?.CompanyDataSet?.Company?.Address); 
+            setValue('zip', res?.payload?.CompanyDataSet?.Company?.PostalCode); 
+            setValue('mb',   res?.payload?.CompanyDataSet?.Company?.NationalIdentificationNumber); 
+            setErrorMessageSearch("");
+          } else {
+            setErrorMessageSearch('Ne postoji kompanija za izabrani PIB');
+          }
+        });
+          
+      }
       
   
     return (
@@ -234,6 +255,18 @@ export default function FormSubjectComponent({
         
                
                 <Grid container spacing={2} sx = {{ minHeight: "300px", marginTop: '10px'}}>
+                    <Grid xs={12}  sx={{ml: 2, mt: 2}}>
+                    <FormTextField
+                        props={{
+                          name: "searchSubject",
+                          control: control,
+                          label: "pretraga po pibu",
+                          additional: { mask: {}, readonly: false , parentFn: handleFindSubject},
+                          disabled: false,
+                        }}
+                     /> 
+                     <span style={{fontSize: '12px', color: 'red'}}>{errorMessageSearch}</span>
+                    </Grid>
                     <Grid item xs={4}>
                     {/*<FormTextField
                         props={{

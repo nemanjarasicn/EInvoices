@@ -87,6 +87,7 @@
     subjectIdCategory: any = "";
     subjectIdType: any = "";
     payeeFinancialAccountDto:  string  =  "";
+    searchSubject: string  |  number  =  "";
 
    }
 

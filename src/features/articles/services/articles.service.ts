@@ -147,6 +147,13 @@ sendSubject(data: any) {
  }
 
 
+ getSubjectDetails(pib:   number  |  string) {
+   return publicClient.get<any>
+   (`subject/company/${pib}`,
+   );
+ }
+
+
 
  updateSubject(idSubcect:  string  |  number, data: any, ididpayeeFinancialAccountDto:  string  | number) {
   
