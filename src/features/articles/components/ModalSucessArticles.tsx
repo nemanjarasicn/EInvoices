@@ -8,8 +8,7 @@ import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import AddTaskIcon from '@mui/icons-material/AddTask';
 
 import Box from '@mui/material/Box'
-import FormArticlePriceComponent from '../components/FormAriclesPriceComponent';
-import    { setopenModalCreateArticalPrice }  from  "../store/articles.reducer"
+
 
 
 

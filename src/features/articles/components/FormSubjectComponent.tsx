@@ -145,8 +145,8 @@ export default function FormSubjectComponent({
 
 
       React.useEffect(() => {
-            //dispatch(getSubjectCategory());
-            //dispatch(getSubjectType());
+            dispatch(getSubjectCategory());
+            dispatch(getSubjectType());
             if(props.flag === 'edit') {
               const subjectIdCategoryObject = subjectCategoryTmp.find((item)  => item.id  ===  props.data.subjectIdCategory);
               const subjectIdTypeObject = subjectType.find((item)  => item.id  ===  props.data.subjectIdType)

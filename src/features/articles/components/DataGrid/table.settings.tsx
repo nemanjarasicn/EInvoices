@@ -8,13 +8,14 @@ import { selectCompanyCurrent } from "../../../../app/core/core.selectors";
 import Tooltip, { TooltipProps, tooltipClasses } from '@mui/material/Tooltip';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {  faPenToSquare}   from '@fortawesome/pro-solid-svg-icons';
+import {  faGrid2}   from '@fortawesome/pro-solid-svg-icons';
 import { getArticles,  getSubject }   from "../../store/articles.actions"
 import {
   Grid,
 } from "@mui/material";
 import  { selectArticles, selectSubject }  from "../../store/articles.selectors"
 
-import { setopenModalCreateArticalPrice,   setopenModalCreateSubject  }  from  "../../store/articles.reducer"
+import { setopenModalCreateArticalPrice,   setopenModalCreateSubject , setopenModalCreateArtical }  from  "../../store/articles.reducer"
 
 
 type TableSettings = {
@@ -160,12 +161,20 @@ const useTableSettings = (): TableSettings => {
                 hideable: true,
                 renderCell: (params) => (
                   <Grid  container sx={{display:  'flex'}}>
-                        <Grid item xs={12} >
-                        <LightTooltip title="Izmena cene">
-                          <IconButton sx={{display:  'flex', justifyContent:  'center'}} color="primary" aria-label="pdf" component="label"  onClick={() => {  dispatch(setopenModalCreateArticalPrice({open: true, data: params.row, flag: 'edit'}))}}>
-                          <FontAwesomeIcon icon={faPenToSquare}   color="#E9950C"   />
-                          </IconButton>
-                          </LightTooltip>
+                        <Grid item xs={6} >
+                          <LightTooltip title="Izmena artikla">
+                                <IconButton sx={{display:  'flex', justifyContent:  'center'}} color="primary" aria-label="pdf" component="label"  onClick={() => {  console.log('asassasasasasas',  params.row); dispatch(setopenModalCreateArtical({open: true, data: params.row, flag: 'edit'}))}}>
+                                      <FontAwesomeIcon icon={faGrid2}   color="#E9950C"   />
+                                </IconButton>
+                            </LightTooltip>
+                        </Grid>
+
+                        <Grid item xs={6} >
+                          <LightTooltip title="Izmena cene">
+                                <IconButton sx={{display:  'flex', justifyContent:  'center'}} color="primary" aria-label="pdf" component="label"  onClick={() => {  dispatch(setopenModalCreateArticalPrice({open: true, data: params.row, flag: 'edit'}))}}>
+                                      <FontAwesomeIcon icon={faPenToSquare}   color="#E9950C"   />
+                                </IconButton>
+                            </LightTooltip>
                         </Grid>
                     
                   </Grid>

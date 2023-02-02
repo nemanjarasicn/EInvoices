@@ -17,7 +17,7 @@ import {
     articles: any[];
     zip: any;
     subject:  any[];
-    openCreateArticles:  boolean;
+    openCreateArticles:  {open: boolean, data?:  any, flag?: string };
     openCreateArticlesPrice:  {open: boolean, data?:  any, flag?: string };
     openSucessModal:  boolean;
     openCreateSubject:  {open: boolean, data?:  any, flag?: string };
@@ -28,7 +28,7 @@ import {
     articles: [],
     zip: "",
     subject:  [],
-    openCreateArticles:  false,
+    openCreateArticles:  {open: false, data: "", flag: ""},
     openCreateArticlesPrice:  {open: false, data: "", flag: ""},
     openSucessModal:  false,
     openCreateSubject:  {open: false, data: "", flag: ""},
