@@ -42,6 +42,8 @@ export default function FormArticleComponent({
   }: IProps<ArticlesFormComponentProps>): JSX.Element {
     const companyId = useAppSelector(selectCompanyCurrent) as any;
     const [showTaxBase, setShowTaxBase] = React.useState('none');
+    const  vatTmp  =  useAppSelector(selectVatsAll);
+    const  unitCodeTmp  =  useAppSelector(selectUnitsAll)
 
     /**
  * Register Form validation schema for every field
@@ -126,10 +128,20 @@ export default function FormArticleComponent({
 
       React.useEffect(() => {
         dispatch(getObjectsAll({companyId: companyId}));
-        dispatch(getUnitsAll());
-        dispatch(getTaxCode());
+        //dispatch(getUnitsAll());
+        //dispatch(getTaxCode()); ovo pozivamo na ucitavanje stranice 
         dispatch(getMarketPlacesAll({companyId: companyId}));
-        dispatch(getVatAll());
+        //dispatch(getVatAll());
+
+        if(props?.flag ===  'edit')  {
+          const vatObject = vatTmp.find((item)  => item?.name  ===  props?.data?.vat);
+          const unitCodeObject = unitCodeTmp.find((item)  => item.name  ===  props?.data?.unitCode)
+          setValue('productName', props?.data?.productName);
+          setValue('code', props?.data?.code);
+          setValue('barCode', props?.data?.barCode !==  '00000'  ? props?.data?.barCode  :   "" );
+          setValue('productVatRequest',  vatObject);
+          setValue('productUnitRequest', unitCodeObject);
+        }
 
       }, []);
 
@@ -156,7 +168,7 @@ export default function FormArticleComponent({
       const onSubmit = async  (data: ArticleFormModel) => {
          await dispatch(sendArticle({data})).then(async (res) => {
             if(res.payload.message === "sucsess") {
-              dispatch(setopenModalCreateArtical(false));
+              dispatch(setopenModalCreateArtical({open: false}));
               dispatch(setOpenSucessModal(true));
               //setShowError(true);
               setTimeout(() => {
@@ -433,7 +445,7 @@ export default function FormArticleComponent({
                            soloButton={{
                               title: "Otkaži",
                               disabled: false,
-                              btnFn: () => dispatch(setopenModalCreateArtical(false)),
+                              btnFn: () => dispatch(setopenModalCreateArtical({open:  false})),
                           }}
                         />
 

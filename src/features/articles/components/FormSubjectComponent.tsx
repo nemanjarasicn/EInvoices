@@ -23,6 +23,8 @@ import FormTextField  from  "../../shared/components/form-fields/FormTextField"
 import {  sendSubject, updateSubject, getSubjectDetails } from "../store/articles.actions";
 import {   setError, setOpenModalSucessLoad  }  from  "../../../app/core/core.reducer"
 import   { selectSubjectGategory,  selectSubjectType }  from  "../../shared/components/form-fields/store/form.selectors"
+import  {  getSubjectCategory,  getSubjectType }  from  "../../shared/components/form-fields/store/form.actions"
+
 
 
 export default function FormSubjectComponent({
@@ -114,8 +116,8 @@ export default function FormSubjectComponent({
 
 
       React.useEffect(() => {
-            //dispatch(getSubjectCategory());
-            //dispatch(getSubjectType());
+            dispatch(getSubjectCategory());
+            dispatch(getSubjectType());
             if(props.flag === 'edit') {
               const subjectIdCategoryObject = subjectCategoryTmp.find((item)  => item.id  ===  props.data.subjectIdCategory);
               const subjectIdTypeObject = subjectType.find((item)  => item.id  ===  props.data.subjectIdType)

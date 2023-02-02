@@ -326,7 +326,7 @@ export default function FormCompaniesComponent({
                           </Grid>
                     </Grid>
                     <Grid item xs={12} sx={{display:  'flex' , flexDirection:  'column'}}>
-                      {listPayeeFinancialAccount.map((item, index)  => (
+                      {listPayeeFinancialAccount?.map((item, index)  => (
                           <Grid  item  xs={4}  sx ={{display:   'flex'}}>
                             <Grid  item xs={1}>{index + 1}.</Grid>
                             <Grid    item  xs={9}>{item?.payeeFinancialAccountValue}</Grid>

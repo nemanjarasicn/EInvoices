@@ -68,7 +68,7 @@ const useFeatureSettings = (): FeatureSettings => {
             {
               title: "Articles.createNew",
               disabled: false,
-              btnFn: () => dispatch(setopenModalCreateArtical(true)), //dispatch(setopenModalCreateArtical(true)),//navigate("/articles/createArtikal"),
+              btnFn: () => dispatch(setopenModalCreateArtical({open: true})), //dispatch(setopenModalCreateArtical(true)),//navigate("/articles/createArtikal"),
             },
           ],
           buttonsSelect:  {

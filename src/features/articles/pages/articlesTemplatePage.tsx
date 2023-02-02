@@ -18,7 +18,7 @@ import { useTableSettings } from "../components/DataGrid/table.settings";
 import { selectMarketPlaces } from "../../shared/components/form-fields/store/form.selectors";
 import { getMarketPlacesAll, getPointOfSalesAll }  from  "../../shared/components/form-fields/store/form.actions"
 import { selectCompanyCurrent } from "../../../app/core/core.selectors";
-import { getArticles } from "../store/articles.actions";
+import { getArticles} from "../store/articles.actions";
 import Breadcrumbs from '@mui/material/Breadcrumbs';
 import Link from '@mui/material/Link';
 import Typography from '@mui/material/Typography';
@@ -33,7 +33,7 @@ import ModalCreateSubject from "../components/ModalCreateSubject";
 import ModalCreateArtical from "../components/ModalCreateArtical";
 import ModalCreateArticalPrice from "../components/ModalCreateArticalPrice";
 import { useNavigate } from 'react-router-dom';
-import  {  getSubjectCategory,  getSubjectType }  from  "../../shared/components/form-fields/store/form.actions"
+import  {  getSubjectCategory,  getSubjectType , getUnitsAll,  getTaxCode, getVatAll }  from  "../../shared/components/form-fields/store/form.actions"
 
 
 const Item = styled(Paper)(({ theme }) => ({
@@ -91,6 +91,9 @@ export default function InvoiceTemplatePage({
   React.useEffect(() => {
     if(settings.selectType === 'ARTICLES')  {
         dispatch(getMarketPlacesAll({companyId: company}));
+        dispatch(getUnitsAll());
+        dispatch(getTaxCode());
+        dispatch(getVatAll());
     } else  {
         dispatch(getDataActionSelect(settings.selectType));
         dispatch(getSubjectCategory());
@@ -112,7 +115,7 @@ export default function InvoiceTemplatePage({
 
   return (
     <>
-    <ModalCreateArtical    open={openModalCreateArtical} ></ModalCreateArtical>
+    <ModalCreateArtical    open={openModalCreateArtical.open}  data={openModalCreateArtical.data} flag={openModalCreateArtical.flag} ></ModalCreateArtical>
     <ModalSucessArticles  open={openSucessModalArtical} ></ModalSucessArticles>
     <ModalCreateSubject    open={openModalCreateSubject.open}  data={openModalCreateSubject.data} flag={openModalCreateSubject.flag} ></ModalCreateSubject>
     <ModalCreateArticalPrice    open={openModalCreateArticalPrice.open}  data={openModalCreateArticalPrice.data} flag={openModalCreateArticalPrice.flag}></ModalCreateArticalPrice>

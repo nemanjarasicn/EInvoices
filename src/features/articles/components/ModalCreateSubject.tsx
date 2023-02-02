@@ -6,7 +6,6 @@ import Modal from '@mui/material/Modal';
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import Box from '@mui/material/Box'
 import FormSubjectComponent from './FormSubjectComponent';
-import    { setopenModalCreateArtical }  from  "../store/articles.reducer"
 
 const style = {
     position: 'absolute',
