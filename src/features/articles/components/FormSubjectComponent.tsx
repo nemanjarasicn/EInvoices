@@ -354,48 +354,7 @@ export default function FormSubjectComponent({
                                 </Button> 
                           </Grid>
                       </Grid>
-                     <FormTextField
-                        props={{
-                          name: "address",
-                          control: control,
-                          label: "Adresa",
-                          additional: { mask: {}, readonly: false },
-                          disabled: false,
-                        }}
-                     />  
-
-                     <FormTextField
-                        props={{
-                          name: "zip",
-                          control: control,
-                          label: "Poštanski broj",
-                          additional: { mask: {}, readonly: false },
-                          disabled: false,
-                        }}
-                     /> 
-                     <FormTextField
-                        props={{
-                          name: "email",
-                          control: control,
-                          label: "Email",
-                          additional: { mask: {}, readonly: false },
-                          disabled: false,
-                        }}
-                     /> 
-                      
-                      <FormAutocompleteField
-                        props={{
-                            name: "subjectIdType",
-                            control: control,
-                            label: 'Tip komitenta',
-                            disabled: true,
-                            additional: {
-                            selector: selectSubjectType,
-                            //data: dataObject
-                            
-                            },
-                        }}
-                        /> 
+        
                         <FormTextField
                             props={{
                               name: "address",
