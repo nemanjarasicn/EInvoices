@@ -153,6 +153,19 @@ class RegistriesPublicService {
   }
 
 
+  sendsubscribeUpdate(data: any) {
+    
+    return publicClient.put<any>
+    (`subscribe/${data.data.idCompany}`,
+      {
+        "apiKey": data.data.apiKey,
+        "companyId":  data.data.idCompany,
+        "companyName":  data.data.companyName
+      }
+    );
+  }
+
+
   sendWarehouse(data: any) {
     return publicClient.post<any>
     ("warehouse",

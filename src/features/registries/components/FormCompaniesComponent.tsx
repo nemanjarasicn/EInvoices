@@ -20,7 +20,7 @@ import  ErrorModal   from   "../../shared/components/ErrorModals"
 import { selectUser }  from  "../../../app/core/core.selectors"
 import SucessModal   from "../../shared/components/SucessModal"
 import FormAutocompleteField from "../../shared/components/form-fields/FormAutocompleteField";
-import  {  sendsubscribe  }  from   "../store/registries.actions"
+import  {  sendsubscribe,  sendsubscribeUpdate  }  from   "../store/registries.actions"
 import   { selectUserRole, selectDistributor }  from  '../../shared/components/form-fields/store/form.selectors'
 import { setCompanyAdmin } from "../../../app/core/core.reducer";
 import { getDistributor } from "../../shared/components/form-fields/store/form.actions";
@@ -194,7 +194,7 @@ export default function FormCompaniesComponent({
           dispatch(updateCompanies({idCompany: companyIdLocation, data: data,  idpayeeFinancialAccountDto: listPayeeFinancialAccount})).then(async (res) => { 
             if(res.payload.message === 'sucsses') {
               if(data.apiKey !==  apiKeyDefault) {
-                dispatch(sendsubscribe({data: res.payload.data}));
+                dispatch(sendsubscribeUpdate({data: res.payload.data}));
               }
               setShowError(true);  
               setTimeout(async () => {
