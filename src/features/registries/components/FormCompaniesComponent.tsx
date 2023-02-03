@@ -2,6 +2,7 @@ import React from "react";
 import {
     Paper,
     Grid,
+    Button,
     Box,
   } from "@mui/material";
 import { RegistriesFormComponentProps }  from "./RegistriesFormComponent"
@@ -36,6 +37,7 @@ import {  faPlus}   from '@fortawesome/pro-solid-svg-icons';
 import {  faPenToSquare}   from '@fortawesome/pro-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { getValue } from "@mui/system";
+import {  getSubjectDetails } from "../../articles/store/articles.actions";
 
 export default function FormCompaniesComponent({
     props,
@@ -108,6 +110,7 @@ export default function FormCompaniesComponent({
     const  distributorTmp  =  useAppSelector(selectDistributor);
     const [showErrorModal, setShowErrorModal] = React.useState(false);
     const [apiKeyDefault,   setApiKeyDefault] =  React.useState("");
+    const [errorMessageSearch,  setErrorMessageSearch]  =  React.useState("");
     
     
     const methods = useForm({
@@ -247,6 +250,25 @@ export default function FormCompaniesComponent({
       }
 
 
+      const  handleFindSubject = () => {
+        dispatch(getSubjectDetails({pib:  getValues('pib')})).then((res) => {
+          console.log('asasasasasassasasasaas', res);
+          if(res?.payload?.CompanyDataSet !==  "")   {
+            setValue('pib', (getValues('pib')).toString()); 
+            setValue('companyName', res?.payload?.CompanyDataSet?.Company?.Name); 
+            setValue('city',  res?.payload?.CompanyDataSet?.Company?.City); 
+            setValue('address', res?.payload?.CompanyDataSet?.Company?.Address); 
+            setValue('zip', res?.payload?.CompanyDataSet?.Company?.PostalCode); 
+            setValue('mb',   res?.payload?.CompanyDataSet?.Company?.NationalIdentificationNumber); 
+            setErrorMessageSearch("");
+          } else {
+            setErrorMessageSearch('Ne postoji kompanija za izabrani PIB');
+          }
+        });
+          
+      }
+
+
 
       
     return (
@@ -346,16 +368,28 @@ export default function FormCompaniesComponent({
                     </Grid>
                     </Grid>
                     <Grid item xs={6}>
-                    <FormTextField
-                        props={{
-                            control: control,
-                            name: "pib",
-                            label: t(props.formFieldsLabels.companies.pib),
-                            disabled: false,
-                            additional: { readonly: false, labelShrink: true }
-                        
-                        }}
-                    />
+                    <Grid sx={{display:  'flex'}} >
+                          <Grid xs={11} >
+                            <FormTextField
+                                props={{
+                                    control: control,
+                                    name: "pib",
+                                    label: t(props.formFieldsLabels.companies.pib),
+                                    disabled: false,
+                                    additional: { readonly: false, labelShrink: true }
+                                
+                                }}
+                            />
+                          </Grid>
+                          <Grid xs={2}>
+                                <Button    variant="contained"
+                                           component="label"
+                                           sx={{backgroundColor: 'blue'}}
+                                           onClick = {()  => handleFindSubject()}>
+                                          NBS
+                                </Button> 
+                          </Grid>
+                      </Grid>
                     <FormTextField
                         props={{
                             control: control,
@@ -405,6 +439,9 @@ export default function FormCompaniesComponent({
                             }}
                             />
                     </div>
+                    </Grid>
+                    <Grid xs={12}>
+                      <span  style={{color:  'red'}} >{errorMessageSearch}</span>
                     </Grid>
                 </Grid>
                 <Grid item xs={5}>

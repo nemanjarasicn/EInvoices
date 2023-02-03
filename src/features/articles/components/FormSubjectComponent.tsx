@@ -1,5 +1,8 @@
 import React from "react";
 import {
+    Paper,
+    Typography,
+    Button,
     Grid,
   } from "@mui/material";
 import { ArticlesFormComponentProps }  from "./ArticlesFormComponent"
@@ -201,10 +204,10 @@ export default function FormSubjectComponent({
 
 
       const  handleFindSubject = () => {
-        dispatch(getSubjectDetails({pib:  getValues('searchSubject')})).then((res) => {
+        dispatch(getSubjectDetails({pib:  getValues('pib')})).then((res) => {
           console.log('asasasasasassasasasaas', res);
           if(res?.payload?.CompanyDataSet !==  "")   {
-            setValue('pib', (getValues('searchSubject')).toString()); 
+            setValue('pib', (getValues('pib')).toString()); 
             setValue('companyName', res?.payload?.CompanyDataSet?.Company?.Name); 
             setValue('city',  res?.payload?.CompanyDataSet?.Company?.City); 
             setValue('address', res?.payload?.CompanyDataSet?.Company?.Address); 
@@ -224,7 +227,7 @@ export default function FormSubjectComponent({
             <SucessModal    open={showError} ></SucessModal>
             <ErrorModal    open={showErrorModal} ></ErrorModal>
                 <Grid container spacing={2} sx = {{ minHeight: "300px", marginTop: '10px'}}>
-                    <Grid xs={12}  sx={{ml: 2, mt: 2}}>
+                    {/*<Grid xs={12}  sx={{ml: 2, mt: 2}}>
                     <FormTextField
                         props={{
                           name: "searchSubject",
@@ -235,7 +238,7 @@ export default function FormSubjectComponent({
                         }}
                      /> 
                      <span style={{fontSize: '12px', color: 'red'}}>{errorMessageSearch}</span>
-                    </Grid>
+                      </Grid>*/}
                     <Grid item xs={4}>
                     {/*<FormTextField
                         props={{
@@ -330,14 +333,68 @@ export default function FormSubjectComponent({
                      </div> 
                     </Grid>
                     <Grid item xs={4}>
-                        <FormTextField
-                            props={{
-                              name: "pib",
-                              control: control,
-                              label: "PIB",
-                              additional: { mask: {}, readonly: false },
-                              disabled: false,
-                            }}
+                      <Grid sx={{display:  'flex'}} >
+                          <Grid xs={10} >
+                              <FormTextField
+                                  props={{
+                                    name: "pib",
+                                    control: control,
+                                    label: "PIB",
+                                    additional: { mask: {}, readonly: false },
+                                    disabled: false,
+                                  }}
+                              /> 
+                          </Grid>
+                          <Grid xs={2}>
+                                <Button    variant="contained"
+                                           component="label"
+                                           sx={{backgroundColor: 'blue'}}
+                                           onClick = {()  => handleFindSubject()}>
+                                          NBS
+                                </Button> 
+                          </Grid>
+                      </Grid>
+                     <FormTextField
+                        props={{
+                          name: "address",
+                          control: control,
+                          label: "Adresa",
+                          additional: { mask: {}, readonly: false },
+                          disabled: false,
+                        }}
+                     />  
+
+                     <FormTextField
+                        props={{
+                          name: "zip",
+                          control: control,
+                          label: "Poštanski broj",
+                          additional: { mask: {}, readonly: false },
+                          disabled: false,
+                        }}
+                     /> 
+                     <FormTextField
+                        props={{
+                          name: "email",
+                          control: control,
+                          label: "Email",
+                          additional: { mask: {}, readonly: false },
+                          disabled: false,
+                        }}
+                     /> 
+                      
+                      <FormAutocompleteField
+                        props={{
+                            name: "subjectIdType",
+                            control: control,
+                            label: 'Tip komitenta',
+                            disabled: true,
+                            additional: {
+                            selector: selectSubjectType,
+                            //data: dataObject
+                            
+                            },
+                        }}
                         /> 
                         <FormTextField
                             props={{
@@ -402,9 +459,10 @@ export default function FormSubjectComponent({
                       />  
                       </div>
                     </Grid>
+                    <Grid xs={12}>
+                      <span style={{color: 'red'}}>{errorMessageSearch} </span>
+                    </Grid>
                 </Grid>
-      
-            
             <Grid item xs={5} sx={{mt:  marginTopBox}}>
                   <Grid item xs={12} sx = {{display: 'flex', justifyContent: 'space-between'}} >
                       <CustomButtonFcTra 
