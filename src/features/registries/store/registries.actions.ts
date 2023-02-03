@@ -204,6 +204,15 @@ const sendsubscribe: AsyncThunk<any, {data: CompanyFormModel}, {}> = createAsync
   }
 );
 
+const sendsubscribeUpdate: AsyncThunk<any, {data: CompanyFormModel}, {}> = createAsyncThunk<any, {data: CompanyFormModel}>(
+  "POST/subscribeSend",
+  async (data,_) => {
+    return await RegistriesPublicService.sendsubscribeUpdate(data)
+      .then((res: any) => 'sucsses')
+      .catch((err: any) => 'error');
+  }
+);
+
 const getWarehouses: AsyncThunk<any, { uuid:   string }, {}> = createAsyncThunk<any, { uuid:    string }>(
   "GET/Warehouses",
   async (params) => {
@@ -298,6 +307,16 @@ const getGroups: AsyncThunk<any, { uuid: number | string }, {}> = createAsyncThu
 );
 
 
+const getSync: AsyncThunk<any, {apiKey: string}, {}> = createAsyncThunk<any, {apiKey: string}>(
+  "GET/getSync",
+  async (params) => {
+    return     await RegistriesPublicService.getSync(params.apiKey)
+    .then((res: any) => res.data)
+    .catch((err: any) => []);
+}
+);
+
+
 /**
  * Get CompanyInfo Async
  */
@@ -336,5 +355,7 @@ export {
   sendDistributorCompany,
   getCompaniesDistributor,
   updateCompanies,
-  updateUser
+  updateUser,
+  sendsubscribeUpdate,
+  getSync
 };

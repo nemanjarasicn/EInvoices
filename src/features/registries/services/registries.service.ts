@@ -153,6 +153,19 @@ class RegistriesPublicService {
   }
 
 
+  sendsubscribeUpdate(data: any) {
+    
+    return publicClient.put<any>
+    (`subscribe/${data.data.idCompany}`,
+      {
+        "apiKey": data.data.apiKey,
+        "companyId":  data.data.idCompany,
+        "companyName":  data.data.companyName
+      }
+    );
+  }
+
+
   sendWarehouse(data: any) {
     return publicClient.post<any>
     ("warehouse",
@@ -309,6 +322,18 @@ class RegistriesPublicService {
   getCompanyInfo(id:  number  |  string) {
     return publicClient.get<any>
     (`company/company/${id}`,
+    );
+  }
+
+  getSync(apiKey:  string) {
+    console.log('sasassasasa',  apiKey)
+    const config = {
+      headers: { apiKey: apiKey },
+    };
+
+    return publicClient.get<any>
+    (`invoice/sync`,
+    config
     );
   }
 

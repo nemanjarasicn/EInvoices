@@ -31,6 +31,7 @@ const Footer = ({ data } : any) => {
     const today = dayjs(new Date).format("DD-MM-YYYY HH:mm:ss");
     return ( 
     <View style={styles.titleContainer} fixed>
+       <Text style={styles.textTop}>{data?.additionalDocumentReference?.name}</Text>
         <Text style={styles.textTop}>Generisao MASTER SOFTWARE  pod brojem:{data?.numberDocument} | datum i vreme generisanja: {today}</Text>
         <Text style={styles.reportTitle}>MASTER SOFTWARE | office@mastersoftware.rs | Telefon 011/4405-405 | www.mastersoftware.rs</Text>
     </View>

@@ -83,7 +83,7 @@ export type InvoiceTemplatePageProps = {
 
  }
 
- function downloadPDF(pdf: string, fileName: string) {
+export  const  downloadPDF = (pdf: string, fileName: string)  => {
    const linkSource = `data:application/pdf;base64,${pdf}`;
    const downloadLink = document.createElement("a");
 

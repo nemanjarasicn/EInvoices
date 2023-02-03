@@ -304,6 +304,8 @@ const createMonetaryTotal = (invoice: any): any => {
     {error: "must be approved", message: " Knjižno odobrenje, ne može biti poslato jer faktura po kojoj ga izdajete nije prihvaćena, niti odbijena"},
     {error: "mandatory for CreditNote document", message: "Knjižno odobrenje koje šaljete na SEF nema referencu na fakturu za koju je urađen povrat"},
     {error: "Company with identifier", message: "Proverite na sefu-u api key i da li je api status aktivan"},
+    {error: "503 Service Unavailable", message: "Poreska nije dostupna"},
+    {error: "504 Gateway Time-out", message: "Poreska nije dostupna"},
   ]
 
   const errorTranslate: any = errorsMessage.filter((item)  =>  error.includes(item.error));
