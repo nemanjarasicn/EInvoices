@@ -30,133 +30,6 @@ import Box from '@mui/material/Box'
 import xml2js from "xml2js";
 
 
-const xmlTmp1 = `<Invoice
-xmlns:cec="urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2"
-xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2"
-xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2"
-xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-xmlns:sbt="http://mfin.gov.rs/srbdt/srbdtext"
-xmlns="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2">
-<cbc:CustomizationID>urn:cen.eu:en16931:2017#compliant#urn:mfin.gov.rs:srbdt:2021</cbc:CustomizationID>
-<cbc:ID>06/2023</cbc:ID>
-<cbc:IssueDate>2023-01-26</cbc:IssueDate>
-<cbc:DueDate>2023-01-26</cbc:DueDate>
-<cbc:InvoiceTypeCode>380</cbc:InvoiceTypeCode>
-<cbc:DocumentCurrencyCode>RSD</cbc:DocumentCurrencyCode>
-<cac:InvoicePeriod>
-	<cbc:DescriptionCode>35</cbc:DescriptionCode>
-</cac:InvoicePeriod>
-<cac:AccountingSupplierParty>
-	<cac:Party>
-		<cbc:EndpointID schemeID="9948">104977577</cbc:EndpointID>
-		<cac:PartyName>
-			<cbc:Name>PREDUZEĆE ZA TRGOVINU I USLUGE FRIGO BEST DOO BEOGRAD </cbc:Name>
-		</cac:PartyName>
-		<cac:PostalAddress>
-			<cbc:StreetName>Tome Rosandića 34</cbc:StreetName>
-			<cbc:CityName>Beograd (grad)</cbc:CityName>
-			<cac:Country>
-				<cbc:IdentificationCode>RS</cbc:IdentificationCode>
-			</cac:Country>
-		</cac:PostalAddress>
-		<cac:PartyTaxScheme>
-			<cbc:CompanyID>RS104977577</cbc:CompanyID>
-			<cac:TaxScheme>
-				<cbc:ID>VAT</cbc:ID>
-			</cac:TaxScheme>
-		</cac:PartyTaxScheme>
-		<cac:PartyLegalEntity>
-			<cbc:RegistrationName>PREDUZEĆE ZA TRGOVINU I USLUGE FRIGO BEST DOO BEOGRAD </cbc:RegistrationName>
-			<cbc:CompanyID>20284951</cbc:CompanyID>
-		</cac:PartyLegalEntity>
-		<cac:Contact>
-			<cbc:ElectronicMail>frigobest@mts.rs</cbc:ElectronicMail>
-		</cac:Contact>
-	</cac:Party>
-</cac:AccountingSupplierParty>
-<cac:AccountingCustomerParty>
-	<cac:Party>
-		<cbc:EndpointID schemeID="9948">105917685</cbc:EndpointID>
-		<cac:PartyName>
-			<cbc:Name>5.COM DOO BEOGRAD (VOŽDOVAC)</cbc:Name>
-		</cac:PartyName>
-		<cac:PostalAddress>
-			<cbc:StreetName>RADOMIRA MARKOVIĆA 1</cbc:StreetName>
-			<cbc:CityName>Beograd (Voždovac)       </cbc:CityName>
-			<cac:Country>
-				<cbc:IdentificationCode>RS</cbc:IdentificationCode>
-			</cac:Country>
-		</cac:PostalAddress>
-		<cac:PartyTaxScheme>
-			<cbc:CompanyID>RS105917685</cbc:CompanyID>
-			<cac:TaxScheme>
-				<cbc:ID>VAT</cbc:ID>
-			</cac:TaxScheme>
-		</cac:PartyTaxScheme>
-		<cac:PartyLegalEntity>
-			<cbc:RegistrationName>5.COM DOO BEOGRAD (VOŽDOVAC)</cbc:RegistrationName>
-			<cbc:CompanyID>20489197</cbc:CompanyID>
-		</cac:PartyLegalEntity>
-		<cac:Contact>
-			<cbc:ElectronicMail>office@petcom.rs</cbc:ElectronicMail>
-		</cac:Contact>
-	</cac:Party>
-</cac:AccountingCustomerParty>
-<cac:Delivery>
-	<cbc:ActualDeliveryDate>2023-01-25</cbc:ActualDeliveryDate>
-</cac:Delivery>
-<cac:PaymentMeans>
-	<cbc:PaymentMeansCode>30</cbc:PaymentMeansCode>
-	<cac:PayeeFinancialAccount>
-		<cbc:ID>170003004342900063</cbc:ID>
-	</cac:PayeeFinancialAccount>
-</cac:PaymentMeans>
-<cac:TaxTotal>
-	<cbc:TaxAmount currencyID="RSD">2000</cbc:TaxAmount>
-	<cac:TaxSubtotal>
-		<cbc:TaxableAmount currencyID="RSD">10000</cbc:TaxableAmount>
-		<cbc:TaxAmount currencyID="RSD">2000.0</cbc:TaxAmount>
-		<cac:TaxCategory>
-			<cbc:ID>S</cbc:ID>
-			<cbc:Percent>20</cbc:Percent>
-			<cac:TaxScheme>
-				<cbc:ID>VAT</cbc:ID>
-			</cac:TaxScheme>
-		</cac:TaxCategory>
-	</cac:TaxSubtotal>
-</cac:TaxTotal>
-<cac:LegalMonetaryTotal>
-	<cbc:LineExtensionAmount currencyID="RSD">10000</cbc:LineExtensionAmount>
-	<cbc:TaxExclusiveAmount currencyID="RSD">10000</cbc:TaxExclusiveAmount>
-	<cbc:TaxInclusiveAmount currencyID="RSD">12000</cbc:TaxInclusiveAmount>
-	<cbc:AllowanceTotalAmount currencyID="RSD">0</cbc:AllowanceTotalAmount>
-	<cbc:PrepaidAmount currencyID="RSD">0</cbc:PrepaidAmount>
-	<cbc:PayableAmount currencyID="RSD">12000</cbc:PayableAmount>
-</cac:LegalMonetaryTotal>
-<cac:InvoiceLine>
-	<cbc:ID>1</cbc:ID>
-	<cbc:InvoicedQuantity unitCode="H87">1</cbc:InvoicedQuantity>
-	<cbc:LineExtensionAmount currencyID="RSD">10000</cbc:LineExtensionAmount>
-	<cac:Item>
-		<cbc:Name>Popravka frižidera za piće</cbc:Name>
-		<cac:SellersItemIdentification>
-			<cbc:ID>1</cbc:ID>
-		</cac:SellersItemIdentification>
-		<cac:ClassifiedTaxCategory>
-			<cbc:ID>S</cbc:ID>
-			<cbc:Percent>20</cbc:Percent>
-			<cac:TaxScheme>
-				<cbc:ID>VAT</cbc:ID>
-			</cac:TaxScheme>
-		</cac:ClassifiedTaxCategory>
-	</cac:Item>
-	<cac:Price>
-		<cbc:PriceAmount currencyID="RSD">10000</cbc:PriceAmount>
-	</cac:Price>
-</cac:InvoiceLine>
-</Invoice>`
-
 
 const style = {
     position: 'absolute',
@@ -238,33 +111,33 @@ const style = {
 
 			const objectTmp = {
 				AccountingCustomerParty: {
-					name: result?.[`${prefixPdf}`]['cac:AccountingCustomerParty'][0]['cac:Party'][0]['cac:PartyLegalEntity'][0]['cbc:RegistrationName'][0],
-					adress:  result?.[`${prefixPdf}`]['cac:AccountingCustomerParty'][0]['cac:Party'][0]['cac:PostalAddress'][0]['cbc:StreetName'][0],
-					city:  result?.[`${prefixPdf}`]['cac:AccountingCustomerParty'][0]['cac:Party'][0]['cac:PostalAddress'][0]['cbc:CityName'][0],
+					name: result?.[`${prefixPdf}`]['cac:AccountingCustomerParty'][0]['cac:Party'][0]['cac:PartyLegalEntity'][0]['cbc:RegistrationName'] ? result?.[`${prefixPdf}`]['cac:AccountingCustomerParty'][0]['cac:Party'][0]['cac:PartyLegalEntity'][0]['cbc:RegistrationName'][0]  :  "",
+					adress: result?.[`${prefixPdf}`]['cac:AccountingCustomerParty'][0]['cac:Party'][0]['cac:PostalAddress'][0]['cbc:StreetName']  ?  result?.[`${prefixPdf}`]['cac:AccountingCustomerParty'][0]['cac:Party'][0]['cac:PostalAddress'][0]['cbc:StreetName'][0]  :  "",
+					city: result?.[`${prefixPdf}`]['cac:AccountingCustomerParty'][0]['cac:Party'][0]['cac:PostalAddress'][0]['cbc:CityName']  ?  result?.[`${prefixPdf}`]['cac:AccountingCustomerParty'][0]['cac:Party'][0]['cac:PostalAddress'][0]['cbc:CityName'][0]  :  "",
 					pib:  result?.[`${prefixPdf}`]['cac:AccountingCustomerParty'][0]['cac:Party'][0]['cbc:EndpointID'][0]['_'],
 					mb:  result?.[`${prefixPdf}`]['cac:AccountingCustomerParty'][0]['cac:Party'][0]['cac:PartyLegalEntity'][0]['cbc:CompanyID'][0]
 				},
 				AccountingSupplierParty: {
-					name: result?.[`${prefixPdf}`]['cac:AccountingSupplierParty'][0]['cac:Party'][0]['cac:PartyLegalEntity'][0]['cbc:RegistrationName'][0],
-					adress:  result?.[`${prefixPdf}`]['cac:AccountingSupplierParty'][0]['cac:Party'][0]['cac:PostalAddress'][0]['cbc:StreetName'][0],
-					city:  result?.[`${prefixPdf}`]['cac:AccountingSupplierParty'][0]['cac:Party'][0]['cac:PostalAddress'][0]['cbc:CityName'][0],
+					name: result?.[`${prefixPdf}`]['cac:AccountingSupplierParty'][0]['cac:Party'][0]['cac:PartyLegalEntity'][0]['cbc:RegistrationName'] ? result?.[`${prefixPdf}`]['cac:AccountingSupplierParty'][0]['cac:Party'][0]['cac:PartyLegalEntity'][0]['cbc:RegistrationName'][0]  :  "",
+					adress:   result?.[`${prefixPdf}`]['cac:AccountingSupplierParty'][0]['cac:Party'][0]['cac:PostalAddress'][0]['cbc:StreetName'] ?  result?.[`${prefixPdf}`]['cac:AccountingSupplierParty'][0]['cac:Party'][0]['cac:PostalAddress'][0]['cbc:StreetName'][0]   :  "",
+					city:  result?.[`${prefixPdf}`]['cac:AccountingSupplierParty'][0]['cac:Party'][0]['cac:PostalAddress'][0]['cbc:CityName'] ?  result?.[`${prefixPdf}`]['cac:AccountingSupplierParty'][0]['cac:Party'][0]['cac:PostalAddress'][0]['cbc:CityName'][0]   :  "",
 					pib:  result?.[`${prefixPdf}`]['cac:AccountingSupplierParty'][0]['cac:Party'][0]['cbc:EndpointID'][0]['_'],
 					mb:  result?.[`${prefixPdf}`]['cac:AccountingSupplierParty'][0]['cac:Party'][0]['cac:PartyLegalEntity'][0]['cbc:CompanyID'][0]
 				},
-				paymentMeans:  result?.[`${prefixPdf}`]['cac:PaymentMeans'][0]['cac:PayeeFinancialAccount'][0]['cbc:ID'][0],
-				paymentMode:   result?.[`${prefixPdf}`]['cac:PaymentMeans'][0]['cbc:PaymentID'][0],
-				dueDate:    result?.[`${prefixPdf}`]['cbc:DueDate'],
+				paymentMeans:  result?.[`${prefixPdf}`]?.['cac:PaymentMeans'][0]?.['cac:PayeeFinancialAccount'][0]?.['cbc:ID']  ?  result?.[`${prefixPdf}`]?.['cac:PaymentMeans'][0]?.['cac:PayeeFinancialAccount'][0]?.['cbc:ID'][0]  :   "",
+				paymentMode:  result?.[`${prefixPdf}`]?.['cac:PaymentMeans'][0]?.['cbc:PaymentID'] ? result?.[`${prefixPdf}`]?.['cac:PaymentMeans'][0]?.['cbc:PaymentID'][0] : "",
+				dueDate:   result?.[`${prefixPdf}`]['cbc:DueDate']  ?   result?.[`${prefixPdf}`]['cbc:DueDate']  :  "",
 				delivery:   result?.[`${prefixPdf}`]['cac:Delivery'] ?    result?.[`${prefixPdf}`]['cac:Delivery'][0]['cbc:ActualDeliveryDate'][0]  :  "",
-				issueDate:   result?.[`${prefixPdf}`]['cbc:IssueDate'][0],
+				issueDate:    result?.[`${prefixPdf}`]['cbc:IssueDate']  ?  result?.[`${prefixPdf}`]['cbc:IssueDate'][0] :  "",
 				invoiceTypeCode: result?.[`${prefixPdf}`][`${typCodeTmp}`][0],
 				note:  result?.[`${prefixPdf}`]['cbc:Note'] ?  result?.[`${prefixPdf}`]['cbc:Note'][0] :  "",	
-				numberDocument:    result?.[`${prefixPdf}`]['cbc:ID'][0],
+				numberDocument:  result?.[`${prefixPdf}`]['cbc:ID']  ?   result?.[`${prefixPdf}`]['cbc:ID'][0]  :  "",
 				legalMonetaryTotal:  {
-					payableAmount:   result?.[`${prefixPdf}`]['cac:LegalMonetaryTotal'][0]['cbc:PayableAmount'][0]['_'],
-					lineExtensionAmount:   result?.[`${prefixPdf}`]['cac:LegalMonetaryTotal'][0]['cbc:LineExtensionAmount'][0]['_'],
+					payableAmount:   result?.[`${prefixPdf}`]['cac:LegalMonetaryTotal'][0]['cbc:PayableAmount']  ?   result?.[`${prefixPdf}`]['cac:LegalMonetaryTotal'][0]['cbc:PayableAmount'][0]['_']  :  "",
+					lineExtensionAmount:  result?.[`${prefixPdf}`]['cac:LegalMonetaryTotal'][0]['cbc:LineExtensionAmount'] ?    result?.[`${prefixPdf}`]['cac:LegalMonetaryTotal'][0]['cbc:LineExtensionAmount'][0]['_']  :  "",
 				},
 				taxTotal: {
-					taxAmount:  result?.[`${prefixPdf}`]['cac:TaxTotal'][0]['cac:TaxSubtotal'][0]['cbc:TaxAmount'][0]['_'],
+					taxAmount:   result?.[`${prefixPdf}`]['cac:TaxTotal'][0]['cac:TaxSubtotal'][0]['cbc:TaxAmount']  ?  result?.[`${prefixPdf}`]['cac:TaxTotal'][0]['cac:TaxSubtotal'][0]['cbc:TaxAmount'][0]['_']  :   "",
 				},
 				additionalDocumentReference: 
 					additionalDocumentReferenceTmp

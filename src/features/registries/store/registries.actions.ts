@@ -307,6 +307,16 @@ const getGroups: AsyncThunk<any, { uuid: number | string }, {}> = createAsyncThu
 );
 
 
+const getSync: AsyncThunk<any, {apiKey: string}, {}> = createAsyncThunk<any, {apiKey: string}>(
+  "GET/getSync",
+  async (params) => {
+    return     await RegistriesPublicService.getSync(params.apiKey)
+    .then((res: any) => res.data)
+    .catch((err: any) => []);
+}
+);
+
+
 /**
  * Get CompanyInfo Async
  */
@@ -346,5 +356,6 @@ export {
   getCompaniesDistributor,
   updateCompanies,
   updateUser,
-  sendsubscribeUpdate
+  sendsubscribeUpdate,
+  getSync
 };

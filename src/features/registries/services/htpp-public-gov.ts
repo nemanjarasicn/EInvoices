@@ -14,6 +14,7 @@ AXIOS.interceptors.request.use(
     config.headers = {
       ContentType: "application/json",
       Authorization: `Bearer ${token}`,
+      apiKey: config?.headers?.apiKey ? config?.headers?.apiKey : "",
     };
     return config;
   },

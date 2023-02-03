@@ -325,6 +325,18 @@ class RegistriesPublicService {
     );
   }
 
+  getSync(apiKey:  string) {
+    console.log('sasassasasa',  apiKey)
+    const config = {
+      headers: { apiKey: apiKey },
+    };
+
+    return publicClient.get<any>
+    (`invoice/sync`,
+    config
+    );
+  }
+
 
   updateCompanies(idCompany:  string  |  number, data: any) {
     let today = new Date()

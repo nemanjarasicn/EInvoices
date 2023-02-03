@@ -9,7 +9,8 @@ import {
   getVat,
   getGroups,
   getUsers,
-  getCompaniesDistributor
+  getCompaniesDistributor,
+  getSync
 } from "../../store/registries.actions";
 import Tooltip, { TooltipProps, tooltipClasses } from '@mui/material/Tooltip';
 import { TableComponentProps } from "./TableComponent";
@@ -20,6 +21,7 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFile }   from '@fortawesome/pro-solid-svg-icons';
 import { faFilePdf }   from '@fortawesome/pro-solid-svg-icons';
+import { faRotate }   from '@fortawesome/pro-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
 import {   useAppSelector ,  useAppDispatch   } from "../../../../app/hooks";
 import { selectUser } from "../../../../app/core/core.selectors";
@@ -39,6 +41,7 @@ import { selectObjects,
          selectUsers, 
          selectDistributorCompanies,
          selectUserCompanyId} from "../../store/registries.selectors";
+import { NONAME } from "dns";
 
 
 const LightTooltip = styled(({ className, ...props }: TooltipProps) => (
@@ -70,6 +73,7 @@ const useTableSettings = (): TableSettings => {
   const company = useAppSelector(selectCompanyCurrent) ?? "";
   const isDistributor  =  useAppSelector(selectUser)?.authorities?.slice(0,1)[0].authority === "ROLE_DISTRIBUTER" ? true  :   false;
   const userCompanyId =    useAppSelector(selectUserCompanyId);
+  const fontSize  =  window.devicePixelRatio === 1.5 ?   '14px' : '20px';
 
 
 
@@ -368,21 +372,21 @@ const useTableSettings = (): TableSettings => {
               hideable: true,
               renderCell: (params) => (
               <Grid container sx={{display: 'flex'}}>
-                <Grid item xs={4}  sx={{display: 'flex', justifyContent:  'center'}} >
-                <LightTooltip title="Informacije o kompaniji">
-                  <IconButton  color="primary" aria-label="pdf" component="label"  onClick={() => {  
-                  navigate('/registries/infoCompany', {
-                    state: {
-                      company: params.row.idCompany
-                    }
-                  })}}>
-                  <FontAwesomeIcon icon={faFile}   color="#E9950C"   />
-                  </IconButton>
-                  </LightTooltip>
+                <Grid item xs={3}  sx={{display: 'flex', justifyContent:  'center'}} >
+                  <LightTooltip title="Informacije o kompaniji">
+                        <IconButton  color="primary" sx={{fontSize: fontSize}} aria-label="pdf" component="label"  onClick={() => {  
+                        navigate('/registries/infoCompany', {
+                          state: {
+                            company: params.row.idCompany
+                          }
+                        })}}>
+                        <FontAwesomeIcon icon={faFile}   color="#E9950C"   />
+                        </IconButton>
+                    </LightTooltip>
                 </Grid>
-                <Grid item  xs={4}  sx={{display: 'flex', justifyContent:  'center'}} >
+                <Grid item  xs={3}  sx={{display: 'flex', justifyContent:  'center'}} >
                   <LightTooltip title="Izmena kompanije">
-                      <IconButton sx={{display:  'flex', justifyContent:  'center'}} color="primary" aria-label="pdf" component="label"  onClick={() => {  
+                      <IconButton sx={{display:  'flex', justifyContent:  'center', fontSize:  fontSize}} color="primary" aria-label="pdf" component="label"  onClick={() => {  
                           navigate(`/registries/createCompany/${params.row.idCompany}`, 
                             {state: 
                                 {
@@ -395,18 +399,28 @@ const useTableSettings = (): TableSettings => {
                   </LightTooltip>
                 </Grid>
 
-                <Grid item xs={4}  sx={{display: 'flex', justifyContent:  'center'}} >
-                <LightTooltip title="Izmena korisnika">
-                  <IconButton  color="primary" aria-label="pdf" component="label"  onClick={() => {
-                  dispach(setUserCompanyId(params.row.idCompany))  
-                  navigate('/registries/users', {
-                    state: {
-                      company: params.row.idCompany
-                    }
-                  })}}>
-                  <FontAwesomeIcon icon={faUserPen}   color="#E9950C"   />
-                  </IconButton>
-                  </LightTooltip>
+                <Grid item xs={3}  sx={{display: 'flex', justifyContent:  'center'}} >
+                    <LightTooltip title="Izmena korisnika">
+                          <IconButton  color="primary" aria-label="pdf"   sx={{fontSize:  fontSize}}  component="label"  onClick={() => {
+                          dispach(setUserCompanyId(params.row.idCompany))  
+                          navigate('/registries/users', {
+                            state: {
+                              company: params.row.idCompany
+                            }
+                          })}}>
+                          <FontAwesomeIcon icon={faUserPen}   color="#E9950C"   />
+                          </IconButton>
+                      </LightTooltip>
+                </Grid>
+                <Grid item xs={3}  sx={{display: 'flex', justifyContent:  'center'}} >
+                    <LightTooltip title="Sinhronizacija">
+                            <IconButton  color="primary" sx={{fontSize: fontSize}} aria-label="pdf" component="label"  onClick={() => { 
+                              console.log('ssasaas', params.row) 
+                              dispach(getSync({apiKey: params?.row?.apiKey}));
+                            }}>
+                            <FontAwesomeIcon icon={faRotate}   color="red"   />
+                            </IconButton>
+                      </LightTooltip>
                 </Grid>
               </Grid>
               )
