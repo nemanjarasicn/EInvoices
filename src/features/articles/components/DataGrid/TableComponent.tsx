@@ -11,6 +11,10 @@ import { useTranslation } from "react-i18next";
 import TablePagination from "../../../shared/components/DataGrid/TablePagination";
 import { selectCompany } from "../../../../app/core/core.selectors";
 import { AsyncThunkAction } from "@reduxjs/toolkit";
+import { Button, Grid } from "@mui/material";
+import SearchField from "../../../shared/components/form-fields/SearchField";
+import { useForm } from "react-hook-form";
+import  { searchSubjectModel }  from "../../models/articles.models"
 
 
 export type TableComponentProps = {
@@ -29,19 +33,50 @@ export default function TableComponent({
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
   const { tableComponentStyles } = useDataGridStyles();
-  // TODO
-  const [pageSize, setPageSize] = React.useState<number>(30);
-
   const selectType = props.selector;
+  const [searchData, setSearchData]  = React.useState<any[]>([])
+  const [pageSize, setPageSize] = React.useState<number>(30);
+  const  defaultValues:  searchSubjectModel = {
+        searchSubject:  "",
+      };
+   const tableData: TableData<any>[] = (useAppSelector(selectType) as any).map(
+      (row: any) => ({
+        ...row,
+        id: row[props.parentColumn],
+      })
+    );
 
-  const tableData: TableData<any>[] = (useAppSelector(selectType) as any).map(
-    (row: any) => ({
-      ...row,
-      id: row[props.parentColumn],
-    })
-  );
+  const methods = useForm({
+    defaultValues
+  });
+  const {
+    control,
+    setValue,
+    getValues,
+    watch
+  } = methods;
 
-  
+
+  React.useEffect(() => {
+    setSearchData(tableData);
+  }, [useAppSelector(selectType)]);
+
+  const   handleSearch  = ()  =>  {
+    const selectType = props.selectType
+    console.log('sasaasas',  props.selectType );
+    if(getValues('searchSubject')) {
+      if(selectType === 'ARTICLES') {
+        const searchDataTmp =  tableData.filter((item)  => item.productName.includes(getValues('searchSubject')));
+        setSearchData(searchDataTmp);
+      } else {
+        const searchDataTmp =  tableData.filter((item)  => item.companyName.includes(getValues('searchSubject')));
+        setSearchData(searchDataTmp);
+      }
+    } else {
+      setSearchData(tableData);
+    }
+
+  }
 
  // const selection: GridSelectionModel = useAppSelector(selectSelection);
 
@@ -50,6 +85,17 @@ export default function TableComponent({
 
   return (
     <div style={tableComponentStyles.wrapper}>
+      <Grid xs={12}   sx={{display:  'flex', justifyContent: 'center'}} >
+        <Grid xs={6} sx={{justifyContent:  'center'}}>
+           <SearchField   props={{
+                                    name: "searchSubject",
+                                    control: control,
+                                    label: "Pretraga",
+                                    additional: { readonly: false,  parentFn:  handleSearch },
+                                    disabled: false,
+                                  }} />
+        </Grid>
+      </Grid>
       <DataGrid
         style={{ minHeight: tableData.length ? undefined : 400 ,  backgroundColor: 'white', borderRadius: '15px' }}
         disableColumnMenu
@@ -63,7 +109,7 @@ export default function TableComponent({
           columnsPanelShowAllButton: `${t("Table.ShowAll")}`,
           columnsPanelHideAllButton: `${t("Table.HideAll")}`,
         }}
-        rows={[...tableData]}
+        rows={[...searchData]}
         columns={props.columnsDef.map((item) => ({
           ...item,
           headerName: t(`${item.headerName}`),

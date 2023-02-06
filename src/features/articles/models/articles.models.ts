@@ -91,3 +91,7 @@
 
    }
 
+   export class searchSubjectModel {
+    searchSubject:  string = "";
+   }
+

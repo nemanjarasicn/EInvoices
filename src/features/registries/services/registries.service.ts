@@ -331,7 +331,7 @@ class RegistriesPublicService {
       headers: { apiKey: apiKey },
     };
 
-    return publicClient.get<any>
+    return publicClient.post<any>
     (`invoice/sync`,
     config
     );

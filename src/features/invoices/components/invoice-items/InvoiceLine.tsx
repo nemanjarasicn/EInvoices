@@ -118,13 +118,13 @@ export default function InvoiceLine({
 
 
    //Subscribe on watch unit price
-   /*React.useEffect(() => {
+   React.useEffect(() => {
     const newPrice = calculateNewPrice(
       Number(formGetValues(`invoiceLine[${index}].price.unitPrice`)),
       Number(formWatch(`invoiceLine[${index}].price.discount`))
     );
     formSetValue(`invoiceLine[${index}].price.newPrice`, newPrice);
-  }, [formWatch(`invoiceLine[${index}].price.unitPrice`)]);*/
+  }, [formWatch(`invoiceLine[${index}].price.unitPrice`)]);
 
 
   const  handleChangeDiscount  =  ()   =>   {

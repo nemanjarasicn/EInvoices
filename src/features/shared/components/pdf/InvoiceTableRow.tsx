@@ -54,9 +54,13 @@ const styles = StyleSheet.create({
         borderBottomWidth: 1,
     },
     discount: {
-        width: '10%',
         fontSize:  8,
         textAlign:  'right',
+    },
+
+    discountConteiner: {    
+        width: '10%',
+        flexDirection:  'column'
     },
     amount: {
         width: '5%',
@@ -72,10 +76,20 @@ const list: any[] = [
 
 const InvoiceTableRow = ({data} : any) => {
     //const rows = items.map(item =>
+    console.log('sasasaasas',  data?.invoiceLine)
 
     const currencyFormat = (num: any) => {
         return  num.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
       }
+
+    const getUnitPrice = (priceAmount: number | string, percent:  number | string )  =>  {
+        const divideTmp  =  Number(100)  + Number(percent);
+        return (Number(priceAmount)  * 100 ) / divideTmp;
+    }
+
+    const getDiscount = (discount: number | string,   priceAmount: number | string )  =>  {
+        return (Number(discount)  * 100 ) / Number(priceAmount);
+    }
 
     const listRows = data?.invoiceLine ?   data?.invoiceLine  :  [];
       const rows = 
@@ -83,10 +97,13 @@ const InvoiceTableRow = ({data} : any) => {
         <View style={styles.row} key={index}>
             <Text style={styles.description}>{item?.productName}</Text>
             <Text style={styles.qty}>{item?.quantity}</Text>
-            <Text style={styles.rate}>{currencyFormat(item?.oldPrice - (item?.tax / item?.quantity))}</Text>
+            <Text style={styles.rate}>{currencyFormat(getUnitPrice(item?.oldPrice, item?.percent))}</Text>
             <Text style={styles.unit}>kom</Text>
-            <Text style={styles.discount}>{currencyFormat(0)}</Text>
-            <Text style={styles.vat}>{currencyFormat((item?.oldPrice -(item?.tax / item?.quantity)) * item?.quantity)}</Text>
+            <View style={styles.discountConteiner}>
+                <Text style={styles.discount}>{currencyFormat(getDiscount(item?.discount, item?.oldPrice ))}</Text>
+                <Text style={styles.discount}>({currencyFormat(item?.discount)})</Text>
+            </View>
+            <Text style={styles.vat}>{currencyFormat((item?.newPrice -(item?.tax / item?.quantity)) * item?.quantity)}</Text>
             <Text style={styles.tax}>{(item?.percent).toFixed(2)}</Text>
         </View>       
         )
