@@ -66,10 +66,10 @@ export default function TableComponent({
     console.log('sasaasas',  props.selectType );
     if(getValues('searchSubject')) {
       if(selectType === 'ARTICLES') {
-        const searchDataTmp =  tableData.filter((item)  => item.productName.includes(getValues('searchSubject')));
+        const searchDataTmp =  tableData.filter((item)  => item.productName.toLowerCase().includes(getValues('searchSubject').toLowerCase()));
         setSearchData(searchDataTmp);
       } else {
-        const searchDataTmp =  tableData.filter((item)  => item.companyName.includes(getValues('searchSubject')));
+        const searchDataTmp =  tableData.filter((item)  => (item.companyName.toLowerCase().includes(getValues('searchSubject').toLowerCase())) ||  (item.pib.toLowerCase().includes(getValues('searchSubject').toLowerCase())));
         setSearchData(searchDataTmp);
       }
     } else {
@@ -85,8 +85,8 @@ export default function TableComponent({
 
   return (
     <div style={tableComponentStyles.wrapper}>
-      <Grid xs={12}   sx={{display:  'flex', justifyContent: 'center'}} >
-        <Grid xs={6} sx={{justifyContent:  'center'}}>
+      <Grid item xs={12}   sx={{display:  'flex', justifyContent: 'center'}} >
+        <Grid item xs={6} sx={{justifyContent:  'center'}}>
            <SearchField   props={{
                                     name: "searchSubject",
                                     control: control,

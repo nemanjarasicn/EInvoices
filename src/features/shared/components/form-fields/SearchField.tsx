@@ -85,11 +85,10 @@ export default function SearchField({props}: IProps<SearchFieldProps>): JSX.Elem
                 <InputAdornment position="end" style={searchField.endAdornment}>
                   {getCheckbox()}
                   {getSearhTab()}
-                  <IconButton onClick={search()}>
-                    <SearchIcon sx={searchField.iconButtonColor}
-                        onClick={() => {
+                  <IconButton  onClick={() => {
                         handleParent();
-                        }}
+                        }} >
+                    <SearchIcon sx={searchField.iconButtonColor}
                     />
                   </IconButton>
                   <IconButton

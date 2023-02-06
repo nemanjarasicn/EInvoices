@@ -12,7 +12,10 @@ import TableNoRowsOverlay from "./NoRowsOverlay";
 import { useTranslation } from "react-i18next";
 import TablePagination from "./TablePagination";
 import { AsyncThunkAction } from "@reduxjs/toolkit";
-import { Button } from "@mui/material";
+import { Button,  Grid } from "@mui/material";
+import SearchField from "../../../shared/components/form-fields/SearchField";
+import { useForm } from "react-hook-form";
+import { searchModel  }  from  "../../models/registries.models"
 
 
 export type TableComponentProps = {
@@ -31,10 +34,25 @@ export default function TableComponent({
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
   const { tableComponentStyles } = useDataGridStyles();
+  const selectType = props.selector;
+  const [searchData, setSearchData]  = React.useState<any[]>([])
   // TODO
   const [pageSize, setPageSize] = React.useState<number>(30);
 
-  const selectType = props.selector;
+  const  defaultValues:  searchModel = {
+    search:  "",
+  };
+
+  const methods = useForm({
+    defaultValues
+  });
+  const {
+    control,
+    setValue,
+    getValues,
+    watch
+  } = methods;
+
 
 
   const tableData: TableData<any>[] = (useAppSelector(selectType) as any).map(
@@ -51,8 +69,40 @@ export default function TableComponent({
 
   const fontSize  =    window.devicePixelRatio === 1.5 ?    '12px' :  '16px';
 
+
+
+  React.useEffect(() => {
+    setSearchData(tableData);
+  }, [useAppSelector(selectType)]);
+
+
+  const   handleSearch  = ()  =>  {
+    const selectType = props.selectType
+    console.log('sasaasas',  props.selectType );
+    if(getValues('search')) {
+      if(selectType === 'COMPANIES') {
+        const searchDataTmp =  tableData.filter((item)  => (item.companyName.toLowerCase().includes(getValues('search').toLowerCase()))  ||  (item.pib.toLowerCase().includes(getValues('search').toLowerCase())));
+        setSearchData(searchDataTmp);
+      } 
+    } else {
+      setSearchData(tableData);
+    }
+
+  }
+
   return (
     <>
+      <Grid  item xs={12}   sx={{display:  'flex', justifyContent: 'center'}} >
+        <Grid item xs={6} sx={{justifyContent:  'center'}}>
+           <SearchField   props={{
+                                    name: "search",
+                                    control: control,
+                                    label: "Pretraga",
+                                    additional: { readonly: false,   parentFn:  handleSearch},
+                                    disabled: false,
+                                  }} />
+        </Grid>
+      </Grid>
       <DataGrid
         style={{ minHeight: tableData.length ? undefined : 400, backgroundColor: 'white', borderRadius:  '15px',  fontSize:  fontSize }}
         disableColumnMenu
@@ -67,7 +117,7 @@ export default function TableComponent({
           columnsPanelShowAllButton: `${t("Table.ShowAll")}`,
           columnsPanelHideAllButton: `${t("Table.HideAll")}`,
         }}
-        rows={[...tableData]}
+        rows={[...searchData]}
         columns={props.columnsDef.map((item) => ({
           ...item,
           headerName: t(`${item.headerName}`),
