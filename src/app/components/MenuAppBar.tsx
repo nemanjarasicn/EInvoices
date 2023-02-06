@@ -93,7 +93,7 @@ export default function ClippedDrawer() {
   const trigger = useScrollTrigger();
 
   const navItems: NavItem[] = [
-    { name: t("Menu.home"), href: "home", icon: "Home",submenu: false,   disabled:   userAuthority, },
+    { name: t("Menu.home"), href: "home", icon: "Home",submenu: false,   disabled:   false, },
     {
       name: t("Menu.invoice"),
       href: "/invoices",

@@ -112,6 +112,11 @@
     idObject: number =  0;
   }
 
+
+  export class searchModel {
+    search:  string = "";
+   }
+
   export class VatFormModel {
     id: number | string = "";
     name: string = "";

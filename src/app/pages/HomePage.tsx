@@ -37,12 +37,15 @@ export default function HomePage({props}: IProps<HomePageProps>): JSX.Element {
   const fontSizeBreadcrumbs  =   window.devicePixelRatio === 1.5 ?  '16px' :  '20px';
   const fontSize  =    window.devicePixelRatio === 1.5 ?    '12px' :  '16px';
   const apiKey = useAppSelector(selectCompanyInfo)?.apiKey;
+  const userAuthority = useAppSelector(selectUser)?.authorities?.slice(0,1)[0].authority === "ROLE_ADMIN" ? true  :   false;
   
 
   React.useEffect(() => {
     dispatch(getErrorLogs());
-    const newState = itemsList.filter((item) => item?.apiKey ===  apiKey );
-    setItemsList(newState);
+    if(!userAuthority)  {
+      const newState = itemsList.filter((item) => item?.apiKey ===  apiKey );
+      setItemsList(newState);
+    }
   }, []);
 
 
@@ -67,7 +70,16 @@ export default function HomePage({props}: IProps<HomePageProps>): JSX.Element {
     headerAlign: "center",
     align: "center",
     hideable: false,
-  }
+  },
+  {
+    field: "apiKey",
+    headerName: t("apiKey"),
+    flex: 1,
+    headerAlign: "center",
+    align: "center",
+    hideable: true,
+    hide:  !userAuthority
+  }, 
 ]
 
 
