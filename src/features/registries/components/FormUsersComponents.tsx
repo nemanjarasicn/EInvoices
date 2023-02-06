@@ -39,7 +39,7 @@ import SucessModal   from "../../shared/components/SucessModal"
     password: yup.string().required('Ovo je obavezno polje'),
     confirmpassword: yup.string()
        .oneOf([yup.ref('password'), null], 'Lozinke se ne poklapaju'),
-    username: yup.string().required('Ovo je obavezno polje'),
+    username: yup.string().trim().required('Ovo je obavezno polje'),
     userRole: yup.object().required('ovo je obavezno polje')
    
  })

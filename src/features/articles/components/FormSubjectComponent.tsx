@@ -112,7 +112,7 @@ export default function FormSubjectComponent({
       email: yup.string().email('email mora biti ispravnog formata').required("ovo je obavezno polje"),
       subjectIdCategory: yup.object().required('ovo je obavezno polje'),
       subjectIdType: yup.object().required('ovo je obavezno polje'),
-      jbkjs: yup.string().required('ovo je obavezno polje')
+      jbkjs: yup.string().trim().required('ovo je obavezno polje')
     })
  .required();
     const { t } = useTranslation();

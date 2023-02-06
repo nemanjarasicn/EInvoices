@@ -57,11 +57,11 @@ export default function FormCompaniesComponent({
  const schema = yup
  .object({
   companyName: yup.string().required('ovo je obavezno polje'),
-  address:   yup.string().required('ovo je obavezno polje'),
-  city:  yup.string().required('ovo je obavezno polje'),
-  zip: yup.string().required('ovo je obavezno polje'),
+  address:   yup.string().trim().required('ovo je obavezno polje'),
+  city:  yup.string().trim().required('ovo je obavezno polje'),
+  zip: yup.string().trim().required('ovo je obavezno polje'),
   mb: yup.string().trim().required('ovo je obavezno polje'),
-  apiKey: yup.string().required('ovo je obavezno polje'),
+  apiKey: yup.string().trim().required('ovo je obavezno polje'),
   country: yup.string().required('ovo je obavezno polje'),
   pib: yup.string().trim().required('ovo je obavezno polje'),
   payeeFinancialAccount: yup.string().test(
@@ -77,7 +77,7 @@ export default function FormCompaniesComponent({
     }
     }
   ),
-  email: yup.string().email('email mora biti ispravnog formata'),
+  email: yup.string().trim().email('email mora biti ispravnog formata'),
  })
  .required();
   

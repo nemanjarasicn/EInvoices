@@ -254,9 +254,13 @@ const useComponentsStyles = (): {
         borderColor: "#dedede",
         borderBlockColor: "#dedede",
         borderWidth: 0,
+        backgroundColor:  'white',
+        borderRadius:  "8px"
       },
       outlinedInput: {
         borderRadius: "8px",
+        backgroundColor:  'white',
+        width: '100%'
       },
       endAdornment: {
         fontSize: "12px",
