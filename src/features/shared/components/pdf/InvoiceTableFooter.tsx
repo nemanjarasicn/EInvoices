@@ -91,9 +91,11 @@ const styles = StyleSheet.create({
     }
 });
 
-const InvoiceTableFooter = ({data}: any) => {
+const InvoiceTableFooter = (props: any) => {
     /*const total = items.map(item => item.qty * item.rate)
         .reduce((accumulator, currentValue) => accumulator + currentValue, 0)*/
+        console.log('sasasass', props?.data)
+        console.log('sasasass11111', props?.dataRow)
         
 
     const  total: string  = '1600';
@@ -115,37 +117,43 @@ const InvoiceTableFooter = ({data}: any) => {
         <View style={styles.section2} >
 
                 <View   style={styles.columnConteiner}>
+                    {/*{Object.keys(props?.dataRow?.taxGroup).map((key: any, index)  => (
+                        <View  style={styles.textConteiner}>
+                            <Text style={styles.text}>Zbir stavki sa stopom {key.slice(2,5)}:</Text>
+                            <Text style={styles.textPrice}>{currencyFormat(Number(props?.data?.legalMonetaryTotal?.lineExtensionAmount))}</Text>
+                        </View>
+                    ))}*/}
                     <View  style={styles.textConteiner}>
                         <Text style={styles.text}>Zbir stavki sa stopom 20%:</Text>
-                        <Text style={styles.textPrice}>{currencyFormat(Number(data?.legalMonetaryTotal?.lineExtensionAmount))}</Text>
+                        <Text style={styles.textPrice}>{currencyFormat(Number(props?.data?.legalMonetaryTotal?.lineExtensionAmount))}</Text>
                     </View>
                     <View style={styles.divider}></View>
                     <View  style={styles.textConteiner}>
                         <Text style={styles.text}>Ukupno osnovica - stopa 20%:</Text> 
-                        <Text style={styles.textPrice}>{currencyFormat(Number(data?.legalMonetaryTotal?.lineExtensionAmount))}</Text>
+                        <Text style={styles.textPrice}>{currencyFormat(Number(props?.data?.legalMonetaryTotal?.lineExtensionAmount))}</Text>
                     </View>
                     <View  style={styles.textConteiner}>
                         <Text style={styles.text}>Ukupno PDV - stopa 20%:</Text> 
-                        <Text style={styles.textPrice}>{currencyFormat(Number(data?.taxTotal?.taxAmount))}</Text>
+                        <Text style={styles.textPrice}>{currencyFormat(Number(props?.data?.taxTotal?.taxAmount))}</Text>
                     </View>
                     <View  style={styles.textConteiner}>
                         <Text style={styles.textBold}>Ukupan iznos:</Text>  
-                        <Text style={styles.textPrice}>{currencyFormat(Number(data?.legalMonetaryTotal?.payableAmount))}</Text>
+                        <Text style={styles.textPrice}>{currencyFormat(Number(props?.data?.legalMonetaryTotal?.payableAmount))}</Text>
                     </View>
-                    {data?.invoiceTypeCode !=='386' ?
+                    {props?.data?.invoiceTypeCode !=='386' ?
                     <>
                     <View style={styles.divider}></View>
                     <View  style={styles.textConteiner}>
                         <Text style={styles.text}>Ukupno osnovica umanjena za avanse - stopa 20%:</Text>
-                        <Text style={styles.textPrice}>{currencyFormat(Number(data?.legalMonetaryTotal?.lineExtensionAmount))}</Text>
+                        <Text style={styles.textPrice}>{currencyFormat(Number(props?.data?.legalMonetaryTotal?.lineExtensionAmount))}</Text>
                     </View>
                     <View  style={styles.textConteiner}>
                         <Text style={styles.text}>Ukupno PDV umanjen za avanse - stopa 20%: </Text>         
-                        <Text style={styles.textPrice}>{currencyFormat(Number(data?.taxTotal?.taxAmount))}</Text>
+                        <Text style={styles.textPrice}>{currencyFormat(Number(props?.data?.taxTotal?.taxAmount))}</Text>
                     </View>
                     <View  style={styles.textConteiner}>
                         <Text style={styles.textBold}>Ukupno za uplatu:</Text>
-                        <Text style={styles.textPrice}>{currencyFormat(Number(data?.legalMonetaryTotal?.payableAmount))}</Text>
+                        <Text style={styles.textPrice}>{currencyFormat(Number(props?.data?.legalMonetaryTotal?.payableAmount))}</Text>
                     </View>
                     </>
                      :

@@ -326,7 +326,6 @@ class RegistriesPublicService {
   }
 
   getSync(apiKey:  string) {
-    console.log('sasassasasa',  apiKey)
     const config = {
       headers: { apiKey: apiKey },
     };

@@ -76,7 +76,6 @@ const list: any[] = [
 
 const InvoiceTableRow = ({data} : any) => {
     //const rows = items.map(item =>
-    console.log('sasasaasas',  data?.invoiceLine)
 
     const currencyFormat = (num: any) => {
         return  num.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');

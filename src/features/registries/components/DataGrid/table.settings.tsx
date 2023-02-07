@@ -415,7 +415,8 @@ const useTableSettings = (): TableSettings => {
                 <Grid item xs={3}  sx={{display: 'flex', justifyContent:  'center'}} >
                     <LightTooltip title="Sinhronizacija">
                             <IconButton  color="primary" sx={{fontSize: fontSize}} aria-label="pdf" component="label"  onClick={() => { 
-                              console.log('ssasaas', params.row) 
+          
+          
                               dispach(getSync({apiKey: params?.row?.apiKey}));
                             }}>
                             <FontAwesomeIcon icon={faRotate}   color="red"   />

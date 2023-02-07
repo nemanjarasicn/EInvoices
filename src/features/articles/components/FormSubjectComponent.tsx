@@ -205,7 +205,6 @@ export default function FormSubjectComponent({
 
       const  handleFindSubject = () => {
         dispatch(getSubjectDetails({pib:  getValues('pib')})).then((res) => {
-          console.log('asasasasasassasasasaas', res);
           if(res?.payload?.CompanyDataSet !==  "")   {
             setValue('pib', (getValues('pib')).toString()); 
             setValue('companyName', res?.payload?.CompanyDataSet?.Company?.Name); 

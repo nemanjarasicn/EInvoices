@@ -19,7 +19,7 @@ const InvoiceItemsTable = (props: any) => {
     <View style={styles.tableContainer}>
         <InvoiceTableHeader />
         <InvoiceTableRow  data={props.dataRow} />
-        <InvoiceTableFooter  data={props.data}  />
+        <InvoiceTableFooter  data={props.data}  dataRow={props.dataRow}  />
     </View>
 )};
 
