@@ -8,6 +8,7 @@ import {
   GroupFieldProps,
   OptionItem,
 } from "../form-fields/models/form-fields.models";
+import FormTextField from "../form-fields/FormTextField";
 import FormDropdownField from "../form-fields/FormDropdownField";
 
 type InvoiceGroupComponentProps = GroupFieldProps & {
@@ -49,7 +50,9 @@ export default function InvoiceGroupComponent({
         />
       </Grid>
 
-      <Grid item xs={3}></Grid>
+      <Grid item xs={3}>
+
+      </Grid>
 
       <Grid item xs={3}>
         <FormDropdownField

@@ -66,6 +66,12 @@ export default function SearchField({props}: IProps<SearchFieldProps>): JSX.Elem
     }
   }
 
+  const handleOnKeyDown  =  (event: any) =>  {
+    if(event.key === 'Enter'  &&  props.additional?.parentFn){
+      props.additional?.parentFn();
+    }
+  }
+
   return (
     <div style={searchField.searchFieldDiv}>
       <Controller 
@@ -73,6 +79,7 @@ export default function SearchField({props}: IProps<SearchFieldProps>): JSX.Elem
         control={props.control}
         render={({ field: { onChange, value },fieldState: { error } }) => (
             <OutlinedInput
+              onKeyDown={(event)  =>  handleOnKeyDown(event)}
               id="outlined-adornment-search"
               placeholder={t(props.label)}
               onChange={(newValue) => {
@@ -83,6 +90,7 @@ export default function SearchField({props}: IProps<SearchFieldProps>): JSX.Elem
               inputRef={textInput}
               endAdornment={
                 <InputAdornment position="end" style={searchField.endAdornment}>
+
                   {getCheckbox()}
                   {getSearhTab()}
                   <IconButton  onClick={() => {

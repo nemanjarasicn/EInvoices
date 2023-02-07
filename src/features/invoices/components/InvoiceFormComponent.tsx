@@ -23,7 +23,8 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import FormDropdownField from "./form-fields/FormDropdownField";
 import FormTextAreaField from "./form-fields/FormTextAreaField";
 import FormDateField from "./form-fields/FormDateField";
-import {FormAutocompleteField} from "./form-fields/FormAutocompleteField";
+//import {FormAutocompleteField} from "./form-fields/FormAutocompleteField";
+import FormMultiSelect  from "../../shared/components/form-fields/FormMultiSelect"
 import { useTranslation } from "react-i18next";
 import { useComponentsStyles } from "./components.styles";
 import CustomButtonFc from "./CustomButtonFc";
@@ -42,6 +43,7 @@ import {
   OptionItem,
   SourceSelectionMode,
   VATPointDate,
+  AutocompleteItem
 } from "./form-fields/models/form-fields.models";
 import CreditNoteComponent from "./form-group/CreditNoteComponent";
 import DebitNoteComponent from "./form-group/DebitNoteComponent";
@@ -52,11 +54,13 @@ import {
   getDocumentTypes,
   getMarketPlaces,
   getProducts,
+  getInvoiceByType
 } from "./form-fields/store/form.actions";
 import {
   selectClientCompanies,
   selectCurrentDocNumber,
   selectMarketPlaces,
+  selectInvoiceByType
 } from "./form-fields/store/form.selectors";
 import ClientComponent from "./form-group/ClientComponent";
 import InvoiceItemsComponent from "./invoice-items/InvoiceItemsComponent";
@@ -118,6 +122,7 @@ export default function InvoiceFormComponent({
   );
 
   const [lineError, setLineError] = React.useState<string | null>(null);
+  const [advanceAccountList, setAdvanceAccountList] = React.useState<any[]>([]);
   const [showError, setShowError] = React.useState(false);
   const errorModalShow =  useAppSelector(selectOpenError)
 
@@ -140,7 +145,8 @@ export default function InvoiceFormComponent({
 
   const onSubmit = handleSubmit(
     (data: InvoiceFormModel) => {
-      dispatch(sendInvoce({ invoice: data, companyInfo: companyInfo, filesList: filesList })).then((res) => {
+      console.log('sasassasa',  data);
+      dispatch(sendInvoce({ invoice: data, companyInfo: companyInfo, filesList: filesList,  advanceAccountList:  advanceAccountList })).then((res) => {
         if (res.payload.message === "REDIRECT") {
            setShowError(true);  
               setTimeout(async () => {
@@ -173,6 +179,12 @@ export default function InvoiceFormComponent({
     setInvoiceType(invoicetype);
   };
 
+
+  const addAdvanceAcount  = (value: any[]) =>  {
+   console.log('assasaass', value)
+   setAdvanceAccountList(value);
+  }
+
   /**
    * Handle values patch form fields
    */
@@ -197,7 +209,7 @@ export default function InvoiceFormComponent({
     dispatch(getMarketPlaces({ companyId: companyId }));
     dispatch(getClientCompanies({ companyId: companyId }));
     dispatch(getCurrentDocumentNumber({ companyId: companyId }));
-    dispatch(getDocumentTypes());
+    dispatch(getInvoiceByType({companyId: companyId}));
   }, []);
 
   React.useEffect(() => {
@@ -253,6 +265,7 @@ export default function InvoiceFormComponent({
       dispatch(clearCompanies({}));
       dispatch(clearMarketPlaces({}));
       dispatch(clearDocumentTypes({}));
+      dispatch(clearDocumentTypes({}));
     },
     []
   );
@@ -275,6 +288,7 @@ const UploudComponent = () => {
     let filesArr = Array.prototype.slice.call(files);
     setFilesList([...filesList,...filesArr])
   }
+
   
   return (
     <Grid item xs ={12}  sx={{display:  'flex'}}>
@@ -718,6 +732,37 @@ const UploudComponent = () => {
                 <Grid item xs={4} >
                       <UploudComponent />
                 </Grid>
+                {invoiceType === InvoiceType.INVOICE &&
+                <Grid item xs={12} >
+                  <Grid item xs={4} >
+                        {/*<FormTextField
+                            props={{
+                              control: control,
+                              label:'Avansni račun',
+                              name: 'advanceAccount',
+                              additional: { mask: {}, readonly: false },
+                              disabled: false,
+
+                            }}
+                          />*/}
+
+                        <FormMultiSelect
+                        props={{
+                            name: "advanceAccount",
+                            control: control,
+                            label:  "Avansni račun",
+                            disabled: false,
+                            additional: {
+                              selector:  selectInvoiceByType,
+                              parentFn: addAdvanceAcount,
+                              
+                            
+                            },
+                        }}
+                        />
+                  </Grid>
+                </Grid>
+              }
               </Grid>
             </Paper>
           </Box>

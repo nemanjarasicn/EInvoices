@@ -6,6 +6,7 @@ import {
   getDocumentTypes,
   getMarketPlaces,
   getProducts,
+  getInvoiceByType
 } from "./form.actions";
 
 const FORM_FIELDS_KEY: string = "form";
@@ -14,6 +15,7 @@ export type AutocompleteData = {
   unitMesures: any[];
   companies: any[];
   products: any[];
+  invoicesByType:  any[];
 };
 export type DropdownData = {
   marketPlaces: any[];
@@ -33,6 +35,7 @@ const initialState: FormState = {
     unitMesures: [],
     companies: [],
     products: [],
+    invoicesByType:  [],
   },
   dropdownData: {
     marketPlaces: [],
@@ -70,6 +73,7 @@ const formSlice: Slice<FormState> = createSlice({
     getAsyncMarketPlaces(builder);
     getAsyncCurrDocumentNumber(builder);
     getAsyncDocumentTypes(builder);
+    getAsyncInvoicesByType(builder);
   },
 });
 
@@ -118,6 +122,28 @@ function getAsyncProducts(builder: ActionReducerMapBuilder<FormState>) {
   builder.addCase(getProducts.rejected, (state) => ({
     ...state,
     autocompleteData: { ...state.autocompleteData, products: [] },
+    loading: false,
+  }));
+}
+
+
+/**
+ * Handle async action GET invoices by type
+ * @param builder ActionReducerMapBuilder
+ */
+ function getAsyncInvoicesByType(builder: ActionReducerMapBuilder<FormState>) {
+  builder.addCase(getInvoiceByType.fulfilled, (state, { payload }) => ({
+    ...state,
+    autocompleteData: { ...state.autocompleteData, invoicesByType: payload },
+    loading: false,
+  }));
+  builder.addCase(getInvoiceByType.pending, (state) => ({
+    ...state,
+    loading: true,
+  }));
+  builder.addCase(getInvoiceByType.rejected, (state) => ({
+    ...state,
+    autocompleteData: { ...state.autocompleteData, invoicesByType: [] },
     loading: false,
   }));
 }

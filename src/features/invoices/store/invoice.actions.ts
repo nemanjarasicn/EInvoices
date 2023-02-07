@@ -11,6 +11,7 @@ import {
 } from "../utils/utils";
 import { updateInvoiceStatus } from "./invoice.reducer";
 import  { selectCompanyInfo }  from  "../../../app/core/core.selectors"
+import {AutocompleteItem} from "../components/form-fields/models/form-fields.models";
 
 const getAllCompanies: AsyncThunk<any, void, {}> = createAsyncThunk(
   "GET/Companies",
@@ -78,9 +79,9 @@ const searchInvoices: AsyncThunk<any, { params: any }, {}> = createAsyncThunk<
 /**
  * Create Async Action send E-Invoic via DTO
  */
-const sendInvoce: AsyncThunk<any, { invoice: any, companyInfo?: any, filesList: any[] }, {}> = createAsyncThunk<
+const sendInvoce: AsyncThunk<any, { invoice: any, companyInfo?: any, filesList: any[], advanceAccountList?: any[] }, {}> = createAsyncThunk<
   any,
-  { invoice: any,  companyInfo?: any, filesList:  any[] }
+  { invoice: any,  companyInfo?: any, filesList:  any[],  advanceAccountList?: any[]  }
 >("POST/Invoice", async (invoiceDto, _) => {
   const { core, form } = (_ as any).getState();
   const { apiKey } = core.userCompany;
@@ -129,7 +130,7 @@ const sendInvoce: AsyncThunk<any, { invoice: any, companyInfo?: any, filesList: 
     lineExtensionAmount: Number(item.lineExtensionAmount.toFixed(2)),
   }));
 
-  return await InvoicePublicService.sendInvoice(invoiceDto, apiKey).then(
+  return await InvoicePublicService.sendInvoice(invoiceDto, apiKey, ).then(
     (data) =>  _.fulfillWithValue({message: "REDIRECT" , data: data}),
     (err) => _.rejectWithValue({message: "ERR", error: err})
   );
