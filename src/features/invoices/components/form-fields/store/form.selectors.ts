@@ -91,6 +91,22 @@ export const selectProducts = createSelector(
     }))
 );
 
+
+/**
+ * Select products for autocomplete component
+ * map to Autocomplete item
+ */
+ export const selectInvoiceByType = createSelector(
+  autocompleteSelectors,
+  (state: AutocompleteData) =>
+    state.invoicesByType.map((item, index) => ({
+      name: item.numberDocument,
+      id: item.id,
+      item: item,
+    }))
+);
+
+
 /**
  * Select current Invoice id
  */

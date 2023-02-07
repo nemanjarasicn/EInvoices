@@ -42,6 +42,20 @@ const getCurrentDocumentNumber: AsyncThunk<
   }
 );
 
+
+/**
+ * Get Async invoice by type
+ */
+ const getInvoiceByType: AsyncThunk<any, { companyId: number | string, typeDocument?:  string | number }, {}> =
+ createAsyncThunk<any, { companyId: number | string,   typeDocument?:  string | number }>(
+   "GET/invoiceByType",
+   async (params) => {
+     return await InvoicePublicService.getInvoiceByType(params.companyId,  params?.typeDocument)
+       .then((res) => res.data)
+       .catch((err) => []);
+   }
+ );
+
 /**
  * Get Async Products
  */
@@ -87,4 +101,5 @@ export {
   getMarketPlaces,
   getCurrentDocumentNumber,
   getDocumentTypes,
+  getInvoiceByType
 };

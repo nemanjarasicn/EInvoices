@@ -106,6 +106,7 @@ export class InvoiceFormModel {
   invoiceLine: ProductModel[] = []; //stavke
   accountingCustomerParty: CustomerPartyModel | null = null;
   note: string  = "";
+  advanceAccount:  any[]  =  [];
 
   public constructor(init?: Partial<InvoiceFormModel>) {
     Object.assign(this, init);

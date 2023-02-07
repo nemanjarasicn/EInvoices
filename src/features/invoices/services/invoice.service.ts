@@ -4,6 +4,7 @@ import commonHttpClient from "../../../app/http-common";
 import dayjs from "dayjs";
 import { jsonBlob }  from "../utils/utils"
 import { faGameConsoleHandheld } from "@fortawesome/pro-solid-svg-icons";
+import {AutocompleteItem} from "../components/form-fields/models/form-fields.models";
 
 class InvoicePublicService {
   public getProducts(marketPlace: string) {
@@ -100,6 +101,17 @@ class InvoicePublicService {
     return commonHttpClient.get<any>(`invoices/search/${idCompany}`);
   }
 
+  public getInvoiceByType(companyId: any,  typeDocument?:  string | number) {
+    const params = {
+        companyId: 10000000099,
+        inputAndOutputDocuments: "Output",
+        typeDocument: [
+            "386"
+        ]
+    }
+    return commonHttpClient.post<any>("invoices/search", params);
+  }
+
   public sendInvoice(data: any, apiKey: string) {
     /*const config = {
       headers: { apiKey: apiKey },
@@ -116,7 +128,7 @@ class InvoicePublicService {
       formData.append("file", data?.filesList[i])
     }
 
-    const dataToSend = mapToRequestDTO(data.invoice, data?.filesList);
+    const dataToSend = mapToRequestDTO(data.invoice, data?.filesList, data?.advanceAccountList );
     formData.append("invoiceDto", jsonBlob(dataToSend));
     //return commonHttpClient.post<any>("invoice", { ...dataToSend }, config);
     return commonHttpClient.post<any>(
@@ -214,7 +226,7 @@ class InvoicePublicService {
 export default new InvoicePublicService();
 
 
-function mapToRequestDTO(invoice: any, filesList: any): any {
+function mapToRequestDTO(invoice: any, filesList: any, advanceAccountList?: any[]): any {
   invoice.issueDate =  dayjs(new Date).format("YYYY-MM-DD"); //dayjs(invoice.issueDate).format("YYYY-MM-DD");
   // ovo se ne salje za knjizna odobrenja
   if(invoice?.invoiceTypeCode !== 381) {
@@ -273,6 +285,19 @@ function mapToRequestDTO(invoice: any, filesList: any): any {
         issueDate:  dayjs(new Date).format("YYYY-MM-DD") ,
       }
     }];
+  }
+
+  if(invoice?.invoiceTypeCode === 380  && advanceAccountList?.length) {
+    invoice["finalBill"] =  "380";
+    invoice["billingReferences"] = 
+    advanceAccountList?.map((item: any)   =>  (
+        {
+          invoiceDocumentReference: {
+            id: item?.name,
+            idAdvancedPayment:   item?.id,
+          }
+        }
+    ))
   }
 
   if(filesList.length) {
