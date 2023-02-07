@@ -95,7 +95,7 @@ const style = {
 			  throw err;
 			}
 			const json = JSON.stringify(result, null, 4);
-
+			console.log('sassasasas',result);
 			const additionalDocumentReferenceTmp =  result?.[`${prefixPdf}`]['cac:AdditionalDocumentReference'] ?
 						result?.[`${prefixPdf}`]['cac:AdditionalDocumentReference'].map((item: any, index: number) => (
 							{
@@ -107,6 +107,21 @@ const style = {
 						[{
 							name: "",
 							atachment: ""
+						}]
+
+			const taxTotalTmp =  result?.[`${prefixPdf}`]['cac:TaxTotal'] ?
+						result?.[`${prefixPdf}`]['cac:TaxTotal'][0]['cac:TaxSubtotal'].map((item: any, index: number) => (
+							{
+								taxAmount:  result?.[`${prefixPdf}`]['cac:TaxTotal'][0]['cac:TaxSubtotal'][index]['cbc:TaxAmount']  ?  result?.[`${prefixPdf}`]['cac:TaxTotal'][0]['cac:TaxSubtotal'][index]['cbc:TaxAmount'][0]['_']  :   "",
+								taxableAmount: result?.[`${prefixPdf}`]['cac:TaxTotal'][0]['cac:TaxSubtotal'][index]['cbc:TaxableAmount'] ?   result?.[`${prefixPdf}`]['cac:TaxTotal'][0]['cac:TaxSubtotal'][index]['cbc:TaxableAmount'][0]['_']  :  "",
+								TaxCategory:   result?.[`${prefixPdf}`]['cac:TaxTotal'][0]['cac:TaxSubtotal'][index]['cac:TaxCategory']  ?    result?.[`${prefixPdf}`]['cac:TaxTotal'][0]['cac:TaxSubtotal'][index]['cac:TaxCategory'][0]['cbc:Percent'][0]  :  "",
+							}
+						)) 
+						:
+						[{
+							taxAmount: "",
+							taxableAmount: "",
+							TaxCategory: ""
 						}]
 
 			const objectTmp = {
@@ -136,14 +151,13 @@ const style = {
 					payableAmount:   result?.[`${prefixPdf}`]['cac:LegalMonetaryTotal'][0]['cbc:PayableAmount']  ?   result?.[`${prefixPdf}`]['cac:LegalMonetaryTotal'][0]['cbc:PayableAmount'][0]['_']  :  "",
 					lineExtensionAmount:  result?.[`${prefixPdf}`]['cac:LegalMonetaryTotal'][0]['cbc:LineExtensionAmount'] ?    result?.[`${prefixPdf}`]['cac:LegalMonetaryTotal'][0]['cbc:LineExtensionAmount'][0]['_']  :  "",
 				},
-				taxTotal: {
-					taxAmount:   result?.[`${prefixPdf}`]['cac:TaxTotal'][0]['cac:TaxSubtotal'][0]['cbc:TaxAmount']  ?  result?.[`${prefixPdf}`]['cac:TaxTotal'][0]['cac:TaxSubtotal'][0]['cbc:TaxAmount'][0]['_']  :   "",
-				},
+				taxTotal: taxTotalTmp,
 				additionalDocumentReference: 
 					additionalDocumentReferenceTmp
 			
 
 			}
+			console.log('sasasasddafafasd',   objectTmp)
 			setDataInvoice(objectTmp);
 			if(result) {
 				setLoading(false);

@@ -11,7 +11,8 @@ type FormTextFieldProps = FormFieldProps & {
     labelShrink?: boolean;
     valueForm?: string;
     mask?: any;
-    parentFn?:   Function; 
+    parentFn?:   Function;
+    borderButton?: boolean; 
   };
 };
 
@@ -23,6 +24,8 @@ export default function CustomTextField({
 }: IProps<FormTextFieldProps>): JSX.Element {
 
   const fontSize  =    window.devicePixelRatio === 1.5 ?    '12px' :  '16px';
+  const borderLeft =  props?.additional?.borderButton ?  "5px" : "none";
+  const border =  props?.additional?.borderButton ?  0 : "";
 
   const handleOnKeyDown  =  (event: any) =>  {
     if(event.key === 'Enter'  &&  props.additional?.parentFn){
@@ -36,7 +39,7 @@ export default function CustomTextField({
       control={props.control}
       render={({ field: { onChange, value },fieldState: { error } }) => (
         <TextField
-        onKeyDown={(event)  =>  handleOnKeyDown(event)}
+          onKeyDown={(event)  =>  handleOnKeyDown(event)}
           disabled={false}
           helperText={error ? error.message : " "}
           size="small"
@@ -44,11 +47,13 @@ export default function CustomTextField({
           onChange={(e) => onChange(e.target.value)}
           value={value ?? ""}
           fullWidth
+          focused={props?.additional?.borderButton}
           label={props.label}
+          sx={{}}
           InputLabelProps={{  style: {fontSize:   fontSize}, shrink: props.additional?.labelShrink }}
           variant="outlined"
           InputProps={{
-            style: {fontSize:   fontSize},
+            style: {fontSize:   fontSize, borderRadius: border,  borderBottomLeftRadius: borderLeft, borderTopLeftRadius: borderLeft},
             readOnly: props.additional?.readonly ?? false,
             endAdornment: props.additional?.suffix ? (
               <InputAdornment position="end">
