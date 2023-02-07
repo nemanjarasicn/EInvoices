@@ -87,7 +87,7 @@ export default function TableComponent({
     <div style={tableComponentStyles.wrapper}>
       <Grid item xs={12}   sx={{display:  'flex', justifyContent: 'center'}} >
         <Grid item xs={6} sx={{justifyContent:  'center'}}>
-           <SearchField   props={{
+           <SearchField    props={{
                                     name: "searchSubject",
                                     control: control,
                                     label: "Pretraga",
