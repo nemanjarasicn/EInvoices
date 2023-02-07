@@ -1,9 +1,21 @@
 import React, { Fragment } from 'react';
-import { Text, View, StyleSheet } from '@react-pdf/renderer';
+import { Text, View, StyleSheet,  Font } from '@react-pdf/renderer';
 import { useAppSelector } from '../../../../app/hooks';
 import { selectInvoiceDetails } from '../../../invoices/store/invoice.selectors';
 
 const borderColor = '#3778C2'
+
+
+Font.register({
+    family: "Roboto",
+    fonts: [
+        { src:
+            "https://cdnjs.cloudflare.com/ajax/libs/ink/3.1.10/fonts/Roboto/roboto-light-webfont.ttf", color: 'black' },
+        { src:
+            "https://cdnjs.cloudflare.com/ajax/libs/ink/3.1.10/fonts/Roboto/roboto-bold-webfont.ttf", fontStyle: 'bold' },
+      ]
+  });
+
 const styles = StyleSheet.create({
     conteiner: {
         flexDirection: 'column',
@@ -18,6 +30,7 @@ const styles = StyleSheet.create({
     description: {
         width: '30%',
         flexDirection:  'row',
+        fontFamily: "Roboto",
         justifyContent:  'flex-start',
         fontSize:  8,
         textAlign:  'left',

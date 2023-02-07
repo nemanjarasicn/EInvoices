@@ -35,6 +35,7 @@ import IconButton from '@mui/material/IconButton';
 import {  faTrash}   from '@fortawesome/pro-solid-svg-icons';
 import {  faPlus}   from '@fortawesome/pro-solid-svg-icons';
 import {  faPenToSquare}   from '@fortawesome/pro-solid-svg-icons';
+import { faArrowsRotate }    from '@fortawesome/pro-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { getValue } from "@mui/system";
 import {  getSubjectDetails } from "../../articles/store/articles.actions";
@@ -111,6 +112,7 @@ export default function FormCompaniesComponent({
     const [showErrorModal, setShowErrorModal] = React.useState(false);
     const [apiKeyDefault,   setApiKeyDefault] =  React.useState("");
     const [errorMessageSearch,  setErrorMessageSearch]  =  React.useState("");
+    const heightButton  =   window.devicePixelRatio == 1.5 ? '60%' :  '63%';
     
     
     const methods = useForm({
@@ -377,16 +379,21 @@ export default function FormCompaniesComponent({
                                     name: "pib",
                                     label: t(props.formFieldsLabels.companies.pib),
                                     disabled: false,
-                                    additional: { readonly: false, labelShrink: true }
+                                    additional: { readonly: false, labelShrink: true,  borderButton: true }
                                 
                                 }}
                             />
                           </Grid>
                           <Grid xs={2}>
-                                <Button    variant="contained"
-                                           component="label"
-                                           sx={{backgroundColor: 'blue'}}
-                                           onClick = {()  => handleFindSubject()}>
+                                <Button    variant="outlined"
+                                            sx={{color: '#09C8C8', 
+                                            borderColor:  '#09C8C8',
+                                            height: heightButton,
+                                            borderRadius: 0,
+                                            borderBottomRightRadius: '5px', borderTopRightRadius: '5px'
+                                          }}
+                                          
+                                           onClick = {()  => handleFindSubject()} startIcon={<FontAwesomeIcon icon={faArrowsRotate}   />}>
                                           NBS
                                 </Button> 
                           </Grid>

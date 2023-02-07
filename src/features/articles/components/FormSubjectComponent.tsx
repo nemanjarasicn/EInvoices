@@ -29,6 +29,9 @@ import {  sendSubject, updateSubject, getSubjectDetails } from "../store/article
 import {   setError, setOpenModalSucessLoad  }  from  "../../../app/core/core.reducer"
 import   { selectSubjectGategory,  selectSubjectType }  from  "../../shared/components/form-fields/store/form.selectors"
 import FormCurrencyField from "../../shared/components/form-fields/FormCurrencyField";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBooks }    from '@fortawesome/pro-solid-svg-icons';
+import { faArrowsRotate }    from '@fortawesome/pro-solid-svg-icons';
 
 
 //import ClientComponent from "./form-group/ClientComponent";
@@ -122,7 +125,9 @@ export default function FormSubjectComponent({
     const [showError, setShowError] = React.useState(false);
     const [showErrorModal, setShowErrorModal] = React.useState(false);
     const [errorMessageSearch,  setErrorMessageSearch]  =  React.useState("");
-    const marginTopBox =  window.devicePixelRatio == 1.5 ? 2 : 5 
+    const marginTopBox =  window.devicePixelRatio == 1.5 ? 2 : 5;
+    const heightButton  =   window.devicePixelRatio == 1.5 ? '60%' :  '63%';
+    const buttonGrid  =   window.devicePixelRatio == 1.5 ? 7 :  8;
     
     const location = useLocation();
   
@@ -366,22 +371,28 @@ export default function FormSubjectComponent({
                     </Grid>
                     <Grid item xs={4}>
                       <Grid sx={{display:  'flex'}} >
-                          <Grid xs={10} >
+                          <Grid xs={buttonGrid} >
                               <FormTextField
                                   props={{
                                     name: "pib",
                                     control: control,
                                     label: "PIB",
-                                    additional: { mask: {}, readonly: false },
+                                    additional: { mask: {}, readonly: false,  borderButton: true },
                                     disabled: false,
                                   }}
                               /> 
                           </Grid>
                           <Grid xs={2}>
-                                <Button    variant="contained"
-                                           component="label"
-                                           sx={{backgroundColor: 'blue'}}
-                                           onClick = {()  => handleFindSubject()}>
+                                <Button    variant="outlined"
+                                          
+                                           sx={{color: '#09C8C8', 
+                                                borderColor:  '#09C8C8',
+                                                height: heightButton,
+                                                borderRadius: 0,
+                                                borderBottomRightRadius: '5px', borderTopRightRadius: '5px'
+                                              }}
+                                           onClick = {()  => handleFindSubject()}
+                                           startIcon={<FontAwesomeIcon icon={faArrowsRotate}   />}>
                                           NBS
                                 </Button> 
                           </Grid>
