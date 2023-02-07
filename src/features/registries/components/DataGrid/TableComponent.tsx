@@ -78,7 +78,6 @@ export default function TableComponent({
 
   const   handleSearch  = ()  =>  {
     const selectType = props.selectType
-    console.log('sasaasas',  props.selectType );
     if(getValues('search')) {
       if(selectType === 'COMPANIES') {
         const searchDataTmp =  tableData.filter((item)  => (item.companyName.toLowerCase().includes(getValues('search').toLowerCase()))  ||  (item.pib.toLowerCase().includes(getValues('search').toLowerCase())));

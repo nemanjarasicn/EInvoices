@@ -95,7 +95,7 @@ const style = {
 			  throw err;
 			}
 			const json = JSON.stringify(result, null, 4);
-			console.log('sassasasas',result);
+
 			const additionalDocumentReferenceTmp =  result?.[`${prefixPdf}`]['cac:AdditionalDocumentReference'] ?
 						result?.[`${prefixPdf}`]['cac:AdditionalDocumentReference'].map((item: any, index: number) => (
 							{

@@ -36,7 +36,6 @@ export default function FormTextField({
 
   const  handleParent   =  ()  =>  {
     if(props.additional?.parentFnChange){
-        console.log('sasasasas');
         props.additional?.parentFnChange();
     }
   }

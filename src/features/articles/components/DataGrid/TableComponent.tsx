@@ -63,7 +63,6 @@ export default function TableComponent({
 
   const   handleSearch  = ()  =>  {
     const selectType = props.selectType
-    console.log('sasaasas',  props.selectType );
     if(getValues('searchSubject')) {
       if(selectType === 'ARTICLES') {
         const searchDataTmp =  tableData.filter((item)  => item.productName.toLowerCase().includes(getValues('searchSubject').toLowerCase()));
