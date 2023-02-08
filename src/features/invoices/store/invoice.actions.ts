@@ -117,7 +117,7 @@ const sendInvoce: AsyncThunk<any, { invoice: any, companyInfo?: any, filesList: 
     core.userCompany
   );
   (invoiceDto.invoice as any)["legalMonetaryTotal"] = createMonetaryTotal(
-    invoiceDto.invoice
+    invoiceDto
   );
   (invoiceDto.invoice as any)["taxTotal"] = mapInvoiceLinesCreateTaxTotal(
     invoiceDto.invoice.invoiceLine

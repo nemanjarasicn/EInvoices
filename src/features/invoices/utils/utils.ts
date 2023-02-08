@@ -274,14 +274,24 @@ const createSupplayerData = (userCompany: UserCompany): any => {
  * @returns
  */
 const createMonetaryTotal = (invoice: any): any => {
+  console.log('saasasasasasasssas',  invoice);
+  let   prepaidAmountTotal: number   =  0;
+  if(invoice?.invoice?.invoiceTypeCode === 380  && invoice?.advanceAccountList?.length) {
+    console.log('saasasasasasasssas',  invoice);
+    invoice?.advanceAccountList.map((item: any)  =>  {
+        prepaidAmountTotal =  prepaidAmountTotal + item?.item?.finalSum; 
+    })
+  }
+
+
   return {
     currencyId: "RSD", //only rsd on system
-    lineExtensionAmount: Number(invoice.taxableAmount.toFixed(2)),
-    taxExclusiveAmount: Number(invoice.taxableAmount.toFixed(2)),
-    taxInclusiveAmount: Number(invoice.finalSum.toFixed(2)),
+    lineExtensionAmount: Number(invoice?.invoice?.taxableAmount.toFixed(2)),
+    taxExclusiveAmount: Number(invoice?.invoice?.taxableAmount.toFixed(2)),
+    taxInclusiveAmount: Number(invoice?.invoice?.finalSum.toFixed(2)),
     allowanceTotalAmount: 0, //TODO other types of invoice
-    prepaidAmount: 0, // TODO for prepayment
-    payableAmount: invoice.finalSum.toFixed(2),
+    prepaidAmount: (invoice?.invoice?.invoiceTypeCode === 380  && invoice?.advanceAccountList?.length)  ?  Number(prepaidAmountTotal.toFixed(2)) :  0, // TODO for prepayment
+    payableAmount:  (invoice?.invoice?.invoiceTypeCode === 380  && invoice?.advanceAccountList?.length) ?  (Number(invoice?.invoice?.finalSum.toFixed(2))  -  Number(prepaidAmountTotal.toFixed(2)))    :     invoice?.invoice?.finalSum.toFixed(2),
   };
 };
 
