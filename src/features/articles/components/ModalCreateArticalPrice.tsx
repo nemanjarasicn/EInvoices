@@ -2,11 +2,11 @@ import * as React from 'react';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import Modal from '@mui/material/Modal';
-import { useAppDispatch, useAppSelector } from "../../../app/hooks";
+
+import { useAppDispatch  } from "../../../app/hooks";
+
 import Box from '@mui/material/Box'
 import FormArticlePriceComponent from '../components/FormAriclesPriceComponent';
-import    { setopenModalCreateArticalPrice }  from  "../store/articles.reducer"
-
 
 const style = { 
     position: 'absolute',
@@ -28,8 +28,7 @@ const style = {
 
   export default function  ModalCreateArticalPrice (props: any)  {   
 
-    const dispatch = useAppDispatch();
-
+    
       return (
         <Modal
             open={props.open}

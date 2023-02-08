@@ -145,6 +145,7 @@ export default function InvoiceFormComponent({
 
   const onSubmit = handleSubmit(
     (data: InvoiceFormModel) => {
+      console.log('sdssdsddsdsddd', data)
       dispatch(sendInvoce({ invoice: data, companyInfo: companyInfo, filesList: filesList,  advanceAccountList:  advanceAccountList })).then((res) => {
         if (res.payload.message === "REDIRECT") {
            setShowError(true);  
@@ -180,6 +181,7 @@ export default function InvoiceFormComponent({
 
 
   const addAdvanceAcount  = (value: any[]) =>  {
+    console.log('asasasassa',  value)
    setAdvanceAccountList(value);
   }
 

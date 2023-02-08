@@ -27,7 +27,6 @@ import { setopenModalCreateArticalPrice,  setOpenSucessModal } from "../store/ar
  */
  const schema = yup
  .object({
-
  })
  .required();
 
@@ -44,7 +43,7 @@ export default function FormArticlePriceComponent({
     const dispatch = useAppDispatch();
     const [showError, setShowError] = React.useState(false);
     const [showErrorModal, setShowErrorModal] = React.useState(false);
-
+    
 
     const methods = useForm({
         defaultValues: defaultValues,
@@ -66,7 +65,6 @@ export default function FormArticlePriceComponent({
       }, []);
 
       const onSubmit = async  (dataPrice: PriceFormModel) => {
-          const dataArtikal =  props?.data; //location.state;
           const data = {
             barCode: props?.data.barCode,
             code: props?.data.code,
@@ -78,12 +76,9 @@ export default function FormArticlePriceComponent({
           }
           await dispatch(sendArticlesPrice({data:data , price: dataPrice })).then((res) => {
             if(res.payload === "sucsess") {
-                  //setShowError(true);
-      
                   dispatch(setopenModalCreateArticalPrice({open: false}));
                   dispatch(setOpenSucessModal(true));
                   setTimeout(() => {
-                      //setShowError(false);
                       navigate('/articles/articlesList'
                       )
                       dispatch(setOpenSucessModal(false));
@@ -95,8 +90,6 @@ export default function FormArticlePriceComponent({
               setShowErrorModal(true);  
               setTimeout(() => {
                     setShowErrorModal(false);
-                    /*navigate('/registries/companies'
-                    )*/
               }, 2000);
             }
           });
@@ -106,19 +99,20 @@ export default function FormArticlePriceComponent({
         <Grid item xs={12}  sx={{mt: 2}}>
             <SucessModal    open={showError} ></SucessModal>
             <ErrorModal    open={showErrorModal} ></ErrorModal>
-                <Grid container spacing={2}  sx={{ minHeight: "150px", marginTop: '10px'}}>
-                    <Grid item xs={6}>
-                    <FormCurrencyField
-                        props={{
-                          name: "price",
-                          control: control,
-                          label: "Cena",
-                          additional: { mask: {}, readonly: false },
-                          disabled: false,
-                        }}
-                     />    
-                    </Grid>
+
+            <Grid container spacing={2}  sx={{ minHeight: "150px", marginTop: '10px'}}>
+                <Grid item xs={6}>
+                <FormCurrencyField
+                    props={{
+                      name: "price",
+                      control: control,
+                      label: "Cena",
+                      additional: { mask: {}, readonly: false },
+                      disabled: false,
+                    }}
+                  />    
                 </Grid>
+            </Grid>
             <Grid item xs={5}  >
                 <Grid item xs={12} sx = {{display: 'flex', justifyContent: 'space-between'}} >
                       <CustomButtonFcTra 

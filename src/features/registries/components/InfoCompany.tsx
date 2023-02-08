@@ -7,53 +7,30 @@ import {
     TextField,
     Button
   } from "@mui/material";
-import { RegistriesFormComponentProps }  from "./RegistriesFormComponent"
-import { useTranslation } from "react-i18next";
-import { useComponentsStyles } from "../../shared/components/components.styles";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
-import * as yup from "yup";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { useForm } from "react-hook-form";
-import FormTextField  from  "../../shared/components/form-fields/FormTextField"
-import CustomButtonFc from "../../shared/components/CustomButtonFc";
-import { ObjectFormModel, IProps } from "../models/registries.models";
-import { selectClientCompanies } from "../../shared/components/form-fields/store/form.selectors";
 import { useNavigate } from 'react-router-dom';
-import FormAutocompleteField from "../../shared/components/form-fields/FormAutocompleteField";
-import { selectCompanyCurrent } from "../../../app/core/core.selectors";
-import { sendObjects } from "../store/registries.actions";
-import { selectUser, selectCompanyAdmin }  from  "../../../app/core/core.selectors"
-import  ErrorModal   from   "../../shared/components/ErrorModals"
-import  {  getCompaniesAll }   from   "../../shared/components/form-fields/store/form.actions"
 import { useLocation } from "react-router-dom";
 import {  selectUsers }  from  "../store/registries.selectors"
 import  { selectCompanyInfo }  from   "../store/registries.selectors"
-import  { getLoggedSubject }  from "../../../app/core/core.actions"
 import  {  getCompanyInfo }  from  "../store/registries.actions"
 import  { getUsers }   from  "../store/registries.actions"
 import { getObjectsAll,  getMarketPlacesAll } from "../../shared/components/form-fields/store/form.actions";
-import SucessModal   from "../../shared/components/SucessModal"
 import  {  selectOpenConfirm  }   from  "../store/registries.selectors"
 import   {  setopenModalConfirm   }  from  "../store/registries.reducer"
 import ModalConfirm from "./ModalConfirm";
 import { selectObjectsAll, selectMarketPlaces } from "../../shared/components/form-fields/store/form.selectors";
 import List from '@mui/material/List';
 import Breadcrumbs from '@mui/material/Breadcrumbs';
-import Link from '@mui/material/Link';
-import ListItem from '@mui/material/ListItem';
 //import ClientComponent from "./form-group/ClientComponent";
 
 
-
-
 export default function InfoCompany(): JSX.Element {
-    const navigate  = useNavigate();
     const dispatch = useAppDispatch(); 
     const location = useLocation();
     const id = location.state.company;
     const openModalConfirm  =  useAppSelector(selectOpenConfirm);
 
-    
+
     const users  =  useAppSelector(selectUsers);
     const companyInfo =  useAppSelector(selectCompanyInfo);
     const marketPlace = useAppSelector(selectMarketPlaces);
@@ -78,7 +55,7 @@ export default function InfoCompany(): JSX.Element {
         <Grid item xs={12}>
             <Breadcrumbs aria-label="breadcrumb"   sx={{'& .MuiBreadcrumbs-separator': {color: ' #60737C'}, mt:   marginTopBredcumbs}}>
                 <Typography  sx={{color: 'white', fontSize:  fontSize, fontFamily:  "Roboto",  lineHeight:  "32px",  fontWeight:  700,}}>Informacije o Kompaniji</Typography>
-          </Breadcrumbs>
+            </Breadcrumbs>
             <Paper sx={{backgroundColor: 'white' , mt:   marginTopBox, height: '700px'}}>
                 <Grid container  sx={{display: 'flex', p: 4}}  spacing={2}>
                     <Grid item xs={6}   >

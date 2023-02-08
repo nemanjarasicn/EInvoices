@@ -361,6 +361,10 @@
     "title":  "Distributeri",
     "createNew":  "Kreiraj distributera"
 
+  },
+
+  "Validation":  {
+    "requiredField":  "ovo je obavezno polje"
   }
 
 

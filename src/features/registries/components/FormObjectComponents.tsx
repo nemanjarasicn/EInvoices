@@ -41,7 +41,6 @@ import SucessModal   from "../../shared/components/SucessModal"
 export default function FormObjectComponent({
     props,
   }: IProps<RegistriesFormComponentProps>): JSX.Element {
-    const companyId = useAppSelector(selectCompanyCurrent) as any;
     const location = useLocation();
     const id = location.state.company?.idCompany;
     const defaultValues:  ObjectFormModel = {
@@ -61,7 +60,6 @@ export default function FormObjectComponent({
     const userAuthority =  isAdmin || isDistributor ? true  :   false;
     const [showErrorModal, setShowErrorModal] = React.useState(false);
 
-   
 
     const methods = useForm({
         defaultValues: defaultValues,
@@ -94,12 +92,9 @@ export default function FormObjectComponent({
               setShowErrorModal(true);  
               setTimeout(() => {
                     setShowErrorModal(false);
-                    /*navigate('/registries/companies'
-                    )*/
               }, 2000);
             }
-        } 
-        )
+        })
       }
 
 
@@ -116,102 +111,102 @@ export default function FormObjectComponent({
         <Grid item xs={12}>
             <SucessModal    open={showError} ></SucessModal>
             <ErrorModal    open={showErrorModal} ></ErrorModal>
-                <Grid container spacing={2}>
-                    <Grid item xs={6}>
-                      {false ?
-                        <FormAutocompleteField
-                          props={{
-                              name: "companyId",
-                              control: control,
-                              label: t(props.formFieldsLabels.objects.company),
-                              disabled: true,
-                              additional: {
-                              selector: selectClientCompanies,
-                              
-                              },
-                          }}
-                        /> : 
-                        <FormTextField
-                        props={{
-                            control: control,
-                            name: "companyId",
-                            label: t(props.formFieldsLabels.objects.company),
-                            disabled: true,
-                            additional: { readonly: true, labelShrink: true}
+            <Grid container spacing={2}>
+                <Grid item xs={6}>
+                  {false ?
+                    <FormAutocompleteField
+                      props={{
+                          name: "companyId",
+                          control: control,
+                          label: t(props.formFieldsLabels.objects.company),
+                          disabled: true,
+                          additional: {
+                          selector: selectClientCompanies,
+                          
+                          },
+                      }}
+                    /> : 
+                    <FormTextField
+                    props={{
+                        control: control,
+                        name: "companyId",
+                        label: t(props.formFieldsLabels.objects.company),
+                        disabled: true,
+                        additional: { readonly: true, labelShrink: true}
 
-                        }}
-                    />
-                      }
-                    </Grid>
-                    <Grid item xs={6}>
-                    <FormTextField
-                        props={{
-                            control: control,
-                            name: "objectName",
-                            label: t(props.formFieldsLabels.objects.name),
-                            disabled: false,
-                            additional: { readonly: false, labelShrink: true }
-                        
-                        }}
-                    />
-                    <FormTextField
-                        props={{
-                            control: control,
-                            name: "longitude",
-                            label: t(props.formFieldsLabels.objects.longitude),
-                            disabled: false,
-                            additional: { readonly: false, labelShrink: true },
-                        
-                        }}
-                    />
-                    <FormTextField
-                        props={{
-                            control: control,
-                            name: "latitude",
-                            label: t(
-                                props.formFieldsLabels.objects.latitude
-                            ),
-                            disabled: false,
-                            additional: { readonly: false, labelShrink: true },
-                        }}
-                    />
-                    </Grid>
+                    }}
+                />
+                  }
                 </Grid>
-                <Grid item xs={5}>
-                      <Box
-                        sx={{
-                          ...formComponent.basicBox,
-                          textAlign: "end",
-                        }}
-                      >
-                        <Paper sx={formComponent.paper}>
-                          <CustomButtonFc
-                            groupButton={[
-                              {
-                                title: "DELETE",
-                                disabled: true,
-                                btnFn: () => reset(),
-                              },
-                              {
-                                title: "DOWNLOAD",
-                                disabled: true,
-                                btnFn: () => reset(),
-                              },
-                              {
-                                title: "UPDATE",
-                                disabled: true,
-                                btnFn: () => reset(),
-                              },
-                              {
-                                title: "SACUVAJ",
-                                disabled: false,
-                                btnFn: handleSubmit(onSubmit),
-                              },
-                            ]}
-                          />
-                        </Paper>
-                      </Box>
-              </Grid>
+                <Grid item xs={6}>
+                <FormTextField
+                    props={{
+                        control: control,
+                        name: "objectName",
+                        label: t(props.formFieldsLabels.objects.name),
+                        disabled: false,
+                        additional: { readonly: false, labelShrink: true }
+                    
+                    }}
+                />
+                <FormTextField
+                    props={{
+                        control: control,
+                        name: "longitude",
+                        label: t(props.formFieldsLabels.objects.longitude),
+                        disabled: false,
+                        additional: { readonly: false, labelShrink: true },
+                    
+                    }}
+                />
+                <FormTextField
+                    props={{
+                        control: control,
+                        name: "latitude",
+                        label: t(
+                            props.formFieldsLabels.objects.latitude
+                        ),
+                        disabled: false,
+                        additional: { readonly: false, labelShrink: true },
+                    }}
+                />
+                </Grid>
+            </Grid>
+            <Grid item xs={5}>
+                  <Box
+                    sx={{
+                      ...formComponent.basicBox,
+                      textAlign: "end",
+                    }}
+                  >
+                    <Paper sx={formComponent.paper}>
+                      <CustomButtonFc
+                        groupButton={[
+                          {
+                            title: "DELETE",
+                            disabled: true,
+                            btnFn: () => reset(),
+                          },
+                          {
+                            title: "DOWNLOAD",
+                            disabled: true,
+                            btnFn: () => reset(),
+                          },
+                          {
+                            title: "UPDATE",
+                            disabled: true,
+                            btnFn: () => reset(),
+                          },
+                          {
+                            title: "SACUVAJ",
+                            disabled: false,
+                            btnFn: handleSubmit(onSubmit),
+                          },
+                        ]}
+                      />
+                    </Paper>
+                  </Box>
+            </Grid>
         </Grid>
     )
 }

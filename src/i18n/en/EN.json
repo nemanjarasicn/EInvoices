@@ -359,6 +359,10 @@
     "title":  "Distributor",
     "createNew":  "Create new Distributor"
 
+  }, 
+
+  "Validation":  {
+    "requiredField":  "Required field"
   }
 
 

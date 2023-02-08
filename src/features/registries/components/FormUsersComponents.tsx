@@ -16,12 +16,11 @@ import CustomButtonFc from "../../shared/components/CustomButtonFc";
 import { UsersFormModel, IProps } from "../models/registries.models";
 import { selectCompaniesAll } from "../../shared/components/form-fields/store/form.selectors";
 import { useNavigate } from 'react-router-dom';
-import FormDropdownField from "../../shared/components/form-fields/FormDropdownField";
 import FormAutocompleteField from "../../shared/components/form-fields/FormAutocompleteField";
 import  MultipleSelect  from  "../../shared/components/form-fields/FormDropdownFieldNew"
 import { selectCompanyCurrent } from "../../../app/core/core.selectors";
 import { getCompaniesAll }  from  "../../shared/components/form-fields/store/form.actions"
-import { selectUser, selectCompanyAdmin }  from  "../../../app/core/core.selectors"
+import { selectUser  }  from  "../../../app/core/core.selectors"
 import { sendUsers,   updateUser } from "../store/registries.actions";
 import  ErrorModal   from   "../../shared/components/ErrorModals"
 import  {   getUserRole   }   from  "../../shared/components/form-fields/store/form.actions"
@@ -48,7 +47,6 @@ import SucessModal   from "../../shared/components/SucessModal"
 export default function FormUsersComponent({
     props,
   }: IProps<RegistriesFormComponentProps>): JSX.Element {
-    const companyId = useAppSelector(selectCompanyCurrent) as any;
     const location = useLocation();
     const id = location.state.company;
     const idLocation = location.state.id;
@@ -142,7 +140,6 @@ export default function FormUsersComponent({
 
       React.useEffect(() => {
         if(idLocation !== 0  )  {
-          const userRoleEdit = userRoleTmp.find((item)  => item.name  ===  userData?.roleName[0]);
             setValue('companyId', userData?.companyId);
             setValue('username', userData?.username);
             setValue('userRole', userRoleTmp.find((item)  => item.name  ===  userData?.roleName[0]) as any);
@@ -154,115 +151,113 @@ export default function FormUsersComponent({
         <Grid item xs={12}>
             <SucessModal    open={showError} ></SucessModal>
             <ErrorModal    open={showErrorModal} ></ErrorModal>
-                <Grid container spacing={2}>
-                    <Grid item xs={6}>
-                      {false ?
-                        <MultipleSelect  props={{
-                          selector: selectCompaniesAll,
-                          control: control,
-                          name: 'companyList'
-                        }}/> : 
-                        <FormTextField
-                        props={{
-                            control: control,
-                            name: "companyId",
-                            label: t(props.formFieldsLabels.users.company),
-                            disabled: true,
-                            additional: { readonly: true, labelShrink: true}
-
-                        }}
-                    />
-                      }
-                    </Grid>
-                    <Grid item xs={6}>
+            <Grid container spacing={2}>
+                <Grid item xs={6}>
+                  {false ?
+                    <MultipleSelect  props={{
+                      selector: selectCompaniesAll,
+                      control: control,
+                      name: 'companyList'
+                    }}/> : 
                     <FormTextField
-                        props={{
-                            control: control,
-                            name: "username",
-                            label: t(props.formFieldsLabels.users.username),
-                            disabled: false,
-                            additional: { readonly: false, labelShrink: true }
-                        
-                        }}
-                    />
-                  
-                    <FormAutocompleteField
-                        props={{
-                            name: "userRole",
-                            control: control,
-                            label: 'Korisnicka rola',
-                            disabled: true,
-                            additional: {
-                            selector: selectUserRole,
-                            //data: dataObject
-                            disable: true
-                            
-                            },
-                        }}
-                        />
+                    props={{
+                        control: control,
+                        name: "companyId",
+                        label: t(props.formFieldsLabels.users.company),
+                        disabled: true,
+                        additional: { readonly: true, labelShrink: true}
 
-                 
-
+                    }}
+                />
+                  }
+                </Grid>
+                <Grid item xs={6}>
+                <FormTextField
+                    props={{
+                        control: control,
+                        name: "username",
+                        label: t(props.formFieldsLabels.users.username),
+                        disabled: false,
+                        additional: { readonly: false, labelShrink: true }
+                    
+                    }}
+                />
+              
+                <FormAutocompleteField
+                    props={{
+                        name: "userRole",
+                        control: control,
+                        label: 'Korisnicka rola',
+                        disabled: true,
+                        additional: {
+                        selector: selectUserRole,
+                        //data: dataObject
+                        disable: true
                         
-                    <FormTextField
-                        props={{
-                            control: control,
-                            name: "password",
-                            label: t(props.formFieldsLabels.users.password),
-                            disabled: false,
-                            additional: { readonly: false, labelShrink: true },
-                        
-                        }}
-                    />
-
-                    <FormTextField
-                        props={{
-                            control: control,
-                            name: "confirmpassword",
-                            label: t(props.formFieldsLabels.users.confirmPassword),
-                            disabled: false,
-                            additional: { readonly: false, labelShrink: true },
-                        
-                        }}
+                        },
+                    }}
                     />
                     
-                    </Grid>
+                       
+                <FormTextField
+                    props={{
+                        control: control,
+                        name: "password",
+                        label: t(props.formFieldsLabels.users.password),
+                        disabled: false,
+                        additional: { readonly: false, labelShrink: true },
+                    
+                    }}
+                />
+
+                <FormTextField
+                    props={{
+                        control: control,
+                        name: "confirmpassword",
+                        label: t(props.formFieldsLabels.users.confirmPassword),
+                        disabled: false,
+                        additional: { readonly: false, labelShrink: true },
+                    
+                    }}
+                />
+                
                 </Grid>
-                <Grid item xs={5}>
-                      <Box
-                        sx={{
-                          ...formComponent.basicBox,
-                          textAlign: "end",
-                        }}
-                      >
-                        <Paper sx={formComponent.paper}>
-                          <CustomButtonFc
-                            groupButton={[
-                              {
-                                title: "DELETE",
-                                disabled: true,
-                                btnFn: () => reset(),
-                              },
-                              {
-                                title: "DOWNLOAD",
-                                disabled: true,
-                                btnFn: () => reset(),
-                              },
-                              {
-                                title: "UPDATE",
-                                disabled: true,
-                                btnFn: () => reset(),
-                              },
-                              {
-                                title: "SACUVAJ",
-                                disabled: false,
-                                btnFn: handleSubmit(onSubmit),
-                              },
-                            ]}
-                          />
-                        </Paper>
-                      </Box>
-              </Grid>
+            </Grid>
+            <Grid item xs={5}>
+                  <Box
+                    sx={{
+                      ...formComponent.basicBox,
+                      textAlign: "end",
+                    }}
+                  >
+                    <Paper sx={formComponent.paper}>
+                      <CustomButtonFc
+                        groupButton={[
+                          {
+                            title: "DELETE",
+                            disabled: true,
+                            btnFn: () => reset(),
+                          },
+                          {
+                            title: "DOWNLOAD",
+                            disabled: true,
+                            btnFn: () => reset(),
+                          },
+                          {
+                            title: "UPDATE",
+                            disabled: true,
+                            btnFn: () => reset(),
+                          },
+                          {
+                            title: "SACUVAJ",
+                            disabled: false,
+                            btnFn: handleSubmit(onSubmit),
+                          },
+                        ]}
+                      />
+                    </Paper>
+                  </Box>
+            </Grid>
         </Grid>
     )
 }

@@ -10,6 +10,8 @@ import { IProps } from "../models/articles.models";
 import * as yup from "yup";
 import { useTranslation } from "react-i18next";
 import { useComponentsStyles } from "../../shared/components/components.styles";
+import RestoreRoundedIcon from "@mui/icons-material/RestoreRounded";
+import TextsmsOutlinedIcon from "@mui/icons-material/TextsmsOutlined";
 import  FormArticleComponent   from  "../components/FormArticlesComponents"
 
 
@@ -23,6 +25,14 @@ export type ArticlesFormComponentProps = {
   data?: any;
   flag?: string;
 };
+
+/**
+ * Register Form validation schema for every field
+ */
+const schema = yup
+  .object({
+  })
+  .required();
 
 export default function ArticlesFormComponent({
   props,
@@ -40,9 +50,7 @@ export default function ArticlesFormComponent({
   }
 
   return (
-    <Box
-      sx={{ flexGrow: 1, rowGap: 1, display: "flex", flexDirection: "column", mt: 18 }}
-    >
+    <Box  sx={{ flexGrow: 1, rowGap: 1, display: "flex", flexDirection: "column", mt: 18 }}>
       <Grid container spacing={2}>
         <Grid item xs={12}>
           <Box

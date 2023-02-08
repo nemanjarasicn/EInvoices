@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React from "react";
-import { DataGrid, GridColDef, GridSelectionModel } from "@mui/x-data-grid";
+import { DataGrid, GridColDef  } from "@mui/x-data-grid";
 import { useAppDispatch, useAppSelector } from "../../../../app/hooks";
 import { IProps, TableData } from "../../models/articles.models";
 
@@ -9,9 +9,8 @@ import TableToolbar, { TableToolbarProps } from "../../../shared/components/Data
 import TableNoRowsOverlay from "../../../shared/components/DataGrid/NoRowsOverlay";
 import { useTranslation } from "react-i18next";
 import TablePagination from "../../../shared/components/DataGrid/TablePagination";
-import { selectCompany } from "../../../../app/core/core.selectors";
 import { AsyncThunkAction } from "@reduxjs/toolkit";
-import { Button, Grid } from "@mui/material";
+import {  Grid } from "@mui/material";
 import SearchField from "../../../shared/components/form-fields/SearchField";
 import { useForm } from "react-hook-form";
 import  { searchSubjectModel }  from "../../models/articles.models"
@@ -78,21 +77,20 @@ export default function TableComponent({
   }
 
  // const selection: GridSelectionModel = useAppSelector(selectSelection);
-
-
  const fontSize  =    window.devicePixelRatio === 1.5 ?    '12px' :  '16px';
+
 
   return (
     <div style={tableComponentStyles.wrapper}>
       <Grid item xs={12}   sx={{display:  'flex', justifyContent: 'center'}} >
         <Grid item xs={6} sx={{justifyContent:  'center'}}>
            <SearchField    props={{
-                                    name: "searchSubject",
-                                    control: control,
-                                    label: "Pretraga",
-                                    additional: { readonly: false,  parentFn:  handleSearch },
-                                    disabled: false,
-                                  }} />
+                name: "searchSubject",
+                control: control,
+                label: "Pretraga",
+                additional: { readonly: false,  parentFn:  handleSearch },
+                disabled: false,
+              }} />
         </Grid>
       </Grid>
       <DataGrid

@@ -16,14 +16,7 @@ import { useNavigate } from 'react-router-dom';
 import FormAutocompleteField from "../../shared/components/form-fields/FormAutocompleteField";
 import  ErrorModal   from   "../../shared/components/ErrorModals"
 import SucessModal   from "../../shared/components/SucessModal"
-import  { 
-    getObjectsAll,  
-    getUnitsAll, 
-    getVatAll, 
-    getMarketPlacesAll,  
-    getTaxCode,    
-    getTaxBase 
-  }  from  "../../shared/components/form-fields/store/form.actions"
+import  { getObjectsAll,  getMarketPlacesAll,  getTaxBase }  from  "../../shared/components/form-fields/store/form.actions"
 import { selectCompanyCurrent } from "../../../app/core/core.selectors";
 import  {  
     selectUnitsAll,  
@@ -59,11 +52,6 @@ export default function FormArticleComponent({
       
 })
  .required();
-    /*const marketPlacesAll = useAppSelector(selectMarketPlaces).map((item) => ({
-      uuid:  item.item.uuid,
-      id:  item.item.id,
-      marketPlaceName:   item.item.marketPlaceName
-    }));*/
 
     const  defaultValues:  ArticleFormModel = {
       productName:  "",
@@ -104,7 +92,6 @@ export default function FormArticleComponent({
                   taxCategory: ""
                 }
     };
-    const { formComponent } = useComponentsStyles();
     const navigate  = useNavigate();
     const dispatch = useAppDispatch();
     const [showError, setShowError] = React.useState(false);
@@ -161,18 +148,13 @@ export default function FormArticleComponent({
         setValue("taxcodeValue",  String(taxCode1.value1));
       }, [watch('productTaxCategory')]);
 
-      React.useEffect(() => {
-
-      }, [watch('taxBase')]);
 
       const onSubmit = async  (data: ArticleFormModel) => {
          await dispatch(sendArticle({data})).then(async (res) => {
             if(res.payload.message === "sucsess") {
               dispatch(setopenModalCreateArtical({open: false}));
               dispatch(setOpenSucessModal(true));
-              //setShowError(true);
               setTimeout(() => {
-                  //setShowError(false);
                   dispatch(setOpenSucessModal(false));
                   dispatch(setopenModalCreateArticalPrice({open: true, data: res.payload.data[0].createProduct, flag: "" }));
       
@@ -181,8 +163,6 @@ export default function FormArticleComponent({
               setShowErrorModal(true);  
               setTimeout(() => {
                     setShowErrorModal(false);
-                    /*navigate('/registries/companies'
-                    )*/
               }, 2000);
             }
         } 
@@ -193,270 +173,127 @@ export default function FormArticleComponent({
         <Grid item xs={12}  sx  = {{mt: marginTopBox}}>
             <SucessModal    open={showError} ></SucessModal>
             <ErrorModal    open={showErrorModal} ></ErrorModal>
-            {/*<Box
-              sx={{
-                ...formComponent.basicBox,
-                textAlign: "start",
-              }}
-            >
-                <Typography sx={formComponent.typography}>
-                    {('Osnovni podaci').toUpperCase()}
-            </Typography>*/}
-                
-                <Grid container spacing={2}  sx={{ minHeight: "300px", marginTop: '10px'}}>
-                    <Grid item xs={6}>
-  
-                      <FormTextField
-                        props={{
-                            control: control,
-                            name: "productName",
-                            label:   "Naziv artikla",
-                            disabled: false,
-                            additional: { readonly: false, labelShrink: true }
-                        
-                        }}
-                    />
-
-                      <FormTextField
-                        props={{
-                            control: control,
-                            name: "code",
-                            label:  "Šifra",
-                            disabled: false,
-                            additional: { readonly: false, labelShrink: true }
-                        
-                        }}
-                    />
-                    <FormAutocompleteField
-                        props={{
-                            name: "productTaxCategory",
-                            control: control,
-                            label:  "PDV kategorija",
-                            disabled: false,
-                            additional: {
-                            selector:  selectTaxCode,
-                            
-                            },
-                        }}
-                        />
-                      
-                      <div style={{display: showTaxBase}} > 
-                      <FormAutocompleteField
-                        props={{
-                            name: "taxBase",
-                            control: control,
-                            label:  "Osnov oslobodjenja pdv",
-                            disabled: false,
-                            additional: {
-                            selector:  selectTaxBase,
-                            
-                            },
-                        }}
-                        />
-                      </div>
-                     {/*not need only for e facture */}
-                     {/* <Grid container sx={{display:   'flex' }} >
-
-                          <Grid item xs={6} sx={{display: 'flex' , flexDirection:  'column'}} >
-
-                            <CheckboxField 
-                                  props={{
-                                      control: control,
-                                      name: "sale",
-                                      label: 'Sale',
-                                      disabled: false,
-                                      additional: { readonly: false, labelShrink: true },
-                                  
-                                  }}
-                            />
-                            <CheckboxField 
-                                  props={{
-                                      control: control,
-                                      name: "stock",
-                                      label: 'Magacin',
-                                      disabled: false,
-                                      additional: { readonly: false, labelShrink: true },
-                                  
-                                  }}
-                            />
-                            <CheckboxField 
-                                  props={{
-                                      control: control,
-                                      name: "recipe",
-                                      label: 'Recipe',
-                                      disabled: false,
-                                      additional: { readonly: false, labelShrink: true },
-                                  
-                                  }}
-                            />
-                            <CheckboxField 
-                                  props={{
-                                      control: control,
-                                      name: "consumables",
-                                      label: 'consumables',
-                                      disabled: false,
-                                      additional: { readonly: false, labelShrink: true },
-                                  
-                                  }}
-                            />
-                            <CheckboxField 
-                                  props={{
-                                      control: control,
-                                      name: "production",
-                                      label: 'Production',
-                                      disabled: false,
-                                      additional: { readonly: false, labelShrink: true },
-                                  
-                                  }}
-                            />
-                          </Grid>
-                          <Grid item xs={6}>
-                            <CheckboxField 
-                                  props={{
-                                      control: control,
-                                      name: "modificationRequired",
-                                      label: 'Modification Required',
-                                      disabled: false,
-                                      additional: { readonly: false, labelShrink: true },
-                                  
-                                  }}
-                            />
-
-                            <CheckboxField 
-                                  props={{
-                                      control: control,
-                                      name: "priceChangeForbidden",
-                                      label: 'Price Change Forbidden',
-                                      disabled: false,
-                                      additional: { readonly: false, labelShrink: true },
-                                  
-                                  }}
-                            />
-                            <CheckboxField 
-                                  props={{
-                                      control: control,
-                                      name: "decimalShow",
-                                      label: 'Decimal show',
-                                      disabled: false,
-                                      additional: { readonly: false, labelShrink: true },
-                                  
-                                  }}
-                            />
-                          </Grid>
-                        </Grid>*/}
-                      </Grid>
+            <Grid container spacing={2}  sx={{ minHeight: "300px", marginTop: '10px'}}>
+                <Grid item xs={6}>
+                  <FormTextField
+                    props={{
+                        control: control,
+                        name: "productName",
+                        label:   "Naziv artikla",
+                        disabled: false,
+                        additional: { readonly: false, labelShrink: true }
                     
-                    <Grid item xs={6}>
-                    <FormTextField
-                        props={{
-                            control: control,
-                            name: "barCode",
-                            label:  "barkod",
-                            disabled: false,
-                            additional: { readonly: false, labelShrink: true }
+                    }}
+                  />
+                  <FormTextField
+                    props={{
+                        control: control,
+                        name: "code",
+                        label:  "Šifra",
+                        disabled: false,
+                        additional: { readonly: false, labelShrink: true }
+                    
+                    }}
+                  />
+                <FormAutocompleteField
+                    props={{
+                        name: "productTaxCategory",
+                        control: control,
+                        label:  "PDV kategorija",
+                        disabled: false,
+                        additional: {
+                        selector:  selectTaxCode,
                         
-                        }}
+                        },
+                    }}
                     />
-                    {/*not need only for e facture */}
-                    {/*<FormAutocompleteField
-                        props={{
-                            name: "idObject",
-                            control: control,
-                            label:  "Objekat",
-                            disabled: false,
-                            additional: {
-                            selector: selectObjectsAll,
-                            
-                            },
-                        }}
-                      />*/}
+                  
+                  <div style={{display: showTaxBase}} > 
                     <FormAutocompleteField
-                        props={{
-                            name: "productUnitRequest",
-                            control: control,
-                            label:  "Jedinica mere",
-                            disabled: false,
-                            additional: {
-                            selector:  selectUnitsAll,
-                            
-                            },
-                        }}
-                        />
-                    <FormAutocompleteField
-                        props={{
-                            name: "productVatRequest",
-                            control: control,
-                            label:  "Vat",
-                            disabled: false,
-                            additional: {
-                            selector:  selectVatsAll,
-                            
-                            },
-                        }}
+                      props={{
+                          name: "taxBase",
+                          control: control,
+                          label:  "Osnov oslobodjenja pdv",
+                          disabled: false,
+                          additional: {
+                          selector:  selectTaxBase,
+                          
+                          },
+                      }}
                       />
+                  </div>
+                
+                  </Grid>
+                
+                  <Grid item xs={6}>
+                  <FormTextField
+                      props={{
+                          control: control,
+                          name: "barCode",
+                          label:  "barkod",
+                          disabled: false,
+                          additional: { readonly: false, labelShrink: true }
+                      
+                      }}
+                  />
+                <FormAutocompleteField
+                    props={{
+                        name: "productUnitRequest",
+                        control: control,
+                        label:  "Jedinica mere",
+                        disabled: false,
+                        additional: {
+                        selector:  selectUnitsAll,
+                        
+                        },
+                    }}
+                    />
+                <FormAutocompleteField
+                    props={{
+                        name: "productVatRequest",
+                        control: control,
+                        label:  "Vat",
+                        disabled: false,
+                        additional: {
+                        selector:  selectVatsAll,
+                        
+                        },
+                    }}
+                  />
 
-                      <div style = {{visibility: "hidden"}} >
-                        <FormTextField
-                            props={{
-                                control: control,
-                                name: "taxcodeValue",
-                                label:   "Vrednost PDV kategorije",
-                                disabled: false,
-                                additional: { readonly: true, labelShrink: true }
-                            
-                            }}
-                        />
-                        </div>
-
-                    {/*<div   style={{display:  showTaxBase  }}   >
+                  <div style = {{visibility: "hidden"}} >
                     <FormTextField
                         props={{
                             control: control,
-                            name: "taxBaseValue",
-                            label:   "TaxBase value",
+                            name: "taxcodeValue",
+                            label:   "Vrednost PDV kategorije",
                             disabled: false,
                             additional: { readonly: true, labelShrink: true }
                         
                         }}
-                    />                      
-                      </div>*/}
-
-                    {/*<FormAutocompleteField
-                        props={{
-                            name: "productVatRequest",
-                            control: control,
-                            label:  "Vat",
-                            disabled: false,
-                            additional: {
-                            selector:  selectVatsAll,
-                            
-                            },
-                        }}
-                      />*/}
-                    </Grid>
+                    />
+                    </div>
                 </Grid>
-
-           {/* </Box> */}
-           
+            </Grid>
+        
             <Grid item xs={5}  sx ={{mt: 3}}>
+                <Grid item xs={12} sx = {{display: 'flex', justifyContent: 'space-between'}} >
+                        <CustomButtonFcTra 
+                            soloButton={{
+                                title: "Otkaži",
+                                disabled: false,
+                                btnFn: () => dispatch(setopenModalCreateArtical({open:  false})),
+                            }}
+                          />
 
-              <Grid item xs={12} sx = {{display: 'flex', justifyContent: 'space-between'}} >
-                      <CustomButtonFcTra 
-                           soloButton={{
-                              title: "Otkaži",
-                              disabled: false,
-                              btnFn: () => dispatch(setopenModalCreateArtical({open:  false})),
-                          }}
-                        />
-
-                        <CustomButtonFc 
-                           soloButton={{
-                              title: "SAČUVAJ",
-                              disabled: false,
-                              btnFn: handleSubmit(onSubmit),
-                          }}
-                        />
-                  </Grid>
+                          <CustomButtonFc 
+                            soloButton={{
+                                title: "SAČUVAJ",
+                                disabled: false,
+                                btnFn: handleSubmit(onSubmit),
+                            }}
+                          />
+                    </Grid>
             </Grid>
         </Grid>
     )

@@ -1,9 +1,10 @@
 import * as React from 'react';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
-import Button from '@mui/material/Button';
 import Modal from '@mui/material/Modal';
-import { useAppDispatch, useAppSelector } from "../../../app/hooks";
+import { useAppDispatch  } from "../../../app/hooks";
+
+
 import Box from '@mui/material/Box'
 import FormSubjectComponent from './FormSubjectComponent';
 
@@ -27,7 +28,6 @@ const style = {
 
   export default function  ModalCreateArtical (props: any)  {   
 
-    const dispatch = useAppDispatch();
     
       return (
         <Modal

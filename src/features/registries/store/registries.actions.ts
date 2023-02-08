@@ -311,8 +311,8 @@ const getSync: AsyncThunk<any, {apiKey: string}, {}> = createAsyncThunk<any, {ap
   "GET/getSync",
   async (params) => {
     return     await RegistriesPublicService.getSync(params.apiKey)
-    .then((res: any) => res.data)
-    .catch((err: any) => []);
+    .then((res: any) => 'sucsses')
+    .catch((err: any) => 'error');
 }
 );
 

@@ -1,7 +1,5 @@
 import React from "react";
 import {
-    Paper,
-    Typography,
     Button,
     Grid,
   } from "@mui/material";
@@ -20,19 +18,15 @@ import  ErrorModal   from   "../../shared/components/ErrorModals"
 import SucessModal   from "../../shared/components/SucessModal"
 import { selectCompanyCurrent } from "../../../app/core/core.selectors";
 import FormAutocompleteField from "../../shared/components/form-fields/FormAutocompleteField";
-import {  setopenModalCreateSubject, setOpenSucessModal   }  from  "../store/articles.reducer"
+import {  setopenModalCreateSubject }  from  "../store/articles.reducer"
 import {useLocation} from 'react-router-dom';
 import FormTextField  from  "../../shared/components/form-fields/FormTextField"
 import {  sendSubject, updateSubject, getSubjectDetails } from "../store/articles.actions";
-import {   setError, setOpenModalSucessLoad  }  from  "../../../app/core/core.reducer"
+import {  setOpenModalSucessLoad  }  from  "../../../app/core/core.reducer"
 import   { selectSubjectGategory,  selectSubjectType }  from  "../../shared/components/form-fields/store/form.selectors"
-import FormCurrencyField from "../../shared/components/form-fields/FormCurrencyField";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBooks }    from '@fortawesome/pro-solid-svg-icons';
 import { faArrowsRotate }    from '@fortawesome/pro-solid-svg-icons';
 import  {  getSubjectCategory,  getSubjectType }  from  "../../shared/components/form-fields/store/form.actions"
-
-
 
 
 export default function FormSubjectComponent({
@@ -40,6 +34,7 @@ export default function FormSubjectComponent({
   }: IProps<ArticlesFormComponentProps>): JSX.Element {
 
     const companyId = useAppSelector(selectCompanyCurrent);
+    const { t } = useTranslation();
     const [disableJbkjs,  setDisableJbkjs]  =   React.useState(true);
     const  subjectCategoryTmp  =  useAppSelector(selectSubjectGategory);
     const  subjectType  =  useAppSelector(selectSubjectType)
@@ -61,44 +56,41 @@ export default function FormSubjectComponent({
         subjectIdType:  "",
         payeeFinancialAccountDto: "",
         searchSubject:  ""
-
     };
 
-        /**
+  /**
  * Register Form validation schema for every field
  */
  const schema = 
  (disableJbkjs) ?
     yup.object({
-      companyName: yup.string().required('ovo je obavezno polje'),
-      address:   yup.string().required('ovo je obavezno polje'),
-      city:  yup.string().required('ovo je obavezno polje'),
-      zip: yup.string().required('ovo je obavezno polje'),
-      mb: yup.string().trim().required('ovo je obavezno polje'),
-      pib: yup.string().trim().required('ovo je obavezno polje'),
-      payeeFinancialAccountDto: yup.string().required('ovo je obavezno polje'),
+      companyName: yup.string().required(t('Validation.requiredField')),
+      address:   yup.string().required(t('Validation.requiredField')),
+      city:  yup.string().required(t('Validation.requiredField')),
+      zip: yup.string().required(t('Validation.requiredField')),
+      mb: yup.string().trim().required(t('Validation.requiredField')),
+      pib: yup.string().trim().required(t('Validation.requiredField')),
+      payeeFinancialAccountDto: yup.string().required(t('Validation.requiredField')),
       email: yup.string().email('email mora biti ispravnog formata').required("ovo je obavezno polje"),
-      subjectIdCategory: yup.object().required('ovo je obavezno polje'),
-      subjectIdType: yup.object().required('ovo je obavezno polje'),
-      //jbkjs: yup.string().required('ovo je obavezno polje')
+      subjectIdCategory: yup.object().required(t('Validation.requiredField')),
+      subjectIdType: yup.object().required(t('Validation.requiredField')),
+      //jbkjs: yup.string().required(t('Validation.requiredField'))
     })  :
   
     yup.object({
-      companyName: yup.string().required('ovo je obavezno polje'),
-      address:   yup.string().required('ovo je obavezno polje'),
-      city:  yup.string().required('ovo je obavezno polje'),
-      zip: yup.string().required('ovo je obavezno polje'),
-      mb: yup.string().trim().required('ovo je obavezno polje'),
-      pib: yup.string().trim().required('ovo je obavezno polje'),
-      payeeFinancialAccountDto: yup.string().required('ovo je obavezno polje'),
+      companyName: yup.string().required(t('Validation.requiredField')),
+      address:   yup.string().required(t('Validation.requiredField')),
+      city:  yup.string().required(t('Validation.requiredField')),
+      zip: yup.string().required(t('Validation.requiredField')),
+      mb: yup.string().trim().required(t('Validation.requiredField')),
+      pib: yup.string().trim().required(t('Validation.requiredField')),
+      payeeFinancialAccountDto: yup.string().required(t('Validation.requiredField')),
       email: yup.string().email('email mora biti ispravnog formata').required("ovo je obavezno polje"),
-      subjectIdCategory: yup.object().required('ovo je obavezno polje'),
-      subjectIdType: yup.object().required('ovo je obavezno polje'),
-      jbkjs: yup.string().trim().required('ovo je obavezno polje')
+      subjectIdCategory: yup.object().required(t('Validation.requiredField')),
+      subjectIdType: yup.object().required(t('Validation.requiredField')),
+      jbkjs: yup.string().trim().required(t('Validation.requiredField'))
     })
  .required();
-    const { t } = useTranslation();
-    const { formComponent } = useComponentsStyles();
     const navigate  = useNavigate();
     const dispatch = useAppDispatch();
     const [showError, setShowError] = React.useState(false);
@@ -107,9 +99,6 @@ export default function FormSubjectComponent({
     const marginTopBox =  window.devicePixelRatio == 1.5 ? 2 : 5;
     const heightButton  =   window.devicePixelRatio == 1.5 ? '60%' :  '63%';
     const buttonGrid  =   window.devicePixelRatio == 1.5 ? 7 :  8;
-    
-    const location = useLocation();
-  
 
 
     const methods = useForm({
@@ -152,15 +141,12 @@ export default function FormSubjectComponent({
       }, []);
 
       const onSubmit = async  (data: SubjectFormModel) => {
-    
           if(props.flag  !==  'edit')  {
               await dispatch(sendSubject({data})).then((res) => {
                 if(res.payload === "sucsess") {
-                      //setShowError(true);
                       dispatch(setopenModalCreateSubject({open:  false}));
                       dispatch(setOpenModalSucessLoad(true));
                       setTimeout(() => {
-                          //setShowError(false);
                           dispatch(setOpenModalSucessLoad(false));
                           navigate('/articles/subject'
                           )
@@ -170,19 +156,15 @@ export default function FormSubjectComponent({
                   setShowErrorModal(true);  
                   setTimeout(() => {
                         setShowErrorModal(false);
-                        /*navigate('/registries/companies'
-                        )*/
                   }, 2000);
                 }
               });
             } else {
               await dispatch(updateSubject({idSubject: props.data.id, data: data,  idpayeeFinancialAccountDto:  props.data.payeeFinancialAccountDto[0]?.id })).then((res) => {
                 if(res.payload === "sucsess") {
-                      //setShowError(true);
                       dispatch(setopenModalCreateSubject({open:  false}));
                       dispatch(setOpenModalSucessLoad(true));
                       setTimeout(() => {
-                          //setShowError(false);
                           dispatch(setOpenModalSucessLoad(false));
                           navigate('/articles/subject'
                           )
@@ -192,8 +174,6 @@ export default function FormSubjectComponent({
                   setShowErrorModal(true);  
                   setTimeout(() => {
                         setShowErrorModal(false);
-                        /*navigate('/registries/companies'
-                        )*/
                   }, 2000);
                 }
               });
@@ -203,7 +183,6 @@ export default function FormSubjectComponent({
       React.useEffect(() => {
         if(getValues('subjectIdCategory'))  {
             const subjectCategory = getValues('subjectIdCategory');
-      
             if(subjectCategory.name === "Javna preduzeća") {
               setDisableJbkjs(false);
             } else {
@@ -227,8 +206,7 @@ export default function FormSubjectComponent({
           } else {
             setErrorMessageSearch('Ne postoji kompanija za izabrani PIB');
           }
-        });
-          
+        });    
       }
       
   
@@ -236,101 +214,73 @@ export default function FormSubjectComponent({
         <Grid item xs={12}>
             <SucessModal    open={showError} ></SucessModal>
             <ErrorModal    open={showErrorModal} ></ErrorModal>
-                <Grid container spacing={2} sx = {{ minHeight: "300px", marginTop: '10px'}}>
-                    {/*<Grid xs={12}  sx={{ml: 2, mt: 2}}>
-                    <FormTextField
-                        props={{
-                          name: "searchSubject",
-                          control: control,
-                          label: "pretraga po pibu",
-                          additional: { mask: {}, readonly: false , parentFn: handleFindSubject},
-                          disabled: false,
-                        }}
-                     /> 
-                     <span style={{fontSize: '12px', color: 'red'}}>{errorMessageSearch}</span>
-                      </Grid>*/}
-                    <Grid item xs={4}>
-                    {/*<FormTextField
-                        props={{
-                          name: "firstName",
-                          control: control,
-                          label: "Ime komitenta",
-                          additional: { mask: {}, readonly: false },
-                          disabled: false,
-                        }}
-                    />*/}
-                     <FormTextField
-                        props={{
-                          name: "companyName",
-                          control: control,
-                          label: "Naziv komitenta",
-                          additional: { mask: {}, readonly: false },
-                          disabled: false,
-                        }}
-                     />      
-                    </Grid>
-                    <Grid item xs={4}>
-                    {/*<FormTextField
-                        props={{
-                          name: "lastName",
-                          control: control,
-                          label: "Prezime komitenta",
-                          additional: { mask: {}, readonly: false },
-                          disabled: false,
-                        }}
-                    /> */}
-                      <FormTextField
-                        props={{
-                          name: "companyId",
-                          control: control,
-                          label: "Id kompanije",
-                          additional: { mask: {}, readonly: true },
-                          disabled: true,
-                        }}
-                     /> 
+            <Grid container spacing={2} sx = {{ minHeight: "300px", marginTop: '10px'}}>
+                <Grid item xs={4}>
+                  <FormTextField
+                      props={{
+                        name: "companyName",
+                        control: control,
+                        label: "Naziv komitenta",
+                        additional: { mask: {}, readonly: false },
+                        disabled: false,
+                      }}
+                  />      
+                </Grid>
+                <Grid item xs={4}>
+                  <FormTextField
+                    props={{
+                      name: "companyId",
+                      control: control,
+                      label: "Id kompanije",
+                      additional: { mask: {}, readonly: true },
+                      disabled: true,
+                    }}
+                  /> 
+                  <FormTextField
+                    props={{
+                      name: "mb",
+                      control: control,
+                      label: "Matični broj",
+                      additional: { mask: {}, readonly: false },
+                      disabled: false,
+                    }}
+                  />  
+                  <FormTextField
+                    props={{
+                      name: "city",
+                      control: control,
+                      label: "Grad",
+                      additional: { mask: {}, readonly: false },
+                      disabled: false,
+                    }}
+                  />  
+                  
 
-                     <FormTextField
-                        props={{
-                          name: "mb",
-                          control: control,
-                          label: "Matični broj",
-                          additional: { mask: {}, readonly: false },
-                          disabled: false,
-                        }}
-                     />  
-                     <FormTextField
-                        props={{
-                          name: "city",
-                          control: control,
-                          label: "Grad",
-                          additional: { mask: {}, readonly: false },
-                          disabled: false,
-                        }}
-                     />  
-                     <FormTextField
-                        props={{
-                          name: "phone",
-                          control: control,
-                          label: "Telefon",
-                          additional: { mask: {}, readonly: false },
-                          disabled: false,
-                        }}
-                     />
-                     <FormAutocompleteField
-                        props={{
-                            name: "subjectIdCategory",
-                            control: control,
-                            label: 'Kategorija komitenta',
-                            disabled: true,
-                            additional: {
-                            selector: selectSubjectGategory,
-                            //data: dataObject
-                            
-                            },
-                        }}
-                        /> 
 
-                      <div  style  =   {{visibility: disableJbkjs ? 'hidden'  :  'visible'}}  >
+                  <FormTextField
+                    props={{
+                      name: "phone",
+                      control: control,
+                      label: "Telefon",
+                      additional: { mask: {}, readonly: false },
+                      disabled: false,
+                    }}
+                  />
+                  <FormAutocompleteField
+                    props={{
+                        name: "subjectIdCategory",
+                        control: control,
+                        label: 'Kategorija komitenta',
+                        disabled: true,
+                        additional: {
+                        selector: selectSubjectGategory,
+                        //data: dataObject
+                        
+                        },
+                    }}
+                    /> 
+
+                  <div  style  =   {{visibility: disableJbkjs ? 'hidden'  :  'visible'}}  >
                       <FormTextField
                         props={{
                           name: "jbkjs",
@@ -339,140 +289,122 @@ export default function FormSubjectComponent({
                           additional: { mask: {}, readonly: disableJbkjs },
                           disabled: disableJbkjs,
                         }}
-                     /> 
-                     </div> 
-                    </Grid>
-                    <Grid item xs={4}>
-                      <Grid sx={{display:  'flex'}} >
-                          <Grid xs={buttonGrid} >
-                              <FormTextField
-                                  props={{
-                                    name: "pib",
-                                    control: control,
-                                    label: "PIB",
-                                    additional: { mask: {}, readonly: false,  borderButton: true },
-                                    disabled: false,
-                                  }}
-                              /> 
-                          </Grid>
-                          <Grid xs={2}>
-                                <Button    variant="outlined"
-                                          
-                                           sx={{color: '#09C8C8', 
-                                                borderColor:  '#09C8C8',
-                                                height: heightButton,
-                                                borderRadius: 0,
-                                                borderBottomRightRadius: '5px', borderTopRightRadius: '5px'
-                                              }}
-                                           onClick = {()  => handleFindSubject()}
-                                           startIcon={<FontAwesomeIcon icon={faArrowsRotate}   />}>
-                                          NBS
-                                </Button> 
-                          </Grid>
-                      </Grid>
-                      
-        
-                        <FormTextField
-                            props={{
-                              name: "address",
-                              control: control,
-                              label: "Adresa",
-                              additional: { mask: {}, readonly: false },
-                              disabled: false,
-                            }}
-                        />  
-
-                        <FormTextField
-                            props={{
-                              name: "zip",
-                              control: control,
-                              label: "Poštanski broj",
-                              additional: { mask: {}, readonly: false },
-                              disabled: false,
-                            }}
-                        /> 
-                        <FormTextField
-                            props={{
-                              name: "email",
-                              control: control,
-                              label: "Email",
-                              additional: { mask: {}, readonly: false },
-                              disabled: false,
-                            }}
-                        /> 
-                      
-                        <FormAutocompleteField
-                          props={{
-                              name: "subjectIdType",
-                              control: control,
-                              label: 'Tip komitenta',
-                              disabled: true,
-                              additional: {
-                              selector: selectSubjectType,
-                              //data: dataObject
-                              
-                              },
-                          }}
-                          /> 
-                        <FormTextField
-                          props={{
-                            name: "payeeFinancialAccountDto",
-                            control: control,
-                            label: "Žiro račun",
-                            additional: { mask: {}, readonly: false },
-                            disabled: false,
-                          }}
-                        /> 
-                      <div   style = {{visibility:  'hidden'}}  >
-                      <FormTextField
-                          props={{
-                            name: "identificationNumber",
-                            control: control,
-                            label: "Indetifikacioni broj",
-                            additional: { mask: {}, readonly: false },
-                            disabled: false,
-                          }}
-                      />  
-                      </div>
-                    </Grid>
-                    <Grid xs={12}>
-                      <span style={{color: 'red'}}>{errorMessageSearch} </span>
-                    </Grid>
+                    /> 
+                  </div> 
                 </Grid>
-            <Grid item xs={5} sx={{mt:  marginTopBox}}>
-                  <Grid item xs={12} sx = {{display: 'flex', justifyContent: 'space-between'}} >
-                      <CustomButtonFcTra 
-                           soloButton={{
-                              title: "Otkaži",
-                              disabled: false,
-                              btnFn: () => dispatch(setopenModalCreateSubject({open:  false})),
-                          }}
-                        />
-
-                        <CustomButtonFc 
-                           soloButton={{
-                              title: "SAČUVAJ",
-                              disabled: false,
-                              btnFn: handleSubmit(onSubmit),
-                          }}
-                        />
+                <Grid item xs={4}>
+                  <Grid sx={{display:  'flex'}} >
+                      <Grid xs={buttonGrid} >
+                          <FormTextField
+                              props={{
+                                name: "pib",
+                                control: control,
+                                label: "PIB",
+                                additional: { mask: {}, readonly: false,  borderButton: true },
+                                disabled: false,
+                              }}
+                          /> 
+                      </Grid>
+                      <Grid xs={2}>
+                            <Button variant="outlined"
+                                  sx={{color: '#09C8C8', 
+                                      borderColor:  '#09C8C8',
+                                      height: heightButton,
+                                      borderRadius: 0,
+                                      borderBottomRightRadius: '5px', borderTopRightRadius: '5px'
+                                    }}
+                                  onClick = {()  => handleFindSubject()}
+                                  startIcon={<FontAwesomeIcon icon={faArrowsRotate}   />}>
+                                NBS
+                            </Button> 
+                      </Grid>
                   </Grid>
-                      {/*<CustomButtonFc
-                        groupButton={[
-                          {
-                            title: "ODUSTANI",
-                            disabled: false,
-                            btnFn: () => dispatch(setopenModalCreateSubject(false)),
-                          },
-                          {
-                            title: "SACUVAJ",
-                            disabled: false,
-                            btnFn: handleSubmit(onSubmit),
-                          },
-                        ]}
-                      />*/}
+                  <FormTextField
+                    props={{
+                      name: "address",
+                      control: control,
+                      label: "Adresa",
+                      additional: { mask: {}, readonly: false },
+                      disabled: false,
+                    }}
+                  />  
+
+                  <FormTextField
+                    props={{
+                      name: "zip",
+                      control: control,
+                      label: "Poštanski broj",
+                      additional: { mask: {}, readonly: false },
+                      disabled: false,
+                    }}
+                  /> 
+                  <FormTextField
+                    props={{
+                      name: "email",
+                      control: control,
+                      label: "Email",
+                      additional: { mask: {}, readonly: false },
+                      disabled: false,
+                    }}
+                  /> 
                   
-            </Grid>         
+                  <FormAutocompleteField
+                    props={{
+                        name: "subjectIdType",
+                        control: control,
+                        label: 'Tip komitenta',
+                        disabled: true,
+                        additional: {
+                        selector: selectSubjectType,
+                        //data: dataObject
+                        
+                        },
+                    }}
+                    /> 
+                    <FormTextField
+                        props={{
+                          name: "payeeFinancialAccountDto",
+                          control: control,
+                          label: "Žiro račun",
+                          additional: { mask: {}, readonly: false },
+                          disabled: false,
+                        }}
+                    /> 
+                  <div   style = {{visibility:  'hidden'}}  >
+                    <FormTextField
+                        props={{
+                          name: "identificationNumber",
+                          control: control,
+                          label: "Indetifikacioni broj",
+                          additional: { mask: {}, readonly: false },
+                          disabled: false,
+                        }}
+                    />  
+                  </div>
+                </Grid>
+                <Grid xs={12}>
+                  <span style={{color: 'red'}}>{errorMessageSearch} </span>
+                </Grid>
+            </Grid>
+            <Grid item xs={5} sx={{mt:  marginTopBox}}>
+              <Grid item xs={12} sx = {{display: 'flex', justifyContent: 'space-between'}} >
+                  <CustomButtonFcTra 
+                        soloButton={{
+                          title: "Otkaži",
+                          disabled: false,
+                          btnFn: () => dispatch(setopenModalCreateSubject({open:  false})),
+                      }}
+                    />
+
+                    <CustomButtonFc 
+                        soloButton={{
+                          title: "SAČUVAJ",
+                          disabled: false,
+                          btnFn: handleSubmit(onSubmit),
+                      }}
+                    />
+              </Grid>
+            </Grid>              
         </Grid>
     )
 }

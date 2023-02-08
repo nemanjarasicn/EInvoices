@@ -19,7 +19,8 @@ import {
     getWarehouses,
     getUsers,
     getCompanyInfo,
-    getCompaniesDistributor
+    getCompaniesDistributor,
+    getSync
   } from "./registries.actions";
   
   const FEATURE_REGISTRIES_KEY: string = "registries";
@@ -99,6 +100,7 @@ import {
       getAsyncUsers(builder);
       getAsyncCompanyInfo(builder);
       getAsyncDistributorCompanies(builder);
+      getAsyncSync(builder);
     },
     }
   )
@@ -323,6 +325,24 @@ import {
       ...state,
       loading: false,
       companyDistributor: [],
+      error: (payload as any).error,
+    }));
+  }
+
+
+  function getAsyncSync(builder: ActionReducerMapBuilder<FeatureState>) {
+    builder.addCase(getSync.fulfilled, (state, { payload }) => ({
+      ...state,
+      loading: false,
+      error: ""
+    }));
+    builder.addCase(getSync.pending, (state) => ({
+      ...state,
+      loading: true,
+    }));
+    builder.addCase(getSync.rejected, (state, { payload }) => ({
+      ...state,
+      loading: false,
       error: (payload as any).error,
     }));
   }

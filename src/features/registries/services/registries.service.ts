@@ -332,6 +332,7 @@ class RegistriesPublicService {
 
     return publicClient.post<any>
     (`invoice/sync`,
+    "",
     config
     );
   }
