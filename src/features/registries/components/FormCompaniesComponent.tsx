@@ -22,14 +22,10 @@ import { selectUser }  from  "../../../app/core/core.selectors"
 import SucessModal   from "../../shared/components/SucessModal"
 import FormAutocompleteField from "../../shared/components/form-fields/FormAutocompleteField";
 import  {  sendsubscribe,  sendsubscribeUpdate  }  from   "../store/registries.actions"
-import   { selectUserRole, selectDistributor }  from  '../../shared/components/form-fields/store/form.selectors'
-import { setCompanyAdmin } from "../../../app/core/core.reducer";
+import   {  selectDistributor }  from  '../../shared/components/form-fields/store/form.selectors'
 import { getDistributor } from "../../shared/components/form-fields/store/form.actions";
-import { sendDistributorCompany } from  "../store/registries.actions"
-import { getCompaniesDistributor }  from  "../store/registries.actions"
 import { selectCompanyCurrent } from "../../../app/core/core.selectors";
 import  { selectDistributorInfo  }   from  "../../../app/core/core.selectors"
-import  {  selectDistributorCompanies }  from  "../store/registries.selectors"
 import {useLocation} from 'react-router-dom';
 import IconButton from '@mui/material/IconButton';
 import {  faTrash}   from '@fortawesome/pro-solid-svg-icons';
@@ -37,14 +33,13 @@ import {  faPlus}   from '@fortawesome/pro-solid-svg-icons';
 import {  faPenToSquare}   from '@fortawesome/pro-solid-svg-icons';
 import { faArrowsRotate }    from '@fortawesome/pro-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { getValue } from "@mui/system";
 import {  getSubjectDetails } from "../../articles/store/articles.actions";
+
 
 export default function FormCompaniesComponent({
     props,
   }: IProps<RegistriesFormComponentProps>): JSX.Element {
     const isDistributor  =  useAppSelector(selectUser)?.authorities?.slice(0,1)[0].authority === "ROLE_DISTRIBUTER" ? true  :   false;
-    const company = useAppSelector(selectCompanyCurrent) ?? "";
     const idDistributor  = useAppSelector(selectDistributorInfo)[0]?.idDistributor;
     const location = useLocation();
     const companyIdLocation = location.state.id;
@@ -52,35 +47,35 @@ export default function FormCompaniesComponent({
     const [listPayeeFinancialAccount,  setListPayeeFinancialAccount]  =  React.useState<any[]>([]);
 
 
-    /**
- * Register Form validation schema for every field
- */
- const schema = yup
- .object({
-  companyName: yup.string().required('ovo je obavezno polje'),
-  address:   yup.string().trim().required('ovo je obavezno polje'),
-  city:  yup.string().trim().required('ovo je obavezno polje'),
-  zip: yup.string().trim().required('ovo je obavezno polje'),
-  mb: yup.string().trim().required('ovo je obavezno polje'),
-  apiKey: yup.string().trim().required('ovo je obavezno polje'),
-  country: yup.string().required('ovo je obavezno polje'),
-  pib: yup.string().trim().required('ovo je obavezno polje'),
-  payeeFinancialAccount: yup.string().test(
-    "",
-    "Ovo polje je obavezno",
-    function (item) {
-      if(listPayeeFinancialAccount.length) {
-      return (
-          true
-      );
-    } else {
-      return false;
-    }
-    }
-  ),
-  email: yup.string().trim().email('email mora biti ispravnog formata'),
- })
- .required();
+        /**
+     * Register Form validation schema for every field
+     */
+    const schema = yup
+    .object({
+      companyName: yup.string().required('ovo je obavezno polje'),
+      address:   yup.string().trim().required('ovo je obavezno polje'),
+      city:  yup.string().trim().required('ovo je obavezno polje'),
+      zip: yup.string().trim().required('ovo je obavezno polje'),
+      mb: yup.string().trim().required('ovo je obavezno polje'),
+      apiKey: yup.string().trim().required('ovo je obavezno polje'),
+      country: yup.string().required('ovo je obavezno polje'),
+      pib: yup.string().trim().required('ovo je obavezno polje'),
+      payeeFinancialAccount: yup.string().test(
+        "",
+        "Ovo polje je obavezno",
+        function (item) {
+          if(listPayeeFinancialAccount.length) {
+          return (
+              true
+          );
+        } else {
+          return false;
+        }
+        }
+      ),
+      email: yup.string().trim().email('email mora biti ispravnog formata'),
+    })
+    .required();
   
     
 
@@ -157,7 +152,6 @@ export default function FormCompaniesComponent({
         }
       }, []);
 
-      
 
       const onSubmit = async (data: CompanyFormModel) => {
         if(companyIdLocation === 0  )  {
@@ -166,11 +160,6 @@ export default function FormCompaniesComponent({
                   if(data.apiKey) {
                     dispatch(sendsubscribe({data: res.payload.data}));
                   }
-          
-                  /*if(data.distributor) {
-                    console.log('distributer', res.payload.idCompany);
-                    dispatch(sendDistributorCompany({companyId: res.payload.idCompany, }))
-                  }*/
                   setShowError(true);  
                   setTimeout(async () => {
                         setShowError(false);
@@ -189,8 +178,6 @@ export default function FormCompaniesComponent({
                   setShowErrorModal(true);  
                   setTimeout(() => {
                         setShowErrorModal(false);
-                        /*navigate('/registries/companies'
-                        )*/
                   }, 2000);
                 }
             } 
@@ -251,11 +238,10 @@ export default function FormCompaniesComponent({
         }
       }
 
-
       const  handleFindSubject = () => {
         dispatch(getSubjectDetails({pib:  getValues('pib')})).then((res) => {
 
-          
+
           if(res?.payload?.CompanyDataSet !==  "")   {
             setValue('pib', (getValues('pib')).toString()); 
             setValue('companyName', res?.payload?.CompanyDataSet?.Company?.Name); 
@@ -271,222 +257,220 @@ export default function FormCompaniesComponent({
           
       }
 
-
-
       
     return (
         <Grid item xs={12}>
             <SucessModal    open={showError} ></SucessModal>
             <ErrorModal    open={showErrorModal}  ></ErrorModal>
-                <Grid container spacing={2}>
-                    <Grid item xs={6}>
-                        <FormTextField
-                        props={{
-                            control: control,
-                            name: "companyName",
-                            label: t(props.formFieldsLabels.companies.companiName),
-                            disabled: false,
-                            additional: { readonly: false, labelShrink: true}
+            <Grid container spacing={2}>
+                <Grid item xs={6}>
+                  <FormTextField
+                    props={{
+                        control: control,
+                        name: "companyName",
+                        label: t(props.formFieldsLabels.companies.companiName),
+                        disabled: false,
+                        additional: { readonly: false, labelShrink: true}
 
-                        }}
-                    />
-                     <FormTextField
-                        props={{
-                            control: control,
-                            name: "address",
-                            label: t(props.formFieldsLabels.companies.adress),
-                            disabled: false,
-                            additional: { readonly: false, labelShrink: true}
+                    }}
+                  />
+                  <FormTextField
+                    props={{
+                        control: control,
+                        name: "address",
+                        label: t(props.formFieldsLabels.companies.adress),
+                        disabled: false,
+                        additional: { readonly: false, labelShrink: true}
 
-                        }}
-                    />
-                    <FormTextField
-                        props={{
-                            control: control,
-                            name: "city",
-                            label: t(props.formFieldsLabels.companies.city),
-                            disabled: false,
-                            additional: { readonly: false, labelShrink: true}
+                    }}
+                  />
+                  <FormTextField
+                    props={{
+                        control: control,
+                        name: "city",
+                        label: t(props.formFieldsLabels.companies.city),
+                        disabled: false,
+                        additional: { readonly: false, labelShrink: true}
 
-                        }}
-                    />
-                     <FormTextField
-                        props={{
-                            control: control,
-                            name: "mb",
-                            label: t(props.formFieldsLabels.companies.mb),
-                            disabled: false,
-                            additional: { readonly: false, labelShrink: true },
-                        
-                        }}
-                    />
+                    }}
+                  />
+                  <FormTextField
+                    props={{
+                        control: control,
+                        name: "mb",
+                        label: t(props.formFieldsLabels.companies.mb),
+                        disabled: false,
+                        additional: { readonly: false, labelShrink: true },
+                    
+                    }}
+                  />
 
-                    <FormTextField
-                        props={{
-                            control: control,
-                            name: "email",
-                            label: t(props.formFieldsLabels.companies.email),
-                            disabled: false,
-                            additional: { readonly: false, labelShrink: true}
+                  <FormTextField
+                      props={{
+                          control: control,
+                          name: "email",
+                          label: t(props.formFieldsLabels.companies.email),
+                          disabled: false,
+                          additional: { readonly: false, labelShrink: true}
 
-                        }}
-                    />
-                    <Grid item xs={12} sx={{display: "flex"}}>
-                          <Grid item xs={11} >
-                                <FormTextField
-                                    props={{
-                                        control: control,
-                                        name: "payeeFinancialAccount",
-                                        label: t(props.formFieldsLabels.companies.payeeFinancialAccount),
-                                        disabled: false,
-                                        additional: { readonly: false, labelShrink: true}
-
-                                    }}
-                                />
-                          </Grid>
-                          <Grid item xs={1} >
-                            <IconButton sx={{display:  'flex', justifyContent:  'center'}} color="primary" aria-label="pdf" component="label"   onClick={() => addPayeeFinancialAccount()} >
-                                  <FontAwesomeIcon icon={faPlus}      color="#E9950C"   />
-                              </IconButton>
-                          </Grid>
-                    </Grid>
-                    <Grid item xs={12} sx={{display:  'flex' , flexDirection:  'column'}}>
-                      {listPayeeFinancialAccount?.map((item, index)  => (
-                          <Grid  item  xs={4}  sx ={{display:   'flex'}}>
-                            <Grid  item xs={1}>{index + 1}.</Grid>
-                            <Grid    item  xs={9}>{item?.payeeFinancialAccountValue}</Grid>
-                                <Grid  item xs={2} sx={{mt: -1 }}>
-                                  {item?.status &&  item?.status  ===  "INSERT" ?
-                                    <IconButton color="primary" aria-label="add" component="label"   onClick={()   =>  handleDeletePayeeFinancialAccount(item?.id)}  >
-                                          <FontAwesomeIcon icon={faTrash}     color="#E9950C"   />
-                                      </IconButton>
-                                   :
-                                   <IconButton color="primary" aria-label="add" component="label"   onClick={()   =>  handleEditPayeeFinancialAccount(item?.id)}  >
-                                          <FontAwesomeIcon icon={faPenToSquare}     color="#E9950C"   />
-                                    </IconButton>
-                                 }
-                                </Grid>
-                          </Grid>
-                      ))}
-                    </Grid>
-                    </Grid>
-                    <Grid item xs={6}>
-                    <Grid sx={{display:  'flex'}} >
-                          <Grid xs={11} >
+                      }}
+                  />
+                  <Grid item xs={12} sx={{display: "flex"}}>
+                      <Grid item xs={11} >
                             <FormTextField
                                 props={{
                                     control: control,
-                                    name: "pib",
-                                    label: t(props.formFieldsLabels.companies.pib),
+                                    name: "payeeFinancialAccount",
+                                    label: t(props.formFieldsLabels.companies.payeeFinancialAccount),
                                     disabled: false,
-                                    additional: { readonly: false, labelShrink: true,  borderButton: true }
-                                
+                                    additional: { readonly: false, labelShrink: true}
+
                                 }}
                             />
-                          </Grid>
-                          <Grid xs={2}>
-                                <Button    variant="outlined"
-                                            sx={{color: '#09C8C8', 
-                                            borderColor:  '#09C8C8',
-                                            height: heightButton,
-                                            borderRadius: 0,
-                                            borderBottomRightRadius: '5px', borderTopRightRadius: '5px'
-                                          }}
-                                          
-                                           onClick = {()  => handleFindSubject()} startIcon={<FontAwesomeIcon icon={faArrowsRotate}   />}>
-                                          NBS
-                                </Button> 
-                          </Grid>
                       </Grid>
-                    <FormTextField
-                        props={{
-                            control: control,
-                            name: "zip",
-                            label: t(props.formFieldsLabels.companies.zip),
-                            disabled: false,
-                            additional: { readonly: false, labelShrink: true}
-
-                        }}
-                    />
-                     <FormTextField
-                        props={{
-                            control: control,
-                            name: "country",
-                            label: t(props.formFieldsLabels.companies.country),
-                            disabled: false,
-                            additional: { readonly: false, labelShrink: true}
-
-                        }}
-                    />
-                   
-                    <FormTextField
-                        props={{
-                            control: control,
-                            name: "apiKey",
-                            label: t(
-                                props.formFieldsLabels.companies.apyKey
-                            ),
-                            disabled: false,
-                            additional: { readonly: false, labelShrink: true },
-                        }}
-                    />
-
-                    <div style={{visibility: isDistributor ?  'hidden' : 'visible'}}>
-                        <FormAutocompleteField
-                            props={{
-                                name: "distributor",
-                                control: control,
-                                label: t(props.formFieldsLabels.companies.distributor),
-                                disabled: true,
-                                additional: {
-                                selector: selectDistributor,
-                                disableOption:  companyIdLocation === 0 ?  false :  true
-                                //data:  []
-                                
-                                },
-                            }}
-                            />
-                    </div>
-                    </Grid>
-                    <Grid xs={12}>
-                      <span  style={{color:  'red'}} >{errorMessageSearch}</span>
-                    </Grid>
+                      <Grid item xs={1} >
+                        <IconButton sx={{display:  'flex', justifyContent:  'center'}} color="primary" aria-label="pdf" component="label"   onClick={() => addPayeeFinancialAccount()} >
+                              <FontAwesomeIcon icon={faPlus}      color="#E9950C"   />
+                          </IconButton>
+                      </Grid>
+                  </Grid>
+                  <Grid item xs={12} sx={{display:  'flex' , flexDirection:  'column'}}>
+                  {listPayeeFinancialAccount?.map((item, index)  => (
+                      <Grid  item  xs={4}  sx ={{display:   'flex'}}>
+                        <Grid  item xs={1}>{index + 1}.</Grid>
+                        <Grid    item  xs={9}>{item?.payeeFinancialAccountValue}</Grid>
+                            <Grid  item xs={2} sx={{mt: -1 }}>
+                              {item?.status &&  item?.status  ===  "INSERT" ?
+                                <IconButton color="primary" aria-label="add" component="label"   onClick={()   =>  handleDeletePayeeFinancialAccount(item?.id)}  >
+                                      <FontAwesomeIcon icon={faTrash}     color="#E9950C"   />
+                                  </IconButton>
+                                :
+                                <IconButton color="primary" aria-label="add" component="label"   onClick={()   =>  handleEditPayeeFinancialAccount(item?.id)}  >
+                                      <FontAwesomeIcon icon={faPenToSquare}     color="#E9950C"   />
+                                </IconButton>
+                              }
+                            </Grid>
+                      </Grid>
+                  ))}
                 </Grid>
-                <Grid item xs={5}>
-                      <Box
-                        sx={{
-                          ...formComponent.basicBox,
-                          textAlign: "end",
-                        }}
-                      >
-                        <Paper sx={formComponent.paper}>
-                          <CustomButtonFc
-                            groupButton={[
-                              {
-                                title: "DELETE",
-                                disabled: true,
-                                btnFn: () => reset(),
-                              },
-                              {
-                                title: "DOWNLOAD",
-                                disabled: true,
-                                btnFn: () => reset(),
-                              },
-                              {
-                                title: "UPDATE",
-                                disabled: true,
-                                btnFn: () => reset(),
-                              },
-                              {
-                                title: "SACUVAJ",
+                </Grid>
+                <Grid item xs={6}>
+                <Grid sx={{display:  'flex'}} >
+                      <Grid xs={11} >
+                        <FormTextField
+                            props={{
+                                control: control,
+                                name: "pib",
+                                label: t(props.formFieldsLabels.companies.pib),
                                 disabled: false,
-                                btnFn: handleSubmit(onSubmit),
-                              },
-                            ]}
-                          />
-                        </Paper>
-                      </Box>
-              </Grid>
+                                additional: { readonly: false, labelShrink: true,  borderButton: true }
+                            
+                            }}
+                        />
+                      </Grid>
+                      <Grid xs={2}>
+                            <Button    variant="outlined"
+                                        sx={{color: '#09C8C8', 
+                                        borderColor:  '#09C8C8',
+                                        height: heightButton,
+                                        borderRadius: 0,
+                                        borderBottomRightRadius: '5px', borderTopRightRadius: '5px'
+                                      }}
+                                      
+                                        onClick = {()  => handleFindSubject()} startIcon={<FontAwesomeIcon icon={faArrowsRotate}   />}>
+                                      NBS
+                            </Button> 
+                      </Grid>
+                  </Grid>
+                <FormTextField
+                    props={{
+                        control: control,
+                        name: "zip",
+                        label: t(props.formFieldsLabels.companies.zip),
+                        disabled: false,
+                        additional: { readonly: false, labelShrink: true}
+
+                    }}
+                />
+                  <FormTextField
+                    props={{
+                        control: control,
+                        name: "country",
+                        label: t(props.formFieldsLabels.companies.country),
+                        disabled: false,
+                        additional: { readonly: false, labelShrink: true}
+
+                    }}
+                />
+                
+                <FormTextField
+                    props={{
+                        control: control,
+                        name: "apiKey",
+                        label: t(
+                            props.formFieldsLabels.companies.apyKey
+                        ),
+                        disabled: false,
+                        additional: { readonly: false, labelShrink: true },
+                    }}
+                />
+
+                <div style={{visibility: isDistributor ?  'hidden' : 'visible'}}>
+                    <FormAutocompleteField
+                        props={{
+                            name: "distributor",
+                            control: control,
+                            label: t(props.formFieldsLabels.companies.distributor),
+                            disabled: true,
+                            additional: {
+                            selector: selectDistributor,
+                            disableOption:  companyIdLocation === 0 ?  false :  true
+                            //data:  []
+                            
+                            },
+                        }}
+                        />
+                </div>
+                </Grid>
+                <Grid xs={12}>
+                  <span  style={{color:  'red'}} >{errorMessageSearch}</span>
+                </Grid>
+            </Grid>
+            <Grid item xs={5}>
+                  <Box
+                    sx={{
+                      ...formComponent.basicBox,
+                      textAlign: "end",
+                    }}
+                  >
+                    <Paper sx={formComponent.paper}>
+                      <CustomButtonFc
+                        groupButton={[
+                          {
+                            title: "DELETE",
+                            disabled: true,
+                            btnFn: () => reset(),
+                          },
+                          {
+                            title: "DOWNLOAD",
+                            disabled: true,
+                            btnFn: () => reset(),
+                          },
+                          {
+                            title: "UPDATE",
+                            disabled: true,
+                            btnFn: () => reset(),
+                          },
+                          {
+                            title: "SACUVAJ",
+                            disabled: false,
+                            btnFn: handleSubmit(onSubmit),
+                          },
+                        ]}
+                      />
+                    </Paper>
+                  </Box>
+            </Grid>
         </Grid>
     )
 }

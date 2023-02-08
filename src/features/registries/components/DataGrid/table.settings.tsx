@@ -417,7 +417,7 @@ const useTableSettings = (): TableSettings => {
                             <IconButton  color="primary" sx={{fontSize: fontSize}} aria-label="pdf" component="label"  onClick={() => { 
           
           
-                              dispach(getSync({apiKey: params?.row?.apiKey}));
+                              dispach(getSync({apiKey: params?.row?.apiKey})).then((res) => {console.log('asasaasass',  res)});
                             }}>
                             <FontAwesomeIcon icon={faRotate}   color="red"   />
                             </IconButton>
