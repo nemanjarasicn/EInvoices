@@ -150,11 +150,16 @@ const style = {
 				legalMonetaryTotal:  {
 					payableAmount:   result?.[`${prefixPdf}`]['cac:LegalMonetaryTotal'][0]['cbc:PayableAmount']  ?   result?.[`${prefixPdf}`]['cac:LegalMonetaryTotal'][0]['cbc:PayableAmount'][0]['_']  :  "",
 					lineExtensionAmount:  result?.[`${prefixPdf}`]['cac:LegalMonetaryTotal'][0]['cbc:LineExtensionAmount'] ?    result?.[`${prefixPdf}`]['cac:LegalMonetaryTotal'][0]['cbc:LineExtensionAmount'][0]['_']  :  "",
+					taxExclusiveAmount:  result?.[`${prefixPdf}`]['cac:LegalMonetaryTotal'][0]['cbc:TaxInclusiveAmount']  ?    result?.[`${prefixPdf}`]['cac:LegalMonetaryTotal'][0]['cbc:TaxInclusiveAmount'][0]['_']  :  "" ,
 				},
 				taxTotal: taxTotalTmp,
 				additionalDocumentReference: 
-					additionalDocumentReferenceTmp
-			
+					additionalDocumentReferenceTmp,
+				ublExtensions: {
+					payableAmount:   result?.[`${prefixPdf}`]['cec:UBLExtensions']  ?   result?.[`${prefixPdf}`]['cec:UBLExtensions'][0]['cec:UBLExtension'][0]['cec:ExtensionContent'][0]['sbt:SrbDtExt'][0]['xsd:ReducedTotals'][0]['cac:LegalMonetaryTotal'][0]['cbc:PayableAmount'][0]['_']  :  "",
+					taxAmount:   result?.[`${prefixPdf}`]['cec:UBLExtensions']  ?   result?.[`${prefixPdf}`]['cec:UBLExtensions'][0]['cec:UBLExtension'][0]['cec:ExtensionContent'][0]['sbt:SrbDtExt'][0]['xsd:ReducedTotals'][0]['cac:TaxTotal'][0]['cac:TaxSubtotal'][0]['cbc:TaxAmount'][0]['_']  :  "",
+					taxableAmount:   result?.[`${prefixPdf}`]['cec:UBLExtensions']  ?   result?.[`${prefixPdf}`]['cec:UBLExtensions'][0]['cec:UBLExtension'][0]['cec:ExtensionContent'][0]['sbt:SrbDtExt'][0]['xsd:ReducedTotals'][0]['cac:TaxTotal'][0]['cac:TaxSubtotal'][0]['cbc:TaxableAmount'][0]['_']  :  "",
+				}
 
 			}
 			console.log('sasasasddafafasd',   objectTmp)

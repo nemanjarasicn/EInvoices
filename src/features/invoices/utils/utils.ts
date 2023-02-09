@@ -274,10 +274,8 @@ const createSupplayerData = (userCompany: UserCompany): any => {
  * @returns
  */
 const createMonetaryTotal = (invoice: any): any => {
-  console.log('saasasasasasasssas',  invoice);
   let   prepaidAmountTotal: number   =  0;
   if(invoice?.invoice?.invoiceTypeCode === 380  && invoice?.advanceAccountList?.length) {
-    console.log('saasasasasasasssas',  invoice);
     invoice?.advanceAccountList.map((item: any)  =>  {
         prepaidAmountTotal =  prepaidAmountTotal + item?.item?.finalSum; 
     })
