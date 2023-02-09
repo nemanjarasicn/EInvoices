@@ -301,7 +301,7 @@ const useTableSettings = (): TableSettings => {
             {
               field: "companyName",
               headerName: "Companies.nameOfCompany",
-              flex: 1,
+              flex: 2,
               headerAlign: "center",
               align: "center",
               hideable: true,
@@ -321,6 +321,7 @@ const useTableSettings = (): TableSettings => {
               headerAlign: "center",
               align: "center",
               hideable: false,
+              hide:  true
             },
             {
               field: "mb",
@@ -338,6 +339,7 @@ const useTableSettings = (): TableSettings => {
               headerAlign: "center",
               align: "center",
               hideable: false,
+              hide: true
             },
             {
               field: "zip",
@@ -346,6 +348,7 @@ const useTableSettings = (): TableSettings => {
               headerAlign: "center",
               align: "center",
               hideable: false,
+              hide:  true
             },
             {
               field: "country",
@@ -354,6 +357,7 @@ const useTableSettings = (): TableSettings => {
               headerAlign: "center",
               align: "center",
               hideable: false,
+              hide:  true
             },
             {
               field: "city",
@@ -417,7 +421,7 @@ const useTableSettings = (): TableSettings => {
                             <IconButton  color="primary" sx={{fontSize: fontSize}} aria-label="pdf" component="label"  onClick={() => { 
           
           
-                              dispach(getSync({apiKey: params?.row?.apiKey})).then((res) => {console.log('asasaasass',  res)});
+                              dispach(getSync({apiKey: params?.row?.apiKey})).then((res) => {});
                             }}>
                             <FontAwesomeIcon icon={faRotate}   color="red"   />
                             </IconButton>
