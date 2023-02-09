@@ -107,8 +107,6 @@ const styles = StyleSheet.create({
 const InvoiceTableFooter = (props: any) => {
     /*const total = items.map(item => item.qty * item.rate)
         .reduce((accumulator, currentValue) => accumulator + currentValue, 0)*/
-        console.log('sasasass', props?.data)
-        console.log('sasasass11111', props?.dataRow)
         
 
     const  total: string  = '1600';
@@ -117,8 +115,50 @@ const InvoiceTableFooter = (props: any) => {
         return  num.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
       }
     
+    
+    const invoicedPrepaymentAmmount  =   props?.data?.ublExtensions?.invoicedPrepaymentAmmount;
     const  payableAmount =    props?.data?.ublExtensions?.payableAmount  ?   props?.data?.legalMonetaryTotal?.taxExclusiveAmount  :   props?.data?.legalMonetaryTotal?.payableAmount;
 
+
+    let totalTaxableAmount10: number = 0;
+    let totalTaxableAmount20: number = 0;
+    let totalTaxableAmount0: number = 0;
+
+    let totalTaxAmount10: number = 0;
+    let totalTaxAmount20: number = 0;
+    let totalTaxAmount0: number = 0;
+
+
+
+    if(props?.data?.ublExtensions?.payableAmount) {
+                invoicedPrepaymentAmmount?.map((item: any)  =>  {
+                    item?.taxTotal[0]?.['cac:TaxSubtotal']?.map((item: any)  =>  {
+                        if(Number(item?.['cac:TaxCategory'][0]?.['cbc:Percent'][0])  ===  10) 
+                            {
+                                totalTaxableAmount10 = totalTaxableAmount10 +  Number(item?.['cbc:TaxableAmount'][0]?.['_']) 
+                        } else if(Number(item?.['cac:TaxCategory'][0]?.['cbc:Percent'][0])  ===  20) {
+                                totalTaxableAmount20 = totalTaxableAmount20 +  Number(item?.['cbc:TaxableAmount'][0]?.['_'])
+                        } else if(Number(item?.['cac:TaxCategory'][0]?.['cbc:Percent'][0])  ===  0)   {
+                                totalTaxableAmount0 = totalTaxableAmount0 +  Number(item?.['cbc:TaxableAmount'][0]?.['_'])
+                            }
+                        })
+                })
+    }
+
+    if(props?.data?.ublExtensions?.payableAmount) {
+        invoicedPrepaymentAmmount?.map((item: any)  =>  {
+            item?.taxTotal[0]?.['cac:TaxSubtotal']?.map((item: any)  =>  {
+                if(Number(item?.['cac:TaxCategory'][0]?.['cbc:Percent'][0])  ===  10) 
+                    {
+                        totalTaxAmount10 = totalTaxAmount10 +  Number(item?.['cbc:TaxAmount'][0]?.['_']) 
+                } else if(Number(item?.['cac:TaxCategory'][0]?.['cbc:Percent'][0])  ===  20) {
+                        totalTaxAmount20 = totalTaxAmount20 +  Number(item?.['cbc:TaxAmount'][0]?.['_'])
+                } else if(Number(item?.['cac:TaxCategory'][0]?.['cbc:Percent'][0])  ===  0)   {
+                        totalTaxAmount0 = totalTaxAmount0 +  Number(item?.['cbc:TaxAmount'][0]?.['_'])
+                    }
+                })
+        })
+}
 
     return (
         <View style={styles.conteiner}>
@@ -172,25 +212,53 @@ const InvoiceTableFooter = (props: any) => {
                     {(props?.data?.ublExtensions?.payableAmount) ?
                             <>
                                 <View style={styles.divider}></View>
-                                <View  style={styles.textConteiner}>
-                                    <View style={styles.conteiner1}><Text style={styles.text}>Avansna osnovica - stopa 20%:</Text></View> 
-                                    <View style={styles.conteiner2}><Text style={styles.textPrice}>{currencyFormat(Number(2000000))}</Text></View>
-                                </View>
-                                <View  style={styles.textConteiner}>
-                                    <View style={styles.conteiner1}><Text style={styles.text}>Avansni PDV - stopa 20%:</Text></View> 
-                                    <View style={styles.conteiner2}><Text style={styles.textPrice}>{currencyFormat(Number(400000))}</Text></View>
-                                </View>
+                                {totalTaxableAmount20  &&
+                                        <View  style={styles.textConteiner}>
+                                            <View style={styles.conteiner1}><Text style={styles.text}>Avansna osnovica - stopa 20%:</Text></View> 
+                                            <View style={styles.conteiner2}><Text style={styles.textPrice}>{currencyFormat(Number(totalTaxableAmount20))}</Text></View>
+                                        </View>
+                                }    
+                                {totalTaxableAmount10  &&                     
+                                        <View  style={styles.textConteiner}>
+                                            <View style={styles.conteiner1}><Text style={styles.text}>Avansna osnovica - stopa 10%:</Text></View> 
+                                            <View style={styles.conteiner2}><Text style={styles.textPrice}>{currencyFormat(Number(totalTaxableAmount10))}</Text></View>
+                                        </View>
+                                }
+                                 {totalTaxableAmount0  &&
+                                        <View  style={styles.textConteiner}>
+                                            <View style={styles.conteiner1}><Text style={styles.text}>Avansna osnovica - stopa 0%:</Text></View> 
+                                            <View style={styles.conteiner2}><Text style={styles.textPrice}>{currencyFormat(Number(totalTaxableAmount0))}</Text></View>
+                                        </View>
+                                }    
+                                {totalTaxableAmount20  &&
+                                        <View  style={styles.textConteiner}>
+                                            <View style={styles.conteiner1}><Text style={styles.text}>Avansni PDV - stopa 20%:</Text></View> 
+                                            <View style={styles.conteiner2}><Text style={styles.textPrice}>{currencyFormat(Number(totalTaxAmount20))}</Text></View>
+                                        </View>
+                                }
+                                {totalTaxableAmount10  &&
+                                        <View  style={styles.textConteiner}>
+                                            <View style={styles.conteiner1}><Text style={styles.text}>Avansni PDV - stopa 10%:</Text></View> 
+                                            <View style={styles.conteiner2}><Text style={styles.textPrice}>{currencyFormat(Number(totalTaxAmount10))}</Text></View>
+                                        </View>
+                                }
+                                 {totalTaxableAmount0  &&
+                                        <View  style={styles.textConteiner}>
+                                            <View style={styles.conteiner1}><Text style={styles.text}>Avansni PDV - stopa 0%:</Text></View> 
+                                            <View style={styles.conteiner2}><Text style={styles.textPrice}>{currencyFormat(Number(totalTaxAmount0))}</Text></View>
+                                        </View>
+                                }
                                 <View  style={styles.textConteiner}>
                                     <View style={styles.conteiner1}><Text style={styles.text}>Ukupno avansna osnovica:</Text></View> 
-                                    <View style={styles.conteiner2}><Text style={styles.textPrice}>{currencyFormat(Number(2000000))}</Text></View>
+                                    <View style={styles.conteiner2}><Text style={styles.textPrice}>{currencyFormat(Number(totalTaxableAmount20  +  totalTaxableAmount10 +  totalTaxableAmount0 ))}</Text></View>
                                 </View>
                                 <View  style={styles.textConteiner}>
                                     <View style={styles.conteiner1}><Text style={styles.text}>Ukupno avansiran PDV:</Text></View> 
-                                    <View style={styles.conteiner2}><Text style={styles.textPrice}>{currencyFormat(Number(400000))}</Text></View>
+                                    <View style={styles.conteiner2}><Text style={styles.textPrice}>{currencyFormat(Number(totalTaxAmount20  +   totalTaxAmount10   +  totalTaxAmount0))}</Text></View>
                                 </View>
                                 <View  style={styles.textConteiner}>
                                     <View style={styles.conteiner1}><Text style={styles.textBold}>Ukupan avansiran iznos:</Text></View> 
-                                    <View style={styles.conteiner2}><Text style={styles.textPrice}>{currencyFormat(Number(2000000))}</Text></View>
+                                    <View style={styles.conteiner2}><Text style={styles.textPrice}>{currencyFormat(Number((totalTaxableAmount20  +  totalTaxableAmount10  +  totalTaxableAmount0)  +  (totalTaxAmount20  +   totalTaxAmount10  +  totalTaxAmount0 ) ))}</Text></View>
                                 </View>
                             </>
                             
@@ -232,21 +300,28 @@ const InvoiceTableFooter = (props: any) => {
                                     :
 
                                 <>
+                                {props?.data?.ublExtensions?.taxSubtotal.map((item:  any)    =>  (
+                                
+                                            <View  style={styles.textConteiner}>
+                                                <View style={styles.conteiner1}><Text style={styles.text}>Ukupno osnovica umanjena za avanse - stopa {item?.taxCategory}%:</Text></View>
+                                                <View style={styles.conteiner2}><Text style={styles.textPrice}>{currencyFormat(Number(item?.taxableAmount))}</Text></View>
+                                            </View>
+                                ))}
+
+                                {props?.data?.ublExtensions?.taxSubtotal.map((item:  any)    =>  (
+                                
+                                            <View  style={styles.textConteiner}>
+                                                <View style={styles.conteiner1}><Text style={styles.text}>Ukupno PDV umanjen za avanse - stopa {item?.taxCategory}%:</Text></View>
+                                                <View style={styles.conteiner2}><Text style={styles.textPrice}>{currencyFormat(Number(item?.taxAmount))}</Text></View>
+                                            </View>
                                     
-                                    <View  style={styles.textConteiner}>
-                                        <View style={styles.conteiner1}><Text style={styles.text}>Ukupno osnovica umanjena za avanse - stopa 20%:</Text></View>
-                                        <View style={styles.conteiner2}><Text style={styles.textPrice}>{currencyFormat(Number(props?.data?.ublExtensions?.taxableAmount))}</Text></View>
-                                    </View>
-                        
-                                    <View  style={styles.textConteiner}>
-                                        <View style={styles.conteiner1}><Text style={styles.text}>Ukupno PDV umanjen za avanse - stopa 20%:</Text></View>
-                                        <View style={styles.conteiner2}><Text style={styles.textPrice}>{currencyFormat(Number(props?.data?.ublExtensions?.taxAmount))}</Text></View>
-                                    </View>
+                                 ))}
 
                                     <View  style={styles.textConteiner}>
                                         <View style={styles.conteiner1}><Text style={styles.textBold}>Ukupno za uplatu:</Text></View>
                                         <View style={styles.conteiner2}><Text style={styles.textPrice}>{currencyFormat(Number(props?.data?.ublExtensions?.payableAmount))}</Text></View>
                                     </View>
+                               
                                 </>
                                 
                             }

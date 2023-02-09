@@ -124,20 +124,48 @@ const style = {
 							TaxCategory: ""
 						}]
 
+			
+			const invoicedPrepaymentAmmountTmp =  result?.[`${prefixPdf}`]['cec:UBLExtensions'] ?
+						result?.[`${prefixPdf}`]['cec:UBLExtensions'][0]['cec:UBLExtension'][0]['cec:ExtensionContent'][0]['sbt:SrbDtExt'][0]['xsd:InvoicedPrepaymentAmmount'].map((item: any, index: number) => (
+							{
+								taxTotal: item['cac:TaxTotal']
+							}
+						)) 
+						:
+						[{
+							taxTotal:  []
+						}]
+
+			
+			const taxSubtotalTmp =  result?.[`${prefixPdf}`]['cec:UBLExtensions'] ?
+						result?.[`${prefixPdf}`]['cec:UBLExtensions'][0]['cec:UBLExtension'][0]['cec:ExtensionContent'][0]['sbt:SrbDtExt'][0]['xsd:ReducedTotals'][0]['cac:TaxTotal'][0]['cac:TaxSubtotal'].map((item: any, index: number) => (
+							{
+								taxableAmount: item['cbc:TaxableAmount'][0]['_'],
+								taxAmount:   item['cbc:TaxAmount'][0]['_'],
+								taxCategory:  item['cac:TaxCategory'][0]['cbc:Percent'][0]
+							}
+						)) 
+						:
+						[{
+							taxableAmount: "",
+							taxAmount:   "",
+							taxCategory:  ""
+						}]
+
 			const objectTmp = {
 				AccountingCustomerParty: {
 					name: result?.[`${prefixPdf}`]['cac:AccountingCustomerParty'][0]['cac:Party'][0]['cac:PartyLegalEntity'][0]['cbc:RegistrationName'] ? result?.[`${prefixPdf}`]['cac:AccountingCustomerParty'][0]['cac:Party'][0]['cac:PartyLegalEntity'][0]['cbc:RegistrationName'][0]  :  "",
 					adress: result?.[`${prefixPdf}`]['cac:AccountingCustomerParty'][0]['cac:Party'][0]['cac:PostalAddress'][0]['cbc:StreetName']  ?  result?.[`${prefixPdf}`]['cac:AccountingCustomerParty'][0]['cac:Party'][0]['cac:PostalAddress'][0]['cbc:StreetName'][0]  :  "",
 					city: result?.[`${prefixPdf}`]['cac:AccountingCustomerParty'][0]['cac:Party'][0]['cac:PostalAddress'][0]['cbc:CityName']  ?  result?.[`${prefixPdf}`]['cac:AccountingCustomerParty'][0]['cac:Party'][0]['cac:PostalAddress'][0]['cbc:CityName'][0]  :  "",
-					pib:  result?.[`${prefixPdf}`]['cac:AccountingCustomerParty'][0]['cac:Party'][0]['cbc:EndpointID'][0]['_'],
-					mb:  result?.[`${prefixPdf}`]['cac:AccountingCustomerParty'][0]['cac:Party'][0]['cac:PartyLegalEntity'][0]['cbc:CompanyID'][0]
+					pib:  result?.[`${prefixPdf}`]['cac:AccountingCustomerParty'][0]['cac:Party'][0]['cbc:EndpointID'] ? result?.[`${prefixPdf}`]['cac:AccountingCustomerParty'][0]['cac:Party'][0]['cbc:EndpointID'][0]['_']  :  "",
+					mb: result?.[`${prefixPdf}`]['cac:AccountingCustomerParty'][0]['cac:Party'][0]['cac:PartyLegalEntity'][0]['cbc:CompanyID'] ?  result?.[`${prefixPdf}`]['cac:AccountingCustomerParty'][0]['cac:Party'][0]['cac:PartyLegalEntity'][0]['cbc:CompanyID'][0] :  ""
 				},
 				AccountingSupplierParty: {
 					name: result?.[`${prefixPdf}`]['cac:AccountingSupplierParty'][0]['cac:Party'][0]['cac:PartyLegalEntity'][0]['cbc:RegistrationName'] ? result?.[`${prefixPdf}`]['cac:AccountingSupplierParty'][0]['cac:Party'][0]['cac:PartyLegalEntity'][0]['cbc:RegistrationName'][0]  :  "",
 					adress:   result?.[`${prefixPdf}`]['cac:AccountingSupplierParty'][0]['cac:Party'][0]['cac:PostalAddress'][0]['cbc:StreetName'] ?  result?.[`${prefixPdf}`]['cac:AccountingSupplierParty'][0]['cac:Party'][0]['cac:PostalAddress'][0]['cbc:StreetName'][0]   :  "",
 					city:  result?.[`${prefixPdf}`]['cac:AccountingSupplierParty'][0]['cac:Party'][0]['cac:PostalAddress'][0]['cbc:CityName'] ?  result?.[`${prefixPdf}`]['cac:AccountingSupplierParty'][0]['cac:Party'][0]['cac:PostalAddress'][0]['cbc:CityName'][0]   :  "",
-					pib:  result?.[`${prefixPdf}`]['cac:AccountingSupplierParty'][0]['cac:Party'][0]['cbc:EndpointID'][0]['_'],
-					mb:  result?.[`${prefixPdf}`]['cac:AccountingSupplierParty'][0]['cac:Party'][0]['cac:PartyLegalEntity'][0]['cbc:CompanyID'][0]
+					pib:  result?.[`${prefixPdf}`]['cac:AccountingSupplierParty'][0]['cac:Party'][0]['cbc:EndpointID']  ?  result?.[`${prefixPdf}`]['cac:AccountingSupplierParty'][0]['cac:Party'][0]['cbc:EndpointID'][0]['_']   :  "",
+					mb:   result?.[`${prefixPdf}`]['cac:AccountingSupplierParty'][0]['cac:Party'][0]['cac:PartyLegalEntity'][0]['cbc:CompanyID']  ?   result?.[`${prefixPdf}`]['cac:AccountingSupplierParty'][0]['cac:Party'][0]['cac:PartyLegalEntity'][0]['cbc:CompanyID'][0]  :  ""
 				},
 				paymentMeans:  result?.[`${prefixPdf}`]?.['cac:PaymentMeans'][0]?.['cac:PayeeFinancialAccount'][0]?.['cbc:ID']  ?  result?.[`${prefixPdf}`]?.['cac:PaymentMeans'][0]?.['cac:PayeeFinancialAccount'][0]?.['cbc:ID'][0]  :   "",
 				paymentMode:  result?.[`${prefixPdf}`]?.['cac:PaymentMeans'][0]?.['cbc:PaymentID'] ? result?.[`${prefixPdf}`]?.['cac:PaymentMeans'][0]?.['cbc:PaymentID'][0] : "",
@@ -159,6 +187,8 @@ const style = {
 					payableAmount:   result?.[`${prefixPdf}`]['cec:UBLExtensions']  ?   result?.[`${prefixPdf}`]['cec:UBLExtensions'][0]['cec:UBLExtension'][0]['cec:ExtensionContent'][0]['sbt:SrbDtExt'][0]['xsd:ReducedTotals'][0]['cac:LegalMonetaryTotal'][0]['cbc:PayableAmount'][0]['_']  :  "",
 					taxAmount:   result?.[`${prefixPdf}`]['cec:UBLExtensions']  ?   result?.[`${prefixPdf}`]['cec:UBLExtensions'][0]['cec:UBLExtension'][0]['cec:ExtensionContent'][0]['sbt:SrbDtExt'][0]['xsd:ReducedTotals'][0]['cac:TaxTotal'][0]['cac:TaxSubtotal'][0]['cbc:TaxAmount'][0]['_']  :  "",
 					taxableAmount:   result?.[`${prefixPdf}`]['cec:UBLExtensions']  ?   result?.[`${prefixPdf}`]['cec:UBLExtensions'][0]['cec:UBLExtension'][0]['cec:ExtensionContent'][0]['sbt:SrbDtExt'][0]['xsd:ReducedTotals'][0]['cac:TaxTotal'][0]['cac:TaxSubtotal'][0]['cbc:TaxableAmount'][0]['_']  :  "",
+					invoicedPrepaymentAmmount:   invoicedPrepaymentAmmountTmp ,
+					taxSubtotal:  taxSubtotalTmp
 				}
 
 			}
