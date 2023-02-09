@@ -274,10 +274,8 @@ const createSupplayerData = (userCompany: UserCompany): any => {
  * @returns
  */
 const createMonetaryTotal = (invoice: any): any => {
-  console.log('saasasasasasasssas',  invoice);
   let   prepaidAmountTotal: number   =  0;
   if(invoice?.invoice?.invoiceTypeCode === 380  && invoice?.advanceAccountList?.length) {
-    console.log('saasasasasasasssas',  invoice);
     invoice?.advanceAccountList.map((item: any)  =>  {
         prepaidAmountTotal =  prepaidAmountTotal + item?.item?.finalSum; 
     })
@@ -313,7 +311,7 @@ const createMonetaryTotal = (invoice: any): any => {
     {error: "Invalid user type for debtor", message: "Fakture ne treba da se šalju i na CRF za datog budžetskog korisnika"},
     {error: "must be approved", message: " Knjižno odobrenje, ne može biti poslato jer faktura po kojoj ga izdajete nije prihvaćena, niti odbijena"},
     {error: "mandatory for CreditNote document", message: "Knjižno odobrenje koje šaljete na SEF nema referencu na fakturu za koju je urađen povrat"},
-    {error: "Company with identifier", message: "Proverite na sefu-u api key i da li je api status aktivan"},
+    {error: "Company with identifier", message: "Proverite da li je korisnik registrovan na SEF-u."},
     {error: "503 Service Unavailable", message: "Poreska nije dostupna"},
     {error: "504 Gateway Time-out", message: "Poreska nije dostupna"},
   ]
