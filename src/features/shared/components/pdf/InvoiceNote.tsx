@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
 });
 
 const InvoiceNote = ({data}:any) => {
-    const vatPointDate  = data?.descriptionCode === 3 ? (data?.descriptionCode === 35  ? 'Datum obračuna pdv-a je datum slanja'  :  'Datum obračuna pdv-a je na dan placanja') : 'Datum obračuna pdv-a je datum prometa';
+    const vatPointDate  = data?.descriptionCode !== '3' ? (data?.descriptionCode === '35'  ? 'Datum obračuna pdv-a je datum prometa'  :  'Datum obračuna pdv-a je na dan plaćanja') : 'Datum obračuna pdv-a je datum slanja';
     return (
     <View style={styles.noteContainer}>
         <Text style={styles.note}>Napomena:  {data?.note} </Text>
