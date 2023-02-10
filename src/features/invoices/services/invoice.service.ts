@@ -272,7 +272,7 @@ function mapToRequestDTO(invoice: any, filesList: any, advanceAccountList?: any[
   }];
 
   // ovo se ne salje za avansne 
-  if(invoice.vatPointDate !==  432 &&  invoice?.invoiceTypeCode !== 381) {
+  if(invoice?.invoiceTypeCode !==  386 &&  invoice?.invoiceTypeCode !== 381 &&  invoice?.invoiceTypeCode !== 383) {
       invoice["delivery"] = {
         actualDeliveryDate: invoice.issueDate,
       };

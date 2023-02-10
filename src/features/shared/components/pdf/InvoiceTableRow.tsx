@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
         fontStyle: 'bold',
     },
     description: {
-        width: '30%',
+        width: '25%',
         flexDirection:  'row',
         fontFamily: "Roboto",
         justifyContent:  'flex-start',
@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
         textAlign:  'right',
     },
     tax: {
-        width: '7%',
+        width: '12%',
         fontSize:  8,
         textAlign:  'right',
         paddingRight: 2
@@ -110,7 +110,7 @@ const InvoiceTableRow = ({data} : any) => {
             <Text style={styles.description}>{item?.productName}</Text>
             <Text style={styles.qty}>{item?.quantity}</Text>
             <Text style={styles.rate}>{currencyFormat(getUnitPrice(item?.oldPrice, item?.percent))}</Text>
-            <Text style={styles.unit}>kom</Text>
+            <Text style={styles.unit}>{item?.unitName}</Text>
             <View style={styles.discountConteiner}>
                 <Text style={styles.discount}>{currencyFormat(getDiscount(item?.discount, item?.oldPrice ))}</Text>
                 <Text style={styles.discount}>({currencyFormat(item?.discount)})</Text>
