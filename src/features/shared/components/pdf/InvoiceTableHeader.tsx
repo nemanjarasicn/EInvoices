@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
     },
     description: {
         fontFamily: "Roboto",
-        width: '30%',
+        width: '25%',
         flexDirection:  'row',
         justifyContent:  'flex-start',
         fontSize:  8,
@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
     },
     tax: {
         fontFamily: "Roboto",
-        width: '7%',
+        width: '12%',
         fontSize:  8,
         textAlign:  'right',
         paddingRight: 2

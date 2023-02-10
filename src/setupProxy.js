@@ -11,6 +11,7 @@ module.exports = function (app) {
     createProxyMiddleware("/api/v1", {
       target: "https://api.dev.mastersoftware.rs/", // proxy for localhost  api.dev.mastersoftware.rs  https://api-gateway.mastersoftware.trampic.info/
       changeOrigin: true,
+      secure: false,
     })
   );
 };

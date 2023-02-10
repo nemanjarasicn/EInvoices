@@ -61,6 +61,7 @@ const style = {
     }]
   }
 
+
   export default function  ModalPdf (props: any)  {   
 
     const dispatch = useAppDispatch();
@@ -93,7 +94,7 @@ const style = {
 		xml2js.parseString(xmlTmp, (err, result) => {
 			if (err) {
 			  throw err;
-			}
+			}	
 			const json = JSON.stringify(result, null, 4);
 			console.log('sassasasas',result);
 			const additionalDocumentReferenceTmp =  result?.[`${prefixPdf}`]['cac:AdditionalDocumentReference'] ?
@@ -173,7 +174,8 @@ const style = {
 				delivery:   result?.[`${prefixPdf}`]['cac:Delivery'] ?    result?.[`${prefixPdf}`]['cac:Delivery'][0]['cbc:ActualDeliveryDate'][0]  :  "",
 				issueDate:    result?.[`${prefixPdf}`]['cbc:IssueDate']  ?  result?.[`${prefixPdf}`]['cbc:IssueDate'][0] :  "",
 				invoiceTypeCode: result?.[`${prefixPdf}`][`${typCodeTmp}`][0],
-				note:  result?.[`${prefixPdf}`]['cbc:Note'] ?  result?.[`${prefixPdf}`]['cbc:Note'][0] :  "",	
+				note:  result?.[`${prefixPdf}`]['cbc:Note'] ? ( result?.[`${prefixPdf}`]['cbc:Note'][0]['_'] ?  result?.[`${prefixPdf}`]['cbc:Note'][0]['_'] : result?.[`${prefixPdf}`]['cbc:Note'][0] ) :  "",	
+				descriptionCode:  result?.[`${prefixPdf}`]['cac:InvoicePeriod'] ?   result?.[`${prefixPdf}`]['cac:InvoicePeriod'][0]['cbc:DescriptionCode'][0]   :  "", 
 				numberDocument:  result?.[`${prefixPdf}`]['cbc:ID']  ?   result?.[`${prefixPdf}`]['cbc:ID'][0]  :  "",
 				legalMonetaryTotal:  {
 					payableAmount:   result?.[`${prefixPdf}`]['cac:LegalMonetaryTotal'][0]['cbc:PayableAmount']  ?   result?.[`${prefixPdf}`]['cac:LegalMonetaryTotal'][0]['cbc:PayableAmount'][0]['_']  :  "",
@@ -192,7 +194,6 @@ const style = {
 				}
 
 			}
-			console.log('sasasasddafafasd',   objectTmp)
 			setDataInvoice(objectTmp);
 			if(result) {
 				setLoading(false);

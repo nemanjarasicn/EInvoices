@@ -24,9 +24,9 @@ export interface AutocompleteItem {
 }
 
 export enum VATPointDate {
-  ISSUING_DATE = 3,
-  DELIVERY_DATE = 35,
-  PAYMENT_DATE = 432,
+  ISSUING_DATE = 3,//datum slanja
+  DELIVERY_DATE = 35, //datum prometa
+  PAYMENT_DATE = 432, //na dan placanja
 }
 
 export enum SourceSelectionMode {
