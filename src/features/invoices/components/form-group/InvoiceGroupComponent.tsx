@@ -16,9 +16,13 @@ type InvoiceGroupComponentProps = GroupFieldProps & {
     issueDate: Omit<FormFieldProps, "control"> & {
       additional?: { disablePast: boolean,  };
     };
+    deliveryDate: Omit<FormFieldProps, "control"> & {
+      additional?: { disablePast: boolean,  };
+    };
     dueDate: Omit<FormFieldProps, "control"> & {
       additional?: { disablePast: boolean };
     };
+    
     vatPointDate: Omit<FormFieldProps, "control"> & {
       additional?: { optionNone: boolean };
       options: OptionItem[];
@@ -36,7 +40,7 @@ export default function InvoiceGroupComponent({
       <Grid item xs={3}>
         <FormDateField
           props={{
-            ...props.invoiceFileds.issueDate,
+            ...props.invoiceFileds.deliveryDate,
             control: props.control,
           }}
         />

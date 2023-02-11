@@ -83,6 +83,7 @@ const sendInvoce: AsyncThunk<any, { invoice: any, companyInfo?: any, filesList: 
   any,
   { invoice: any,  companyInfo?: any, filesList:  any[],  advanceAccountList?: any[]  }
 >("POST/Invoice", async (invoiceDto, _) => {
+  console.log('sasas', invoiceDto );
   const { core, form } = (_ as any).getState();
   const { apiKey } = core.userCompany;
   const { autocompleteData } = form;

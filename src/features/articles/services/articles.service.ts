@@ -80,6 +80,107 @@ class RegistriesPublicService {
     );
 }
 
+sendArticleUpdate(data: any, id: number | string) {
+   console.log('asasssss', data)
+   return publicClient.put<any>
+   (`catalog/${id}`,
+   [
+       {
+          "productCreate":{
+             "prodctId":  id,
+             "productName":  data.productName,
+             "sale": "true",
+             "stock": "true",
+             "recipe":   "true",
+             "production": "true",
+             "consumables": "true",
+             "modificationRequired":   "true",
+             "decimalShow": "true",
+             "priceChangeForbidden":  "true",
+             "barCode": data.barCode ? data.barCode  :  "00000",
+             "code":  data.code,
+             "idCompany":   data.idCompany,
+             "idObject": 1,
+             "taxCode": data.productTaxCategory.item.taxCategoryCode,
+             "taxName": data.productTaxCategory.item.taxCategoryName,
+             "taxValue1":  data.productTaxCategory.item.value1,
+              "baseCode":  data.taxBase.name,
+              "vat": "",
+            "vatName":  "",
+            "vatValue1": null,
+            "unitCode":  "",
+            "unitName": "",
+            "companyName": "",
+             "productGroupRequest":[
+                {
+                  "idGroup":1,
+                  "show": true,
+                  "reporting": true,
+                  "groupName":"OPSTA",
+                  "status":{
+                     "status":"NONE"
+                  }
+                }
+             ],
+             "productTypeRequest":{
+                "idType":1,
+                "typeName":"Proizvod",
+                "status":{
+                  "status":"NONE"
+               }
+
+             },
+             "productUnitRequest":{
+                "idUnit":   data.productUnitRequest.id,
+                "unitName": data.productUnitRequest.name,
+                "status":{
+                  "status":"NONE"
+               }
+             },
+             "productVatRequest":{
+                "idVat":  data.productVatRequest.id,
+                "vatName":  data.productVatRequest.name,
+                "status":{
+                  "status":"NONE"
+               }
+
+             },
+             "productTaxCategory":{
+                    "idTaxCategory": data.productTaxCategory.item.idTaxCategory,
+                    "taxCategoryCode": data.productTaxCategory.item.taxCategoryCode,
+                    "taxCategoryName": data.productTaxCategory.item.taxCategoryName,
+                    "value1":  data.productTaxCategory.item.value1,
+                    "idCountry":  data.productTaxCategory.item.idCountry,
+                    "status":{
+                     "status":"NONE"
+                  }
+             }, 
+             "marketPlaceDtos": data.marketPlaceDtos
+             /*[{
+                 "uuid":"96ad51f3da3e40bb",
+                    "id":28,
+                "marketPlaceName":"restoran PM"
+             }]*/,
+             "warehouseDtos":[
+             ],
+             "pointOfSaleRequest":[
+               //TODO set to be dinamicly, foe efacture we dont have point of sale
+                   /* {
+                        "uuid":"b66ea844064040a5",
+                   "idPointOfSale":2,
+                   "pointOfName":"Kasa1234"
+                }*/
+             ],
+             "auditedEntity":{
+                "createdBy":1,
+                "lastUpdatedBy":1
+             }
+          }
+       }
+    ]
+   );
+}
+
 sendArticlesPrice(data: any) {
     return publicClient.post<any>
     ("pricinglistdetails",

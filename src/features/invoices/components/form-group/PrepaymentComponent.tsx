@@ -17,6 +17,9 @@ type PrepaymentComponentProps = GroupFieldProps & {
     issueDate: Omit<FormFieldProps, "control"> & {
       additional?: { disablePast: boolean };
     };
+    deliveryDate: Omit<FormFieldProps, "control"> & {
+      additional?: { disablePast: boolean,  };
+    };
     vatPointDate: Omit<FormFieldProps, "control"> & {
       additional?: { optionNone: boolean };
       options: OptionItem[];
@@ -42,7 +45,7 @@ export default function PrepaymentComponent({
           <Grid item xs={6}>
             <FormDateField
               props={{
-                ...props.prepaymentFields.issueDate,
+                ...props.prepaymentFields.deliveryDate,
                 control: props.control,
               }}
             />
