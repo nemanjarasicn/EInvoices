@@ -150,6 +150,7 @@ export interface ProductModel {
     taxName?:  string;
     taxValue1?:  number |  string;
     baseCode?:  string;
+    unitName?: string | number;
 
 }
 

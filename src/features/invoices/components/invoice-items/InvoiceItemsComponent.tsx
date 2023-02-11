@@ -64,13 +64,24 @@ export default function InvoiceItemsComponent({
     align: "center",
     hideable: false,
   },
+  //ovo se ne prikazuje, ranije se prikazivalo zato sam ostavio
   {
     field: "unitCode",
     headerName: t("Form.formFieldsLabels.unitCode"),
     flex: 1,
     headerAlign: "center",
     align: "center",
-    hideable: false,
+    hideable: true,
+    hide: true
+  },
+  {
+    field: "unitName",
+    headerName: t("Form.formFieldsLabels.unitCode"),
+    flex: 1,
+    headerAlign: "center",
+    align: "center",
+    hideable: true,
+    hide:  false
   },
   {
     field: "discount",
@@ -161,6 +172,7 @@ export default function InvoiceItemsComponent({
                                         {id:  newItemsList.id, 
                                         name: newItemsList.item.name, 
                                         unitCode: newItemsList.unitCode,
+                                        unitName:   newItemsList.unitName, 
                                         vatName:  newItemsList.vatName,
                                         invoicedQuantity:    newItemsList.invoicedQuantity,
                                         price:   newItemsList.price.unitPrice,
@@ -271,7 +283,7 @@ export default function InvoiceItemsComponent({
         </Grid>
     </Grid>
     <DataGrid
-      style={{ minHeight:  500,   backgroundColor: 'white',  overflow: "auto", scrollBehavior: "smooth",  fontSize:   fontSize }}
+      style={{ minHeight:  500,   backgroundColor: 'white',  overflow: "auto", scrollBehavior: "smooth",   fontSize:   fontSize }}
       disableColumnMenu
       pagination
       disableColumnFilter

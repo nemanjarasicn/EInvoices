@@ -212,7 +212,7 @@ export default function InvoiceLine({
           }}
         />
       </Grid>
-      <Grid item xs={1}>
+      {/*<Grid item xs={1}>
         <FormTextField
           props={{
             control: control,
@@ -225,7 +225,23 @@ export default function InvoiceLine({
             },
           }}
         />
-      </Grid>
+        </Grid>*/}
+      <Grid item xs={1}>
+              <FormTextField
+                  props={{
+                    control: control,
+                    disabled: true,
+                    label: t(fieldLabels.unitCode),
+                    name: `invoiceLine[${index}].unitName`,
+                    additional: {
+                      suffix: "",
+                      readonly: true,
+                    },
+                  }}
+                />
+        </Grid>
+              
+
       <Grid item xs={1}>
         <FormCurrencyField
           props={{

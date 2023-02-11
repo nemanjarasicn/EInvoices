@@ -145,7 +145,6 @@ export default function InvoiceFormComponent({
 
   const onSubmit = handleSubmit(
     (data: InvoiceFormModel) => {
-      console.log('sasasssasa222222', data);
       dispatch(sendInvoce({ invoice: data, companyInfo: companyInfo, filesList: filesList,  advanceAccountList:  advanceAccountList })).then((res) => {
         if (res.payload.message === "REDIRECT") {
            setShowError(true);  

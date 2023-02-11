@@ -152,6 +152,7 @@ function convertToProductModel(item: any): ProductModel {
       taxName:     item.taxName,
       taxValue1:    item.taxValue1,*/
       baseCode:    item.baseCode,
+      unitName:  item.unitName
   };
 }
 function convertToCompanyModel(item: any): CustomerPartyModel {

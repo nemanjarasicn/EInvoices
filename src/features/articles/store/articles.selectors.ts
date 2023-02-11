@@ -23,6 +23,7 @@ export const selectArticles = createSelector(
         barCode:  item.barCode,
         code: item.code,
         unitCode: item.unitCode,
+        unitName: item.unitName,
         vat: item.vat,
         groupName: item.groupName,
         typeName: item.typeName,
