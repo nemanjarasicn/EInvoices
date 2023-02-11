@@ -113,6 +113,16 @@ const useTableSettings = (): TableSettings => {
                 headerAlign: "center",
                 align: "center",
                 hideable: true,
+                hide: true,
+              },
+
+              {
+                field: "unitName",
+                headerName: "Articles.unitCode",
+                flex: 1,
+                headerAlign: "center",
+                align: "center",
+                hideable: true,
                 hide: false,
               },
               {
