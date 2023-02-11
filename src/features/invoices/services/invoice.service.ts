@@ -230,7 +230,11 @@ function mapToRequestDTO(invoice: any, filesList: any, advanceAccountList?: any[
   invoice.issueDate =  dayjs(new Date).format("YYYY-MM-DD"); //dayjs(invoice.issueDate).format("YYYY-MM-DD");
   // ovo se ne salje za knjizna odobrenja
   if(invoice?.invoiceTypeCode !== 381) {
+    if(invoice?.invoiceTypeCode !== 386) {
       invoice.dueDate = ((invoice.dueDate).toString() !== "Invalid Date") ?  dayjs(invoice.dueDate).format("YYYY-MM-DD") :  "";
+    } else {
+      invoice.dueDate = ((invoice.deliveryDate).toString() !== "Invalid Date") ?  dayjs(invoice.deliveryDate).format("YYYY-MM-DD") :  "";
+    }
   } else {
     invoice.dueDate = ""
   }
@@ -274,7 +278,7 @@ function mapToRequestDTO(invoice: any, filesList: any, advanceAccountList?: any[
   // ovo se ne salje za avansne 
   if(invoice?.invoiceTypeCode !==  386 &&  invoice?.invoiceTypeCode !== 381 &&  invoice?.invoiceTypeCode !== 383) {
       invoice["delivery"] = {
-        actualDeliveryDate: invoice.issueDate,
+        actualDeliveryDate: dayjs(invoice.deliveryDate).format("YYYY-MM-DD"),
       };
     }
   

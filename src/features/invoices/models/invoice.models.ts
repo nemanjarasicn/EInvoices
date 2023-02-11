@@ -79,6 +79,7 @@ export class InvoiceFormModel {
   id: string = "";
   invoiceTypeCode: InvoiceType = InvoiceType.INVOICE;
   issueDate: Date = new Date();
+  deliveryDate: Date = new Date();
   dueDate: Date = new Date();
   vatPointDate: VATPointDate = VATPointDate.ISSUING_DATE;
   sourceInvoiceSelectionMode: SourceSelectionMode = SourceSelectionMode.SINGLE;

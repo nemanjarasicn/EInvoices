@@ -18,14 +18,8 @@ import  ErrorModal   from   "../../shared/components/ErrorModals"
 import SucessModal   from "../../shared/components/SucessModal"
 import  { getObjectsAll,  getMarketPlacesAll,  getTaxBase }  from  "../../shared/components/form-fields/store/form.actions"
 import { selectCompanyCurrent } from "../../../app/core/core.selectors";
-import  {  
-    selectUnitsAll,  
-    selectVatsAll,   
-    selectMarketPlaces,  
-    selectTaxCode, 
-    selectTaxBase 
-  }  from   "../../shared/components/form-fields/store/form.selectors"
-import { sendArticle } from "../store/articles.actions";
+import  {  selectUnitsAll,  selectVatsAll,   selectMarketPlaces,  selectTaxCode, selectTaxBase }  from   "../../shared/components/form-fields/store/form.selectors"
+import { sendArticle,  sendArticleUpdate } from "../store/articles.actions";
 import { setopenModalCreateArtical,  setopenModalCreateArticalPrice, setOpenSucessModal  } from "../store/articles.reducer";
 //import ClientComponent from "./form-group/ClientComponent";
 
@@ -74,7 +68,10 @@ export default function FormArticleComponent({
       marketPlaceDtos:  useAppSelector(selectMarketPlaces).map((item) => ({
         uuid:  item.item.uuid,
         id:  item.item.id,
-        marketPlaceName:   item.item.marketPlaceName
+        marketPlaceName:   item.item.marketPlaceName,
+        status: {
+          status: "NONE"
+      }
       })),
       taxcodeValue: "",
       taxCode:  {
@@ -150,14 +147,32 @@ export default function FormArticleComponent({
 
 
       const onSubmit = async  (data: ArticleFormModel) => {
-         await dispatch(sendArticle({data})).then(async (res) => {
+        if(props.flag  !==  'edit')  {
+            await dispatch(sendArticle({data})).then(async (res) => {
+                if(res.payload.message === "sucsess") {
+                  dispatch(setopenModalCreateArtical({open: false}));
+                  dispatch(setOpenSucessModal(true));
+                  setTimeout(() => {
+                      dispatch(setOpenSucessModal(false));
+                      //dispatch(setopenModalCreateArticalPrice({open: true, data: res.payload.data[0].createProduct, flag: "" }));
+          
+                  }, 2000);
+                }  else {
+                  setShowErrorModal(true);  
+                  setTimeout(() => {
+                        setShowErrorModal(false);
+                  }, 2000);
+                }
+            } 
+            )
+        } else {
+          /*await dispatch(sendArticleUpdate({data: data, id: props?.data?.prodctId})).then(async (res) => {
             if(res.payload.message === "sucsess") {
               dispatch(setopenModalCreateArtical({open: false}));
               dispatch(setOpenSucessModal(true));
               setTimeout(() => {
                   dispatch(setOpenSucessModal(false));
                   dispatch(setopenModalCreateArticalPrice({open: true, data: res.payload.data[0].createProduct, flag: "" }));
-      
               }, 2000);
             }  else {
               setShowErrorModal(true);  
@@ -166,7 +181,8 @@ export default function FormArticleComponent({
               }, 2000);
             }
         } 
-        )
+        )*/
+        }
       }
 
     return (

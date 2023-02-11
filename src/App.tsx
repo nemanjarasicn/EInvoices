@@ -22,8 +22,7 @@ import { CreateType as CreateTypeArticles}  from "../src/features/articles/model
 import { selectColor } from "./app/core/core.selectors";
 
 import InfoCompany from "./features/registries/components/InfoCompany";
-
-
+import { useLocation } from "react-router-dom";
 
 
 const DashboardPage = React.lazy(

@@ -14,6 +14,7 @@ export default function ProtectedLayout(): JSX.Element {
   const token: string | null = JSON.parse(
     String(sessionStorage.getItem("token"))
   );
+  
 
   React.useEffect(() => {
     if (!token || !validateToken(token)) {

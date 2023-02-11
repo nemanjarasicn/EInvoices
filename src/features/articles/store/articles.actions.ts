@@ -27,6 +27,16 @@ const sendArticle: AsyncThunk<any, {data: ArticleFormModel }, {}> = createAsyncT
 );
 
 
+const sendArticleUpdate: AsyncThunk<any, {data: ArticleFormModel, id: number | string }, {}> = createAsyncThunk<any, {data: ArticleFormModel,  id: number | string }>(
+  "POST/articleSend",
+  async (data,_) => {
+    return await RegistriesPublicService.sendArticleUpdate(data.data, data.id)
+    .then((res: any)  =>   {return {data: res.data, message: 'sucsess'}})
+    .catch((err: any) => 'error');
+  }
+);
+
+
 
 const sendArticlesPrice: AsyncThunk<any, {data: any, price: any}, {}> = createAsyncThunk<any, {data: any;  price: any}>(
     "POST/articleSend",
@@ -99,5 +109,6 @@ export {
   getSubject,
   sendSubject,
   updateSubject,
-  getSubjectDetails
+  getSubjectDetails,
+  sendArticleUpdate
 };

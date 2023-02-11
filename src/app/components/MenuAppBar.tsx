@@ -183,6 +183,46 @@ export default function ClippedDrawer() {
         },
       ],*/
     },
+
+    {
+      name: t("Menu.administration"),
+      href:  "/registries/companies", //"/registries",
+      icon: "ApartmentIcon",
+      listNumber:  3,
+      submenu: true,
+      disabled:   !isDistributor ,
+      /*children: [
+        {
+          name: t("Objects.title"),
+          href: "/registries/objects",
+          icon: "Home",
+          disabled: false,
+        },
+        {
+          name: t("MarketPlace.title"),
+          href: "/registries/marketPlace",
+          icon: "Home",
+          disabled: false,
+        },
+        {
+          name: t("PointOfSale.title"),
+          href: "/registries/pointOfSale",
+          icon: "Home",
+          disabled: false,
+        },
+        {
+          name: t("Companies.title"),
+          href: "/registries/companies",
+          icon: "Home",
+          disabled: false,
+        },
+        {
+          name: t("Warehouses.title"),
+          href: "/registries/warehouse",
+          icon: "Home",
+        },
+      ],*/
+    },
     
   ];
 
@@ -448,7 +488,7 @@ export default function ClippedDrawer() {
       >
         <Toolbar />
         <AppLoader />
-        <Outlet />
+        <Outlet  />
       </Box>
     </Box>
   </>

@@ -202,7 +202,7 @@ const InvoiceNo = ({ data } : any ) => (
                                 : 
                                 <Text style={styles.dataTextLeft}>Datum avansne uplate</Text>
                             }
-                            <Text style={styles.dataTextRight}>{dayjs(data?.dueDate).format("DD.MM.YYYY")}</Text>
+                            <Text style={styles.dataTextRight}>{(data?.invoiceTypeCode !=='386' && data?.invoiceTypeCode !== '383' ) ? dayjs(data?.delivery).format("DD.MM.YYYY") : dayjs(data?.dueDate).format("DD.MM.YYYY") }</Text>
                     </View>
                     : 
                     ""
@@ -211,7 +211,7 @@ const InvoiceNo = ({ data } : any ) => (
                     {(data?.invoiceTypeCode !=='386' &&  data?.invoiceTypeCode !=='383' &&  data?.invoiceTypeCode !== '381') ? 
                     <View  style={styles.textConteiner}> 
                             <Text style={styles.dataTextLeft}>Datum dospeca</Text>
-                            <Text style={styles.dataTextRight}>{dayjs(data?.delivery).format("DD.MM.YYYY")}</Text>
+                            <Text style={styles.dataTextRight}>{dayjs(data?.dueDate).format("DD.MM.YYYY")}</Text>
                     </View>
                     :
                     ""
