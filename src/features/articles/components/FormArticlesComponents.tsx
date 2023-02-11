@@ -155,7 +155,7 @@ export default function FormArticleComponent({
                   dispatch(setOpenSucessModal(true));
                   setTimeout(() => {
                       dispatch(setOpenSucessModal(false));
-                      //dispatch(setopenModalCreateArticalPrice({open: true, data: res.payload.data[0].createProduct, flag: "" }));
+                      dispatch(setopenModalCreateArticalPrice({open: true, data: res.payload.data[0].createProduct, flag: "" }));
           
                   }, 2000);
                 }  else {
