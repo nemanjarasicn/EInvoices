@@ -85,7 +85,7 @@ export default function FormVatComponent({
               setShowError(true);
               setTimeout(() => {
                   setShowError(false);
-                  navigate('/registries/objects'
+                  navigate('/registries/vat'
                   )
               }, 2000);
             }   else {

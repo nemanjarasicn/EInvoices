@@ -27,10 +27,10 @@ const sendArticle: AsyncThunk<any, {data: ArticleFormModel }, {}> = createAsyncT
 );
 
 
-const sendArticleUpdate: AsyncThunk<any, {data: ArticleFormModel, id: number | string }, {}> = createAsyncThunk<any, {data: ArticleFormModel,  id: number | string }>(
+const sendArticleUpdate: AsyncThunk<any, {data: ArticleFormModel, id: number | string , status: any}, {}> = createAsyncThunk<any, {data: ArticleFormModel,  id: number | string, status: any }>(
   "POST/articleSend",
   async (data,_) => {
-    return await RegistriesPublicService.sendArticleUpdate(data.data, data.id)
+    return await RegistriesPublicService.sendArticleUpdate(data.data, data.id, data?.status)
     .then((res: any)  =>   {return {data: res.data, message: 'sucsess'}})
     .catch((err: any) => 'error');
   }

@@ -80,8 +80,8 @@ class RegistriesPublicService {
     );
 }
 
-sendArticleUpdate(data: any, id: number | string) {
-   console.log('asasssss', data)
+sendArticleUpdate(data: any, id: number | string, status:  any) {
+   console.log('asasssss', status)
    return publicClient.put<any>
    (`catalog/${id}`,
    [
@@ -105,11 +105,11 @@ sendArticleUpdate(data: any, id: number | string) {
              "taxName": data.productTaxCategory.item.taxCategoryName,
              "taxValue1":  data.productTaxCategory.item.value1,
               "baseCode":  data.taxBase.name,
-              "vat": "",
-            "vatName":  "",
-            "vatValue1": null,
-            "unitCode":  "",
-            "unitName": "",
+              "vat":  data.productVatRequest.name,
+            "vatName":  data.productVatRequest.name,
+            "vatValue1": data.productVatRequest?.item?.value1,
+            "unitCode":   data.productUnitRequest?.item?.productUnitCode,
+            "unitName": data.productUnitRequest.name,
             "companyName": "",
              "productGroupRequest":[
                 {
@@ -133,15 +133,16 @@ sendArticleUpdate(data: any, id: number | string) {
              "productUnitRequest":{
                 "idUnit":   data.productUnitRequest.id,
                 "unitName": data.productUnitRequest.name,
+                "unitCode": data.productUnitRequest?.item?.productUnitCode,
                 "status":{
-                  "status":"NONE"
+                  "status":  status?.statusUnit
                }
              },
              "productVatRequest":{
                 "idVat":  data.productVatRequest.id,
                 "vatName":  data.productVatRequest.name,
                 "status":{
-                  "status":"NONE"
+                  "status":  status?.statusVat
                }
 
              },
@@ -152,7 +153,7 @@ sendArticleUpdate(data: any, id: number | string) {
                     "value1":  data.productTaxCategory.item.value1,
                     "idCountry":  data.productTaxCategory.item.idCountry,
                     "status":{
-                     "status":"NONE"
+                     "status": status?.statusTax
                   }
              }, 
              "marketPlaceDtos": data.marketPlaceDtos

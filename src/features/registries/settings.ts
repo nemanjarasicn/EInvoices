@@ -50,7 +50,7 @@ const useFeatureSettings = (): FeatureSettings => {
         icon: CodeIcon,
         cardBtn: {
           title: "InvoiceCard.preview",
-          disabled: showCard,
+          disabled: true,
           btnFn: () => navigate("/registries/companies"),
         },
         typeOfCard:  "company",
@@ -60,7 +60,7 @@ const useFeatureSettings = (): FeatureSettings => {
         icon: ExitToAppIcon,
         cardBtn: {
           title: "InvoiceCard.preview",
-          disabled: false,
+          disabled: true,
           btnFn: () => navigate("/registries/objects"),
         },
         typeOfCard:  "company",
@@ -70,7 +70,7 @@ const useFeatureSettings = (): FeatureSettings => {
         icon: CodeIcon,
         cardBtn: {
           title: "InvoiceCard.preview",
-          disabled: false,
+          disabled: true,
           btnFn: () => navigate("/registries/marketPlace"),
         },
         typeOfCard:  "company",
@@ -121,7 +121,7 @@ const useFeatureSettings = (): FeatureSettings => {
         icon: ExitToAppIcon,
         cardBtn: {
           title: "InvoiceCard.preview",
-          disabled: showCard,
+          disabled: true,
           btnFn: () => navigate("/registries/users"),
         },
         typeOfCard:  "articles",
@@ -136,7 +136,7 @@ const useFeatureSettings = (): FeatureSettings => {
         },
         typeOfCard:  "articles",
       },
-      {
+      /*{
         title: "Subject.title",
         icon: CodeIcon,
         cardBtn: {
@@ -145,7 +145,7 @@ const useFeatureSettings = (): FeatureSettings => {
           btnFn: () => navigate("/registries/companies"),
         },
         typeOfCard:  "company",
-      },
+      },*/
     ],
     templatePageSettings: {
       [TemplatePageRegistriesTypes.OBJECTS]: {

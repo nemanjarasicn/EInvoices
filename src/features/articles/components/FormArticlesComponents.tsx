@@ -32,6 +32,9 @@ export default function FormArticleComponent({
     const [showTaxBase, setShowTaxBase] = React.useState('none');
     const  vatTmp  =  useAppSelector(selectVatsAll);
     const  unitCodeTmp  =  useAppSelector(selectUnitsAll)
+    const [statusUnit, setStatusUnit] = React.useState('NONE')
+    const [statusVat, setStatusVat] = React.useState('NONE')
+    const [statusTax, setStatusTax] = React.useState('NONE')
 
     /**
  * Register Form validation schema for every field
@@ -120,7 +123,7 @@ export default function FormArticleComponent({
 
         if(props?.flag ===  'edit')  {
           const vatObject = vatTmp.find((item)  => item?.name  ===  props?.data?.vat);
-          const unitCodeObject = unitCodeTmp.find((item)  => item.name  ===  props?.data?.unitCode)
+          const unitCodeObject = unitCodeTmp.find((item)  => item?.item?.productUnitCode  ===  props?.data?.unitCode)
           setValue('productName', props?.data?.productName);
           setValue('code', props?.data?.code);
           setValue('barCode', props?.data?.barCode !==  '00000'  ? props?.data?.barCode  :   "" );
@@ -144,6 +147,7 @@ export default function FormArticleComponent({
             }
           }
         setValue("taxcodeValue",  String(taxCode1.value1));
+        setStatusTax('UPDATE');
       }, [watch('productTaxCategory')]);
 
 
@@ -167,13 +171,13 @@ export default function FormArticleComponent({
             } 
             )
         } else {
-          /*await dispatch(sendArticleUpdate({data: data, id: props?.data?.prodctId})).then(async (res) => {
+          await dispatch(sendArticleUpdate({data: data, id: props?.data?.prodctId, status: {statusUnit: statusUnit,statusVat: statusVat, statusTax: statusTax}})).then(async (res) => {
             if(res.payload.message === "sucsess") {
               dispatch(setopenModalCreateArtical({open: false}));
               dispatch(setOpenSucessModal(true));
               setTimeout(() => {
                   dispatch(setOpenSucessModal(false));
-                  dispatch(setopenModalCreateArticalPrice({open: true, data: res.payload.data[0].createProduct, flag: "" }));
+                  //dispatch(setopenModalCreateArticalPrice({open: true, data: res.payload.data[0].createProduct, flag: "" }));
               }, 2000);
             }  else {
               setShowErrorModal(true);  
@@ -182,8 +186,16 @@ export default function FormArticleComponent({
               }, 2000);
             }
         } 
-        )*/
+        )
         }
+      }
+
+      const handleChangeSelectUnit = (value: any) =>  {
+        setStatusUnit('UPDATE');
+      }
+
+      const handleChangeSelectVat = (value: any) =>  {
+        setStatusVat('UPDATE');
       }
       
   
@@ -262,6 +274,7 @@ export default function FormArticleComponent({
                         disabled: false,
                         additional: {
                         selector:  selectUnitsAll,
+                        parentFn: handleChangeSelectUnit,
                         
                         },
                     }}
@@ -274,6 +287,7 @@ export default function FormArticleComponent({
                         disabled: false,
                         additional: {
                         selector:  selectVatsAll,
+                        parentFn: handleChangeSelectVat
                         
                         },
                     }}
