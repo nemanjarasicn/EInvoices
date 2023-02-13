@@ -178,6 +178,7 @@ export default function FormArticleComponent({
               setTimeout(() => {
                   dispatch(setOpenSucessModal(false));
                   //dispatch(setopenModalCreateArticalPrice({open: true, data: res.payload.data[0].createProduct, flag: "" }));
+                  window.location.reload()
               }, 2000);
             }  else {
               setShowErrorModal(true);  
