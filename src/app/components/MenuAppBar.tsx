@@ -223,6 +223,15 @@ export default function ClippedDrawer() {
         },
       ],*/
     },
+
+    /*{
+      name: t("Menu.administration"),
+      href:  "/registries", //"/registries",
+      icon: "ApartmentIcon",
+      listNumber:  4,
+      submenu: false,
+      disabled:  false ,
+    },*/
     
   ];
 

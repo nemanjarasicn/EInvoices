@@ -31,22 +31,9 @@ import  { selectPointOfSale, selectObjectsAll }  from  "../../shared/components/
  */
  const schema = yup
  .object({
-   // client: yup
-   //   .object({
-   //     vatRegistrationCode: yup.string().required(),
-   //   })
-   //   .required(),
-   // dropdownValue: yup.string().required(),
-   // textAreaValue: yup.string().required(),
-   // dateValue: yup.string().required(), //validate date format
-   // autocompleteValue: yup.object().required(),
-   // checkbox: yup.bool().required(),
-   // numberValue: yup.number().required(),
-   // invoiceLine: yup.array().of(
-   //   yup.object({
-   //     invoicedQuantity: yup.number().moreThan(0, ""),
-   //   })
-   // ),
+  groupName: yup.string().required('ovo je obavezno polje'),
+  idPointOfSale: yup.object().required(),
+  idObject:  yup.object().required()
  })
  .required();
 
@@ -81,8 +68,8 @@ export default function FormGroupComponent({
       } = methods;
 
       React.useEffect(() => {
-        dispatch(getPointOfSalesAll({companyId: companyId[0]}));
-        dispatch(getObjectsAll({companyId: companyId[0]}));
+        dispatch(getPointOfSalesAll({companyId: companyId}));
+        dispatch(getObjectsAll({companyId: companyId}));
       }, []);
 
       const onSubmit = (data: GroupFormModel) => {
