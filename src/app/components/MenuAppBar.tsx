@@ -87,7 +87,9 @@ export default function ClippedDrawer() {
   const subMenuHeight = window.devicePixelRatio === 1.5 ? 210 : 350 ; 
   const subMenuPadding = window.devicePixelRatio === 1.5 ?  0 :   2; 
   const fontSizeText = window.devicePixelRatio === 1.5 ? '12px' : '18px';
-  const gradiantSize = window.devicePixelRatio === 1.5 ?   '20%' : '15%';
+  const appBarHeight = window.devicePixelRatio === 1.5 ? '40px' : '65px'; 
+  const logoutIconMarginTop    =     window.devicePixelRatio === 1.5 ? '190px' : '370px'; 
+  const gradiantSize = window.devicePixelRatio === 1.5 ?   '50%' : '35%';
   const minWidthIcon    =    window.devicePixelRatio === 1.5 ?  20 :  80; 
 
   const trigger = useScrollTrigger();
@@ -493,7 +495,7 @@ export default function ClippedDrawer() {
       </Drawer>
       <Box
         component="main"
-        sx={{ flexGrow: 1, paddingLeft:  paddingLeftMain, paddingRight: "90px", background:  `linear-gradient(180deg, #323b40  ${gradiantSize} , #f3f3f4 0%)`, height: '220vh' }}
+        sx={{ flexGrow: 1, paddingLeft:  paddingLeftMain, paddingRight: "90px", background:  `linear-gradient(180deg, #323b40  ${gradiantSize} , #f3f3f4 0%)`, height: '100vh', overflowY: 'auto' }}
       >
         <Toolbar />
         <AppLoader />
