@@ -13,6 +13,8 @@ Font.register({
       ]
   });
 
+  Font.registerHyphenationCallback(word => [word]);
+
 const styles = StyleSheet.create({
     container: {
         flexDirection: 'row',
@@ -51,9 +53,10 @@ const styles = StyleSheet.create({
     clientContainer: {
         marginTop: 10,
         flexDirection: 'column',
-        justifyContent: 'flex-start',
+        justifyContent: 'flex-start',   
         color:  'black',
-
+        overfloWrap: 'break-word',
+        wordBreak: 'break-all',
 
     },
 
@@ -73,6 +76,11 @@ const styles = StyleSheet.create({
 
     textConteiner: {
         flexDirection: 'row',
+        whiteSpace: "wrap",
+        overflowWrap: "break-word",
+        wordBreak: "normal",
+        //overflow: 'hidden',
+        textOverflow: 'ellipsis'
         
     },
     invoiceDate: {

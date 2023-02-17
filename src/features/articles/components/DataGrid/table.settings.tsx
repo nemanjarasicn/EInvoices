@@ -160,7 +160,7 @@ const useTableSettings = (): TableSettings => {
                 align: "center",
                 hideable: true,
                 hide: false,
-                editable: true
+                editable: false
               },
               {
                 field: 'action',

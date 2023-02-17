@@ -7,6 +7,7 @@ import AddCircleIcon from '@mui/icons-material/AddCircle';
 import AddIcon from '@mui/icons-material/Add';
 import DeleteIcon from "@mui/icons-material/Delete";
 import FormCurrencyField from "../form-fields/FormCurrencyField";
+import FormAutocompleteField from "../../../shared/components/form-fields/FormAutocompleteField";
 import {
   calculateNewDiscount,
   calculateNewPrice,
@@ -17,7 +18,7 @@ import { useTranslation } from "react-i18next";
 import FormDropdownField from "../form-fields/FormDropdownField";
 import { useAppDispatch, useAppSelector } from "../../../../app/hooks";
 import { getTaxBase }  from  '../../store/invoice.actions'
-import { selectTaxBase }  from '../../store/invoice.selectors'
+import  { selectTaxBase }  from   "../../../shared/components/form-fields/store/form.selectors"
 
 type InvoiceLineProps = {
   item: any;
@@ -304,8 +305,21 @@ export default function InvoiceLine({
           }}
         />*/}
 
+          {/*<FormAutocompleteField
+            props={{
+                name: `invoiceLine[${index}].baseCode`,
+                control: control,
+                label:   t('Sifra osnove'),
+                disabled: vatRate,
+                additional: {
+                selector:  selectTaxBase,
+                
+                },
+            }}
+          />*/}
+
         
-           <FormTextField
+          <FormTextField
             props={{
             name: `invoiceLine[${index}].baseCode`,
             control: control,
