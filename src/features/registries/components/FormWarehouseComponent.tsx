@@ -31,11 +31,6 @@ import { getMarketPlacesAll }  from  "../../shared/components/form-fields/store/
  const schema = yup
  .object({
    warehouses: yup.string().required('ovo je obavezno polje'),
-   /*marketPlace: yup
-    .object({
-      uuid: yup.string().required(),
-     })
-     .required(),*/
  })
  .required();
 

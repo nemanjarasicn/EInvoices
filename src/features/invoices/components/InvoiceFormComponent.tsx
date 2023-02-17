@@ -87,6 +87,7 @@ import  { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {  faPaperclipVertical }   from '@fortawesome/pro-solid-svg-icons';
 import { selectOpenError  }  from "../store/invoice.selectors"
 import {  setopenModalError }  from  "../store/invoice.reducer"
+import  { getTaxBase }  from  "../../shared/components/form-fields/store/form.actions"
 
 export type InvoiceFormComponentProps = {
   invoiceTypeOptions: any;
@@ -208,6 +209,7 @@ export default function InvoiceFormComponent({
     dispatch(getClientCompanies({ companyId: companyId }));
     dispatch(getCurrentDocumentNumber({ companyId: companyId }));
     dispatch(getInvoiceByType({companyId: companyId}));
+    dispatch(getTaxBase({id: 1}))
   }, []);
 
   React.useEffect(() => {

@@ -156,7 +156,7 @@ function convertToProductModel(item: any): ProductModel {
   };
 }
 function convertToCompanyModel(item: any): CustomerPartyModel {
-
+  
   return {
     party: {
       schemeID: SchemeID.NOT_CIR,

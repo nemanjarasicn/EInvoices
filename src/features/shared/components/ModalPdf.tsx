@@ -194,6 +194,7 @@ const style = {
 				}
 
 			}
+			console.log('assasasasas', objectTmp )
 			setDataInvoice(objectTmp);
 			if(result) {
 				setLoading(false);

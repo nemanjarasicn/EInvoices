@@ -379,14 +379,16 @@ export default function ClippedDrawer() {
                               onMouseEnter = {()   =>  setShowSubMenu(true)}
                               onMouseLeave = {()  =>   setShowSubMenu(false)}> 
                       
-                          <List key={`list_subnav`}>
+                          <List key={`list_subnav_${index}`}>
                           {navItems.filter((item) =>  item?.name  ===  parentItem?.name)[0]?.children?.map((itemChild, childIndex) => (
-                            <ListItem disablePadding
+                            <ListItem key={`listChild_nav_${childIndex}`}
+                                      disablePadding
                                       component={Link}
                                       to={ !itemChild.disabled ? itemChild.href  :  "#"}
                                       disabled={itemChild.disabled}>
                                   <ListItemButton>
-                                  <ListItemText   primaryTypographyProps={{fontSize:  fontSizeText,   fontWeight:   500}} 
+                                  <ListItemText   key={`listChildText_nav_${childIndex}`}
+                                                  primaryTypographyProps={{fontSize:  fontSizeText,   fontWeight:   500}} 
                                                   primary={itemChild.name} 
                                                   sx={{
                                                     display:  "block" ,
@@ -399,49 +401,6 @@ export default function ClippedDrawer() {
                           ))}
                         </List>
                         </Box>
-                        {/*<List key={`list_nav_${index}`}>
-                          {item.children?.map((itemChild, childIndex) => (
-                            <ListItem
-                              key={`${itemChild.name}_list_nav_${childIndex}`}
-                              disablePadding
-                              sx={{ display:  "block"  }}
-                              component={Link}
-                              to={itemChild.href}
-                              className="item-class"
-                            >
-                              <ListItemButton
-                                key={`${itemChild.name}_list_nav_child_button${childIndex}`}
-                                sx={{
-                                  minHeight: 48,
-                                  justifyContent: "initial" ,
-                                  px: 2.5,
-                                }}
-                              >
-                                <ListItemIcon
-                                  key={`${itemChild.name}_list_nav_child_icon${childIndex}`}
-                                  sx={{
-                                    minWidth: 0,
-                                    mr: 1,
-                                    justifyContent: "center",
-                                    color: "green",
-                                    opacity: 0,
-                                  }}
-                                >
-                                  {icon(itemChild.icon)}
-                                </ListItemIcon>
-                                <ListItemText
-                                  key={`${itemChild.name}_list_nav_child_text${childIndex}`}
-                                  primary={itemChild.name}
-                                  sx={{
-                                    display: "block",
-                                    color: "green",
-                                    opacity: 0.5,
-                                  }}
-                                />
-                              </ListItemButton>
-                            </ListItem>
-                          ))}
-                                </List>*/}
                       </div>
                     );
                 }

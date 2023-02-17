@@ -237,6 +237,7 @@ const mapInvoiceLinesCreateTaxTotal = (invoiceLine: any[]): any[] => {
 };
 
 const createSupplayerData = (userCompany: UserCompany): any => {
+  console.log('asasasas',  userCompany)
   return {
     party: {
       schemeID: "9948",
@@ -248,6 +249,7 @@ const createSupplayerData = (userCompany: UserCompany): any => {
       ],
     },
     postalAddress: {
+      streetName: userCompany?.address,
       cityName: userCompany.city,
       country: {
         identificationCode: "RS",
@@ -314,6 +316,8 @@ const createMonetaryTotal = (invoice: any): any => {
     {error: "Company with identifier", message: "Proverite da li je korisnik registrovan na SEF-u."},
     {error: "503 Service Unavailable", message: "Poreska nije dostupna"},
     {error: "504 Gateway Time-out", message: "Poreska nije dostupna"},
+    {error: "VAT registration code must be 9 or 13 characters long", message: ""},
+    {error: "The receiver's registration code does not have a good length", message: "Dobavljač nema ispravan matični broj"},
   ]
 
   const errorTranslate: any = errorsMessage.filter((item)  =>  error.includes(item.error));
