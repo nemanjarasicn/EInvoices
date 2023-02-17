@@ -79,7 +79,6 @@ const styles = StyleSheet.create({
         whiteSpace: "wrap",
         overflowWrap: "break-word",
         wordBreak: "normal",
-        //overflow: 'hidden',
         textOverflow: 'ellipsis'
         
     },

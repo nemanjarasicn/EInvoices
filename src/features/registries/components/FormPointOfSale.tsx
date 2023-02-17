@@ -34,11 +34,6 @@ import SucessModal   from "../../shared/components/SucessModal"
   
    namePointOfSale: yup.string().required('ovo je obavezno polje'),
    code:  yup.string().required('ovo je obavezno polje'),
-   /*idMarketPlace: yup
-    .object({
-      uuid: yup.string().required(),
-     })
-     .required(),*/
  })
  .required();
 

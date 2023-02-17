@@ -294,31 +294,7 @@ export default function InvoiceLine({
         />
       </Grid>
 
-      <Grid item xs={2}>
-        {/*<FormTextField
-          props={{
-            control: control,
-            disabled: vatRate,
-            label: t('Sifra osnove'),
-            name: 'sifraOsnove',
-            additional: { mask: {}, readonly: vatRate  },
-          }}
-        />*/}
-
-          {/*<FormAutocompleteField
-            props={{
-                name: `invoiceLine[${index}].baseCode`,
-                control: control,
-                label:   t('Sifra osnove'),
-                disabled: vatRate,
-                additional: {
-                selector:  selectTaxBase,
-                
-                },
-            }}
-          />*/}
-
-        
+      <Grid item xs={2}>    
           <FormTextField
             props={{
             name: `invoiceLine[${index}].baseCode`,
