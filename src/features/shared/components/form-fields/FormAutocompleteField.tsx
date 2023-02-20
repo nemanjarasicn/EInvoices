@@ -14,7 +14,8 @@ type FormAutocompleteFieldProps = FormFieldProps & {
     noResultText?: string;
     data?: any;
     disable?: boolean;
-    disableOption?:  boolean;
+    disableOption?: boolean;
+    defaultValue?: string | number;
   };
 };
 /**
@@ -24,10 +25,10 @@ export default function FormAutocompleteFieldSelect({
   props,
 }: IProps<FormAutocompleteFieldProps>) {
   const data: AutocompleteItem[] = useAppSelector(props.additional.selector);
-  const options: any =  props.additional.data;
+  const options: any = props.additional.data;
   const dataTmp = props.additional.data ? options : data;
 
-  const fontSize  =    window.devicePixelRatio === 1.5 ?    '12px' :  '16px';
+  const fontSize = window.devicePixelRatio === 1.5 ? "12px" : "16px";
   return (
     <Controller
       name={props.name}
@@ -41,17 +42,17 @@ export default function FormAutocompleteFieldSelect({
           options={[...dataTmp]}
           noOptionsText={props.additional.noResultText ?? "No options"}
           sx={{
-            '& .MuiAutocomplete-input, & .MuiInputLabel-root': {
+            "& .MuiAutocomplete-input, & .MuiInputLabel-root": {
               fontSize: fontSize,
             },
           }}
-          getOptionLabel={(item: AutocompleteItem) => item.name  || "" }
+          getOptionLabel={(item: AutocompleteItem) => item.name || ""}
           isOptionEqualToValue={(option, value) =>
             Boolean(option.id === value.id)
           }
           renderOption={(props, option) => {
             return (
-              <li  style={{fontSize:   fontSize}}  {...props} key={option.id}>
+              <li style={{ fontSize: fontSize }} {...props} key={option.id}>
                 {option.name}
               </li>
             );
