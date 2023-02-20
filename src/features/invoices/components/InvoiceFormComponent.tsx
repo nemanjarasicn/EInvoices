@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React,  { useRef,   MutableRefObject  } from "react";
+import React, { useRef, MutableRefObject } from "react";
 import {
   Paper,
   Typography,
@@ -14,7 +14,7 @@ import {
   Select,
   IconButton,
   Button,
-  TextField
+  TextField,
 } from "@mui/material";
 import { useForm } from "react-hook-form";
 import { InvoiceFormModel, InvoiceType, IProps, ProductModel } from "../models";
@@ -24,7 +24,7 @@ import FormDropdownField from "./form-fields/FormDropdownField";
 import FormTextAreaField from "./form-fields/FormTextAreaField";
 import FormDateField from "./form-fields/FormDateField";
 //import {FormAutocompleteField} from "./form-fields/FormAutocompleteField";
-import FormMultiSelect  from "../../shared/components/form-fields/FormMultiSelect"
+import FormMultiSelect from "../../shared/components/form-fields/FormMultiSelect";
 import { useTranslation } from "react-i18next";
 import { useComponentsStyles } from "./components.styles";
 import CustomButtonFc from "./CustomButtonFc";
@@ -33,17 +33,17 @@ import FormCurrencyField from "./form-fields/FormCurrencyField";
 import PrepaymentComponent from "./form-group/PrepaymentComponent";
 import InvoiceGroupComponent from "./form-group/InvoiceGroupComponent";
 import AttachFileIcon from "@mui/icons-material/AttachFile";
-import SucessModal   from "../../shared/components/SucessModal"
-import { selectOpenCreateSubject }  from "../../articles/store/articles.selectors"
+import SucessModal from "../../shared/components/SucessModal";
+import { selectOpenCreateSubject } from "../../articles/store/articles.selectors";
 import ModalCreateSubject from "../../articles/components/ModalCreateSubject";
 import RestoreRoundedIcon from "@mui/icons-material/RestoreRounded";
-import  ErrorModal   from   "../../shared/components/ErrorModals"
+import ErrorModal from "../../shared/components/ErrorModals";
 import TextsmsOutlinedIcon from "@mui/icons-material/TextsmsOutlined";
 import {
   OptionItem,
   SourceSelectionMode,
   VATPointDate,
-  AutocompleteItem
+  AutocompleteItem,
 } from "./form-fields/models/form-fields.models";
 import CreditNoteComponent from "./form-group/CreditNoteComponent";
 import DebitNoteComponent from "./form-group/DebitNoteComponent";
@@ -54,13 +54,13 @@ import {
   getDocumentTypes,
   getMarketPlaces,
   getProducts,
-  getInvoiceByType
+  getInvoiceByType,
 } from "./form-fields/store/form.actions";
 import {
   selectClientCompanies,
   selectCurrentDocNumber,
   selectMarketPlaces,
-  selectInvoiceByType
+  selectInvoiceByType,
 } from "./form-fields/store/form.selectors";
 import ClientComponent from "./form-group/ClientComponent";
 import InvoiceItemsComponent from "./invoice-items/InvoiceItemsComponent";
@@ -69,10 +69,13 @@ import {
   sumTax,
   totalWithDiscount,
   totalWithoutDiscount,
-  returnInvoiceMessage
+  returnInvoiceMessage,
 } from "../utils/utils";
 import { Subscription } from "react-hook-form/dist/utils/createSubject";
-import { selectCompanyCurrent, selectCompanyInfo } from "../../../app/core/core.selectors";
+import {
+  selectCompanyCurrent,
+  selectCompanyInfo,
+} from "../../../app/core/core.selectors";
 import {
   clearCompanies,
   clearDocumentTypes,
@@ -82,12 +85,12 @@ import {
 import { sendInvoce } from "../store/invoice.actions";
 import { useSchemaValidator } from "../utils/utils.schema";
 import { useNavigate } from "react-router-dom";
-import  FormTextBox   from "../components/form-fields/FormTextBox"
-import  { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {  faPaperclipVertical }   from '@fortawesome/pro-solid-svg-icons';
-import { selectOpenError  }  from "../store/invoice.selectors"
-import {  setopenModalError }  from  "../store/invoice.reducer"
-import  { getTaxBase }  from  "../../shared/components/form-fields/store/form.actions"
+import FormTextBox from "../components/form-fields/FormTextBox";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPaperclipVertical } from "@fortawesome/pro-solid-svg-icons";
+import { selectOpenError } from "../store/invoice.selectors";
+import { setopenModalError } from "../store/invoice.reducer";
+import { getTaxBase } from "../../shared/components/form-fields/store/form.actions";
 
 export type InvoiceFormComponentProps = {
   invoiceTypeOptions: any;
@@ -95,7 +98,6 @@ export type InvoiceFormComponentProps = {
   formGrpsSettings: any;
   formFieldsLabels: any;
 };
-
 
 export default function InvoiceFormComponent({
   props,
@@ -113,7 +115,7 @@ export default function InvoiceFormComponent({
   const openModalCreateSubject = useAppSelector(selectOpenCreateSubject);
 
   const marketPlaces = useAppSelector(selectMarketPlaces);
-  const  [filesList, setFilesList]  =   React.useState<any[]>([]);
+  const [filesList, setFilesList] = React.useState<any[]>([]);
   const [errorMessage, setErrorMessage] = React.useState("");
   const [showErrorModal, setShowErrorModal] = React.useState(false);
   const id = useAppSelector(selectCurrentDocNumber);
@@ -125,7 +127,7 @@ export default function InvoiceFormComponent({
   const [lineError, setLineError] = React.useState<string | null>(null);
   const [advanceAccountList, setAdvanceAccountList] = React.useState<any[]>([]);
   const [showError, setShowError] = React.useState(false);
-  const errorModalShow =  useAppSelector(selectOpenError)
+  const errorModalShow = useAppSelector(selectOpenError);
 
   const methods = useForm({
     defaultValues: defaultValues,
@@ -146,22 +148,27 @@ export default function InvoiceFormComponent({
 
   const onSubmit = handleSubmit(
     (data: InvoiceFormModel) => {
-      dispatch(sendInvoce({ invoice: data, companyInfo: companyInfo, filesList: filesList,  advanceAccountList:  advanceAccountList })).then((res) => {
+      console.log("asassss", data);
+      dispatch(
+        sendInvoce({
+          invoice: data,
+          companyInfo: companyInfo,
+          filesList: filesList,
+          advanceAccountList: advanceAccountList,
+        })
+      ).then((res) => {
         if (res.payload.message === "REDIRECT") {
-           setShowError(true);  
-              setTimeout(async () => {
-                    setShowError(false);
-                    navigate("/invoices/sales");
-                    
-              }, 2000);
+          setShowError(true);
+          setTimeout(async () => {
+            setShowError(false);
+            navigate("/invoices/sales");
+          }, 2000);
         } else {
-          const error  =  res.payload?.error?.response?.data?.description;
+          const error = res.payload?.error?.response?.data?.description;
 
-          //setShowErrorModal(true); 
+          //setShowErrorModal(true);
           dispatch(setopenModalError(true));
-          setErrorMessage(returnInvoiceMessage(error)) ;
-
-          
+          setErrorMessage(returnInvoiceMessage(error));
         }
       });
     },
@@ -179,10 +186,9 @@ export default function InvoiceFormComponent({
     setInvoiceType(invoicetype);
   };
 
-
-  const addAdvanceAcount  = (value: any[]) =>  {
-   setAdvanceAccountList(value);
-  }
+  const addAdvanceAcount = (value: any[]) => {
+    setAdvanceAccountList(value);
+  };
 
   /**
    * Handle values patch form fields
@@ -208,8 +214,8 @@ export default function InvoiceFormComponent({
     dispatch(getMarketPlaces({ companyId: companyId }));
     dispatch(getClientCompanies({ companyId: companyId }));
     dispatch(getCurrentDocumentNumber({ companyId: companyId }));
-    dispatch(getInvoiceByType({companyId: companyId}));
-    dispatch(getTaxBase({id: 1}))
+    dispatch(getInvoiceByType({ companyId: companyId }));
+    dispatch(getTaxBase({ id: 1 }));
   }, []);
 
   React.useEffect(() => {
@@ -271,71 +277,71 @@ export default function InvoiceFormComponent({
   );
 
   React.useEffect(() => {
-      const jbkjsUse =   getValues("accountingCustomerParty.jbkjs") ?   String(getValues("accountingCustomerParty.jbkjs")) :  "";
-      setJbkjsTmp(jbkjsUse);
-  }, [watch('accountingCustomerParty')]);
+    const jbkjsUse = getValues("accountingCustomerParty.jbkjs")
+      ? String(getValues("accountingCustomerParty.jbkjs"))
+      : "";
+    setJbkjsTmp(jbkjsUse);
+  }, [watch("accountingCustomerParty")]);
 
   React.useEffect(() => {
-    const selectionMode =  getValues("sourceInvoiceSelectionMode")  ?   getValues("sourceInvoiceSelectionMode")  :  0 ;
-    setSelectionModeTmp(selectionMode)
-}, [watch('sourceInvoiceSelectionMode')]);
+    const selectionMode = getValues("sourceInvoiceSelectionMode")
+      ? getValues("sourceInvoiceSelectionMode")
+      : 0;
+    setSelectionModeTmp(selectionMode);
+  }, [watch("sourceInvoiceSelectionMode")]);
 
+  const UploudComponent = () => {
+    //const fileInput: MutableRefObject<HTMLDivElement> = React.useRef(null);
+    const onChange = (e: any) => {
+      let files = e.target.files;
+      let filesArr = Array.prototype.slice.call(files);
+      setFilesList([...filesList, ...filesArr]);
+    };
 
-const UploudComponent = () => {
-  //const fileInput: MutableRefObject<HTMLDivElement> = React.useRef(null);
-  const onChange = (e: any) => {
-    let files = e.target.files;
-    let filesArr = Array.prototype.slice.call(files);
-    setFilesList([...filesList,...filesArr])
-  }
-
-  
-  return (
-    <Grid item xs ={12}  sx={{display:  'flex'}}>
-        <Grid item xs={4}  >
-            <Button
-                variant="contained"
-                component="label"
-              > 
-              <div>
-                <FontAwesomeIcon icon={faPaperclipVertical}   color="#E9950C"   />
-              </div>
-              <div style={{paddingLeft: '5px'}}>
-                DODAJ PRILOG
-              </div>
-                <input
-                  onChange={onChange}
-                  multiple
-                  type="file"
-                  hidden
-                />
-              </Button>
+    return (
+      <Grid item xs={12} sx={{ display: "flex" }}>
+        <Grid item xs={4}>
+          <Button variant="contained" component="label">
+            <div>
+              <FontAwesomeIcon icon={faPaperclipVertical} color="#E9950C" />
+            </div>
+            <div style={{ paddingLeft: "5px" }}>DODAJ PRILOG</div>
+            <input onChange={onChange} multiple type="file" hidden />
+          </Button>
         </Grid>
-        <Grid item xs={6}  >
+        <Grid item xs={6}>
           {filesList.map((item, index) => (
-            <Grid container >
-              <Grid item xs={1} >
-                  {index}.
+            <Grid container>
+              <Grid item xs={1}>
+                {index}.
               </Grid>
-              <Grid item xs={11} >
-                  {item?.name}
+              <Grid item xs={11}>
+                {item?.name}
               </Grid>
             </Grid>
           ))}
         </Grid>
-    </Grid>
-  )
-}
+      </Grid>
+    );
+  };
 
   return (
     <>
-    <SucessModal    open={showError} ></SucessModal>
-    <ErrorModal    open={errorModalShow}  message={errorMessage} ></ErrorModal>
-    <ModalCreateSubject    open={openModalCreateSubject.open} ></ModalCreateSubject>
-    <Box
-      sx={{ flexGrow: 1, rowGap: 1, display: "flex", flexDirection: "column", mt: '20px' }}
-    >
-      {/*<Box
+      <SucessModal open={showError}></SucessModal>
+      <ErrorModal open={errorModalShow} message={errorMessage}></ErrorModal>
+      <ModalCreateSubject
+        open={openModalCreateSubject.open}
+      ></ModalCreateSubject>
+      <Box
+        sx={{
+          flexGrow: 1,
+          rowGap: 1,
+          display: "flex",
+          flexDirection: "column",
+          mt: "20px",
+        }}
+      >
+        {/*<Box
         sx={{
           ...formComponent.basicBox,
           width: "25%",
@@ -346,93 +352,93 @@ const UploudComponent = () => {
           {t("Common.newInvoice").toUpperCase()}
         </Typography>
       </Box>*/}
-      <Grid container spacing={2}>
-        <Grid item xs={12}>
-          <Box
-            sx={{
-              ...formComponent.basicBox,
-              textAlign: "start",
-            }}
-          >
-            <Typography sx={formComponent.typography}>
-              {t(props.sectionTitles.title_1).toUpperCase()}
-            </Typography>
-            <Paper style={formComponent.groupPaper}>
-              <Grid container spacing={2}>
-                <Grid item xs={12}>
-                  <ClientComponent
-                    props={{
-                      control: control,
-                      title: t(props.formGrpsSettings.client.title),
-                      additional: {
-                        formSetValue: setValue,
-                      },
-                      clientFields: {
-                        clientCompanyName: {
-                          name: "accountingCustomerParty.partyLegalEntity.registrationName",
-                          label: t(props.formFieldsLabels.client.companyName),
-                          disabled: false,
-                          additional: { readonly: true, labelShrink: true },
-                        },
-                        clientAddress: {
-                          name: "accountingCustomerParty.postalAddress.streetName",
-                          label: t(props.formFieldsLabels.client.address),
-                          disabled: false,
-                          additional: { readonly: true, labelShrink: true },
-                        },
-                        clientRegistrationCode: {
-                          name: "accountingCustomerParty.partyLegalEntity.companyID",
-                          label: t(
-                            props.formFieldsLabels.client.registrationCode
-                          ),
-                          disabled: false,
-                          additional: { readonly: true, labelShrink: true },
-                        },
-                        clientVatRegistrationCode: {
-                          name: "accountingCustomerParty.party.endpointID",
-                          label: t(
-                            props.formFieldsLabels.client.vatRegistrationCode
-                          ),
-                          disabled: false,
-                          additional: { readonly: true, labelShrink: true },
-                        },
-                        clientEmail: {
-                          name: "accountingCustomerParty.contact.electronicMail",
-                          label: t(props.formFieldsLabels.client.clientEmail),
-                          disabled: false,
-                          additional: { readonly: true, labelShrink: true },
-                        },
-                        clientCity: {
-                          name: "accountingCustomerParty.postalAddress.cityName",
-                          label: t(props.formFieldsLabels.client.clientCity),
-                          disabled: false,
-                          additional: { readonly: true, labelShrink: true },
-                        },
-                        zipCode: {
-                          name: "accountingCustomerParty.postalAddress.zip",
-                          label: t(props.formFieldsLabels.client.zipCode),
-                          disabled: false,
-                          additional: { readonly: true, labelShrink: true },
-                        },
-                      },
-                    }}
-                  ></ClientComponent>
-                </Grid>
-                <Grid item xs={6} sx={{display:  'flex'}} >
+        <Grid container spacing={2}>
+          <Grid item xs={12}>
+            <Box
+              sx={{
+                ...formComponent.basicBox,
+                textAlign: "start",
+              }}
+            >
+              <Typography sx={formComponent.typography}>
+                {t(props.sectionTitles.title_1).toUpperCase()}
+              </Typography>
+              <Paper style={formComponent.groupPaper}>
                 <Grid container spacing={2}>
-                    <Grid item xs={6}>
-                      <FormDropdownField
-                        props={{
-                          name: "invoiceTypeCode",
-                          control: control,
-                          label: props.invoiceTypeOptions.optionLabel,
-                          options: props.invoiceTypeOptions.options,
-                          disabled: false,
-                          parentFn: handleChangeType,
-                        }}
-                      />
-                    </Grid>
-                    <Grid item xs={6}>
+                  <Grid item xs={12}>
+                    <ClientComponent
+                      props={{
+                        control: control,
+                        title: t(props.formGrpsSettings.client.title),
+                        additional: {
+                          formSetValue: setValue,
+                        },
+                        clientFields: {
+                          clientCompanyName: {
+                            name: "accountingCustomerParty.partyLegalEntity.registrationName",
+                            label: t(props.formFieldsLabels.client.companyName),
+                            disabled: false,
+                            additional: { readonly: true, labelShrink: true },
+                          },
+                          clientAddress: {
+                            name: "accountingCustomerParty.postalAddress.streetName",
+                            label: t(props.formFieldsLabels.client.address),
+                            disabled: false,
+                            additional: { readonly: true, labelShrink: true },
+                          },
+                          clientRegistrationCode: {
+                            name: "accountingCustomerParty.partyLegalEntity.companyID",
+                            label: t(
+                              props.formFieldsLabels.client.registrationCode
+                            ),
+                            disabled: false,
+                            additional: { readonly: true, labelShrink: true },
+                          },
+                          clientVatRegistrationCode: {
+                            name: "accountingCustomerParty.party.endpointID",
+                            label: t(
+                              props.formFieldsLabels.client.vatRegistrationCode
+                            ),
+                            disabled: false,
+                            additional: { readonly: true, labelShrink: true },
+                          },
+                          clientEmail: {
+                            name: "accountingCustomerParty.contact.electronicMail",
+                            label: t(props.formFieldsLabels.client.clientEmail),
+                            disabled: false,
+                            additional: { readonly: true, labelShrink: true },
+                          },
+                          clientCity: {
+                            name: "accountingCustomerParty.postalAddress.cityName",
+                            label: t(props.formFieldsLabels.client.clientCity),
+                            disabled: false,
+                            additional: { readonly: true, labelShrink: true },
+                          },
+                          zipCode: {
+                            name: "accountingCustomerParty.postalAddress.zip",
+                            label: t(props.formFieldsLabels.client.zipCode),
+                            disabled: false,
+                            additional: { readonly: true, labelShrink: true },
+                          },
+                        },
+                      }}
+                    ></ClientComponent>
+                  </Grid>
+                  <Grid item xs={6} sx={{ display: "flex" }}>
+                    <Grid container spacing={2}>
+                      <Grid item xs={6}>
+                        <FormDropdownField
+                          props={{
+                            name: "invoiceTypeCode",
+                            control: control,
+                            label: props.invoiceTypeOptions.optionLabel,
+                            options: props.invoiceTypeOptions.options,
+                            disabled: false,
+                            parentFn: handleChangeType,
+                          }}
+                        />
+                      </Grid>
+                      <Grid item xs={6}>
                         <FormTextField
                           props={{
                             name: "id",
@@ -441,9 +447,18 @@ const UploudComponent = () => {
                             disabled: false,
                           }}
                         />
-                    </Grid>
-                    <Grid item xs={12}  sx={{display:  'flex', justifyContent:  'center', alignItems:   'center', mt: -2}} >
-                    {/*<TextField
+                      </Grid>
+                      <Grid
+                        item
+                        xs={12}
+                        sx={{
+                          display: "flex",
+                          justifyContent: "center",
+                          alignItems: "center",
+                          mt: -2,
+                        }}
+                      >
+                        {/*<TextField
                     
                           sx={{width:  '100%'}}
                           placeholder =  {t("Form.formFieldsLabels.note")}
@@ -451,7 +466,7 @@ const UploudComponent = () => {
                           rows={3}
                           
                         />*/}
-                         <FormTextBox
+                        <FormTextBox
                           props={{
                             name: "note",
                             control: control,
@@ -459,295 +474,323 @@ const UploudComponent = () => {
                             disabled: false,
                           }}
                         />
-                    
+                      </Grid>
                     </Grid>
-                </Grid>
-                </Grid>
-                <Grid item xs={3}>
-                  <FormTextField
-                    props={{
-                      name: "contractNumber",
-                      control: control,
-                      label: t(props.formFieldsLabels.contractNumber),
-                      disabled: false,
-                    }}
-                  />
-                  <FormTextField
-                    props={{
-                      name: "orderNumber",
-                      control: control,
-                      label: t(props.formFieldsLabels.orderNumber),
-                      disabled: false,
-                    }}
-                  />
-                  <FormTextField
-                    props={{
-                      name: "referenceNumber",
-                      control: control,
-                      label: t(props.formFieldsLabels.referenceNumber),
-                      disabled: false,
-                    }}
-                  />
-                </Grid>
-                <Grid item xs={3}>
-                  <FormTextField
-                    props={{
-                      name: "lotNumber",
-                      control: control,
-                      label: t(props.formFieldsLabels.lotNumber),
-                      disabled: false,
-                    }}
-                  />
-                  <FormDropdownField
-                    props={{
-                      name: "warehouse_uuid",
-                      control: control,
-                      label: t(props.formFieldsLabels.warehouse_uuid),
-                      disabled: false,
-                      options: marketPlaces,
-                    }}
-                  />
-                  <FormTextField
-                    props={{
-                      name: "modelNumber",
-                      control: control,
-                      label: t(props.formFieldsLabels.modelNumber),
-                      disabled: false,
-                    }}
-                  />
-                </Grid>
-                <Grid item xs={12}>
-                  {(() => {
-                    switch (invoiceType) {
-                      case InvoiceType.INVOICE:
-                        return (
-                          <InvoiceGroupComponent
-                            props={{
-                              control: control,
-                              title: t(
-                                props.formGrpsSettings.invoiceGrp.title
-                              ).toUpperCase(),
-                              invoiceFileds: {
-                                issueDate: {
-                                  name: "issueDate",
-                                  label: t("Form.formGrpLabels.invoiceGrp.issueDate"),
-                                  disabled: false,
-                                  /*additional: {
+                  </Grid>
+                  <Grid item xs={3}>
+                    <FormTextField
+                      props={{
+                        name: "contractNumber",
+                        control: control,
+                        label: t(props.formFieldsLabels.contractNumber),
+                        disabled: false,
+                      }}
+                    />
+                    <FormTextField
+                      props={{
+                        name: "orderNumber",
+                        control: control,
+                        label: t(props.formFieldsLabels.orderNumber),
+                        disabled: false,
+                      }}
+                    />
+                    <FormTextField
+                      props={{
+                        name: "referenceNumber",
+                        control: control,
+                        label: t(props.formFieldsLabels.referenceNumber),
+                        disabled: false,
+                      }}
+                    />
+                  </Grid>
+                  <Grid item xs={3}>
+                    <FormTextField
+                      props={{
+                        name: "lotNumber",
+                        control: control,
+                        label: t(props.formFieldsLabels.lotNumber),
+                        disabled: false,
+                      }}
+                    />
+                    <FormDropdownField
+                      props={{
+                        name: "warehouse_uuid",
+                        control: control,
+                        label: t(props.formFieldsLabels.warehouse_uuid),
+                        disabled: false,
+                        options: marketPlaces,
+                      }}
+                    />
+                    <FormTextField
+                      props={{
+                        name: "modelNumber",
+                        control: control,
+                        label: t(props.formFieldsLabels.modelNumber),
+                        disabled: false,
+                      }}
+                    />
+                  </Grid>
+                  <Grid item xs={12}>
+                    {(() => {
+                      switch (invoiceType) {
+                        case InvoiceType.INVOICE:
+                          return (
+                            <InvoiceGroupComponent
+                              props={{
+                                control: control,
+                                title: t(
+                                  props.formGrpsSettings.invoiceGrp.title
+                                ).toUpperCase(),
+                                invoiceFileds: {
+                                  issueDate: {
+                                    name: "issueDate",
+                                    label: t(
+                                      "Form.formGrpLabels.invoiceGrp.issueDate"
+                                    ),
+                                    disabled: false,
+                                    /*additional: {
                                     disablePast: true,
                                   },*/
-                                },
-                                deliveryDate: {
-                                  name: "deliveryDate",
-                                  label: t("Form.formGrpLabels.invoiceGrp.issueDate"),
-                                  disabled: false,
-                                },
-                                dueDate: {
-                                  name: "dueDate",
-                                  label: t("Form.formGrpLabels.invoiceGrp.dueDate"),
-                                  disabled: false,
-                                  
-                                },
-                                vatPointDate: {
-                                  name: "vatPointDate",
-                                  label: t(
-                                    "Form.formGrpLabels.invoiceGrp.vatPointDate"
-                                  ),
-                                  disabled: false,
-                                  options: [
-                                    {
-                                      name: t("Form.vatPointDateOptions.issuingDate"),
-                                      value: VATPointDate.ISSUING_DATE,
-                                    },
-                                    {
-                                      name: t("Form.vatPointDateOptions.deliveryDate"),
-                                      value: VATPointDate.DELIVERY_DATE,
-                                    },
-                                    {
-                                      name: t("Form.vatPointDateOptions.paymentDate"),
-                                      value: VATPointDate.PAYMENT_DATE,
-                                    },
-                                  ],
-                                },
-                              },
-                            }}
-                          ></InvoiceGroupComponent>
-                        );
-                      case InvoiceType.PREPAYMENT:
-                        return (
-                          <PrepaymentComponent
-                            props={{
-                              control: control,
-                              title: t(
-                                props.formGrpsSettings.prepaymentGrp.title
-                              ).toUpperCase(),
-                              prepaymentFields: {
-                                issueDate: {
-                                  name: "issueDate",
-                                  label: t("Form.formGrpLabels.invoiceGrp.issueDate"),
-                                  disabled: false,
-                                  additional: {
-                                    disablePast: true,
+                                  },
+                                  deliveryDate: {
+                                    name: "deliveryDate",
+                                    label: t(
+                                      "Form.formGrpLabels.invoiceGrp.issueDate"
+                                    ),
+                                    disabled: false,
+                                  },
+                                  dueDate: {
+                                    name: "dueDate",
+                                    label: t(
+                                      "Form.formGrpLabels.invoiceGrp.dueDate"
+                                    ),
+                                    disabled: false,
+                                  },
+                                  vatPointDate: {
+                                    name: "vatPointDate",
+                                    label: t(
+                                      "Form.formGrpLabels.invoiceGrp.vatPointDate"
+                                    ),
+                                    disabled: false,
+                                    options: [
+                                      {
+                                        name: t(
+                                          "Form.vatPointDateOptions.issuingDate"
+                                        ),
+                                        value: VATPointDate.ISSUING_DATE,
+                                      },
+                                      {
+                                        name: t(
+                                          "Form.vatPointDateOptions.deliveryDate"
+                                        ),
+                                        value: VATPointDate.DELIVERY_DATE,
+                                      },
+                                      {
+                                        name: t(
+                                          "Form.vatPointDateOptions.paymentDate"
+                                        ),
+                                        value: VATPointDate.PAYMENT_DATE,
+                                      },
+                                    ],
                                   },
                                 },
-                                deliveryDate: {
-                                  name: "deliveryDate",
-                                  label: t("Form.formGrpLabels.invoiceGrp.issueDate"),
-                                  disabled: false,
-                                  additional: {
-                                    disablePast: true,
+                              }}
+                            ></InvoiceGroupComponent>
+                          );
+                        case InvoiceType.PREPAYMENT:
+                          return (
+                            <PrepaymentComponent
+                              props={{
+                                control: control,
+                                title: t(
+                                  props.formGrpsSettings.prepaymentGrp.title
+                                ).toUpperCase(),
+                                prepaymentFields: {
+                                  issueDate: {
+                                    name: "issueDate",
+                                    label: t(
+                                      "Form.formGrpLabels.invoiceGrp.issueDate"
+                                    ),
+                                    disabled: false,
+                                    additional: {
+                                      disablePast: true,
+                                    },
+                                  },
+                                  deliveryDate: {
+                                    name: "deliveryDate",
+                                    label: t(
+                                      "Form.formGrpLabels.invoiceGrp.issueDate"
+                                    ),
+                                    disabled: false,
+                                    additional: {
+                                      disablePast: true,
+                                    },
+                                  },
+                                  vatPointDate: {
+                                    name: "vatPointDate",
+                                    label: t(
+                                      "Form.formGrpLabels.invoiceGrp.vatPointDate"
+                                    ),
+                                    disabled: false,
+                                    options: [
+                                      {
+                                        name: t(
+                                          "Form.vatPointDateOptions.paymentDate"
+                                        ),
+                                        value: VATPointDate.PAYMENT_DATE,
+                                      },
+                                    ],
                                   },
                                 },
-                                vatPointDate: {
-                                  name: "vatPointDate",
-                                  label: t(
-                                    "Form.formGrpLabels.invoiceGrp.vatPointDate"
-                                  ),
-                                  disabled: false,
-                                  options: [
-                                    {
-                                      name: t("Form.vatPointDateOptions.paymentDate"),
-                                      value: VATPointDate.PAYMENT_DATE,
-                                    },
-                                  ],
+                                formSetValue: setValue,
+                              }}
+                            ></PrepaymentComponent>
+                          );
+                        case InvoiceType.CREDIT_NOTE:
+                          return (
+                            <CreditNoteComponent
+                              props={{
+                                control: control,
+                                title: t(
+                                  props.formGrpsSettings.creditNoteGrp.title
+                                ).toUpperCase(),
+                                creditNoteFields: {
+                                  sourceInvoiceSelectionMode: {
+                                    name: "sourceInvoiceSelectionMode",
+                                    label: t(
+                                      "Form.formGrpLabels.creditNoteGrp.sourceMode"
+                                    ),
+                                    disabled: false,
+                                    options: [
+                                      {
+                                        name: t(
+                                          "Form.selectionModeOptions.single"
+                                        ),
+                                        value: SourceSelectionMode.SINGLE,
+                                      },
+                                      {
+                                        name: t(
+                                          "Form.selectionModeOptions.period"
+                                        ),
+                                        value: SourceSelectionMode.PERIOD,
+                                      },
+                                    ],
+                                  },
+                                  sourceInvoice: {
+                                    name: "sourceInvoice",
+                                    label: t(
+                                      "Form.formGrpLabels.creditNoteGrp.sourceInvoice"
+                                    ),
+                                    disabled: false,
+                                  },
+                                  modePeriodFrom: {
+                                    name: "modePeriodFrom",
+                                    label: t(
+                                      "Form.formGrpLabels.creditNoteGrp.modePeriodFrom"
+                                    ),
+                                    disabled: false,
+                                  },
+                                  modePeriodTo: {
+                                    name: "modePeriodTo",
+                                    label: t(
+                                      "Form.formGrpLabels.creditNoteGrp.modePeriodTo"
+                                    ),
+                                    disabled: false,
+                                  },
                                 },
-                              },
-                              formSetValue: setValue,
-                            }}
-                          ></PrepaymentComponent>
-                        );
-                      case InvoiceType.CREDIT_NOTE:
-                        return (
-                          <CreditNoteComponent
-                            props={{
-                              control: control,
-                              title: t(
-                                props.formGrpsSettings.creditNoteGrp.title
-                              ).toUpperCase(),
-                              creditNoteFields: {
-                                sourceInvoiceSelectionMode: {
-                                  name: "sourceInvoiceSelectionMode",
-                                  label: t(
-                                    "Form.formGrpLabels.creditNoteGrp.sourceMode"
-                                  ),
-                                  disabled: false,
-                                  options: [
-                                    {
-                                      name: t("Form.selectionModeOptions.single"),
-                                      value: SourceSelectionMode.SINGLE,
-                                    },
-                                    {
-                                      name: t("Form.selectionModeOptions.period"),
-                                      value: SourceSelectionMode.PERIOD,
-                                    },
-                                  ],
+                                formSetValue: setValue,
+                              }}
+                            ></CreditNoteComponent>
+                          );
+                        case InvoiceType.DEBIT_NOTE:
+                          return (
+                            <DebitNoteComponent
+                              props={{
+                                control: control,
+                                title: t(
+                                  props.formGrpsSettings.debitNoteGrp.title
+                                ).toUpperCase(),
+                                debitNoteFields: {
+                                  sourceInvoiceSelectionMode: {
+                                    name: "sourceInvoiceSelectionMode",
+                                    label: t(
+                                      "Form.formGrpLabels.creditNoteGrp.sourceMode"
+                                    ),
+                                    disabled: false,
+                                    options: [
+                                      {
+                                        name: t(
+                                          "Form.selectionModeOptions.single"
+                                        ),
+                                        value: SourceSelectionMode.SINGLE,
+                                      },
+                                      {
+                                        name: t(
+                                          "Form.selectionModeOptions.period"
+                                        ),
+                                        value: SourceSelectionMode.PERIOD,
+                                      },
+                                    ],
+                                  },
+                                  sourceInvoice: {
+                                    name: "sourceInvoice",
+                                    label: t(
+                                      "Form.formGrpLabels.creditNoteGrp.sourceInvoice"
+                                    ),
+                                    disabled: false,
+                                  },
+                                  modePeriodFrom: {
+                                    name: "modePeriodFrom",
+                                    label: t(
+                                      "Form.formGrpLabels.creditNoteGrp.modePeriodFrom"
+                                    ),
+                                    disabled: false,
+                                  },
+                                  modePeriodTo: {
+                                    name: "modePeriodTo",
+                                    label: t(
+                                      "Form.formGrpLabels.creditNoteGrp.modePeriodTo"
+                                    ),
+                                    disabled: false,
+                                  },
+                                  dueDate: {
+                                    name: "dueDate",
+                                    label: t(
+                                      "Form.formGrpLabels.invoiceGrp.dueDate"
+                                    ),
+                                    disabled: false,
+                                  },
+                                  vatPointDate: {
+                                    name: "vatPointDate",
+                                    label: t(
+                                      "Form.formGrpLabels.invoiceGrp.vatPointDate"
+                                    ),
+                                    disabled: false,
+                                    options: [
+                                      {
+                                        name: t(
+                                          "Form.vatPointDateOptions.paymentDate"
+                                        ),
+                                        value: VATPointDate.PAYMENT_DATE,
+                                      },
+                                    ],
+                                  },
                                 },
-                                sourceInvoice: {
-                                  name: "sourceInvoice",
-                                  label: t(
-                                    "Form.formGrpLabels.creditNoteGrp.sourceInvoice"
-                                  ),
-                                  disabled: false,
-                                },
-                                modePeriodFrom: {
-                                  name: "modePeriodFrom",
-                                  label: t(
-                                    "Form.formGrpLabels.creditNoteGrp.modePeriodFrom"
-                                  ),
-                                  disabled: false,
-                                },
-                                modePeriodTo: {
-                                  name: "modePeriodTo",
-                                  label: t(
-                                    "Form.formGrpLabels.creditNoteGrp.modePeriodTo"
-                                  ),
-                                  disabled: false,
-                                },
-                              },
-                              formSetValue: setValue,
-                            }}
-                          ></CreditNoteComponent>
-                        );
-                      case InvoiceType.DEBIT_NOTE:
-                        return (
-                          <DebitNoteComponent
-                            props={{
-                              control: control,
-                              title: t(
-                                props.formGrpsSettings.debitNoteGrp.title
-                              ).toUpperCase(),
-                              debitNoteFields: {
-                                sourceInvoiceSelectionMode: {
-                                  name: "sourceInvoiceSelectionMode",
-                                  label: t(
-                                    "Form.formGrpLabels.creditNoteGrp.sourceMode"
-                                  ),
-                                  disabled: false,
-                                  options: [
-                                    {
-                                      name: t("Form.selectionModeOptions.single"),
-                                      value: SourceSelectionMode.SINGLE,
-                                    },
-                                    {
-                                      name: t("Form.selectionModeOptions.period"),
-                                      value: SourceSelectionMode.PERIOD,
-                                    },
-                                  ],
-                                },
-                                sourceInvoice: {
-                                  name: "sourceInvoice",
-                                  label: t(
-                                    "Form.formGrpLabels.creditNoteGrp.sourceInvoice"
-                                  ),
-                                  disabled: false,
-                                },
-                                modePeriodFrom: {
-                                  name: "modePeriodFrom",
-                                  label: t(
-                                    "Form.formGrpLabels.creditNoteGrp.modePeriodFrom"
-                                  ),
-                                  disabled: false,
-                                },
-                                modePeriodTo: {
-                                  name: "modePeriodTo",
-                                  label: t(
-                                    "Form.formGrpLabels.creditNoteGrp.modePeriodTo"
-                                  ),
-                                  disabled: false,
-                                },
-                                dueDate: {
-                                  name: "dueDate",
-                                  label: t("Form.formGrpLabels.invoiceGrp.dueDate"),
-                                  disabled: false,
-                                },
-                                vatPointDate: {
-                                  name: "vatPointDate",
-                                  label: t(
-                                    "Form.formGrpLabels.invoiceGrp.vatPointDate"
-                                  ),
-                                  disabled: false,
-                                  options: [
-                                    {
-                                      name: t("Form.vatPointDateOptions.paymentDate"),
-                                      value: VATPointDate.PAYMENT_DATE,
-                                    },
-                                  ],
-                                },
-                              },
-                              formSetValue: setValue,
-                            }}
-                          ></DebitNoteComponent>
-                        );
-                      default:
-                        throw new Error("No such invoice type");
-                    }
-                  })()}
-                </Grid>
-                <Grid item xs={4} >
-                      <UploudComponent />
-                </Grid>
-                {invoiceType === InvoiceType.INVOICE &&
-                <Grid item xs={12} >
-                  <Grid item xs={4} >
+                                formSetValue: setValue,
+                              }}
+                            ></DebitNoteComponent>
+                          );
+                        default:
+                          throw new Error("No such invoice type");
+                      }
+                    })()}
+                  </Grid>
+                  <Grid item xs={4}>
+                    <UploudComponent />
+                  </Grid>
+                  {invoiceType === InvoiceType.INVOICE && (
+                    <Grid item xs={12}>
+                      <Grid item xs={4}>
                         {/*<FormTextField
                             props={{
                               control: control,
@@ -760,27 +803,25 @@ const UploudComponent = () => {
                           />*/}
 
                         <FormMultiSelect
-                        props={{
+                          props={{
                             name: "advanceAccount",
                             control: control,
-                            label:  "Avansni račun",
+                            label: "Avansni račun",
                             disabled: false,
                             additional: {
-                              selector:  selectInvoiceByType,
+                              selector: selectInvoiceByType,
                               parentFn: addAdvanceAcount,
-                              
-                            
                             },
-                        }}
+                          }}
                         />
-                  </Grid>
+                      </Grid>
+                    </Grid>
+                  )}
                 </Grid>
-              }
-              </Grid>
-            </Paper>
-          </Box>
-        </Grid>
-        {/*<Grid item xs={2}>
+              </Paper>
+            </Box>
+          </Grid>
+          {/*<Grid item xs={2}>
           <Grid item xs={12}>
             <IconButton
               color="primary"
@@ -832,41 +873,41 @@ const UploudComponent = () => {
             </IconButton>
           </Grid>
             </Grid>*/}
-      </Grid>
-      <Grid container spacing={2}>
-        <Grid item xs={12}>
-          <Box
-            sx={{
-              ...formComponent.basicBox,
-              textAlign: "start",
-              borderColor: () => (lineError ? "red" : "grey.100"),
-            }}
-          >
-            <div style={{ display: "flex", justifyContent: "space-between" }}>
-              <Typography sx={formComponent.typography}>
-                {t(props.sectionTitles.title_2).toUpperCase()}
-              </Typography>
-              <Typography color="error" sx={{ textAlign: "center" }}>
-                {lineError ?? ""}
-              </Typography>
-            </div>
-            <Paper style={formComponent.groupPaperLowScale}>
-              <InvoiceItemsComponent
-                props={{
-                  control: control,
-                  formSetValue: setValue,
-                  formGetValues: getValues,
-                  formWatch: watch,
-                  fieldLabels: props.formFieldsLabels.invoiceItems,
-                  reset: reset
-                }}
-              ></InvoiceItemsComponent>
-            </Paper>
-          </Box>
         </Grid>
-      </Grid>
-      <Grid container spacing={2}>
-        {/*<Grid item xs={6}>
+        <Grid container spacing={2}>
+          <Grid item xs={12}>
+            <Box
+              sx={{
+                ...formComponent.basicBox,
+                textAlign: "start",
+                borderColor: () => (lineError ? "red" : "grey.100"),
+              }}
+            >
+              <div style={{ display: "flex", justifyContent: "space-between" }}>
+                <Typography sx={formComponent.typography}>
+                  {t(props.sectionTitles.title_2).toUpperCase()}
+                </Typography>
+                <Typography color="error" sx={{ textAlign: "center" }}>
+                  {lineError ?? ""}
+                </Typography>
+              </div>
+              <Paper style={formComponent.groupPaperLowScale}>
+                <InvoiceItemsComponent
+                  props={{
+                    control: control,
+                    formSetValue: setValue,
+                    formGetValues: getValues,
+                    formWatch: watch,
+                    fieldLabels: props.formFieldsLabels.invoiceItems,
+                    reset: reset,
+                  }}
+                ></InvoiceItemsComponent>
+              </Paper>
+            </Box>
+          </Grid>
+        </Grid>
+        <Grid container spacing={2}>
+          {/*<Grid item xs={6}>
           {(() => {
             switch (invoiceType) {
               case InvoiceType.INVOICE:
@@ -1078,8 +1119,8 @@ const UploudComponent = () => {
             }
           })()}
         </Grid>*/}
-        <Grid item xs={4}   ml={1}>
-          {/*<Box
+          <Grid item xs={4} ml={1}>
+            {/*<Box
             sx={{
               ...formComponent.basicBox,
               textAlign: "start",
@@ -1134,13 +1175,13 @@ const UploudComponent = () => {
               </Grid>
             </Paper>
                   </Box>*/}
-          
+
             {/*<Typography sx={formComponent.typography}>
               {t(props.sectionTitles.title_3).toUpperCase()}
                 </Typography>*/}
             <Paper style={formComponent.groupPaper}>
               <Grid container spacing={2}>
-                 {/*<Grid item xs={3}>
+                {/*<Grid item xs={3}>
                   <FormCurrencyField
                     props={{
                       name: "finalSum",
@@ -1152,21 +1193,20 @@ const UploudComponent = () => {
                   />
                   </Grid>*/}
                 <Grid item xs={4}></Grid>
-                <Grid item xs={2}>
-                </Grid>
-                <Grid item xs={6}  sx={{display:  'flex'}}>
-                <Button
+                <Grid item xs={2}></Grid>
+                <Grid item xs={6} sx={{ display: "flex" }}>
+                  <Button
                     sx={{
                       width: "150px",
                       borderRadius: "30px",
                       float: "right",
-                      mr: 1
+                      mr: 1,
                     }}
                     size="large"
                     variant="outlined"
                     onClick={() => navigate("/invoices/sales")}
                   >
-                    {t('Common.cancell')}
+                    {t("Common.cancell")}
                   </Button>
                   <Button
                     sx={{
@@ -1183,10 +1223,9 @@ const UploudComponent = () => {
                 </Grid>
               </Grid>
             </Paper>
-          
+          </Grid>
         </Grid>
-      </Grid>
-    </Box>
+      </Box>
     </>
   );
 }
