@@ -53,6 +53,7 @@ const style = {
   backgroundColor: "white",
   display: "flex",
 };
+
 const defaultValueInvoicePdf = {
   AccountingCustomerParty: {},
   AccountingSupplierParty: {},
