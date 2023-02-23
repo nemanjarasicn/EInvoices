@@ -1,4 +1,4 @@
-import { Control } from "react-hook-form";
+import { Control } from 'react-hook-form';
 
 export interface FormFieldProps {
   name: string;
@@ -6,7 +6,6 @@ export interface FormFieldProps {
   label: string;
   disabled: boolean;
 }
-
 
 export interface GroupFieldProps {
   title: string;
@@ -24,7 +23,7 @@ export interface AutocompleteItem {
 }
 
 export enum VATPointDate {
-  ISSUING_DATE = 3,//datum slanja
+  ISSUING_DATE = 3, //datum slanja
   DELIVERY_DATE = 35, //datum prometa
   PAYMENT_DATE = 432, //na dan placanja
 }

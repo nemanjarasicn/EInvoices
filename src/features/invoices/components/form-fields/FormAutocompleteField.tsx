@@ -1,15 +1,15 @@
-import React from "react";
+import React from 'react';
 import {
   Autocomplete,
   autocompleteClasses,
   Popper,
   styled,
   TextField,
-} from "@mui/material";
-import { Controller } from "react-hook-form";
-import { useAppSelector } from "../../../../app/hooks";
-import { IProps } from "../../models";
-import { AutocompleteItem, FormFieldProps } from "./models/form-fields.models";
+} from '@mui/material';
+import { Controller } from 'react-hook-form';
+import { useAppSelector } from '../../../../app/hooks';
+import { IProps } from '../../models';
+import { AutocompleteItem, FormFieldProps } from './models/form-fields.models';
 
 type FormAutocompleteFieldProps = FormFieldProps & {
   additional: {
@@ -18,26 +18,25 @@ type FormAutocompleteFieldProps = FormFieldProps & {
     labelShrink?: boolean;
     placeholder?: string;
     noResultText?: string;
-    reset?: any
+    reset?: any;
   };
 };
 
 /**
  * Facade MUI Autocomplete Field component
  */
-export const   FormAutocompleteField  = ({
+export const FormAutocompleteField = ({
   props,
-}: IProps<FormAutocompleteFieldProps>)  => {
+}: IProps<FormAutocompleteFieldProps>) => {
   const data: AutocompleteItem[] = useAppSelector(props.additional.selector);
   const [name, setName] = React.useState('');
 
-
-  const fontSize  =    window.devicePixelRatio === 1.5 ?    '12px' :  '16px';
+  const fontSize = window.devicePixelRatio === 1.5 ? '12px' : '16px';
 
   const StyledPopper = styled(Popper)({
     [`& .${autocompleteClasses.listbox}`]: {
-      boxSizing: "border-box",
-      "& ul": {
+      boxSizing: 'border-box',
+      '& ul': {
         padding: 0,
         margin: 0,
         height: 20,
@@ -58,7 +57,7 @@ export const   FormAutocompleteField  = ({
           PopperComponent={StyledPopper}
           id={`combo-box-demo_${props.name}`}
           options={[...data]}
-          noOptionsText={props.additional.noResultText ?? "No options"}
+          noOptionsText={props.additional.noResultText ?? 'No options'}
           sx={{
             '& .MuiAutocomplete-input, & .MuiInputLabel-root': {
               fontSize: fontSize,
@@ -70,7 +69,7 @@ export const   FormAutocompleteField  = ({
           }
           renderOption={(props, option) => {
             return (
-              <li  style={{fontSize:   fontSize}} {...props} key={option.id}>
+              <li style={{ fontSize: fontSize }} {...props} key={option.id}>
                 {option.name}
               </li>
             );
@@ -82,12 +81,12 @@ export const   FormAutocompleteField  = ({
           renderInput={(params) => (
             <TextField
               {...params}
-              helperText={error ? error.message : " "}
+              helperText={error ? error.message : ' '}
               size="small"
               error={!!error}
               value={value}
               fullWidth
-              placeholder={props.additional.placeholder ?? ""}
+              placeholder={props.additional.placeholder ?? ''}
               label={props.label}
               InputLabelProps={{ shrink: props.additional?.labelShrink }}
               variant="outlined"
@@ -97,4 +96,4 @@ export const   FormAutocompleteField  = ({
       )}
     />
   );
-}
+};

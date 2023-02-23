@@ -2,47 +2,46 @@
  * Data Grid styles
  * @returns {}
  */
- const useDataGridStyles = (): {
-    tableToolbar: any;
-    tableComponentStyles: any;
-  } => {
-    return {
-      tableToolbar: {
-        container: {
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "flex-end",
-          alignContent: "center",
-          padding: "10px",
+const useDataGridStyles = (): {
+  tableToolbar: any;
+  tableComponentStyles: any;
+} => {
+  return {
+    tableToolbar: {
+      container: {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'flex-end',
+        alignContent: 'center',
+        padding: '10px',
+      },
+    },
+    tableComponentStyles: {
+      wrapper: {
+        maxHeight: 800,
+        width: '100%',
+      },
+      dataGrid: {
+        // until MUI add prop disableSelectAllCheckbox
+        '& .MuiDataGrid-columnHeaderCheckbox .MuiDataGrid-columnHeaderTitleContainer':
+          {
+            display: 'none',
+          },
+
+        '.MuiDataGrid-columnSeparator': {
+          display: 'none',
+        },
+        '&.MuiDataGrid-root': {
+          border: 'none',
+        },
+        '& .MuiDataGrid-columnHeaderTitle': {
+          overflow: 'visible',
+          lineHeight: '1.43rem',
+          whiteSpace: 'normal',
         },
       },
-      tableComponentStyles: {
-        wrapper: {
-          maxHeight: 800,
-          width: "100%",
-        },
-        dataGrid: {
-          // until MUI add prop disableSelectAllCheckbox
-          "& .MuiDataGrid-columnHeaderCheckbox .MuiDataGrid-columnHeaderTitleContainer":
-            {
-              display: "none",
-            },
-  
-          ".MuiDataGrid-columnSeparator": {
-            display: "none",
-          },
-          "&.MuiDataGrid-root": {
-            border: "none",
-          },
-          "& .MuiDataGrid-columnHeaderTitle": {
-            overflow: "visible",
-            lineHeight: "1.43rem",
-            whiteSpace: "normal",
-          }
-        },
-      },
-    };
+    },
   };
-  
-  export { useDataGridStyles };
-  
+};
+
+export { useDataGridStyles };

@@ -98,7 +98,10 @@
   "devDependencies": {
     "@types/file-saver": "^2.0.5",
     "@types/react-pdf": "^6.2.0",
-    "@types/xml2js": "^0.4.11"
+    "@types/xml2js": "^0.4.11",
+    "eslint-config-prettier": "^8.6.0",
+    "eslint-plugin-react": "^7.32.2",
+    "prettier": "2.8.4"
   },
   "browser": {
     "buffer": false,

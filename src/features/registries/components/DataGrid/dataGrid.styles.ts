@@ -9,30 +9,30 @@ const useDataGridStyles = (): {
   return {
     tableToolbar: {
       container: {
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "flex-end",
-        alignContent: "center",
-        padding: "10px",
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'flex-end',
+        alignContent: 'center',
+        padding: '10px',
       },
     },
     tableComponentStyles: {
       wrapper: {
         maxHeight: 800,
-        width: "100%",
+        width: '100%',
       },
       dataGrid: {
         // until MUI add prop disableSelectAllCheckbox
-        "& .MuiDataGrid-columnHeaderCheckbox .MuiDataGrid-columnHeaderTitleContainer":
+        '& .MuiDataGrid-columnHeaderCheckbox .MuiDataGrid-columnHeaderTitleContainer':
           {
-            display: "none",
+            display: 'none',
           },
 
-        ".MuiDataGrid-columnSeparator": {
-          display: "none",
+        '.MuiDataGrid-columnSeparator': {
+          display: 'none',
         },
-        "&.MuiDataGrid-root": {
-          border: "none",
+        '&.MuiDataGrid-root': {
+          border: 'none',
         },
       },
     },

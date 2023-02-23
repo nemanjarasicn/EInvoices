@@ -1,36 +1,36 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Box, Typography, Paper, Grid } from "@mui/material";
-import React from "react";
-import { IProps } from "../../models";
-import { useComponentsStyles } from "../components.styles";
-import FormDateField from "../form-fields/FormDateField";
-import FormDropdownField from "../form-fields/FormDropdownField";
-import FormTextField from "../form-fields/FormTextField";
+import { Box, Typography, Paper, Grid } from '@mui/material';
+import React from 'react';
+import { IProps } from '../../models';
+import { useComponentsStyles } from '../components.styles';
+import FormDateField from '../form-fields/FormDateField';
+import FormDropdownField from '../form-fields/FormDropdownField';
+import FormTextField from '../form-fields/FormTextField';
 import {
   FormFieldProps,
   GroupFieldProps,
   OptionItem,
   SourceSelectionMode,
   VATPointDate,
-} from "../form-fields/models/form-fields.models";
+} from '../form-fields/models/form-fields.models';
 
 type DebitNoteComponentProps = GroupFieldProps & {
   debitNoteFields: {
-    sourceInvoiceSelectionMode: Omit<FormFieldProps, "control"> & {
+    sourceInvoiceSelectionMode: Omit<FormFieldProps, 'control'> & {
       additional?: { optionNone: boolean };
       options: OptionItem[];
     };
-    sourceInvoice: Omit<FormFieldProps, "control"> & {};
-    modePeriodFrom: Omit<FormFieldProps, "control"> & {
+    sourceInvoice: Omit<FormFieldProps, 'control'> & {};
+    modePeriodFrom: Omit<FormFieldProps, 'control'> & {
       additional?: { disablePast: boolean };
     };
-    modePeriodTo: Omit<FormFieldProps, "control"> & {
+    modePeriodTo: Omit<FormFieldProps, 'control'> & {
       additional?: { disablePast: boolean };
     };
-    dueDate: Omit<FormFieldProps, "control"> & {
+    dueDate: Omit<FormFieldProps, 'control'> & {
       additional?: { disablePast: boolean };
     };
-    vatPointDate: Omit<FormFieldProps, "control"> & {
+    vatPointDate: Omit<FormFieldProps, 'control'> & {
       additional?: { optionNone: boolean };
       options: OptionItem[];
     };
@@ -58,60 +58,57 @@ export default function DebitNoteComponent({
   }, []);
 
   return (
-    
-        <Grid container spacing={2}>
-          <Grid item xs={6}>
-            <FormDropdownField
-              props={{
-                ...props.debitNoteFields.sourceInvoiceSelectionMode,
-                control: props.control,
-                parentFn: setRelationType,
-              }}
-            />
-          </Grid>
-          <Grid item xs={6}></Grid>
-          <Grid item xs={6}>
-            {relationType === 2 && (
-              <FormDateField
-                props={{
-                  ...props.debitNoteFields.modePeriodFrom,
-                  control: props.control,
-                }}
-              />
-            )}
-            {relationType === 1 && (
-              <FormTextField
-                props={{
-                  ...props.debitNoteFields.sourceInvoice,
-                  control: props.control,
-                }}
-              />
-            )}
-            <FormDropdownField
-              props={{
-                ...props.debitNoteFields.vatPointDate,
-                control: props.control,
-              }}
-            />
-          </Grid>
-          <Grid item xs={6}>
-            {relationType === 2 && (
-              <FormDateField
-                props={{
-                  ...props.debitNoteFields.modePeriodTo,
-                  control: props.control,
-                }}
-              />
-            )}
-            <FormDateField
-              props={{
-                ...props.debitNoteFields.dueDate,
-                control: props.control,
-              }}
-            />
-          </Grid>
-        </Grid>
-    
-    
+    <Grid container spacing={2}>
+      <Grid item xs={6}>
+        <FormDropdownField
+          props={{
+            ...props.debitNoteFields.sourceInvoiceSelectionMode,
+            control: props.control,
+            parentFn: setRelationType,
+          }}
+        />
+      </Grid>
+      <Grid item xs={6}></Grid>
+      <Grid item xs={6}>
+        {relationType === 2 && (
+          <FormDateField
+            props={{
+              ...props.debitNoteFields.modePeriodFrom,
+              control: props.control,
+            }}
+          />
+        )}
+        {relationType === 1 && (
+          <FormTextField
+            props={{
+              ...props.debitNoteFields.sourceInvoice,
+              control: props.control,
+            }}
+          />
+        )}
+        <FormDropdownField
+          props={{
+            ...props.debitNoteFields.vatPointDate,
+            control: props.control,
+          }}
+        />
+      </Grid>
+      <Grid item xs={6}>
+        {relationType === 2 && (
+          <FormDateField
+            props={{
+              ...props.debitNoteFields.modePeriodTo,
+              control: props.control,
+            }}
+          />
+        )}
+        <FormDateField
+          props={{
+            ...props.debitNoteFields.dueDate,
+            control: props.control,
+          }}
+        />
+      </Grid>
+    </Grid>
   );
 }

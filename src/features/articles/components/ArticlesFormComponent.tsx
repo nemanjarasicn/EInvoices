@@ -1,19 +1,13 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React from "react";
-import {
-  Paper,
-  Typography,
-  Grid,
-  Box,
-} from "@mui/material";
-import { IProps } from "../models/articles.models";
-import * as yup from "yup";
-import { useTranslation } from "react-i18next";
-import { useComponentsStyles } from "../../shared/components/components.styles";
-import RestoreRoundedIcon from "@mui/icons-material/RestoreRounded";
-import TextsmsOutlinedIcon from "@mui/icons-material/TextsmsOutlined";
-import  FormArticleComponent   from  "../components/FormArticlesComponents"
-
+import React from 'react';
+import { Paper, Typography, Grid, Box } from '@mui/material';
+import { IProps } from '../models/articles.models';
+import * as yup from 'yup';
+import { useTranslation } from 'react-i18next';
+import { useComponentsStyles } from '../../shared/components/components.styles';
+import RestoreRoundedIcon from '@mui/icons-material/RestoreRounded';
+import TextsmsOutlinedIcon from '@mui/icons-material/TextsmsOutlined';
+import FormArticleComponent from '../components/FormArticlesComponents';
 
 export type ArticlesFormComponentProps = {
   invoiceTypeOptions: any;
@@ -29,10 +23,7 @@ export type ArticlesFormComponentProps = {
 /**
  * Register Form validation schema for every field
  */
-const schema = yup
-  .object({
-  })
-  .required();
+const schema = yup.object({}).required();
 
 export default function ArticlesFormComponent({
   props,
@@ -40,23 +31,30 @@ export default function ArticlesFormComponent({
   const { t } = useTranslation();
   const { formComponent } = useComponentsStyles();
 
-
-  const FormComponent = (formType: string) : any => {
+  const FormComponent = (formType: string): any => {
     switch (formType) {
-      case "articles":
-        return <FormArticleComponent  props={props} />;
+      case 'articles':
+        return <FormArticleComponent props={props} />;
     }
-    return <div>test</div>
-  }
+    return <div>test</div>;
+  };
 
   return (
-    <Box  sx={{ flexGrow: 1, rowGap: 1, display: "flex", flexDirection: "column", mt: 18 }}>
+    <Box
+      sx={{
+        flexGrow: 1,
+        rowGap: 1,
+        display: 'flex',
+        flexDirection: 'column',
+        mt: 18,
+      }}
+    >
       <Grid container spacing={2}>
         <Grid item xs={12}>
           <Box
             sx={{
               ...formComponent.basicBox,
-              textAlign: "start",
+              textAlign: 'start',
             }}
           >
             <Typography sx={formComponent.typography}>
@@ -64,13 +62,11 @@ export default function ArticlesFormComponent({
             </Typography>
             <Paper style={formComponent.groupPaper}>
               <Grid container spacing={2}>
-                  {FormComponent(props.typeForm)}
-  
+                {FormComponent(props.typeForm)}
               </Grid>
             </Paper>
           </Box>
         </Grid>
-        
       </Grid>
     </Box>
   );

@@ -1,2 +1,2 @@
-export * from "./registries.enums";
-export * from "./registries.models";
+export * from './registries.enums';
+export * from './registries.models';

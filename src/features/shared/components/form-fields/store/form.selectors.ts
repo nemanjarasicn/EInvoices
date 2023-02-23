@@ -1,11 +1,16 @@
-import { createSelector } from "@reduxjs/toolkit";
-import { RootState } from "../../../../../app/store";
+import { createSelector } from '@reduxjs/toolkit';
+import { RootState } from '../../../../../app/store';
+import { CustomerPartyModel } from '../../../../registries/models/registries.models';
 import {
-  CustomerPartyModel,
-} from "../../../../registries/models/registries.models";
-import {CountryCode, SchemeID }   from  "../../../../registries/models/registries.enums"
-import { OptionItem } from "../models/form-fields.models";
-import { AutocompleteData, DropdownData, FormSharedState } from "./form.reducer";
+  CountryCode,
+  SchemeID,
+} from '../../../../registries/models/registries.enums';
+import { OptionItem } from '../models/form-fields.models';
+import {
+  AutocompleteData,
+  DropdownData,
+  FormSharedState,
+} from './form.reducer';
 
 /**
  * State Form Selector
@@ -15,7 +20,8 @@ const formSelectors = (state: RootState) => state.formShared;
 /**
  * Autocomplete Data Selector
  */
-const autocompleteSelectors = (state: RootState) => state.formShared.autocompleteData;
+const autocompleteSelectors = (state: RootState) =>
+  state.formShared.autocompleteData;
 
 /**
  * Dropdown Data Selector
@@ -36,33 +42,38 @@ export const isLoadingFormShared = createSelector(
 export const selectMarketPlaces = createSelector(
   dropdownSelectors,
   (state: DropdownData) =>
-    state.marketPlaces.map(
-      (item) => ({id: item.id, name: item.marketPlaceName, item: item})
-    )
+    state.marketPlaces.map((item) => ({
+      id: item.id,
+      name: item.marketPlaceName,
+      item: item,
+    }))
 );
 
 /**
  * Select objects for dropdown component
  */
- export const selectObjectsAll = createSelector(
+export const selectObjectsAll = createSelector(
   dropdownSelectors,
   (state: DropdownData) =>
-    state.objects.map(
-      (item) => ({id: item.idObject, name: item.name, item: item})
-    )
+    state.objects.map((item) => ({
+      id: item.idObject,
+      name: item.name,
+      item: item,
+    }))
 );
 
 /**
  * Select  point of sales for dropdown component
  */
- export const selectPointOfSale = createSelector(
+export const selectPointOfSale = createSelector(
   dropdownSelectors,
   (state: DropdownData) =>
-    state.groups.map(
-      (item) => ({id: item.id, name: item.namePointOfSale, item: item})
-    )
+    state.groups.map((item) => ({
+      id: item.id,
+      name: item.namePointOfSale,
+      item: item,
+    }))
 );
-
 
 export const selectCompaniesAll = createSelector(
   autocompleteSelectors,
@@ -71,9 +82,8 @@ export const selectCompaniesAll = createSelector(
       name: item.companyName,
       id: item.pib,
       item: convertToCompanyModel(item),
-    })) 
+    }))
 );
-
 
 /**
  * Select companies for autocomplete component
@@ -86,122 +96,114 @@ export const selectClientCompanies = createSelector(
       name: item.companyName,
       id: item.pib,
       item: convertToCompanyModel(item),
-    })) 
+    }))
 );
 
 /**
  * Select units for dropdown component
  */
- export const selectUnitsAll = createSelector(
+export const selectUnitsAll = createSelector(
   dropdownSelectors,
   (state: DropdownData) =>
-    state.units.map(
-      (item) => ({id: item.id, name: item.productUnitName, item: item})
-    )
+    state.units.map((item) => ({
+      id: item.id,
+      name: item.productUnitName,
+      item: item,
+    }))
 );
-
 
 /**
  * Select   SubjectCategory for dropdown component
  */
- export const selectSubjectGategory = createSelector(
+export const selectSubjectGategory = createSelector(
   autocompleteSelectors,
   (state: AutocompleteData) =>
     state.subjectCategory.map((item, index) => ({
       name: item.categoryName,
       id: item.id,
       item: item,
-    })) 
+    }))
 );
-
 
 /**
  * Select   subjectType for dropdown component
  */
- export const  selectSubjectType = createSelector(
+export const selectSubjectType = createSelector(
   autocompleteSelectors,
   (state: AutocompleteData) =>
     state.subjectType.map((item, index) => ({
       name: item.type,
       id: item.id,
       item: item,
-    })) 
+    }))
 );
-
 
 /**
  * Select   userRole for dropdown component
  */
- export const selectUserRole = createSelector(
+export const selectUserRole = createSelector(
   dropdownSelectors,
   (state: DropdownData) =>
     state.userRole.map((item, index) => ({
       name: item.roleName,
       id: item.id_role,
       item: item,
-    })) 
+    }))
 );
-
 
 /**
  * Select   distributor for dropdown component
  */
- export const selectDistributor = createSelector(
+export const selectDistributor = createSelector(
   autocompleteSelectors,
   (state: AutocompleteData) =>
     state.distributor.map((item, index) => ({
       name: item.distributorName,
       id: item.idDistributor,
       item: item,
-    })) 
+    }))
 );
-
-
 
 /**
  * Select  taxBase  for dropdown component
  */
- export const selectTaxBase = createSelector(
+export const selectTaxBase = createSelector(
   autocompleteSelectors,
   (state: AutocompleteData) =>
     state.taxBase.map((item, index) => ({
       name: item.name,
       id: item.id,
       item: item,
-    })) 
+    }))
 );
-
 
 /**
  * Select  taxcode  for dropdown component
  */
- export const selectTaxCode = createSelector(
+export const selectTaxCode = createSelector(
   autocompleteSelectors,
   (state: AutocompleteData) =>
     state.taxCode.map((item, index) => ({
       name: item.taxCategoryName,
       id: item.idTaxCategory,
       item: item,
-    })) 
+    }))
 );
-
 
 /**
  * Select vat for dropdown component
  */
- export const selectVatsAll = createSelector(
+export const selectVatsAll = createSelector(
   dropdownSelectors,
   (state: DropdownData) =>
-    state.vats.map(
-      (item) => ({id: item.id, name: item.name, item: item})
-    )
+    state.vats.map((item) => ({ id: item.id, name: item.name, item: item }))
 );
 
 function convertToCompanyModel(item: any): CustomerPartyModel {
   return {
     main: {
       idCompany: item.idCompany,
-      companyName:  item.companyName,
+      companyName: item.companyName,
     },
     party: {
       schemeID: SchemeID.NOT_CIR,
@@ -221,7 +223,7 @@ function convertToCompanyModel(item: any): CustomerPartyModel {
     partyTaxScheme: {
       companyID: `RS${item.pib}`,
       taxScheme: {
-        id: "VAT",
+        id: 'VAT',
       },
     },
     partyLegalEntity: {

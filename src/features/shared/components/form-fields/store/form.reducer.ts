@@ -1,4 +1,4 @@
-import { ActionReducerMapBuilder, createSlice, Slice } from "@reduxjs/toolkit";
+import { ActionReducerMapBuilder, createSlice, Slice } from '@reduxjs/toolkit';
 import {
   getCompaniesAll,
   getMarketPlacesAll,
@@ -11,30 +11,29 @@ import {
   getSubjectType,
   getTaxCode,
   getTaxBase,
-  getDistributor
-} from "./form.actions";
+  getDistributor,
+} from './form.actions';
 
-const FORM_FIELDS_KEY: string = "formShared";
+const FORM_FIELDS_KEY: string = 'formShared';
 
 export type AutocompleteData = {
   unitMesures: any[];
   companies: any[];
   products: any[];
   //userRole:  any[];
-  subjectCategory:  any[];
-  subjectType:  any[];
-  taxCode:   any[];
-  taxBase:   any[];
-  distributor:  any[];
+  subjectCategory: any[];
+  subjectType: any[];
+  taxCode: any[];
+  taxBase: any[];
+  distributor: any[];
 };
 export type DropdownData = {
   marketPlaces: any[];
-  groups:    any[];
-  objects:  any[];
-  units:  any[];
-  vats:  any[];
-  userRole:  any[];
-
+  groups: any[];
+  objects: any[];
+  units: any[];
+  vats: any[];
+  userRole: any[];
 };
 
 export interface FormSharedState {
@@ -50,19 +49,19 @@ const initialState: FormSharedState = {
     companies: [],
     products: [],
     //userRole:  [],
-    subjectCategory:  [],
-    subjectType:  [],
-    taxCode:  [],
-    taxBase:  [],
-    distributor:  []
+    subjectCategory: [],
+    subjectType: [],
+    taxCode: [],
+    taxBase: [],
+    distributor: [],
   },
   dropdownData: {
     marketPlaces: [],
     groups: [],
     objects: [],
-    units:  [],
-    vats:  [],
-    userRole: []
+    units: [],
+    vats: [],
+    userRole: [],
   },
 };
 
@@ -101,14 +100,16 @@ const formSharedSlice: Slice<FormSharedState> = createSlice({
 });
 
 export const { clearCompanies, clearProducts, clearMarketPlaces } =
-formSharedSlice.actions;
+  formSharedSlice.actions;
 export default formSharedSlice.reducer;
 
 /**
  * Handle async action GET MARKET-PLACES
  * @param builder ActionReducerMapBuilder
  */
-function getAsyncMarketPlaces(builder: ActionReducerMapBuilder<FormSharedState>) {
+function getAsyncMarketPlaces(
+  builder: ActionReducerMapBuilder<FormSharedState>
+) {
   builder.addCase(getMarketPlacesAll.fulfilled, (state, { payload }) => ({
     ...state,
     dropdownData: { ...state.dropdownData, marketPlaces: payload },
@@ -129,7 +130,9 @@ function getAsyncMarketPlaces(builder: ActionReducerMapBuilder<FormSharedState>)
  * Handle async action GET CLIENT COMPANIES
  * @param builder ActionReducerMapBuilder
  */
-function getAsyncClientCompanies(builder: ActionReducerMapBuilder<FormSharedState>) {
+function getAsyncClientCompanies(
+  builder: ActionReducerMapBuilder<FormSharedState>
+) {
   builder.addCase(getCompaniesAll.fulfilled, (state, { payload }) => ({
     ...state,
     autocompleteData: { ...state.autocompleteData, companies: payload },
@@ -146,12 +149,13 @@ function getAsyncClientCompanies(builder: ActionReducerMapBuilder<FormSharedStat
   }));
 }
 
-
 /**
  * Handle async action GET POINT OF SALE
  * @param builder ActionReducerMapBuilder
  */
- function getAsyncPointOfSAles(builder: ActionReducerMapBuilder<FormSharedState>) {
+function getAsyncPointOfSAles(
+  builder: ActionReducerMapBuilder<FormSharedState>
+) {
   builder.addCase(getPointOfSalesAll.fulfilled, (state, { payload }) => ({
     ...state,
     dropdownData: { ...state.dropdownData, groups: payload },
@@ -172,7 +176,7 @@ function getAsyncClientCompanies(builder: ActionReducerMapBuilder<FormSharedStat
  * Handle async action GET OBJECTS
  * @param builder ActionReducerMapBuilder
  */
- function getAsyncObjectsAll(builder: ActionReducerMapBuilder<FormSharedState>) {
+function getAsyncObjectsAll(builder: ActionReducerMapBuilder<FormSharedState>) {
   builder.addCase(getObjectsAll.fulfilled, (state, { payload }) => ({
     ...state,
     dropdownData: { ...state.dropdownData, objects: payload },
@@ -193,7 +197,7 @@ function getAsyncClientCompanies(builder: ActionReducerMapBuilder<FormSharedStat
  * Handle async action GET UNITS
  * @param builder ActionReducerMapBuilder
  */
- function getAsyncUnitsAll(builder: ActionReducerMapBuilder<FormSharedState>) {
+function getAsyncUnitsAll(builder: ActionReducerMapBuilder<FormSharedState>) {
   builder.addCase(getUnitsAll.fulfilled, (state, { payload }) => ({
     ...state,
     dropdownData: { ...state.dropdownData, units: payload },
@@ -210,12 +214,11 @@ function getAsyncClientCompanies(builder: ActionReducerMapBuilder<FormSharedStat
   }));
 }
 
-
 /**
  * Handle async action GET VAT
  * @param builder ActionReducerMapBuilder
  */
- function getAsyncVatAll(builder: ActionReducerMapBuilder<FormSharedState>) {
+function getAsyncVatAll(builder: ActionReducerMapBuilder<FormSharedState>) {
   builder.addCase(getVatAll.fulfilled, (state, { payload }) => ({
     ...state,
     dropdownData: { ...state.dropdownData, vats: payload },
@@ -236,7 +239,7 @@ function getAsyncClientCompanies(builder: ActionReducerMapBuilder<FormSharedStat
  * Handle async action GET USER ROLE
  * @param builder ActionReducerMapBuilder
  */
- function getAsyncUserRole(builder: ActionReducerMapBuilder<FormSharedState>) {
+function getAsyncUserRole(builder: ActionReducerMapBuilder<FormSharedState>) {
   builder.addCase(getUserRole.fulfilled, (state, { payload }) => ({
     ...state,
     dropdownData: { ...state.dropdownData, userRole: payload },
@@ -253,12 +256,11 @@ function getAsyncClientCompanies(builder: ActionReducerMapBuilder<FormSharedStat
   }));
 }
 
-
 /**
  * Handle async action GET TAXCODE
  * @param builder ActionReducerMapBuilder
  */
- function getAsyncTaxCode(builder: ActionReducerMapBuilder<FormSharedState>) {
+function getAsyncTaxCode(builder: ActionReducerMapBuilder<FormSharedState>) {
   builder.addCase(getTaxCode.fulfilled, (state, { payload }) => ({
     ...state,
     autocompleteData: { ...state.autocompleteData, taxCode: payload },
@@ -275,12 +277,13 @@ function getAsyncClientCompanies(builder: ActionReducerMapBuilder<FormSharedStat
   }));
 }
 
-
 /**
  * Handle async action GET SUBJECT CATEGORY
  * @param builder ActionReducerMapBuilder
  */
- function getAsyncSubjectCategory(builder: ActionReducerMapBuilder<FormSharedState>) {
+function getAsyncSubjectCategory(
+  builder: ActionReducerMapBuilder<FormSharedState>
+) {
   builder.addCase(getSubjectCategory.fulfilled, (state, { payload }) => ({
     ...state,
     autocompleteData: { ...state.autocompleteData, subjectCategory: payload },
@@ -297,12 +300,13 @@ function getAsyncClientCompanies(builder: ActionReducerMapBuilder<FormSharedStat
   }));
 }
 
-
 /**
  * Handle async action GET  SUBJECT TYPE
  * @param builder ActionReducerMapBuilder
  */
- function getAsyncSubjectType(builder: ActionReducerMapBuilder<FormSharedState>) {
+function getAsyncSubjectType(
+  builder: ActionReducerMapBuilder<FormSharedState>
+) {
   builder.addCase(getSubjectType.fulfilled, (state, { payload }) => ({
     ...state,
     autocompleteData: { ...state.autocompleteData, subjectType: payload },
@@ -319,12 +323,11 @@ function getAsyncClientCompanies(builder: ActionReducerMapBuilder<FormSharedStat
   }));
 }
 
-
 /**
  * Handle async action GET TAXBASE
  * @param builder ActionReducerMapBuilder
  */
- function getAsyncTaxBase(builder: ActionReducerMapBuilder<FormSharedState>) {
+function getAsyncTaxBase(builder: ActionReducerMapBuilder<FormSharedState>) {
   builder.addCase(getTaxBase.fulfilled, (state, { payload }) => ({
     ...state,
     autocompleteData: { ...state.autocompleteData, taxBase: payload },
@@ -341,12 +344,13 @@ function getAsyncClientCompanies(builder: ActionReducerMapBuilder<FormSharedStat
   }));
 }
 
-
 /**
  * Handle async action GET Distributor
  * @param builder ActionReducerMapBuilder
  */
- function getAsyncDistributor(builder: ActionReducerMapBuilder<FormSharedState>) {
+function getAsyncDistributor(
+  builder: ActionReducerMapBuilder<FormSharedState>
+) {
   builder.addCase(getDistributor.fulfilled, (state, { payload }) => ({
     ...state,
     autocompleteData: { ...state.autocompleteData, distributor: payload },
@@ -362,4 +366,3 @@ function getAsyncClientCompanies(builder: ActionReducerMapBuilder<FormSharedStat
     loading: false,
   }));
 }
-

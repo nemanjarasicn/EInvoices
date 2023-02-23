@@ -1,13 +1,13 @@
-import { createSelector } from "@reduxjs/toolkit";
-import { RootState } from "../../../../../app/store";
+import { createSelector } from '@reduxjs/toolkit';
+import { RootState } from '../../../../../app/store';
 import {
   CountryCode,
   CustomerPartyModel,
   ProductModel,
   SchemeID,
-} from "../../../models";
-import { OptionItem } from "../models/form-fields.models";
-import { AutocompleteData, DropdownData, FormState } from "./form.reducer";
+} from '../../../models';
+import { OptionItem } from '../models/form-fields.models';
+import { AutocompleteData, DropdownData, FormState } from './form.reducer';
 
 /**
  * State Form Selector
@@ -91,12 +91,11 @@ export const selectProducts = createSelector(
     }))
 );
 
-
 /**
  * Select products for autocomplete component
  * map to Autocomplete item
  */
- export const selectInvoiceByType = createSelector(
+export const selectInvoiceByType = createSelector(
   autocompleteSelectors,
   (state: AutocompleteData) =>
     state.invoicesByType.map((item, index) => ({
@@ -105,7 +104,6 @@ export const selectProducts = createSelector(
       item: item,
     }))
 );
-
 
 /**
  * Select current Invoice id
@@ -118,15 +116,15 @@ export const selectCurrentDocNumber = createSelector(
 function convertToProductModel(item: any): ProductModel {
   return {
     idVat: item.productVatRequest?.idVat,
-    vatName: item.taxName,  //vatName
+    vatName: item.taxName, //vatName
     unitCode: item.unitCode, //item.productUnitRequest?.unitName,
     idUnit: item.productUnitRequest?.idUnit,
-    currencyID: "RSD",
+    currencyID: 'RSD',
     id: item.prodctId,
     invoicedQuantity: NaN,
     lineExtensionAmount: 0,
     allowanceCharge: {
-      currencyId: "RSD",
+      currencyId: 'RSD',
       chargeIndicator: false,
       multiplierFactorNumeric: 0,
       amount: 0,
@@ -137,7 +135,7 @@ function convertToProductModel(item: any): ProductModel {
       sellersItemIdentification: { id: 1 },
       classifiedTaxCategory: {
         id: item.taxCode,
-        taxScheme: { id: "VAT" },
+        taxScheme: { id: 'VAT' },
         percent: Number(((item.taxValue1 - 1) * 100).toFixed(2)),
       },
     },
@@ -148,20 +146,19 @@ function convertToProductModel(item: any): ProductModel {
       unitPrice: resolvePrice(item.priceLists),
       unitTaxAmount: 0,
     },
-      /*taxCode: item.taxCode,
+    /*taxCode: item.taxCode,
       taxName:     item.taxName,
       taxValue1:    item.taxValue1,*/
-      baseCode:    item.baseCode,
-      unitName:  item.unitName
+    baseCode: item.baseCode,
+    unitName: item.unitName,
   };
 }
 function convertToCompanyModel(item: any): CustomerPartyModel {
-  
   return {
     party: {
       schemeID: SchemeID.NOT_CIR,
       endpointID: item.pib,
-      ...(item.jbkjs) && {partyIdentification:`JBKJS:${item.jbkjs}`},
+      ...(item.jbkjs && { partyIdentification: `JBKJS:${item.jbkjs}` }),
       partyName: [
         {
           name: item.companyName,
@@ -177,7 +174,7 @@ function convertToCompanyModel(item: any): CustomerPartyModel {
     partyTaxScheme: {
       companyID: `RS${item.pib}`,
       taxScheme: {
-        id: "VAT",
+        id: 'VAT',
       },
     },
     partyLegalEntity: {
@@ -187,7 +184,7 @@ function convertToCompanyModel(item: any): CustomerPartyModel {
     contact: {
       electronicMail: item.email,
     },
-    jbkjs: item.jbkjs
+    jbkjs: item.jbkjs,
   };
 }
 

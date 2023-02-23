@@ -1,22 +1,22 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React from "react";
-import { useDropzone } from "react-dropzone";
-import { IFile, IProps, TableData } from "../models/invoice.models";
-import { styled } from "@mui/system";
-import { Box, Chip, Grid, IconButton, Paper } from "@mui/material";
-import { DataGrid, GridColDef, GridRenderCellParams } from "@mui/x-data-grid";
-import { useAppDispatch, useAppSelector } from "../../../app/hooks";
-import SendIcon from "@mui/icons-material/Send";
-import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
-import InfoIcon from "@mui/icons-material/Info";
-import TableNoRowsOverlay from "./DataGrid/NoRowsOverlay";
-import { sendInvoceXml } from "../store/invoice.actions";
-import { removeFile, setManyFiles } from "../store/invoice.reducer";
-import { selectAllFiles } from "../store/invoice.selectors";
-import { useComponentsStyles } from "./components.styles";
-import { useTranslation } from "react-i18next";
-import { FileStatus } from "../models";
-import CancelRoundedIcon from "@mui/icons-material/CancelRounded";
+import React from 'react';
+import { useDropzone } from 'react-dropzone';
+import { IFile, IProps, TableData } from '../models/invoice.models';
+import { styled } from '@mui/system';
+import { Box, Chip, Grid, IconButton, Paper } from '@mui/material';
+import { DataGrid, GridColDef, GridRenderCellParams } from '@mui/x-data-grid';
+import { useAppDispatch, useAppSelector } from '../../../app/hooks';
+import SendIcon from '@mui/icons-material/Send';
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import InfoIcon from '@mui/icons-material/Info';
+import TableNoRowsOverlay from './DataGrid/NoRowsOverlay';
+import { sendInvoceXml } from '../store/invoice.actions';
+import { removeFile, setManyFiles } from '../store/invoice.reducer';
+import { selectAllFiles } from '../store/invoice.selectors';
+import { useComponentsStyles } from './components.styles';
+import { useTranslation } from 'react-i18next';
+import { FileStatus } from '../models';
+import CancelRoundedIcon from '@mui/icons-material/CancelRounded';
 
 export type InvoiceDropzoneProps = {
   title: string;
@@ -32,18 +32,18 @@ const getColor = (props: {
   isFocused: boolean;
 }) => {
   if (props.isDragAccept) {
-    return "#00e676";
+    return '#00e676';
   }
   if (props.isDragReject) {
-    return "#ff0000";
+    return '#ff0000';
   }
   if (props.isFocused) {
-    return "#2196f3";
+    return '#2196f3';
   }
-  return "#eeeeee";
+  return '#eeeeee';
 };
 
-const Container = styled("div")`
+const Container = styled('div')`
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -81,7 +81,7 @@ export default function InvoiceDropzoneComponent({
     acceptedFiles,
   } = useDropzone({
     accept: {
-      "text/xml": [".xml"],
+      'text/xml': ['.xml'],
     },
   });
 
@@ -142,44 +142,44 @@ export default function InvoiceDropzoneComponent({
    */
   const columnsDef: GridColDef[] = [
     {
-      field: "name",
-      headerName: t("FileTable.Filename"),
+      field: 'name',
+      headerName: t('FileTable.Filename'),
       flex: 1,
-      headerAlign: "center",
-      align: "center",
+      headerAlign: 'center',
+      align: 'center',
     },
     {
-      field: "lastModified",
-      headerName: t("FileTable.Modification"),
+      field: 'lastModified',
+      headerName: t('FileTable.Modification'),
       flex: 1,
-      headerAlign: "center",
-      align: "center",
+      headerAlign: 'center',
+      align: 'center',
       sortable: false,
     },
     {
-      field: "size",
-      headerName: t("FileTable.Size"),
+      field: 'size',
+      headerName: t('FileTable.Size'),
       maxWidth: 120,
       flex: 1,
-      headerAlign: "center",
-      align: "center",
+      headerAlign: 'center',
+      align: 'center',
       sortable: false,
     },
     {
-      field: "type",
-      headerName: t("FileTable.Type"),
+      field: 'type',
+      headerName: t('FileTable.Type'),
       maxWidth: 120,
       flex: 1,
-      headerAlign: "center",
-      align: "center",
+      headerAlign: 'center',
+      align: 'center',
       sortable: false,
     },
     {
-      field: "status",
-      headerName: t("FileTable.SendStatus"),
+      field: 'status',
+      headerName: t('FileTable.SendStatus'),
       flex: 1,
-      headerAlign: "center",
-      align: "center",
+      headerAlign: 'center',
+      align: 'center',
       sortable: false,
       renderCell: (value: any) => {
         switch (value.row.status) {
@@ -217,11 +217,11 @@ export default function InvoiceDropzoneComponent({
     },
   ];
   const actionsDefs: GridColDef = {
-    field: "actions",
-    headerName: "",
+    field: 'actions',
+    headerName: '',
     width: 200,
-    headerAlign: "center",
-    align: "center",
+    headerAlign: 'center',
+    align: 'center',
     sortable: false,
     renderCell: (value: GridRenderCellParams) => (
       <>
@@ -265,7 +265,7 @@ export default function InvoiceDropzoneComponent({
           <Grid
             item
             xs={3}
-            sx={{ scale: "0.7" }}
+            sx={{ scale: '0.7' }}
             style={dropzoneComponent.title}
           >
             <h3>{t(props.rejectedTitle)}</h3>
@@ -281,7 +281,7 @@ export default function InvoiceDropzoneComponent({
             <p>{t(props.dropzonePlaceholder)}</p>
           </Container>
         </Grid>
-        <Grid item xs={3} style={{ maxHeight: "215px" }}>
+        <Grid item xs={3} style={{ maxHeight: '215px' }}>
           {rejectedFiles.length > 0 && (
             <Box sx={dropzoneComponent.errorCard.wrapper}>
               <Paper elevation={8} style={dropzoneComponent.errorCard.card}>
@@ -301,14 +301,14 @@ export default function InvoiceDropzoneComponent({
                 >
                   {rejectedFiles.map(({ file, errors }) => (
                     <li key={(file as any).path}>
-                      <span style={{ fontWeight: "bold" }}>
+                      <span style={{ fontWeight: 'bold' }}>
                         {(file as any).path}
-                      </span>{" "}
+                      </span>{' '}
                       - {file.size} bytes
                       <ul>
                         {errors.map(
                           (e: { code: React.Key | null | undefined }) => (
-                            <li style={{ color: "red" }} key={e.code}>
+                            <li style={{ color: 'red' }} key={e.code}>
                               {t(`SalesTemplatePage.${e.code}`)}
                             </li>
                           )
@@ -338,7 +338,6 @@ export default function InvoiceDropzoneComponent({
           <DataGrid
             autoHeight
             disableColumnMenu
-            
             disableColumnFilter
             showCellRightBorder={true}
             density="compact"
@@ -349,7 +348,7 @@ export default function InvoiceDropzoneComponent({
             }}
             componentsProps={{
               noRowsOverlay: {
-                props: { message: "Table.NoRows" },
+                props: { message: 'Table.NoRows' },
               },
             }}
             rows={files}

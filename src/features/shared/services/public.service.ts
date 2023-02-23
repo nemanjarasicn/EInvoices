@@ -1,14 +1,13 @@
-import commonHttpClient from "../../../app/http-common";
+import commonHttpClient from '../../../app/http-common';
 
 class PublicService {
-    getCompaniesAll() {
-    return commonHttpClient.get<any>("company");
+  getCompaniesAll() {
+    return commonHttpClient.get<any>('company');
   }
 
   getMarketPlacesAll(companyId: number | string) {
     return commonHttpClient.get<any>(`marketplace/company/${companyId}`);
   }
-
 
   getSubjectCategory() {
     return commonHttpClient.get<any>(`subject/category`);
@@ -31,15 +30,14 @@ class PublicService {
   }
 
   getUnitsAll() {
-    return commonHttpClient.get<any>("unit");
+    return commonHttpClient.get<any>('unit');
   }
-
 
   getTaxCode() {
-    return commonHttpClient.get<any>("tax");
+    return commonHttpClient.get<any>('tax');
   }
 
-  getTaxBase(id:  number  |  string) {
+  getTaxBase(id: number | string) {
     return commonHttpClient.get<any>(`tax/base/${id}`);
   }
 
@@ -47,10 +45,8 @@ class PublicService {
     return commonHttpClient.get<any>(`distributor`);
   }
 
-
   getVatAll() {
-    return commonHttpClient.get<any>("vat");
+    return commonHttpClient.get<any>('vat');
   }
-
 }
 export default new PublicService();

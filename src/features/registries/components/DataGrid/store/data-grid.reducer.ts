@@ -1,7 +1,7 @@
-import { createSlice, Slice } from "@reduxjs/toolkit";
-import { GridSelectionModel } from "@mui/x-data-grid";
+import { createSlice, Slice } from '@reduxjs/toolkit';
+import { GridSelectionModel } from '@mui/x-data-grid';
 
-const DATA_GRID_KEY: string = "data-grid";
+const DATA_GRID_KEY: string = 'data-grid';
 
 export interface DataGridState {
   selection: GridSelectionModel;

@@ -1,4 +1,4 @@
-import { HeaderSettingsTypes } from "../../models/registries.enums";
+import { HeaderSettingsTypes } from '../../models/registries.enums';
 
 import {
   getObjects,
@@ -10,39 +10,38 @@ import {
   getGroups,
   getUsers,
   getCompaniesDistributor,
-  getSync
-} from "../../store/registries.actions";
+  getSync,
+} from '../../store/registries.actions';
 import Tooltip, { TooltipProps, tooltipClasses } from '@mui/material/Tooltip';
-import { TableComponentProps } from "./TableComponent";
+import { TableComponentProps } from './TableComponent';
 import IconButton from '@mui/material/IconButton';
-import {
-  Grid,
-} from "@mui/material";
+import { Grid } from '@mui/material';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faFile }   from '@fortawesome/pro-solid-svg-icons';
-import { faFilePdf }   from '@fortawesome/pro-solid-svg-icons';
-import { faRotate }   from '@fortawesome/pro-solid-svg-icons';
+import { faFile } from '@fortawesome/pro-solid-svg-icons';
+import { faFilePdf } from '@fortawesome/pro-solid-svg-icons';
+import { faRotate } from '@fortawesome/pro-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
-import {   useAppSelector ,  useAppDispatch   } from "../../../../app/hooks";
-import { selectUser } from "../../../../app/core/core.selectors";
-import {  faPenToSquare}   from '@fortawesome/pro-solid-svg-icons';
-import { faUserPen }   from '@fortawesome/pro-solid-svg-icons';
-import { setUserCompanyId  }   from  "../../store/registries.reducer"
+import { useAppSelector, useAppDispatch } from '../../../../app/hooks';
+import { selectUser } from '../../../../app/core/core.selectors';
+import { faPenToSquare } from '@fortawesome/pro-solid-svg-icons';
+import { faUserPen } from '@fortawesome/pro-solid-svg-icons';
+import { setUserCompanyId } from '../../store/registries.reducer';
 import { styled } from '@mui/material/styles';
-import { selectCompanyCurrent } from "../../../../app/core/core.selectors";
-import { selectObjects, 
-         selectMarketPlaces, 
-         selectPointOfSales, 
-         selectCompanies, 
-         selectWarehouses, 
-         selectUnits, 
-         selectVat, 
-         selectGroups, 
-         selectUsers, 
-         selectDistributorCompanies,
-         selectUserCompanyId} from "../../store/registries.selectors";
-import { NONAME } from "dns";
-
+import { selectCompanyCurrent } from '../../../../app/core/core.selectors';
+import {
+  selectObjects,
+  selectMarketPlaces,
+  selectPointOfSales,
+  selectCompanies,
+  selectWarehouses,
+  selectUnits,
+  selectVat,
+  selectGroups,
+  selectUsers,
+  selectDistributorCompanies,
+  selectUserCompanyId,
+} from '../../store/registries.selectors';
+import { NONAME } from 'dns';
 
 const LightTooltip = styled(({ className, ...props }: TooltipProps) => (
   <Tooltip {...props} classes={{ popper: className }} />
@@ -61,21 +60,22 @@ type TableSettings = {
       dataGrid: TableComponentProps;
     };
   };
-};  
+};
 /**
  * hook predefine table settings
  * @returns {TableSettings}
  */
 const useTableSettings = (): TableSettings => {
-
-  const navigate  = useNavigate();
+  const navigate = useNavigate();
   const dispach = useAppDispatch();
-  const company = useAppSelector(selectCompanyCurrent) ?? "";
-  const isDistributor  =  useAppSelector(selectUser)?.authorities?.slice(0,1)[0].authority === "ROLE_DISTRIBUTER" ? true  :   false;
-  const userCompanyId =    useAppSelector(selectUserCompanyId);
-  const fontSize  =  window.devicePixelRatio === 1.5 ?   '14px' : '20px';
-
-
+  const company = useAppSelector(selectCompanyCurrent) ?? '';
+  const isDistributor =
+    useAppSelector(selectUser)?.authorities?.slice(0, 1)[0].authority ===
+    'ROLE_DISTRIBUTER'
+      ? true
+      : false;
+  const userCompanyId = useAppSelector(selectUserCompanyId);
+  const fontSize = window.devicePixelRatio === 1.5 ? '14px' : '20px';
 
   return {
     tableSettings: {
@@ -83,49 +83,46 @@ const useTableSettings = (): TableSettings => {
         dataGrid: {
           columnsDef: [
             {
-              field: "name",
-              headerName: "Objects.name",
+              field: 'name',
+              headerName: 'Objects.name',
               flex: 1,
-              headerAlign: "center",
-              align: "center",
+              headerAlign: 'center',
+              align: 'center',
               hideable: false,
             },
             {
-              field: "idObject",
-              headerName: "Objects.idObject",
+              field: 'idObject',
+              headerName: 'Objects.idObject',
               flex: 1,
-              headerAlign: "center",
-              align: "center",
+              headerAlign: 'center',
+              align: 'center',
               hideable: false,
             },
             {
-              field: "uuid",
-              headerName: "Objects.uuid",
+              field: 'uuid',
+              headerName: 'Objects.uuid',
               flex: 1,
-              headerAlign: "center",
-              align: "center",
+              headerAlign: 'center',
+              align: 'center',
               hideable: false,
             },
             {
-              field: "latitude",
-              headerName: "Objects.latitude",
+              field: 'latitude',
+              headerName: 'Objects.latitude',
               flex: 1,
-              headerAlign: "center",
-              align: "center",
+              headerAlign: 'center',
+              align: 'center',
               hideable: false,
             },
             {
-              field: "longitude",
-              headerName: "Objects.longitude",
+              field: 'longitude',
+              headerName: 'Objects.longitude',
               flex: 1,
-              headerAlign: "center",
-              align: "center",
+              headerAlign: 'center',
+              align: 'center',
               hideable: true,
               hide: false,
             },
-          
-
-           
           ],
           toolbarProps: {
             showFilters: false,
@@ -133,13 +130,13 @@ const useTableSettings = (): TableSettings => {
             showHideColumns: true,
             showExport: false,
           },
-          getDataAction: getObjects({companyId: company}),
-          selectType:  "OBJECTS",
-          selector:  selectObjects,
-          parentColumn: "idObject",
+          getDataAction: getObjects({ companyId: company }),
+          selectType: 'OBJECTS',
+          selector: selectObjects,
+          parentColumn: 'idObject',
           footerProps: {
-            countTxt: "Table.FooterCountTxt",
-            totalAmountTxt: "Table.FooterTotalAmountTxt",
+            countTxt: 'Table.FooterCountTxt',
+            totalAmountTxt: 'Table.FooterTotalAmountTxt',
           },
         },
       },
@@ -147,57 +144,56 @@ const useTableSettings = (): TableSettings => {
         dataGrid: {
           columnsDef: [
             {
-              field: "objectUuid",
-              headerName: "MarketPlace.uuidObject",
+              field: 'objectUuid',
+              headerName: 'MarketPlace.uuidObject',
               flex: 1,
-              headerAlign: "center",
-              align: "center",
+              headerAlign: 'center',
+              align: 'center',
               hideable: false,
             },
             {
-              field: "marketPlaceName",
-              headerName: "MarketPlace.name",
+              field: 'marketPlaceName',
+              headerName: 'MarketPlace.name',
               flex: 1,
-              headerAlign: "center",
-              align: "center",
+              headerAlign: 'center',
+              align: 'center',
               hideable: false,
             },
             {
-              field: "id",
-              headerName: "MarketPlace.idMarketPlace",
+              field: 'id',
+              headerName: 'MarketPlace.idMarketPlace',
               flex: 1,
-              headerAlign: "center",
-              align: "center",
+              headerAlign: 'center',
+              align: 'center',
               hideable: false,
             },
             {
-              field: "idObject",
-              headerName: "MarketPlace.idObject",
+              field: 'idObject',
+              headerName: 'MarketPlace.idObject',
               flex: 1,
-              headerAlign: "center",
-              align: "center",
+              headerAlign: 'center',
+              align: 'center',
               hideable: true,
             },
-            
+
             {
-              field: "idCompany",
-              headerName: "MarketPlace.idCompany",
+              field: 'idCompany',
+              headerName: 'MarketPlace.idCompany',
               flex: 1,
-              headerAlign: "center",
-              align: "center",
+              headerAlign: 'center',
+              align: 'center',
               hideable: true,
             },
-            
+
             {
-              field: "uuid",
-              headerName: "MarketPlace.uuidMarketPlace",
+              field: 'uuid',
+              headerName: 'MarketPlace.uuidMarketPlace',
               flex: 1,
-              headerAlign: "center",
-              align: "center",
+              headerAlign: 'center',
+              align: 'center',
               hideable: true,
               hide: false,
             },
-           
           ],
           toolbarProps: {
             showFilters: false,
@@ -205,13 +201,13 @@ const useTableSettings = (): TableSettings => {
             showHideColumns: true,
             showExport: false,
           },
-          getDataAction: getMarketPlaces({companyId: company}),
-          selectType:  "MARKETPLACES",
-          selector:  selectMarketPlaces,
-          parentColumn: "id",
+          getDataAction: getMarketPlaces({ companyId: company }),
+          selectType: 'MARKETPLACES',
+          selector: selectMarketPlaces,
+          parentColumn: 'id',
           footerProps: {
-            countTxt: "Table.FooterCountTxt",
-            totalAmountTxt: "Table.FooterTotalAmountTxt",
+            countTxt: 'Table.FooterCountTxt',
+            totalAmountTxt: 'Table.FooterTotalAmountTxt',
           },
         },
       },
@@ -219,57 +215,56 @@ const useTableSettings = (): TableSettings => {
         dataGrid: {
           columnsDef: [
             {
-              field: "id",
-              headerName: "PointOfSale.idPointOfSale",
+              field: 'id',
+              headerName: 'PointOfSale.idPointOfSale',
               flex: 1,
-              headerAlign: "center",
-              align: "center",
+              headerAlign: 'center',
+              align: 'center',
               hideable: false,
             },
             {
-              field: "namePointOfSale",
-              headerName: "PointOfSale.name",
+              field: 'namePointOfSale',
+              headerName: 'PointOfSale.name',
               flex: 1,
-              headerAlign: "center",
-              align: "center",
+              headerAlign: 'center',
+              align: 'center',
               hideable: false,
             },
 
             {
-              field: "uuid",
-              headerName: "Uuid",
+              field: 'uuid',
+              headerName: 'Uuid',
               flex: 1,
-              headerAlign: "center",
-              align: "center",
+              headerAlign: 'center',
+              align: 'center',
               hideable: false,
             },
             {
-              field: "idCompany",
-              headerName: "PointOfSale.idCompany",
+              field: 'idCompany',
+              headerName: 'PointOfSale.idCompany',
               flex: 1,
-              headerAlign: "center",
-              align: "center",
-              hideable: false,
-            },
-            
-            {
-              field: "companyName",
-              headerName: "PointOfSale.nameOfCompany",
-              flex: 1,
-              headerAlign: "center",
-              align: "center",
+              headerAlign: 'center',
+              align: 'center',
               hideable: false,
             },
 
             {
-              field: "marketPlaceUuid",
-              headerName: "Uuid prodajnog mesta",
+              field: 'companyName',
+              headerName: 'PointOfSale.nameOfCompany',
               flex: 1,
-              headerAlign: "center",
-              align: "center",
+              headerAlign: 'center',
+              align: 'center',
               hideable: false,
             },
-        
+
+            {
+              field: 'marketPlaceUuid',
+              headerName: 'Uuid prodajnog mesta',
+              flex: 1,
+              headerAlign: 'center',
+              align: 'center',
+              hideable: false,
+            },
           ],
           toolbarProps: {
             showFilters: false,
@@ -277,13 +272,13 @@ const useTableSettings = (): TableSettings => {
             showHideColumns: true,
             showExport: false,
           },
-          getDataAction: getPointOfSales({companyId: company}),
-          selectType:  "POINTOFSALES",
-          selector:   selectPointOfSales,
-          parentColumn: "id",
+          getDataAction: getPointOfSales({ companyId: company }),
+          selectType: 'POINTOFSALES',
+          selector: selectPointOfSales,
+          parentColumn: 'id',
           footerProps: {
-            countTxt: "Table.FooterCountTxt",
-            totalAmountTxt: "Table.FooterTotalAmountTxt",
+            countTxt: 'Table.FooterCountTxt',
+            totalAmountTxt: 'Table.FooterTotalAmountTxt',
           },
         },
       },
@@ -291,146 +286,194 @@ const useTableSettings = (): TableSettings => {
         dataGrid: {
           columnsDef: [
             {
-              field: "idCompany",
-              headerName: "Companies.idCompany",
+              field: 'idCompany',
+              headerName: 'Companies.idCompany',
               flex: 1,
-              headerAlign: "center",
-              align: "center",
+              headerAlign: 'center',
+              align: 'center',
               hideable: false,
             },
             {
-              field: "companyName",
-              headerName: "Companies.nameOfCompany",
+              field: 'companyName',
+              headerName: 'Companies.nameOfCompany',
               flex: 2,
-              headerAlign: "center",
-              align: "center",
+              headerAlign: 'center',
+              align: 'center',
               hideable: true,
             },
             {
-              field: "pib",
-              headerName: "Companies.pib",
+              field: 'pib',
+              headerName: 'Companies.pib',
               flex: 1,
-              headerAlign: "center",
-              align: "center",
+              headerAlign: 'center',
+              align: 'center',
               hideable: false,
             },
             {
-              field: "date",
-              headerName: "Companies.date",
+              field: 'date',
+              headerName: 'Companies.date',
               flex: 1,
-              headerAlign: "center",
-              align: "center",
+              headerAlign: 'center',
+              align: 'center',
               hideable: false,
-              hide:  true
+              hide: true,
             },
             {
-              field: "mb",
-              headerName: "Companies.mb",
+              field: 'mb',
+              headerName: 'Companies.mb',
               flex: 1,
-              headerAlign: "center",
-              align: "center",
+              headerAlign: 'center',
+              align: 'center',
               hideable: true,
               hide: false,
             },
             {
-              field: "address",
-              headerName: "Companies.adress",
+              field: 'address',
+              headerName: 'Companies.adress',
               flex: 1,
-              headerAlign: "center",
-              align: "center",
+              headerAlign: 'center',
+              align: 'center',
               hideable: false,
-              hide: true
+              hide: true,
             },
             {
-              field: "zip",
-              headerName: "Companies.zip",
+              field: 'zip',
+              headerName: 'Companies.zip',
               flex: 1,
-              headerAlign: "center",
-              align: "center",
+              headerAlign: 'center',
+              align: 'center',
               hideable: false,
-              hide:  true
+              hide: true,
             },
             {
-              field: "country",
-              headerName: "Companies.country",
+              field: 'country',
+              headerName: 'Companies.country',
               flex: 1,
-              headerAlign: "center",
-              align: "center",
+              headerAlign: 'center',
+              align: 'center',
               hideable: false,
-              hide:  true
+              hide: true,
             },
             {
-              field: "city",
-              headerName: "Companies.city",
+              field: 'city',
+              headerName: 'Companies.city',
               flex: 1,
-              headerAlign: "center",
-              align: "center",
+              headerAlign: 'center',
+              align: 'center',
               hideable: false,
             },
             {
               field: 'action',
               headerName: 'Action',
               flex: 1,
-              headerAlign: "center",
-              align: "center",
+              headerAlign: 'center',
+              align: 'center',
               hideable: true,
               renderCell: (params) => (
-              <Grid container sx={{display: 'flex'}}>
-                <Grid item xs={3}  sx={{display: 'flex', justifyContent:  'center'}} >
-                  <LightTooltip title="Informacije o kompaniji">
-                        <IconButton  color="primary" sx={{fontSize: fontSize}} aria-label="pdf" component="label"  onClick={() => {  
-                        navigate('/registries/infoCompany', {
-                          state: {
-                            company: params.row.idCompany
-                          }
-                        })}}>
-                        <FontAwesomeIcon icon={faFile}   color="#E9950C"   />
-                        </IconButton>
-                    </LightTooltip>
-                </Grid>
-                <Grid item  xs={3}  sx={{display: 'flex', justifyContent:  'center'}} >
-                  <LightTooltip title="Izmena kompanije">
-                      <IconButton sx={{display:  'flex', justifyContent:  'center', fontSize:  fontSize}} color="primary" aria-label="pdf" component="label"  onClick={() => {  
-                          navigate(`/registries/createCompany/${params.row.idCompany}`, 
-                            {state: 
-                                {
-                                   id: params.row.idCompany,
-                                   data: params.row
-                                }})
-                          }}>
-                          <FontAwesomeIcon icon={faPenToSquare}   color="#E9950C"   />
+                <Grid container sx={{ display: 'flex' }}>
+                  <Grid
+                    item
+                    xs={3}
+                    sx={{ display: 'flex', justifyContent: 'center' }}
+                  >
+                    <LightTooltip title="Informacije o kompaniji">
+                      <IconButton
+                        color="primary"
+                        sx={{ fontSize: fontSize }}
+                        aria-label="pdf"
+                        component="label"
+                        onClick={() => {
+                          navigate('/registries/infoCompany', {
+                            state: {
+                              company: params.row.idCompany,
+                            },
+                          });
+                        }}
+                      >
+                        <FontAwesomeIcon icon={faFile} color="#E9950C" />
                       </IconButton>
-                  </LightTooltip>
-                </Grid>
+                    </LightTooltip>
+                  </Grid>
+                  <Grid
+                    item
+                    xs={3}
+                    sx={{ display: 'flex', justifyContent: 'center' }}
+                  >
+                    <LightTooltip title="Izmena kompanije">
+                      <IconButton
+                        sx={{
+                          display: 'flex',
+                          justifyContent: 'center',
+                          fontSize: fontSize,
+                        }}
+                        color="primary"
+                        aria-label="pdf"
+                        component="label"
+                        onClick={() => {
+                          navigate(
+                            `/registries/createCompany/${params.row.idCompany}`,
+                            {
+                              state: {
+                                id: params.row.idCompany,
+                                data: params.row,
+                              },
+                            }
+                          );
+                        }}
+                      >
+                        <FontAwesomeIcon icon={faPenToSquare} color="#E9950C" />
+                      </IconButton>
+                    </LightTooltip>
+                  </Grid>
 
-                <Grid item xs={3}  sx={{display: 'flex', justifyContent:  'center'}} >
+                  <Grid
+                    item
+                    xs={3}
+                    sx={{ display: 'flex', justifyContent: 'center' }}
+                  >
                     <LightTooltip title="Izmena korisnika">
-                          <IconButton  color="primary" aria-label="pdf"   sx={{fontSize:  fontSize}}  component="label"  onClick={() => {
-                          dispach(setUserCompanyId(params.row.idCompany))  
+                      <IconButton
+                        color="primary"
+                        aria-label="pdf"
+                        sx={{ fontSize: fontSize }}
+                        component="label"
+                        onClick={() => {
+                          dispach(setUserCompanyId(params.row.idCompany));
                           navigate('/registries/users', {
                             state: {
-                              company: params.row.idCompany
-                            }
-                          })}}>
-                          <FontAwesomeIcon icon={faUserPen}   color="#E9950C"   />
-                          </IconButton>
-                      </LightTooltip>
-                </Grid>
-                <Grid item xs={3}  sx={{display: 'flex', justifyContent:  'center'}} >
+                              company: params.row.idCompany,
+                            },
+                          });
+                        }}
+                      >
+                        <FontAwesomeIcon icon={faUserPen} color="#E9950C" />
+                      </IconButton>
+                    </LightTooltip>
+                  </Grid>
+                  <Grid
+                    item
+                    xs={3}
+                    sx={{ display: 'flex', justifyContent: 'center' }}
+                  >
                     <LightTooltip title="Sinhronizacija">
-                            <IconButton  color="primary" sx={{fontSize: fontSize}} aria-label="pdf" component="label"  onClick={() => { 
-          
-          
-                              dispach(getSync({apiKey: params?.row?.apiKey})).then((res) => {});
-                            }}>
-                            <FontAwesomeIcon icon={faRotate}   color="red"   />
-                            </IconButton>
-                      </LightTooltip>
+                      <IconButton
+                        color="primary"
+                        sx={{ fontSize: fontSize }}
+                        aria-label="pdf"
+                        component="label"
+                        onClick={() => {
+                          dispach(
+                            getSync({ apiKey: params?.row?.apiKey })
+                          ).then((res) => {});
+                        }}
+                      >
+                        <FontAwesomeIcon icon={faRotate} color="red" />
+                      </IconButton>
+                    </LightTooltip>
+                  </Grid>
                 </Grid>
-              </Grid>
-              )
+              ),
             },
-           
           ],
           toolbarProps: {
             showFilters: false,
@@ -438,13 +481,17 @@ const useTableSettings = (): TableSettings => {
             showHideColumns: true,
             showExport: false,
           },
-           getDataAction: isDistributor ? getCompaniesDistributor({companyId:   company}) :  getCompanies(),
-          selectType:  "COMPANIES",
-          selector:  isDistributor ?  selectDistributorCompanies  :   selectCompanies,
-          parentColumn:  "idCompany",
+          getDataAction: isDistributor
+            ? getCompaniesDistributor({ companyId: company })
+            : getCompanies(),
+          selectType: 'COMPANIES',
+          selector: isDistributor
+            ? selectDistributorCompanies
+            : selectCompanies,
+          parentColumn: 'idCompany',
           footerProps: {
-            countTxt: "Table.FooterCountTxt",
-            totalAmountTxt: "Table.FooterTotalAmountTxt",
+            countTxt: 'Table.FooterCountTxt',
+            totalAmountTxt: 'Table.FooterTotalAmountTxt',
           },
         },
       },
@@ -452,47 +499,46 @@ const useTableSettings = (): TableSettings => {
         dataGrid: {
           columnsDef: [
             {
-              field: "id",
-              headerName: "Warehouses.idWarehouse",
+              field: 'id',
+              headerName: 'Warehouses.idWarehouse',
               flex: 1,
-              headerAlign: "center",
-              align: "center",
+              headerAlign: 'center',
+              align: 'center',
               hideable: false,
             },
             {
-              field: "warehouseName",
-              headerName: "Warehouses.name",
+              field: 'warehouseName',
+              headerName: 'Warehouses.name',
               flex: 1,
-              headerAlign: "center",
-              align: "center",
+              headerAlign: 'center',
+              align: 'center',
               hideable: false,
             },
             {
-              field: "idMarketPlace",
-              headerName: "Warehouses.idMarketPlace",
+              field: 'idMarketPlace',
+              headerName: 'Warehouses.idMarketPlace',
               flex: 1,
-              headerAlign: "center",
-              align: "center",
+              headerAlign: 'center',
+              align: 'center',
               hideable: false,
             },
             {
-              field: "marketPlaceUuid",
-              headerName: "Warehouses.uuidMarketPlace",
+              field: 'marketPlaceUuid',
+              headerName: 'Warehouses.uuidMarketPlace',
               flex: 1,
-              headerAlign: "center",
-              align: "center",
+              headerAlign: 'center',
+              align: 'center',
               hideable: false,
             },
             {
-              field: "uuid",
-              headerName: "Warehouses.uuid",
+              field: 'uuid',
+              headerName: 'Warehouses.uuid',
               flex: 1,
-              headerAlign: "center",
-              align: "center",
+              headerAlign: 'center',
+              align: 'center',
               hideable: true,
               hide: false,
             },
-           
           ],
           toolbarProps: {
             showFilters: false,
@@ -500,13 +546,13 @@ const useTableSettings = (): TableSettings => {
             showHideColumns: true,
             showExport: false,
           },
-           getDataAction: getObjects({companyId: company}),
-          selectType:  "WAREHOUSES",
+          getDataAction: getObjects({ companyId: company }),
+          selectType: 'WAREHOUSES',
           selector: selectWarehouses,
-          parentColumn: "id",
+          parentColumn: 'id',
           footerProps: {
-            countTxt: "Table.FooterCountTxt",
-            totalAmountTxt: "Table.FooterTotalAmountTxt",
+            countTxt: 'Table.FooterCountTxt',
+            totalAmountTxt: 'Table.FooterTotalAmountTxt',
           },
         },
       },
@@ -514,63 +560,62 @@ const useTableSettings = (): TableSettings => {
         dataGrid: {
           columnsDef: [
             {
-              field: "id",
-              headerName: "Units.idUnit",
+              field: 'id',
+              headerName: 'Units.idUnit',
               flex: 1,
-              headerAlign: "center",
-              align: "center",
+              headerAlign: 'center',
+              align: 'center',
               hideable: false,
             },
             {
-              field: "productUnitName",
-              headerName: "Units.nameUnit",
+              field: 'productUnitName',
+              headerName: 'Units.nameUnit',
               flex: 1,
-              headerAlign: "center",
-              align: "center",
+              headerAlign: 'center',
+              align: 'center',
               hideable: true,
             },
             {
-              field: "productUnitCode",
-              headerName: "Units.unitCode",
+              field: 'productUnitCode',
+              headerName: 'Units.unitCode',
               flex: 1,
-              headerAlign: "center",
-              align: "center",
+              headerAlign: 'center',
+              align: 'center',
               hideable: false,
             },
             {
-              field: "productUnitPlural",
-              headerName: "Units.unitPlural",
+              field: 'productUnitPlural',
+              headerName: 'Units.unitPlural',
               flex: 1,
-              headerAlign: "center",
-              align: "center",
+              headerAlign: 'center',
+              align: 'center',
               hideable: false,
             },
             {
-              field: "productUnitDecimalShow",
-              headerName: "Units.decimalShow",
+              field: 'productUnitDecimalShow',
+              headerName: 'Units.decimalShow',
               flex: 1,
-              headerAlign: "center",
-              align: "center",
+              headerAlign: 'center',
+              align: 'center',
               hideable: true,
               hide: false,
             },
             {
-              field: "productUnitPriority",
-              headerName: "Units.unitPriority",
+              field: 'productUnitPriority',
+              headerName: 'Units.unitPriority',
               flex: 1,
-              headerAlign: "center",
-              align: "center",
+              headerAlign: 'center',
+              align: 'center',
               hideable: false,
             },
             {
-              field: "deafult",
-              headerName: "Units.default",
+              field: 'deafult',
+              headerName: 'Units.default',
               flex: 1,
-              headerAlign: "center",
-              align: "center",
+              headerAlign: 'center',
+              align: 'center',
               hideable: false,
             },
-           
           ],
           toolbarProps: {
             showFilters: false,
@@ -579,12 +624,12 @@ const useTableSettings = (): TableSettings => {
             showExport: false,
           },
           getDataAction: getUnits(),
-          selectType:  "UNITS",
-          selector:  selectUnits,
-          parentColumn: "id",
+          selectType: 'UNITS',
+          selector: selectUnits,
+          parentColumn: 'id',
           footerProps: {
-            countTxt: "Table.FooterCountTxt",
-            totalAmountTxt: "Table.FooterTotalAmountTxt",
+            countTxt: 'Table.FooterCountTxt',
+            totalAmountTxt: 'Table.FooterTotalAmountTxt',
           },
         },
       },
@@ -592,47 +637,46 @@ const useTableSettings = (): TableSettings => {
         dataGrid: {
           columnsDef: [
             {
-              field: "name",
-              headerName: "Vats.nameVat",
+              field: 'name',
+              headerName: 'Vats.nameVat',
               flex: 1,
-              headerAlign: "center",
-              align: "center",
+              headerAlign: 'center',
+              align: 'center',
               hideable: false,
             },
             {
-              field: "value1",
-              headerName: "Vats.value1",
+              field: 'value1',
+              headerName: 'Vats.value1',
               flex: 1,
-              headerAlign: "center",
-              align: "center",
+              headerAlign: 'center',
+              align: 'center',
               hideable: false,
             },
             {
-              field: "value2",
-              headerName: "Vats.value2",
+              field: 'value2',
+              headerName: 'Vats.value2',
               flex: 1,
-              headerAlign: "center",
-              align: "center",
+              headerAlign: 'center',
+              align: 'center',
               hideable: false,
             },
             {
-              field: "value3",
-              headerName: "Vats.value3",
+              field: 'value3',
+              headerName: 'Vats.value3',
               flex: 1,
-              headerAlign: "center",
-              align: "center",
+              headerAlign: 'center',
+              align: 'center',
               hideable: false,
             },
             {
-              field: "code",
-              headerName: "Vats.code",
+              field: 'code',
+              headerName: 'Vats.code',
               flex: 1,
-              headerAlign: "center",
-              align: "center",
+              headerAlign: 'center',
+              align: 'center',
               hideable: true,
               hide: false,
             },
-           
           ],
           toolbarProps: {
             showFilters: false,
@@ -641,12 +685,12 @@ const useTableSettings = (): TableSettings => {
             showExport: false,
           },
           getDataAction: getVat(),
-          selectType:  "VAT",
-          selector:  selectVat,
-          parentColumn: "id",
+          selectType: 'VAT',
+          selector: selectVat,
+          parentColumn: 'id',
           footerProps: {
-            countTxt: "Table.FooterCountTxt",
-            totalAmountTxt: "Table.FooterTotalAmountTxt",
+            countTxt: 'Table.FooterCountTxt',
+            totalAmountTxt: 'Table.FooterTotalAmountTxt',
           },
         },
       },
@@ -654,27 +698,27 @@ const useTableSettings = (): TableSettings => {
         dataGrid: {
           columnsDef: [
             {
-              field: "username",
-              headerName: "Users.username",
+              field: 'username',
+              headerName: 'Users.username',
               flex: 1,
-              headerAlign: "center",
-              align: "center",
+              headerAlign: 'center',
+              align: 'center',
               hideable: false,
             },
             {
-              field: "companyId",
-              headerName: "Users.compnyId",
+              field: 'companyId',
+              headerName: 'Users.compnyId',
               flex: 1,
-              headerAlign: "center",
-              align: "center",
+              headerAlign: 'center',
+              align: 'center',
               hideable: false,
             },
             {
-              field: "roleName",
-              headerName: "Users.roleName",
+              field: 'roleName',
+              headerName: 'Users.roleName',
               flex: 1,
-              headerAlign: "center",
-              align: "center",
+              headerAlign: 'center',
+              align: 'center',
               hideable: false,
             },
 
@@ -682,28 +726,37 @@ const useTableSettings = (): TableSettings => {
               field: 'action',
               headerName: 'Action',
               flex: 1,
-              headerAlign: "center",
-              align: "center",
+              headerAlign: 'center',
+              align: 'center',
               hideable: true,
               renderCell: (params) => (
-              <Grid container sx={{display: 'flex'}}>
-                <Grid item xs={12}  sx={{display: 'flex', justifyContent:  'center'}} >
-                <LightTooltip title="Izmena korisnika">
-                  <IconButton  color="primary" aria-label="pdf" component="label"  onClick={() => {    
-                  navigate(`/registries/createUser/${params.row.id}`, {
-                    state: {
-                      id: params.row.id,
-                      data:   params.row
-                    }
-                  })}}>
-                  <FontAwesomeIcon icon={faPenToSquare}   color="#E9950C"   />
-                  </IconButton>
-                  </LightTooltip>
+                <Grid container sx={{ display: 'flex' }}>
+                  <Grid
+                    item
+                    xs={12}
+                    sx={{ display: 'flex', justifyContent: 'center' }}
+                  >
+                    <LightTooltip title="Izmena korisnika">
+                      <IconButton
+                        color="primary"
+                        aria-label="pdf"
+                        component="label"
+                        onClick={() => {
+                          navigate(`/registries/createUser/${params.row.id}`, {
+                            state: {
+                              id: params.row.id,
+                              data: params.row,
+                            },
+                          });
+                        }}
+                      >
+                        <FontAwesomeIcon icon={faPenToSquare} color="#E9950C" />
+                      </IconButton>
+                    </LightTooltip>
+                  </Grid>
                 </Grid>
-              </Grid>
-              )
+              ),
             },
-           
           ],
           toolbarProps: {
             showFilters: false,
@@ -711,13 +764,13 @@ const useTableSettings = (): TableSettings => {
             showHideColumns: true,
             showExport: false,
           },
-          getDataAction:getUsers({companyId: userCompanyId}),
-          selectType:  "USERS",
-          selector:  selectUsers,
-          parentColumn: "username",
+          getDataAction: getUsers({ companyId: userCompanyId }),
+          selectType: 'USERS',
+          selector: selectUsers,
+          parentColumn: 'username',
           footerProps: {
-            countTxt: "Table.FooterCountTxt",
-            totalAmountTxt: "Table.FooterTotalAmountTxt",
+            countTxt: 'Table.FooterCountTxt',
+            totalAmountTxt: 'Table.FooterTotalAmountTxt',
           },
         },
       },
@@ -725,32 +778,31 @@ const useTableSettings = (): TableSettings => {
         dataGrid: {
           columnsDef: [
             {
-              field: "groupName",
-              headerName: "Groups.groupName",
+              field: 'groupName',
+              headerName: 'Groups.groupName',
               flex: 1,
-              headerAlign: "center",
-              align: "center",
+              headerAlign: 'center',
+              align: 'center',
               hideable: false,
             },
             {
-              field: "idPointOfSale",
-              headerName: "Groups.idPointOfSale",
+              field: 'idPointOfSale',
+              headerName: 'Groups.idPointOfSale',
               flex: 1,
-              headerAlign: "center",
-              align: "center",
+              headerAlign: 'center',
+              align: 'center',
               hideable: false,
             },
-      
+
             {
-              field: "parentGroupId",
-              headerName: "Groups.parentGroupId",
+              field: 'parentGroupId',
+              headerName: 'Groups.parentGroupId',
               flex: 1,
-              headerAlign: "center",
-              align: "center",
+              headerAlign: 'center',
+              align: 'center',
               hideable: true,
               hide: false,
             },
-           
           ],
           toolbarProps: {
             showFilters: false,
@@ -758,13 +810,13 @@ const useTableSettings = (): TableSettings => {
             showHideColumns: true,
             showExport: false,
           },
-          getDataAction: getGroups({uuid: company}),
-          selectType:  "GROUPS",
-          selector:  selectGroups,
-          parentColumn: "id",
+          getDataAction: getGroups({ uuid: company }),
+          selectType: 'GROUPS',
+          selector: selectGroups,
+          parentColumn: 'id',
           footerProps: {
-            countTxt: "Table.FooterCountTxt",
-            totalAmountTxt: "Table.FooterTotalAmountTxt",
+            countTxt: 'Table.FooterCountTxt',
+            totalAmountTxt: 'Table.FooterTotalAmountTxt',
           },
         },
       },

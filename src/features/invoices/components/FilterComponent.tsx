@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React from "react";
+import React from 'react';
 import {
   Button,
   Popper,
@@ -15,19 +15,19 @@ import {
   ListItemText,
   Box,
   TextField,
-} from "@mui/material";
-import PopupState, { bindToggle, bindPopper } from "material-ui-popup-state";
-import { useComponentsStyles } from "./components.styles";
-import CancelRoundedIcon from "@mui/icons-material/CancelRounded";
-import { useTranslation } from "react-i18next";
-import { IProps } from "../models/invoice.models";
-import FormDateField from "./form-fields/FormDateField";
-import * as yup from "yup";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { useForm } from "react-hook-form";
-import { Subscription } from "react-hook-form/dist/utils/createSubject";
-import { format } from 'date-fns'
-import dayjs from "dayjs";
+} from '@mui/material';
+import PopupState, { bindToggle, bindPopper } from 'material-ui-popup-state';
+import { useComponentsStyles } from './components.styles';
+import CancelRoundedIcon from '@mui/icons-material/CancelRounded';
+import { useTranslation } from 'react-i18next';
+import { IProps } from '../models/invoice.models';
+import FormDateField from './form-fields/FormDateField';
+import * as yup from 'yup';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { useForm } from 'react-hook-form';
+import { Subscription } from 'react-hook-form/dist/utils/createSubject';
+import { format } from 'date-fns';
+import dayjs from 'dayjs';
 
 export type FilterComponentProps = {
   filterTitle: string;
@@ -47,7 +47,7 @@ export interface FillterItem {
   value: string | any;
 }
 
-type FilterType = "solo" | "multi" | "date";
+type FilterType = 'solo' | 'multi' | 'date';
 
 const schema = yup
   .object({
@@ -59,7 +59,6 @@ const schema = yup
 export default function FilterComponent({
   props,
 }: IProps<FilterComponentProps>): JSX.Element {
-
   //if want to dispalay date in data piker on load page
   /*const date  = new Date();
   const dateTmp = new Date(date)
@@ -68,7 +67,7 @@ export default function FilterComponent({
   const yesterday  = format(dateTmp.setDate(dateTmp.getDate() - 1), 'yyyy-MM-dd');*/
 
   const methods = useForm({
-    defaultValues: { from: "", to: "" },
+    defaultValues: { from: '', to: '' },
     resolver: yupResolver(schema),
   });
   const { handleSubmit, reset, control, watch } = methods;
@@ -124,8 +123,8 @@ export default function FilterComponent({
           index: 0,
           name: props.filterTitle,
           value: {
-            from: dayjs(from).format("YYYY-MM-DD"),
-            to: dayjs(to).format("YYYY-MM-DD"),
+            from: dayjs(from).format('YYYY-MM-DD'),
+            to: dayjs(to).format('YYYY-MM-DD'),
           },
         });
       }
@@ -137,7 +136,7 @@ export default function FilterComponent({
     <>
       {(() => {
         switch (props.type) {
-          case "multi":
+          case 'multi':
             return (
               <PopupState variant="popper" popupId="popup-popper">
                 {(popupState) => {
@@ -184,7 +183,7 @@ export default function FilterComponent({
                       <Popper
                         {...bindPopper(popupState)}
                         transition
-                        style={{ width: "200px" }}
+                        style={{ width: '200px' }}
                       >
                         {({ TransitionProps }) => (
                           <Fade {...TransitionProps} timeout={350}>
@@ -218,7 +217,7 @@ export default function FilterComponent({
                                               tabIndex={-1}
                                               disableRipple
                                               inputProps={{
-                                                "aria-labelledby": labelId,
+                                                'aria-labelledby': labelId,
                                               }}
                                             />
                                           </ListItemIcon>
@@ -243,7 +242,7 @@ export default function FilterComponent({
               </PopupState>
             );
 
-          case "solo":
+          case 'solo':
             return (
               <div style={filterComponentStyle.wrapper}>
                 {checked.length > 0 && (
@@ -284,46 +283,46 @@ export default function FilterComponent({
                 </Button>
               </div>
             );
-          case "date":
+          case 'date':
             return (
               <div
                 style={{
                   ...filterComponentStyle.wrapper,
-                  border: "thin solid transparent",
-                  background: "transparent",
+                  border: 'thin solid transparent',
+                  background: 'transparent',
                 }}
               >
                 {openDate && (
                   <div
                     style={{
-                      display: "flex",
-                      flexDirection: "row",
-                      alignContent: "space-around",
-                      height: "36.5px ",
-                      scale: "0.8",
-                      margin: "auto",
-                      width: "max-content",
-                      columnGap: "3%",
-                      alignItems: "baseline",
-                      marginTop: "-1px",
+                      display: 'flex',
+                      flexDirection: 'row',
+                      alignContent: 'space-around',
+                      height: '36.5px ',
+                      scale: '0.8',
+                      margin: 'auto',
+                      width: 'max-content',
+                      columnGap: '3%',
+                      alignItems: 'baseline',
+                      marginTop: '-1px',
                     }}
                   >
                     {t(`Common.from`)}
                     <FormDateField
                       props={{
                         disabled: false,
-                        name: "from",
+                        name: 'from',
                         control: control,
-                        label: "",
+                        label: '',
                       }}
                     />
                     {t(`Common.to`)}
                     <FormDateField
                       props={{
                         disabled: false,
-                        name: "to",
+                        name: 'to',
                         control: control,
-                        label: "",
+                        label: '',
                       }}
                     />
                   </div>
@@ -331,7 +330,7 @@ export default function FilterComponent({
                 <Button
                   style={{
                     ...filterComponentStyle.buttonStyles,
-                    background: "white",
+                    background: 'white',
                   }}
                   variant="text"
                   onClick={() => handleDateFilter()}
@@ -348,7 +347,7 @@ export default function FilterComponent({
               </div>
             );
           default:
-            throw new Error("Wrong Type filter!!!");
+            throw new Error('Wrong Type filter!!!');
         }
       })()}
     </>

@@ -1,9 +1,9 @@
-import React from "react";
-import { Autocomplete, TextField } from "@mui/material";
-import { Controller } from "react-hook-form";
-import { useAppSelector } from "../../../../app/hooks";
-import { IProps } from "../../../registries/models/registries.models";
-import { AutocompleteItem, FormFieldProps } from "./models/form-fields.models";
+import React from 'react';
+import { Autocomplete, TextField } from '@mui/material';
+import { Controller } from 'react-hook-form';
+import { useAppSelector } from '../../../../app/hooks';
+import { IProps } from '../../../registries/models/registries.models';
+import { AutocompleteItem, FormFieldProps } from './models/form-fields.models';
 
 type FormAutocompleteFieldProps = FormFieldProps & {
   additional: {
@@ -22,13 +22,13 @@ export default function FormAutocompleteField({
   props,
 }: IProps<FormAutocompleteFieldProps>) {
   const data: AutocompleteItem[] = useAppSelector(props.additional.selector);
-  const options: any =  props.additional.data;
+  const options: any = props.additional.data;
   const dataTmp = props.additional.data ? options : data;
   const dataTmpFirst = dataTmp[0];
-  const [loading, setLoading]  =  React.useState(true);
+  const [loading, setLoading] = React.useState(true);
 
   if (!dataTmpFirst) {
-    return <div>loading</div>
+    return <div>loading</div>;
   }
   return (
     <Controller
@@ -53,14 +53,14 @@ export default function FormAutocompleteField({
                 borderColor: 'white',
               },
             },
-            "& label": {
+            '& label': {
               color: 'white',
             },
-            "& label.Mui-focused": {
+            '& label.Mui-focused': {
               color: 'white',
             },
-            "& .MuiAutocomplete-inputRoot": {
-              color: "white",
+            '& .MuiAutocomplete-inputRoot': {
+              color: 'white',
             },
             '& .MuiAutocomplete-option': {
               backgroundColor: 'red',
@@ -68,17 +68,17 @@ export default function FormAutocompleteField({
             '& .Mui-focused': {
               backgroundColor: 'transparent',
             },
-            "& .MuiButtonBase-root.MuiAutocomplete-clearIndicator": {
-              color: "white",
-              visibility: "visible"
+            '& .MuiButtonBase-root.MuiAutocomplete-clearIndicator': {
+              color: 'white',
+              visibility: 'visible',
             },
-            "& .MuiAutocomplete-popupIndicator":  {
-              color:  "white"
-            }
+            '& .MuiAutocomplete-popupIndicator': {
+              color: 'white',
+            },
           }}
           id={`combo-box-demo_${props.name}`}
           options={[...dataTmp]}
-          noOptionsText={props.additional.noResultText ?? "No options"}
+          noOptionsText={props.additional.noResultText ?? 'No options'}
           getOptionLabel={(item: AutocompleteItem) => item.name}
           isOptionEqualToValue={(option, value) =>
             Boolean(option.id === value.id)
@@ -97,13 +97,17 @@ export default function FormAutocompleteField({
           renderInput={(params) => (
             <TextField
               {...params}
-              helperText={error ? error.message : " "}
+              helperText={error ? error.message : ' '}
               size="small"
               error={!!error}
               value={value}
-              sx={{backgroundColor:  'transparent', height: "40px", borderRadius: '10px'}}
+              sx={{
+                backgroundColor: 'transparent',
+                height: '40px',
+                borderRadius: '10px',
+              }}
               fullWidth
-              placeholder={props.additional.placeholder ?? ""}
+              placeholder={props.additional.placeholder ?? ''}
               label={props.label}
               InputLabelProps={{ shrink: props.additional?.labelShrink }}
               variant="outlined"

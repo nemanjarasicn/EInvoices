@@ -1,8 +1,8 @@
-import React from "react";
-import { TextField } from "@mui/material";
-import { Controller } from "react-hook-form";
-import { IProps } from "../../models";
-import { FormFieldProps } from "./models/form-fields.models";
+import React from 'react';
+import { TextField } from '@mui/material';
+import { Controller } from 'react-hook-form';
+import { IProps } from '../../models';
+import { FormFieldProps } from './models/form-fields.models';
 
 type FormTextAreaFieldProps = FormFieldProps & { additional?: any };
 /**
@@ -26,7 +26,7 @@ export default function FormTextAreaField({
           onChange={onChange}
           value={value}
           label={props.label}
-          helperText={error ? error.message : " "}
+          helperText={error ? error.message : ' '}
         />
       )}
     />

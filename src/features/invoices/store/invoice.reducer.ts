@@ -1,7 +1,7 @@
-import { ActionReducerMapBuilder, createSlice, Slice } from "@reduxjs/toolkit";
-import { FileStatus } from "../models";
-import { IFile } from "../models/invoice.models";
-import { InvoiceSearchParams }  from  "../models/invoice.models"
+import { ActionReducerMapBuilder, createSlice, Slice } from '@reduxjs/toolkit';
+import { FileStatus } from '../models';
+import { IFile } from '../models/invoice.models';
+import { InvoiceSearchParams } from '../models/invoice.models';
 import {
   getAllCompanies,
   searchInvoices,
@@ -9,26 +9,25 @@ import {
   sendInvoceXml,
   getZip,
   getTaxBase,
-  getInvoiceDetails
-} from "./invoice.actions";
+  getInvoiceDetails,
+} from './invoice.actions';
 
-const FEATURE_INVOICES_KEY: string = "invoices";
+const FEATURE_INVOICES_KEY: string = 'invoices';
 
 export interface FeatureState {
   unitMesures: any[];
   companies: any[];
-  loading: boolean; 
+  loading: boolean;
   files: IFile[];
   invoicesR: any[];
   zip: any;
-  openModalConfirm:  {open: boolean, dataAction?: any };
-  openModalPdf:  {open: boolean, data?: any };
-  openModalFilter:  {open: boolean, filterName:  string }  ;
-  openModalError:   boolean;
+  openModalConfirm: { open: boolean; dataAction?: any };
+  openModalPdf: { open: boolean; data?: any };
+  openModalFilter: { open: boolean; filterName: string };
+  openModalError: boolean;
   invoiceDetails: any;
   filters: InvoiceSearchParams;
   taxBase: any[];
-  
 }
 const initialState: FeatureState = {
   unitMesures: [],
@@ -36,20 +35,20 @@ const initialState: FeatureState = {
   companies: [],
   files: [],
   invoicesR: [],
-  zip:   [],
-  openModalConfirm:  {open: false, dataAction: "" },
-  openModalPdf:  {open: false, data: "" },
-  openModalFilter:  {open: false, filterName: ""},
+  zip: [],
+  openModalConfirm: { open: false, dataAction: '' },
+  openModalPdf: { open: false, data: '' },
+  openModalFilter: { open: false, filterName: '' },
   openModalError: false,
-  invoiceDetails:  "",
+  invoiceDetails: '',
   filters: {
-    companyId: "7",
-    inputAndOutputDocuments:  "Output",
+    companyId: '7',
+    inputAndOutputDocuments: 'Output',
     //sendToCir: "",
-   
-    date: {from: "", to: ""}
+
+    date: { from: '', to: '' },
   },
-  taxBase:  []
+  taxBase: [],
 };
 
 const invoicesSlice: Slice<FeatureState> = createSlice({
@@ -70,41 +69,41 @@ const invoicesSlice: Slice<FeatureState> = createSlice({
       newState.invoicesR.map((inv) => {
         if (
           inv.salesInvoiceId === payload.id &&
-          (payload.status === "Cancelled" || payload.status === "Storno" )
+          (payload.status === 'Cancelled' || payload.status === 'Storno')
         ) {
           inv.invoiceStatus = payload.status;
-        } else if( inv.purchaseInvoiceId === payload.id &&
-          (  payload.status === "Approved"  ||   payload.status  ===  "Rejected")) {
-            inv.invoiceStatus = payload.status;
+        } else if (
+          inv.purchaseInvoiceId === payload.id &&
+          (payload.status === 'Approved' || payload.status === 'Rejected')
+        ) {
+          inv.invoiceStatus = payload.status;
         }
         return inv;
       });
       return newState;
     },
 
-    setopenModalConfirm: (state,{payload}) => ({
+    setopenModalConfirm: (state, { payload }) => ({
       ...state,
       openModalConfirm: payload,
     }),
 
-    
-    setopenModalPdf: (state,{payload}) => ({
+    setopenModalPdf: (state, { payload }) => ({
       ...state,
       openModalPdf: payload,
     }),
 
-    setopenModalFilter: (state,{payload}) => ({
+    setopenModalFilter: (state, { payload }) => ({
       ...state,
       openModalFilter: payload,
     }),
 
-    setopenModalError: (state,{payload}) => ({
+    setopenModalError: (state, { payload }) => ({
       ...state,
       openModalError: payload,
     }),
 
-
-    setFilters: (state,{payload}) => ({
+    setFilters: (state, { payload }) => ({
       ...state,
       filters: payload,
     }),
@@ -120,8 +119,16 @@ const invoicesSlice: Slice<FeatureState> = createSlice({
   },
 });
 
-export const { setManyFiles, removeFile, updateInvoiceStatus, setopenModalPdf, setopenModalFilter, setFilters,  setopenModalConfirm, setopenModalError } =
-  invoicesSlice.actions;
+export const {
+  setManyFiles,
+  removeFile,
+  updateInvoiceStatus,
+  setopenModalPdf,
+  setopenModalFilter,
+  setFilters,
+  setopenModalConfirm,
+  setopenModalError,
+} = invoicesSlice.actions;
 
 export default invoicesSlice.reducer;
 
@@ -209,7 +216,7 @@ function getAsyncZipFile(builder: ActionReducerMapBuilder<FeatureState>) {
   builder.addCase(getZip.fulfilled, (state, { payload }) => ({
     ...state,
     loading: false,
-    error: "",
+    error: '',
     zip: payload,
   }));
   builder.addCase(getZip.pending, (state) => ({
@@ -241,12 +248,13 @@ function getAsyncTaxBase(builder: ActionReducerMapBuilder<FeatureState>) {
   }));
 }
 
-
-function getAsyncInvoiceDetails(builder: ActionReducerMapBuilder<FeatureState>) {
+function getAsyncInvoiceDetails(
+  builder: ActionReducerMapBuilder<FeatureState>
+) {
   builder.addCase(getInvoiceDetails.fulfilled, (state, { payload }) => ({
     ...state,
     loading: false,
-    error: "",
+    error: '',
     invoiceDetails: payload,
   }));
   builder.addCase(getInvoiceDetails.pending, (state) => ({
@@ -260,4 +268,3 @@ function getAsyncInvoiceDetails(builder: ActionReducerMapBuilder<FeatureState>) 
     error: (payload as any).error,
   }));
 }
-

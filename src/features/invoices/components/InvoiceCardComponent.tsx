@@ -5,20 +5,20 @@ import {
   Typography,
   CardActions,
   SvgIconTypeMap,
-} from "@mui/material";
-import React from "react";
-import { useTranslation } from "react-i18next";
-import { OverridableComponent } from "@mui/material/OverridableComponent";
-import { useComponentsStyles } from "./components.styles";
-import CustomButtonFc, { ButtonProps } from "./CustomButtonFc";
-import { IProps } from "../models/invoice.models";
+} from '@mui/material';
+import React from 'react';
+import { useTranslation } from 'react-i18next';
+import { OverridableComponent } from '@mui/material/OverridableComponent';
+import { useComponentsStyles } from './components.styles';
+import CustomButtonFc, { ButtonProps } from './CustomButtonFc';
+import { IProps } from '../models/invoice.models';
 
 export interface CardProps {
   title: string;
-  icon: OverridableComponent<SvgIconTypeMap<{}, "svg">> & { muiName: string };
+  icon: OverridableComponent<SvgIconTypeMap<{}, 'svg'>> & { muiName: string };
   cardBtn: ButtonProps;
-  typeOfCard:  string;
-  description?:  string;
+  typeOfCard: string;
+  description?: string;
 }
 export default function InvoiceCardComponent({
   props,
@@ -36,12 +36,12 @@ export default function InvoiceCardComponent({
               variant="h6"
               color="primary"
               gutterBottom
-              style={{ textAlign: "center" }}
+              style={{ textAlign: 'center' }}
             >
               {t(`${props.title}`)}
             </Typography>
             <Typography>
-              <Icon fontSize={"large"} />
+              <Icon fontSize={'large'} />
             </Typography>
           </CardContent>
           <CardActions>

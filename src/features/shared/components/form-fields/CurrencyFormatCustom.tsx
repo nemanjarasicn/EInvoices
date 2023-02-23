@@ -1,5 +1,5 @@
-import React from "react";
-import { NumericFormat } from "react-number-format";
+import React from 'react';
+import { NumericFormat } from 'react-number-format';
 
 interface CustomProps {
   onChange: (event: { target: { name: string; value: string } }) => void;
@@ -16,10 +16,10 @@ export interface MaskProps {
 
 const defaultValues: MaskProps = {
   decimalScale: 2,
-  prefix: "RSD ",
+  prefix: 'RSD ',
   allowNegative: false,
   maxValue: 1000000000,
-  suffix: "",
+  suffix: '',
 };
 /**
  * Currency Format Component can be used as number

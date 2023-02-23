@@ -1,69 +1,69 @@
-import React from "react";
-import { Grid } from "@mui/material";
-import { ArticlesFormComponentProps } from "./ArticlesFormComponent";
-import FormTextField from "../../shared/components/form-fields/FormTextField";
-import { useComponentsStyles } from "../../shared/components/components.styles";
-import { useAppDispatch, useAppSelector } from "../../../app/hooks";
-import * as yup from "yup";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { useForm } from "react-hook-form";
-import CustomButtonFc from "../../shared/components/CustomButtonFc";
-import CustomButtonFcTra from "../../shared/components/CustomButtonFcTra";
-import { ArticleFormModel, IProps } from "../models/articles.models";
-import { useNavigate } from "react-router-dom";
-import FormAutocompleteField from "../../shared/components/form-fields/FormAutocompleteField";
-import ErrorModal from "../../shared/components/ErrorModals";
-import SucessModal from "../../shared/components/SucessModal";
+import React from 'react';
+import { Grid } from '@mui/material';
+import { ArticlesFormComponentProps } from './ArticlesFormComponent';
+import FormTextField from '../../shared/components/form-fields/FormTextField';
+import { useComponentsStyles } from '../../shared/components/components.styles';
+import { useAppDispatch, useAppSelector } from '../../../app/hooks';
+import * as yup from 'yup';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { useForm } from 'react-hook-form';
+import CustomButtonFc from '../../shared/components/CustomButtonFc';
+import CustomButtonFcTra from '../../shared/components/CustomButtonFcTra';
+import { ArticleFormModel, IProps } from '../models/articles.models';
+import { useNavigate } from 'react-router-dom';
+import FormAutocompleteField from '../../shared/components/form-fields/FormAutocompleteField';
+import ErrorModal from '../../shared/components/ErrorModals';
+import SucessModal from '../../shared/components/SucessModal';
 import {
   getObjectsAll,
   getMarketPlacesAll,
   getTaxBase,
-} from "../../shared/components/form-fields/store/form.actions";
-import { selectCompanyCurrent } from "../../../app/core/core.selectors";
+} from '../../shared/components/form-fields/store/form.actions';
+import { selectCompanyCurrent } from '../../../app/core/core.selectors';
 import {
   selectUnitsAll,
   selectVatsAll,
   selectMarketPlaces,
   selectTaxCode,
   selectTaxBase,
-} from "../../shared/components/form-fields/store/form.selectors";
-import { sendArticle, sendArticleUpdate } from "../store/articles.actions";
+} from '../../shared/components/form-fields/store/form.selectors';
+import { sendArticle, sendArticleUpdate } from '../store/articles.actions';
 import {
   setopenModalCreateArtical,
   setopenModalCreateArticalPrice,
   setOpenSucessModal,
-} from "../store/articles.reducer";
+} from '../store/articles.reducer';
 //import ClientComponent from "./form-group/ClientComponent";
 
 export default function FormArticleComponent({
   props,
 }: IProps<ArticlesFormComponentProps>): JSX.Element {
   const companyId = useAppSelector(selectCompanyCurrent) as any;
-  const [showTaxBase, setShowTaxBase] = React.useState("none");
+  const [showTaxBase, setShowTaxBase] = React.useState('none');
   const vatTmp = useAppSelector(selectVatsAll);
   const unitCodeTmp = useAppSelector(selectUnitsAll);
-  const [statusUnit, setStatusUnit] = React.useState("NONE");
-  const [statusVat, setStatusVat] = React.useState("NONE");
-  const [statusTax, setStatusTax] = React.useState("NONE");
+  const [statusUnit, setStatusUnit] = React.useState('NONE');
+  const [statusVat, setStatusVat] = React.useState('NONE');
+  const [statusTax, setStatusTax] = React.useState('NONE');
 
   /**
    * Register Form validation schema for every field
    */
   const schema = yup
     .object({
-      productName: yup.string().required("ovo je obavezno polje"),
-      code: yup.string().required("ovo je obavezno polje"),
-      productTaxCategory: yup.object().required("ovo je obavezno polje"),
+      productName: yup.string().required('ovo je obavezno polje'),
+      code: yup.string().required('ovo je obavezno polje'),
+      productTaxCategory: yup.object().required('ovo je obavezno polje'),
       barCode: yup
         .string()
-        .matches(/^(|.{5,})$/, "Mora imati najmanje 5 cifara"),
-      productUnitRequest: yup.object().required("ovo je obavezno polje"),
-      productVatRequest: yup.object().required("ovo je obavezno polje"),
+        .matches(/^(|.{5,})$/, 'Mora imati najmanje 5 cifara'),
+      productUnitRequest: yup.object().required('ovo je obavezno polje'),
+      productVatRequest: yup.object().required('ovo je obavezno polje'),
     })
     .required();
 
   const defaultValues: ArticleFormModel = {
-    productName: "",
+    productName: '',
     sale: true,
     recipe: true,
     stock: true,
@@ -72,36 +72,36 @@ export default function FormArticleComponent({
     modificationRequired: true,
     decimalShow: true,
     priceChangeForbidden: true,
-    barCode: "",
-    code: "",
+    barCode: '',
+    code: '',
     idCompany: companyId,
     idObject: 0,
-    productUnitRequest: "",
-    productVatRequest: "",
-    productTaxCategory: "",
-    price: "",
+    productUnitRequest: '',
+    productVatRequest: '',
+    productTaxCategory: '',
+    price: '',
     marketPlaceDtos: useAppSelector(selectMarketPlaces).map((item) => ({
       uuid: item.item.uuid,
       id: item.item.id,
       marketPlaceName: item.item.marketPlaceName,
       status: {
-        status: "NONE",
+        status: 'NONE',
       },
     })),
-    taxcodeValue: "",
+    taxcodeValue: '',
     taxCode: {
-      idTaxCategory: "",
-      taxCategoryName: "",
-      taxCategoryCode: "",
-      value1: "",
-      idCountry: "",
+      idTaxCategory: '',
+      taxCategoryName: '',
+      taxCategoryCode: '',
+      value1: '',
+      idCountry: '',
     },
-    taxBaseValue: "",
+    taxBaseValue: '',
     taxBase: {
-      id: "",
-      name: "",
-      description: "",
-      taxCategory: "",
+      id: '',
+      name: '',
+      description: '',
+      taxCategory: '',
     },
   };
   const navigate = useNavigate();
@@ -123,45 +123,45 @@ export default function FormArticleComponent({
     dispatch(getMarketPlacesAll({ companyId: companyId }));
     //dispatch(getVatAll());
 
-    if (props?.flag === "edit") {
+    if (props?.flag === 'edit') {
       const vatObject = vatTmp.find((item) => item?.name === props?.data?.vat);
       const unitCodeObject = unitCodeTmp.find(
         (item) => item?.item?.productUnitCode === props?.data?.unitCode
       );
-      setValue("productName", props?.data?.productName);
-      setValue("code", props?.data?.code);
+      setValue('productName', props?.data?.productName);
+      setValue('code', props?.data?.code);
       setValue(
-        "barCode",
-        props?.data?.barCode !== "00000" ? props?.data?.barCode : ""
+        'barCode',
+        props?.data?.barCode !== '00000' ? props?.data?.barCode : ''
       );
-      setValue("productVatRequest", vatObject);
-      setValue("productUnitRequest", unitCodeObject);
+      setValue('productVatRequest', vatObject);
+      setValue('productUnitRequest', unitCodeObject);
     }
   }, []);
 
   React.useEffect(() => {
-    const taxCode1 = getValues("productTaxCategory");
+    const taxCode1 = getValues('productTaxCategory');
     if (taxCode1) {
       if (taxCode1?.item?.value1 === 1) {
         dispatch(
           getTaxBase({
-            id: Number(getValues("productTaxCategory").item.idTaxCategory),
+            id: Number(getValues('productTaxCategory').item.idTaxCategory),
           })
         );
-        setShowTaxBase("block");
+        setShowTaxBase('block');
       } else {
-        setShowTaxBase("none");
-        setValue("taxcodeValue", "");
+        setShowTaxBase('none');
+        setValue('taxcodeValue', '');
       }
     }
-    setValue("taxcodeValue", String(taxCode1.value1));
-    setStatusTax("UPDATE");
-  }, [watch("productTaxCategory")]);
+    setValue('taxcodeValue', String(taxCode1.value1));
+    setStatusTax('UPDATE');
+  }, [watch('productTaxCategory')]);
 
   const onSubmit = async (data: ArticleFormModel) => {
-    if (props.flag !== "edit") {
+    if (props.flag !== 'edit') {
       await dispatch(sendArticle({ data })).then(async (res) => {
-        if (res.payload.message === "sucsess") {
+        if (res.payload.message === 'sucsess') {
           dispatch(setopenModalCreateArtical({ open: false }));
           dispatch(setOpenSucessModal(true));
           setTimeout(() => {
@@ -170,7 +170,7 @@ export default function FormArticleComponent({
               setopenModalCreateArticalPrice({
                 open: true,
                 data: res.payload.data[0].createProduct,
-                flag: "",
+                flag: '',
               })
             );
           }, 2000);
@@ -193,7 +193,7 @@ export default function FormArticleComponent({
           },
         })
       ).then(async (res) => {
-        if (res.payload.message === "sucsess") {
+        if (res.payload.message === 'sucsess') {
           dispatch(setopenModalCreateArtical({ open: false }));
           dispatch(setOpenSucessModal(true));
           setTimeout(() => {
@@ -212,11 +212,11 @@ export default function FormArticleComponent({
   };
 
   const handleChangeSelectUnit = (value: any) => {
-    setStatusUnit("UPDATE");
+    setStatusUnit('UPDATE');
   };
 
   const handleChangeSelectVat = (value: any) => {
-    setStatusVat("UPDATE");
+    setStatusVat('UPDATE');
   };
 
   return (
@@ -226,14 +226,14 @@ export default function FormArticleComponent({
       <Grid
         container
         spacing={2}
-        sx={{ minHeight: "300px", marginTop: "10px" }}
+        sx={{ minHeight: '300px', marginTop: '10px' }}
       >
         <Grid item xs={6}>
           <FormTextField
             props={{
               control: control,
-              name: "productName",
-              label: "Naziv artikla",
+              name: 'productName',
+              label: 'Naziv artikla',
               disabled: false,
               additional: { readonly: false, labelShrink: true },
             }}
@@ -241,17 +241,17 @@ export default function FormArticleComponent({
           <FormTextField
             props={{
               control: control,
-              name: "code",
-              label: "Šifra",
+              name: 'code',
+              label: 'Šifra',
               disabled: false,
               additional: { readonly: false, labelShrink: true },
             }}
           />
           <FormAutocompleteField
             props={{
-              name: "productTaxCategory",
+              name: 'productTaxCategory',
               control: control,
-              label: "PDV kategorija",
+              label: 'PDV kategorija',
               disabled: false,
               additional: {
                 selector: selectTaxCode,
@@ -262,9 +262,9 @@ export default function FormArticleComponent({
           <div style={{ display: showTaxBase }}>
             <FormAutocompleteField
               props={{
-                name: "taxBase",
+                name: 'taxBase',
                 control: control,
-                label: "Osnov oslobodjenja pdv",
+                label: 'Osnov oslobodjenja pdv',
                 disabled: false,
                 additional: {
                   selector: selectTaxBase,
@@ -278,17 +278,17 @@ export default function FormArticleComponent({
           <FormTextField
             props={{
               control: control,
-              name: "barCode",
-              label: "barkod",
+              name: 'barCode',
+              label: 'barkod',
               disabled: false,
               additional: { readonly: false, labelShrink: true },
             }}
           />
           <FormAutocompleteField
             props={{
-              name: "productUnitRequest",
+              name: 'productUnitRequest',
               control: control,
-              label: "Jedinica mere",
+              label: 'Jedinica mere',
               disabled: false,
               additional: {
                 selector: selectUnitsAll,
@@ -298,9 +298,9 @@ export default function FormArticleComponent({
           />
           <FormAutocompleteField
             props={{
-              name: "productVatRequest",
+              name: 'productVatRequest',
               control: control,
-              label: "Vat",
+              label: 'Vat',
               disabled: false,
               additional: {
                 selector: selectVatsAll,
@@ -309,12 +309,12 @@ export default function FormArticleComponent({
             }}
           />
 
-          <div style={{ visibility: "hidden" }}>
+          <div style={{ visibility: 'hidden' }}>
             <FormTextField
               props={{
                 control: control,
-                name: "taxcodeValue",
-                label: "Vrednost PDV kategorije",
+                name: 'taxcodeValue',
+                label: 'Vrednost PDV kategorije',
                 disabled: false,
                 additional: { readonly: true, labelShrink: true },
               }}
@@ -327,11 +327,11 @@ export default function FormArticleComponent({
         <Grid
           item
           xs={12}
-          sx={{ display: "flex", justifyContent: "space-between" }}
+          sx={{ display: 'flex', justifyContent: 'space-between' }}
         >
           <CustomButtonFcTra
             soloButton={{
-              title: "Otkaži",
+              title: 'Otkaži',
               disabled: false,
               btnFn: () => dispatch(setopenModalCreateArtical({ open: false })),
             }}
@@ -339,7 +339,7 @@ export default function FormArticleComponent({
 
           <CustomButtonFc
             soloButton={{
-              title: "SAČUVAJ",
+              title: 'SAČUVAJ',
               disabled: false,
               btnFn: handleSubmit(onSubmit),
             }}

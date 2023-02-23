@@ -1,15 +1,15 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React from "react";
-import { selectCompanyCurrent } from "../../../app/core/core.selectors";
-import { useAppDispatch, useAppSelector } from "../../../app/hooks";
-import { Path, TemplatePageTypes } from "../models";
-import { InvoiceSearchParams, IProps } from "../models/invoice.models";
-import { searchInvoices } from "../store/invoice.actions";
-import { useComponentsStyles } from "./components.styles";
-import FilterComponent, { FilterComponentProps } from "./FilterComponent";
+import React from 'react';
+import { selectCompanyCurrent } from '../../../app/core/core.selectors';
+import { useAppDispatch, useAppSelector } from '../../../app/hooks';
+import { Path, TemplatePageTypes } from '../models';
+import { InvoiceSearchParams, IProps } from '../models/invoice.models';
+import { searchInvoices } from '../store/invoice.actions';
+import { useComponentsStyles } from './components.styles';
+import FilterComponent, { FilterComponentProps } from './FilterComponent';
 import SelectAllActionsComponent, {
   SelectAllAction,
-} from "./SelectAllActionsComponent";
+} from './SelectAllActionsComponent';
 
 type FiltersToolbarComponentProps = {
   filters: FilterComponentProps[];
@@ -28,9 +28,9 @@ export default function FiltersToolbarComponent({
   React.useEffect(() => {
     let map = new Map<string, any>();
     props.filters.map((filter) => map.set(filter.paramKey, []));
-    map.set("companyId", id);
+    map.set('companyId', id);
     map.set(
-      "inputAndOutputDocuments",
+      'inputAndOutputDocuments',
       Path[props.type.toString() as keyof Object]
     );
     setParams(map);
@@ -51,22 +51,22 @@ export default function FiltersToolbarComponent({
       dispatch(
         searchInvoices({
           params: {
-            companyId: String(params?.get("companyId")),
+            companyId: String(params?.get('companyId')),
             inputAndOutputDocuments: String(
-              params?.get("inputAndOutputDocuments")
+              params?.get('inputAndOutputDocuments')
             ),
-            sendToCir: String(params?.get("sendToCir")[0] ?? ""),
-            invoiceStatus: params?.get("invoiceStatus").length
-              ? params?.get("invoiceStatus")
-              : "",
-            typeDocument: params?.get("typeDocument").length
-              ? params?.get("typeDocument")
-              : "",
+            sendToCir: String(params?.get('sendToCir')[0] ?? ''),
+            invoiceStatus: params?.get('invoiceStatus').length
+              ? params?.get('invoiceStatus')
+              : '',
+            typeDocument: params?.get('typeDocument').length
+              ? params?.get('typeDocument')
+              : '',
             // // subjectId?: string; klijent
             date:
-              params.get("date") && params?.get("date")[0]
-                ? { ...params?.get("date")[0] }
-                : "",
+              params.get('date') && params?.get('date')[0]
+                ? { ...params?.get('date')[0] }
+                : '',
           } as InvoiceSearchParams,
         })
       );

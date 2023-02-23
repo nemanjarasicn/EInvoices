@@ -1,24 +1,24 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React from "react";
-import { IProps } from "../../models";
-import { Grid, IconButton } from "@mui/material";
-import FormTextField from "../form-fields/FormTextField";
-import AddCircleIcon from "@mui/icons-material/AddCircle";
-import AddIcon from "@mui/icons-material/Add";
-import DeleteIcon from "@mui/icons-material/Delete";
-import FormCurrencyField from "../form-fields/FormCurrencyField";
-import FormAutocompleteField from "../../../shared/components/form-fields/FormAutocompleteField";
+import React from 'react';
+import { IProps } from '../../models';
+import { Grid, IconButton } from '@mui/material';
+import FormTextField from '../form-fields/FormTextField';
+import AddCircleIcon from '@mui/icons-material/AddCircle';
+import AddIcon from '@mui/icons-material/Add';
+import DeleteIcon from '@mui/icons-material/Delete';
+import FormCurrencyField from '../form-fields/FormCurrencyField';
+import FormAutocompleteField from '../../../shared/components/form-fields/FormAutocompleteField';
 import {
   calculateNewDiscount,
   calculateNewPrice,
   calculateTax,
   calculateTotal,
-} from "../../utils/utils";
-import { useTranslation } from "react-i18next";
-import FormDropdownField from "../form-fields/FormDropdownField";
-import { useAppDispatch, useAppSelector } from "../../../../app/hooks";
-import { getTaxBase } from "../../store/invoice.actions";
-import { selectTaxBase } from "../../../shared/components/form-fields/store/form.selectors";
+} from '../../utils/utils';
+import { useTranslation } from 'react-i18next';
+import FormDropdownField from '../form-fields/FormDropdownField';
+import { useAppDispatch, useAppSelector } from '../../../../app/hooks';
+import { getTaxBase } from '../../store/invoice.actions';
+import { selectTaxBase } from '../../../shared/components/form-fields/store/form.selectors';
 
 type InvoiceLineProps = {
   item: any;
@@ -54,7 +54,7 @@ export default function InvoiceLine({
   const [options, setOptions] = React.useState(useAppSelector(selectTaxBase));
 
   const handleTab = (event: any) => {
-    if (event.key === "Tab") {
+    if (event.key === 'Tab') {
       props.handleAddItemList(index);
     }
   };
@@ -152,7 +152,7 @@ export default function InvoiceLine({
 
   React.useEffect(() => {
     //dispatch(getTaxBase());
-    console.log("saasaasas", formGetValues(`invoiceLine[${index}] `));
+    console.log('saasaasas', formGetValues(`invoiceLine[${index}] `));
   }, []);
 
   return (
@@ -185,10 +185,10 @@ export default function InvoiceLine({
             additional: {
               mask: {
                 decimalScale: 1, //put condition if decimal show to be 1 else 0,
-                prefix: "",
+                prefix: '',
                 allowNegative: true,
                 maxValue: 100000,
-                suffix: "",
+                suffix: '',
               },
               readonly: false,
               parentFn: props.handleAddItemList,
@@ -236,7 +236,7 @@ export default function InvoiceLine({
             label: t(fieldLabels.unitCode),
             name: `invoiceLine[${index}].unitName`,
             additional: {
-              suffix: "",
+              suffix: '',
               readonly: true,
             },
           }}
@@ -253,10 +253,10 @@ export default function InvoiceLine({
             additional: {
               mask: {
                 decimalScale: 2,
-                prefix: "",
+                prefix: '',
                 allowNegative: false,
                 maxValue: 100,
-                suffix: " %",
+                suffix: ' %',
               },
               labelShrink: true,
               readonly: false,
@@ -289,7 +289,7 @@ export default function InvoiceLine({
             label: t(fieldLabels.percent),
             name: `invoiceLine[${index}].item.classifiedTaxCategory.percent`,
             additional: {
-              suffix: "%",
+              suffix: '%',
               readonly: true,
             },
           }}
@@ -301,7 +301,7 @@ export default function InvoiceLine({
           props={{
             name: `invoiceLine[${index}].baseCode`,
             control: control,
-            label: t("Sifra osnove"),
+            label: t('Sifra osnove'),
             disabled: vatRate,
             additional: {
               selector: selectTaxBase,
@@ -327,8 +327,8 @@ export default function InvoiceLine({
           props={{
             control: control,
             disabled: vatRate,
-            label: t("Broj odluke"),
-            name: "brojOdluke",
+            label: t('Broj odluke'),
+            name: 'brojOdluke',
             additional: { mask: {}, readonly: vatRate },
           }}
         />
@@ -362,9 +362,9 @@ export default function InvoiceLine({
         item
         xs={0.3}
         sx={{
-          display: "flex",
-          alignItems: "flex-start",
-          justifyContent: "center",
+          display: 'flex',
+          alignItems: 'flex-start',
+          justifyContent: 'center',
         }}
       >
         <IconButton

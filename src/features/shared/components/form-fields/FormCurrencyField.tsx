@@ -1,9 +1,9 @@
-import React from "react";
-import { TextField } from "@mui/material";
-import { Controller } from "react-hook-form";
-import { IProps } from "../../../registries/models/registries.models";
-import { FormFieldProps } from "./models/form-fields.models";
-import { CurrencyFormatCustom, MaskProps } from "./CurrencyFormatCustom";
+import React from 'react';
+import { TextField } from '@mui/material';
+import { Controller } from 'react-hook-form';
+import { IProps } from '../../../registries/models/registries.models';
+import { FormFieldProps } from './models/form-fields.models';
+import { CurrencyFormatCustom, MaskProps } from './CurrencyFormatCustom';
 
 type FormNumberFieldProps = FormFieldProps & {
   additional?: {
@@ -23,7 +23,7 @@ export default function FormCurrencyField({
       render={({ field: { onChange, value }, fieldState: { error } }) => (
         <TextField
           disabled={props.disabled}
-          helperText={error ? error.message : " "}
+          helperText={error ? error.message : ' '}
           size="small"
           error={!!error}
           onChange={onChange}

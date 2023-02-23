@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useRef, MutableRefObject } from "react";
+import React, { useRef, MutableRefObject } from 'react';
 import {
   Paper,
   Typography,
@@ -15,39 +15,39 @@ import {
   IconButton,
   Button,
   TextField,
-} from "@mui/material";
-import { useForm } from "react-hook-form";
-import { InvoiceFormModel, InvoiceType, IProps, ProductModel } from "../models";
-import FormTextField from "./form-fields/FormTextField";
-import { yupResolver } from "@hookform/resolvers/yup";
-import FormDropdownField from "./form-fields/FormDropdownField";
-import FormTextAreaField from "./form-fields/FormTextAreaField";
-import FormDateField from "./form-fields/FormDateField";
+} from '@mui/material';
+import { useForm } from 'react-hook-form';
+import { InvoiceFormModel, InvoiceType, IProps, ProductModel } from '../models';
+import FormTextField from './form-fields/FormTextField';
+import { yupResolver } from '@hookform/resolvers/yup';
+import FormDropdownField from './form-fields/FormDropdownField';
+import FormTextAreaField from './form-fields/FormTextAreaField';
+import FormDateField from './form-fields/FormDateField';
 //import {FormAutocompleteField} from "./form-fields/FormAutocompleteField";
-import FormMultiSelect from "../../shared/components/form-fields/FormMultiSelect";
-import { useTranslation } from "react-i18next";
-import { useComponentsStyles } from "./components.styles";
-import CustomButtonFc from "./CustomButtonFc";
-import FormCheckboxField from "./form-fields/FormCheckboxField";
-import FormCurrencyField from "./form-fields/FormCurrencyField";
-import PrepaymentComponent from "./form-group/PrepaymentComponent";
-import InvoiceGroupComponent from "./form-group/InvoiceGroupComponent";
-import AttachFileIcon from "@mui/icons-material/AttachFile";
-import SucessModal from "../../shared/components/SucessModal";
-import { selectOpenCreateSubject } from "../../articles/store/articles.selectors";
-import ModalCreateSubject from "../../articles/components/ModalCreateSubject";
-import RestoreRoundedIcon from "@mui/icons-material/RestoreRounded";
-import ErrorModal from "../../shared/components/ErrorModals";
-import TextsmsOutlinedIcon from "@mui/icons-material/TextsmsOutlined";
+import FormMultiSelect from '../../shared/components/form-fields/FormMultiSelect';
+import { useTranslation } from 'react-i18next';
+import { useComponentsStyles } from './components.styles';
+import CustomButtonFc from './CustomButtonFc';
+import FormCheckboxField from './form-fields/FormCheckboxField';
+import FormCurrencyField from './form-fields/FormCurrencyField';
+import PrepaymentComponent from './form-group/PrepaymentComponent';
+import InvoiceGroupComponent from './form-group/InvoiceGroupComponent';
+import AttachFileIcon from '@mui/icons-material/AttachFile';
+import SucessModal from '../../shared/components/SucessModal';
+import { selectOpenCreateSubject } from '../../articles/store/articles.selectors';
+import ModalCreateSubject from '../../articles/components/ModalCreateSubject';
+import RestoreRoundedIcon from '@mui/icons-material/RestoreRounded';
+import ErrorModal from '../../shared/components/ErrorModals';
+import TextsmsOutlinedIcon from '@mui/icons-material/TextsmsOutlined';
 import {
   OptionItem,
   SourceSelectionMode,
   VATPointDate,
   AutocompleteItem,
-} from "./form-fields/models/form-fields.models";
-import CreditNoteComponent from "./form-group/CreditNoteComponent";
-import DebitNoteComponent from "./form-group/DebitNoteComponent";
-import { useAppDispatch, useAppSelector } from "../../../app/hooks";
+} from './form-fields/models/form-fields.models';
+import CreditNoteComponent from './form-group/CreditNoteComponent';
+import DebitNoteComponent from './form-group/DebitNoteComponent';
+import { useAppDispatch, useAppSelector } from '../../../app/hooks';
 import {
   getClientCompanies,
   getCurrentDocumentNumber,
@@ -55,42 +55,42 @@ import {
   getMarketPlaces,
   getProducts,
   getInvoiceByType,
-} from "./form-fields/store/form.actions";
+} from './form-fields/store/form.actions';
 import {
   selectClientCompanies,
   selectCurrentDocNumber,
   selectMarketPlaces,
   selectInvoiceByType,
-} from "./form-fields/store/form.selectors";
-import ClientComponent from "./form-group/ClientComponent";
-import InvoiceItemsComponent from "./invoice-items/InvoiceItemsComponent";
+} from './form-fields/store/form.selectors';
+import ClientComponent from './form-group/ClientComponent';
+import InvoiceItemsComponent from './invoice-items/InvoiceItemsComponent';
 import {
   calculateBase,
   sumTax,
   totalWithDiscount,
   totalWithoutDiscount,
   returnInvoiceMessage,
-} from "../utils/utils";
-import { Subscription } from "react-hook-form/dist/utils/createSubject";
+} from '../utils/utils';
+import { Subscription } from 'react-hook-form/dist/utils/createSubject';
 import {
   selectCompanyCurrent,
   selectCompanyInfo,
-} from "../../../app/core/core.selectors";
+} from '../../../app/core/core.selectors';
 import {
   clearCompanies,
   clearDocumentTypes,
   clearMarketPlaces,
   clearProducts,
-} from "./form-fields/store/form.reducer";
-import { sendInvoce } from "../store/invoice.actions";
-import { useSchemaValidator } from "../utils/utils.schema";
-import { useNavigate } from "react-router-dom";
-import FormTextBox from "../components/form-fields/FormTextBox";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPaperclipVertical } from "@fortawesome/pro-solid-svg-icons";
-import { selectOpenError } from "../store/invoice.selectors";
-import { setopenModalError } from "../store/invoice.reducer";
-import { getTaxBase } from "../../shared/components/form-fields/store/form.actions";
+} from './form-fields/store/form.reducer';
+import { sendInvoce } from '../store/invoice.actions';
+import { useSchemaValidator } from '../utils/utils.schema';
+import { useNavigate } from 'react-router-dom';
+import FormTextBox from '../components/form-fields/FormTextBox';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPaperclipVertical } from '@fortawesome/pro-solid-svg-icons';
+import { selectOpenError } from '../store/invoice.selectors';
+import { setopenModalError } from '../store/invoice.reducer';
+import { getTaxBase } from '../../shared/components/form-fields/store/form.actions';
 
 export type InvoiceFormComponentProps = {
   invoiceTypeOptions: any;
@@ -105,7 +105,7 @@ export default function InvoiceFormComponent({
   const defaultValues = new InvoiceFormModel();
   const { t } = useTranslation();
   const { formComponent } = useComponentsStyles();
-  const [jbkjsTmp, setJbkjsTmp] = React.useState("");
+  const [jbkjsTmp, setJbkjsTmp] = React.useState('');
   const [selectionModeTmp, setSelectionModeTmp] = React.useState(0);
   const schema = useSchemaValidator(jbkjsTmp, selectionModeTmp);
   let navigate = useNavigate();
@@ -116,7 +116,7 @@ export default function InvoiceFormComponent({
 
   const marketPlaces = useAppSelector(selectMarketPlaces);
   const [filesList, setFilesList] = React.useState<any[]>([]);
-  const [errorMessage, setErrorMessage] = React.useState("");
+  const [errorMessage, setErrorMessage] = React.useState('');
   const [showErrorModal, setShowErrorModal] = React.useState(false);
   const id = useAppSelector(selectCurrentDocNumber);
 
@@ -148,7 +148,7 @@ export default function InvoiceFormComponent({
 
   const onSubmit = handleSubmit(
     (data: InvoiceFormModel) => {
-      console.log("asassss", data);
+      console.log('asassss', data);
       dispatch(
         sendInvoce({
           invoice: data,
@@ -157,11 +157,11 @@ export default function InvoiceFormComponent({
           advanceAccountList: advanceAccountList,
         })
       ).then((res) => {
-        if (res.payload.message === "REDIRECT") {
+        if (res.payload.message === 'REDIRECT') {
           setShowError(true);
           setTimeout(async () => {
             setShowError(false);
-            navigate("/invoices/sales");
+            navigate('/invoices/sales');
           }, 2000);
         } else {
           const error = res.payload?.error?.response?.data?.description;
@@ -173,7 +173,7 @@ export default function InvoiceFormComponent({
       });
     },
     (err: any) => {
-      console.log("Error", err);
+      console.log('Error', err);
       if (err.invoiceLine) setLineError(err.invoiceLine.message);
     }
   );
@@ -198,16 +198,16 @@ export default function InvoiceFormComponent({
     finalSum: number
   ): void => {
     setValue(
-      "priceWithoutDiscount",
+      'priceWithoutDiscount',
       totalWithoutDiscount(invoiceLine as ProductModel[])
     );
     setValue(
-      "sumWithDiscount",
+      'sumWithDiscount',
       totalWithDiscount(invoiceLine as ProductModel[])
     );
     const _sumTax: number = sumTax(invoiceLine as ProductModel[]);
-    setValue("taxAmount", _sumTax);
-    setValue("taxableAmount", calculateBase(finalSum as number, _sumTax));
+    setValue('taxAmount', _sumTax);
+    setValue('taxableAmount', calculateBase(finalSum as number, _sumTax));
   };
 
   React.useEffect(() => {
@@ -220,17 +220,17 @@ export default function InvoiceFormComponent({
 
   React.useEffect(() => {
     if (marketPlaces.length) {
-      setValue("warehouse_uuid", marketPlaces[0].value);
+      setValue('warehouse_uuid', marketPlaces[0].value);
     }
   }, [marketPlaces]);
 
   React.useEffect(() => {
     if (id) {
-      setValue("id", id);
+      setValue('id', id);
     }
   }, [id]);
 
-  const watchFields = watch("warehouse_uuid");
+  const watchFields = watch('warehouse_uuid');
   React.useEffect(() => {
     if (watchFields)
       dispatch(getProducts({ marketPlace: watchFields as string }));
@@ -239,21 +239,21 @@ export default function InvoiceFormComponent({
   React.useEffect(() => {
     const subscription: Subscription = watch((value, { name, type }) => {
       switch (name) {
-        case "finalSum":
+        case 'finalSum':
           patchFormFields(
             value.invoiceLine as ProductModel[],
             value.finalSum as number
           );
           break;
-        case "invoiceLine":
+        case 'invoiceLine':
           if (value.invoiceLine?.length) setLineError(null);
           patchFormFields(
             value.invoiceLine as ProductModel[],
             value.finalSum as number
           );
           break;
-        case "warehouse_uuid":
-          setValue("finalSum", 0);
+        case 'warehouse_uuid':
+          setValue('finalSum', 0);
           break;
         default:
           break;
@@ -277,18 +277,18 @@ export default function InvoiceFormComponent({
   );
 
   React.useEffect(() => {
-    const jbkjsUse = getValues("accountingCustomerParty.jbkjs")
-      ? String(getValues("accountingCustomerParty.jbkjs"))
-      : "";
+    const jbkjsUse = getValues('accountingCustomerParty.jbkjs')
+      ? String(getValues('accountingCustomerParty.jbkjs'))
+      : '';
     setJbkjsTmp(jbkjsUse);
-  }, [watch("accountingCustomerParty")]);
+  }, [watch('accountingCustomerParty')]);
 
   React.useEffect(() => {
-    const selectionMode = getValues("sourceInvoiceSelectionMode")
-      ? getValues("sourceInvoiceSelectionMode")
+    const selectionMode = getValues('sourceInvoiceSelectionMode')
+      ? getValues('sourceInvoiceSelectionMode')
       : 0;
     setSelectionModeTmp(selectionMode);
-  }, [watch("sourceInvoiceSelectionMode")]);
+  }, [watch('sourceInvoiceSelectionMode')]);
 
   const UploudComponent = () => {
     //const fileInput: MutableRefObject<HTMLDivElement> = React.useRef(null);
@@ -299,13 +299,13 @@ export default function InvoiceFormComponent({
     };
 
     return (
-      <Grid item xs={12} sx={{ display: "flex" }}>
+      <Grid item xs={12} sx={{ display: 'flex' }}>
         <Grid item xs={4}>
           <Button variant="contained" component="label">
             <div>
               <FontAwesomeIcon icon={faPaperclipVertical} color="#E9950C" />
             </div>
-            <div style={{ paddingLeft: "5px" }}>DODAJ PRILOG</div>
+            <div style={{ paddingLeft: '5px' }}>DODAJ PRILOG</div>
             <input onChange={onChange} multiple type="file" hidden />
           </Button>
         </Grid>
@@ -336,9 +336,9 @@ export default function InvoiceFormComponent({
         sx={{
           flexGrow: 1,
           rowGap: 1,
-          display: "flex",
-          flexDirection: "column",
-          mt: "20px",
+          display: 'flex',
+          flexDirection: 'column',
+          mt: '20px',
         }}
       >
         {/*<Box
@@ -357,7 +357,7 @@ export default function InvoiceFormComponent({
             <Box
               sx={{
                 ...formComponent.basicBox,
-                textAlign: "start",
+                textAlign: 'start',
               }}
             >
               <Typography sx={formComponent.typography}>
@@ -375,19 +375,19 @@ export default function InvoiceFormComponent({
                         },
                         clientFields: {
                           clientCompanyName: {
-                            name: "accountingCustomerParty.partyLegalEntity.registrationName",
+                            name: 'accountingCustomerParty.partyLegalEntity.registrationName',
                             label: t(props.formFieldsLabels.client.companyName),
                             disabled: false,
                             additional: { readonly: true, labelShrink: true },
                           },
                           clientAddress: {
-                            name: "accountingCustomerParty.postalAddress.streetName",
+                            name: 'accountingCustomerParty.postalAddress.streetName',
                             label: t(props.formFieldsLabels.client.address),
                             disabled: false,
                             additional: { readonly: true, labelShrink: true },
                           },
                           clientRegistrationCode: {
-                            name: "accountingCustomerParty.partyLegalEntity.companyID",
+                            name: 'accountingCustomerParty.partyLegalEntity.companyID',
                             label: t(
                               props.formFieldsLabels.client.registrationCode
                             ),
@@ -395,7 +395,7 @@ export default function InvoiceFormComponent({
                             additional: { readonly: true, labelShrink: true },
                           },
                           clientVatRegistrationCode: {
-                            name: "accountingCustomerParty.party.endpointID",
+                            name: 'accountingCustomerParty.party.endpointID',
                             label: t(
                               props.formFieldsLabels.client.vatRegistrationCode
                             ),
@@ -403,19 +403,19 @@ export default function InvoiceFormComponent({
                             additional: { readonly: true, labelShrink: true },
                           },
                           clientEmail: {
-                            name: "accountingCustomerParty.contact.electronicMail",
+                            name: 'accountingCustomerParty.contact.electronicMail',
                             label: t(props.formFieldsLabels.client.clientEmail),
                             disabled: false,
                             additional: { readonly: true, labelShrink: true },
                           },
                           clientCity: {
-                            name: "accountingCustomerParty.postalAddress.cityName",
+                            name: 'accountingCustomerParty.postalAddress.cityName',
                             label: t(props.formFieldsLabels.client.clientCity),
                             disabled: false,
                             additional: { readonly: true, labelShrink: true },
                           },
                           zipCode: {
-                            name: "accountingCustomerParty.postalAddress.zip",
+                            name: 'accountingCustomerParty.postalAddress.zip',
                             label: t(props.formFieldsLabels.client.zipCode),
                             disabled: false,
                             additional: { readonly: true, labelShrink: true },
@@ -424,12 +424,12 @@ export default function InvoiceFormComponent({
                       }}
                     ></ClientComponent>
                   </Grid>
-                  <Grid item xs={6} sx={{ display: "flex" }}>
+                  <Grid item xs={6} sx={{ display: 'flex' }}>
                     <Grid container spacing={2}>
                       <Grid item xs={6}>
                         <FormDropdownField
                           props={{
-                            name: "invoiceTypeCode",
+                            name: 'invoiceTypeCode',
                             control: control,
                             label: props.invoiceTypeOptions.optionLabel,
                             options: props.invoiceTypeOptions.options,
@@ -441,7 +441,7 @@ export default function InvoiceFormComponent({
                       <Grid item xs={6}>
                         <FormTextField
                           props={{
-                            name: "id",
+                            name: 'id',
                             control: control,
                             label: t(props.formFieldsLabels.id),
                             disabled: false,
@@ -452,9 +452,9 @@ export default function InvoiceFormComponent({
                         item
                         xs={12}
                         sx={{
-                          display: "flex",
-                          justifyContent: "center",
-                          alignItems: "center",
+                          display: 'flex',
+                          justifyContent: 'center',
+                          alignItems: 'center',
                           mt: -2,
                         }}
                       >
@@ -468,9 +468,9 @@ export default function InvoiceFormComponent({
                         />*/}
                         <FormTextBox
                           props={{
-                            name: "note",
+                            name: 'note',
                             control: control,
-                            label: t("Form.formFieldsLabels.note"),
+                            label: t('Form.formFieldsLabels.note'),
                             disabled: false,
                           }}
                         />
@@ -480,7 +480,7 @@ export default function InvoiceFormComponent({
                   <Grid item xs={3}>
                     <FormTextField
                       props={{
-                        name: "contractNumber",
+                        name: 'contractNumber',
                         control: control,
                         label: t(props.formFieldsLabels.contractNumber),
                         disabled: false,
@@ -488,7 +488,7 @@ export default function InvoiceFormComponent({
                     />
                     <FormTextField
                       props={{
-                        name: "orderNumber",
+                        name: 'orderNumber',
                         control: control,
                         label: t(props.formFieldsLabels.orderNumber),
                         disabled: false,
@@ -496,7 +496,7 @@ export default function InvoiceFormComponent({
                     />
                     <FormTextField
                       props={{
-                        name: "referenceNumber",
+                        name: 'referenceNumber',
                         control: control,
                         label: t(props.formFieldsLabels.referenceNumber),
                         disabled: false,
@@ -506,7 +506,7 @@ export default function InvoiceFormComponent({
                   <Grid item xs={3}>
                     <FormTextField
                       props={{
-                        name: "lotNumber",
+                        name: 'lotNumber',
                         control: control,
                         label: t(props.formFieldsLabels.lotNumber),
                         disabled: false,
@@ -514,7 +514,7 @@ export default function InvoiceFormComponent({
                     />
                     <FormDropdownField
                       props={{
-                        name: "warehouse_uuid",
+                        name: 'warehouse_uuid',
                         control: control,
                         label: t(props.formFieldsLabels.warehouse_uuid),
                         disabled: false,
@@ -523,7 +523,7 @@ export default function InvoiceFormComponent({
                     />
                     <FormTextField
                       props={{
-                        name: "modelNumber",
+                        name: 'modelNumber',
                         control: control,
                         label: t(props.formFieldsLabels.modelNumber),
                         disabled: false,
@@ -543,9 +543,9 @@ export default function InvoiceFormComponent({
                                 ).toUpperCase(),
                                 invoiceFileds: {
                                   issueDate: {
-                                    name: "issueDate",
+                                    name: 'issueDate',
                                     label: t(
-                                      "Form.formGrpLabels.invoiceGrp.issueDate"
+                                      'Form.formGrpLabels.invoiceGrp.issueDate'
                                     ),
                                     disabled: false,
                                     /*additional: {
@@ -553,41 +553,41 @@ export default function InvoiceFormComponent({
                                   },*/
                                   },
                                   deliveryDate: {
-                                    name: "deliveryDate",
+                                    name: 'deliveryDate',
                                     label: t(
-                                      "Form.formGrpLabels.invoiceGrp.issueDate"
+                                      'Form.formGrpLabels.invoiceGrp.issueDate'
                                     ),
                                     disabled: false,
                                   },
                                   dueDate: {
-                                    name: "dueDate",
+                                    name: 'dueDate',
                                     label: t(
-                                      "Form.formGrpLabels.invoiceGrp.dueDate"
+                                      'Form.formGrpLabels.invoiceGrp.dueDate'
                                     ),
                                     disabled: false,
                                   },
                                   vatPointDate: {
-                                    name: "vatPointDate",
+                                    name: 'vatPointDate',
                                     label: t(
-                                      "Form.formGrpLabels.invoiceGrp.vatPointDate"
+                                      'Form.formGrpLabels.invoiceGrp.vatPointDate'
                                     ),
                                     disabled: false,
                                     options: [
                                       {
                                         name: t(
-                                          "Form.vatPointDateOptions.issuingDate"
+                                          'Form.vatPointDateOptions.issuingDate'
                                         ),
                                         value: VATPointDate.ISSUING_DATE,
                                       },
                                       {
                                         name: t(
-                                          "Form.vatPointDateOptions.deliveryDate"
+                                          'Form.vatPointDateOptions.deliveryDate'
                                         ),
                                         value: VATPointDate.DELIVERY_DATE,
                                       },
                                       {
                                         name: t(
-                                          "Form.vatPointDateOptions.paymentDate"
+                                          'Form.vatPointDateOptions.paymentDate'
                                         ),
                                         value: VATPointDate.PAYMENT_DATE,
                                       },
@@ -607,9 +607,9 @@ export default function InvoiceFormComponent({
                                 ).toUpperCase(),
                                 prepaymentFields: {
                                   issueDate: {
-                                    name: "issueDate",
+                                    name: 'issueDate',
                                     label: t(
-                                      "Form.formGrpLabels.invoiceGrp.issueDate"
+                                      'Form.formGrpLabels.invoiceGrp.issueDate'
                                     ),
                                     disabled: false,
                                     additional: {
@@ -617,9 +617,9 @@ export default function InvoiceFormComponent({
                                     },
                                   },
                                   deliveryDate: {
-                                    name: "deliveryDate",
+                                    name: 'deliveryDate',
                                     label: t(
-                                      "Form.formGrpLabels.invoiceGrp.issueDate"
+                                      'Form.formGrpLabels.invoiceGrp.issueDate'
                                     ),
                                     disabled: false,
                                     additional: {
@@ -627,15 +627,15 @@ export default function InvoiceFormComponent({
                                     },
                                   },
                                   vatPointDate: {
-                                    name: "vatPointDate",
+                                    name: 'vatPointDate',
                                     label: t(
-                                      "Form.formGrpLabels.invoiceGrp.vatPointDate"
+                                      'Form.formGrpLabels.invoiceGrp.vatPointDate'
                                     ),
                                     disabled: false,
                                     options: [
                                       {
                                         name: t(
-                                          "Form.vatPointDateOptions.paymentDate"
+                                          'Form.vatPointDateOptions.paymentDate'
                                         ),
                                         value: VATPointDate.PAYMENT_DATE,
                                       },
@@ -656,44 +656,44 @@ export default function InvoiceFormComponent({
                                 ).toUpperCase(),
                                 creditNoteFields: {
                                   sourceInvoiceSelectionMode: {
-                                    name: "sourceInvoiceSelectionMode",
+                                    name: 'sourceInvoiceSelectionMode',
                                     label: t(
-                                      "Form.formGrpLabels.creditNoteGrp.sourceMode"
+                                      'Form.formGrpLabels.creditNoteGrp.sourceMode'
                                     ),
                                     disabled: false,
                                     options: [
                                       {
                                         name: t(
-                                          "Form.selectionModeOptions.single"
+                                          'Form.selectionModeOptions.single'
                                         ),
                                         value: SourceSelectionMode.SINGLE,
                                       },
                                       {
                                         name: t(
-                                          "Form.selectionModeOptions.period"
+                                          'Form.selectionModeOptions.period'
                                         ),
                                         value: SourceSelectionMode.PERIOD,
                                       },
                                     ],
                                   },
                                   sourceInvoice: {
-                                    name: "sourceInvoice",
+                                    name: 'sourceInvoice',
                                     label: t(
-                                      "Form.formGrpLabels.creditNoteGrp.sourceInvoice"
+                                      'Form.formGrpLabels.creditNoteGrp.sourceInvoice'
                                     ),
                                     disabled: false,
                                   },
                                   modePeriodFrom: {
-                                    name: "modePeriodFrom",
+                                    name: 'modePeriodFrom',
                                     label: t(
-                                      "Form.formGrpLabels.creditNoteGrp.modePeriodFrom"
+                                      'Form.formGrpLabels.creditNoteGrp.modePeriodFrom'
                                     ),
                                     disabled: false,
                                   },
                                   modePeriodTo: {
-                                    name: "modePeriodTo",
+                                    name: 'modePeriodTo',
                                     label: t(
-                                      "Form.formGrpLabels.creditNoteGrp.modePeriodTo"
+                                      'Form.formGrpLabels.creditNoteGrp.modePeriodTo'
                                     ),
                                     disabled: false,
                                   },
@@ -712,64 +712,64 @@ export default function InvoiceFormComponent({
                                 ).toUpperCase(),
                                 debitNoteFields: {
                                   sourceInvoiceSelectionMode: {
-                                    name: "sourceInvoiceSelectionMode",
+                                    name: 'sourceInvoiceSelectionMode',
                                     label: t(
-                                      "Form.formGrpLabels.creditNoteGrp.sourceMode"
+                                      'Form.formGrpLabels.creditNoteGrp.sourceMode'
                                     ),
                                     disabled: false,
                                     options: [
                                       {
                                         name: t(
-                                          "Form.selectionModeOptions.single"
+                                          'Form.selectionModeOptions.single'
                                         ),
                                         value: SourceSelectionMode.SINGLE,
                                       },
                                       {
                                         name: t(
-                                          "Form.selectionModeOptions.period"
+                                          'Form.selectionModeOptions.period'
                                         ),
                                         value: SourceSelectionMode.PERIOD,
                                       },
                                     ],
                                   },
                                   sourceInvoice: {
-                                    name: "sourceInvoice",
+                                    name: 'sourceInvoice',
                                     label: t(
-                                      "Form.formGrpLabels.creditNoteGrp.sourceInvoice"
+                                      'Form.formGrpLabels.creditNoteGrp.sourceInvoice'
                                     ),
                                     disabled: false,
                                   },
                                   modePeriodFrom: {
-                                    name: "modePeriodFrom",
+                                    name: 'modePeriodFrom',
                                     label: t(
-                                      "Form.formGrpLabels.creditNoteGrp.modePeriodFrom"
+                                      'Form.formGrpLabels.creditNoteGrp.modePeriodFrom'
                                     ),
                                     disabled: false,
                                   },
                                   modePeriodTo: {
-                                    name: "modePeriodTo",
+                                    name: 'modePeriodTo',
                                     label: t(
-                                      "Form.formGrpLabels.creditNoteGrp.modePeriodTo"
+                                      'Form.formGrpLabels.creditNoteGrp.modePeriodTo'
                                     ),
                                     disabled: false,
                                   },
                                   dueDate: {
-                                    name: "dueDate",
+                                    name: 'dueDate',
                                     label: t(
-                                      "Form.formGrpLabels.invoiceGrp.dueDate"
+                                      'Form.formGrpLabels.invoiceGrp.dueDate'
                                     ),
                                     disabled: false,
                                   },
                                   vatPointDate: {
-                                    name: "vatPointDate",
+                                    name: 'vatPointDate',
                                     label: t(
-                                      "Form.formGrpLabels.invoiceGrp.vatPointDate"
+                                      'Form.formGrpLabels.invoiceGrp.vatPointDate'
                                     ),
                                     disabled: false,
                                     options: [
                                       {
                                         name: t(
-                                          "Form.vatPointDateOptions.paymentDate"
+                                          'Form.vatPointDateOptions.paymentDate'
                                         ),
                                         value: VATPointDate.PAYMENT_DATE,
                                       },
@@ -781,7 +781,7 @@ export default function InvoiceFormComponent({
                             ></DebitNoteComponent>
                           );
                         default:
-                          throw new Error("No such invoice type");
+                          throw new Error('No such invoice type');
                       }
                     })()}
                   </Grid>
@@ -804,9 +804,9 @@ export default function InvoiceFormComponent({
 
                         <FormMultiSelect
                           props={{
-                            name: "advanceAccount",
+                            name: 'advanceAccount',
                             control: control,
-                            label: "Avansni račun",
+                            label: 'Avansni račun',
                             disabled: false,
                             additional: {
                               selector: selectInvoiceByType,
@@ -879,16 +879,16 @@ export default function InvoiceFormComponent({
             <Box
               sx={{
                 ...formComponent.basicBox,
-                textAlign: "start",
-                borderColor: () => (lineError ? "red" : "grey.100"),
+                textAlign: 'start',
+                borderColor: () => (lineError ? 'red' : 'grey.100'),
               }}
             >
-              <div style={{ display: "flex", justifyContent: "space-between" }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                 <Typography sx={formComponent.typography}>
                   {t(props.sectionTitles.title_2).toUpperCase()}
                 </Typography>
-                <Typography color="error" sx={{ textAlign: "center" }}>
-                  {lineError ?? ""}
+                <Typography color="error" sx={{ textAlign: 'center' }}>
+                  {lineError ?? ''}
                 </Typography>
               </div>
               <Paper style={formComponent.groupPaperLowScale}>
@@ -1194,31 +1194,31 @@ export default function InvoiceFormComponent({
                   </Grid>*/}
                 <Grid item xs={4}></Grid>
                 <Grid item xs={2}></Grid>
-                <Grid item xs={6} sx={{ display: "flex" }}>
+                <Grid item xs={6} sx={{ display: 'flex' }}>
                   <Button
                     sx={{
-                      width: "150px",
-                      borderRadius: "30px",
-                      float: "right",
+                      width: '150px',
+                      borderRadius: '30px',
+                      float: 'right',
                       mr: 1,
                     }}
                     size="large"
                     variant="outlined"
-                    onClick={() => navigate("/invoices/sales")}
+                    onClick={() => navigate('/invoices/sales')}
                   >
-                    {t("Common.cancell")}
+                    {t('Common.cancell')}
                   </Button>
                   <Button
                     sx={{
-                      width: "150px",
-                      borderRadius: "30px",
-                      float: "right",
+                      width: '150px',
+                      borderRadius: '30px',
+                      float: 'right',
                     }}
                     size="large"
                     variant="outlined"
                     onClick={onSubmit}
                   >
-                    {t("Common.send")}
+                    {t('Common.send')}
                   </Button>
                 </Grid>
               </Grid>

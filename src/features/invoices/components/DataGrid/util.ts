@@ -1,5 +1,5 @@
-import { GridSelectionModel } from "@mui/x-data-grid";
-import { TableData } from "../../models/invoice.models";
+import { GridSelectionModel } from '@mui/x-data-grid';
+import { TableData } from '../../models/invoice.models';
 
 /**
  *

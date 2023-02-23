@@ -1,33 +1,37 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React from "react";
-import { Button, Checkbox, IconButton, SvgIconTypeMap } from "@mui/material";
-import { OverridableComponent } from "@mui/material/OverridableComponent";
-import { IProps } from "../models/invoice.models";
-import { useComponentsStyles } from "./components.styles";
-import { useTranslation } from "react-i18next";
+import React from 'react';
+import { Button, Checkbox, IconButton, SvgIconTypeMap } from '@mui/material';
+import { OverridableComponent } from '@mui/material/OverridableComponent';
+import { IProps } from '../models/invoice.models';
+import { useComponentsStyles } from './components.styles';
+import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
-import { useAppDispatch, useAppSelector } from "../../../app/hooks";
-import { selectIds, selectInvoices, selectOpenConfirm } from "../store/invoice.selectors";
+import { useAppDispatch, useAppSelector } from '../../../app/hooks';
+import {
+  selectIds,
+  selectInvoices,
+  selectOpenConfirm,
+} from '../store/invoice.selectors';
 import {
   resetSelectionState,
   setSelection,
-} from "./DataGrid/store/data-grid.reducer";
-import { selectSelection } from "./DataGrid/store/data-grid.selectors";
-import  { setopenModalConfirm }  from   "../store/invoice.reducer"
-import  { selectOpenPdf }    from  "../store/invoice.selectors"
-import { InvoiceStatus, TemplatePageTypes } from "../models";
-import ConfirmWithCommentDialog from "./ConfirmWithCommentDialog";
-import { updateStatusInvoice } from "../store/invoice.actions";
+} from './DataGrid/store/data-grid.reducer';
+import { selectSelection } from './DataGrid/store/data-grid.selectors';
+import { setopenModalConfirm } from '../store/invoice.reducer';
+import { selectOpenPdf } from '../store/invoice.selectors';
+import { InvoiceStatus, TemplatePageTypes } from '../models';
+import ConfirmWithCommentDialog from './ConfirmWithCommentDialog';
+import { updateStatusInvoice } from '../store/invoice.actions';
 
 //for zip
-import JSZip from  'jszip';
-import * as FileSaver from "file-saver";
-import {getZip }  from  "../store/invoice.actions"
+import JSZip from 'jszip';
+import * as FileSaver from 'file-saver';
+import { getZip } from '../store/invoice.actions';
 
 export type SelectAllAction = {
   title: string;
   actionName: string;
-  actionIcon: OverridableComponent<SvgIconTypeMap<{}, "svg">> & {
+  actionIcon: OverridableComponent<SvgIconTypeMap<{}, 'svg'>> & {
     muiName: string;
   };
   hidden: boolean;
@@ -55,45 +59,46 @@ export default function SelectAllActionsComponent({
   const tableDataIds = useAppSelector(selectIds);
   const selection: any[] = useAppSelector(selectSelection);
   const invoices = useAppSelector(selectInvoices);
-  const navigate  = useNavigate();
+  const navigate = useNavigate();
 
   const openConfirmModal = useAppSelector(selectOpenConfirm);
-
-
 
   // --------------ZIP -------------------------------------
   const dispatch = useAppDispatch();
   const zip = new JSZip();
   //const zipData = useAppSelector(selectZip);
- 
+
   // function for unzip file
-   const  unzipFile = async (flag: string, zipDataT: any) => {
-    await zip.loadAsync(zipDataT.payload,{base64:true}).then(function (zip) {
-      Object.keys(zip.files).map((filename) => {
-        const extName =  flag === 'PDF' ?  '.pdf'  :  '.xml';
-        const filenameDownload  = filename.slice(0, filename.length-4) + extName;
-        zip.files[filename].async("blob").then(async function (fileData) {
-          const dataDownload =   await (fileData.slice(2).text());
-          flag ===  'PDF' ?  downloadPDF(dataDownload,filenameDownload) :   downloadXml(fileData,filenameDownload)  ;
+  const unzipFile = async (flag: string, zipDataT: any) => {
+    await zip
+      .loadAsync(zipDataT.payload, { base64: true })
+      .then(function (zip) {
+        Object.keys(zip.files).map((filename) => {
+          const extName = flag === 'PDF' ? '.pdf' : '.xml';
+          const filenameDownload =
+            filename.slice(0, filename.length - 4) + extName;
+          zip.files[filename].async('blob').then(async function (fileData) {
+            const dataDownload = await fileData.slice(2).text();
+            flag === 'PDF'
+              ? downloadPDF(dataDownload, filenameDownload)
+              : downloadXml(fileData, filenameDownload);
+          });
         });
       });
-    });
-
-  }
+  };
 
   function downloadPDF(pdf: string, fileName: string) {
     const linkSource = `data:application/pdf;base64,${pdf}`;
-    const downloadLink = document.createElement("a");
+    const downloadLink = document.createElement('a');
 
     downloadLink.href = linkSource;
     downloadLink.download = fileName;
     downloadLink.click();
-}
+  }
 
-function downloadXml(data: Blob, fileName: string) {
-  FileSaver.saveAs(data, fileName);
-}
-  
+  function downloadXml(data: Blob, fileName: string) {
+    FileSaver.saveAs(data, fileName);
+  }
 
   // ---------------END ZIP ----------------------------------
 
@@ -102,7 +107,6 @@ function downloadXml(data: Blob, fileName: string) {
       setChecked(false);
     }
   }, [selection.length]);
-
 
   /**
    *  Unmount
@@ -126,24 +130,29 @@ function downloadXml(data: Blob, fileName: string) {
     )?.invoiceStatus;
     switch (status) {
       case InvoiceStatus.APPROVED:
-        return ["storno"];
+        return ['storno'];
       // case InvoiceStatus.CANCELLED:
       //   return ["storno"];
       case InvoiceStatus.SENT:
-        return ["cancel", "approve", "reject"];
+        return ['cancel', 'approve', 'reject'];
       case InvoiceStatus.SENDING:
-        return ["cancel", "approve", "reject"];
+        return ['cancel', 'approve', 'reject'];
       case InvoiceStatus.NEW:
-        return ["reject", "approve"];
+        return ['reject', 'approve'];
       case InvoiceStatus.SEEN:
-        return ["reject", "approve"];
+        return ['reject', 'approve'];
       default:
         return [];
     }
   };
 
   const renderActions = (): React.ReactNode => {
-    let actionsToRender = ["delete", "downloadXml", "downloadPdf", ...getStatus()];
+    let actionsToRender = [
+      'delete',
+      'downloadXml',
+      'downloadPdf',
+      ...getStatus(),
+    ];
     return actions.map((action, index) => {
       const Icon = action.actionIcon;
       const key = `button-label-${action.title}.${index}.id`;
@@ -172,30 +181,42 @@ function downloadXml(data: Blob, fileName: string) {
    * @param action Action object
    * @param id Invoice id
    */
-  const handleActionClick =  async (action: SelectAllAction, id: number) => {
-
+  const handleActionClick = async (action: SelectAllAction, id: number) => {
     setActionValue({
       actionType: action.actionName,
       invoiceId: id,
       invoiceType: props.pageType,
-      comment: "",
+      comment: '',
     });
 
-    
-    const typeInvoicesZip =  await props.pageType ===  'sales' ? 1 : 0;
-    const typeColumn  =   typeInvoicesZip === 1 ? 'salesInvoiceId' :  'purchaseInvoiceId';
-    if(action.actionName === 'downloadPdf') {
-      const invoiceSelectpdf   =  await  invoices.filter((item)  => item.id ===  id)[0][`${typeColumn}`]
-      const zipData = await dispatch(getZip({id: invoiceSelectpdf,typeDocument: typeInvoicesZip, typeInvoices: 'printPdf'}));
-      unzipFile('PDF', zipData)
-      .catch((err)   =>  console.log('greska',err));
-    } else if(action.actionName === 'downloadXml') {
-      const invoiceSelectxml   =  await  invoices.filter((item)  => item.id ===  id)[0].salesInvoiceId;
-      const zipData = await dispatch(getZip({id: invoiceSelectxml,typeDocument: typeInvoicesZip, typeInvoices: 'downloadXml'}));
-      unzipFile('XML', zipData)
-      .catch((err)   =>  console.log('greska'));
-    }
-      else {
+    const typeInvoicesZip = (await props.pageType) === 'sales' ? 1 : 0;
+    const typeColumn =
+      typeInvoicesZip === 1 ? 'salesInvoiceId' : 'purchaseInvoiceId';
+    if (action.actionName === 'downloadPdf') {
+      const invoiceSelectpdf = await invoices.filter(
+        (item) => item.id === id
+      )[0][`${typeColumn}`];
+      const zipData = await dispatch(
+        getZip({
+          id: invoiceSelectpdf,
+          typeDocument: typeInvoicesZip,
+          typeInvoices: 'printPdf',
+        })
+      );
+      unzipFile('PDF', zipData).catch((err) => console.log('greska', err));
+    } else if (action.actionName === 'downloadXml') {
+      const invoiceSelectxml = await invoices.filter(
+        (item) => item.id === id
+      )[0].salesInvoiceId;
+      const zipData = await dispatch(
+        getZip({
+          id: invoiceSelectxml,
+          typeDocument: typeInvoicesZip,
+          typeInvoices: 'downloadXml',
+        })
+      );
+      unzipFile('XML', zipData).catch((err) => console.log('greska'));
+    } else {
       setOpenConfirm(true);
     }
   };
@@ -204,9 +225,12 @@ function downloadXml(data: Blob, fileName: string) {
    * Handle close dialog comment = false on cancel comment = string on confirm
    * @param comment input value on dialog
    */
-  const handleClose = (data: {comment?: string | boolean, flagButton: string}): void => {
-    const dataFromAction =  openConfirmModal.dataAction;
-    if (data.flagButton  === "cancel") {
+  const handleClose = (data: {
+    comment?: string | boolean;
+    flagButton: string;
+  }): void => {
+    const dataFromAction = openConfirmModal.dataAction;
+    if (data.flagButton === 'cancel') {
       setOpenConfirm(false);
       //dispach(setopenModalConfirm({open: false}));
       setActionValue(null);
@@ -217,7 +241,7 @@ function downloadXml(data: Blob, fileName: string) {
       setOpenConfirm(false);
       //dispach(setopenModalConfirm({open:  false}))
       setActionValue(null);
-      navigate(`/invoices/${props.pageType}`)
+      navigate(`/invoices/${props.pageType}`);
     }
   };
 
@@ -235,7 +259,7 @@ function downloadXml(data: Blob, fileName: string) {
           tabIndex={-1}
           disableRipple
           inputProps={{
-            "aria-labelledby": `checkBox_1`,
+            'aria-labelledby': `checkBox_1`,
           }}
         />
       </Button>
@@ -246,11 +270,11 @@ function downloadXml(data: Blob, fileName: string) {
       )}
       <ConfirmWithCommentDialog
         props={{
-          id: "ringtone-menu",
+          id: 'ringtone-menu',
           keepMounted: true,
           open: openConfirm,
           onClose: handleClose,
-          action: actionValue?.actionType
+          action: actionValue?.actionType,
         }}
       ></ConfirmWithCommentDialog>
     </div>

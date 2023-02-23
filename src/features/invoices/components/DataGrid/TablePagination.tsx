@@ -1,6 +1,6 @@
-import React from "react";
-import { GridPagination } from "@mui/x-data-grid";
-import { IProps } from "../../models/invoice.models";
+import React from 'react';
+import { GridPagination } from '@mui/x-data-grid';
+import { IProps } from '../../models/invoice.models';
 
 type PaginationProps = {};
 

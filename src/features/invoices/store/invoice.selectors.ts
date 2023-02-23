@@ -1,6 +1,6 @@
-import { createSelector } from "@reduxjs/toolkit";
-import { RootState } from "../../../app/store";
-import { FeatureState } from "./invoice.reducer";
+import { createSelector } from '@reduxjs/toolkit';
+import { RootState } from '../../../app/store';
+import { FeatureState } from './invoice.reducer';
 
 /**
  * Feature state
@@ -41,12 +41,10 @@ export const selectInvoices = createSelector(
   }
 );
 
-
 export const selectZip = createSelector(
   featureSelectors,
   (state: FeatureState) => state.zip
 );
-
 
 export const selectOpenConfirm = createSelector(
   featureSelectors,
@@ -55,15 +53,12 @@ export const selectOpenConfirm = createSelector(
   }
 );
 
-
-
 export const selectOpenPdf = createSelector(
   featureSelectors,
   (state: FeatureState) => {
     return state.openModalPdf;
   }
 );
-
 
 export const selectOpenFilter = createSelector(
   featureSelectors,
@@ -72,7 +67,6 @@ export const selectOpenFilter = createSelector(
   }
 );
 
-
 export const selectOpenError = createSelector(
   featureSelectors,
   (state: FeatureState) => {
@@ -80,14 +74,12 @@ export const selectOpenError = createSelector(
   }
 );
 
-
 export const selectInvoiceDetails = createSelector(
   featureSelectors,
   (state: FeatureState) => {
     return state.invoiceDetails;
   }
 );
-
 
 export const selectFilters = createSelector(
   featureSelectors,

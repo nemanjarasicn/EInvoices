@@ -1,12 +1,12 @@
-import React from "react";
+import React from 'react';
 import ArticlesFormComponent, {
-    ArticlesFormComponentProps,
-} from "../components/ArticlesFormComponent";
-import  FormSubjectComponent   from  "../components/FormSubjectComponent"
-import FormArticlePriceComponent from "../components/FormAriclesPriceComponent";
-import { CreateType } from "../models/articles.enums";
-import { IProps } from "../models/articles.models";
-import { useFeatureSettings } from "../settings";
+  ArticlesFormComponentProps,
+} from '../components/ArticlesFormComponent';
+import FormSubjectComponent from '../components/FormSubjectComponent';
+import FormArticlePriceComponent from '../components/FormAriclesPriceComponent';
+import { CreateType } from '../models/articles.enums';
+import { IProps } from '../models/articles.models';
+import { useFeatureSettings } from '../settings';
 
 type ArticlesCreateTemplateProps = {
   type: CreateType;
@@ -30,8 +30,8 @@ export default function RegistriesCreateTemplatePage({
                 }
               />
             );
-            
-            case CreateType.FORMARTICLESPRICE:
+
+          case CreateType.FORMARTICLESPRICE:
             return (
               <FormArticlePriceComponent
                 props={
@@ -42,7 +42,7 @@ export default function RegistriesCreateTemplatePage({
               />
             );
 
-            case CreateType.FORMSUBJECT:
+          case CreateType.FORMSUBJECT:
             return (
               <FormSubjectComponent
                 props={
@@ -53,7 +53,7 @@ export default function RegistriesCreateTemplatePage({
               />
             );
           default:
-            throw new Error("Pass Type of creation");
+            throw new Error('Pass Type of creation');
         }
       })()}
     </>

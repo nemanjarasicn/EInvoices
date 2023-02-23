@@ -1,14 +1,14 @@
-import React from "react";
+import React from 'react';
 import {
   GridToolbarColumnsButton,
   GridToolbarContainer,
   GridToolbarDensitySelector,
   GridToolbarExport,
   GridToolbarFilterButton,
-} from "@mui/x-data-grid";
-import SettingsSharpIcon from "@mui/icons-material/SettingsSharp";
-import { IProps } from "../../models/invoice.models";
-import { useDataGridStyles } from "./dataGrid.styles";
+} from '@mui/x-data-grid';
+import SettingsSharpIcon from '@mui/icons-material/SettingsSharp';
+import { IProps } from '../../models/invoice.models';
+import { useDataGridStyles } from './dataGrid.styles';
 
 export type TableToolbarProps = {
   showHideColumns: boolean;

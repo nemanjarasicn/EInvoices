@@ -1,4 +1,4 @@
-import { ActionReducerMapBuilder, createSlice, Slice } from "@reduxjs/toolkit";
+import { ActionReducerMapBuilder, createSlice, Slice } from '@reduxjs/toolkit';
 import {
   getAllUnitMesures,
   getClientCompanies,
@@ -6,16 +6,16 @@ import {
   getDocumentTypes,
   getMarketPlaces,
   getProducts,
-  getInvoiceByType
-} from "./form.actions";
+  getInvoiceByType,
+} from './form.actions';
 
-const FORM_FIELDS_KEY: string = "form";
+const FORM_FIELDS_KEY: string = 'form';
 
 export type AutocompleteData = {
   unitMesures: any[];
   companies: any[];
   products: any[];
-  invoicesByType:  any[];
+  invoicesByType: any[];
 };
 export type DropdownData = {
   marketPlaces: any[];
@@ -35,7 +35,7 @@ const initialState: FormState = {
     unitMesures: [],
     companies: [],
     products: [],
-    invoicesByType:  [],
+    invoicesByType: [],
   },
   dropdownData: {
     marketPlaces: [],
@@ -126,12 +126,11 @@ function getAsyncProducts(builder: ActionReducerMapBuilder<FormState>) {
   }));
 }
 
-
 /**
  * Handle async action GET invoices by type
  * @param builder ActionReducerMapBuilder
  */
- function getAsyncInvoicesByType(builder: ActionReducerMapBuilder<FormState>) {
+function getAsyncInvoicesByType(builder: ActionReducerMapBuilder<FormState>) {
   builder.addCase(getInvoiceByType.fulfilled, (state, { payload }) => ({
     ...state,
     autocompleteData: { ...state.autocompleteData, invoicesByType: payload },

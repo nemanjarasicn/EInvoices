@@ -1,38 +1,38 @@
-import * as React from "react";
-import clsx from "clsx";
-import { ButtonUnstyledProps, useButton } from "@mui/base/ButtonUnstyled";
-import { styled } from "@mui/system";
-import Stack from "@mui/material/Stack";
-import FilterModal from "../FilterModal";
-import { useTranslation } from "react-i18next";
-import { useAppDispatch, useAppSelector } from "../../../../app/hooks";
-import  { setopenModalFilter }  from  "../../store/invoice.reducer"
-import  { selectOpenFilter  }  from   "../../store/invoice.selectors"
+import * as React from 'react';
+import clsx from 'clsx';
+import { ButtonUnstyledProps, useButton } from '@mui/base/ButtonUnstyled';
+import { styled } from '@mui/system';
+import Stack from '@mui/material/Stack';
+import FilterModal from '../FilterModal';
+import { useTranslation } from 'react-i18next';
+import { useAppDispatch, useAppSelector } from '../../../../app/hooks';
+import { setopenModalFilter } from '../../store/invoice.reducer';
+import { selectOpenFilter } from '../../store/invoice.selectors';
 
 const red = {
-  600: "rgb(231, 49, 79)",
+  600: 'rgb(231, 49, 79)',
 };
 const gray = {
-  600: "rgb(181 181 181)",
+  600: 'rgb(181 181 181)',
 };
 
+const paddingButton =
+  window.devicePixelRatio === 1.5 ? '8px  15px' : '12px 24px';
+const widthButton = window.devicePixelRatio === 1.5 ? '150px' : '220px';
+const fontSizeButton = window.devicePixelRatio === 1.5 ? '10px' : '14px';
 
-const paddingButton =  window.devicePixelRatio === 1.5 ?  '8px  15px' :     '12px 24px';
-const widthButton  =   window.devicePixelRatio === 1.5 ?  '150px' :     '220px';
-const  fontSizeButton   =    window.devicePixelRatio === 1.5 ?  '10px' :     '14px';
-
-const CustomButtonRoot = styled("button")`
+const CustomButtonRoot = styled('button')`
   font-family: IBM Plex Sans, sans-serif;
   font-weight: bold;
-  font-size:   ${fontSizeButton} ;
+  font-size: ${fontSizeButton};
   background-color: white;
-  padding: ${paddingButton}  ;
+  padding: ${paddingButton};
   border-radius: 10px;
   color: #;
   transition: all 150ms ease;
   cursor: pointer;
   border: thin solid ${gray[600]};
-  width: ${widthButton}  ;
+  width: ${widthButton};
   &:hover {
     background-color: ${gray[600]};
   }
@@ -77,15 +77,15 @@ const CustomButton = React.forwardRef(function CustomButton(
 });
 
 export interface ButtonPropsFilters {
-    filterTitle: string;
-    transformedTitle: string;
-    type: FilterType;
-    multiOption?: boolean;
-    filterItems: FillterItem[];
-    parentFn?: Function;
-    paramKey: string;
-    soloValue?: any;
-    filterId?:  number;
+  filterTitle: string;
+  transformedTitle: string;
+  type: FilterType;
+  multiOption?: boolean;
+  filterItems: FillterItem[];
+  parentFn?: Function;
+  paramKey: string;
+  soloValue?: any;
+  filterId?: number;
 }
 // TODO MAX Factory
 interface ButtonFilterProps {
@@ -94,12 +94,12 @@ interface ButtonFilterProps {
 }
 
 export interface FillterItem {
-    index: number;
-    name: string;
-    value: string | any;
-  }
+  index: number;
+  name: string;
+  value: string | any;
+}
 
-type FilterType = "solo" | "multi" | "date";
+type FilterType = 'solo' | 'multi' | 'date';
 
 export default function CustomButtonFilters({
   soloButton,
@@ -107,29 +107,36 @@ export default function CustomButtonFilters({
 }: ButtonFilterProps): JSX.Element {
   const { t } = useTranslation();
   const dispach = useAppDispatch();
-  
 
   return (
     <>
-    
       {groupButton && (
         <Stack spacing={2} direction="row">
-          {groupButton.filter((item)  => item.filterId === 2  ||   item.filterId ===   3 ).map((button: ButtonPropsFilters, index: number) => {
-            return (
-              <CustomButton
-                key={index}
-                onClick={async ()  =>  await dispach(setopenModalFilter({open: true, filterName: t(button.filterTitle)}))}
-                //disabled={button.disabled}
-              >
-                {t(button.filterTitle)}
-              </CustomButton>
-            );
-          })}
+          {groupButton
+            .filter((item) => item.filterId === 2 || item.filterId === 3)
+            .map((button: ButtonPropsFilters, index: number) => {
+              return (
+                <CustomButton
+                  key={index}
+                  onClick={async () =>
+                    await dispach(
+                      setopenModalFilter({
+                        open: true,
+                        filterName: t(button.filterTitle),
+                      })
+                    )
+                  }
+                  //disabled={button.disabled}
+                >
+                  {t(button.filterTitle)}
+                </CustomButton>
+              );
+            })}
         </Stack>
       )}
       {soloButton && (
-        <CustomButton //onClick={soloButton.btnFn} 
-                      //disabled={soloButton.disabled}
+        <CustomButton //onClick={soloButton.btnFn}
+        //disabled={soloButton.disabled}
         >
           {t(soloButton.filterTitle)}
         </CustomButton>

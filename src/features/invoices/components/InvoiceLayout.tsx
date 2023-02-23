@@ -1,6 +1,6 @@
-import React from "react";
-import { Outlet } from "react-router-dom";
-import SearchField from "./SearchField";
+import React from 'react';
+import { Outlet } from 'react-router-dom';
+import SearchField from './SearchField';
 
 type InvoiceLayoutProps = {};
 

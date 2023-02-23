@@ -1,8 +1,8 @@
 import {
   SourceSelectionMode,
   VATPointDate,
-} from "../components/form-fields/models/form-fields.models";
-import { CountryCode, Currency, FileStatus, SchemeID } from "./invoice.enums";
+} from '../components/form-fields/models/form-fields.models';
+import { CountryCode, Currency, FileStatus, SchemeID } from './invoice.enums';
 
 /**
  * Generic for Table Data
@@ -76,24 +76,24 @@ export enum InvoiceType {
 
 // FORM MODELS ////////////////////////////////////////////////////////////
 export class InvoiceFormModel {
-  id: string = "";
+  id: string = '';
   invoiceTypeCode: InvoiceType = InvoiceType.INVOICE;
   issueDate: Date = new Date();
   deliveryDate: Date = new Date();
   dueDate: Date = new Date();
   vatPointDate: VATPointDate = VATPointDate.ISSUING_DATE;
   sourceInvoiceSelectionMode: SourceSelectionMode = SourceSelectionMode.SINGLE;
-  sourceInvoice: string = "";
+  sourceInvoice: string = '';
   modePeriodFrom: Date = new Date();
   modePeriodTo: Date = new Date();
   documentCurrencyCode: Currency = Currency.RSD;
 
-  warehouse_uuid: string = "";
-  contractNumber: string = "";
-  orderNumber: string = "";
-  lotNumber: string = "";
-  modelNumber: string = "";
-  referenceNumber: string = "";
+  warehouse_uuid: string = '';
+  contractNumber: string = '';
+  orderNumber: string = '';
+  lotNumber: string = '';
+  modelNumber: string = '';
+  referenceNumber: string = '';
   finalSum: number = 0;
 
   priceWithoutDiscount: number = 0;
@@ -106,8 +106,8 @@ export class InvoiceFormModel {
 
   invoiceLine: ProductModel[] = []; //stavke
   accountingCustomerParty: CustomerPartyModel | null = null;
-  note: string  = "";
-  advanceAccount:  any[]  =  [];
+  note: string = '';
+  advanceAccount: any[] = [];
 
   public constructor(init?: Partial<InvoiceFormModel>) {
     Object.assign(this, init);
@@ -146,12 +146,11 @@ export interface ProductModel {
     unitPrice: number;
     unitTaxAmount: number;
   };
-    taxCode?: string;
-    taxName?:  string;
-    taxValue1?:  number |  string;
-    baseCode?:  string;
-    unitName?: string | number;
-
+  taxCode?: string;
+  taxName?: string;
+  taxValue1?: number | string;
+  baseCode?: string;
+  unitName?: string | number;
 }
 
 export interface CustomerPartyModel {
@@ -187,5 +186,3 @@ export interface InvoiceSearchParams {
   typeDocument?: string[];
   date?: { from: string; to: string };
 }
-
-

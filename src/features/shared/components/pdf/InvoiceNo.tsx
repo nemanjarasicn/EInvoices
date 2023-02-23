@@ -1,16 +1,16 @@
-import React, { Fragment } from "react";
-import { Text, View, StyleSheet, Font } from "@react-pdf/renderer";
-import dayjs from "dayjs";
+import React, { Fragment } from 'react';
+import { Text, View, StyleSheet, Font } from '@react-pdf/renderer';
+import dayjs from 'dayjs';
 
 Font.register({
-  family: "Roboto",
+  family: 'Roboto',
   fonts: [
     {
-      src: "https://cdnjs.cloudflare.com/ajax/libs/ink/3.1.10/fonts/Roboto/roboto-light-webfont.ttf",
+      src: 'https://cdnjs.cloudflare.com/ajax/libs/ink/3.1.10/fonts/Roboto/roboto-light-webfont.ttf',
     },
     {
-      src: "https://cdnjs.cloudflare.com/ajax/libs/ink/3.1.10/fonts/Roboto/roboto-bold-webfont.ttf",
-      fontStyle: "bold",
+      src: 'https://cdnjs.cloudflare.com/ajax/libs/ink/3.1.10/fonts/Roboto/roboto-bold-webfont.ttf',
+      fontStyle: 'bold',
     },
   ],
 });
@@ -19,137 +19,137 @@ Font.registerHyphenationCallback((word) => [word]);
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: "row",
+    flexDirection: 'row',
     marginTop: 50,
     marginLeft: 20,
   },
   invoiceNoContainer: {
-    flexDirection: "row",
-    justifyContent: "center",
-    backgroundColor: "gray",
-    color: "white",
+    flexDirection: 'row',
+    justifyContent: 'center',
+    backgroundColor: 'gray',
+    color: 'white',
   },
   section1: {
-    width: "50%",
-    flexDirection: "column",
+    width: '50%',
+    flexDirection: 'column',
   },
 
   section2: {
-    width: "50%",
-    flexDirection: "column",
+    width: '50%',
+    flexDirection: 'column',
   },
 
   dateConteiner: {
-    flexDirection: "row",
-    justifyContent: "flex-start",
-    color: "black",
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    color: 'black',
   },
 
   clientContainer: {
     marginTop: 10,
-    flexDirection: "column",
-    justifyContent: "flex-start",
-    color: "black",
-    overfloWrap: "break-word",
-    wordBreak: "break-all",
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
+    color: 'black',
+    overfloWrap: 'break-word',
+    wordBreak: 'break-all',
   },
 
   invoiceDataConteiner: {
     marginTop: 10,
-    flexDirection: "column",
-    justifyContent: "center",
-    color: "black",
-    alignContent: "center",
+    flexDirection: 'column',
+    justifyContent: 'center',
+    color: 'black',
+    alignContent: 'center',
   },
 
   invoiceDateContainer: {
-    flexDirection: "row",
-    justifyContent: "flex-end",
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
   },
 
   textConteiner: {
-    flexDirection: "row",
-    whiteSpace: "wrap",
-    overflowWrap: "break-word",
-    wordBreak: "normal",
-    textOverflow: "ellipsis",
+    flexDirection: 'row',
+    whiteSpace: 'wrap',
+    overflowWrap: 'break-word',
+    wordBreak: 'normal',
+    textOverflow: 'ellipsis',
   },
   invoiceDate: {
     fontSize: 12,
-    fontStyle: "bold",
+    fontStyle: 'bold',
   },
   name: {
-    fontFamily: "Roboto",
+    fontFamily: 'Roboto',
     fontSize: 10,
-    fontStyle: "bold",
+    fontStyle: 'bold',
   },
   adress: {
-    fontFamily: "Roboto",
+    fontFamily: 'Roboto',
     fontSize: 10,
-    fontStyle: "bold",
+    fontStyle: 'bold',
   },
   city: {
-    fontFamily: "Roboto",
+    fontFamily: 'Roboto',
     fontSize: 10,
-    fontStyle: "bold",
+    fontStyle: 'bold',
   },
 
   invoiceLabelNo: {
-    flexDirection: "row",
-    justifyContent: "center",
+    flexDirection: 'row',
+    justifyContent: 'center',
   },
 
   labelNo: {
     fontSize: 8,
-    color: "white",
+    color: 'white',
   },
 
   dataTextRightBold: {
-    width: "50%",
-    flexDirection: "row",
+    width: '50%',
+    flexDirection: 'row',
     fontSize: 12,
-    color: "black",
-    justifyContent: "flex-start",
+    color: 'black',
+    justifyContent: 'flex-start',
     marginLeft: 14,
     fontWeight: 700,
   },
 
   dataTextLeft: {
-    fontFamily: "Roboto",
-    flexDirection: "row",
-    justifyContent: "flex-end",
-    textAlign: "right",
-    width: "50%",
+    fontFamily: 'Roboto',
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    textAlign: 'right',
+    width: '50%',
     fontSize: 10,
-    color: "gray",
+    color: 'gray',
   },
 
   dataTextRight: {
-    width: "50%",
-    flexDirection: "row",
+    width: '50%',
+    flexDirection: 'row',
     fontSize: 10,
-    color: "black",
-    justifyContent: "flex-start",
+    color: 'black',
+    justifyContent: 'flex-start',
     marginLeft: 14,
   },
 
   dataText: {
     fontSize: 10,
-    color: "black",
+    color: 'black',
   },
   invoiceNo: {
     fontSize: 12,
-    color: "black",
-    fontStyle: "bold",
+    color: 'black',
+    fontStyle: 'bold',
   },
   labelClient: {
     fontSize: 8,
-    color: "gray",
+    color: 'gray',
   },
 });
 
 const currencyFormat = (num: any) => {
-  return num.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
+  return num.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
 };
 
 const InvoiceNo = ({ data }: any) => (
@@ -159,8 +159,8 @@ const InvoiceNo = ({ data }: any) => (
         <View style={styles.dateConteiner}>
           <Text style={styles.labelClient}>Datum izdavanja</Text>
           <Text style={styles.labelClient}>
-            {" "}
-            {dayjs(data?.issueDate).format("DD.MM.YYYY")}
+            {' '}
+            {dayjs(data?.issueDate).format('DD.MM.YYYY')}
           </Text>
         </View>
         <View style={styles.clientContainer}>
@@ -195,35 +195,35 @@ const InvoiceNo = ({ data }: any) => (
             </Text>
             <Text style={styles.dataTextRight}>{data?.paymentMode}</Text>
           </View>
-          {data?.invoiceTypeCode !== "381" ? (
+          {data?.invoiceTypeCode !== '381' ? (
             <View style={styles.textConteiner}>
-              {data?.invoiceTypeCode !== "386" ? (
+              {data?.invoiceTypeCode !== '386' ? (
                 <Text style={styles.dataTextLeft}>Datum prometa</Text>
               ) : (
                 <Text style={styles.dataTextLeft}>Datum avansne uplate</Text>
               )}
               <Text style={styles.dataTextRight}>
-                {data?.invoiceTypeCode !== "386" &&
-                data?.invoiceTypeCode !== "383"
-                  ? dayjs(data?.delivery).format("DD.MM.YYYY")
-                  : dayjs(data?.dueDate).format("DD.MM.YYYY")}
+                {data?.invoiceTypeCode !== '386' &&
+                data?.invoiceTypeCode !== '383'
+                  ? dayjs(data?.delivery).format('DD.MM.YYYY')
+                  : dayjs(data?.dueDate).format('DD.MM.YYYY')}
               </Text>
             </View>
           ) : (
-            ""
+            ''
           )}
 
-          {data?.invoiceTypeCode !== "386" &&
-          data?.invoiceTypeCode !== "383" &&
-          data?.invoiceTypeCode !== "381" ? (
+          {data?.invoiceTypeCode !== '386' &&
+          data?.invoiceTypeCode !== '383' &&
+          data?.invoiceTypeCode !== '381' ? (
             <View style={styles.textConteiner}>
               <Text style={styles.dataTextLeft}>Datum dospeca</Text>
               <Text style={styles.dataTextRight}>
-                {dayjs(data?.dueDate).format("DD.MM.YYYY")}
+                {dayjs(data?.dueDate).format('DD.MM.YYYY')}
               </Text>
             </View>
           ) : (
-            ""
+            ''
           )}
 
           <View style={styles.textConteiner}>

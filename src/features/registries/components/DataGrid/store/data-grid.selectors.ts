@@ -1,6 +1,6 @@
-import { createSelector } from "@reduxjs/toolkit";
-import { RootState } from "../../../../../app/store";
-import { DataGridState } from "./data-grid.reducer";
+import { createSelector } from '@reduxjs/toolkit';
+import { RootState } from '../../../../../app/store';
+import { DataGridState } from './data-grid.reducer';
 
 /**
  * Data-Grid state

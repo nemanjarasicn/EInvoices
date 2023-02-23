@@ -1,18 +1,16 @@
-import { createDraftSafeSelector, createSelector } from "@reduxjs/toolkit";
-import { RootState } from "../../../app/store";
-import { FeatureState } from "./registries.reducer";
+import { createDraftSafeSelector, createSelector } from '@reduxjs/toolkit';
+import { RootState } from '../../../app/store';
+import { FeatureState } from './registries.reducer';
 
 /**
  * Feature state
  */
 const featureSelectors = (state: RootState) => state.registries;
 
-
 export const isLoadingRegistries = createSelector(
   featureSelectors,
   (state: FeatureState) => state.loading
 );
-
 
 export const selectIds = createSelector(
   featureSelectors,
@@ -32,9 +30,9 @@ export const selectObjects = createSelector(
       name: item.name,
       uuid: item.uuid,
       idObject: item.idObject,
-      latitude:  item.point.latitude,
-      longitude: item.point.longitude
-    }))  
+      latitude: item.point.latitude,
+      longitude: item.point.longitude,
+    }));
   }
 );
 
@@ -51,7 +49,6 @@ export const selectPointOfSales = createSelector(
     return state.pointOfSales;
   }
 );
-
 
 export const selectCompanies = createSelector(
   featureSelectors,
@@ -70,7 +67,7 @@ export const selectUnits = createSelector(
 export const selectVat = createSelector(
   featureSelectors,
   (state: FeatureState) => {
-    return state. vat;
+    return state.vat;
   }
 );
 
@@ -95,14 +92,12 @@ export const selectUsers = createSelector(
   }
 );
 
-
 export const selectOpenPdf = createSelector(
   featureSelectors,
   (state: FeatureState) => {
     return state.openModalPdf;
   }
 );
-
 
 export const selectOpenDistributor = createSelector(
   featureSelectors,
@@ -118,8 +113,6 @@ export const selectUserCompanyId = createSelector(
   }
 );
 
-
-
 export const selectOpenConfirm = createSelector(
   featureSelectors,
   (state: FeatureState) => {
@@ -127,14 +120,12 @@ export const selectOpenConfirm = createSelector(
   }
 );
 
-
 export const selectCompanyInfo = createSelector(
   featureSelectors,
   (state: FeatureState) => {
     return state.companyInfo;
   }
 );
-
 
 export const selectDistributorCompanies = createSelector(
   featureSelectors,
