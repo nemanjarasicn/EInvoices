@@ -1,11 +1,10 @@
 import * as React from 'react';
-import { Theme, useTheme } from '@mui/material/styles';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import { Controller } from 'react-hook-form';
 import FormControl from '@mui/material/FormControl';
-import Select, { SelectChangeEvent } from '@mui/material/Select';
+import Select from '@mui/material/Select';
 import { useAppSelector } from '../../../../app/hooks';
 
 const ITEM_HEIGHT = 48;
@@ -21,8 +20,6 @@ const MenuProps = {
 
 export default function MultipleSelect(props: any) {
   const data: any[] = useAppSelector(props.props.selector);
-  const theme = useTheme();
-  const [selectedItem, setSelectedItem] = React.useState<string[]>([]);
 
   return (
     <div>

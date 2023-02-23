@@ -1,9 +1,9 @@
 import React from 'react';
+import * as yup from 'yup';
 import { Paper, Grid, Box } from '@mui/material';
 import { RegistriesFormComponentProps } from './RegistriesFormComponent';
 import { useTranslation } from 'react-i18next';
 import { useComponentsStyles } from '../../shared/components/components.styles';
-import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
 import { IProps } from '../models/registries.models';
@@ -11,11 +11,11 @@ import {
   selectCompaniesAll,
   selectMarketPlaces,
 } from '../../shared/components/form-fields/store/form.selectors';
-import FormTextField from '../../shared/components/form-fields/FormTextField';
-import FormAutocompleteField from '../../shared/components/form-fields/FormAutocompleteField';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../../app/hooks';
 import CustomButtonFc from '../../shared/components/CustomButtonFc';
+import FormTextField from '../../shared/components/form-fields/FormTextField';
+import FormAutocompleteField from '../../shared/components/form-fields/FormAutocompleteField';
 import { sendPointOfSales } from '../store/registries.actions';
 import { PointOfSaleFormModel } from '../models/registries.models';
 import {
@@ -28,7 +28,6 @@ import {
 } from '../../../app/core/core.selectors';
 import ErrorModal from '../../shared/components/ErrorModals';
 import SucessModal from '../../shared/components/SucessModal';
-//import ClientComponent from "./form-group/ClientComponent";
 
 /**
  * Register Form validation schema for every field
@@ -73,6 +72,7 @@ export default function FormPointOfSaleComponents({
   React.useEffect(() => {
     dispatch(getCompaniesAll());
     dispatch(getMarketPlacesAll({ companyId: companyId }));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const onSubmit = (data: any) => {
@@ -91,8 +91,6 @@ export default function FormPointOfSaleComponents({
         setShowErrorModal(true);
         setTimeout(() => {
           setShowErrorModal(false);
-          /*navigate('/registries/companies'
-                    )*/
         }, 2000);
       }
     });

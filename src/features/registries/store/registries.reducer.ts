@@ -1,14 +1,10 @@
 import {
   ActionReducerMapBuilder,
-  createEntityAdapter,
   createSlice,
-  EntityAdapter,
-  EntityState,
   Slice,
 } from '@reduxjs/toolkit';
-import { ObjectsDto } from '../models/registries.models';
+
 import {
-  sendObjects,
   getObjects,
   getMarketPlaces,
   getPointOfSales,

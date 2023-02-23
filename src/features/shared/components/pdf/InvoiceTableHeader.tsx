@@ -1,8 +1,6 @@
 import React from 'react';
 import { Text, View, StyleSheet, Font } from '@react-pdf/renderer';
 
-const borderColor = '#3778C2';
-
 Font.register({
   family: 'Roboto',
   fonts: [

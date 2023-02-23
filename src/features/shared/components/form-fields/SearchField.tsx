@@ -1,9 +1,7 @@
-import { useState } from 'react';
 import SearchIcon from '@mui/icons-material/Search';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import CloseIcon from '@mui/icons-material/Close';
 import InputAdornment from '@mui/material/InputAdornment';
-import FormControl from '@mui/material/FormControl';
 import Checkbox from '@mui/material/Checkbox';
 import RadioButtonUncheckedIcon from '@mui/icons-material/RadioButtonUnchecked';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
@@ -28,11 +26,8 @@ export default function SearchField({
 }: IProps<SearchFieldProps>): JSX.Element {
   const { t } = useTranslation();
   const { searchField } = useComponentsStyles();
-  const [value, setValue] = useState('searchValue');
 
   const textInput = React.useRef({ value: '' });
-
-  const handleChange = () => (event: React.ChangeEvent<HTMLInputElement>) => {};
 
   const location = useLocation();
 
@@ -45,8 +40,6 @@ export default function SearchField({
     }
     return '';
   }
-
-  const search = () => () => {};
 
   function getCheckbox(): any {
     if (getSearhTab() !== '') {
@@ -86,7 +79,6 @@ export default function SearchField({
             id="outlined-adornment-search"
             placeholder={t(props.label)}
             onChange={(newValue) => {
-              setValue(newValue.target.value);
               onChange(newValue.target.value);
             }}
             sx={searchField.outlinedInput}
@@ -104,7 +96,6 @@ export default function SearchField({
                 </IconButton>
                 <IconButton
                   onClick={() => {
-                    setValue('');
                     textInput.current.value = '';
                   }}
                 >

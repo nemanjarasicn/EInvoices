@@ -1,6 +1,5 @@
 import React from 'react';
 import { Text, View, StyleSheet, Font } from '@react-pdf/renderer';
-import { borderBottom, style } from '@mui/system';
 
 Font.register({
   family: 'Roboto',

@@ -1,18 +1,15 @@
 import * as React from 'react';
-import { styled } from '@mui/material/styles';
-import Box from '@mui/material/Box';
-import Paper from '@mui/material/Paper';
-import Grid from '@mui/material/Grid';
+import { Grid, Box, Typography } from '@mui/material';
 import { useFeatureSettings } from '../settings';
 import { TemplatePageRegistriesTypes } from '../models/registries.enums';
 import { useTranslation } from 'react-i18next';
-import CustomButtonFc from '../../shared/components/CustomButtonFc';
-import FormAutocompleteField from '../../shared/components/form-fields/FormAutocompleteField';
 import { usePageStyles } from './pages.styles';
 
 import { useForm } from 'react-hook-form';
 import { useAppDispatch, useAppSelector } from '../../../app/hooks';
 import { IProps } from '../models/registries.models';
+import CustomButtonFc from '../../shared/components/CustomButtonFc';
+import FormAutocompleteField from '../../shared/components/form-fields/FormAutocompleteField';
 import TableComponent from '../components/DataGrid/TableComponent';
 import { useTableSettings } from '../components/DataGrid/table.settings';
 import {
@@ -24,24 +21,11 @@ import {
   getWarehouses,
 } from '../../registries/store/registries.actions';
 import { selectCompany } from '../../../app/core/core.selectors';
-import {
-  selectUser,
-  selectCompanyAdmin,
-} from '../../../app/core/core.selectors';
+import { selectUser } from '../../../app/core/core.selectors';
 import Breadcrumbs from '@mui/material/Breadcrumbs';
 import Link from '@mui/material/Link';
-import Typography from '@mui/material/Typography';
 import { selectOpenDistributor } from '../store/registries.selectors';
 import ModalDistributor from '../components/ModalDistributor';
-
-const Item = styled(Paper)(({ theme }) => ({
-  backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
-  ...theme.typography.body2,
-  padding: theme.spacing(1),
-  textAlign: 'center',
-  color: theme.palette.text.secondary,
-  fontSize: '1rem',
-}));
 
 type InvoiceTemplatePageProps = {
   templateType: TemplatePageRegistriesTypes;
@@ -89,6 +73,7 @@ export default function InvoiceTemplatePage({
     ) {
       dispatch(getDataActionSelect(settings.selectType));
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   React.useEffect(() => {
@@ -99,6 +84,7 @@ export default function InvoiceTemplatePage({
     ) {
       dispatch(getDataActionSelect(settings.selectType));
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectValue]);
 
   const handleChangeSelect = (value: any) => {

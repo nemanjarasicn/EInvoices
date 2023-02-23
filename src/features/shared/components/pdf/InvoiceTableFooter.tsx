@@ -1,8 +1,6 @@
+/* eslint-disable array-callback-return */
 import React from 'react';
 import { Text, View, StyleSheet, Font } from '@react-pdf/renderer';
-import { green } from '@mui/material/colors';
-
-const borderColor = '#3778C2';
 
 Font.register({
   family: 'Roboto',
@@ -105,11 +103,6 @@ const styles = StyleSheet.create({
 });
 
 const InvoiceTableFooter = (props: any) => {
-  /*const total = items.map(item => item.qty * item.rate)
-        .reduce((accumulator, currentValue) => accumulator + currentValue, 0)*/
-
-  const total: string = '1600';
-
   const currencyFormat = (num: any) => {
     return num.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
   };
@@ -196,15 +189,9 @@ const InvoiceTableFooter = (props: any) => {
               </View>
             </View>
           ))}
-          {/*<View  style={styles.textConteiner}>
-                        <Text style={styles.text}>Zbir stavki sa stopom 20%:</Text>
-                        <Text style={styles.textPrice}>{currencyFormat(Number(props?.data?.legalMonetaryTotal?.lineExtensionAmount))}</Text>
-                </View>*/}
+
           <View style={styles.divider}></View>
-          {/*<View  style={styles.textConteiner}>
-                        <Text style={styles.text}>Ukupno osnovica - stopa 20%:</Text> 
-                        <Text style={styles.textPrice}>{currencyFormat(Number(props?.data?.legalMonetaryTotal?.lineExtensionAmount))}</Text>
-                    </View>*/}
+
           {props?.data?.taxTotal.map((item: any) => (
             <View style={styles.textConteiner}>
               <View style={styles.conteiner1}>
@@ -233,10 +220,7 @@ const InvoiceTableFooter = (props: any) => {
               </View>
             </View>
           ))}
-          {/*<View  style={styles.textConteiner}>
-                        <Text style={styles.text}>Ukupno PDV - stopa 20%:</Text> 
-                        <Text style={styles.textPrice}>{currencyFormat(Number(props?.data?.taxTotal?.taxAmount))}</Text>
-                    </View>*/}
+
           <View style={styles.textConteiner}>
             <View style={styles.conteiner1}>
               <Text style={styles.textBold}>Ukupan iznos:</Text>
@@ -386,14 +370,7 @@ const InvoiceTableFooter = (props: any) => {
           {props?.data?.invoiceTypeCode !== '386' ? (
             <>
               <View style={styles.divider}></View>
-              {/*<View  style={styles.textConteiner}>
-                                <Text style={styles.text}>Ukupno osnovica umanjena za avanse - stopa 20%:</Text>
-                                <Text style={styles.textPrice}>{currencyFormat(Number(props?.data?.legalMonetaryTotal?.lineExtensionAmount))}</Text>
-                            </View>
-                            <View  style={styles.textConteiner}>
-                                <Text style={styles.text}>Ukupno PDV umanjen za avanse - stopa 20%: </Text>         
-                                <Text style={styles.textPrice}>{currencyFormat(Number(props?.data?.taxTotal?.taxAmount))}</Text>
-                            </View>*/}
+
               {!props?.data?.ublExtensions?.payableAmount ? (
                 <>
                   {props?.data?.taxTotal.map((item: any) => (
@@ -494,15 +471,6 @@ const InvoiceTableFooter = (props: any) => {
 
           <View style={styles.dividerEnd}></View>
         </View>
-        {/*<View >
-                    <Text style={styles.text}>Zbir stavki sa stopom 20%:</Text>  
-                    <View style={styles.divider}></View>
-              </View>  
-
-              <View >
-                    <Text style={styles.text}>Zbir stavki sa stopom 20%:</Text>  
-                    <View style={styles.divider}></View>
-            </View>*/}
       </View>
     </View>
   );

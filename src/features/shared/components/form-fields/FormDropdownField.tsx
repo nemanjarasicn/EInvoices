@@ -5,7 +5,6 @@ import {
   InputLabel,
   MenuItem,
   Select,
-  SelectChangeEvent,
 } from '@mui/material';
 import { Controller } from 'react-hook-form';
 import { IProps } from '../../../invoices/models';
@@ -39,19 +38,8 @@ export default function FormDropdownField({
   props,
 }: IProps<FormDropdownFieldProps>): JSX.Element {
   const { t } = useTranslation();
-  const [selectedItems, setSelectedItems] = React.useState<string[]>([]);
 
   const optionsList: any[] = useAppSelector(props.selector);
-
-  const handleChange = (event: SelectChangeEvent<typeof selectedItems>) => {
-    const {
-      target: { value },
-    } = event;
-    setSelectedItems(
-      // On autofill we get a stringified value.
-      typeof value === 'string' ? value.split(',') : value
-    );
-  };
 
   const fontSize = window.devicePixelRatio === 1.5 ? '12px' : '16px';
 

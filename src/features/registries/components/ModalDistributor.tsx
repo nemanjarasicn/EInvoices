@@ -1,21 +1,11 @@
 import * as React from 'react';
 import Typography from '@mui/material/Typography';
-import Grid from '@mui/material/Grid';
-import Button from '@mui/material/Button';
-import Modal from '@mui/material/Modal';
-import { Viewer } from '@react-pdf-viewer/core';
+import { Grid, Modal } from '@mui/material';
 
-import Divider from '@mui/material/Divider';
-import RegistriesFormComponent, {
-  RegistriesFormComponentProps,
-} from '../components/RegistriesFormComponent';
+import { RegistriesFormComponentProps } from '../components/RegistriesFormComponent';
 
-import { useAppDispatch, useAppSelector } from '../../../app/hooks';
 import { useFeatureSettings } from '../settings';
-import {
-  CreateType,
-  CreateType as CreateTyperegistries,
-} from '../models/registries.enums';
+import { CreateType } from '../models/registries.enums';
 
 import Box from '@mui/material/Box';
 import FormDistributorComponent from './FormDistributorComponent';
@@ -25,21 +15,20 @@ const style = {
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
-  width: () => (window.devicePixelRatio == 1.5 ? 600 : 800),
-  height: () => (window.devicePixelRatio == 1.5 ? 450 : 500),
+  width: () => (window.devicePixelRatio === 1.5 ? 600 : 800),
+  height: () => (window.devicePixelRatio === 1.5 ? 450 : 500),
 
   bgcolor: 'background.paper',
   border: '2px solid #000',
   boxShadow: 24,
   borderRadius: 2,
-  p: window.devicePixelRatio == 1.5 ? 2 : 5,
+  p: window.devicePixelRatio === 1.5 ? 2 : 5,
   backgroundColor: 'white',
   display: 'flex',
 };
 
 export default function ModalCreateDistributor(props: any) {
   const { RegistriesCreateTemplatePageSettings } = useFeatureSettings();
-  const dispatch = useAppDispatch();
 
   return (
     <Modal
@@ -76,7 +65,7 @@ export default function ModalCreateDistributor(props: any) {
                   fontWeight: 700,
                   textAlign: 'center',
                   textTransform: 'uppercase',
-                  fontSize: window.devicePixelRatio == 1.5 ? 16 : 24,
+                  fontSize: window.devicePixelRatio === 1.5 ? 16 : 24,
                   color: 'black',
                 }}
               >

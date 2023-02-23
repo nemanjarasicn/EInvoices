@@ -5,7 +5,6 @@ import {
   CountryCode,
   SchemeID,
 } from '../../../../registries/models/registries.enums';
-import { OptionItem } from '../models/form-fields.models';
 import {
   AutocompleteData,
   DropdownData,

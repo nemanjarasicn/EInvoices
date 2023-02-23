@@ -1,34 +1,22 @@
 import * as React from 'react';
-import clsx from 'clsx';
-import { ButtonUnstyledProps, useButton } from '@mui/base/ButtonUnstyled';
-import { styled } from '@mui/system';
-import Stack from '@mui/material/Stack';
-import { InvoiceTemplatePageProps } from '../../../invoices/pages/InvoiceTemplatePage';
+
 import { IProps } from '../../../invoices/models/invoice.models';
 import CustomButtonFilters from '../../../invoices/components/form-fields/CustomButtonFilters';
 import CheckboxField from '../../../shared/components/form-fields/FormCheckboxField';
 import { useForm } from 'react-hook-form';
-import { Path, TemplatePageTypes } from '../../../invoices/models';
+import { TemplatePageTypes } from '../../../invoices/models';
 import Grid from '@mui/material/Grid';
-import { useFeatureSettings } from '../../../invoices/settings';
 import FormDateField from '../../../invoices/components/form-fields/FormDateField';
 import { useTranslation } from 'react-i18next';
-import { selectFilters } from '../../../invoices/store/invoice.selectors';
 import { searchInvoices } from '../../../invoices/store/invoice.actions';
 import { format } from 'date-fns';
 import dayjs from 'dayjs';
-import FormAutocompleteField from '../form-fields/FormAutocompleteField';
-import FilterComponent, {
-  FilterComponentProps,
-} from '../../../invoices/components/FilterComponent';
-import SelectAllActionsComponent, {
-  SelectAllAction,
-} from '../../../invoices/components/SelectAllActionsComponent';
+import { FilterComponentProps } from '../../../invoices/components/FilterComponent';
+import { SelectAllAction } from '../../../invoices/components/SelectAllActionsComponent';
 
 import { useAppDispatch, useAppSelector } from '../../../../app/hooks';
 import { selectOpenFilter } from '../../../invoices/store/invoice.selectors';
 import FilterModal from '../../../invoices/components/FilterModal';
-import { selectCompany } from '../../../../app/core/core.selectors';
 import { selectCompanyCurrent } from '../../../../app/core/core.selectors';
 
 export interface ButtonProps {
@@ -47,7 +35,6 @@ export default function CustomFilterBox({
   props,
 }: IProps<FiltersToolbarComponentProps>): JSX.Element {
   const { t } = useTranslation();
-  const { templatePageSettings } = useFeatureSettings();
   const companyId = useAppSelector(selectCompanyCurrent);
 
   const date = new Date();
@@ -69,10 +56,9 @@ export default function CustomFilterBox({
   const dispatch = useAppDispatch();
   const [filtersSearch, setFiltersSearch] = React.useState(defaultFilters);
   const openModalFilter = useAppSelector(selectOpenFilter);
-  const [selectValue, setSelectValue] = React.useState('');
 
   const methods = useForm({});
-  const { handleSubmit, reset, control, watch } = methods;
+  const { control, watch } = methods;
 
   React.useEffect(() => {
     const subscription = watch(async (value, { name, type }) => {
@@ -98,6 +84,7 @@ export default function CustomFilterBox({
         params: filtersSearch,
       })
     );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filtersSearch, companyId]);
 
   const addFiltersFromModal = (data: any) => {
@@ -111,11 +98,6 @@ export default function CustomFilterBox({
     });
   };
 
-  const handleChangeSelect = (value: any) => {
-    setSelectValue(value.item.uuid);
-  };
-
-  const scaleDate = window.devicePixelRatio === 1.5 ? 0.7 : 0.9;
   const fontSizeDate = window.devicePixelRatio === 1.5 ? '12px' : '14px';
 
   return (
@@ -187,24 +169,6 @@ export default function CustomFilterBox({
           />
         </Grid>
       </Grid>
-
-      {/*<Grid item  xs={12} sx={{dispaly: 'flex', justifyContent: 'center', alignContent: 'center', mt: 3}} >
-        
-                <FormAutocompleteField
-                            props={{
-                                name: 'companyId',
-                                control: control,
-                                label:  'Kompanija',
-                                disabled: true,
-                                additional: {
-                                    parentFn: handleChangeSelect,
-                                    data: [{id: 7,item: [], name: 'Palisad' }],
-                                    selector:  selectCompany ,
-                                },
-                            }}
-                        />
-      
-                        </Grid>*/}
     </>
   );
 }

@@ -1,4 +1,4 @@
-import { createDraftSafeSelector, createSelector } from '@reduxjs/toolkit';
+import {  createSelector } from '@reduxjs/toolkit';
 import { RootState } from '../../../app/store';
 import { FeatureState } from './registries.reducer';
 
@@ -16,6 +16,7 @@ export const selectIds = createSelector(
   featureSelectors,
   (state: FeatureState) => {
     const ids: number[] = [];
+    // eslint-disable-next-line array-callback-return
     state.objects.map((object) => {
       if (Boolean(object.idObject)) ids.push(object.idObject);
     });

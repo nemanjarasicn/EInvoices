@@ -1,7 +1,6 @@
 import React from 'react';
-import { Paper, Grid, Box, Typography, TextField, Button } from '@mui/material';
+import { Paper, Grid, Box, Typography, Button } from '@mui/material';
 import { useAppDispatch, useAppSelector } from '../../../app/hooks';
-import { useNavigate } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 import { selectUsers } from '../store/registries.selectors';
 import { selectCompanyInfo } from '../store/registries.selectors';
@@ -20,7 +19,6 @@ import {
 } from '../../shared/components/form-fields/store/form.selectors';
 import List from '@mui/material/List';
 import Breadcrumbs from '@mui/material/Breadcrumbs';
-//import ClientComponent from "./form-group/ClientComponent";
 
 export default function InfoCompany(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -42,6 +40,7 @@ export default function InfoCompany(): JSX.Element {
     dispatch(getUsers({ companyId: Number(id) }));
     dispatch(getMarketPlacesAll({ companyId: Number(id) }));
     dispatch(getObjectsAll({ companyId: Number(id) }));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -97,7 +96,7 @@ export default function InfoCompany(): JSX.Element {
             <Grid item xs={6} sx={{ display: 'flex', flexDirection: 'column' }}>
               <Grid sx={{ display: 'flex', flexDirection: 'column' }}>
                 <Typography sx={{ fontSize: fontSize }}>
-                  Adresa za primanjenotifikacije o izlaznim fakturama
+                  Adresa za primanje notifikacije o izlaznim fakturama
                 </Typography>
                 <Box
                   component="span"
@@ -114,7 +113,7 @@ export default function InfoCompany(): JSX.Element {
               </Grid>
               <Grid sx={{ display: 'flex', flexDirection: 'column' }}>
                 <Typography sx={{ fontSize: fontSize, mt: 4 }}>
-                  Adresa za primanjenotifikacije o ulaznim fakturama
+                  Adresa za primanje notifikacije o ulaznim fakturama
                 </Typography>
                 <Box
                   component="span"

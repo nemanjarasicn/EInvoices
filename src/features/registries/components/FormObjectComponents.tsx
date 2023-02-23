@@ -1,29 +1,24 @@
 import React from 'react';
+import * as yup from 'yup';
 import { Paper, Grid, Box } from '@mui/material';
 import { RegistriesFormComponentProps } from './RegistriesFormComponent';
 import { useTranslation } from 'react-i18next';
 import { useComponentsStyles } from '../../shared/components/components.styles';
 import { useAppDispatch, useAppSelector } from '../../../app/hooks';
-import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
-import FormTextField from '../../shared/components/form-fields/FormTextField';
-import CustomButtonFc from '../../shared/components/CustomButtonFc';
 import { ObjectFormModel, IProps } from '../models/registries.models';
 import { selectClientCompanies } from '../../shared/components/form-fields/store/form.selectors';
 import { useNavigate } from 'react-router-dom';
 import FormAutocompleteField from '../../shared/components/form-fields/FormAutocompleteField';
-import { selectCompanyCurrent } from '../../../app/core/core.selectors';
+import FormTextField from '../../shared/components/form-fields/FormTextField';
+import CustomButtonFc from '../../shared/components/CustomButtonFc';
 import { sendObjects } from '../store/registries.actions';
-import {
-  selectUser,
-  selectCompanyAdmin,
-} from '../../../app/core/core.selectors';
+import { selectUser } from '../../../app/core/core.selectors';
 import ErrorModal from '../../shared/components/ErrorModals';
 import { getCompaniesAll } from '../../shared/components/form-fields/store/form.actions';
 import { useLocation } from 'react-router-dom';
 import SucessModal from '../../shared/components/SucessModal';
-//import ClientComponent from "./form-group/ClientComponent";
 
 /**
  * Register Form validation schema for every field
@@ -43,7 +38,7 @@ export default function FormObjectComponent({
   const id = location.state.company?.idCompany;
   const defaultValues: ObjectFormModel = {
     id: '',
-    companyId: id, //companyId ,
+    companyId: id,
     objectName: '',
     latitude: '',
     longitude: '',
@@ -101,6 +96,7 @@ export default function FormObjectComponent({
     () => () => {
       dispatch(getCompaniesAll());
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     []
   );
 

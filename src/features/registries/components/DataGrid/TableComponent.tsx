@@ -1,18 +1,17 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React from 'react';
 import { DataGrid, GridColDef, GridSelectionModel } from '@mui/x-data-grid';
-import { useAppDispatch, useAppSelector } from '../../../../app/hooks';
+import { useAppSelector } from '../../../../app/hooks';
 import { IProps, TableData } from '../../models/registries.models';
 
 import { useDataGridStyles } from './dataGrid.styles';
-import { setSelection } from './store/data-grid.reducer';
 import { selectSelection } from './store/data-grid.selectors';
 import TableToolbar, { TableToolbarProps } from './TableToolbar';
 import TableNoRowsOverlay from './NoRowsOverlay';
 import { useTranslation } from 'react-i18next';
 import TablePagination from './TablePagination';
 import { AsyncThunkAction } from '@reduxjs/toolkit';
-import { Button, Grid } from '@mui/material';
+import { Grid } from '@mui/material';
 import SearchField from '../../../shared/components/form-fields/SearchField';
 import { useForm } from 'react-hook-form';
 import { searchModel } from '../../models/registries.models';
@@ -35,7 +34,6 @@ export default function TableComponent({
   props,
 }: IProps<TableComponentProps>): JSX.Element {
   const { t } = useTranslation();
-  const dispatch = useAppDispatch();
   const { tableComponentStyles } = useDataGridStyles();
   const selectType = props.selector;
   const [searchData, setSearchData] = React.useState<any[]>([]);
@@ -49,7 +47,7 @@ export default function TableComponent({
   const methods = useForm({
     defaultValues,
   });
-  const { control, setValue, getValues, watch } = methods;
+  const { control, getValues } = methods;
 
   const tableData: TableData<any>[] = (useAppSelector(selectType) as any).map(
     (row: any) => ({
@@ -58,6 +56,7 @@ export default function TableComponent({
     })
   );
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const selection: GridSelectionModel = useAppSelector(selectSelection);
 
   const fontSize = window.devicePixelRatio === 1.5 ? '12px' : '16px';
@@ -151,11 +150,6 @@ export default function TableComponent({
           },
         }}
         sx={tableComponentStyles.dataGrid}
-        /*checkboxSelection
-        onSelectionModelChange={(newSelectionModel) => {
-          dispatch(setSelection(newSelectionModel));
-        }}
-        selectionModel={selection}*/
       />
     </>
   );

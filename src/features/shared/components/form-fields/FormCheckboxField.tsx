@@ -1,8 +1,6 @@
 import React from 'react';
-import { Divider, InputAdornment, TextField } from '@mui/material';
 import { Checkbox, FormControlLabel } from '@mui/material';
 import { Controller } from 'react-hook-form';
-import { withStyles } from '@mui/material/styles';
 import { IProps } from '../../../registries/models/registries.models';
 import { FormFieldProps } from './models/form-fields.models';
 

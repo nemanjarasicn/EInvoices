@@ -1,45 +1,25 @@
 import React from 'react';
+import * as yup from 'yup';
 import { Paper, Grid, Box } from '@mui/material';
 import { RegistriesFormComponentProps } from './RegistriesFormComponent';
-import FormTextField from '../../shared/components/form-fields/FormTextField';
 import { useComponentsStyles } from '../../shared/components/components.styles';
 import { useAppDispatch } from '../../../app/hooks';
-import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
+import FormAutocompleteField from '../../shared/components/form-fields/FormAutocompleteField';
+import FormTextField from '../../shared/components/form-fields/FormTextField';
 import CustomButtonFc from '../../shared/components/CustomButtonFc';
 import { IProps, VatFormModel } from '../models/registries.models';
 import { selectClientCompanies } from '../../shared/components/form-fields/store/form.selectors';
 import { useNavigate } from 'react-router-dom';
-import FormAutocompleteField from '../../shared/components/form-fields/FormAutocompleteField';
 import { sendVat } from '../store/registries.actions';
 import ErrorModal from '../../shared/components/ErrorModals';
 import SucessModal from '../../shared/components/SucessModal';
-//import ClientComponent from "./form-group/ClientComponent";
 
 /**
  * Register Form validation schema for every field
  */
-const schema = yup
-  .object({
-    // client: yup
-    //   .object({
-    //     vatRegistrationCode: yup.string().required(),
-    //   })
-    //   .required(),
-    // dropdownValue: yup.string().required(),
-    // textAreaValue: yup.string().required(),
-    // dateValue: yup.string().required(), //validate date format
-    // autocompleteValue: yup.object().required(),
-    // checkbox: yup.bool().required(),
-    // numberValue: yup.number().required(),
-    // invoiceLine: yup.array().of(
-    //   yup.object({
-    //     invoicedQuantity: yup.number().moreThan(0, ""),
-    //   })
-    // ),
-  })
-  .required();
+const schema = yup.object({}).required();
 
 export default function FormVatComponent({
   props,
@@ -79,8 +59,6 @@ export default function FormVatComponent({
         setShowErrorModal(true);
         setTimeout(() => {
           setShowErrorModal(false);
-          /*navigate('/registries/companies'
-                    )*/
         }, 2000);
       }
     });

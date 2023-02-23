@@ -1,9 +1,5 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import { Text, View, StyleSheet, Font } from '@react-pdf/renderer';
-import { useAppSelector } from '../../../../app/hooks';
-import { selectInvoiceDetails } from '../../../invoices/store/invoice.selectors';
-
-const borderColor = '#3778C2';
 
 Font.register({
   family: 'Roboto',
@@ -84,12 +80,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const list: any[] = [{ naziv: 'test' }, { naziv: 'test' }];
-
 const InvoiceTableRow = ({ data }: any) => {
-  //const rows = items.map(item =>
-  console.log('sasasasass', data);
-
   const currencyFormat = (num: any) => {
     return num.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
   };

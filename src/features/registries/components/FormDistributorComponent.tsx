@@ -1,25 +1,21 @@
 import React from 'react';
-import { Grid, Box } from '@mui/material';
+import * as yup from 'yup';
+import { Grid } from '@mui/material';
 import { RegistriesFormComponentProps } from './RegistriesFormComponent';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
-import { useComponentsStyles } from '../../shared/components/components.styles';
-import { useAppDispatch, useAppSelector } from '../../../app/hooks';
-import * as yup from 'yup';
+import { useAppDispatch } from '../../../app/hooks';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
+import { DistributorFormModel, IProps } from '../models/registries.models';
+import { sendDistributor } from '../store/registries.actions';
 import FormTextField from '../../shared/components/form-fields/FormTextField';
 import CustomButtonFc from '../../shared/components/CustomButtonFc';
 import CustomButtonFcTra from '../../shared/components/CustomButtonFcTra';
-import { DistributorFormModel, IProps } from '../models/registries.models';
-import { sendDistributor } from '../store/registries.actions';
 import ErrorModal from '../../shared/components/ErrorModals';
-import { selectUser } from '../../../app/core/core.selectors';
 import SucessModal from '../../shared/components/SucessModal';
 import { setopenModalDistributor } from '../store/registries.reducer';
 import { setOpenModalSucessLoad } from '../../../app/core/core.reducer';
-
-import { setCompanyAdmin } from '../../../app/core/core.reducer';
 
 /**
  * Register Form validation schema for every field
@@ -49,14 +45,14 @@ export default function FormDistributorComponent({
   const { t } = useTranslation();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const [showError, setShowError] = React.useState(false);
+  const [showError] = React.useState(false);
   const [showErrorModal, setShowErrorModal] = React.useState(false);
 
   const methods = useForm({
     defaultValues: defaultValues,
     resolver: yupResolver(schema),
   });
-  const { handleSubmit, reset, control } = methods;
+  const { handleSubmit, control } = methods;
 
   const onSubmit = async (data: DistributorFormModel) => {
     dispatch(sendDistributor({ data })).then(async (res) => {
@@ -147,18 +143,6 @@ export default function FormDistributorComponent({
               additional: { readonly: false, labelShrink: true },
             }}
           />
-
-          {/*<FormTextField
-                    props={{
-                        control: control,
-                        name: "apiKey",
-                        label: t(
-                            props.formFieldsLabels.companies.apyKey
-                        ),
-                        disabled: false,
-                        additional: { readonly: false, labelShrink: true },
-                    }}
-                />*/}
         </Grid>
       </Grid>
       <Grid item xs={5} sx={{ mt: 5 }}>

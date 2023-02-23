@@ -1,24 +1,23 @@
 import React from 'react';
+import * as yup from 'yup';
 import { Paper, Grid, Box } from '@mui/material';
 import { RegistriesFormComponentProps } from './RegistriesFormComponent';
 import { useTranslation } from 'react-i18next';
-import FormTextField from '../../shared/components/form-fields/FormTextField';
 import { useComponentsStyles } from '../../shared/components/components.styles';
 import { useAppDispatch, useAppSelector } from '../../../app/hooks';
-import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
-import CustomButtonFc from '../../shared/components/CustomButtonFc';
 import { IProps, WarehouseFormModel } from '../models/registries.models';
 import { selectMarketPlaces } from '../../shared/components/form-fields/store/form.selectors';
 import { useNavigate } from 'react-router-dom';
 import FormAutocompleteField from '../../shared/components/form-fields/FormAutocompleteField';
+import FormTextField from '../../shared/components/form-fields/FormTextField';
+import CustomButtonFc from '../../shared/components/CustomButtonFc';
 import { sendWarehouse } from '../store/registries.actions';
 import ErrorModal from '../../shared/components/ErrorModals';
 import SucessModal from '../../shared/components/SucessModal';
 import { selectCompanyCurrent } from '../../../app/core/core.selectors';
 import { getMarketPlacesAll } from '../../shared/components/form-fields/store/form.actions';
-//import ClientComponent from "./form-group/ClientComponent";
 
 /**
  * Register Form validation schema for every field
@@ -53,6 +52,7 @@ export default function FormWarehouseComponent({
 
   React.useEffect(() => {
     dispatch(getMarketPlacesAll({ companyId: companyId }));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const onSubmit = (data: WarehouseFormModel) => {
@@ -67,8 +67,6 @@ export default function FormWarehouseComponent({
         setShowErrorModal(true);
         setTimeout(() => {
           setShowErrorModal(false);
-          /*navigate('/registries/companies'
-                    )*/
         }, 2000);
       }
     });

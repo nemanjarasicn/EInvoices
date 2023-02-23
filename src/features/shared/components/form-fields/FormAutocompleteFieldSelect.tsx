@@ -25,7 +25,6 @@ export default function FormAutocompleteField({
   const options: any = props.additional.data;
   const dataTmp = props.additional.data ? options : data;
   const dataTmpFirst = dataTmp[0];
-  const [loading, setLoading] = React.useState(true);
 
   if (!dataTmpFirst) {
     return <div>loading</div>;

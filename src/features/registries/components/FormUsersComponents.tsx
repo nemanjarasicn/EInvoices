@@ -1,20 +1,19 @@
 import React from 'react';
+import * as yup from 'yup';
 import { Paper, Grid, Box } from '@mui/material';
 import { RegistriesFormComponentProps } from './RegistriesFormComponent';
 import { useTranslation } from 'react-i18next';
-import FormTextField from '../../shared/components/form-fields/FormTextField';
 import { useComponentsStyles } from '../../shared/components/components.styles';
 import { useAppDispatch, useAppSelector } from '../../../app/hooks';
-import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
-import CustomButtonFc from '../../shared/components/CustomButtonFc';
 import { UsersFormModel, IProps } from '../models/registries.models';
 import { selectCompaniesAll } from '../../shared/components/form-fields/store/form.selectors';
 import { useNavigate } from 'react-router-dom';
 import FormAutocompleteField from '../../shared/components/form-fields/FormAutocompleteField';
 import MultipleSelect from '../../shared/components/form-fields/FormDropdownFieldNew';
-import { selectCompanyCurrent } from '../../../app/core/core.selectors';
+import CustomButtonFc from '../../shared/components/CustomButtonFc';
+import FormTextField from '../../shared/components/form-fields/FormTextField';
 import { getCompaniesAll } from '../../shared/components/form-fields/store/form.actions';
 import { selectUser } from '../../../app/core/core.selectors';
 import { sendUsers, updateUser } from '../store/registries.actions';
@@ -23,7 +22,6 @@ import { getUserRole } from '../../shared/components/form-fields/store/form.acti
 import { selectUserRole } from '../../shared/components/form-fields/store/form.selectors';
 import { useLocation } from 'react-router-dom';
 import SucessModal from '../../shared/components/SucessModal';
-//import ClientComponent from "./form-group/ClientComponent";
 
 /**
  * Register Form validation schema for every field
@@ -102,8 +100,6 @@ export default function FormUsersComponent({
           setShowErrorModal(true);
           setTimeout(() => {
             setShowErrorModal(false);
-            /*navigate('/registries/companies'
-                          )*/
           }, 2000);
         }
       });
@@ -128,6 +124,7 @@ export default function FormUsersComponent({
   React.useEffect(() => {
     dispatch(getCompaniesAll());
     dispatch(getUserRole());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   React.useEffect(() => {
@@ -139,6 +136,7 @@ export default function FormUsersComponent({
         userRoleTmp.find((item) => item.name === userData?.roleName[0]) as any
       );
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userRoleTmp]);
 
   return (

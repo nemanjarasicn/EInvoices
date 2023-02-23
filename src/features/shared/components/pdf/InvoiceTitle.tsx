@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, StyleSheet } from '@react-pdf/renderer';
+import { View, StyleSheet } from '@react-pdf/renderer';
 
 const styles = StyleSheet.create({
   titleContainer: {

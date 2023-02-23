@@ -15,7 +15,6 @@ const styles = StyleSheet.create({
     paddingRight: 80,
     fontSize: 8,
     textAlign: 'center',
-    // textTransform: 'uppercase',
   },
   textTop: {
     color: 'gray',
@@ -23,7 +22,6 @@ const styles = StyleSheet.create({
     paddingRight: 50,
     fontSize: 8,
     textAlign: 'center',
-    // textTransform: 'uppercase',
   },
 });
 

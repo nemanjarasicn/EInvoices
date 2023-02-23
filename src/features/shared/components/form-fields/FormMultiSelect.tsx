@@ -27,7 +27,6 @@ export default function FormMultiSelect({
   const options: any = props.additional.data;
   const dataTmp = props.additional.data ? options : data;
 
-  const [value, setValue] = React.useState<any>([]);
   const fontSize = window.devicePixelRatio === 1.5 ? '12px' : '16px';
   return (
     <Controller

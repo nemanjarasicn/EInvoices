@@ -1,33 +1,16 @@
 import * as React from 'react';
-import Typography from '@mui/material/Typography';
-import Grid from '@mui/material/Grid';
+import { Grid, Modal } from '@mui/material';
 import Button from '@mui/material/Button';
-import Modal from '@mui/material/Modal';
-import { Viewer } from '@react-pdf-viewer/core';
 
 import Divider from '@mui/material/Divider';
 import { setopenModalPdf } from '../../invoices/store/invoice.reducer';
 import { useAppDispatch, useAppSelector } from '../../../app/hooks';
 import { DocumentPdf } from './DocumentPdf';
-import { sampleBase64pdf } from './sampleBase64pdf';
 import { PDFDownloadLink, PDFViewer } from '@react-pdf/renderer';
-import {
-  selectInvoiceDetails,
-  selectOpenPdf,
-} from '../../invoices/store/invoice.selectors';
-import { printPlugin } from '@react-pdf-viewer/print';
-import ReactToPrint, { PrintContextConsumer } from 'react-to-print';
-import { useReactToPrint } from 'react-to-print';
-import { useRef } from 'react';
-import {
-  unzipFile,
-  unzipFileData,
-} from '../../invoices/pages/InvoiceTemplatePage';
-import {
-  getInvoiceDetails,
-  getZip,
-} from '../../invoices/store/invoice.actions';
-import { createPdfObject } from '../../invoices/utils/utils';
+import { selectOpenPdf } from '../../invoices/store/invoice.selectors';
+
+import { unzipFile } from '../../invoices/pages/InvoiceTemplatePage';
+import { getZip } from '../../invoices/store/invoice.actions';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFileArrowDown } from '@fortawesome/pro-solid-svg-icons';
 import { downloadPDF } from '../../invoices/pages/InvoiceTemplatePage';
@@ -42,8 +25,8 @@ const style = {
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
-  width: () => (window.devicePixelRatio == 1.5 ? 600 : 828),
-  height: () => (window.devicePixelRatio == 1.5 ? 550 : 800),
+  width: () => (window.devicePixelRatio === 1.5 ? 600 : 828),
+  height: () => (window.devicePixelRatio === 1.5 ? 550 : 800),
 
   bgcolor: 'background.paper',
   border: '2px solid #000',
@@ -71,22 +54,15 @@ const defaultValueInvoicePdf = {
 
 export default function ModalPdf(props: any) {
   const dispatch = useAppDispatch();
-  const [invoiceObject, setInvoiceObject] = React.useState({});
   const [datainvoice, setDataInvoice] = React.useState(defaultValueInvoicePdf);
   const openPdfData = useAppSelector(selectOpenPdf);
-  const [showModel, setShowModel] = React.useState(false);
-  const listRow = useAppSelector(selectInvoiceDetails);
   const [loading, setLoading] = React.useState(true);
   const [idXml, setIdXml] = React.useState('');
   const [typeInvoicesZip, settypeInvoicesZip] = React.useState(0);
   const fontSizeButton = window.devicePixelRatio === 1.5 ? '10px' : '14px';
   const heightButton = window.devicePixelRatio === 1.5 ? '40px' : '50px';
 
-  const componentRef = useRef(null);
-
-  const printPluginInstance = printPlugin();
-  const { print } = printPluginInstance;
-  const widthPdf = window.devicePixelRatio == 1.5 ? 580 : 810;
+  const widthPdf = window.devicePixelRatio === 1.5 ? 580 : 810;
 
   //console.log('modalda',  openPdfData);
 
@@ -108,7 +84,6 @@ export default function ModalPdf(props: any) {
       if (err) {
         throw err;
       }
-      const json = JSON.stringify(result, null, 4);
       console.log('sassasasas', result);
       const additionalDocumentReferenceTmp = result?.[`${prefixPdf}`][
         'cac:AdditionalDocumentReference'
@@ -404,12 +379,7 @@ export default function ModalPdf(props: any) {
         typeInvoices: typeInvoices,
       })
     );
-    //const unzipData = await  unzipFileData(zipData);
-    /*if(flag ===  'PDF') {
-		  dispach(getInvoiceDetails({id: dataRows?.id})).then((res) => {
-			dispach(setopenModalPdf({open:true, data: {dataXml: dataRows.xml, dataRows: res.payload}}))
-	
-		});*/
+
     unzipFile(flag, zipData).catch((err) =>
       console.log('greska prilikom download ' + flag)
     );

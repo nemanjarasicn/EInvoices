@@ -1,19 +1,19 @@
 import React from 'react';
+import * as yup from 'yup';
 import { Paper, Grid, Button, Box } from '@mui/material';
 import { RegistriesFormComponentProps } from './RegistriesFormComponent';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { useComponentsStyles } from '../../shared/components/components.styles';
 import { useAppDispatch, useAppSelector } from '../../../app/hooks';
-import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
-import FormTextField from '../../shared/components/form-fields/FormTextField';
-import CustomButtonFc from '../../shared/components/CustomButtonFc';
 import { CompanyFormModel, IProps } from '../models/registries.models';
 import { sendCompanies, updateCompanies } from '../store/registries.actions';
-import ErrorModal from '../../shared/components/ErrorModals';
 import { selectUser } from '../../../app/core/core.selectors';
+import FormTextField from '../../shared/components/form-fields/FormTextField';
+import ErrorModal from '../../shared/components/ErrorModals';
+import CustomButtonFc from '../../shared/components/CustomButtonFc';
 import SucessModal from '../../shared/components/SucessModal';
 import FormAutocompleteField from '../../shared/components/form-fields/FormAutocompleteField';
 import {
@@ -22,7 +22,6 @@ import {
 } from '../store/registries.actions';
 import { selectDistributor } from '../../shared/components/form-fields/store/form.selectors';
 import { getDistributor } from '../../shared/components/form-fields/store/form.actions';
-import { selectCompanyCurrent } from '../../../app/core/core.selectors';
 import { selectDistributorInfo } from '../../../app/core/core.selectors';
 import { useLocation } from 'react-router-dom';
 import IconButton from '@mui/material/IconButton';
@@ -106,7 +105,7 @@ export default function FormCompaniesComponent({
   const [showErrorModal, setShowErrorModal] = React.useState(false);
   const [apiKeyDefault, setApiKeyDefault] = React.useState('');
   const [errorMessageSearch, setErrorMessageSearch] = React.useState('');
-  const heightButton = window.devicePixelRatio == 1.5 ? '60%' : '63%';
+  const heightButton = window.devicePixelRatio === 1.5 ? '60%' : '63%';
 
   const methods = useForm({
     defaultValues: defaultValues,
@@ -116,9 +115,6 @@ export default function FormCompaniesComponent({
 
   React.useEffect(() => {
     dispatch(getDistributor());
-    /*if(idDistributor) {
-            dispatch(getCompaniesDistributor({companyId:   company as any}));
-        }*/
 
     if (companyIdLocation !== 0) {
       const distributorEdit = distributorTmp.find(
@@ -134,13 +130,14 @@ export default function FormCompaniesComponent({
       setValue('zip', companyData?.zip);
       setValue('pib', companyData?.pib);
       setValue('email', companyData?.email);
-      //setValue('payeeFinancialAccount', companyData?.payeeFinancialAccountDto[0]?.payeeFinancialAccountValue)
+
       setValue('distributor', distributorEdit);
       setListPayeeFinancialAccount(companyData?.payeeFinancialAccountDto);
 
       // we set apiKeyDefault when edit company
       setApiKeyDefault(companyData?.apiKey);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const onSubmit = async (data: CompanyFormModel) => {
@@ -376,7 +373,7 @@ export default function FormCompaniesComponent({
         </Grid>
         <Grid item xs={6}>
           <Grid sx={{ display: 'flex' }}>
-            <Grid xs={11}>
+            <Grid item xs={11}>
               <FormTextField
                 props={{
                   control: control,
@@ -391,7 +388,7 @@ export default function FormCompaniesComponent({
                 }}
               />
             </Grid>
-            <Grid xs={2}>
+            <Grid item xs={2}>
               <Button
                 variant="outlined"
                 sx={{
@@ -454,7 +451,7 @@ export default function FormCompaniesComponent({
             />
           </div>
         </Grid>
-        <Grid xs={12}>
+        <Grid item xs={12}>
           <span style={{ color: 'red' }}>{errorMessageSearch}</span>
         </Grid>
       </Grid>

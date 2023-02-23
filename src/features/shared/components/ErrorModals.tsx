@@ -4,9 +4,8 @@ import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
-import { hasError } from '../../../app/core/core.selectors';
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
-import { useAppDispatch, useAppSelector } from '../../../app/hooks';
+import { useAppDispatch } from '../../../app/hooks';
 import { setopenModalError } from '../../invoices/store/invoice.reducer';
 
 const style = {
@@ -28,8 +27,6 @@ const style = {
 };
 
 export default function ErrorModal(props: any) {
-  let open = useAppSelector(hasError) ? true : false;
-  const error = useAppSelector(hasError);
   const dispatch = useAppDispatch();
 
   return (

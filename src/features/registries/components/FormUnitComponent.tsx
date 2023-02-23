@@ -1,20 +1,19 @@
 import React from 'react';
+import * as yup from 'yup';
 import { Paper, Grid, Box } from '@mui/material';
 import { RegistriesFormComponentProps } from './RegistriesFormComponent';
-import FormTextField from '../../shared/components/form-fields/FormTextField';
 import { useComponentsStyles } from '../../shared/components/components.styles';
 import { useAppDispatch } from '../../../app/hooks';
-import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
 import CustomButtonFc from '../../shared/components/CustomButtonFc';
+import FormTextField from '../../shared/components/form-fields/FormTextField';
 import { UnitFormModel, IProps } from '../models/registries.models';
 import { useNavigate } from 'react-router-dom';
 import { sendUnit } from '../store/registries.actions';
 import ErrorModal from '../../shared/components/ErrorModals';
 import SucessModal from '../../shared/components/SucessModal';
 import CheckboxField from '../../shared/components/form-fields/FormCheckboxField';
-//import ClientComponent from "./form-group/ClientComponent";
 
 /**
  * Register Form validation schema for every field
@@ -55,8 +54,6 @@ export default function FormUnitComponent({
         setShowErrorModal(true);
         setTimeout(() => {
           setShowErrorModal(false);
-          /*navigate('/registries/companies'
-                    )*/
         }, 2000);
       }
     });

@@ -18,7 +18,6 @@ import IconButton from '@mui/material/IconButton';
 import { Grid } from '@mui/material';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFile } from '@fortawesome/pro-solid-svg-icons';
-import { faFilePdf } from '@fortawesome/pro-solid-svg-icons';
 import { faRotate } from '@fortawesome/pro-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
 import { useAppSelector, useAppDispatch } from '../../../../app/hooks';
@@ -41,7 +40,6 @@ import {
   selectDistributorCompanies,
   selectUserCompanyId,
 } from '../../store/registries.selectors';
-import { NONAME } from 'dns';
 
 const LightTooltip = styled(({ className, ...props }: TooltipProps) => (
   <Tooltip {...props} classes={{ popper: className }} />

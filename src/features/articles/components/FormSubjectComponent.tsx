@@ -312,7 +312,7 @@ export default function FormSubjectComponent({
         </Grid>
         <Grid item xs={4}>
           <Grid sx={{ display: 'flex' }}>
-            <Grid xs={buttonGrid}>
+            <Grid item xs={buttonGrid}>
               <FormTextField
                 props={{
                   name: 'pib',
@@ -323,7 +323,7 @@ export default function FormSubjectComponent({
                 }}
               />
             </Grid>
-            <Grid xs={2}>
+            <Grid item xs={2}>
               <Button
                 variant="outlined"
                 sx={{
@@ -403,7 +403,7 @@ export default function FormSubjectComponent({
             />
           </div>
         </Grid>
-        <Grid xs={12}>
+        <Grid item xs={12}>
           <span style={{ color: 'red' }}>{errorMessageSearch} </span>
         </Grid>
       </Grid>

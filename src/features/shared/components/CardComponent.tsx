@@ -11,7 +11,6 @@ import { useTranslation } from 'react-i18next';
 import { OverridableComponent } from '@mui/material/OverridableComponent';
 import { useComponentsStyles } from './components.styles';
 import { ButtonProps } from '../../shared/components/CustomButtonFc';
-import { useTheme } from '@mui/material/styles';
 import { IProps } from '../../registries/models/registries.models';
 
 export interface CardProps {
@@ -25,7 +24,6 @@ export default function InvoiceCardComponent({
   props,
 }: IProps<CardProps>): JSX.Element {
   const { t } = useTranslation();
-  const theme = useTheme();
   const { invoiceCardStyles } = useComponentsStyles(props.cardBtn.disabled);
   const Icon = props.icon;
   const sizeIcons = window.devicePixelRatio === 1.5 ? '40px' : '40px';

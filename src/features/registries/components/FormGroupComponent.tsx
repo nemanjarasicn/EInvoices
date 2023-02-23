@@ -1,17 +1,17 @@
 import React from 'react';
+import * as yup from 'yup';
 import { Paper, Grid, Box } from '@mui/material';
 import { RegistriesFormComponentProps } from './RegistriesFormComponent';
 import { useTranslation } from 'react-i18next';
-import FormTextField from '../../shared/components/form-fields/FormTextField';
 import { useComponentsStyles } from '../../shared/components/components.styles';
 import { useAppDispatch, useAppSelector } from '../../../app/hooks';
-import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
+import FormAutocompleteField from '../../shared/components/form-fields/FormAutocompleteField';
+import FormTextField from '../../shared/components/form-fields/FormTextField';
 import CustomButtonFc from '../../shared/components/CustomButtonFc';
 import { GroupFormModel, IProps } from '../models/registries.models';
 import { useNavigate } from 'react-router-dom';
-import FormAutocompleteField from '../../shared/components/form-fields/FormAutocompleteField';
 import { sendGroup } from '../store/registries.actions';
 import { selectCompanyCurrent } from '../../../app/core/core.selectors';
 import SucessModal from '../../shared/components/SucessModal';
@@ -25,7 +25,6 @@ import {
   selectPointOfSale,
   selectObjectsAll,
 } from '../../shared/components/form-fields/store/form.selectors';
-//import ClientComponent from "./form-group/ClientComponent";
 
 /**
  * Register Form validation schema for every field
@@ -65,6 +64,7 @@ export default function FormGroupComponent({
   React.useEffect(() => {
     dispatch(getPointOfSalesAll({ companyId: companyId }));
     dispatch(getObjectsAll({ companyId: companyId }));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const onSubmit = (data: GroupFormModel) => {
@@ -79,8 +79,6 @@ export default function FormGroupComponent({
         setShowErrorModal(true);
         setTimeout(() => {
           setShowErrorModal(false);
-          /*navigate('/registries/companies'
-                    )*/
         }, 2000);
       }
     });
