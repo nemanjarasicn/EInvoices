@@ -1,8 +1,8 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React from 'react';
 import { Button, Grid } from '@mui/material';
 import { ArticlesFormComponentProps } from './ArticlesFormComponent';
 import { useTranslation } from 'react-i18next';
-import { useComponentsStyles } from '../../shared/components/components.styles';
 import { useAppDispatch, useAppSelector } from '../../../app/hooks';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -16,7 +16,6 @@ import SucessModal from '../../shared/components/SucessModal';
 import { selectCompanyCurrent } from '../../../app/core/core.selectors';
 import FormAutocompleteField from '../../shared/components/form-fields/FormAutocompleteField';
 import { setopenModalCreateSubject } from '../store/articles.reducer';
-import { useLocation } from 'react-router-dom';
 import FormTextField from '../../shared/components/form-fields/FormTextField';
 import {
   sendSubject,
@@ -109,28 +108,18 @@ export default function FormSubjectComponent({
         .required();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const [showError, setShowError] = React.useState(false);
+  const [showError] = React.useState(false);
   const [showErrorModal, setShowErrorModal] = React.useState(false);
   const [errorMessageSearch, setErrorMessageSearch] = React.useState('');
-  const marginTopBox = window.devicePixelRatio == 1.5 ? 2 : 5;
-  const heightButton = window.devicePixelRatio == 1.5 ? '60%' : '63%';
-  const buttonGrid = window.devicePixelRatio == 1.5 ? 7 : 8;
+  const marginTopBox = window.devicePixelRatio === 1.5 ? 2 : 5;
+  const heightButton = window.devicePixelRatio === 1.5 ? '60%' : '63%';
+  const buttonGrid = window.devicePixelRatio === 1.5 ? 7 : 8;
 
   const methods = useForm({
     defaultValues: defaultValues,
     resolver: yupResolver(schema),
   });
-  const {
-    handleSubmit,
-    reset,
-    control,
-    setValue,
-    formState,
-    getValues,
-    trigger,
-    getFieldState,
-    watch,
-  } = methods;
+  const { handleSubmit, control, setValue, getValues, watch } = methods;
 
   React.useEffect(() => {
     dispatch(getSubjectCategory());

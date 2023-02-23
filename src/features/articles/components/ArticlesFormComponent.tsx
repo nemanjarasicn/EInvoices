@@ -2,28 +2,20 @@
 import React from 'react';
 import { Paper, Typography, Grid, Box } from '@mui/material';
 import { IProps } from '../models/articles.models';
-import * as yup from 'yup';
 import { useTranslation } from 'react-i18next';
 import { useComponentsStyles } from '../../shared/components/components.styles';
-import RestoreRoundedIcon from '@mui/icons-material/RestoreRounded';
-import TextsmsOutlinedIcon from '@mui/icons-material/TextsmsOutlined';
 import FormArticleComponent from '../components/FormArticlesComponents';
 
 export type ArticlesFormComponentProps = {
   invoiceTypeOptions: any;
   sectionTitles: any;
-  formGrpsSettings: any;
-  formFieldsLabels: any;
+  formGrpsSettings?: any;
+  formFieldsLabels?: any;
   createTitle: any;
   typeForm: any;
   data?: any;
   flag?: string;
 };
-
-/**
- * Register Form validation schema for every field
- */
-const schema = yup.object({}).required();
 
 export default function ArticlesFormComponent({
   props,

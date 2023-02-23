@@ -1,16 +1,14 @@
 import React from 'react';
+import * as yup from 'yup';
 import { Grid } from '@mui/material';
 import { ArticlesFormComponentProps } from './ArticlesFormComponent';
-import { useTranslation } from 'react-i18next';
-import { useComponentsStyles } from '../../shared/components/components.styles';
 import { useAppDispatch, useAppSelector } from '../../../app/hooks';
-import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
-import CustomButtonFc from '../../shared/components/CustomButtonFc';
-import CustomButtonFcTra from '../../shared/components/CustomButtonFcTra';
 import { PriceFormModel, IProps } from '../models/articles.models';
 import { useNavigate } from 'react-router-dom';
+import CustomButtonFc from '../../shared/components/CustomButtonFc';
+import CustomButtonFcTra from '../../shared/components/CustomButtonFcTra';
 import ErrorModal from '../../shared/components/ErrorModals';
 import SucessModal from '../../shared/components/SucessModal';
 import {
@@ -20,7 +18,6 @@ import {
   getMarketPlacesAll,
 } from '../../shared/components/form-fields/store/form.actions';
 import { selectCompanyCurrent } from '../../../app/core/core.selectors';
-import { useLocation } from 'react-router-dom';
 import { sendArticlesPrice } from '../store/articles.actions';
 import FormCurrencyField from '../../shared/components/form-fields/FormCurrencyField';
 import {
@@ -41,23 +38,23 @@ export default function FormArticlePriceComponent({
   const defaultValues: PriceFormModel = {
     price: '',
   };
-  const { t } = useTranslation();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const [showError, setShowError] = React.useState(false);
+  const [showError] = React.useState(false);
   const [showErrorModal, setShowErrorModal] = React.useState(false);
 
   const methods = useForm({
     defaultValues: defaultValues,
     resolver: yupResolver(schema),
   });
-  const { handleSubmit, reset, control, setValue } = methods;
+  const { handleSubmit, control } = methods;
 
   React.useEffect(() => {
     dispatch(getObjectsAll({ companyId: companyId }));
     dispatch(getUnitsAll());
     dispatch(getVatAll());
     dispatch(getMarketPlacesAll({ companyId: companyId }));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const onSubmit = async (dataPrice: PriceFormModel) => {

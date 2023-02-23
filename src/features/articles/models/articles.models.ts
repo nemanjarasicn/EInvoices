@@ -1,4 +1,3 @@
-import { CountryCode, Currency, SchemeID } from './articles.enums';
 
 /**
  * Generic for Table Data

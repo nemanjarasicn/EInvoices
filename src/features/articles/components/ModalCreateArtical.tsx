@@ -1,10 +1,6 @@
 import * as React from 'react';
 import Typography from '@mui/material/Typography';
-import Grid from '@mui/material/Grid';
-import Modal from '@mui/material/Modal';
-import { useAppDispatch } from '../../../app/hooks';
-
-import Box from '@mui/material/Box';
+import { Grid, Modal, Box } from '@mui/material';
 import FormArticleComponent from './FormArticlesComponents';
 
 const style = {
@@ -12,14 +8,14 @@ const style = {
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
-  width: () => (window.devicePixelRatio == 1.5 ? 600 : 800),
-  height: () => (window.devicePixelRatio == 1.5 ? 450 : 500),
+  width: () => (window.devicePixelRatio === 1.5 ? 600 : 800),
+  height: () => (window.devicePixelRatio === 1.5 ? 450 : 500),
 
   bgcolor: 'background.paper',
   border: '2px solid #000',
   boxShadow: 24,
   borderRadius: 2,
-  p: window.devicePixelRatio == 1.5 ? 2 : 5,
+  p: window.devicePixelRatio === 1.5 ? 2 : 5,
   backgroundColor: 'white',
   display: 'flex',
 };
@@ -60,7 +56,7 @@ export default function ModalCreateArtical(props: any) {
                   fontWeight: 700,
                   textAlign: 'center',
                   textTransform: 'uppercase',
-                  fontSize: window.devicePixelRatio == 1.5 ? 16 : 24,
+                  fontSize: window.devicePixelRatio === 1.5 ? 16 : 24,
                   color: 'black',
                 }}
               >

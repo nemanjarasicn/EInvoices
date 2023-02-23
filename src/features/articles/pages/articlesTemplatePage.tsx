@@ -1,42 +1,32 @@
 import * as React from 'react';
-import { styled } from '@mui/material/styles';
-import Box from '@mui/material/Box';
-import Paper from '@mui/material/Paper';
-import Grid from '@mui/material/Grid';
+import { Grid, Box, Typography } from '@mui/material';
 import { useFeatureSettings } from '../settings';
 import { TemplatePageArticlesTypes } from '../models/articles.enums';
 import { useTranslation } from 'react-i18next';
-import CustomButtonFc from '../../shared/components/CustomButtonFc';
-import FormAutocompleteFieldSelect from '../../shared/components/form-fields/FormAutocompleteFieldSelect';
 import { usePageStyles } from './pages.styles';
-import TableComponent from '../components/DataGrid/TableComponent';
 import { useForm } from 'react-hook-form';
 import { useAppDispatch, useAppSelector } from '../../../app/hooks';
 import { IProps } from '../models/articles.models';
-//import TableComponent from "../components/DataGrid/TableComponent";
 import { useTableSettings } from '../components/DataGrid/table.settings';
-import { selectMarketPlaces } from '../../shared/components/form-fields/store/form.selectors';
-import {
-  getMarketPlacesAll,
-  getPointOfSalesAll,
-} from '../../shared/components/form-fields/store/form.actions';
+import { getMarketPlacesAll } from '../../shared/components/form-fields/store/form.actions';
 import { selectCompanyCurrent } from '../../../app/core/core.selectors';
 import { getArticles } from '../store/articles.actions';
+import TableComponent from '../components/DataGrid/TableComponent';
+import ModalSucessArticles from '../components/ModalSucessArticles';
+import CustomButtonFc from '../../shared/components/CustomButtonFc';
+import FormAutocompleteFieldSelect from '../../shared/components/form-fields/FormAutocompleteFieldSelect';
 import Breadcrumbs from '@mui/material/Breadcrumbs';
 import Link from '@mui/material/Link';
-import Typography from '@mui/material/Typography';
 import {
   selectOpenCreateArtical,
   selectOpenCreateArticalPrice,
   selectOpenSucessModal,
   selectOpenCreateSubject,
 } from '../store/articles.selectors';
-import ModalSucessArticles from '../components/ModalSucessArticles';
 import { selectMarketPlaceLogin } from '../../../app/core/core.selectors';
 import ModalCreateSubject from '../components/ModalCreateSubject';
 import ModalCreateArtical from '../components/ModalCreateArtical';
 import ModalCreateArticalPrice from '../components/ModalCreateArticalPrice';
-import { useNavigate } from 'react-router-dom';
 import {
   getSubjectCategory,
   getSubjectType,
@@ -44,15 +34,6 @@ import {
   getTaxCode,
   getVatAll,
 } from '../../shared/components/form-fields/store/form.actions';
-
-const Item = styled(Paper)(({ theme }) => ({
-  backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
-  ...theme.typography.body2,
-  padding: theme.spacing(1),
-  textAlign: 'center',
-  color: theme.palette.text.secondary,
-  fontSize: '1rem',
-}));
 
 type ArticlesTemplatePageProps = {
   templateType: TemplatePageArticlesTypes;
@@ -70,7 +51,6 @@ export default function InvoiceTemplatePage({
   const openSucessModalArtical = useAppSelector(selectOpenSucessModal);
   const openModalCreateSubject = useAppSelector(selectOpenCreateSubject);
   const openModalCreateArtical = useAppSelector(selectOpenCreateArtical);
-  const navigate = useNavigate();
   const openModalCreateArticalPrice = useAppSelector(
     selectOpenCreateArticalPrice
   );
@@ -79,7 +59,7 @@ export default function InvoiceTemplatePage({
   const methods = useForm({
     defaultValues: {},
   });
-  const { control, getValues } = methods;
+  const { control } = methods;
 
   const settings = tableSettings[props.templateType].dataGrid;
 
@@ -105,6 +85,7 @@ export default function InvoiceTemplatePage({
       dispatch(getSubjectCategory());
       dispatch(getSubjectType());
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   React.useEffect(() => {
@@ -113,6 +94,7 @@ export default function InvoiceTemplatePage({
     } else {
       marketPlace && dispatch(getArticles({ uuid: marketPlace }));
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectValue]);
 
   const handleChangeSelect = (value: any) => {

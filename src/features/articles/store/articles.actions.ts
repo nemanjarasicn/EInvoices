@@ -13,17 +13,6 @@ const sendArticle: AsyncThunk<any, { data: ArticleFormModel }, {}> =
         .then((res: any) => {
           return { data: res.data, message: 'sucsess' };
         })
-        /*.then(async (res: any) => { 
-        const dataPrice = {
-            data: res.data[0].createProduct,
-            price: data.data.price
-        }
-        let message: string = "";
-        await RegistriesPublicService.sendArticlesPrice(dataPrice)
-            .then((res:any) =>  message = 'sucsess')
-            .catch((er: any) =>  message = 'error')
-        return   message
-      })*/
         .catch((err: any) => 'error');
     }
   );

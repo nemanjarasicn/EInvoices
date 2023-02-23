@@ -1,4 +1,4 @@
-import { createDraftSafeSelector, createSelector } from '@reduxjs/toolkit';
+import { createSelector } from '@reduxjs/toolkit';
 import { RootState } from '../../../app/store';
 import { FeatureState } from './articles.reducer';
 

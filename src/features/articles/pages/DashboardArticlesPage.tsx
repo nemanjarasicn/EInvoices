@@ -5,26 +5,14 @@ import CardComponent, {
 import { IProps } from '../models/articles.models';
 import { useFeatureSettings } from '../settings';
 import { usePageStyles } from './pages.styles';
-import { styled } from '@mui/material/styles';
-import Paper from '@mui/material/Paper';
-import Box from '@mui/material/Box';
-import Grid from '@mui/material/Grid';
+
+import { Grid, Box, Typography } from '@mui/material';
 import Breadcrumbs from '@mui/material/Breadcrumbs';
-import Link from '@mui/material/Link';
-import Typography from '@mui/material/Typography';
 import { useTranslation } from 'react-i18next';
 
 type DashboardPageProps = {};
 
-const Item = styled(Paper)(({ theme }) => ({
-  backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
-  ...theme.typography.body2,
-  padding: theme.spacing(1),
-  textAlign: 'center',
-  color: theme.palette.text.secondary,
-  fontSize: '1rem',
-}));
-
+// eslint-disable-next-line no-empty-pattern
 export default function DashboardArticlesPage({}: IProps<DashboardPageProps>): JSX.Element {
   const { cardsSettings } = useFeatureSettings();
   const { dashBoardStyles } = usePageStyles();

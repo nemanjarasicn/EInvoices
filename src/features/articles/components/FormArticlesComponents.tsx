@@ -1,16 +1,14 @@
 import React from 'react';
+import * as yup from 'yup';
 import { Grid } from '@mui/material';
 import { ArticlesFormComponentProps } from './ArticlesFormComponent';
-import FormTextField from '../../shared/components/form-fields/FormTextField';
-import { useComponentsStyles } from '../../shared/components/components.styles';
 import { useAppDispatch, useAppSelector } from '../../../app/hooks';
-import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
+import { ArticleFormModel, IProps } from '../models/articles.models';
+import FormTextField from '../../shared/components/form-fields/FormTextField';
 import CustomButtonFc from '../../shared/components/CustomButtonFc';
 import CustomButtonFcTra from '../../shared/components/CustomButtonFcTra';
-import { ArticleFormModel, IProps } from '../models/articles.models';
-import { useNavigate } from 'react-router-dom';
 import FormAutocompleteField from '../../shared/components/form-fields/FormAutocompleteField';
 import ErrorModal from '../../shared/components/ErrorModals';
 import SucessModal from '../../shared/components/SucessModal';
@@ -104,24 +102,21 @@ export default function FormArticleComponent({
       taxCategory: '',
     },
   };
-  const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const [showError, setShowError] = React.useState(false);
+  const [showError] = React.useState(false);
   const [showErrorModal, setShowErrorModal] = React.useState(false);
-  const marginTopBox = window.devicePixelRatio == 1.5 ? 3 : 5;
+  const marginTopBox = window.devicePixelRatio === 1.5 ? 3 : 5;
 
   const methods = useForm({
     defaultValues: defaultValues,
     resolver: yupResolver(schema),
   });
-  const { handleSubmit, reset, control, watch, setValue, getValues } = methods;
+  const { handleSubmit, control, watch, setValue, getValues } = methods;
 
   React.useEffect(() => {
     dispatch(getObjectsAll({ companyId: companyId }));
-    //dispatch(getUnitsAll());
-    //dispatch(getTaxCode()); ovo pozivamo na ucitavanje stranice
+
     dispatch(getMarketPlacesAll({ companyId: companyId }));
-    //dispatch(getVatAll());
 
     if (props?.flag === 'edit') {
       const vatObject = vatTmp.find((item) => item?.name === props?.data?.vat);
@@ -137,6 +132,7 @@ export default function FormArticleComponent({
       setValue('productVatRequest', vatObject);
       setValue('productUnitRequest', unitCodeObject);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   React.useEffect(() => {
@@ -156,6 +152,7 @@ export default function FormArticleComponent({
     }
     setValue('taxcodeValue', String(taxCode1.value1));
     setStatusTax('UPDATE');
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [watch('productTaxCategory')]);
 
   const onSubmit = async (data: ArticleFormModel) => {
@@ -198,7 +195,6 @@ export default function FormArticleComponent({
           dispatch(setOpenSucessModal(true));
           setTimeout(() => {
             dispatch(setOpenSucessModal(false));
-            //dispatch(setopenModalCreateArticalPrice({open: true, data: res.payload.data[0].createProduct, flag: "" }));
             window.location.reload();
           }, 2000);
         } else {

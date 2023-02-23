@@ -1,9 +1,6 @@
 import {
   ActionReducerMapBuilder,
-  createEntityAdapter,
   createSlice,
-  EntityAdapter,
-  EntityState,
   Slice,
 } from '@reduxjs/toolkit';
 import { getArticles, getSubject } from './articles.actions';
@@ -33,7 +30,7 @@ const initialState: FeatureState = {
 };
 
 const articlesSlice: Slice<FeatureState> = createSlice({
-  name: FEATURE_REGISTRIES_KEY,
+  name: FEATURE_REGISTRIES_KEY, 
   initialState: initialState,
   reducers: {
     setopenModalCreateArtical: (state, { payload }) => ({
