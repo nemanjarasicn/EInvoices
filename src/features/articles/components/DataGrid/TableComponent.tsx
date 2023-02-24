@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React from 'react';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
-import { useAppDispatch, useAppSelector } from '../../../../app/hooks';
+import { useAppSelector } from '../../../../app/hooks';
 import { IProps, TableData } from '../../models/articles.models';
 
 import { useDataGridStyles } from '../../../shared/components/DataGrid/dataGrid.styles';
@@ -35,7 +35,6 @@ export default function TableComponent({
   props,
 }: IProps<TableComponentProps>): JSX.Element {
   const { t } = useTranslation();
-  const dispatch = useAppDispatch();
   const { tableComponentStyles } = useDataGridStyles();
   const selectType = props.selector;
   const [searchData, setSearchData] = React.useState<any[]>([]);
@@ -53,7 +52,7 @@ export default function TableComponent({
   const methods = useForm({
     defaultValues,
   });
-  const { control, setValue, getValues, watch } = methods;
+  const { control, getValues } = methods;
 
   React.useEffect(() => {
     setSearchData(tableData);
@@ -87,7 +86,6 @@ export default function TableComponent({
   };
 
   // const selection: GridSelectionModel = useAppSelector(selectSelection);
-  const fontSize = window.devicePixelRatio === 1.5 ? '12px' : '16px';
 
   return (
     <div style={tableComponentStyles.wrapper}>
@@ -130,7 +128,7 @@ export default function TableComponent({
         density="compact"
         // pageSize={10}
         pageSize={pageSize}
-        rowsPerPageOptions={[5, 10, 15]}
+        rowsPerPageOptions={[5, 10, 15, 30]}
         onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
         components={{
           Toolbar: TableToolbar,

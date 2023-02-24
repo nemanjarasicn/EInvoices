@@ -33,6 +33,7 @@ import {
   getSubjectCategory,
   getSubjectType,
 } from '../../shared/components/form-fields/store/form.actions';
+import { openCloseSucessModal } from '../utilis/utilis';
 
 export default function FormSubjectComponent({
   props,
@@ -157,12 +158,7 @@ export default function FormSubjectComponent({
       await dispatch(sendSubject({ data })).then((res) => {
         if (res.payload === 'sucsess') {
           dispatch(setopenModalCreateSubject({ open: false }));
-          dispatch(setOpenModalSucessLoad(true));
-          setTimeout(() => {
-            dispatch(setOpenModalSucessLoad(false));
-            navigate('/articles/subject');
-            window.location.reload();
-          }, 2000);
+          openCloseSucessModal('/articles/subject', true, dispatch, navigate);
         } else {
           setShowErrorModal(true);
           setTimeout(() => {
@@ -181,12 +177,13 @@ export default function FormSubjectComponent({
       ).then((res) => {
         if (res.payload === 'sucsess') {
           dispatch(setopenModalCreateSubject({ open: false }));
-          dispatch(setOpenModalSucessLoad(true));
+          openCloseSucessModal('/articles/subject', true, dispatch, navigate);
+          /*dispatch(setOpenModalSucessLoad(true));
           setTimeout(() => {
             dispatch(setOpenModalSucessLoad(false));
             navigate('/articles/subject');
             window.location.reload();
-          }, 2000);
+          }, 2000);*/
         } else {
           setShowErrorModal(true);
           setTimeout(() => {

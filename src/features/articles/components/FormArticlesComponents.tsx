@@ -31,7 +31,6 @@ import {
   setopenModalCreateArticalPrice,
   setOpenSucessModal,
 } from '../store/articles.reducer';
-//import ClientComponent from "./form-group/ClientComponent";
 
 export default function FormArticleComponent({
   props,
