@@ -66,47 +66,33 @@ export default function FormSubjectComponent({
   /**
    * Register Form validation schema for every field
    */
-  const schema = disableJbkjs
-    ? yup.object({
-        companyName: yup.string().required(t('Validation.requiredField')),
-        address: yup.string().required(t('Validation.requiredField')),
-        city: yup.string().required(t('Validation.requiredField')),
-        zip: yup.string().required(t('Validation.requiredField')),
-        mb: yup.string().trim().required(t('Validation.requiredField')),
-        pib: yup.string().trim().required(t('Validation.requiredField')),
-        payeeFinancialAccountDto: yup
-          .string()
-          .required(t('Validation.requiredField')),
-        email: yup
-          .string()
-          .email('email mora biti ispravnog formata')
-          .required('ovo je obavezno polje'),
-        subjectIdCategory: yup.object().required(t('Validation.requiredField')),
-        subjectIdType: yup.object().required(t('Validation.requiredField')),
-        //jbkjs: yup.string().required(t('Validation.requiredField'))
-      })
-    : yup
-        .object({
-          companyName: yup.string().required(t('Validation.requiredField')),
-          address: yup.string().required(t('Validation.requiredField')),
-          city: yup.string().required(t('Validation.requiredField')),
-          zip: yup.string().required(t('Validation.requiredField')),
-          mb: yup.string().trim().required(t('Validation.requiredField')),
-          pib: yup.string().trim().required(t('Validation.requiredField')),
-          payeeFinancialAccountDto: yup
-            .string()
-            .required(t('Validation.requiredField')),
-          email: yup
-            .string()
-            .email('email mora biti ispravnog formata')
-            .required('ovo je obavezno polje'),
-          subjectIdCategory: yup
-            .object()
-            .required(t('Validation.requiredField')),
-          subjectIdType: yup.object().required(t('Validation.requiredField')),
-          jbkjs: yup.string().trim().required(t('Validation.requiredField')),
-        })
-        .required();
+  const schema = yup.object({
+    companyName: yup.string().required(t('Validation.requiredField')),
+    address: yup.string().required(t('Validation.requiredField')),
+    city: yup.string().required(t('Validation.requiredField')),
+    zip: yup.string().required(t('Validation.requiredField')),
+    mb: yup.string().trim().required(t('Validation.requiredField')),
+    pib: yup.string().trim().required(t('Validation.requiredField')),
+    payeeFinancialAccountDto: yup
+      .string()
+      .required(t('Validation.requiredField')),
+    email: yup
+      .string()
+      .email('email mora biti ispravnog formata')
+      .required('ovo je obavezno polje'),
+    subjectIdCategory: yup.object().required(t('Validation.requiredField')),
+    subjectIdType: yup.object().required(t('Validation.requiredField')),
+    jbkjs: yup
+      .string()
+      .test('', t('Validation.requiredField'), function (item) {
+        if (disableJbkjs) {
+          return true;
+        } else {
+          return false;
+        }
+      }),
+  });
+
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const [showError] = React.useState(false);
@@ -154,44 +140,27 @@ export default function FormSubjectComponent({
   }, []);
 
   const onSubmit = async (data: SubjectFormModel) => {
-    if (props.flag !== 'edit') {
-      await dispatch(sendSubject({ data })).then((res) => {
-        if (res.payload === 'sucsess') {
-          dispatch(setopenModalCreateSubject({ open: false }));
-          openCloseSucessModal('/articles/subject', true, dispatch, navigate);
-        } else {
-          setShowErrorModal(true);
-          setTimeout(() => {
-            setShowErrorModal(false);
-          }, 2000);
-        }
-      });
-    } else {
-      await dispatch(
-        updateSubject({
-          idSubject: props.data.id,
-          data: data,
-          idpayeeFinancialAccountDto:
-            props.data.payeeFinancialAccountDto[0]?.id,
-        })
-      ).then((res) => {
-        if (res.payload === 'sucsess') {
-          dispatch(setopenModalCreateSubject({ open: false }));
-          openCloseSucessModal('/articles/subject', true, dispatch, navigate);
-          /*dispatch(setOpenModalSucessLoad(true));
-          setTimeout(() => {
-            dispatch(setOpenModalSucessLoad(false));
-            navigate('/articles/subject');
-            window.location.reload();
-          }, 2000);*/
-        } else {
-          setShowErrorModal(true);
-          setTimeout(() => {
-            setShowErrorModal(false);
-          }, 2000);
-        }
-      });
-    }
+    const actionSubject =
+      props.flag !== 'edit'
+        ? sendSubject({ data })
+        : updateSubject({
+            idSubject: props.data.id,
+            data: data,
+            idpayeeFinancialAccountDto:
+              props.data.payeeFinancialAccountDto[0]?.id,
+          });
+
+    await dispatch(actionSubject).then((res) => {
+      if (res.payload === 'sucsess') {
+        dispatch(setopenModalCreateSubject({ open: false }));
+        openCloseSucessModal('/articles/subject', true, dispatch, navigate);
+      } else {
+        setShowErrorModal(true);
+        setTimeout(() => {
+          setShowErrorModal(false);
+        }, 2000);
+      }
+    });
   };
 
   React.useEffect(() => {
