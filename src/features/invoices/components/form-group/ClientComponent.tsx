@@ -13,12 +13,10 @@ import IconButton from '@mui/material/IconButton';
 import { UseFormSetValue } from 'react-hook-form';
 import { setopenModalCreateSubject } from '../../../articles/store/articles.reducer';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useAppDispatch, useAppSelector } from '../../../../app/hooks';
+import { useAppDispatch } from '../../../../app/hooks';
 import { faPlus } from '@fortawesome/pro-solid-svg-icons';
 import { styled } from '@mui/material/styles';
-import ModalCreateSubject from '../../../articles/components/ModalCreateSubject';
 import Tooltip, { TooltipProps, tooltipClasses } from '@mui/material/Tooltip';
-import { selectOpenCreateSubject } from '../../../articles/store/articles.selectors';
 
 const LightTooltip = styled(({ className, ...props }: TooltipProps) => (
   <Tooltip {...props} classes={{ popper: className }} />

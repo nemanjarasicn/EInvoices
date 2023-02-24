@@ -1,8 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Box, Typography, Paper, Grid } from '@mui/material';
+import { Grid } from '@mui/material';
 import React from 'react';
 import { IProps } from '../../models';
-import { useComponentsStyles } from '../components.styles';
+
 import FormDateField from '../form-fields/FormDateField';
 import FormDropdownField from '../form-fields/FormDropdownField';
 import FormTextField from '../form-fields/FormTextField';
@@ -41,7 +41,6 @@ type DebitNoteComponentProps = GroupFieldProps & {
 export default function DebitNoteComponent({
   props,
 }: IProps<DebitNoteComponentProps>): JSX.Element {
-  const { formComponent } = useComponentsStyles();
   const [relationType, setRelationType] = React.useState<SourceSelectionMode>(
     SourceSelectionMode.SINGLE
   );

@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { UserCompany } from '../../../app/core/core.models';
 
 const AXIOS = axios.create({
   baseURL:

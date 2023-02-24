@@ -1,5 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React from 'react';
+import * as yup from 'yup';
 import {
   Button,
   Popper,
@@ -13,8 +14,6 @@ import {
   ListItemButton,
   ListItemIcon,
   ListItemText,
-  Box,
-  TextField,
 } from '@mui/material';
 import PopupState, { bindToggle, bindPopper } from 'material-ui-popup-state';
 import { useComponentsStyles } from './components.styles';
@@ -22,11 +21,9 @@ import CancelRoundedIcon from '@mui/icons-material/CancelRounded';
 import { useTranslation } from 'react-i18next';
 import { IProps } from '../models/invoice.models';
 import FormDateField from './form-fields/FormDateField';
-import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
 import { Subscription } from 'react-hook-form/dist/utils/createSubject';
-import { format } from 'date-fns';
 import dayjs from 'dayjs';
 
 export type FilterComponentProps = {
@@ -59,18 +56,11 @@ const schema = yup
 export default function FilterComponent({
   props,
 }: IProps<FilterComponentProps>): JSX.Element {
-  //if want to dispalay date in data piker on load page
-  /*const date  = new Date();
-  const dateTmp = new Date(date)
-  
-  const today = format(date, 'yyyy-MM-dd');
-  const yesterday  = format(dateTmp.setDate(dateTmp.getDate() - 1), 'yyyy-MM-dd');*/
-
   const methods = useForm({
     defaultValues: { from: '', to: '' },
     resolver: yupResolver(schema),
   });
-  const { handleSubmit, reset, control, watch } = methods;
+  const { reset, control, watch } = methods;
   const { filterComponentStyle } = useComponentsStyles();
   const { t } = useTranslation();
   const { parentFn, paramKey } = props;

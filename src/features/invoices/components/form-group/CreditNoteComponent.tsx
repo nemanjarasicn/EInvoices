@@ -1,8 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React from 'react';
-import { Box, Typography, Paper, Grid } from '@mui/material';
+import { Grid } from '@mui/material';
 import { IProps } from '../../models';
-import { useComponentsStyles } from '../components.styles';
+
 import FormDateField from '../form-fields/FormDateField';
 import FormDropdownField from '../form-fields/FormDropdownField';
 import FormTextField from '../form-fields/FormTextField';
@@ -33,7 +33,6 @@ type CreditNoteComponentProps = GroupFieldProps & {
 export default function CreditNoteComponent({
   props,
 }: IProps<CreditNoteComponentProps>): JSX.Element {
-  const { formComponent } = useComponentsStyles();
   const [relationType, setRelationType] = React.useState<SourceSelectionMode>(
     SourceSelectionMode.SINGLE
   );

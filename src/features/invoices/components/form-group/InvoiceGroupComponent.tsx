@@ -1,14 +1,12 @@
 import React from 'react';
-import { Box, Typography, Paper, Grid } from '@mui/material';
+import { Grid } from '@mui/material';
 import { IProps } from '../../models';
-import { useComponentsStyles } from '../components.styles';
 import FormDateField from '../form-fields/FormDateField';
 import {
   FormFieldProps,
   GroupFieldProps,
   OptionItem,
 } from '../form-fields/models/form-fields.models';
-import FormTextField from '../form-fields/FormTextField';
 import FormDropdownField from '../form-fields/FormDropdownField';
 
 type InvoiceGroupComponentProps = GroupFieldProps & {
@@ -33,7 +31,6 @@ type InvoiceGroupComponentProps = GroupFieldProps & {
 export default function InvoiceGroupComponent({
   props,
 }: IProps<InvoiceGroupComponentProps>): JSX.Element {
-  const { formComponent } = useComponentsStyles();
   return (
     <Grid container spacing={2}>
       <Grid item xs={3}>

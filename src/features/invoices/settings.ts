@@ -41,7 +41,6 @@ type FeatureSettings = {
  */
 const useFeatureSettings = (): FeatureSettings => {
   let navigate = useNavigate();
-  const dispatch = useAppDispatch();
   return {
     cardsSettings: [
       {

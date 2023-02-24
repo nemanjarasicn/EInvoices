@@ -1,12 +1,9 @@
 import { GridValueGetterParams } from '@mui/x-data-grid';
 import dayjs from 'dayjs';
 import { HeaderSettingsTypes } from '../../models/invoice.enums';
-import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
-import { useAppSelector, useAppDispatch } from '../../../../app/hooks';
+import { useAppDispatch } from '../../../../app/hooks';
 
-import Box from '@mui/material/Box';
-import { handleInvoiceStatus } from '../../utils/utils';
 import { TableComponentProps } from './TableComponent';
 import { styled } from '@mui/material/styles';
 import {
@@ -15,17 +12,13 @@ import {
 } from '../../store/invoice.reducer';
 import { useTranslation } from 'react-i18next';
 import Tooltip, { TooltipProps, tooltipClasses } from '@mui/material/Tooltip';
-import { unzipFile, unzipFileData } from '../../pages/InvoiceTemplatePage';
-import { getInvoiceDetails, getZip } from '../../store/invoice.actions';
-import AssignmentTurnedInIcon from '@mui/icons-material/AssignmentTurnedIn';
-import AssignmentLateIcon from '@mui/icons-material/AssignmentLate';
+import { getInvoiceDetails } from '../../store/invoice.actions';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFilePdf } from '@fortawesome/pro-solid-svg-icons';
 import { faCheckCircle } from '@fortawesome/pro-solid-svg-icons';
 import { faFile } from '@fortawesome/pro-solid-svg-icons';
 import { faFileCircleXmark } from '@fortawesome/pro-solid-svg-icons';
 import { Grid } from '@mui/material';
-import { selectInvoiceDetails } from '../../store/invoice.selectors';
 
 type TableSettings = {
   tableSettings: {
@@ -54,7 +47,6 @@ const LightTooltip = styled(({ className, ...props }: TooltipProps) => (
 const useTableSettings = (): TableSettings => {
   const dispach = useAppDispatch();
   const { t } = useTranslation();
-  const dataTmp = useAppSelector(selectInvoiceDetails);
 
   const getZipData = async (
     flag: string,
@@ -62,10 +54,6 @@ const useTableSettings = (): TableSettings => {
     id: any,
     dataRows?: any
   ) => {
-    const typeInvoices = flag === 'XML' ? 'downloadXml' : 'printPdf';
-    //const dataInvoicePdf = setDataPdf(dataRows.xml);
-    //const zipData = await dispach(getZip({id: id,typeDocument: typeInvoicesZip, typeInvoices:  typeInvoices}));
-    //const unzipData = await  unzipFileData(zipData);
     if (flag === 'PDF') {
       dispach(getInvoiceDetails({ id: dataRows?.id })).then((res) => {
         dispach(
@@ -82,8 +70,6 @@ const useTableSettings = (): TableSettings => {
         );
       });
     }
-    /*unzipFile(flag, zipData)
-    .catch((err)   =>  console.log('greska prilikom download ' + flag));*/
   };
 
   const handleInvoiceStatus = (status: number | string): string => {

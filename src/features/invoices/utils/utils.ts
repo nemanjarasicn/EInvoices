@@ -1,3 +1,4 @@
+/* eslint-disable array-callback-return */
 import { UserCompany } from '../../../app/core/core.models';
 import { ProductModel } from '../models';
 import xml2js from 'xml2js';
@@ -400,7 +401,6 @@ const createPdfObject = (xmlTmp: any): any => {
     if (err) {
       throw err;
     }
-    const json = JSON.stringify(result, null, 4);
     objectTmp = {
       AccountingCustomerParty: {
         name: result?.Invoice['cac:AccountingCustomerParty'][0]['cac:Party'][0][

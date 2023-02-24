@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React from 'react';
 import SearchIcon from '@mui/icons-material/Search';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import CloseIcon from '@mui/icons-material/Close';
@@ -9,20 +9,17 @@ import RadioButtonUncheckedIcon from '@mui/icons-material/RadioButtonUnchecked';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import { useLocation } from 'react-router-dom';
 import { IconButton } from '@mui/material';
-import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useComponentsStyles } from './components.styles';
 
 type SearchFieldProps = {};
 
+// eslint-disable-next-line no-empty-pattern
 export default function SearchField({}: SearchFieldProps): JSX.Element {
   const { t } = useTranslation();
   const { searchField } = useComponentsStyles();
-  const [value, setValue] = useState('searchValue');
 
   const textInput = React.useRef({ value: '' });
-
-  const handleChange = () => (event: React.ChangeEvent<HTMLInputElement>) => {};
 
   const location = useLocation();
 
@@ -59,9 +56,7 @@ export default function SearchField({}: SearchFieldProps): JSX.Element {
         <OutlinedInput
           id="outlined-adornment-search"
           placeholder={t('SearchField.documentSearch')}
-          onChange={(newValue) => {
-            setValue(newValue.target.value);
-          }}
+          onChange={(newValue) => {}}
           sx={searchField.outlinedInput}
           inputRef={textInput}
           endAdornment={
@@ -73,7 +68,6 @@ export default function SearchField({}: SearchFieldProps): JSX.Element {
               </IconButton>
               <IconButton
                 onClick={() => {
-                  setValue('');
                   textInput.current.value = '';
                 }}
               >

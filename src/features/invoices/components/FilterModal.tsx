@@ -1,45 +1,15 @@
 import * as React from 'react';
-import Modal from '@mui/material/Modal';
-import Typography from '@mui/material/Typography';
-import Grid from '@mui/material/Grid';
-import { useAppDispatch, useAppSelector } from '../../../app/hooks';
-import Box from '@mui/material/Box';
+import * as yup from 'yup';
+import { Grid, Box, Modal, Typography } from '@mui/material';
+import { useAppDispatch } from '../../../app/hooks';
 import Divider from '@mui/material/Divider';
 import { useForm } from 'react-hook-form';
 import Button from '@mui/material/Button';
 import { setopenModalFilter } from '../store/invoice.reducer';
-import { searchInvoices } from '../store/invoice.actions';
 import CheckboxField from '../../shared/components/form-fields/FormCheckboxField';
-import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
-import FormTextField from '../../shared/components/form-fields/FormTextField';
-import * as yup from 'yup';
-import { useTranslation } from 'react-i18next';
-import { selectCompanyCurrent } from '../../../app/core/core.selectors';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { setFilters } from '../store/invoice.reducer';
-import { InvoiceSearchParams, IProps } from '../models/invoice.models';
-import { selectFilters } from '../store/invoice.selectors';
 
-const schema = yup
-  .object({
-    // client: yup
-    //   .object({
-    //     vatRegistrationCode: yup.string().required(),
-    //   })
-    //   .required(),
-    // dropdownValue: yup.string().required(),
-    // textAreaValue: yup.string().required(),
-    // dateValue: yup.string().required(), //validate date format
-    // autocompleteValue: yup.object().required(),
-    // checkbox: yup.bool().required(),
-    // numberValue: yup.number().required(),
-    // invoiceLine: yup.array().of(
-    //   yup.object({
-    //     invoicedQuantity: yup.number().moreThan(0, ""),
-    //   })
-    // ),
-  })
-  .required();
+const schema = yup.object({}).required();
 
 const style = {
   position: 'absolute',
@@ -136,17 +106,11 @@ const filterItems = [
 
 export default function FilterModal(props: any) {
   const dispach = useAppDispatch();
-  const { t } = useTranslation();
 
-  const [typeDocumentFilter, setTypeDocumentFilter] = React.useState<any[]>([]);
   const filter1 =
     props.filterName === 'Svi tipovi dokumenata'
       ? filterItemsTypeDocument
       : filterItems;
-  const [filterList, setFilterList] = React.useState(
-    useAppSelector(selectFilters)
-  );
-  const filterTmp = useAppSelector(selectFilters);
 
   const defaultValues: any = {
     debitInvoice: '380',
@@ -176,9 +140,7 @@ export default function FilterModal(props: any) {
     defaultValues: defaultValues,
     resolver: yupResolver(schema),
   });
-  const { handleSubmit, reset, control } = methods;
-
-  const companyId = useAppSelector(selectCompanyCurrent);
+  const { handleSubmit, control } = methods;
 
   const onSubmit = async (data: any) => {
     //logic for invoices status
@@ -197,17 +159,8 @@ export default function FilterModal(props: any) {
       (item) => item !== 'InvoiceStatuses' && data[item] !== false
     );
     const typeDocumentList = arrayTypeDocument.map((item) => data[item]);
-    await setTypeDocumentFilter(typeDocumentList);
 
     //  ---------------------------------------
-
-    setFilterList((prevState) => {
-      return {
-        ...prevState,
-        typeDocument: typeDocumentList,
-        invoiceStatus: invoicesStatusList,
-      };
-    });
 
     props.onSubmitFromFilterModal({
       typeDocument: typeDocumentList,
@@ -250,7 +203,7 @@ export default function FilterModal(props: any) {
                   fontWeight: 500,
                   textAlign: 'center',
                   textTransform: 'uppercase',
-                  fontSize: window.devicePixelRatio == 1.5 ? 12 : 16,
+                  fontSize: window.devicePixelRatio === 1.5 ? 12 : 16,
                   color: 'white',
                 }}
               >
@@ -278,7 +231,7 @@ export default function FilterModal(props: any) {
                   lineHeight: '32px',
                   textAlign: 'center',
                   textTransform: 'uppercase',
-                  fontSize: window.devicePixelRatio == 1.5 ? 12 : 16,
+                  fontSize: window.devicePixelRatio === 1.5 ? 12 : 16,
                   '&:hover': { cursor: 'pointer' },
                 }}
               >

@@ -29,7 +29,6 @@ export const FormAutocompleteField = ({
   props,
 }: IProps<FormAutocompleteFieldProps>) => {
   const data: AutocompleteItem[] = useAppSelector(props.additional.selector);
-  const [name, setName] = React.useState('');
 
   const fontSize = window.devicePixelRatio === 1.5 ? '12px' : '16px';
 

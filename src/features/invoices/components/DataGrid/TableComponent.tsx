@@ -1,20 +1,18 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React from 'react';
 import { DataGrid, GridColDef, GridSelectionModel } from '@mui/x-data-grid';
-import { Card } from '@mui/material';
 import { useAppDispatch, useAppSelector } from '../../../../app/hooks';
 import { IProps, TableData } from '../../models/invoice.models';
 import { selectInvoices } from '../../store/invoice.selectors';
 import { useDataGridStyles } from './dataGrid.styles';
 import { setSelection } from './store/data-grid.reducer';
 import { selectSelection } from './store/data-grid.selectors';
-import TableToolbar, { TableToolbarProps } from './TableToolbar';
+import { TableToolbarProps } from './TableToolbar';
 import TableNoRowsOverlay from './NoRowsOverlay';
 import ConfirmWithCommentDialog from '../ConfirmWithCommentDialog';
 import { useTranslation } from 'react-i18next';
 import TablePagination from './TablePagination';
 import ModalPdf from '../../../shared/components/ModalPdf';
-import { SelectAllAction } from '../SelectAllActionsComponent';
 import { selectOpenPdf } from '../../store/invoice.selectors';
 
 import { getTotalAmount } from './util';
@@ -34,7 +32,6 @@ export default function TableComponent({
   const { tableComponentStyles } = useDataGridStyles();
   const [pageSize, setPageSize] = React.useState<number>(30);
   const [openConfirm, setOpenConfirm] = React.useState(false);
-  const [actionValue, setActionValue] = React.useState<any>(null);
   const openPdf = useAppSelector(selectOpenPdf);
   const selector = props.type !== 'errorLogs' ? selectInvoices : selectInvoices;
 
@@ -54,24 +51,9 @@ export default function TableComponent({
   }): void => {
     if (data.flagButton === 'cancel') {
       setOpenConfirm(false);
-      setActionValue(null);
     } else {
-      const dataToSend = { ...actionValue, comment: data.comment };
-      //dispach(updateStatusInvoice({ ...dataToSend }));
       setOpenConfirm(false);
-      setActionValue(null);
-      //navigate(`/invoices/${props.pageType}`)
     }
-  };
-
-  const handleActionClick = async (action: SelectAllAction, id: number) => {
-    setActionValue({
-      actionType: action.actionName,
-      invoiceId: id,
-      invoiceType: '',
-      comment: '',
-    });
-    setOpenConfirm(true);
   };
 
   return (

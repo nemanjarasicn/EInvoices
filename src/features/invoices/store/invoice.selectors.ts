@@ -27,6 +27,7 @@ export const selectIds = createSelector(
   featureSelectors,
   (state: FeatureState) => {
     const ids: number[] = [];
+    // eslint-disable-next-line array-callback-return
     state.invoicesR.map((invoice) => {
       if (Boolean(invoice.id)) ids.push(invoice.id);
     });

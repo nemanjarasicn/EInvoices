@@ -59,13 +59,9 @@ const useComponentsStyles = (): {
         display: 'grid',
         padding: '10px 10px 10px 0',
         columnGap: '15px',
-        // background: "rgba(0, 0, 0, 0.05)",
-        // boxShadow:
-        // "rgb(0 0 0 / 20%) 0px 4px 8px 0px, rgb(0 0 0 / 19%) 0px 6px 20px 0px",
         justifyItems: 'end',
         width: '70px',
         rowGap: '5px',
-        // border: `thin solid rgb(221 221 221)`,
       },
     },
     filterComponentStyle: {
@@ -198,8 +194,6 @@ const useComponentsStyles = (): {
           width: '100%',
           height: 'auto',
           display: 'grid',
-          /* justify-items: center, */
-          /* align-items: center, */
           padding: '15px',
           rowGap: '10px',
           margin: 0,

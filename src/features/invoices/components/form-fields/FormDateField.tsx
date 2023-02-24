@@ -32,7 +32,6 @@ export default function FormDateField({
             inputFormat="DD/MM/YYYY"
             onChange={(newValue) => onChange(dayjs(newValue).toDate())}
             minDate={props.additional?.disablePast ? new Date() : null}
-            //maxDate={props.additional?.disablePast ? new Date() : null}
             OpenPickerButtonProps={{ style: { fontSize: '10px' } }}
             renderInput={(params) => (
               <TextField

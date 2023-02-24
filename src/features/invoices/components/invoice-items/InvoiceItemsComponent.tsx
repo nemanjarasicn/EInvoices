@@ -1,3 +1,4 @@
+/* eslint-disable array-callback-return */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React from 'react';
 import { IProps } from '../../models';
@@ -7,17 +8,10 @@ import InvoiceLine from './InvoiceLine';
 import { selectProducts } from '../form-fields/store/form.selectors';
 import { AutocompleteItem } from '../form-fields/models/form-fields.models';
 import Box from '@mui/material/Box';
-import {
-  DataGrid,
-  GridColDef,
-  GridSelectionModel,
-  GridToolbar,
-  GridPagination,
-} from '@mui/x-data-grid';
+import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import { Grid, IconButton } from '@mui/material';
 import TableNoRowsOverlay from '../DataGrid/NoRowsOverlay';
 import { useTranslation } from 'react-i18next';
-import TablePagination from '../DataGrid/TablePagination';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { GridValueGetterParams } from '@mui/x-data-grid';
 import FormTextField from '../form-fields/FormTextField';
@@ -38,8 +32,6 @@ export default function InvoiceItemsComponent({
   const { t } = useTranslation();
   const [items, setItems] = React.useState<any[]>([]);
   const [itemsList, setItemsList] = React.useState<any[]>([]);
-  const [name, setName] = React.useState<any>('');
-  const childRef = React.useRef();
 
   const columns: GridColDef[] = [
     {
@@ -166,7 +158,6 @@ export default function InvoiceItemsComponent({
    * Handle Delete Line
    */
   const handleAddItemList = (index: any) => {
-    const newItems: any[] = [];
     const newItemsList: any = formGetValues('invoiceLine').slice(-1)[0];
 
     if (newItemsList.invoicedQuantity) {

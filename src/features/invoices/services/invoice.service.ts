@@ -3,8 +3,6 @@ import publicClientZip from '../services/htpp-public-gov_zip';
 import commonHttpClient from '../../../app/http-common';
 import dayjs from 'dayjs';
 import { jsonBlob } from '../utils/utils';
-import { faGameConsoleHandheld } from '@fortawesome/pro-solid-svg-icons';
-import { AutocompleteItem } from '../components/form-fields/models/form-fields.models';
 
 class InvoicePublicService {
   public getProducts(marketPlace: string) {
@@ -202,27 +200,9 @@ class InvoicePublicService {
     );
   }
 
-  /*public sendInvoiceFileTest(filesList: File[], apiKey:  string) {
-    console.log('sasasasaasaasas',  filesList)
-    const formData = new FormData();
-    for (let i = 0; i < filesList.length; i++) {
-      formData.append(i==0 ? "invoiceDto" : "file", filesList[i])
-    }
-    //formData.append("file", file);
-    const config = {
-      headers: {
-        "content-type": "multipart/form-data",
-        apiKey: apiKey,
-      },
-    };
-    return commonHttpClient.post<any>(
-      `/invoice/create`,
-      formData,
-      config
-    );
-  }*/
 }
 
+// eslint-disable-next-line import/no-anonymous-default-export
 export default new InvoicePublicService();
 
 function mapToRequestDTO(

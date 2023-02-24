@@ -8,11 +8,11 @@ import { useFeatureSettings } from '../settings';
 import Grid from '@mui/material/Grid';
 import { usePageStyles } from './pages.styles';
 import Breadcrumbs from '@mui/material/Breadcrumbs';
-import Link from '@mui/material/Link';
 import Typography from '@mui/material/Typography';
 
 type DashboardPageProps = {};
 
+// eslint-disable-next-line no-empty-pattern
 export default function DashboardPage({}: IProps<DashboardPageProps>): JSX.Element {
   const { t } = useTranslation();
   const { cardsSettings } = useFeatureSettings();

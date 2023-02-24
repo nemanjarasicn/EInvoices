@@ -4,8 +4,6 @@ import { IProps } from '../../models';
 import { Grid, IconButton } from '@mui/material';
 import FormTextField from '../form-fields/FormTextField';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
-import AddIcon from '@mui/icons-material/Add';
-import DeleteIcon from '@mui/icons-material/Delete';
 import FormCurrencyField from '../form-fields/FormCurrencyField';
 import FormAutocompleteField from '../../../shared/components/form-fields/FormAutocompleteField';
 import {
@@ -15,9 +13,7 @@ import {
   calculateTotal,
 } from '../../utils/utils';
 import { useTranslation } from 'react-i18next';
-import FormDropdownField from '../form-fields/FormDropdownField';
-import { useAppDispatch, useAppSelector } from '../../../../app/hooks';
-import { getTaxBase } from '../../store/invoice.actions';
+
 import { selectTaxBase } from '../../../shared/components/form-fields/store/form.selectors';
 
 type InvoiceLineProps = {
@@ -34,7 +30,6 @@ type InvoiceLineProps = {
 export default function InvoiceLine({
   props,
 }: IProps<InvoiceLineProps>): JSX.Element {
-  const dispatch = useAppDispatch();
   const { t } = useTranslation();
   const {
     control,
@@ -51,18 +46,11 @@ export default function InvoiceLine({
     ? true
     : false;
 
-  const [options, setOptions] = React.useState(useAppSelector(selectTaxBase));
-
   const handleTab = (event: any) => {
     if (event.key === 'Tab') {
       props.handleAddItemList(index);
     }
   };
-
-  /*React.useEffect(() => {
-    const newPrice: any =   Number(formGetValues(`invoiceLine[${index}].price.unitPrice`))
-    formSetValue(`invoiceLine[${index}].price.newPrice`, newPrice)
-  }, []);*/
 
   //Subscribe on watch invoicedQuantity
   React.useEffect(() => {
@@ -157,24 +145,6 @@ export default function InvoiceLine({
 
   return (
     <Grid container spacing={1}>
-      {/*<Grid item xs={0.2}>
-        <p>{`${index + 1}.`}</p>
-      </Grid>*/}
-      {/*<Grid item xs={1.5}>
-        <FormTextField
-          props={{
-            control: control,
-            disabled: true,
-            label: t(fieldLabels.productName),
-            name: `invoiceLine[${index}].item.name`,
-            additional: {
-              suffix: "",
-              readonly: true,
-            },
-          }}
-        />
-        </Grid>*/}
-
       <Grid item xs={1}>
         <FormCurrencyField
           props={{
@@ -184,7 +154,7 @@ export default function InvoiceLine({
             name: `invoiceLine[${index}].invoicedQuantity`,
             additional: {
               mask: {
-                decimalScale: 1, //put condition if decimal show to be 1 else 0,
+                decimalScale: 1, //put condition if decimal show to be 3 else 0,
                 prefix: '',
                 allowNegative: true,
                 maxValue: 100000,
@@ -214,20 +184,7 @@ export default function InvoiceLine({
           }}
         />
       </Grid>
-      {/*<Grid item xs={1}>
-        <FormTextField
-          props={{
-            control: control,
-            disabled: true,
-            label: t(fieldLabels.unitCode),
-            name: `invoiceLine[${index}].unitCode`,
-            additional: {
-              suffix: "",
-              readonly: true,
-            },
-          }}
-        />
-        </Grid>*/}
+
       <Grid item xs={1}>
         <FormTextField
           props={{
@@ -310,16 +267,6 @@ export default function InvoiceLine({
             },
           }}
         />
-
-        {/*<FormTextField
-          props={{
-            name: `invoiceLine[${index}].baseCode`,
-            control: control,
-            label: t("Sifra osnove"),
-            disabled: vatRate,
-            additional: { mask: {}, readonly: true },
-          }}
-        />*/}
       </Grid>
 
       <Grid item xs={1}>
@@ -333,18 +280,6 @@ export default function InvoiceLine({
           }}
         />
       </Grid>
-
-      {/*<Grid item xs={1}>
-        <FormCurrencyField
-          props={{
-            control: control,
-            label: t(fieldLabels.unitTaxAmount),
-            name: `invoiceLine[${index}].price.unitTaxAmount`,
-            additional: { mask: {}, readonly: true, labelShrink: true },
-            disabled: true,
-          }}
-        />
-        </Grid>*/}
 
       <Grid item xs={1.5}>
         <FormCurrencyField

@@ -6,9 +6,6 @@ import Stack from '@mui/material/Stack';
 import { useTranslation } from 'react-i18next';
 import AddIcon from '@mui/icons-material/Add';
 
-const red = {
-  600: 'rgb(231, 49, 79)',
-};
 const gray = {
   600: 'rgb(181 181 181)',
 };

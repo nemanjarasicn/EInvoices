@@ -7,18 +7,12 @@ import { useComponentsStyles } from './components.styles';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../../app/hooks';
-import {
-  selectIds,
-  selectInvoices,
-  selectOpenConfirm,
-} from '../store/invoice.selectors';
+import { selectIds, selectInvoices } from '../store/invoice.selectors';
 import {
   resetSelectionState,
   setSelection,
 } from './DataGrid/store/data-grid.reducer';
 import { selectSelection } from './DataGrid/store/data-grid.selectors';
-import { setopenModalConfirm } from '../store/invoice.reducer';
-import { selectOpenPdf } from '../store/invoice.selectors';
 import { InvoiceStatus, TemplatePageTypes } from '../models';
 import ConfirmWithCommentDialog from './ConfirmWithCommentDialog';
 import { updateStatusInvoice } from '../store/invoice.actions';
@@ -48,9 +42,7 @@ export default function SelectAllActionsComponent({
 }: IProps<SelectAllActionsComponentProps>): JSX.Element {
   const [openConfirm, setOpenConfirm] = React.useState(false);
   const [checked, setChecked] = React.useState<boolean>(false);
-  const [actions, setActions] = React.useState<SelectAllAction[]>(
-    props.actions
-  );
+  const [actions] = React.useState<SelectAllAction[]>(props.actions);
   const [actionValue, setActionValue] = React.useState<any>(null);
   const { filterComponentStyle, selectAllConmponentStyles } =
     useComponentsStyles();
@@ -60,8 +52,6 @@ export default function SelectAllActionsComponent({
   const selection: any[] = useAppSelector(selectSelection);
   const invoices = useAppSelector(selectInvoices);
   const navigate = useNavigate();
-
-  const openConfirmModal = useAppSelector(selectOpenConfirm);
 
   // --------------ZIP -------------------------------------
   const dispatch = useAppDispatch();
@@ -73,6 +63,7 @@ export default function SelectAllActionsComponent({
     await zip
       .loadAsync(zipDataT.payload, { base64: true })
       .then(function (zip) {
+        // eslint-disable-next-line array-callback-return
         Object.keys(zip.files).map((filename) => {
           const extName = flag === 'PDF' ? '.pdf' : '.xml';
           const filenameDownload =
@@ -229,17 +220,13 @@ export default function SelectAllActionsComponent({
     comment?: string | boolean;
     flagButton: string;
   }): void => {
-    const dataFromAction = openConfirmModal.dataAction;
     if (data.flagButton === 'cancel') {
       setOpenConfirm(false);
-      //dispach(setopenModalConfirm({open: false}));
       setActionValue(null);
     } else {
       const dataToSend = { ...actionValue, comment: data.comment };
-      //const dataToSend = { ...actionValue, comment: data.comment };
       dispach(updateStatusInvoice({ ...dataToSend }));
       setOpenConfirm(false);
-      //dispach(setopenModalConfirm({open:  false}))
       setActionValue(null);
       navigate(`/invoices/${props.pageType}`);
     }

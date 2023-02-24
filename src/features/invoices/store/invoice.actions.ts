@@ -1,17 +1,12 @@
 import { AsyncThunk, createAsyncThunk } from '@reduxjs/toolkit';
-import { UserCompany } from '../../../app/core/core.models';
-import { useAppSelector } from '../../../app/hooks';
 import InvoicePublicService from '../services/invoice.service';
 import {
-  calculateTax,
   createMonetaryTotal,
   createPaymentMeans,
   createSupplayerData,
   mapInvoiceLinesCreateTaxTotal,
 } from '../utils/utils';
 import { updateInvoiceStatus } from './invoice.reducer';
-import { selectCompanyInfo } from '../../../app/core/core.selectors';
-import { AutocompleteItem } from '../components/form-fields/models/form-fields.models';
 
 const getAllCompanies: AsyncThunk<any, void, {}> = createAsyncThunk(
   'GET/Companies',
@@ -58,21 +53,7 @@ const searchInvoices: AsyncThunk<any, { params: any }, {}> = createAsyncThunk<
     .catch((err) => []);
 });
 
-/**
- * send invoice file test
- */
-/*const sendInvoiceFileTest: AsyncThunk<any, { filesList: any[]}, {}> = createAsyncThunk<
- any,
- { filesList: any[] }
->("POST/sendInvoiceFileTest", async (params, _) => {
-  const { core, form } = (_ as any).getState();
-  const { apiKey } = core.userCompany;
- return await InvoicePublicService.sendInvoiceFileTest(params.filesList, apiKey)
- .then(
-  (data) =>  _.fulfillWithValue({message: "REDIRECT" , data: data}),
-  (err) => _.rejectWithValue({message: "ERR", error: err})
-);
-});*/
+
 
 /**
  * Create Async Action send E-Invoic via DTO
@@ -95,19 +76,13 @@ const sendInvoce: AsyncThunk<
     advanceAccountList?: any[];
   }
 >('POST/Invoice', async (invoiceDto, _) => {
-  const { core, form } = (_ as any).getState();
+  const { core } = (_ as any).getState();
   const { apiKey } = core.userCompany;
-  const { autocompleteData } = form;
   const payeeFinancialAccountDtoCompany =
     invoiceDto?.companyInfo?.payeeFinancialAccountDto;
-  const foundCompany = autocompleteData.companies.find(
-    (buyer: any) =>
-      buyer.mb ===
-      invoiceDto.invoice.accountingCustomerParty.partyLegalEntity.companyID
-  );
+  
 
   (invoiceDto.invoice as any)['paymentMeans'] = createPaymentMeans(
-    //foundCompany,
     payeeFinancialAccountDtoCompany,
     invoiceDto.invoice.referenceNumber,
     invoiceDto.invoice.modelNumber

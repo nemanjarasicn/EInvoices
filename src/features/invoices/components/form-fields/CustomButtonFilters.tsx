@@ -3,15 +3,11 @@ import clsx from 'clsx';
 import { ButtonUnstyledProps, useButton } from '@mui/base/ButtonUnstyled';
 import { styled } from '@mui/system';
 import Stack from '@mui/material/Stack';
-import FilterModal from '../FilterModal';
-import { useTranslation } from 'react-i18next';
-import { useAppDispatch, useAppSelector } from '../../../../app/hooks';
-import { setopenModalFilter } from '../../store/invoice.reducer';
-import { selectOpenFilter } from '../../store/invoice.selectors';
 
-const red = {
-  600: 'rgb(231, 49, 79)',
-};
+import { useTranslation } from 'react-i18next';
+import { useAppDispatch } from '../../../../app/hooks';
+import { setopenModalFilter } from '../../store/invoice.reducer';
+
 const gray = {
   600: 'rgb(181 181 181)',
 };
@@ -134,13 +130,7 @@ export default function CustomButtonFilters({
             })}
         </Stack>
       )}
-      {soloButton && (
-        <CustomButton //onClick={soloButton.btnFn}
-        //disabled={soloButton.disabled}
-        >
-          {t(soloButton.filterTitle)}
-        </CustomButton>
-      )}
+      {soloButton && <CustomButton>{t(soloButton.filterTitle)}</CustomButton>}
     </>
   );
 }
