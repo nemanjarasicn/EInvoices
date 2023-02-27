@@ -12,7 +12,6 @@ import { useTranslation } from 'react-i18next';
 import { useComponentsStyles } from './components.styles';
 import PrepaymentComponent from './form-group/PrepaymentComponent';
 import InvoiceGroupComponent from './form-group/InvoiceGroupComponent';
-import SucessModal from '../../shared/components/SucessModal';
 import { selectOpenCreateSubject } from '../../articles/store/articles.selectors';
 import ModalCreateSubject from '../../articles/components/ModalCreateSubject';
 import ErrorModal from '../../shared/components/ErrorModals';
@@ -64,6 +63,7 @@ import { faPaperclipVertical } from '@fortawesome/pro-solid-svg-icons';
 import { selectOpenError } from '../store/invoice.selectors';
 import { setopenModalError } from '../store/invoice.reducer';
 import { getTaxBase } from '../../shared/components/form-fields/store/form.actions';
+import { openCloseSucessModal } from '../../shared/utils/utils';
 
 export type InvoiceFormComponentProps = {
   invoiceTypeOptions: any;
@@ -98,7 +98,6 @@ export default function InvoiceFormComponent({
 
   const [lineError, setLineError] = React.useState<string | null>(null);
   const [advanceAccountList, setAdvanceAccountList] = React.useState<any[]>([]);
-  const [showError, setShowError] = React.useState(false);
   const errorModalShow = useAppSelector(selectOpenError);
 
   const methods = useForm({
@@ -118,14 +117,9 @@ export default function InvoiceFormComponent({
         })
       ).then((res) => {
         if (res.payload.message === 'REDIRECT') {
-          setShowError(true);
-          setTimeout(async () => {
-            setShowError(false);
-            navigate('/invoices/sales');
-          }, 2000);
+          openCloseSucessModal('/invoices/sales', false, dispatch, navigate);
         } else {
           const error = res.payload?.error?.response?.data?.description;
-
           //setShowErrorModal(true);
           dispatch(setopenModalError(true));
           setErrorMessage(returnInvoiceMessage(error));
@@ -287,7 +281,6 @@ export default function InvoiceFormComponent({
 
   return (
     <>
-      <SucessModal open={showError}></SucessModal>
       <ErrorModal open={errorModalShow} message={errorMessage}></ErrorModal>
       <ModalCreateSubject
         open={openModalCreateSubject.open}

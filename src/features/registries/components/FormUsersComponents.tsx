@@ -21,7 +21,7 @@ import ErrorModal from '../../shared/components/ErrorModals';
 import { getUserRole } from '../../shared/components/form-fields/store/form.actions';
 import { selectUserRole } from '../../shared/components/form-fields/store/form.selectors';
 import { useLocation } from 'react-router-dom';
-import SucessModal from '../../shared/components/SucessModal';
+import { openCloseSucessModal } from '../../shared/utils/utils';
 
 /**
  * Register Form validation schema for every field
@@ -58,7 +58,6 @@ export default function FormUsersComponent({
   const { formComponent } = useComponentsStyles();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const [showError, setShowError] = React.useState(false);
   const isDistributor =
     useAppSelector(selectUser)?.authorities?.slice(0, 1)[0].authority ===
     'ROLE_DISTRIBUTER'
@@ -79,46 +78,36 @@ export default function FormUsersComponent({
   const { handleSubmit, reset, control, setValue } = methods;
 
   const onSubmit = (data: UsersFormModel) => {
-    if (idLocation === 0) {
-      dispatch(sendUsers({ data })).then((res) => {
-        if (res.payload === 'sucsses') {
-          setShowError(true);
-          setTimeout(() => {
-            setShowError(false);
+    const actionUser =
+      idLocation === 0
+        ? sendUsers({ data })
+        : updateUser({ id: idLocation, data: data });
 
-            if (!userAuthority) {
-              navigate('/registries/users');
-            } else {
-              navigate('/registries/infoCompany', {
-                state: {
-                  company: id,
-                },
-              });
+    const navigateLoc = !(idLocation === 0)
+      ? '/registries/companies'
+      : !userAuthority
+      ? '/registries/users'
+      : '/registries/infoCompany';
+
+    const stateTmp =
+      idLocation === 0
+        ? !userAuthority
+          ? ''
+          : {
+              company: id,
             }
-          }, 2000);
-        } else {
-          setShowErrorModal(true);
-          setTimeout(() => {
-            setShowErrorModal(false);
-          }, 2000);
-        }
-      });
-    } else {
-      dispatch(updateUser({ id: idLocation, data: data })).then(async (res) => {
-        if (res.payload.message === 'sucsses') {
-          setShowError(true);
-          setTimeout(async () => {
-            setShowError(false);
-            navigate('/registries/companies');
-          }, 2000);
-        } else {
-          setShowErrorModal(true);
-          setTimeout(() => {
-            setShowErrorModal(false);
-          }, 2000);
-        }
-      });
-    }
+        : '';
+
+    dispatch(actionUser).then((res) => {
+      if (res.payload === 'sucsses') {
+        openCloseSucessModal(navigateLoc, false, dispatch, navigate, stateTmp);
+      } else {
+        setShowErrorModal(true);
+        setTimeout(() => {
+          setShowErrorModal(false);
+        }, 2000);
+      }
+    });
   };
 
   React.useEffect(() => {
@@ -141,7 +130,6 @@ export default function FormUsersComponent({
 
   return (
     <Grid item xs={12}>
-      <SucessModal open={showError}></SucessModal>
       <ErrorModal open={showErrorModal}></ErrorModal>
       <Grid container spacing={2}>
         <Grid item xs={6}>

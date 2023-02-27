@@ -14,7 +14,6 @@ import { selectUser } from '../../../app/core/core.selectors';
 import FormTextField from '../../shared/components/form-fields/FormTextField';
 import ErrorModal from '../../shared/components/ErrorModals';
 import CustomButtonFc from '../../shared/components/CustomButtonFc';
-import SucessModal from '../../shared/components/SucessModal';
 import FormAutocompleteField from '../../shared/components/form-fields/FormAutocompleteField';
 import {
   sendsubscribe,
@@ -31,6 +30,7 @@ import { faPenToSquare } from '@fortawesome/pro-solid-svg-icons';
 import { faArrowsRotate } from '@fortawesome/pro-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { getSubjectDetails } from '../../articles/store/articles.actions';
+import { openCloseSucessModal } from '../../shared/utils/utils';
 
 export default function FormCompaniesComponent({
   props,
@@ -93,7 +93,6 @@ export default function FormCompaniesComponent({
   const { formComponent } = useComponentsStyles();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const [showError, setShowError] = React.useState(false);
 
   const isAdmin =
     useAppSelector(selectUser)?.authorities?.slice(0, 1)[0].authority ===
@@ -141,62 +140,44 @@ export default function FormCompaniesComponent({
   }, []);
 
   const onSubmit = async (data: CompanyFormModel) => {
-    if (companyIdLocation === 0) {
-      dispatch(
-        sendCompanies({
-          data: data,
-          listPayeeFinancialAccount: listPayeeFinancialAccount,
-        })
-      ).then(async (res) => {
-        if (res.payload.message === 'sucsses') {
-          if (data.apiKey) {
-            dispatch(sendsubscribe({ data: res.payload.data }));
-          }
-          setShowError(true);
-          setTimeout(async () => {
-            setShowError(false);
-            if (!userAuthority) {
-              navigate('/registries/companies');
-            } else {
-              await navigate('/registries/createObject', {
-                state: {
-                  company: res.payload.data,
-                },
-              });
+    const actionCompanies =
+      companyIdLocation === 0
+        ? sendCompanies({
+            data: data,
+            listPayeeFinancialAccount: listPayeeFinancialAccount,
+          })
+        : updateCompanies({
+            idCompany: companyIdLocation,
+            data: data,
+            idpayeeFinancialAccountDto: listPayeeFinancialAccount,
+          });
+    const navigateLoc = !(companyIdLocation === 0)
+      ? '/registries/companies'
+      : !userAuthority
+      ? '/registries/companies'
+      : '/registries/createObject';
+
+    dispatch(actionCompanies as any).then(async (res: any) => {
+      const stateTmp =
+        companyIdLocation === 0
+          ? {
+              company: res.payload.data,
             }
-          }, 2000);
-        } else {
-          setShowErrorModal(true);
-          setTimeout(() => {
-            setShowErrorModal(false);
-          }, 2000);
+          : '';
+      if (res.payload.message === 'sucsses') {
+        if (data.apiKey && companyIdLocation === 0) {
+          dispatch(sendsubscribe({ data: res.payload.data }));
+        } else if (data.apiKey !== apiKeyDefault) {
+          dispatch(sendsubscribeUpdate({ data: res.payload.data }));
         }
-      });
-    } else {
-      dispatch(
-        updateCompanies({
-          idCompany: companyIdLocation,
-          data: data,
-          idpayeeFinancialAccountDto: listPayeeFinancialAccount,
-        })
-      ).then(async (res) => {
-        if (res.payload.message === 'sucsses') {
-          if (data.apiKey !== apiKeyDefault) {
-            dispatch(sendsubscribeUpdate({ data: res.payload.data }));
-          }
-          setShowError(true);
-          setTimeout(async () => {
-            setShowError(false);
-            navigate('/registries/companies');
-          }, 2000);
-        } else {
-          setShowErrorModal(true);
-          setTimeout(() => {
-            setShowErrorModal(false);
-          }, 2000);
-        }
-      });
-    }
+        openCloseSucessModal(navigateLoc, false, dispatch, navigate, stateTmp);
+      } else {
+        setShowErrorModal(true);
+        setTimeout(() => {
+          setShowErrorModal(false);
+        }, 2000);
+      }
+    });
   };
 
   const addPayeeFinancialAccount = () => {
@@ -259,7 +240,6 @@ export default function FormCompaniesComponent({
 
   return (
     <Grid item xs={12}>
-      <SucessModal open={showError}></SucessModal>
       <ErrorModal open={showErrorModal}></ErrorModal>
       <Grid container spacing={2}>
         <Grid item xs={6}>

@@ -12,7 +12,6 @@ import CustomButtonFcTra from '../../shared/components/CustomButtonFcTra';
 import { IProps, SubjectFormModel } from '../models/articles.models';
 import { useNavigate } from 'react-router-dom';
 import ErrorModal from '../../shared/components/ErrorModals';
-import SucessModal from '../../shared/components/SucessModal';
 import { selectCompanyCurrent } from '../../../app/core/core.selectors';
 import FormAutocompleteField from '../../shared/components/form-fields/FormAutocompleteField';
 import { setopenModalCreateSubject } from '../store/articles.reducer';
@@ -33,7 +32,7 @@ import {
   getSubjectCategory,
   getSubjectType,
 } from '../../shared/components/form-fields/store/form.actions';
-import { openCloseSucessModal } from '../utilis/utilis';
+import { openCloseSucessModal } from '../../shared/utils/utils';
 
 export default function FormSubjectComponent({
   props,
@@ -88,14 +87,13 @@ export default function FormSubjectComponent({
         if (disableJbkjs) {
           return true;
         } else {
-          return false;
+          return this.parent.jbkjs;
         }
       }),
   });
 
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const [showError] = React.useState(false);
   const [showErrorModal, setShowErrorModal] = React.useState(false);
   const [errorMessageSearch, setErrorMessageSearch] = React.useState('');
   const marginTopBox = window.devicePixelRatio === 1.5 ? 2 : 5;
@@ -195,7 +193,6 @@ export default function FormSubjectComponent({
 
   return (
     <Grid item xs={12}>
-      <SucessModal open={showError}></SucessModal>
       <ErrorModal open={showErrorModal}></ErrorModal>
       <Grid
         container

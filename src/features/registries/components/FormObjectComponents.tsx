@@ -18,7 +18,7 @@ import { selectUser } from '../../../app/core/core.selectors';
 import ErrorModal from '../../shared/components/ErrorModals';
 import { getCompaniesAll } from '../../shared/components/form-fields/store/form.actions';
 import { useLocation } from 'react-router-dom';
-import SucessModal from '../../shared/components/SucessModal';
+import { openCloseSucessModal } from '../../shared/utils/utils';
 
 /**
  * Register Form validation schema for every field
@@ -47,7 +47,6 @@ export default function FormObjectComponent({
   const { formComponent } = useComponentsStyles();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const [showError, setShowError] = React.useState(false);
   const isDistributor =
     useAppSelector(selectUser)?.authorities?.slice(0, 1)[0].authority ===
     'ROLE_DISTRIBUTER'
@@ -68,21 +67,19 @@ export default function FormObjectComponent({
   const { handleSubmit, reset, control } = methods;
 
   const onSubmit = (data: ObjectFormModel) => {
+    const navigateLoc = !userAuthority
+      ? '/registries/objects'
+      : '/registries/createMarketPlace';
+
+    const stateTmp = !userAuthority
+      ? ''
+      : {
+          company: id,
+        };
+
     dispatch(sendObjects({ data })).then((res) => {
       if (res.payload === 'sucsses') {
-        setShowError(true);
-        setTimeout(() => {
-          setShowError(false);
-          if (!userAuthority) {
-            navigate('/registries/objects');
-          } else {
-            navigate('/registries/createMarketPlace', {
-              state: {
-                company: id,
-              },
-            });
-          }
-        }, 2000);
+        openCloseSucessModal(navigateLoc, false, dispatch, navigate, stateTmp);
       } else {
         setShowErrorModal(true);
         setTimeout(() => {
@@ -102,7 +99,6 @@ export default function FormObjectComponent({
 
   return (
     <Grid item xs={12}>
-      <SucessModal open={showError}></SucessModal>
       <ErrorModal open={showErrorModal}></ErrorModal>
       <Grid container spacing={2}>
         <Grid item xs={6}>

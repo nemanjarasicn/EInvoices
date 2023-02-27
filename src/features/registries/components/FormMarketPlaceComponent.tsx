@@ -21,7 +21,7 @@ import { getObjectsAll } from '../../shared/components/form-fields/store/form.ac
 import ErrorModal from '../../shared/components/ErrorModals';
 import { useLocation } from 'react-router-dom';
 import { getCompaniesAll } from '../../shared/components/form-fields/store/form.actions';
-import SucessModal from '../../shared/components/SucessModal';
+import { openCloseSucessModal } from '../../shared/utils/utils';
 
 /**
  * Register Form validation schema for every field
@@ -48,7 +48,6 @@ export default function FormMarketPlaceComponent({
   const { formComponent } = useComponentsStyles();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const [showError, setShowError] = React.useState(false);
   const isDistributor =
     useAppSelector(selectUser)?.authorities?.slice(0, 1)[0].authority ===
     'ROLE_DISTRIBUTER'
@@ -69,22 +68,20 @@ export default function FormMarketPlaceComponent({
   const { handleSubmit, reset, control } = methods;
 
   const onSubmit = (data: MarketPlaceFormModel) => {
+    const navigateLoc = !userAuthority
+      ? '/registries/marketPlace'
+      : '/registries/createUser/0';
+
+    const stateTmp = !userAuthority
+      ? ''
+      : {
+          company: id,
+          id: 0,
+        };
+
     dispatch(sendMarketPlace({ data })).then((res) => {
       if (res.payload === 'sucsess') {
-        setShowError(true);
-        setTimeout(() => {
-          setShowError(false);
-          if (!userAuthority) {
-            navigate('/registries/marketPlace');
-          } else {
-            navigate('/registries/createUser/0', {
-              state: {
-                company: id,
-                id: 0,
-              },
-            });
-          }
-        }, 2000);
+        openCloseSucessModal(navigateLoc, false, dispatch, navigate, stateTmp);
       } else {
         setShowErrorModal(true);
         setTimeout(() => {
@@ -102,7 +99,6 @@ export default function FormMarketPlaceComponent({
 
   return (
     <Grid item xs={12}>
-      <SucessModal open={showError}></SucessModal>
       <ErrorModal open={showErrorModal}></ErrorModal>
       <Grid container spacing={2}>
         <Grid item xs={6}>

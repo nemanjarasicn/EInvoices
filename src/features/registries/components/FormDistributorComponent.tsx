@@ -13,9 +13,9 @@ import FormTextField from '../../shared/components/form-fields/FormTextField';
 import CustomButtonFc from '../../shared/components/CustomButtonFc';
 import CustomButtonFcTra from '../../shared/components/CustomButtonFcTra';
 import ErrorModal from '../../shared/components/ErrorModals';
-import SucessModal from '../../shared/components/SucessModal';
 import { setopenModalDistributor } from '../store/registries.reducer';
 import { setOpenModalSucessLoad } from '../../../app/core/core.reducer';
+import { openCloseSucessModal } from '../../shared/utils/utils';
 
 /**
  * Register Form validation schema for every field
@@ -45,7 +45,6 @@ export default function FormDistributorComponent({
   const { t } = useTranslation();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const [showError] = React.useState(false);
   const [showErrorModal, setShowErrorModal] = React.useState(false);
 
   const methods = useForm({
@@ -59,10 +58,12 @@ export default function FormDistributorComponent({
       if (res.payload.message === 'sucsses') {
         dispatch(setOpenModalSucessLoad(true));
         dispatch(setopenModalDistributor(false));
-        setTimeout(async () => {
-          dispatch(setOpenModalSucessLoad(false));
-          navigate('/registries/companies');
-        }, 2000);
+        openCloseSucessModal(
+          '/registries/companies',
+          false,
+          dispatch,
+          navigate
+        );
       } else {
         setShowErrorModal(true);
         setTimeout(() => {
@@ -74,7 +75,6 @@ export default function FormDistributorComponent({
 
   return (
     <Grid item xs={12}>
-      <SucessModal open={showError}></SucessModal>
       <ErrorModal open={showErrorModal}></ErrorModal>
       <Grid container spacing={2} sx={{ mt: 5 }}>
         <Grid item xs={6}>
